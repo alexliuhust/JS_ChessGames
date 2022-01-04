@@ -29,6 +29,7 @@ class NewCircle {
 }
 const circle3 = new NewCircle(2);
 
+// add two properties
 circle3.xPos = 1;
 circle3["yPos"] = 2;
 
