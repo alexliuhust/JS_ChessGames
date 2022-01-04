@@ -1,27 +1,34 @@
-class Circle {
-  constructor(radius) {
-    this.radius = radius;
+class Arm {
+  constructor() {
+    this.positionX = 0;
+    this.positionY = 0;
+  }
 
-    var defaultLocation = { x: 0, y: 0 };
-
-    this.getDefaultLocation = function () {
-      return defaultLocation;
-    };
-    this.setDefaultLocation = function (value) {
-      if (!value.x || !value.y) {
-        throw new Error("Invalid Location!");
-      }
-      defaultLocation = value;
-    };
-
-    this.draw = function () {
-      console.log("draw 3.0 : " + this.radius);
-    };
+  getScale() {
+    console.log(this.scale);
   }
 }
 
-const circle = new Circle(2);
-console.log(circle.defaultLocation);
-console.log(circle.getDefaultLocation());
-circle.setDefaultLocation({ x: 3, y: 9 });
-console.log(circle.getDefaultLocation());
+class Swordman extends Arm {
+  constructor() {
+    super();
+    this.name = "Swordman";
+    this.scale = 30;
+  }
+}
+
+class Spearman extends Arm {
+  constructor() {
+    super();
+    this.name = "Spearman";
+    this.scale = 25;
+  }
+}
+
+let arm = new Arm();
+let swordman = new Swordman();
+let spearman = new Spearman();
+
+arm.getScale();
+swordman.getScale();
+spearman.getScale();
