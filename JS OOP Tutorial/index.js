@@ -28,9 +28,27 @@ class NewCircle {
   }
 }
 const circle3 = new NewCircle(2);
-circle3.draw();
 
-console.log(circle1.constructor);
-console.log(circle2.constructor);
-console.log(circle3.constructor);
-console.log(NewCircle.constructor);
+circle3.xPos = 1;
+circle3["yPos"] = 2;
+
+// iterate all propeties
+for (let key in circle3) {
+  console.log(key, circle3[key]);
+}
+
+// iterate only the non-function properties
+for (let key in circle3) {
+  if (typeof circle3[key] !== "function") {
+    console.log(key, circle3[key]);
+  }
+}
+
+// store the names of all the properties into an array
+let keys = Object.keys(circle3);
+console.log(keys);
+
+// check whether an object has a certain property
+if ("xPos" in circle3) {
+  console.log("'xPos' is in circle3.");
+}
