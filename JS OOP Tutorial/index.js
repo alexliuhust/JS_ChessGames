@@ -1,20 +1,27 @@
-// new version of constructor function:
 class Circle {
   constructor(radius) {
     this.radius = radius;
 
-    let defaultLocation = { x: 0, y: 0 };
+    var defaultLocation = { x: 0, y: 0 };
 
-    let computeOptimumLocation = function () {
-      // ...
+    this.getDefaultLocation = function () {
+      return defaultLocation;
+    };
+    this.setDefaultLocation = function (value) {
+      if (!value.x || !value.y) {
+        throw new Error("Invalid Location!");
+      }
+      defaultLocation = value;
     };
 
     this.draw = function () {
-      computeOptimumLocation();
-
       console.log("draw 3.0 : " + this.radius);
     };
   }
 }
 
-const circle3 = new Circle(2);
+const circle = new Circle(2);
+console.log(circle.defaultLocation);
+console.log(circle.getDefaultLocation());
+circle.setDefaultLocation({ x: 3, y: 9 });
+console.log(circle.getDefaultLocation());
