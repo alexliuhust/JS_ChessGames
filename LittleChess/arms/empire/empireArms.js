@@ -282,3 +282,46 @@ export class PalaceKnight extends Arm {
 
   // =============== Override Public APIs ===============
 }
+
+export class CannonGroup extends Arm {
+  constructor() {
+    super();
+
+    // Override original data
+
+    this.name = "CannonGroup";
+    this.type = "artillery";
+    this.cost = 4;
+
+    this.scale = 5;
+    this.singleHP = 60;
+    this.speed = 2;
+
+    this.meleeArmor = 0;
+    this.missleArmor = 0;
+    this.chargeArmor = 0;
+
+    this.meleeAttack = 0;
+    this.missleAttack = 150;
+    this.missleRange = 12;
+    this.chargeAttack = 0;
+
+    this.loadRealtimeProps();
+  }
+
+  // =============== Override private methods ===============
+
+  // =============== Override Public APIs ===============
+
+  getAntiArmor(damageType, targetArm) {
+    checkDamageType(damageType);
+    checkArmClass(targetArm);
+
+    let antiArmor = 0;
+    if (damageType === "missle") {
+      antiArmor = 50;
+    }
+
+    return antiArmor;
+  }
+}
