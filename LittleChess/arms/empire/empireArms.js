@@ -19,7 +19,7 @@ export class SwordInfantry extends Arm {
     this.missleArmor = 50;
     this.chargeArmor = 0;
 
-    this.meleeAttack = 32;
+    this.meleeAttack = 24;
     this.missleAttack = 0;
     this.missleRange = 0;
     this.chargeAttack = 0;
@@ -39,7 +39,7 @@ export class SwordInfantry extends Arm {
       singleDamage = this.c_meleeAttack;
     }
     if (targetType !== "cavalry") {
-      singleDamage += 4;
+      singleDamage += 8;
     }
 
     return singleDamage;
@@ -80,7 +80,7 @@ export class PalaceGuard extends Arm {
     this.missleArmor = 0;
     this.chargeArmor = 80;
 
-    this.meleeAttack = 24;
+    this.meleeAttack = 20;
     this.missleAttack = 0;
     this.missleRange = 0;
     this.chargeAttack = 0;
@@ -100,7 +100,7 @@ export class PalaceGuard extends Arm {
       singleDamage = this.c_meleeAttack;
     }
     if (targetType === "cavalry") {
-      singleDamage += 20;
+      singleDamage += 24;
     }
 
     return singleDamage;

@@ -4,7 +4,9 @@ import {
   Musketeer,
 } from "./arms/empire/empireArms.js";
 
-let myArm1 = new SwordInfantry();
+let totaldamage = 1;
+
+let myArm1 = new PalaceGuard();
 let knight = new SwordInfantry();
 console.log(myArm1.name, myArm1.type);
 
@@ -17,15 +19,15 @@ console.log(myArm1.getAntiArmor("melee", knight));
 console.log(myArm1.getRawTotalDamage("melee", knight));
 
 myArm1.c_scale = myArm1.scale;
-myArm1.decreaseScale("melee", 0, 1234);
+myArm1.decreaseScale("melee", 0, totaldamage);
 console.log(`${myArm1.c_scale}/${myArm1.scale}`);
 
 myArm1.c_scale = myArm1.scale;
-myArm1.decreaseScale("missle", 0, 1152);
+myArm1.decreaseScale("missle", 0, totaldamage);
 console.log(`${myArm1.c_scale}/${myArm1.scale}`);
 
 myArm1.c_scale = myArm1.scale;
-myArm1.decreaseScale("charge", 0, 1234);
+myArm1.decreaseScale("charge", 0, totaldamage);
 console.log(`${myArm1.c_scale}/${myArm1.scale}`);
 
 console.log("=====================================");
@@ -43,13 +45,13 @@ console.log(myArm2.getAntiArmor("missle", knight));
 console.log(myArm2.getRawTotalDamage("missle", knight));
 
 myArm2.c_scale = myArm2.scale;
-myArm2.decreaseScale("melee", 0, 1234);
+myArm2.decreaseScale("melee", 0, totaldamage);
 console.log(`${myArm2.c_scale}/${myArm2.scale}`);
 
 myArm2.c_scale = myArm2.scale;
-myArm2.decreaseScale("missle", 0, 1234);
+myArm2.decreaseScale("missle", 0, totaldamage);
 console.log(`${myArm2.c_scale}/${myArm2.scale}`);
 
 myArm2.c_scale = myArm2.scale;
-myArm2.decreaseScale("charge", 0, 1234);
+myArm2.decreaseScale("charge", 0, totaldamage);
 console.log(`${myArm2.c_scale}/${myArm2.scale}`);

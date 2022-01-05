@@ -1,4 +1,4 @@
-export const DamageTypes = ["melee", "missle", "charge"];
+export const DamageTypes = ["melee", "missle", "charge", "boming"];
 export const ArmTypes = [
   "infantry",
   "cavalry",
@@ -81,9 +81,8 @@ export class Arm {
 
     let factor = 0;
     if (this.type === "infantry") {
-      factor = 4;
-    }
-    if (
+      factor = 3;
+    } else if (
       this.type === "cavalry" ||
       this.type === "archers" ||
       this.type === "mages"
@@ -162,6 +161,18 @@ export class Arm {
     let singleDamage = this._getSingleDamage(damageType, targetArm.type);
     let validScale = this._getValidScale();
     return singleDamage * validScale;
+  }
+
+  getCounterAttackTotalDamage(damageType) {
+    checkDamageType(damageType);
+
+    if (damageType !== "melee") {
+      return 0;
+    }
+
+    let singleDamage = this._getSingleDamage("melee", targetArm.type);
+    let validScale = this._getValidScale();
+    return Math.round(singleDamage * validScale * 0.75);
   }
 
   decreaseScale(damageType, antiArmor, rawTotalDamage) {
