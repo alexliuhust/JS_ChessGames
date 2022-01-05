@@ -152,6 +152,8 @@ export class Arm {
   getAntiArmor(damageType, targetArm) {
     checkDamageType(damageType);
     checkArmClass(targetArm);
+
+    return 0;
   }
 
   getRawTotalDamage(damageType, targetArm) {

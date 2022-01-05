@@ -151,20 +151,6 @@ export class Musketeer extends Arm {
 
   // =============== Override private methods ===============
 
-  _getSingleDamage(damageType, targetType) {
-    checkDamageType(damageType);
-    checkArmType(targetType);
-
-    let singleDamage = 0;
-    if (damageType === "melee") {
-      singleDamage = this.c_meleeAttack;
-    } else if (damageType === "missle") {
-      singleDamage = this.c_missleAttack;
-    }
-
-    return singleDamage;
-  }
-
   // =============== Override Public APIs ===============
 
   getAntiArmor(damageType, targetArm) {
@@ -208,20 +194,6 @@ export class MusketRider extends Arm {
 
   // =============== Override private methods ===============
 
-  _getSingleDamage(damageType, targetType) {
-    checkDamageType(damageType);
-    checkArmType(targetType);
-
-    let singleDamage = 0;
-    if (damageType === "melee") {
-      singleDamage = this.c_meleeAttack;
-    } else if (damageType === "missle") {
-      singleDamage = this.c_missleAttack;
-    }
-
-    return singleDamage;
-  }
-
   // =============== Override Public APIs ===============
 
   getAntiArmor(damageType, targetArm) {
@@ -252,7 +224,7 @@ export class Vanguard extends Arm {
     this.speed = 8;
 
     this.meleeArmor = 10;
-    this.missleArmor = 30;
+    this.missleArmor = 50;
     this.chargeArmor = 0;
 
     this.meleeAttack = 24;
@@ -264,20 +236,6 @@ export class Vanguard extends Arm {
   }
 
   // =============== Override private methods ===============
-
-  _getSingleDamage(damageType, targetType) {
-    checkDamageType(damageType);
-    checkArmType(targetType);
-
-    let singleDamage = 0;
-    if (damageType === "melee") {
-      singleDamage = this.c_meleeAttack;
-    } else if (damageType === "charge") {
-      singleDamage = this.c_chargeAttack;
-    }
-
-    return singleDamage;
-  }
 
   // =============== Override Public APIs ===============
 
@@ -292,4 +250,35 @@ export class Vanguard extends Arm {
 
     return antiArmor;
   }
+}
+
+export class PalaceKnight extends Arm {
+  constructor() {
+    super();
+
+    // Override original data
+
+    this.name = "PalaceKnight";
+    this.type = "cavalry";
+    this.cost = 4;
+
+    this.scale = 28;
+    this.singleHP = 100;
+    this.speed = 5;
+
+    this.meleeArmor = 70;
+    this.missleArmor = 70;
+    this.chargeArmor = 70;
+
+    this.meleeAttack = 32;
+    this.missleAttack = 0;
+    this.missleRange = 0;
+    this.chargeAttack = 0;
+
+    this.loadRealtimeProps();
+  }
+
+  // =============== Override private methods ===============
+
+  // =============== Override Public APIs ===============
 }
