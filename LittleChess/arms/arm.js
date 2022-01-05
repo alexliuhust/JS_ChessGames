@@ -53,6 +53,7 @@ export class Arm {
 
     this.meleeAttack = 0;
     this.missleAttack = 0;
+    this.missleRange = 0;
     this.chargeAttack = 0;
 
     // Load real-time properties for battle
@@ -68,6 +69,7 @@ export class Arm {
 
       this.c_meleeAttack = this.meleeAttack;
       this.c_missleAttack = this.missleAttack;
+      this.c_missleRange = this.missleRange;
       this.c_chargeAttack = this.chargeAttack;
     };
   }
