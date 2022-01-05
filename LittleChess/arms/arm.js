@@ -7,17 +7,38 @@ export const ArmTypes = [
   "mages",
 ];
 
+export function checkDamageType(damageType) {
+  if (!DamageTypes.includes(damageType)) {
+    throw new Error("Invalid damage type: " + damageType);
+  }
+}
+export function checkArmType(targetType) {
+  if (!ArmTypes.includes(targetType)) {
+    throw new Error("Invalid target type: " + targetType);
+  }
+}
+export function checkArmClass(targetArm) {
+  let className = Object.getPrototypeOf(targetArm.constructor).name;
+  if (className !== "Arm") {
+    throw new Error(
+      `Invalid object type for targetArm: class name: {${className}}, type: {${typeof targetArm}}`
+    );
+  }
+}
+
 export class Arm {
   constructor() {
     // Properties for drawing
+
     this.frameSpeed = 20;
     this.positionX = 0;
     this.positionY = 0;
     this.currentDirection = "u";
     this.isAlive = true;
 
-    // Properties of original data.
+    // Properties of original data
     // The children classes will modify the following fields
+
     this.name = "";
     this.type = "";
     this.cost = 0;
@@ -35,6 +56,7 @@ export class Arm {
     this.chargeAttack = 0;
 
     // Load real-time properties for battle
+
     this.loadRealtimeProps = function () {
       this.c_scale = this.scale;
       this.c_singleHP = this.singleHP;
@@ -51,10 +73,9 @@ export class Arm {
   }
 
   // =============== Private methods ===============
+
   _getValidScale() {
-    if (!ArmTypes.includes(this.type)) {
-      return 0;
-    }
+    checkArmType(this.type);
 
     let factor = 0;
     if (this.type === "infantry") {
@@ -74,12 +95,8 @@ export class Arm {
   }
 
   _getSingleDamage(damageType, targetType) {
-    if (!DamageTypes.includes(damageType)) {
-      throw new Error("Invalid damage type: " + damageType);
-    }
-    if (!ArmTypes.includes(targetType)) {
-      throw new Error("Invalid target type: " + targetType);
-    }
+    checkDamageType(damageType);
+    checkArmType(targetType);
 
     let singleDamage = 0;
     switch (damageType) {
@@ -102,9 +119,7 @@ export class Arm {
   }
 
   _getDamagePercentage(damageType, antiArmor) {
-    if (!DamageTypes.includes(damageType)) {
-      throw new Error("Invalid damage type: " + damageType);
-    }
+    checkDamageType(damageType);
 
     let validArmor = 0 - antiArmor;
     switch (damageType) {
@@ -125,27 +140,22 @@ export class Arm {
     }
 
     let max = validArmor;
-    let min = Math.round(validArmor / 2);
+    let min = Math.round(validArmor * 0.8);
     let realArmor = Math.floor(Math.random() * (max - min + 1) + min);
 
     return (100 - realArmor) / 100;
   }
 
   // =============== Public APIs ===============
+
   getAntiArmor(damageType, targetArm) {
-    return 0;
+    checkDamageType(damageType);
+    checkArmClass(targetArm);
   }
 
   getRawTotalDamage(damageType, targetArm) {
-    if (!DamageTypes.includes(damageType)) {
-      throw new Error("Invalid damage type: " + damageType);
-    }
-    let className = Object.getPrototypeOf(targetArm.constructor).name;
-    if (className !== "Arm") {
-      throw new Error(
-        `Invalid object type for targetArm: class name: {${className}}, type: {${typeof targetArm}}`
-      );
-    }
+    checkDamageType(damageType);
+    checkArmClass(targetArm);
 
     let singleDamage = this._getSingleDamage(damageType, targetArm.type);
     let validScale = this._getValidScale();
@@ -153,9 +163,7 @@ export class Arm {
   }
 
   decreaseScale(damageType, antiArmor, rawTotalDamage) {
-    if (!DamageTypes.includes(damageType)) {
-      throw new Error("Invalid damage type.");
-    }
+    checkDamageType(damageType);
 
     let damagePercentage = this._getDamagePercentage(damageType, antiArmor);
     let realDamge = rawTotalDamage * damagePercentage;
