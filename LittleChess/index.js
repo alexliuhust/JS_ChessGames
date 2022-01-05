@@ -3,11 +3,12 @@ import {
   PalaceGuard,
   Musketeer,
   MusketRider,
+  Vanguard,
 } from "./arms/empire/empireArms.js";
 
 let totaldamage = 900;
 
-let myArm1 = new MusketRider();
+let myArm1 = new Vanguard();
 let knight = new SwordInfantry();
 console.log(myArm1.name, myArm1.type);
 
@@ -16,8 +17,8 @@ console.log(myArm1.getAntiArmor("melee", knight));
 console.log(myArm1.getRawTotalDamage("melee", knight));
 
 knight.type = "infantry";
-console.log(myArm1.getAntiArmor("melee", knight));
-console.log(myArm1.getRawTotalDamage("melee", knight));
+console.log(myArm1.getAntiArmor("charge", knight));
+console.log(myArm1.getRawTotalDamage("charge", knight));
 
 myArm1.c_scale = myArm1.scale;
 myArm1.decreaseScale("melee", 0, totaldamage);
