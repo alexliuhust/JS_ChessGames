@@ -31,12 +31,8 @@ export class SwordInfantry extends Arm {
 
   // SwordInfantry has higher damage on non-cavalry arms
   _getSingleDamage(damageType, targetType) {
-    if (!DamageTypes.includes(damageType)) {
-      throw new Error("Invalid damage type: " + damageType);
-    }
-    if (!ArmTypes.includes(targetType)) {
-      throw new Error("Invalid target type: " + targetType);
-    }
+    checkDamageType(damageType);
+    checkArmType(targetType);
 
     let singleDamage = 0;
     if (damageType === "melee") {
@@ -53,15 +49,9 @@ export class SwordInfantry extends Arm {
 
   // SwordInfantry has extra antiarmor for non-cavalry arms
   getAntiArmor(damageType, targetArm) {
-    if (!DamageTypes.includes(damageType)) {
-      throw new Error("Invalid damage type: " + damageType);
-    }
-    let className = Object.getPrototypeOf(targetArm.constructor).name;
-    if (className !== "Arm") {
-      throw new Error(
-        `Invalid object type for targetArm: class name: {${className}}, type: {${typeof targetArm}}`
-      );
-    }
+    checkDamageType(damageType);
+    checkArmClass(targetArm);
+
     let targetType = targetArm.type;
     let antiArmor = 0;
     if (targetType !== "cavalry") {
@@ -127,6 +117,63 @@ export class PalaceGuard extends Arm {
     let antiArmor = 6;
     if (targetType === "cavalry") {
       antiArmor += 10;
+    }
+
+    return antiArmor;
+  }
+}
+
+export class Musketeer extends Arm {
+  constructor() {
+    super();
+
+    // Override original data
+
+    this.name = "Musketeer";
+    this.type = "archers";
+    this.cost = 2;
+
+    this.scale = 48;
+    this.singleHP = 40;
+    this.speed = 4;
+
+    this.meleeArmor = 0;
+    this.missleArmor = 0;
+    this.chargeArmor = 0;
+
+    this.meleeAttack = 16;
+    this.missleAttack = 48;
+    this.missleRange = 6;
+    this.chargeAttack = 0;
+
+    this.loadRealtimeProps();
+  }
+
+  // =============== Override private methods ===============
+
+  _getSingleDamage(damageType, targetType) {
+    checkDamageType(damageType);
+    checkArmType(targetType);
+
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+    } else if (damageType === "missle") {
+      singleDamage = this.c_missleAttack;
+    }
+
+    return singleDamage;
+  }
+
+  // =============== Override Public APIs ===============
+
+  getAntiArmor(damageType, targetArm) {
+    checkDamageType(damageType);
+    checkArmClass(targetArm);
+
+    let antiArmor = 0;
+    if (damageType === "missle") {
+      antiArmor = 10;
     }
 
     return antiArmor;
