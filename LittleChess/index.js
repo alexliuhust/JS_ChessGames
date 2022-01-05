@@ -2,11 +2,12 @@ import {
   SwordInfantry,
   PalaceGuard,
   Musketeer,
+  MusketRider,
 } from "./arms/empire/empireArms.js";
 
-let totaldamage = 1;
+let totaldamage = 900;
 
-let myArm1 = new PalaceGuard();
+let myArm1 = new MusketRider();
 let knight = new SwordInfantry();
 console.log(myArm1.name, myArm1.type);
 

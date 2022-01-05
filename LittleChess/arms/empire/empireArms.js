@@ -179,3 +179,60 @@ export class Musketeer extends Arm {
     return antiArmor;
   }
 }
+
+export class MusketRider extends Arm {
+  constructor() {
+    super();
+
+    // Override original data
+
+    this.name = "MusketRider";
+    this.type = "cavalry";
+    this.cost = 4;
+
+    this.scale = 32;
+    this.singleHP = 90;
+    this.speed = 6;
+
+    this.meleeArmor = 10;
+    this.missleArmor = 30;
+    this.chargeArmor = 0;
+
+    this.meleeAttack = 24;
+    this.missleAttack = 48;
+    this.missleRange = 6;
+    this.chargeAttack = 0;
+
+    this.loadRealtimeProps();
+  }
+
+  // =============== Override private methods ===============
+
+  _getSingleDamage(damageType, targetType) {
+    checkDamageType(damageType);
+    checkArmType(targetType);
+
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+    } else if (damageType === "missle") {
+      singleDamage = this.c_missleAttack;
+    }
+
+    return singleDamage;
+  }
+
+  // =============== Override Public APIs ===============
+
+  getAntiArmor(damageType, targetArm) {
+    checkDamageType(damageType);
+    checkArmClass(targetArm);
+
+    let antiArmor = 0;
+    if (damageType === "missle") {
+      antiArmor = 10;
+    }
+
+    return antiArmor;
+  }
+}
