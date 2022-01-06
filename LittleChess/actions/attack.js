@@ -1,9 +1,8 @@
-import { Arm, DamageTypes, ArmTypes } from "../arms/arm.js";
-import { checkDamageType, checkArmType, checkArmClass } from "../arms/arm.js";
+import * as ArmPrimary from "../arms/arm.js";
 
 export function armAttackArm(attacker, damageType, defender) {
-  checkArmClass(attacker);
-  checkArmClass(defender);
+  ArmPrimary.checkArmClass(attacker);
+  ArmPrimary.checkArmClass(defender);
 
   let att_antiArmor = attacker.getAntiArmor(damageType, defender);
   let att_totalRowDamage = attacker.getRawTotalDamage(damageType, defender);

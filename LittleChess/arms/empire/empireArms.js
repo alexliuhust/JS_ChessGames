@@ -1,7 +1,6 @@
-import { Arm, DamageTypes, ArmTypes } from "../arm.js";
-import { checkDamageType, checkArmType, checkArmClass } from "../arm.js";
+import * as ArmPrimary from "../arm.js";
 
-export class SwordInfantry extends Arm {
+export class SwordInfantry extends ArmPrimary.Arm {
   constructor() {
     super();
 
@@ -28,8 +27,8 @@ export class SwordInfantry extends Arm {
 
   // SwordInfantry has higher damage on non-cavalry arms
   _getSingleDamage(damageType, targetType) {
-    checkDamageType(damageType);
-    checkArmType(targetType);
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmType(targetType);
 
     let singleDamage = 0;
     if (damageType === "melee") {
@@ -46,8 +45,8 @@ export class SwordInfantry extends Arm {
 
   // SwordInfantry has extra antiarmor for non-cavalry arms
   getAntiArmor(damageType, targetArm) {
-    checkDamageType(damageType);
-    checkArmClass(targetArm);
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmClass(targetArm);
 
     let targetType = targetArm.type;
     let antiArmor = 0;
@@ -59,7 +58,7 @@ export class SwordInfantry extends Arm {
   }
 }
 
-export class PalaceGuard extends Arm {
+export class PalaceGuard extends ArmPrimary.Arm {
   constructor() {
     super();
 
@@ -86,8 +85,8 @@ export class PalaceGuard extends Arm {
 
   // PalaceGuard has higher damage on cavalry arms
   _getSingleDamage(damageType, targetType) {
-    checkDamageType(damageType);
-    checkArmType(targetType);
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmType(targetType);
 
     let singleDamage = 0;
     if (damageType === "melee") {
@@ -104,8 +103,8 @@ export class PalaceGuard extends Arm {
 
   // PalaceGuard has extra antiarmor for cavalry arms
   getAntiArmor(damageType, targetArm) {
-    checkDamageType(damageType);
-    checkArmClass(targetArm);
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmClass(targetArm);
 
     let targetType = targetArm.type;
     let antiArmor = 6;
@@ -117,7 +116,7 @@ export class PalaceGuard extends Arm {
   }
 }
 
-export class Musketeer extends Arm {
+export class Musketeer extends ArmPrimary.Arm {
   constructor() {
     super();
 
@@ -143,8 +142,8 @@ export class Musketeer extends Arm {
   // =============== Override Public APIs ===============
 
   getAntiArmor(damageType, targetArm) {
-    checkDamageType(damageType);
-    checkArmClass(targetArm);
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmClass(targetArm);
 
     let antiArmor = 0;
     if (damageType === "missle") {
@@ -155,7 +154,7 @@ export class Musketeer extends Arm {
   }
 }
 
-export class MusketRider extends Arm {
+export class MusketRider extends ArmPrimary.Arm {
   constructor() {
     super();
 
@@ -185,8 +184,8 @@ export class MusketRider extends Arm {
   // =============== Override Public APIs ===============
 
   getAntiArmor(damageType, targetArm) {
-    checkDamageType(damageType);
-    checkArmClass(targetArm);
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmClass(targetArm);
 
     let antiArmor = 0;
     if (damageType === "missle") {
@@ -197,7 +196,7 @@ export class MusketRider extends Arm {
   }
 }
 
-export class Vanguard extends Arm {
+export class Vanguard extends ArmPrimary.Arm {
   constructor() {
     super();
 
@@ -226,8 +225,8 @@ export class Vanguard extends Arm {
   // =============== Override Public APIs ===============
 
   getAntiArmor(damageType, targetArm) {
-    checkDamageType(damageType);
-    checkArmClass(targetArm);
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmClass(targetArm);
 
     let antiArmor = 0;
     if (damageType === "charge") {
@@ -238,7 +237,7 @@ export class Vanguard extends Arm {
   }
 }
 
-export class PalaceKnight extends Arm {
+export class PalaceKnight extends ArmPrimary.Arm {
   constructor() {
     super();
 
@@ -266,7 +265,7 @@ export class PalaceKnight extends Arm {
   // =============== Override Public APIs ===============
 }
 
-export class CannonGroup extends Arm {
+export class CannonGroup extends ArmPrimary.Arm {
   constructor() {
     super();
 
@@ -291,8 +290,8 @@ export class CannonGroup extends Arm {
   // =============== Override Public APIs ===============
 
   getAntiArmor(damageType, targetArm) {
-    checkDamageType(damageType);
-    checkArmClass(targetArm);
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmClass(targetArm);
 
     let antiArmor = 0;
     if (damageType === "missle") {
@@ -303,7 +302,7 @@ export class CannonGroup extends Arm {
   }
 }
 
-export class EmpireMortar extends Arm {
+export class EmpireMortar extends ArmPrimary.Arm {
   constructor() {
     super();
 
