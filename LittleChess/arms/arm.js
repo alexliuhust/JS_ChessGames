@@ -115,6 +115,10 @@ export class Arm {
     checkDamageType(damageType);
     checkArmType(targetType);
 
+    if (!this.isAlive) {
+      return 0;
+    }
+
     let singleDamage = 0;
     switch (damageType) {
       case "melee":
@@ -176,6 +180,10 @@ export class Arm {
   getAntiArmor(damageType, targetArm) {
     checkDamageType(damageType);
     checkArmClass(targetArm);
+
+    if (!this.isAlive) {
+      return 0;
+    }
 
     return 0;
   }

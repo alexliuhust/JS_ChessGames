@@ -230,7 +230,7 @@ export class Vanguard extends ArmPrimary.Arm {
 
     let antiArmor = 0;
     if (damageType === "charge") {
-      antiArmor = 8;
+      antiArmor = 16;
     }
 
     return antiArmor;
