@@ -59,6 +59,8 @@ export class Arm {
     this.missleRadius = 0;
     this.isBombing = false;
 
+    this.ammo = -1;
+
     // Load real-time properties for battle
 
     this.loadRealtimeProps = function () {
@@ -77,7 +79,6 @@ export class Arm {
       this.c_missleRange = this.missleRange;
       this.c_missleRadius = this.missleRadius;
 
-      this.ammo = -1;
       if (this.type === "archers") {
         this.ammo = 45;
       } else if (this.type === "cavalry" && this.missleAttack != 0) {
@@ -185,7 +186,7 @@ export class Arm {
     return singleDamage * validScale;
   }
 
-  getCounterAttackTotalDamage(damageType) {
+  getCounterAttackTotalDamage(damageType, targetArm) {
     checkDamageType(damageType);
 
     if (damageType !== "melee") {

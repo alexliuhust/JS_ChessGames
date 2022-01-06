@@ -1,62 +1,40 @@
-import {
-  SwordInfantry,
-  PalaceGuard,
-  Musketeer,
-  MusketRider,
-  Vanguard,
-  PalaceKnight,
-  CannonGroup,
-  EmpireMortar,
-} from "./arms/empire/empireArms.js";
+import * as EmpireArms from "./arms/empire/empireArms.js";
+import * as AttackActions from "./actions/attack.js";
 
-let totaldamage = 1075;
+let printData = function (arm1, arm2) {
+  console.log(`${arm1.name}\t\t${arm2.name}`);
+  console.log(
+    `${arm1.c_scale}/${arm1.scale}\t\t\t\t${arm2.c_scale}/${arm2.scale}`
+  );
+};
 
-let myArm1 = new Vanguard();
-let knight = new SwordInfantry();
-console.log(myArm1.name, myArm1.type, myArm1.c_ammo);
+let arm1 = new EmpireArms.PalaceKnight();
+let arm2 = new EmpireArms.PalaceGuard();
 
-knight.type = "cavalry";
-console.log(myArm1.getAntiArmor("melee", knight));
-console.log(myArm1.getRawTotalDamage("melee", knight));
+AttackActions.armAttackArm(arm1, "melee", arm2);
+printData(arm1, arm2);
+AttackActions.armAttackArm(arm2, "melee", arm1);
+printData(arm1, arm2);
+AttackActions.armAttackArm(arm1, "melee", arm2);
+printData(arm1, arm2);
+AttackActions.armAttackArm(arm2, "melee", arm1);
+printData(arm1, arm2);
+AttackActions.armAttackArm(arm1, "melee", arm2);
+printData(arm1, arm2);
 
-knight.type = "infantry";
-console.log(myArm1.getAntiArmor("charge", knight));
-console.log(myArm1.getRawTotalDamage("charge", knight));
+console.log("===========================================");
+arm1 = new EmpireArms.SwordInfantry();
+arm2 = new EmpireArms.MusketRider();
 
-myArm1.c_scale = myArm1.scale;
-myArm1.decreaseScale("melee", 0, totaldamage);
-console.log(`${myArm1.c_scale}/${myArm1.scale}`);
+AttackActions.armAttackArm(arm2, "missle", arm1);
+printData(arm1, arm2);
+AttackActions.armAttackArm(arm2, "missle", arm1);
+printData(arm1, arm2);
+AttackActions.armAttackArm(arm2, "missle", arm1);
+printData(arm1, arm2);
+AttackActions.armAttackArm(arm2, "missle", arm1);
+printData(arm1, arm2);
+AttackActions.armAttackArm(arm2, "missle", arm1);
+printData(arm1, arm2);
 
-myArm1.c_scale = myArm1.scale;
-myArm1.decreaseScale("bombing", 0, totaldamage);
-console.log(`${myArm1.c_scale}/${myArm1.scale}`);
-
-myArm1.c_scale = myArm1.scale;
-myArm1.decreaseScale("charge", 0, totaldamage);
-console.log(`${myArm1.c_scale}/${myArm1.scale}`);
-
-console.log("=====================================");
-
-let myArm2 = new EmpireMortar();
-knight = new SwordInfantry();
-console.log(myArm2.name, myArm2.type, myArm2.c_ammo);
-
-knight.type = "cavalry";
-console.log(myArm2.getAntiArmor("missle", knight));
-console.log(myArm2.getRawTotalDamage("missle", knight));
-
-knight.type = "infantry";
-console.log(myArm2.getAntiArmor("missle", knight));
-console.log(myArm2.getRawTotalDamage("missle", knight));
-
-myArm2.c_scale = myArm2.scale;
-myArm2.decreaseScale("melee", 0, totaldamage);
-console.log(`${myArm2.c_scale}/${myArm2.scale}`);
-
-myArm2.c_scale = myArm2.scale;
-myArm2.decreaseScale("missle", 0, totaldamage);
-console.log(`${myArm2.c_scale}/${myArm2.scale}`);
-
-myArm2.c_scale = myArm2.scale;
-myArm2.decreaseScale("charge", 0, totaldamage);
-console.log(`${myArm2.c_scale}/${myArm2.scale}`);
+console.log("===========================================");
