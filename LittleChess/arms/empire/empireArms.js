@@ -20,9 +20,6 @@ export class SwordInfantry extends Arm {
     this.chargeArmor = 0;
 
     this.meleeAttack = 24;
-    this.missleAttack = 0;
-    this.missleRange = 0;
-    this.chargeAttack = 0;
 
     this.loadRealtimeProps();
   }
@@ -81,9 +78,6 @@ export class PalaceGuard extends Arm {
     this.chargeArmor = 80;
 
     this.meleeAttack = 20;
-    this.missleAttack = 0;
-    this.missleRange = 0;
-    this.chargeAttack = 0;
 
     this.loadRealtimeProps();
   }
@@ -137,14 +131,9 @@ export class Musketeer extends Arm {
     this.singleHP = 40;
     this.speed = 4;
 
-    this.meleeArmor = 0;
-    this.missleArmor = 0;
-    this.chargeArmor = 0;
-
     this.meleeAttack = 16;
     this.missleAttack = 48;
     this.missleRange = 6;
-    this.chargeAttack = 0;
 
     this.loadRealtimeProps();
   }
@@ -187,7 +176,6 @@ export class MusketRider extends Arm {
     this.meleeAttack = 24;
     this.missleAttack = 48;
     this.missleRange = 6;
-    this.chargeAttack = 0;
 
     this.loadRealtimeProps();
   }
@@ -228,8 +216,6 @@ export class Vanguard extends Arm {
     this.chargeArmor = 0;
 
     this.meleeAttack = 24;
-    this.missleAttack = 0;
-    this.missleRange = 0;
     this.chargeAttack = 76;
 
     this.loadRealtimeProps();
@@ -271,9 +257,6 @@ export class PalaceKnight extends Arm {
     this.chargeArmor = 70;
 
     this.meleeAttack = 32;
-    this.missleAttack = 0;
-    this.missleRange = 0;
-    this.chargeAttack = 0;
 
     this.loadRealtimeProps();
   }
@@ -291,20 +274,14 @@ export class CannonGroup extends Arm {
 
     this.name = "CannonGroup";
     this.type = "artillery";
-    this.cost = 4;
+    this.cost = 5;
 
     this.scale = 5;
     this.singleHP = 60;
     this.speed = 2;
 
-    this.meleeArmor = 0;
-    this.missleArmor = 0;
-    this.chargeArmor = 0;
-
-    this.meleeAttack = 0;
     this.missleAttack = 150;
     this.missleRange = 12;
-    this.chargeAttack = 0;
 
     this.loadRealtimeProps();
   }
@@ -324,4 +301,31 @@ export class CannonGroup extends Arm {
 
     return antiArmor;
   }
+}
+
+export class EmpireMortar extends Arm {
+  constructor() {
+    super();
+
+    // Override original data
+
+    this.name = "EmpireMortar";
+    this.type = "artillery";
+    this.cost = 6;
+
+    this.scale = 5;
+    this.singleHP = 60;
+    this.speed = 2;
+
+    this.missleAttack = 190;
+    this.missleRange = 10;
+    this.missleRadius = 2;
+    this.isBombing = true;
+
+    this.loadRealtimeProps();
+  }
+
+  // =============== Override private methods ===============
+
+  // =============== Override Public APIs ===============
 }

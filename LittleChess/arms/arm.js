@@ -1,4 +1,4 @@
-export const DamageTypes = ["melee", "missle", "charge", "boming"];
+export const DamageTypes = ["melee", "missle", "charge", "bombing", "magic"];
 export const ArmTypes = [
   "infantry",
   "cavalry",
@@ -52,9 +52,12 @@ export class Arm {
     this.chargeArmor = 0;
 
     this.meleeAttack = 0;
+    this.chargeAttack = 0;
+
     this.missleAttack = 0;
     this.missleRange = 0;
-    this.chargeAttack = 0;
+    this.missleRadius = 0;
+    this.isBombing = false;
 
     // Load real-time properties for battle
 
@@ -68,9 +71,21 @@ export class Arm {
       this.c_chargeArmor = this.chargeArmor;
 
       this.c_meleeAttack = this.meleeAttack;
+      this.c_chargeAttack = this.chargeAttack;
+
       this.c_missleAttack = this.missleAttack;
       this.c_missleRange = this.missleRange;
-      this.c_chargeAttack = this.chargeAttack;
+      this.c_missleRadius = this.missleRadius;
+
+      this.ammo = -1;
+      if (this.type === "archers") {
+        this.ammo = 45;
+      } else if (this.type === "cavalry" && this.missleAttack != 0) {
+        this.ammo = 36;
+      } else if (this.type === "artillery") {
+        this.ammo = 25;
+      }
+      this.c_ammo = this.ammo;
     };
   }
 
@@ -107,6 +122,11 @@ export class Arm {
 
       case "missle":
         singleDamage = this.c_missleAttack;
+        if (this.isBombing) {
+          let min = this.c_missleAttack;
+          let max = Math.round(min * 1.25);
+          singleDamage = Math.floor(Math.random() * (max - min + 1) + min);
+        }
         break;
 
       case "charge":
@@ -180,7 +200,11 @@ export class Arm {
   decreaseScale(damageType, antiArmor, rawTotalDamage) {
     checkDamageType(damageType);
 
-    let damagePercentage = this._getDamagePercentage(damageType, antiArmor);
+    let damagePercentage = 1;
+    if (damageType !== "bombing" && damageType !== "magic") {
+      damagePercentage = this._getDamagePercentage(damageType, antiArmor);
+    }
+
     let realDamge = rawTotalDamage * damagePercentage;
     let totalDecrease = Math.ceil(realDamge / this.singleHP);
 
