@@ -1,8 +1,8 @@
 import * as ArmPrimary from "../arm.js";
 
 export class SwordInfantry extends ArmPrimary.Arm {
-  constructor() {
-    super();
+  constructor(value) {
+    super(value);
 
     // Override original data
 
@@ -59,8 +59,8 @@ export class SwordInfantry extends ArmPrimary.Arm {
 }
 
 export class PalaceGuard extends ArmPrimary.Arm {
-  constructor() {
-    super();
+  constructor(value) {
+    super(value);
 
     // Override original data
 
@@ -117,8 +117,8 @@ export class PalaceGuard extends ArmPrimary.Arm {
 }
 
 export class Musketeer extends ArmPrimary.Arm {
-  constructor() {
-    super();
+  constructor(value) {
+    super(value);
 
     // Override original data
 
@@ -155,8 +155,8 @@ export class Musketeer extends ArmPrimary.Arm {
 }
 
 export class MusketRider extends ArmPrimary.Arm {
-  constructor() {
-    super();
+  constructor(value) {
+    super(value);
 
     // Override original data
 
@@ -197,8 +197,8 @@ export class MusketRider extends ArmPrimary.Arm {
 }
 
 export class Vanguard extends ArmPrimary.Arm {
-  constructor() {
-    super();
+  constructor(value) {
+    super(value);
 
     // Override original data
 
@@ -238,8 +238,8 @@ export class Vanguard extends ArmPrimary.Arm {
 }
 
 export class PalaceKnight extends ArmPrimary.Arm {
-  constructor() {
-    super();
+  constructor(value) {
+    super(value);
 
     // Override original data
 
@@ -266,8 +266,8 @@ export class PalaceKnight extends ArmPrimary.Arm {
 }
 
 export class CannonGroup extends ArmPrimary.Arm {
-  constructor() {
-    super();
+  constructor(value) {
+    super(value);
 
     // Override original data
 
@@ -303,8 +303,8 @@ export class CannonGroup extends ArmPrimary.Arm {
 }
 
 export class EmpireMortar extends ArmPrimary.Arm {
-  constructor() {
-    super();
+  constructor(value) {
+    super(value);
 
     // Override original data
 

@@ -27,7 +27,7 @@ export function checkArmClass(targetArm) {
 }
 
 export class Arm {
-  constructor() {
+  constructor(value) {
     // Properties for drawing
 
     this.frameSpeed = 20;
@@ -35,6 +35,11 @@ export class Arm {
     this.positionY = 0;
     this.currentDirection = "u";
     this.isAlive = true;
+
+    if (value !== null) {
+      this.positionX = value[0];
+      this.positionY = value[1];
+    }
 
     // Properties of original data
     // The children classes will modify the following fields
@@ -66,7 +71,7 @@ export class Arm {
     this.loadRealtimeProps = function () {
       this.c_scale = this.scale;
       this.c_singleHP = this.singleHP;
-      this.c_scale = this.scale;
+      this.c_speed = this.speed;
 
       this.c_meleeArmor = this.meleeArmor;
       this.c_missleArmor = this.missleArmor;
