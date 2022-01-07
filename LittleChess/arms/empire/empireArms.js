@@ -317,7 +317,7 @@ export class EmpireMortar extends ArmPrimary.Arm {
     this.speed = 2;
 
     this.missleAttack = 190;
-    this.missleRange = 10;
+    this.missleRange = 12;
     this.missleRadius = 2;
     this.isBombing = true;
 

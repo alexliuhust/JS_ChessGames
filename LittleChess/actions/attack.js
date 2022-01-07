@@ -1,7 +1,41 @@
 import * as ArmPrimary from "../arms/arm.js";
 
+export function armBombArea(attacker, centerPosition, defenders) {
+  ArmPrimary.checkArmClass(attacker);
+
+  if (!attacker.isBombing) {
+    throw new Error(`attacker should be able to bomb.`);
+  }
+
+  let bombDistance =
+    Math.abs(centerPosition[0] - attacker.positionX) +
+    Math.abs(centerPosition[1] - attacker.positionY);
+
+  if (bombDistance > attacker.c_missleRange || attacker.c_ammo <= 0) {
+    return;
+  }
+
+  let damageType = "bombing";
+
+  for (let i = 0; i < defenders.length; i++) {
+    let defender = defenders[i];
+
+    let distance =
+      Math.abs(centerPosition[0] - defender.positionX) +
+      Math.abs(centerPosition[1] - defender.positionY);
+
+    if (distance <= attacker.c_missleRadius) {
+      let att_totalRowDamage = attacker.getRawTotalDamage(damageType, defender);
+      defender.decreaseScale(damageType, 0, att_totalRowDamage);
+    }
+  }
+}
+
 // This function is not suitable for bombing
 export function armAttackArm(attacker, defender) {
+  ArmPrimary.checkArmClass(attacker);
+  ArmPrimary.checkArmClass(defender);
+
   let damageType = determineDamageType(attacker, defender);
   console.log(damageType);
   if (damageType == null) return;
@@ -44,9 +78,6 @@ function determineDamageType(attacker, defender) {
 }
 
 function decreaseScalesForArms(attacker, damageType, defender) {
-  ArmPrimary.checkArmClass(attacker);
-  ArmPrimary.checkArmClass(defender);
-
   let att_antiArmor = attacker.getAntiArmor(damageType, defender);
   let att_totalRowDamage = attacker.getRawTotalDamage(damageType, defender);
   let dfd_counterAttack = defender.getCounterAttackTotalDamage(

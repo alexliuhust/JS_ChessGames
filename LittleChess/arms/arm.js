@@ -133,11 +133,15 @@ export class Arm {
       case "missle":
         if (this.c_ammo > 0) {
           singleDamage = this.c_missleAttack;
-          if (this.isBombing) {
-            let min = this.c_missleAttack;
-            let max = Math.round(min * 1.25);
-            singleDamage = Math.floor(Math.random() * (max - min + 1) + min);
-          }
+          this.c_ammo--;
+        }
+        break;
+
+      case "bombing":
+        if (this.c_ammo > 0) {
+          let min = this.c_missleAttack;
+          let max = Math.round(min * 1.25);
+          singleDamage = Math.floor(Math.random() * (max - min + 1) + min);
           this.c_ammo--;
         }
         break;
