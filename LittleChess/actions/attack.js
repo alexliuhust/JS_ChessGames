@@ -31,7 +31,6 @@ export function armBombArea(attacker, centerPosition, defenders) {
   }
 }
 
-// This function is not suitable for bombing
 export function armAttackArm(attacker, defender) {
   ArmPrimary.checkArmClass(attacker);
   ArmPrimary.checkArmClass(defender);
