@@ -92,7 +92,7 @@ export class PalaceGuard extends ArmPrimary.Arm {
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
     }
-    if (targetType === "cavalry") {
+    if (targetType === "cavalry" || targetType === "monster") {
       singleDamage += 24;
     }
 
@@ -327,4 +327,49 @@ export class EmpireMortar extends ArmPrimary.Arm {
   // =============== Override private methods ===============
 
   // =============== Override Public APIs ===============
+}
+
+export class SteamTank extends ArmPrimary.Arm {
+  constructor(value) {
+    super(value);
+
+    // Override original data
+
+    this.name = "SteamTank";
+    this.type = "monster";
+    this.cost = 6;
+
+    this.scale = 1;
+    this.singleHP = 300;
+    this.speed = 3;
+
+    this.meleeArmor = 90;
+    this.missleArmor = 90;
+    this.chargeArmor = 90;
+
+    this.meleeAttack = 450;
+    this.missleAttack = 200;
+    this.missleRange = 9;
+
+    this.loadRealtimeProps();
+
+    this.ammo = 25;
+    this.c_ammo = this.ammo;
+  }
+
+  // =============== Override private methods ===============
+
+  // =============== Override Public APIs ===============
+
+  getAntiArmor(damageType, targetArm) {
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmClass(targetArm);
+
+    let antiArmor = 0;
+    if (damageType === "missle") {
+      antiArmor = 50;
+    }
+
+    return antiArmor;
+  }
 }

@@ -3,6 +3,7 @@ export const ArmTypes = [
   "infantry",
   "cavalry",
   "archers",
+  "monster",
   "artillery",
   "mages",
 ];
@@ -245,11 +246,18 @@ export class Arm {
     }
 
     let realDamge = rawTotalDamage * damagePercentage;
-    let totalDecrease = Math.ceil(realDamge / this.singleHP);
 
-    this.c_scale -= totalDecrease;
-    if (this.c_scale <= 0) {
-      this.isAlive = false;
+    if (this.scale === 1) {
+      this.c_singleHP -= Math.round(realDamge / 10);
+      if (this.c_singleHP <= 0) {
+        this.isAlive = false;
+      }
+    } else {
+      let totalDecrease = Math.ceil(realDamge / this.singleHP);
+      this.c_scale -= totalDecrease;
+      if (this.c_scale <= 0) {
+        this.isAlive = false;
+      }
     }
   }
 }

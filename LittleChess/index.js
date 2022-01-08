@@ -14,22 +14,34 @@ let printData_1Arm = function (arm) {
 
 let printData_2Arms = function (arm1, arm2) {
   console.log(`${arm1.name}(${arm1.c_ammo})\t\t${arm2.name}(${arm2.c_ammo})`);
-  console.log(
-    `${arm1.c_scale}/${arm1.scale}\t\t\t\t${arm2.c_scale}/${arm2.scale}`
-  );
+  let current1 = arm1.c_scale;
+  let original1 = arm1.scale;
+  let current2 = arm2.c_scale;
+  let original2 = arm2.scale;
+
+  if (original1 === 1) {
+    current1 = arm1.c_singleHP;
+    original1 = arm1.singleHP;
+  }
+  if (original2 === 1) {
+    current2 = arm2.c_singleHP;
+    original2 = arm2.singleHP;
+  }
+
+  console.log(`${current1}/${original1}\t\t\t\t${current2}/${original2}`);
   console.log("-----------------------------------------");
 };
 
-let mover = new EmpireArms.Vanguard([0, 0]);
-let blockers = [];
-blockers.push(new EmpireArms.PalaceGuard([2, 0]));
-blockers.push(new EmpireArms.PalaceGuard([4, 0]));
+// let mover = new EmpireArms.SteamTank([0, 0]);
+// let blockers = [];
+// blockers.push(new EmpireArms.PalaceGuard([2, 0]));
+// blockers.push(new EmpireArms.PalaceGuard([4, 0]));
 
-AttackActions.armAttackArm(mover, blockers[1], blockers);
-printPos_1Arm(mover);
-printData_1Arm(mover);
-printData_1Arm(blockers[0]);
-printData_1Arm(blockers[1]);
+// AttackActions.armAttackArm(mover, blockers[1], blockers);
+// printPos_1Arm(mover);
+// printData_1Arm(mover);
+// printData_1Arm(blockers[0]);
+// printData_1Arm(blockers[1]);
 
 // let attacker = new EmpireArms.EmpireMortar([0, 0]);
 // let center = [9, 3];
@@ -45,20 +57,20 @@ printData_1Arm(blockers[1]);
 //   printData_1Arm(defenders[i]);
 // }
 
-// let arm1;
-// let arm2;
+let arm1;
+let arm2;
 
-// console.log("===========================================");
-// arm1 = new EmpireArms.SwordInfantry([3, 0]);
-// arm2 = new EmpireArms.MusketRider([2, 5]);
+console.log("===========================================");
+arm1 = new EmpireArms.PalaceKnight([3, 0]);
+arm2 = new EmpireArms.SteamTank([3, 1]);
 
-// AttackActions.armAttackArm(arm1, arm2, 0);
-// printData_2Arms(arm1, arm2);
-// AttackActions.armAttackArm(arm2, arm1);
-// printData_2Arms(arm1, arm2);
-// AttackActions.armAttackArm(arm1, arm2);
-// printData_2Arms(arm1, arm2);
-// AttackActions.armAttackArm(arm2, arm1);
-// printData_2Arms(arm1, arm2);
-// AttackActions.armAttackArm(arm1, arm2);
-// printData_2Arms(arm1, arm2);
+AttackActions.armAttackArm(arm1, arm2);
+printData_2Arms(arm1, arm2);
+AttackActions.armAttackArm(arm2, arm1);
+printData_2Arms(arm1, arm2);
+AttackActions.armAttackArm(arm1, arm2);
+printData_2Arms(arm1, arm2);
+AttackActions.armAttackArm(arm2, arm1);
+printData_2Arms(arm1, arm2);
+AttackActions.armAttackArm(arm1, arm2);
+printData_2Arms(arm1, arm2);
