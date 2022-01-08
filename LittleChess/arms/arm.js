@@ -187,6 +187,23 @@ export class Arm {
 
   // =============== Public APIs ===============
 
+  isOperable() {
+    if (this.c_speed === 0 && this.hasAttacked) {
+      return false;
+    }
+    return true;
+  }
+
+  optOut() {
+    this.c_speed = 0;
+    this.hasAttacked = true;
+  }
+
+  roundRefresh() {
+    this.c_speed = this.speed;
+    this.hasAttacked = false;
+  }
+
   getAntiArmor(damageType, targetArm) {
     checkDamageType(damageType);
     checkArmClass(targetArm);
