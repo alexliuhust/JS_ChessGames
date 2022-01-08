@@ -20,13 +20,16 @@ let printData_2Arms = function (arm1, arm2) {
   console.log("-----------------------------------------");
 };
 
-let mover = new EmpireArms.Vanguard([10, 10]);
+let mover = new EmpireArms.Vanguard([0, 0]);
 let blockers = [];
-blockers.push(new EmpireArms.SwordInfantry([7, 10]));
-blockers.push(new EmpireArms.SwordInfantry([16, 10]));
+blockers.push(new EmpireArms.PalaceGuard([2, 0]));
+blockers.push(new EmpireArms.PalaceGuard([4, 0]));
 
-MoveActions.moveToPosition(mover, [6, 10], blockers);
+AttackActions.armAttackArm(mover, blockers[1], blockers);
 printPos_1Arm(mover);
+printData_1Arm(mover);
+printData_1Arm(blockers[0]);
+printData_1Arm(blockers[1]);
 
 // let attacker = new EmpireArms.EmpireMortar([0, 0]);
 // let center = [9, 3];
@@ -49,7 +52,7 @@ printPos_1Arm(mover);
 // arm1 = new EmpireArms.SwordInfantry([3, 0]);
 // arm2 = new EmpireArms.MusketRider([2, 5]);
 
-// AttackActions.armAttackArm(arm1, arm2);
+// AttackActions.armAttackArm(arm1, arm2, 0);
 // printData_2Arms(arm1, arm2);
 // AttackActions.armAttackArm(arm2, arm1);
 // printData_2Arms(arm1, arm2);

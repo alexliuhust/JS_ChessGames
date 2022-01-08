@@ -35,6 +35,7 @@ export class Arm {
     this.positionY = 0;
     this.currentDirection = "u";
     this.isAlive = true;
+    this.hasAttacked = false;
 
     if (value !== null) {
       this.positionX = value[0];

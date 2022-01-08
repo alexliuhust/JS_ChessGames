@@ -12,7 +12,7 @@ export function moveToPosition(mover, toPosition, blockers) {
 
   if (aligned && distance <= mover.c_speed) {
     if (blockers !== null) {
-      toPosition = getRealDestination(mover, toPosition, blockers);
+      toPosition = getRealDestination(mover, toPosition, blockers)[0];
     }
 
     distance =
@@ -28,56 +28,62 @@ export function moveToPosition(mover, toPosition, blockers) {
   }
 }
 
-function getRealDestination(mover, toPosition, blockers) {
+export function getRealDestination(mover, toPosition, blockers) {
   let realDestination = [toPosition[0], toPosition[1]];
+  let closestBlocker = null;
 
   if (mover.positionX === toPosition[0]) {
     for (let i = 0; i < blockers.length; i++) {
       let blocker = blockers[i];
-      if (blocker.positionX == toPosition[0]) {
+      ArmPrimary.checkArmClass(blocker);
+
+      if (blocker.positionX === toPosition[0]) {
         if (
           mover.positionY < toPosition[1] &&
           blocker.positionY > mover.positionY
         ) {
-          realDestination[1] = Math.min(
-            realDestination[1],
-            blocker.positionY - 1
-          );
+          if (blocker.positionY - 1 < realDestination[1]) {
+            realDestination[1] = blocker.positionY - 1;
+            closestBlocker = blocker;
+          }
         } else if (
           mover.positionY > toPosition[1] &&
           blocker.positionY < mover.positionY
         ) {
-          realDestination[1] = Math.max(
-            realDestination[1],
-            blocker.positionY + 1
-          );
+          if (blocker.positionY + 1 > realDestination[1]) {
+            realDestination[1] = blocker.positionY + 1;
+            closestBlocker = blocker;
+          }
         }
       }
     }
   } else {
     for (let i = 0; i < blockers.length; i++) {
       let blocker = blockers[i];
-      if (blocker.positionY == toPosition[1]) {
+      ArmPrimary.checkArmClass(blocker);
+
+      if (blocker.positionY === toPosition[1]) {
         if (
           mover.positionX < toPosition[0] &&
           blocker.positionX > mover.positionX
         ) {
-          realDestination[0] = Math.min(
-            realDestination[0],
-            blocker.positionX - 1
-          );
+          if (blocker.positionX - 1 < realDestination[0]) {
+            realDestination[0] = blocker.positionX - 1;
+            closestBlocker = blocker;
+          }
         } else if (
           mover.positionX > toPosition[0] &&
           blocker.positionX < mover.positionX
         ) {
-          realDestination[0] = Math.max(
-            realDestination[0],
-            blocker.positionX + 1
-          );
+          if (blocker.positionX + 1 > realDestination[0]) {
+            realDestination[0] = blocker.positionX + 1;
+            closestBlocker = blocker;
+          }
         }
       }
     }
   }
 
-  return realDestination;
+  let result = [realDestination, closestBlocker];
+  return result;
 }
