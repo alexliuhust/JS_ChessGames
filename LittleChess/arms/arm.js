@@ -178,6 +178,7 @@ export class Arm {
       default:
         break;
     }
+    validArmor = Math.max(validArmor, 0);
 
     let max = validArmor;
     let min = Math.round(validArmor * 0.8);

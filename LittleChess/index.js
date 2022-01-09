@@ -1,4 +1,5 @@
 import * as EmpireArms from "./arms/empire/empireArms.js";
+import * as NordFortArms from "./arms/nordfort/nordfortArms.js";
 import * as AttackActions from "./actions/attack.js";
 import * as MoveActions from "./actions/move.js";
 
@@ -9,7 +10,14 @@ let printPos_1Arm = function (arm) {
 };
 
 let printData_1Arm = function (arm) {
-  console.log(`${arm.name}(${arm.c_ammo})\t${arm.c_scale}/${arm.scale}`);
+  let current = arm.c_scale;
+  let original = arm.scale;
+  if (original === 1) {
+    current = arm.c_singleHP;
+    original = arm.singleHP;
+  }
+
+  console.log(`${arm.name}(${arm.c_ammo})\t${current}/${original}`);
 };
 
 let printData_2Arms = function (arm1, arm2) {
@@ -61,8 +69,8 @@ let arm1;
 let arm2;
 
 console.log("===========================================");
-arm1 = new EmpireArms.PalaceKnight([3, 0]);
-arm2 = new EmpireArms.SteamTank([3, 1]);
+arm1 = new EmpireArms.SwordInfantry([3, 0]);
+arm2 = new NordFortArms.CoastDefender([3, 1]);
 
 AttackActions.armAttackArm(arm1, arm2);
 printData_2Arms(arm1, arm2);
@@ -72,5 +80,16 @@ AttackActions.armAttackArm(arm1, arm2);
 printData_2Arms(arm1, arm2);
 AttackActions.armAttackArm(arm2, arm1);
 printData_2Arms(arm1, arm2);
-AttackActions.armAttackArm(arm1, arm2);
-printData_2Arms(arm1, arm2);
+
+// console.log("===========================================");
+// arm1 = new EmpireArms.SwordInfantry([3, 0]);
+// arm2 = new EmpireArms.SteamTank([3, 1]);
+
+// AttackActions.armAttackArm(arm1, arm2);
+// printData_2Arms(arm1, arm2);
+// AttackActions.armAttackArm(arm2, arm1);
+// printData_2Arms(arm1, arm2);
+// AttackActions.armAttackArm(arm1, arm2);
+// printData_2Arms(arm1, arm2);
+// AttackActions.armAttackArm(arm2, arm1);
+// printData_2Arms(arm1, arm2);

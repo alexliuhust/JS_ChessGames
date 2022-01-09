@@ -34,7 +34,11 @@ export class SwordInfantry extends ArmPrimary.Arm {
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
     }
-    if (targetType !== "cavalry") {
+    if (
+      targetType === "infantry" ||
+      targetType === "archers" ||
+      targetType === "artillery"
+    ) {
       singleDamage += 8;
     }
 
