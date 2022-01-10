@@ -3,93 +3,54 @@ import * as NordFortArms from "./arms/nordfort/nordfortArms.js";
 import * as AttackActions from "./actions/attack.js";
 import * as MoveActions from "./actions/move.js";
 
-let printPos_1Arm = function (arm) {
-  console.log(
-    `${arm.name}(${arm.positionX}, ${arm.positionY})  ${arm.c_speed}/${arm.speed}`
-  );
+var myGamePiece;
+
+var myGameArea = {
+  canvas: document.createElement("canvas"),
+  start: function () {
+    this.canvas.width = 1300;
+    this.canvas.height = 600;
+    this.context = this.canvas.getContext("2d");
+    document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+    this.frameNo = 0;
+    this.interval = setInterval(updateGameArea, 20);
+  },
+  clear: function () {
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  },
+  stop: function () {
+    clearInterval(this.interval);
+  },
 };
 
-let printData_1Arm = function (arm) {
-  let current = arm.c_scale;
-  let original = arm.scale;
-  if (original === 1) {
-    current = arm.c_singleHP;
-    original = arm.singleHP;
-  }
+class Component {
+  constructor(imageScs, x, y) {
+    this.type = "image";
+    this.image = new Image();
+    this.image.src = imageScs;
+    this.width = 50;
+    this.height = 50;
+    this.x = x;
+    this.y = y;
 
-  console.log(`${arm.name}(${arm.c_ammo})\t${current}/${original}`);
+    this.update = function () {
+      let ctx = myGameArea.context;
+      ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+    };
+  }
+}
+
+function updateGameArea() {
+  myGameArea.clear();
+  // myGamePiece.newPos();
+  myGamePiece.update();
+}
+
+function startGame() {
+  myGamePiece = new Component("images/empire/SteamTank.png", 100, 200);
+  myGameArea.start();
+}
+
+window.onload = (event) => {
+  startGame();
 };
-
-let printData_2Arms = function (arm1, arm2) {
-  console.log(`${arm1.name}(${arm1.c_ammo})\t\t${arm2.name}(${arm2.c_ammo})`);
-  let current1 = arm1.c_scale;
-  let original1 = arm1.scale;
-  let current2 = arm2.c_scale;
-  let original2 = arm2.scale;
-
-  if (original1 === 1) {
-    current1 = arm1.c_singleHP;
-    original1 = arm1.singleHP;
-  }
-  if (original2 === 1) {
-    current2 = arm2.c_singleHP;
-    original2 = arm2.singleHP;
-  }
-
-  console.log(`${current1}/${original1}\t\t\t\t${current2}/${original2}`);
-  console.log("-----------------------------------------");
-};
-
-// let mover = new EmpireArms.SteamTank([0, 0]);
-// let blockers = [];
-// blockers.push(new EmpireArms.PalaceGuard([2, 0]));
-// blockers.push(new EmpireArms.PalaceGuard([4, 0]));
-
-// AttackActions.armAttackArm(mover, blockers[1], blockers);
-// printPos_1Arm(mover);
-// printData_1Arm(mover);
-// printData_1Arm(blockers[0]);
-// printData_1Arm(blockers[1]);
-
-// let attacker = new EmpireArms.EmpireMortar([0, 0]);
-// let center = [9, 3];
-// let defenders = [];
-// defenders.push(new EmpireArms.SwordInfantry([8, 2]));
-// defenders.push(new EmpireArms.SwordInfantry([9, 1]));
-// defenders.push(new EmpireArms.SwordInfantry([10, 4]));
-// defenders.push(new EmpireArms.SwordInfantry([7, 4]));
-// defenders.push(new EmpireArms.SwordInfantry([7, 6]));
-
-// AttackActions.armBombArea(attacker, center, defenders);
-// for (let i = 0; i < defenders.length; i++) {
-//   printData_1Arm(defenders[i]);
-// }
-
-let arm1;
-let arm2;
-
-console.log("===========================================");
-arm1 = new EmpireArms.SwordInfantry([3, 0]);
-arm2 = new NordFortArms.CoastDefender([3, 1]);
-
-AttackActions.armAttackArm(arm1, arm2);
-printData_2Arms(arm1, arm2);
-AttackActions.armAttackArm(arm2, arm1);
-printData_2Arms(arm1, arm2);
-AttackActions.armAttackArm(arm1, arm2);
-printData_2Arms(arm1, arm2);
-AttackActions.armAttackArm(arm2, arm1);
-printData_2Arms(arm1, arm2);
-
-// console.log("===========================================");
-// arm1 = new EmpireArms.SwordInfantry([3, 0]);
-// arm2 = new EmpireArms.SteamTank([3, 1]);
-
-// AttackActions.armAttackArm(arm1, arm2);
-// printData_2Arms(arm1, arm2);
-// AttackActions.armAttackArm(arm2, arm1);
-// printData_2Arms(arm1, arm2);
-// AttackActions.armAttackArm(arm1, arm2);
-// printData_2Arms(arm1, arm2);
-// AttackActions.armAttackArm(arm2, arm1);
-// printData_2Arms(arm1, arm2);
