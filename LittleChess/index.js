@@ -16,29 +16,27 @@ class Game {
     this.timer = 0;
     this.nowSelectPiece = null;
 
-    this.initBind = function () {
-      let select = document.getElementById("select");
+    let select = document.getElementById("select");
 
-      select.onclick = function (e) {
-        let x = e.offsetX || e.layerX;
-        let y = e.offsetY || e.layerY;
+    select.onclick = (e) => {
+      let x = e.offsetX || e.layerX;
+      let y = e.offsetY || e.layerY;
 
-        for (var i = 0; i < this.pieceList.length; i++) {
-          if (T.pointInRect({ x: x, y: y }, this.pieceList[i])) {
-            console.log("Selected: ", this.pieceList[i].name);
+      for (var i = 0; i < this.pieceList.length; i++) {
+        if (T.pointInRect({ x: x, y: y }, this.pieceList[i])) {
+          console.log("Selected: ", this.pieceList[i].name);
 
-            this.nowSelectPiece = this.pieceList[i];
+          this.nowSelectPiece = this.pieceList[i];
 
-            break;
-          }
+          break;
         }
+      }
 
-        if (i == this.pieceList.length) {
-          Canvas.clear(this.canvasList.select, 500, 1000);
+      if (i == this.pieceList.length) {
+        Canvas.clear(this.canvasList.select, 500, 1000);
 
-          this.nowSelectPiece = null;
-        }
-      };
+        this.nowSelectPiece = null;
+      }
     };
   }
 
@@ -62,7 +60,7 @@ class Game {
 
 let pieces = [
   new EmpireArms.SwordInfantry([1, 4]),
-  new EmpireArms.Musketeer([2, 5]),
+  new EmpireArms.Musketeer([9, 5]),
   new EmpireArms.Vanguard([4, 7]),
 ];
 
