@@ -3,7 +3,7 @@ import * as ArmPrimary from "../arm.js";
 export class SwordInfantry extends ArmPrimary.Arm {
   constructor(value) {
     super(value);
-
+    this.img = document.getElementById("SwordInfantry_img");
     // Override original data
 
     this.name = "SwordInfantry";
@@ -65,7 +65,7 @@ export class SwordInfantry extends ArmPrimary.Arm {
 export class PalaceGuard extends ArmPrimary.Arm {
   constructor(value) {
     super(value);
-
+    this.img = document.getElementById("PalaceGuard_img");
     // Override original data
 
     this.name = "PalaceGuard";
@@ -123,7 +123,7 @@ export class PalaceGuard extends ArmPrimary.Arm {
 export class Musketeer extends ArmPrimary.Arm {
   constructor(value) {
     super(value);
-
+    this.img = document.getElementById("Musketeer_img");
     // Override original data
 
     this.name = "Musketeer";
@@ -161,7 +161,7 @@ export class Musketeer extends ArmPrimary.Arm {
 export class MusketRider extends ArmPrimary.Arm {
   constructor(value) {
     super(value);
-
+    this.img = document.getElementById("MusketRider_img");
     // Override original data
 
     this.name = "MusketRider";
@@ -203,7 +203,7 @@ export class MusketRider extends ArmPrimary.Arm {
 export class Vanguard extends ArmPrimary.Arm {
   constructor(value) {
     super(value);
-
+    this.img = document.getElementById("Vanguard_img");
     // Override original data
 
     this.name = "Vanguard";
@@ -244,7 +244,7 @@ export class Vanguard extends ArmPrimary.Arm {
 export class PalaceKnight extends ArmPrimary.Arm {
   constructor(value) {
     super(value);
-
+    this.img = document.getElementById("PalaceKnight_img");
     // Override original data
 
     this.name = "PalaceKnight";
@@ -272,7 +272,7 @@ export class PalaceKnight extends ArmPrimary.Arm {
 export class CannonGroup extends ArmPrimary.Arm {
   constructor(value) {
     super(value);
-
+    this.img = document.getElementById("CannonGroup_img");
     // Override original data
 
     this.name = "CannonGroup";
@@ -309,7 +309,7 @@ export class CannonGroup extends ArmPrimary.Arm {
 export class EmpireMortar extends ArmPrimary.Arm {
   constructor(value) {
     super(value);
-
+    this.img = document.getElementById("EmpireMortar_img");
     // Override original data
 
     this.name = "EmpireMortar";
@@ -336,7 +336,7 @@ export class EmpireMortar extends ArmPrimary.Arm {
 export class SteamTank extends ArmPrimary.Arm {
   constructor(value) {
     super(value);
-
+    this.img = document.getElementById("SteamTank_img");
     // Override original data
 
     this.name = "SteamTank";

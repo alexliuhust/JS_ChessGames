@@ -1,3 +1,5 @@
+import { Canvas, T } from "../tools.js";
+
 export const DamageTypes = ["melee", "missle", "charge", "bombing", "magic"];
 export const ArmTypes = [
   "infantry",
@@ -28,19 +30,27 @@ export function checkArmClass(targetArm) {
 }
 
 export class Arm {
-  constructor(value) {
+  constructor(positionValue) {
     // Properties for drawing
 
     this.frameSpeed = 20;
+
+    this.x = 0;
+    this.y = 0;
     this.positionX = 0;
     this.positionY = 0;
+    this.width = 50;
+    this.height = 50;
+    this.img = null;
+
     this.currentDirection = "u";
     this.isAlive = true;
     this.hasAttacked = false;
+    this.hasMoved = false;
 
-    if (value !== null) {
-      this.positionX = value[0];
-      this.positionY = value[1];
+    if (positionValue !== null) {
+      this.positionX = positionValue[0];
+      this.positionY = positionValue[1];
     }
 
     // Properties of original data
@@ -185,6 +195,25 @@ export class Arm {
     let realArmor = Math.floor(Math.random() * (max - min + 1) + min);
 
     return (100 - realArmor) / 100;
+  }
+
+  //
+
+  set_x_y() {
+    this.x = this.positionX * 50;
+    this.y = this.positionY * 50;
+    return [this.x, this.y];
+  }
+
+  get_position_x_y() {
+    this.positionX = Math.floor(_x / 50);
+    this.positionY = Math.floor(_y / 50);
+    return [this.positionX, this.positionY];
+  }
+
+  draw(cxt) {
+    this.set_x_y();
+    cxt.drawImage(this.img, this.x, this.y);
   }
 
   // =============== Public APIs ===============
