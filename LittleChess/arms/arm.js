@@ -1,4 +1,4 @@
-import { Canvas, T } from "../tools.js";
+import { Canvas, Rect } from "../tools.js";
 
 export const DamageTypes = ["melee", "missle", "charge", "bombing", "magic"];
 export const ArmTypes = [

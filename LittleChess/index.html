@@ -17,11 +17,15 @@
     <img src="images/empire/EmpireMortar.png" id="EmpireMortar_img" style="display:none;" />
     <img src="images/empire/SteamTank.png" id="SteamTank_img" style="display:none;" />
 
-    <div id="game" style="position:relative;float:left;width:500px;height:500px;">
+    <div id="game" style="position:relative;float:left;width:1200px;height:500px;">
         <canvas id="map" width="1200" height="500" style="background:url(images/map/bg.png) repeat;position:absolute;left:0;top:0;z-index:99;"></canvas>
         <canvas id="main" width="1200" height="500" style="position:absolute;left:0;top:0;z-index:100;"></canvas>
         <canvas id="piece" width="1200" height="500" style="position:absolute;left:0;top:0;z-index:100;"></canvas>
         <canvas id="select" width="1200" height="500" style="position:absolute;left:0;top:0;z-index:101;"></canvas>
+    </div>
+
+    <div style="float:left;width:500px;margin-left:1200px;">
+        <input id="refreshRound" type="button" value="Refresh Round" />
     </div>
 
 

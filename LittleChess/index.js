@@ -2,7 +2,9 @@ import * as EmpireArms from "./arms/empire/empireArms.js";
 import * as NordFortArms from "./arms/nordfort/nordfortArms.js";
 import * as AttackActions from "./actions/attack.js";
 import * as MoveActions from "./actions/move.js";
-import { Canvas, T } from "./tools.js";
+import { Canvas, Rect } from "./tools.js";
+import * as OpDraw from "./effect/operationDrawings.js";
+import { GameWidth as W, GameHeight as H } from "./const.js";
 
 class Game {
   constructor(pieces) {
@@ -15,6 +17,14 @@ class Game {
     this.pieceList = pieces;
     this.timer = 0;
     this.nowSelectPiece = null;
+    this.curAvailablePos = null;
+
+    let refreshRoundButton = document.getElementById("refreshRound");
+    refreshRoundButton.onclick = (e) => {
+      for (let i = 0; i < this.pieceList.length; i++) {
+        this.pieceList[i].roundRefresh();
+      }
+    };
 
     let select = document.getElementById("select");
 
@@ -22,37 +32,83 @@ class Game {
       let x = e.offsetX || e.layerX;
       let y = e.offsetY || e.layerY;
 
-      for (var i = 0; i < this.pieceList.length; i++) {
-        if (T.pointInRect({ x: x, y: y }, this.pieceList[i])) {
-          console.log("Selected: ", this.pieceList[i].name);
+      if (this.curAvailablePos != null && this.nowSelectPiece != null) {
+        let c = 0;
+        for (c = 0; c < this.curAvailablePos.length; c++) {
+          let rect = {
+            x: this.curAvailablePos[c][0] * 50,
+            y: this.curAvailablePos[c][1] * 50,
+            width: 50,
+            height: 50,
+          };
+          if (Rect.pointInRect({ x: x, y: y }, rect)) {
+            let toPosition = [
+              this.curAvailablePos[c][0],
+              this.curAvailablePos[c][1],
+            ];
+            MoveActions.moveToPosition(
+              this.nowSelectPiece,
+              toPosition,
+              this.pieceList
+            );
+            break;
+          }
+        }
 
-          this.nowSelectPiece = this.pieceList[i];
+        if (c == this.curAvailablePos.length) {
+          Canvas.clear(this.canvasList.main, W, H);
+          this.curAvailablePos = null;
+        }
+      }
+
+      let p = 0;
+      for (p = 0; p < this.pieceList.length; p++) {
+        if (Rect.pointInRect({ x: x, y: y }, this.pieceList[p])) {
+          this.nowSelectPiece = this.pieceList[p];
+          Canvas.clear(this.canvasList.main, W, H);
+
+          this.curAvailablePos = OpDraw.drawAvailableDestinations(
+            this.canvasList.main,
+            this.nowSelectPiece,
+            this.pieceList
+          );
 
           break;
         }
       }
 
-      if (i == this.pieceList.length) {
-        Canvas.clear(this.canvasList.select, 500, 1000);
+      if (p == this.pieceList.length) {
+        Canvas.clear(this.canvasList.main, W, H);
 
+        this.curAvailablePos = null;
         this.nowSelectPiece = null;
       }
     };
   }
 
   start() {
-    for (let i = 0; i < 24; i++) {
-      for (let j = 0; j < 10; j++) {
+    let maxX = Math.floor(W / 50);
+    let maxY = Math.floor(H / 50);
+
+    for (let i = 0; i < maxX; i++) {
+      for (let j = 0; j < maxY; j++) {
         Canvas.drawRect(this.canvasList.map, i * 50, j * 50, 50, 50, "black");
       }
     }
 
     setInterval(() => {
-      //console.log(this.pieceList);
-      Canvas.clear(this.canvasList.main, 1200, 500);
-      Canvas.clear(this.canvasList.piece, 1200, 500);
+      Canvas.clear(this.canvasList.piece, W, H);
       for (let i = 0; i < this.pieceList.length; i++) {
         this.pieceList[i].draw(this.canvasList.piece);
+        Canvas.drawRect(
+          this.canvasList.piece,
+          this.pieceList[i].x,
+          this.pieceList[i].y,
+          50,
+          50,
+          "red",
+          2
+        );
       }
     }, 20);
   }

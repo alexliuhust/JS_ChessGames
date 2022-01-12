@@ -22,8 +22,6 @@ export function moveToPosition(mover, toPosition, blockers) {
     mover.positionX = toPosition[0];
     mover.positionY = toPosition[1];
 
-    console.log("distance", distance);
-
     mover.c_speed -= distance;
   }
 }

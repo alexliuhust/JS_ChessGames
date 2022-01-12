@@ -24,9 +24,12 @@ export const Canvas = {
     cxt.fillRect(x, y, width, height);
   },
   //画边框的方
-  drawRect: function (cxt, x, y, width, height, color) {
+  drawRect: function (cxt, x, y, width, height, color, weight) {
     cxt.strokeStyle = color;
     cxt.lineWidth = 1;
+    if (weight != null) {
+      cxt.lineWidth = weight;
+    }
     cxt.strokeRect(x, y, width, height);
   },
   //画圆
@@ -40,7 +43,7 @@ export const Canvas = {
   },
 };
 
-export const T = {
+export const Rect = {
   //判断一个点是否在一个矩形中
   pointInRect: function (point, rect) {
     if (
