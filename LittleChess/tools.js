@@ -32,7 +32,18 @@ export const Canvas = {
     }
     cxt.strokeRect(x, y, width, height);
   },
-  //画圆
+  //画圆的轮廓
+  drawArc: function (cxt, x, y, radius, color, weight) {
+    cxt.beginPath();
+    cxt.arc(x, y, radius, 0, Math.PI * 2, true);
+    cxt.lineWidth = 2;
+    if (weight != null) {
+      cxt.lineWidth = weight;
+    }
+    cxt.strokeStyle = color;
+    cxt.stroke();
+  },
+  //画填充圆
   //ctx:context2d对象,x:圆心x坐标,y:圆心y坐标,radius:半径,color:颜色
   fillArc: function (cxt, x, y, radius, color) {
     cxt.fillStyle = color;
@@ -40,6 +51,18 @@ export const Canvas = {
     cxt.arc(x, y, radius, 0, Math.PI * 2, true);
     cxt.closePath();
     cxt.fill();
+  },
+  //画线
+  drawLine: function (cxt, x0, y0, x1, y1, color, weight) {
+    cxt.beginPath();
+    cxt.moveTo(x0, y0);
+    cxt.lineTo(x1, y1);
+    cxt.strokeStyle = color;
+    cxt.lineWidth = 2;
+    if (weight != null) {
+      cxt.lineWidth = weight;
+    }
+    cxt.stroke();
   },
 };
 

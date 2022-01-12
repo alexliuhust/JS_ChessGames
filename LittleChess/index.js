@@ -18,6 +18,7 @@ class Game {
     this.timer = 0;
     this.nowSelectPiece = null;
     this.curAvailablePos = null;
+    this.curAvailableTargets = null;
 
     let refreshRoundButton = document.getElementById("refreshRound");
     refreshRoundButton.onclick = (e) => {
@@ -27,11 +28,11 @@ class Game {
     };
 
     let select = document.getElementById("select");
-
     select.onclick = (e) => {
       let x = e.offsetX || e.layerX;
       let y = e.offsetY || e.layerY;
 
+      // Click to move selected piece
       if (this.curAvailablePos != null && this.nowSelectPiece != null) {
         let c = 0;
         for (c = 0; c < this.curAvailablePos.length; c++) {
@@ -61,9 +62,13 @@ class Game {
         }
       }
 
+      // Click to select piece
       let p = 0;
       for (p = 0; p < this.pieceList.length; p++) {
         if (Rect.pointInRect({ x: x, y: y }, this.pieceList[p])) {
+          this.curAvailableTargets = null;
+          this.curAvailablePos = null;
+
           this.nowSelectPiece = this.pieceList[p];
           Canvas.clear(this.canvasList.main, W, H);
 
@@ -80,10 +85,44 @@ class Game {
       if (p == this.pieceList.length) {
         Canvas.clear(this.canvasList.main, W, H);
 
+        this.curAvailableTargets = null;
         this.curAvailablePos = null;
         this.nowSelectPiece = null;
       }
     };
+
+    // Press 'A' to switch between 'attack' and 'move'
+    document.addEventListener("keydown", (e) => {
+      if (e.code == "KeyA") {
+        if (
+          this.curAvailableTargets == null &&
+          this.curAvailablePos != null &&
+          this.nowSelectPiece != null
+        ) {
+          this.curAvailablePos = null;
+          Canvas.clear(this.canvasList.main, W, H);
+
+          this.curAvailableTargets = OpDraw.drawAvailableTargets(
+            this.canvasList.main,
+            this.nowSelectPiece,
+            this.pieceList
+          );
+        } else if (
+          this.curAvailableTargets != null &&
+          this.curAvailablePos == null &&
+          this.nowSelectPiece != null
+        ) {
+          this.curAvailableTargets = null;
+          Canvas.clear(this.canvasList.main, W, H);
+
+          this.curAvailablePos = OpDraw.drawAvailableDestinations(
+            this.canvasList.main,
+            this.nowSelectPiece,
+            this.pieceList
+          );
+        }
+      }
+    });
   }
 
   start() {
@@ -100,14 +139,34 @@ class Game {
       Canvas.clear(this.canvasList.piece, W, H);
       for (let i = 0; i < this.pieceList.length; i++) {
         this.pieceList[i].draw(this.canvasList.piece);
-        Canvas.drawRect(
+        Canvas.drawLine(
           this.canvasList.piece,
-          this.pieceList[i].x,
+          this.pieceList[i].x + 2,
           this.pieceList[i].y,
-          50,
-          50,
-          "red",
-          2
+          this.pieceList[i].x + 2,
+          this.pieceList[i].y + 50,
+          "blue",
+          5
+        );
+        Canvas.drawLine(
+          this.canvasList.piece,
+          this.pieceList[i].x + 48,
+          this.pieceList[i].y,
+          this.pieceList[i].x + 48,
+          this.pieceList[i].y + 50,
+          "blue",
+          5
+        );
+      }
+      if (this.nowSelectPiece != null) {
+        Canvas.drawRect(
+          this.canvasList.main,
+          this.nowSelectPiece.x - 4,
+          this.nowSelectPiece.y - 4,
+          58,
+          58,
+          "rgb(50, 195, 50)",
+          3
         );
       }
     }, 20);
@@ -115,9 +174,10 @@ class Game {
 }
 
 let pieces = [
-  new EmpireArms.SwordInfantry([1, 4]),
   new EmpireArms.Musketeer([9, 5]),
-  new EmpireArms.Vanguard([4, 7]),
+  new EmpireArms.SwordInfantry([6, 3]),
+  new EmpireArms.Vanguard([5, 7]),
+  new EmpireArms.PalaceGuard([18, 4]),
 ];
 
 let game = new Game(pieces);
