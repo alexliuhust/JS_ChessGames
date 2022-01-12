@@ -13,9 +13,9 @@ export const Canvas = {
     else cxt.drawImage(img, x, y, sw, sh, dx, dy, dw, dh);
   },
   //画文字
-  drawText: function (cxt, string, x, y, color) {
+  drawText: function (cxt, string, x, y, color, size) {
     cxt.fillStyle = color;
-    cxt.font = "bold 12px sans-serif";
+    cxt.font = `bold ${size}px sans-serif`;
     cxt.fillText(string, x, y);
   },
   //画填充的方

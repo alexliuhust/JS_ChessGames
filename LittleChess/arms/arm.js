@@ -1,4 +1,5 @@
 import { Canvas, Rect } from "../tools.js";
+import { HpColor, AmmoColor } from "../const.js";
 
 export const DamageTypes = ["melee", "missle", "charge", "bombing", "magic"];
 export const ArmTypes = [
@@ -197,7 +198,7 @@ export class Arm {
     return (100 - realArmor) / 100;
   }
 
-  //
+  // =============== Drawing APIs ===============
 
   set_x_y() {
     this.x = this.positionX * 50;
@@ -211,9 +212,59 @@ export class Arm {
     return [this.positionX, this.positionY];
   }
 
-  draw(cxt) {
+  draw(cxt, groupColor) {
     this.set_x_y();
-    cxt.drawImage(this.img, this.x, this.y);
+    // Draw arm flag
+    Canvas.drawImg(cxt, this.img, this.x, this.y);
+    // Draw stripe color
+    Canvas.drawLine(
+      cxt,
+      this.x + 2,
+      this.y + 7,
+      this.x + 2,
+      this.y + 50,
+      groupColor,
+      5
+    );
+    Canvas.drawLine(
+      cxt,
+      this.x + 48,
+      this.y + 7,
+      this.x + 48,
+      this.y + 50,
+      groupColor,
+      5
+    );
+    // Draw HP and ammo bar
+    let hpBarLength, ammoBarLength;
+    if (this.scale === 1) {
+      hpBarLength = (50 * this.c_singleHP) / this.singleHP;
+    } else {
+      hpBarLength = (50 * this.c_scale) / this.scale;
+    }
+    if (this.ammo === -1) {
+      ammoBarLength = 0;
+    } else {
+      ammoBarLength = (50 * this.c_ammo) / this.ammo;
+    }
+    Canvas.drawLine(
+      cxt,
+      this.x,
+      this.y,
+      this.x + hpBarLength,
+      this.y,
+      HpColor,
+      5
+    );
+    Canvas.drawLine(
+      cxt,
+      this.x,
+      this.y + 5,
+      this.x + ammoBarLength,
+      this.y + 5,
+      AmmoColor,
+      5
+    );
   }
 
   // =============== Public APIs ===============

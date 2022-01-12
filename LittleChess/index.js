@@ -4,7 +4,13 @@ import * as AttackActions from "./actions/attack.js";
 import * as MoveActions from "./actions/move.js";
 import { Canvas, Rect } from "./tools.js";
 import * as OpDraw from "./effect/operationDrawings.js";
-import { GameWidth as W, GameHeight as H } from "./const.js";
+import * as InfoDraw from "./effect/infoDrawings.js";
+import {
+  GameWidth as W,
+  GameHeight as H,
+  InfoWidth as IW,
+  InfoHeight as IH,
+} from "./const.js";
 
 class Game {
   constructor(pieces) {
@@ -13,6 +19,7 @@ class Game {
       main: document.getElementById("main").getContext("2d"),
       piece: document.getElementById("piece").getContext("2d"),
       select: document.getElementById("select").getContext("2d"),
+      info: document.getElementById("info").getContext("2d"),
     };
     this.pieceList = pieces;
     this.timer = 0;
@@ -137,36 +144,23 @@ class Game {
 
     setInterval(() => {
       Canvas.clear(this.canvasList.piece, W, H);
+      Canvas.clear(this.canvasList.info, IW, IH);
       for (let i = 0; i < this.pieceList.length; i++) {
-        this.pieceList[i].draw(this.canvasList.piece);
-        Canvas.drawLine(
-          this.canvasList.piece,
-          this.pieceList[i].x + 2,
-          this.pieceList[i].y,
-          this.pieceList[i].x + 2,
-          this.pieceList[i].y + 50,
-          "blue",
-          5
-        );
-        Canvas.drawLine(
-          this.canvasList.piece,
-          this.pieceList[i].x + 48,
-          this.pieceList[i].y,
-          this.pieceList[i].x + 48,
-          this.pieceList[i].y + 50,
-          "blue",
-          5
-        );
+        this.pieceList[i].draw(this.canvasList.piece, "blue");
       }
       if (this.nowSelectPiece != null) {
         Canvas.drawRect(
           this.canvasList.main,
-          this.nowSelectPiece.x - 4,
-          this.nowSelectPiece.y - 4,
-          58,
-          58,
+          this.nowSelectPiece.x - 7,
+          this.nowSelectPiece.y - 7,
+          64,
+          64,
           "rgb(50, 195, 50)",
           3
+        );
+        InfoDraw.drawInfoForSelectedPiece(
+          this.canvasList.info,
+          this.nowSelectPiece
         );
       }
     }, 20);

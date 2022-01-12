@@ -70,7 +70,7 @@ export function drawAvailableTargets(cxt, self, others) {
       let y = availablePositions[i][1] * 50 + 25;
       let color = "rgb(195, 50, 50)";
       let radius = 30;
-      Canvas.drawArc(cxt, x, y, radius, color);
+      Canvas.drawArc(cxt, x, y, radius - 7, color);
       Canvas.drawLine(cxt, x + radius, y, x - radius, y, color, 3);
       Canvas.drawLine(cxt, x, y + radius, x, y - radius, color, 3);
     }
