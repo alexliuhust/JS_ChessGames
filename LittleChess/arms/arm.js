@@ -59,6 +59,7 @@ export class Arm {
 
     this.name = "";
     this.type = "";
+    this.description = "";
     this.cost = 0;
 
     this.scale = 0;

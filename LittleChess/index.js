@@ -213,10 +213,15 @@ class Game {
 }
 
 let pieces = [
-  new EmpireArms.Musketeer([9, 5]),
-  new EmpireArms.SwordInfantry([6, 3]),
-  new EmpireArms.Vanguard([5, 7]),
-  new EmpireArms.PalaceGuard([18, 4]),
+  new EmpireArms.SwordInfantry([1, 5]),
+  new EmpireArms.PalaceGuard([3, 5]),
+  new EmpireArms.Musketeer([5, 5]),
+  new EmpireArms.MusketRider([7, 5]),
+  new EmpireArms.Vanguard([9, 5]),
+  new EmpireArms.PalaceKnight([11, 5]),
+  new EmpireArms.CannonGroup([13, 5]),
+  new EmpireArms.EmpireMortar([15, 5]),
+  new EmpireArms.SteamTank([17, 5]),
 ];
 
 let game = new Game(pieces);
