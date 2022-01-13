@@ -20,6 +20,7 @@ export function armBombArea(attacker, centerPosition, defenders) {
 
   for (let i = 0; i < defenders.length; i++) {
     let defender = defenders[i];
+    if (defender === attacker) continue;
     ArmPrimary.checkArmClass(defender);
 
     let distance =
@@ -101,7 +102,6 @@ function determineChargingTarget(attacker, defender, defenders) {
   attacker.positionY = realPosition[1];
   attacker.c_speed -= distance;
 
-  console.log(damageType);
   return [damageType, defender];
 }
 

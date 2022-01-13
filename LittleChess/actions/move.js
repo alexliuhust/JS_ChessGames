@@ -33,6 +33,7 @@ export function getRealDestination(mover, toPosition, blockers) {
   if (mover.positionX === toPosition[0]) {
     for (let i = 0; i < blockers.length; i++) {
       let blocker = blockers[i];
+      if (blocker === mover) continue;
       ArmPrimary.checkArmClass(blocker);
 
       if (blocker.positionX === toPosition[0]) {

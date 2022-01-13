@@ -20,6 +20,8 @@ export function drawAvailableDestinations(cxt, self, others) {
     [1, 0],
     [-1, 0],
   ];
+
+  // Collect all available moving destinations
   for (let d = 0; d < 4; d++) {
     for (let i = 1; i <= self.c_speed; i++) {
       let nx = self.positionX + i * dir[d][0];
@@ -31,6 +33,7 @@ export function drawAvailableDestinations(cxt, self, others) {
     }
   }
 
+  // Highlight those available moving destinations
   for (let i = 0; i < availablePositions.length; i++) {
     let x = availablePositions[i][0] * 50 + 5;
     let y = availablePositions[i][1] * 50 + 5;
@@ -43,10 +46,12 @@ export function drawAvailableDestinations(cxt, self, others) {
 export function drawAvailableTargets(cxt, self, others) {
   ArmPrimary.checkArmClass(self);
 
+  // Non-bombing arms
   if (!self.isBombing) {
     let availableTargets = [];
     let availablePositions = [];
 
+    // Collect all available target arms and their chessboard positions
     for (let i = 0; i < others.length; i++) {
       if (others[i] === self) continue;
 
@@ -54,17 +59,25 @@ export function drawAvailableTargets(cxt, self, others) {
         Math.abs(others[i].positionX - self.positionX) +
         Math.abs(others[i].positionY - self.positionY);
 
-      if (
-        (distance === 1 && self.meleeAttack > 0) ||
-        (distance > 1 &&
-          distance <= self.missleRange &&
-          self.missleAttack > 0 &&
-          self.ammo > 0)
-      ) {
+      let aligned =
+        others[i].positionX === self.positionX ||
+        others[i].positionY === self.positionY;
+
+      let meleeAvailable = self.meleeAttack > 0 && distance === 1;
+      let missleAvailable =
+        self.c_missleAttack > 0 &&
+        self.c_ammo > 0 &&
+        distance <= self.c_missleRange;
+      let chargeAvailable =
+        self.c_chargeAttack > 0 && aligned && distance - 1 <= self.c_speed;
+
+      if (meleeAvailable || missleAvailable || chargeAvailable) {
         availableTargets.push(others[i]);
         availablePositions.push([others[i].positionX, others[i].positionY]);
       }
     }
+
+    // Highlight those target arms
     for (let i = 0; i < availablePositions.length; i++) {
       let x = availablePositions[i][0] * 50 + 25;
       let y = availablePositions[i][1] * 50 + 25;

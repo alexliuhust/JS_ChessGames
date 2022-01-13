@@ -34,7 +34,7 @@ function drawHPAndAmmoBars(cxt, piece) {
   }
   if (piece.ammo === -1) {
     ammoBarLength = 0;
-    ammoText = "none";
+    ammoText = "   none";
   } else {
     ammoBarLength = (200 * piece.c_ammo) / piece.ammo;
   }
