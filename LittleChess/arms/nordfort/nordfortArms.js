@@ -6,8 +6,9 @@ export class HallwayGuard extends ArmPrimary.Arm {
 
     // Override original data
 
-    this.name = "HallwayGuard";
+    this.name = "Hallway Guard";
     this.type = "infantry";
+    this.description = "infantry / charge-resist";
     this.cost = 1;
 
     this.scale = 64;
@@ -41,8 +42,9 @@ export class NordExecutioner extends ArmPrimary.Arm {
 
     // Override original data
 
-    this.name = "NordExecutioner";
+    this.name = "Nord Executioner";
     this.type = "infantry";
+    this.description = "armor infantry / anti-infantry";
     this.cost = 1;
 
     this.scale = 56;
@@ -82,8 +84,9 @@ export class CoastDefender extends ArmPrimary.Arm {
 
     // Override original data
 
-    this.name = "CoastDefender";
+    this.name = "Coast Defender";
     this.type = "archers";
+    this.description = "archers / charge-resist";
     this.cost = 1;
 
     this.scale = 48;
@@ -124,7 +127,8 @@ export class CoastDefenderShield extends CoastDefender {
 
     // Override original data
 
-    this.name = "CoastDefender(Shield)";
+    this.name = "Coast Defender (Shield)";
+    this.description = "shield archers / charge-resist";
     this.cost = 1;
 
     this.speed = 3;
@@ -145,8 +149,9 @@ export class BallistaSquad extends ArmPrimary.Arm {
 
     // Override original data
 
-    this.name = "BallistaSquad";
+    this.name = "Ballista Squad";
     this.type = "archers";
+    this.description = "archers / anti-armor";
     this.cost = 2;
 
     this.scale = 32;
@@ -183,8 +188,9 @@ export class FlameKnight extends ArmPrimary.Arm {
 
     // Override original data
 
-    this.name = "FlameKnight";
+    this.name = "Flame Knight";
     this.type = "cavalry";
+    this.description = "charging cavalry / anti-armor";
     this.cost = 1;
 
     this.scale = 32;
@@ -224,8 +230,9 @@ export class CoralCavalry extends ArmPrimary.Arm {
 
     // Override original data
 
-    this.name = "CoralCavalry";
+    this.name = "Coral Cavalry";
     this.type = "cavalry";
+    this.description = "charging cavalry / shield";
     this.cost = 1;
 
     this.scale = 32;
@@ -253,8 +260,9 @@ export class GiantBallista extends ArmPrimary.Arm {
 
     // Override original data
 
-    this.name = "GiantBallista";
+    this.name = "Giant Ballista";
     this.type = "artillery";
+    this.description = "artillery / anti-armor";
     this.cost = 5;
 
     this.scale = 7;
@@ -290,8 +298,9 @@ export class StoneGiant extends ArmPrimary.Arm {
 
     // Override original data
 
-    this.name = "StoneGiant";
+    this.name = "Stone Giant";
     this.type = "monster";
+    this.description = "giant / anti-infantry";
     this.cost = 6;
 
     this.scale = 1;
