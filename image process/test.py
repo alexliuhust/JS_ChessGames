@@ -30,6 +30,6 @@ def risize_images(from_dir, to_dir, size):
         cv2.imwrite(to_dir + img_name + ".png", img)
 
 
-risize_images('./raw_images/empire', './images/empire/', 50)
+risize_images('./raw_images/nordfort', './images/nordfort/', 50)
 
 
