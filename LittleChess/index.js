@@ -26,8 +26,17 @@ class Game {
     this.nowSelectPiece = null;
     this.curAvailablePos = null;
     this.curAvailableTargets = null;
+    this.currentStatus = "no selection";
 
-    this.preventSelect = false;
+    this.clearWhenNoSelection = function () {
+      this.nowSelectPiece = null;
+      this.curAvailablePos = null;
+      this.curAvailableTargets = null;
+      this.currentStatus = "no selection";
+      Canvas.clear(this.canvasList.main, W, H);
+    };
+
+    // =================== Refreshing Round Button ===================
 
     let refreshRoundButton = document.getElementById("refreshRound");
     refreshRoundButton.onclick = (e) => {
@@ -36,51 +45,41 @@ class Game {
       }
     };
 
+    // =================== Mouse Clicking Events ===================
+
     let select = document.getElementById("select");
     select.onclick = (e) => {
       let x = e.offsetX || e.layerX;
       let y = e.offsetY || e.layerY;
 
-      // Click to let the selected piece attack the target
-      if (
-        this.curAvailableTargets != null &&
-        this.nowSelectPiece != null &&
-        !this.nowSelectPiece.hasAttacked &&
-        !this.preventSelect
-      ) {
-        let c = 0;
-        for (c = 0; c < this.curAvailableTargets.length; c++) {
-          let target = this.curAvailableTargets[c];
-          if (Rect.pointInRect({ x: x, y: y }, target)) {
-            AttackActions.armAttackArm(
+      // Click to select a piece and make it ready to move
+      if (this.currentStatus === "no selection") {
+        let len = this.pieceList.length;
+        let p = 0;
+        for (p = 0; p < len; p++) {
+          if (Rect.pointInRect({ x: x, y: y }, this.pieceList[p])) {
+            this.clearWhenNoSelection();
+            this.nowSelectPiece = this.pieceList[p];
+            this.curAvailablePos = OpDraw.drawAvailableDestinations(
+              this.canvasList.main,
               this.nowSelectPiece,
-              target,
               this.pieceList
             );
-            this.preventSelect = true;
-            this.curAvailableTargets = null;
-            this.curAvailablePos = null;
-            this.nowSelectPiece = null;
-            Canvas.clear(this.canvasList.main, W, H);
+            this.currentStatus = "ready to move";
             break;
           }
         }
 
-        if (
-          this.curAvailableTargets != null &&
-          c === this.curAvailableTargets.length
-        ) {
-          this.curAvailableTargets = null;
-          this.curAvailablePos = null;
-          this.nowSelectPiece = null;
-          Canvas.clear(this.canvasList.main, W, H);
+        if (p === len) {
+          this.clearWhenNoSelection();
         }
       }
 
-      // Click to move selected piece
-      if (this.curAvailablePos != null && this.nowSelectPiece != null) {
+      // Click to move the selected piece
+      else if (this.currentStatus === "ready to move") {
+        let len = this.curAvailablePos.length;
         let c = 0;
-        for (c = 0; c < this.curAvailablePos.length; c++) {
+        for (c = 0; c < len; c++) {
           let rect = {
             x: this.curAvailablePos[c][0] * 50,
             y: this.curAvailablePos[c][1] * 50,
@@ -97,46 +96,43 @@ class Game {
               toPosition,
               this.pieceList
             );
+            this.clearWhenNoSelection();
             break;
           }
         }
 
-        if (c === this.curAvailablePos.length) {
-          Canvas.clear(this.canvasList.main, W, H);
-          this.curAvailablePos = null;
+        if (c === len) {
+          this.clearWhenNoSelection();
         }
       }
 
-      // Click to select piece
-      if (!this.preventSelect) {
-        let p = 0;
-        for (p = 0; p < this.pieceList.length; p++) {
-          if (Rect.pointInRect({ x: x, y: y }, this.pieceList[p])) {
-            this.curAvailableTargets = null;
-            this.curAvailablePos = null;
-
-            this.nowSelectPiece = this.pieceList[p];
-            Canvas.clear(this.canvasList.main, W, H);
-
-            this.curAvailablePos = OpDraw.drawAvailableDestinations(
-              this.canvasList.main,
+      // Click to let the selected piece attack the target
+      else if (
+        this.currentStatus === "ready to attack" &&
+        !this.nowSelectPiece.hasAttacked
+      ) {
+        let len = this.curAvailableTargets.length;
+        let c = 0;
+        for (c = 0; c < len; c++) {
+          let target = this.curAvailableTargets[c];
+          if (Rect.pointInRect({ x: x, y: y }, target)) {
+            AttackActions.armAttackArm(
               this.nowSelectPiece,
+              target,
               this.pieceList
             );
-
+            this.clearWhenNoSelection();
             break;
           }
         }
 
-        if (p === this.pieceList.length) {
-          Canvas.clear(this.canvasList.main, W, H);
-
-          this.curAvailableTargets = null;
-          this.curAvailablePos = null;
-          this.nowSelectPiece = null;
+        if (c === len) {
+          this.clearWhenNoSelection();
         }
       }
     };
+
+    // =================== Key Down Events ===================
 
     // Press 'A' to switch between 'attack' and 'move'
     document.addEventListener("keydown", (e) => {
@@ -145,27 +141,24 @@ class Game {
         this.nowSelectPiece != null &&
         !this.nowSelectPiece.hasAttacked
       ) {
-        if (this.curAvailableTargets == null && this.curAvailablePos != null) {
-          this.curAvailablePos = null;
+        if (this.currentStatus === "ready to move") {
           Canvas.clear(this.canvasList.main, W, H);
-
+          this.curAvailablePos = null;
           this.curAvailableTargets = OpDraw.drawAvailableTargets(
             this.canvasList.main,
             this.nowSelectPiece,
             this.pieceList
           );
-        } else if (
-          this.curAvailableTargets != null &&
-          this.curAvailablePos == null
-        ) {
-          this.curAvailableTargets = null;
+          this.currentStatus = "ready to attack";
+        } else if (this.currentStatus === "ready to attack") {
           Canvas.clear(this.canvasList.main, W, H);
-
+          this.curAvailableTargets = null;
           this.curAvailablePos = OpDraw.drawAvailableDestinations(
             this.canvasList.main,
             this.nowSelectPiece,
             this.pieceList
           );
+          this.currentStatus = "ready to move";
         }
       }
     });
@@ -181,8 +174,8 @@ class Game {
       }
     }
 
+    // Main game loop, every 20 ms
     setInterval(() => {
-      this.preventSelect = false;
       Canvas.clear(this.canvasList.piece, W, H);
       Canvas.clear(this.canvasList.info, IW, IH);
       for (let i = this.pieceList.length - 1; i >= 0; i--) {
@@ -213,15 +206,31 @@ class Game {
 }
 
 let pieces = [
-  new EmpireArms.SwordInfantry([1, 5]),
-  new EmpireArms.PalaceGuard([3, 5]),
-  new EmpireArms.Musketeer([5, 5]),
-  new EmpireArms.MusketRider([7, 5]),
-  new EmpireArms.Vanguard([9, 5]),
-  new EmpireArms.PalaceKnight([11, 5]),
-  new EmpireArms.CannonGroup([13, 5]),
-  new EmpireArms.EmpireMortar([15, 5]),
-  new EmpireArms.SteamTank([17, 5]),
+  new EmpireArms.EmpireMortar([4, 4]),
+
+  new EmpireArms.SwordInfantry([15, 4]),
+  new EmpireArms.SwordInfantry([13, 6]),
+  new EmpireArms.SwordInfantry([18, 6]),
+
+  // new EmpireArms.SwordInfantry([1, 5]),
+  // new EmpireArms.PalaceGuard([3, 5]),
+  // new EmpireArms.Musketeer([5, 5]),
+  // new EmpireArms.MusketRider([7, 5]),
+  // new EmpireArms.Vanguard([9, 5]),
+  // new EmpireArms.PalaceKnight([11, 5]),
+  // new EmpireArms.CannonGroup([13, 5]),
+  // new EmpireArms.EmpireMortar([15, 5]),
+  // new EmpireArms.SteamTank([17, 5]),
+
+  // new NordFortArms.HallwayGuard([1, 7]),
+  // new NordFortArms.NordExecutioner([3, 7]),
+  // new NordFortArms.CoastDefender([5, 7]),
+  // new NordFortArms.CoastDefenderShield([7, 7]),
+  // new NordFortArms.BallistaSquad([9, 7]),
+  // new NordFortArms.FlameKnight([11, 7]),
+  // new NordFortArms.CoralCavalry([13, 7]),
+  // new NordFortArms.GiantBallista([15, 7]),
+  // new NordFortArms.StoneGiant([17, 7]),
 ];
 
 let game = new Game(pieces);

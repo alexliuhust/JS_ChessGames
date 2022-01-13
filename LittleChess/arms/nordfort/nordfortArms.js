@@ -3,7 +3,7 @@ import * as ArmPrimary from "../arm.js";
 export class HallwayGuard extends ArmPrimary.Arm {
   constructor(value) {
     super(value);
-
+    this.img = document.getElementById("HallwayGuard_img");
     // Override original data
 
     this.name = "Hallway Guard";
@@ -39,7 +39,7 @@ export class HallwayGuard extends ArmPrimary.Arm {
 export class NordExecutioner extends ArmPrimary.Arm {
   constructor(value) {
     super(value);
-
+    this.img = document.getElementById("NordExecutioner_img");
     // Override original data
 
     this.name = "Nord Executioner";
@@ -81,7 +81,7 @@ export class NordExecutioner extends ArmPrimary.Arm {
 export class CoastDefender extends ArmPrimary.Arm {
   constructor(value) {
     super(value);
-
+    this.img = document.getElementById("CoastDefender_img");
     // Override original data
 
     this.name = "Coast Defender";
@@ -121,19 +121,28 @@ export class CoastDefender extends ArmPrimary.Arm {
   }
 }
 
-export class CoastDefenderShield extends CoastDefender {
+export class CoastDefenderShield extends ArmPrimary.Arm {
   constructor(value) {
     super(value);
-
+    this.img = document.getElementById("CoastDefenderShield_img");
     // Override original data
 
     this.name = "Coast Defender (Shield)";
+    this.type = "archers";
     this.description = "shield archers / charge-resist";
     this.cost = 1;
 
+    this.scale = 48;
+    this.singleHP = 50;
     this.speed = 3;
 
+    this.meleeArmor = 0;
     this.missleArmor = 50;
+    this.chargeArmor = 70;
+
+    this.meleeAttack = 32;
+    this.missleAttack = 40;
+    this.missleRange = 6;
 
     this.loadRealtimeProps();
   }
@@ -141,12 +150,24 @@ export class CoastDefenderShield extends CoastDefender {
   // =============== Override private methods ===============
 
   // =============== Override Public APIs ===============
+
+  getAntiArmor(damageType, targetArm) {
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmClass(targetArm);
+
+    let antiArmor = 0;
+    if (damageType !== "melee") {
+      antiArmor += 16;
+    }
+
+    return antiArmor;
+  }
 }
 
 export class BallistaSquad extends ArmPrimary.Arm {
   constructor(value) {
     super(value);
-
+    this.img = document.getElementById("BallistaSquad_img");
     // Override original data
 
     this.name = "Ballista Squad";
@@ -185,7 +206,7 @@ export class BallistaSquad extends ArmPrimary.Arm {
 export class FlameKnight extends ArmPrimary.Arm {
   constructor(value) {
     super(value);
-
+    this.img = document.getElementById("FlameKnight_img");
     // Override original data
 
     this.name = "Flame Knight";
@@ -227,7 +248,7 @@ export class FlameKnight extends ArmPrimary.Arm {
 export class CoralCavalry extends ArmPrimary.Arm {
   constructor(value) {
     super(value);
-
+    this.img = document.getElementById("CoralCavalry_img");
     // Override original data
 
     this.name = "Coral Cavalry";
@@ -257,7 +278,7 @@ export class CoralCavalry extends ArmPrimary.Arm {
 export class GiantBallista extends ArmPrimary.Arm {
   constructor(value) {
     super(value);
-
+    this.img = document.getElementById("GiantBallista_img");
     // Override original data
 
     this.name = "Giant Ballista";
@@ -295,7 +316,7 @@ export class GiantBallista extends ArmPrimary.Arm {
 export class StoneGiant extends ArmPrimary.Arm {
   constructor(value) {
     super(value);
-
+    this.img = document.getElementById("StoneGiant_img");
     // Override original data
 
     this.name = "Stone Giant";
