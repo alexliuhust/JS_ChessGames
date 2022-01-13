@@ -4,6 +4,12 @@ import { GameWidth as W, GameHeight as H } from "../const.js";
 
 const maxX = Math.floor(W / 50);
 const maxY = Math.floor(H / 50);
+const dir = [
+  [0, 1],
+  [0, -1],
+  [1, 0],
+  [-1, 0],
+];
 
 export function drawAvailableDestinations(cxt, self, others) {
   ArmPrimary.checkArmClass(self);
@@ -14,12 +20,6 @@ export function drawAvailableDestinations(cxt, self, others) {
   }
 
   let availablePositions = [];
-  let dir = [
-    [0, 1],
-    [0, -1],
-    [1, 0],
-    [-1, 0],
-  ];
 
   // Collect all available moving destinations
   for (let d = 0; d < 4; d++) {
@@ -89,14 +89,47 @@ export function drawAvailableTargets(cxt, self, others) {
     }
 
     return availableTargets;
-  }
+  } else {
+    let availableBombingCenters = [];
 
-  return null;
+    // Collect all available bombing centers
+    let sx = self.positionX;
+    let sy = self.positionY;
+    let range = self.c_missleRange;
+    for (let x = -range; x <= range; x++) {
+      let restRange = range - Math.abs(x);
+      for (let y = -restRange; y <= restRange; y++) {
+        let nx = sx + x;
+        let ny = sy + y;
+        let distance = Math.abs(x) + Math.abs(y);
+        if (
+          (nx === sx && ny === sy) ||
+          distance <= Math.floor(range / 3) ||
+          !checkAvailablePosition(nx, ny, null)
+        ) {
+          continue;
+        }
+        availableBombingCenters.push([nx, ny]);
+      }
+    }
+
+    // Highlight those available bombing centers
+    for (let i = 0; i < availableBombingCenters.length; i++) {
+      let x = availableBombingCenters[i][0] * 50 + 10;
+      let y = availableBombingCenters[i][1] * 50 + 10;
+      Canvas.fillRect(cxt, x, y, 30, 30, "rgb(225, 100, 100)");
+    }
+
+    return availableBombingCenters;
+  }
 }
 
 function checkAvailablePosition(nx, ny, seenothers) {
   let str = `${nx},${ny}`;
-  if (nx < 0 || nx >= maxX || ny < 0 || ny >= maxY || seenothers.has(str)) {
+  if (nx < 0 || nx >= maxX || ny < 0 || ny >= maxY) {
+    return false;
+  }
+  if (seenothers != null && seenothers.has(str)) {
     return false;
   }
   return true;

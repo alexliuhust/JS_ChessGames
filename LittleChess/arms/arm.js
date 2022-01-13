@@ -99,11 +99,11 @@ export class Arm {
       this.c_missleRadius = this.missleRadius;
 
       if (this.type === "archers") {
-        this.ammo = 45;
+        this.ammo = 24;
       } else if (this.type === "cavalry" && this.missleAttack != 0) {
-        this.ammo = 36;
+        this.ammo = 18;
       } else if (this.type === "artillery") {
-        this.ammo = 25;
+        this.ammo = 12;
       }
       this.c_ammo = this.ammo;
     };
@@ -156,7 +156,6 @@ export class Arm {
           let min = this.c_missleAttack;
           let max = Math.round(min * 1.25);
           singleDamage = Math.floor(Math.random() * (max - min + 1) + min);
-          this.c_ammo--;
         }
         break;
 

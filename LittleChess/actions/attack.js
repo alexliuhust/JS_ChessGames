@@ -29,9 +29,17 @@ export function armBombArea(attacker, centerPosition, defenders) {
 
     if (distance <= attacker.c_missleRadius) {
       let att_totalRowDamage = attacker.getRawTotalDamage(damageType, defender);
+      if (distance === 1) {
+        att_totalRowDamage = Math.ceil(att_totalRowDamage * 0.7);
+      } else if (distance > 1) {
+        att_totalRowDamage = Math.ceil(att_totalRowDamage * 0.4);
+      }
       defender.decreaseScale(damageType, 0, att_totalRowDamage);
     }
   }
+
+  attacker.c_ammo--;
+  attacker.hasAttacked = true;
 }
 
 export function armAttackArm(attacker, defender, defenders) {

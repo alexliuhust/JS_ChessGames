@@ -329,7 +329,7 @@ export class EmpireMortar extends ArmPrimary.Arm {
     this.speed = 2;
 
     this.missleAttack = 190;
-    this.missleRange = 12;
+    this.missleRange = 10;
     this.missleRadius = 2;
     this.isBombing = true;
 
@@ -366,7 +366,7 @@ export class SteamTank extends ArmPrimary.Arm {
 
     this.loadRealtimeProps();
 
-    this.ammo = 25;
+    this.ammo = 20;
     this.c_ammo = this.ammo;
   }
 

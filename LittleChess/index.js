@@ -69,10 +69,7 @@ class Game {
             break;
           }
         }
-
-        if (p === len) {
-          this.clearWhenNoSelection();
-        }
+        if (p === len) this.clearWhenNoSelection();
       }
 
       // Click to move the selected piece
@@ -100,10 +97,7 @@ class Game {
             break;
           }
         }
-
-        if (c === len) {
-          this.clearWhenNoSelection();
-        }
+        if (c === len) this.clearWhenNoSelection();
       }
 
       // Click to let the selected piece attack the target
@@ -111,23 +105,48 @@ class Game {
         this.currentStatus === "ready to attack" &&
         !this.nowSelectPiece.hasAttacked
       ) {
-        let len = this.curAvailableTargets.length;
-        let c = 0;
-        for (c = 0; c < len; c++) {
-          let target = this.curAvailableTargets[c];
-          if (Rect.pointInRect({ x: x, y: y }, target)) {
-            AttackActions.armAttackArm(
-              this.nowSelectPiece,
-              target,
-              this.pieceList
-            );
-            this.clearWhenNoSelection();
-            break;
+        // Non-bombing arms
+        if (!this.nowSelectPiece.isBombing) {
+          let len = this.curAvailableTargets.length;
+          let c = 0;
+          for (c = 0; c < len; c++) {
+            let target = this.curAvailableTargets[c];
+            if (Rect.pointInRect({ x: x, y: y }, target)) {
+              AttackActions.armAttackArm(
+                this.nowSelectPiece,
+                target,
+                this.pieceList
+              );
+              this.clearWhenNoSelection();
+              break;
+            }
           }
+          if (c === len) this.clearWhenNoSelection();
         }
 
-        if (c === len) {
-          this.clearWhenNoSelection();
+        // Bombing arms
+        else {
+          let len = this.curAvailableTargets.length;
+          let c = 0;
+          for (c = 0; c < len; c++) {
+            let center = this.curAvailableTargets[c];
+            let rect = {
+              x: center[0] * 50,
+              y: center[1] * 50,
+              width: 50,
+              height: 50,
+            };
+            if (Rect.pointInRect({ x: x, y: y }, rect)) {
+              AttackActions.armBombArea(
+                this.nowSelectPiece,
+                center,
+                this.pieceList
+              );
+              this.clearWhenNoSelection();
+              break;
+            }
+          }
+          if (c === len) this.clearWhenNoSelection();
         }
       }
     };
@@ -205,12 +224,36 @@ class Game {
   }
 }
 
+let pos = [
+  [10, 2],
+  [9, 3],
+  [10, 4],
+  [11, 1],
+  [11, 5],
+  [12, 2],
+  [13, 3],
+  [12, 4],
+];
 let pieces = [
-  new EmpireArms.EmpireMortar([4, 4]),
+  new EmpireArms.EmpireMortar([11, 10]),
 
-  new EmpireArms.SwordInfantry([15, 4]),
-  new EmpireArms.SwordInfantry([13, 6]),
-  new EmpireArms.SwordInfantry([18, 6]),
+  new EmpireArms.SwordInfantry(pos[0]),
+  new EmpireArms.PalaceGuard(pos[1]),
+  new EmpireArms.Musketeer(pos[2]),
+  new EmpireArms.MusketRider(pos[3]),
+  new EmpireArms.Vanguard(pos[4]),
+  new EmpireArms.PalaceKnight(pos[5]),
+  new EmpireArms.SteamTank(pos[6]),
+  new EmpireArms.SteamTank(pos[7]),
+
+  // new NordFortArms.HallwayGuard(pos[0]),
+  // new NordFortArms.NordExecutioner(pos[1]),
+  // new NordFortArms.CoastDefender(pos[2]),
+  // new NordFortArms.CoastDefenderShield(pos[3]),
+  // new NordFortArms.BallistaSquad(pos[4]),
+  // new NordFortArms.FlameKnight(pos[5]),
+  // new NordFortArms.CoralCavalry(pos[6]),
+  // new NordFortArms.StoneGiant(pos[7]),
 
   // new EmpireArms.SwordInfantry([1, 5]),
   // new EmpireArms.PalaceGuard([3, 5]),
