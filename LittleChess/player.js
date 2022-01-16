@@ -5,7 +5,7 @@ import * as OpDraw from "./prompts/operationDrawings.js";
 import * as InfoDraw from "./prompts/infoDrawings.js";
 import { GameWidth as W, GameHeight as H } from "./const.js";
 
-export class Game {
+export class Player {
   constructor(pieces, enemies, color, _canvaslist) {
     this.timer = 0;
     this.isMyRound = color === "blue";

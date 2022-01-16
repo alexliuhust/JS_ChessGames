@@ -1,4 +1,4 @@
-import { Game } from "./game.js";
+import { Player } from "./player.js";
 import { Canvas, Rect } from "./tools.js";
 import {
   GameWidth as W,
@@ -42,8 +42,8 @@ let pieces2 = [
   new NordFortArms.StoneGiant(pos[7]),
 ];
 
-let player1 = new Game(pieces1, pieces2, "blue", canvasList);
-let player2 = new Game(pieces2, pieces1, "red", canvasList);
+let player1 = new Player(pieces1, pieces2, "blue", canvasList);
+let player2 = new Player(pieces2, pieces1, "red", canvasList);
 
 function start() {
   let maxX = Math.floor(W / 50);
@@ -69,15 +69,21 @@ function start() {
 let endRoundForBlue = document.getElementById("endRoundForBlue");
 let endRoundForRed = document.getElementById("endRoundForRed");
 endRoundForBlue.onclick = (e) => {
+  endRoundForBlue.style.backgroundColor = "";
+  endRoundForRed.style.backgroundColor = "red";
   player1.isMyRound = false;
   player2.isMyRound = true;
+  player1.clearWhenNoSelection();
   for (let i = 0; i < player2.pieceList.length; i++) {
     player2.pieceList[i].roundRefresh();
   }
 };
 endRoundForRed.onclick = (e) => {
+  endRoundForBlue.style.backgroundColor = "blue";
+  endRoundForRed.style.backgroundColor = "";
   player1.isMyRound = true;
   player2.isMyRound = false;
+  player2.clearWhenNoSelection();
   for (let i = 0; i < player1.pieceList.length; i++) {
     player1.pieceList[i].roundRefresh();
   }
