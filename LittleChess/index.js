@@ -8,6 +8,7 @@ import {
 } from "./const.js";
 import * as EmpireArms from "./arms/empire/empireArms.js";
 import * as NordFortArms from "./arms/nordfort/nordfortArms.js";
+import * as DimwoodsArms from "./arms/dimwoods/dimwoodsArms.js";
 
 const canvasList = {
   map: document.getElementById("map").getContext("2d"),
@@ -17,7 +18,24 @@ const canvasList = {
   info: document.getElementById("info").getContext("2d"),
 };
 
-let pos = [
+let pos1 = [
+  [5, 1],
+  [5, 3],
+  [5, 5],
+  [5, 7],
+  [5, 9],
+  [5, 11],
+  [5, 13],
+  [6, 1],
+  [6, 3],
+  [6, 5],
+  [6, 7],
+  [6, 9],
+  [6, 11],
+  [6, 13],
+];
+
+let pos2 = [
   [10, 2],
   [9, 3],
   [10, 4],
@@ -27,19 +45,24 @@ let pos = [
   [13, 3],
   [12, 4],
 ];
-let pieces1 = [
-  new EmpireArms.EmpireMortar([11, 10]),
 
-  new EmpireArms.SwordInfantry(pos[0]),
-  new EmpireArms.PalaceGuard(pos[1]),
-  new EmpireArms.Musketeer(pos[2]),
-  new EmpireArms.MusketRider(pos[3]),
+let pieces1 = [
+  new DimwoodsArms.WildKiller(pos1[0]),
+  new DimwoodsArms.WildKiller(pos1[1]),
+  new DimwoodsArms.WildKiller(pos1[2]),
+  new DimwoodsArms.WildKiller(pos1[3]),
+  new DimwoodsArms.WildKiller(pos1[4]),
+  new DimwoodsArms.WildKiller(pos1[5]),
+  new DimwoodsArms.WildKiller(pos1[6]),
 ];
 let pieces2 = [
-  new NordFortArms.BallistaSquad(pos[4]),
-  new NordFortArms.FlameKnight(pos[5]),
-  new NordFortArms.CoralCavalry(pos[6]),
-  new NordFortArms.StoneGiant(pos[7]),
+  new EmpireArms.SwordInfantry(pos1[7]),
+  new EmpireArms.PalaceGuard(pos1[8]),
+  new EmpireArms.PalaceKnight(pos1[9]),
+  new NordFortArms.NordExecutioner(pos1[10]),
+  new NordFortArms.HallwayGuard(pos1[11]),
+  new DimwoodsArms.WoodsGuard(pos1[12]),
+  new DimwoodsArms.Dryad(pos1[13]),
 ];
 
 let player1 = new Player(pieces1, pieces2, "blue", canvasList);
@@ -101,16 +124,16 @@ select.onclick = (e) => {
 
 start();
 
-// new EmpireArms.Vanguard(pos[4]),
-// new EmpireArms.PalaceKnight(pos[5]),
-// new EmpireArms.SteamTank(pos[6]),
-// new EmpireArms.SteamTank(pos[7]),
+// new EmpireArms.Vanguard(pos2[4]),
+// new EmpireArms.PalaceKnight(pos2[5]),
+// new EmpireArms.SteamTank(pos2[6]),
+// new EmpireArms.SteamTank(pos2[7]),
 
-// new NordFortArms.HallwayGuard(pos[0]),
-// new NordFortArms.NordExecutioner(pos[1]),
-// new NordFortArms.CoastDefender(pos[2]),
-// new NordFortArms.CoastDefenderShield(pos[3]),
-// new NordFortArms.BallistaSquad(pos[4]),
-// new NordFortArms.FlameKnight(pos[5]),
-// new NordFortArms.CoralCavalry(pos[6]),
-// new NordFortArms.StoneGiant(pos[7]),
+// new NordFortArms.HallwayGuard(pos2[0]),
+// new NordFortArms.NordExecutioner(pos2[1]),
+// new NordFortArms.CoastDefender(pos2[2]),
+// new NordFortArms.CoastDefenderShield(pos2[3]),
+// new NordFortArms.BallistaSquad(pos2[4]),
+// new NordFortArms.FlameKnight(pos2[5]),
+// new NordFortArms.CoralCavalry(pos2[6]),
+// new NordFortArms.StoneGiant(pos2[7]),

@@ -6,6 +6,7 @@ export const ArmTypes = [
   "infantry",
   "cavalry",
   "archers",
+  "monster-infantry",
   "monster",
   "artillery",
   "mages",
