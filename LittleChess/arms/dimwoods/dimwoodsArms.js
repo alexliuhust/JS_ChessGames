@@ -44,14 +44,14 @@ export class WildKiller extends ArmPrimary.Arm {
 
     this.name = "Wild Killer";
     this.type = "infantry";
-    this.description = "double-blade infantry / melee master";
+    this.description = "infantry / melee master";
     this.cost = 1;
 
     this.scale = 64;
     this.singleHP = 40;
     this.speed = 5;
 
-    this.meleeArmor = 80;
+    this.meleeArmor = 50;
     this.missleArmor = 0;
     this.chargeArmor = 0;
 
