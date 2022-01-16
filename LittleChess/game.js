@@ -3,24 +3,18 @@ import * as MoveActions from "./actions/move.js";
 import { Canvas, Rect } from "./tools.js";
 import * as OpDraw from "./prompts/operationDrawings.js";
 import * as InfoDraw from "./prompts/infoDrawings.js";
-import {
-  GameWidth as W,
-  GameHeight as H,
-  InfoWidth as IW,
-  InfoHeight as IH,
-} from "./const.js";
+import { GameWidth as W, GameHeight as H } from "./const.js";
 
 export class Game {
-  constructor(pieces) {
-    this.canvasList = {
-      map: document.getElementById("map").getContext("2d"),
-      main: document.getElementById("main").getContext("2d"),
-      piece: document.getElementById("piece").getContext("2d"),
-      select: document.getElementById("select").getContext("2d"),
-      info: document.getElementById("info").getContext("2d"),
-    };
-    this.pieceList = pieces;
+  constructor(pieces, enemies, color, _canvaslist) {
     this.timer = 0;
+    this.isMyRound = color === "blue";
+    this.canvasList = _canvaslist;
+
+    this.playerColor = color;
+    this.pieceList = pieces;
+    this.enemyList = enemies;
+
     this.nowSelectPiece = null;
     this.curAvailablePos = null;
     this.curAvailableTargets = null;
@@ -34,19 +28,36 @@ export class Game {
       Canvas.clear(this.canvasList.main, W, H);
     };
 
-    // =================== Refreshing Round Button ===================
+    // =================== Drawing ===================
+    this.drawForOneLoop = function () {
+      // delete those dead arms
+      for (let i = this.pieceList.length - 1; i >= 0; i--) {
+        if (!this.pieceList[i].isAlive) {
+          this.pieceList.splice(i, 1);
+        }
+      }
 
-    let refreshRoundButton = document.getElementById("refreshRound");
-    refreshRoundButton.onclick = (e) => {
+      // draw the comrade pieces
       for (let i = 0; i < this.pieceList.length; i++) {
-        this.pieceList[i].roundRefresh();
+        this.pieceList[i].draw(this.canvasList.piece, this.playerColor);
+      }
+
+      // draw selection effect
+      if (this.nowSelectPiece != null) {
+        OpDraw.drawSelectionRect(this.canvasList.main, this.nowSelectPiece);
+        InfoDraw.drawInfoForSelectedPiece(
+          this.canvasList.info,
+          this.nowSelectPiece
+        );
       }
     };
 
     // =================== Mouse Clicking Events ===================
+    this.clickMouse = function (e) {
+      if (!this.isMyRound) {
+        return;
+      }
 
-    let select = document.getElementById("select");
-    select.onclick = (e) => {
       let x = e.offsetX || e.layerX;
       let y = e.offsetY || e.layerY;
 
@@ -58,10 +69,11 @@ export class Game {
           if (Rect.pointInRect({ x: x, y: y }, this.pieceList[p])) {
             this.clearWhenNoSelection();
             this.nowSelectPiece = this.pieceList[p];
+            let blockers = this.pieceList.concat(this.enemyList);
             this.curAvailablePos = OpDraw.drawAvailableDestinations(
               this.canvasList.main,
               this.nowSelectPiece,
-              this.pieceList
+              blockers
             );
             this.currentStatus = "ready to move";
             break;
@@ -86,10 +98,11 @@ export class Game {
               this.curAvailablePos[c][0],
               this.curAvailablePos[c][1],
             ];
+            let blockers = this.pieceList.concat(this.enemyList);
             MoveActions.moveToPosition(
               this.nowSelectPiece,
               toPosition,
-              this.pieceList
+              blockers
             );
             this.clearWhenNoSelection();
             break;
@@ -113,7 +126,7 @@ export class Game {
               AttackActions.armAttackArm(
                 this.nowSelectPiece,
                 target,
-                this.pieceList
+                this.enemyList
               );
               this.clearWhenNoSelection();
               break;
@@ -134,12 +147,9 @@ export class Game {
               width: 50,
               height: 50,
             };
+            let affected = this.pieceList.concat(this.enemyList);
             if (Rect.pointInRect({ x: x, y: y }, rect)) {
-              AttackActions.armBombArea(
-                this.nowSelectPiece,
-                center,
-                this.pieceList
-              );
+              AttackActions.armBombArea(this.nowSelectPiece, center, affected);
               this.clearWhenNoSelection();
               break;
             }
@@ -150,9 +160,8 @@ export class Game {
     };
 
     // =================== Key Down Events ===================
-
-    // Press 'A' to switch between 'attack' and 'move'
     document.addEventListener("keydown", (e) => {
+      // Press 'A' to switch between 'attack' and 'move'
       if (
         e.code == "KeyA" &&
         this.nowSelectPiece != null &&
@@ -164,7 +173,7 @@ export class Game {
           this.curAvailableTargets = OpDraw.drawAvailableTargets(
             this.canvasList.main,
             this.nowSelectPiece,
-            this.pieceList
+            this.enemyList
           );
           this.currentStatus = "ready to attack";
         } else if (this.currentStatus === "ready to attack") {
@@ -173,51 +182,11 @@ export class Game {
           this.curAvailablePos = OpDraw.drawAvailableDestinations(
             this.canvasList.main,
             this.nowSelectPiece,
-            this.pieceList
+            this.enemyList
           );
           this.currentStatus = "ready to move";
         }
       }
     });
-  }
-
-  start() {
-    let maxX = Math.floor(W / 50);
-    let maxY = Math.floor(H / 50);
-
-    for (let i = 0; i < maxX; i++) {
-      for (let j = 0; j < maxY; j++) {
-        Canvas.drawRect(this.canvasList.map, i * 50, j * 50, 50, 50, "black");
-      }
-    }
-
-    // Main game loop, every 20 ms
-    setInterval(() => {
-      Canvas.clear(this.canvasList.piece, W, H);
-      Canvas.clear(this.canvasList.info, IW, IH);
-      for (let i = this.pieceList.length - 1; i >= 0; i--) {
-        if (!this.pieceList[i].isAlive) {
-          this.pieceList.splice(i, 1);
-        }
-      }
-      for (let i = 0; i < this.pieceList.length; i++) {
-        this.pieceList[i].draw(this.canvasList.piece, "blue");
-      }
-      if (this.nowSelectPiece != null) {
-        Canvas.drawRect(
-          this.canvasList.main,
-          this.nowSelectPiece.x - 7,
-          this.nowSelectPiece.y - 7,
-          64,
-          64,
-          "rgb(50, 195, 50)",
-          3
-        );
-        InfoDraw.drawInfoForSelectedPiece(
-          this.canvasList.info,
-          this.nowSelectPiece
-        );
-      }
-    }, 20);
   }
 }

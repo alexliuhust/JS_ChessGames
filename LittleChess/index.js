@@ -1,6 +1,21 @@
 import { Game } from "./game.js";
+import { Canvas, Rect } from "./tools.js";
+import {
+  GameWidth as W,
+  GameHeight as H,
+  InfoWidth as IW,
+  InfoHeight as IH,
+} from "./const.js";
 import * as EmpireArms from "./arms/empire/empireArms.js";
 import * as NordFortArms from "./arms/nordfort/nordfortArms.js";
+
+const canvasList = {
+  map: document.getElementById("map").getContext("2d"),
+  main: document.getElementById("main").getContext("2d"),
+  piece: document.getElementById("piece").getContext("2d"),
+  select: document.getElementById("select").getContext("2d"),
+  info: document.getElementById("info").getContext("2d"),
+};
 
 let pos = [
   [10, 2],
@@ -12,47 +27,84 @@ let pos = [
   [13, 3],
   [12, 4],
 ];
-let pieces = [
+let pieces1 = [
   new EmpireArms.EmpireMortar([11, 10]),
 
   new EmpireArms.SwordInfantry(pos[0]),
   new EmpireArms.PalaceGuard(pos[1]),
   new EmpireArms.Musketeer(pos[2]),
   new EmpireArms.MusketRider(pos[3]),
-  new EmpireArms.Vanguard(pos[4]),
-  new EmpireArms.PalaceKnight(pos[5]),
-  new EmpireArms.SteamTank(pos[6]),
-  new EmpireArms.SteamTank(pos[7]),
-
-  // new NordFortArms.HallwayGuard(pos[0]),
-  // new NordFortArms.NordExecutioner(pos[1]),
-  // new NordFortArms.CoastDefender(pos[2]),
-  // new NordFortArms.CoastDefenderShield(pos[3]),
-  // new NordFortArms.BallistaSquad(pos[4]),
-  // new NordFortArms.FlameKnight(pos[5]),
-  // new NordFortArms.CoralCavalry(pos[6]),
-  // new NordFortArms.StoneGiant(pos[7]),
-
-  // new EmpireArms.SwordInfantry([1, 5]),
-  // new EmpireArms.PalaceGuard([3, 5]),
-  // new EmpireArms.Musketeer([5, 5]),
-  // new EmpireArms.MusketRider([7, 5]),
-  // new EmpireArms.Vanguard([9, 5]),
-  // new EmpireArms.PalaceKnight([11, 5]),
-  // new EmpireArms.CannonGroup([13, 5]),
-  // new EmpireArms.EmpireMortar([15, 5]),
-  // new EmpireArms.SteamTank([17, 5]),
-
-  // new NordFortArms.HallwayGuard([1, 7]),
-  // new NordFortArms.NordExecutioner([3, 7]),
-  // new NordFortArms.CoastDefender([5, 7]),
-  // new NordFortArms.CoastDefenderShield([7, 7]),
-  // new NordFortArms.BallistaSquad([9, 7]),
-  // new NordFortArms.FlameKnight([11, 7]),
-  // new NordFortArms.CoralCavalry([13, 7]),
-  // new NordFortArms.GiantBallista([15, 7]),
-  // new NordFortArms.StoneGiant([17, 7]),
+];
+let pieces2 = [
+  new NordFortArms.BallistaSquad(pos[4]),
+  new NordFortArms.FlameKnight(pos[5]),
+  new NordFortArms.CoralCavalry(pos[6]),
+  new NordFortArms.StoneGiant(pos[7]),
 ];
 
-let game = new Game(pieces);
-game.start();
+let player1 = new Game(pieces1, pieces2, "blue", canvasList);
+let player2 = new Game(pieces2, pieces1, "red", canvasList);
+
+function start() {
+  let maxX = Math.floor(W / 50);
+  let maxY = Math.floor(H / 50);
+
+  for (let i = 0; i < maxX; i++) {
+    for (let j = 0; j < maxY; j++) {
+      Canvas.drawRect(canvasList.map, i * 50, j * 50, 50, 50, "black");
+    }
+  }
+
+  // Main game loop, every 20 ms
+  setInterval(() => {
+    Canvas.clear(canvasList.piece, W, H);
+    Canvas.clear(canvasList.info, IW, IH);
+
+    player1.drawForOneLoop();
+    player2.drawForOneLoop();
+  }, 20);
+}
+
+// =================== Refreshing Round Button ===================
+let endRoundForBlue = document.getElementById("endRoundForBlue");
+let endRoundForRed = document.getElementById("endRoundForRed");
+endRoundForBlue.onclick = (e) => {
+  player1.isMyRound = false;
+  player2.isMyRound = true;
+  for (let i = 0; i < player2.pieceList.length; i++) {
+    player2.pieceList[i].roundRefresh();
+  }
+};
+endRoundForRed.onclick = (e) => {
+  player1.isMyRound = true;
+  player2.isMyRound = false;
+  for (let i = 0; i < player1.pieceList.length; i++) {
+    player1.pieceList[i].roundRefresh();
+  }
+};
+
+// =================== Mouse Selection Event ===================
+let select = document.getElementById("select");
+select.onclick = (e) => {
+  if (player1.isMyRound && !player2.isMyRound) {
+    player1.clickMouse(e);
+  } else {
+    player2.clickMouse(e);
+  }
+};
+
+start();
+
+// new EmpireArms.Vanguard(pos[4]),
+// new EmpireArms.PalaceKnight(pos[5]),
+// new EmpireArms.SteamTank(pos[6]),
+// new EmpireArms.SteamTank(pos[7]),
+
+// new NordFortArms.HallwayGuard(pos[0]),
+// new NordFortArms.NordExecutioner(pos[1]),
+// new NordFortArms.CoastDefender(pos[2]),
+// new NordFortArms.CoastDefenderShield(pos[3]),
+// new NordFortArms.BallistaSquad(pos[4]),
+// new NordFortArms.FlameKnight(pos[5]),
+// new NordFortArms.CoralCavalry(pos[6]),
+// new NordFortArms.StoneGiant(pos[7]),
