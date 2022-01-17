@@ -1,0 +1,406 @@
+import * as ArmPrimary from "../arm.js";
+import { ArmTestPos1, ArmTestPos2 } from "../../const.js";
+
+export class SlaveConscript extends ArmPrimary.Arm {
+  constructor(value) {
+    super(value);
+    this.img = document.getElementById("SlaveConscript_img");
+    // Override original data
+
+    this.name = "Slave Conscript";
+    this.type = "infantry";
+    this.description = "shield-infantry";
+    this.cost = 1;
+
+    this.scale = 100;
+    this.singleHP = 30;
+    this.speed = 4;
+
+    this.meleeArmor = 0;
+    this.missleArmor = 40;
+    this.chargeArmor = 0;
+
+    this.meleeAttack = 16;
+
+    this.loadRealtimeProps();
+  }
+
+  // =============== Override private methods ===============
+
+  // =============== Override Public APIs ===============
+}
+
+export class HurlerGas extends ArmPrimary.Arm {
+  constructor(value) {
+    super(value);
+    this.img = document.getElementById("HurlerGas_img");
+    // Override original data
+
+    this.name = "Hurler (Gas Bomb)";
+    this.type = "archers";
+    this.description = "armor-archers / anti-armor";
+    this.cost = 2;
+
+    this.scale = 80;
+    this.singleHP = 30;
+    this.speed = 3;
+
+    this.meleeArmor = 30;
+    this.missleArmor = 30;
+    this.chargeArmor = 30;
+
+    this.meleeAttack = 16;
+    this.missleAttack = 24;
+    this.missleRange = 3;
+
+    this.loadRealtimeProps();
+  }
+
+  // =============== Override private methods ===============
+
+  // =============== Override Public APIs ===============
+
+  getAntiArmor(damageType, targetArm) {
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmClass(targetArm);
+
+    let antiArmor = 0;
+    if (damageType === "missle") {
+      antiArmor = 80;
+    }
+
+    return antiArmor;
+  }
+}
+
+export class HurlerFrgm extends ArmPrimary.Arm {
+  constructor(value) {
+    super(value);
+    this.img = document.getElementById("HurlerFrgm_img");
+    // Override original data
+
+    this.name = "Hurler (Fragmentation)";
+    this.type = "archers";
+    this.description = "armor-archers / anti-infantry";
+    this.cost = 2;
+
+    this.scale = 80;
+    this.singleHP = 30;
+    this.speed = 3;
+
+    this.meleeArmor = 30;
+    this.missleArmor = 30;
+    this.chargeArmor = 30;
+
+    this.meleeAttack = 16;
+    this.missleAttack = 24;
+    this.missleRange = 3;
+
+    this.loadRealtimeProps();
+  }
+
+  // =============== Override private methods ===============
+
+  _getSingleDamage(damageType, targetArm) {
+    let targetType = targetArm.type;
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmType(targetType);
+
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+    } else if (damageType === "missle") {
+      singleDamage = this.c_missleAttack;
+    }
+
+    if (
+      damageType === "missle" &&
+      (targetType === "infantry" ||
+        targetType === "archers" ||
+        targetType === "artillery")
+    ) {
+      singleDamage += 12;
+    }
+
+    return singleDamage;
+  }
+
+  // =============== Override Public APIs ===============
+}
+
+export class HurlerHE extends ArmPrimary.Arm {
+  constructor(value) {
+    super(value);
+    this.img = document.getElementById("HurlerHE_img");
+    // Override original data
+
+    this.name = "Hurler (High-Explosion)";
+    this.type = "archers";
+    this.description = "armor-archers / high-damage";
+    this.cost = 2;
+
+    this.scale = 80;
+    this.singleHP = 30;
+    this.speed = 3;
+
+    this.meleeArmor = 30;
+    this.missleArmor = 30;
+    this.chargeArmor = 30;
+
+    this.meleeAttack = 16;
+    this.missleAttack = 32;
+    this.missleRange = 3;
+
+    this.loadRealtimeProps();
+  }
+
+  // =============== Override private methods ===============
+
+  // =============== Override Public APIs ===============
+}
+
+export class WeapSqdGingall extends ArmPrimary.Arm {
+  constructor(value) {
+    super(value);
+    this.img = document.getElementById("WeapSqdGingall_img");
+    // Override original data
+
+    this.name = "Weapon Squad (Gingall)";
+    this.type = "archers";
+    this.description = "shield archers / anti-large";
+    this.cost = 2;
+
+    this.scale = 48;
+    this.singleHP = 30;
+    this.speed = 3;
+
+    this.meleeArmor = 0;
+    this.missleArmor = 50;
+    this.chargeArmor = 0;
+
+    this.meleeAttack = 16;
+    this.missleAttack = 30;
+    this.missleRange = 6;
+
+    this.loadRealtimeProps();
+  }
+
+  // =============== Override private methods ===============
+
+  _getSingleDamage(damageType, targetArm) {
+    let targetType = targetArm.type;
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmType(targetType);
+
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+    } else if (damageType === "missle") {
+      singleDamage = this.c_missleAttack;
+    }
+
+    if (
+      damageType === "missle" &&
+      (targetType === "cavalry" ||
+        targetType === "moster" ||
+        targetType === "monster-infantry")
+    ) {
+      singleDamage += 30;
+    }
+
+    return singleDamage;
+  }
+
+  // =============== Override Public APIs ===============
+}
+
+export class WeapSqdGatlin extends ArmPrimary.Arm {
+  constructor(value) {
+    super(value);
+    this.img = document.getElementById("WeapSqdGatlin_img");
+    // Override original data
+
+    this.name = "Weapon Squad (Gatlin)";
+    this.type = "archers";
+    this.description = "shield archers / anti-infantry";
+    this.cost = 2;
+
+    this.scale = 48;
+    this.singleHP = 30;
+    this.speed = 3;
+
+    this.meleeArmor = 0;
+    this.missleArmor = 50;
+    this.chargeArmor = 0;
+
+    this.meleeAttack = 16;
+    this.missleAttack = 38;
+    this.missleRange = 6;
+
+    this.loadRealtimeProps();
+  }
+
+  // =============== Override private methods ===============
+
+  _getSingleDamage(damageType, targetArm) {
+    let targetType = targetArm.type;
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmType(targetType);
+
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+    } else if (damageType === "missle") {
+      singleDamage = this.c_missleAttack;
+    }
+
+    if (
+      damageType === "missle" &&
+      (targetType === "infantry" ||
+        targetType === "archers" ||
+        targetType === "artillery")
+    ) {
+      singleDamage += 14;
+    }
+
+    return singleDamage;
+  }
+
+  // =============== Override Public APIs ===============
+}
+
+export class WeapSqdFlthr extends ArmPrimary.Arm {
+  constructor(value) {
+    super(value);
+    this.img = document.getElementById("WeapSqdFlthr_img");
+    // Override original data
+
+    this.name = "Weapon Squad (Flamethrower)";
+    this.type = "archers";
+    this.description = "shield archers / anti-nonarmor";
+    this.cost = 2;
+
+    this.scale = 48;
+    this.singleHP = 30;
+    this.speed = 2;
+
+    this.meleeArmor = 0;
+    this.missleArmor = 50;
+    this.chargeArmor = 0;
+
+    this.meleeAttack = 16;
+    this.missleAttack = 48;
+    this.missleRange = 2;
+
+    this.loadRealtimeProps();
+  }
+
+  // =============== Override private methods ===============
+
+  _getSingleDamage(damageType, targetArm) {
+    let targetType = targetArm.type;
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmType(targetType);
+
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+    } else if (damageType === "missle") {
+      singleDamage = this.c_missleAttack;
+    }
+
+    if (
+      damageType === "missle" &&
+      (targetArm.c_meleeArmor === 0 || targetArm.c_missleArmor === 0)
+    ) {
+      singleDamage += 20;
+    }
+
+    return singleDamage;
+  }
+
+  // =============== Override Public APIs ===============
+}
+
+export class MutantSlave extends ArmPrimary.Arm {
+  constructor(value) {
+    super(value);
+    this.img = document.getElementById("MutantSlave_img");
+    // Override original data
+
+    this.name = "Mutant Slave";
+    this.type = "monster-infantry";
+    this.description = "monster infantry / fast";
+    this.cost = 2;
+
+    this.scale = 20;
+    this.singleHP = 200;
+    this.speed = 5;
+
+    this.meleeArmor = 80;
+    this.missleArmor = 0;
+    this.chargeArmor = 60;
+
+    this.meleeAttack = 40;
+
+    this.loadRealtimeProps();
+  }
+
+  // =============== Override private methods ===============
+
+  // =============== Override Public APIs ===============
+
+  getAntiArmor(damageType, targetArm) {
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmClass(targetArm);
+
+    let antiArmor = 0;
+    if (damageType === "melee") {
+      antiArmor = 36;
+    }
+
+    return antiArmor;
+  }
+}
+
+export class Foulcannon extends ArmPrimary.Arm {
+  constructor(value) {
+    super(value);
+    this.img = document.getElementById("Foulcannon_img");
+    // Override original data
+
+    this.name = "Foulcannon";
+    this.type = "artillery";
+    this.description = "artillery / anti-armor";
+    this.cost = 5;
+
+    this.scale = 5;
+    this.singleHP = 300;
+    this.speed = 1;
+
+    this.missleAttack = 200;
+    this.missleRange = 11;
+
+    this.loadRealtimeProps();
+  }
+
+  // =============== Override private methods ===============
+
+  // =============== Override Public APIs ===============
+}
+
+export function getTestArms(player) {
+  let pos = player === 1 ? ArmTestPos1 : ArmTestPos2;
+  let arms = [
+    new SlaveConscript(pos[0]),
+    new HurlerGas(pos[1]),
+    new HurlerFrgm(pos[2]),
+    new HurlerHE(pos[3]),
+    new WeapSqdGingall(pos[4]),
+    new WeapSqdGatlin(pos[5]),
+    new WeapSqdFlthr(pos[6]),
+    new MutantSlave(pos[7]),
+    new Foulcannon(pos[8]),
+  ];
+  return arms;
+}

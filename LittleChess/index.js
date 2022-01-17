@@ -9,6 +9,7 @@ import {
 import * as EmpireArms from "./arms/empire/empireArms.js";
 import * as NordFortArms from "./arms/nordfort/nordfortArms.js";
 import * as DimwoodsArms from "./arms/dimwoods/dimwoodsArms.js";
+import * as PollutelandArms from "./arms/polluteland/pollutelandArms.js";
 
 // =================== Load All Canvases ===================
 const canvasList = {
@@ -92,7 +93,7 @@ function start() {
 
 // =================== Load Players Info ===================
 let pieces1 = EmpireArms.getTestArms(1);
-let pieces2 = NordFortArms.getTestArms(2);
+let pieces2 = PollutelandArms.getTestArms(2);
 
 pieces1.push(new EmpireArms.PalaceGuard([16, 8]));
 pieces1.push(new EmpireArms.PalaceGuard([16, 9]));
