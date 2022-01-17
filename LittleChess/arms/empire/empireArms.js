@@ -27,7 +27,8 @@ export class SwordInfantry extends ArmPrimary.Arm {
 
   // =============== Override private methods ===============
 
-  _getSingleDamage(damageType, targetType) {
+  _getSingleDamage(damageType, targetArm) {
+    let targetType = targetArm.type;
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmType(targetType);
 
@@ -88,7 +89,8 @@ export class PalaceGuard extends ArmPrimary.Arm {
 
   // =============== Override private methods ===============
 
-  _getSingleDamage(damageType, targetType) {
+  _getSingleDamage(damageType, targetArm) {
+    let targetType = targetArm.type;
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmType(targetType);
 

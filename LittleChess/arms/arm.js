@@ -131,9 +131,9 @@ export class Arm {
     return Math.min(this.c_scale, Math.floor(this.scale / factor));
   }
 
-  _getSingleDamage(damageType, targetType) {
+  _getSingleDamage(damageType, targetArm) {
     checkDamageType(damageType);
-    checkArmType(targetType);
+    checkArmType(targetArm.type);
 
     if (!this.isAlive) {
       return 0;
@@ -196,7 +196,10 @@ export class Arm {
     let min = Math.round(validArmor * 0.8);
     let realArmor = Math.floor(Math.random() * (max - min + 1) + min);
 
-    return (100 - realArmor) / 100;
+    let percentage = (100 - realArmor) / 100;
+    if (percentage > 1) percentage = 1;
+    if (percentage < 0) percentage = 0;
+    return percentage;
   }
 
   // =============== Drawing APIs ===============
@@ -302,7 +305,7 @@ export class Arm {
     checkDamageType(damageType);
     checkArmClass(targetArm);
 
-    let singleDamage = this._getSingleDamage(damageType, targetArm.type);
+    let singleDamage = this._getSingleDamage(damageType, targetArm);
     let validScale = this._getValidScale();
     return singleDamage * validScale;
   }
@@ -314,7 +317,7 @@ export class Arm {
       return 0;
     }
 
-    let singleDamage = this._getSingleDamage("melee", targetArm.type);
+    let singleDamage = this._getSingleDamage("melee", targetArm);
     let validScale = this._getValidScale();
     return Math.round(singleDamage * validScale * 0.75);
   }

@@ -63,7 +63,8 @@ export class WildKiller extends ArmPrimary.Arm {
 
   // =============== Override private methods ===============
 
-  _getSingleDamage(damageType, targetType) {
+  _getSingleDamage(damageType, targetArm) {
+    let targetType = targetArm.type;
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmType(targetType);
 
