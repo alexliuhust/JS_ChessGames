@@ -93,7 +93,10 @@ export function drawAvailableTargets(cxt, self, others) {
     }
 
     return availableTargets;
-  } else {
+  }
+
+  // Bombing arms
+  else {
     let availableBombingCenters = [];
 
     // Collect all available bombing centers

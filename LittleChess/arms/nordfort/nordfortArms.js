@@ -1,4 +1,5 @@
 import * as ArmPrimary from "../arm.js";
+import { ArmTestPos1, ArmTestPos2 } from "../../const.js";
 
 export class HallwayGuard extends ArmPrimary.Arm {
   constructor(value) {
@@ -13,7 +14,7 @@ export class HallwayGuard extends ArmPrimary.Arm {
 
     this.scale = 64;
     this.singleHP = 50;
-    this.speed = 4;
+    this.speed = 2;
 
     this.meleeArmor = 30;
     this.missleArmor = 0;
@@ -49,7 +50,7 @@ export class NordExecutioner extends ArmPrimary.Arm {
 
     this.scale = 56;
     this.singleHP = 50;
-    this.speed = 3;
+    this.speed = 2;
 
     this.meleeArmor = 80;
     this.missleArmor = 30;
@@ -91,7 +92,7 @@ export class CoastDefender extends ArmPrimary.Arm {
 
     this.scale = 48;
     this.singleHP = 50;
-    this.speed = 4;
+    this.speed = 3;
 
     this.meleeArmor = 0;
     this.missleArmor = 0;
@@ -99,7 +100,7 @@ export class CoastDefender extends ArmPrimary.Arm {
 
     this.meleeAttack = 32;
     this.missleAttack = 40;
-    this.missleRange = 6;
+    this.missleRange = 5;
 
     this.loadRealtimeProps();
   }
@@ -134,7 +135,7 @@ export class CoastDefenderShield extends ArmPrimary.Arm {
 
     this.scale = 48;
     this.singleHP = 50;
-    this.speed = 3;
+    this.speed = 2;
 
     this.meleeArmor = 0;
     this.missleArmor = 50;
@@ -142,7 +143,7 @@ export class CoastDefenderShield extends ArmPrimary.Arm {
 
     this.meleeAttack = 32;
     this.missleAttack = 40;
-    this.missleRange = 6;
+    this.missleRange = 5;
 
     this.loadRealtimeProps();
   }
@@ -177,11 +178,11 @@ export class BallistaSquad extends ArmPrimary.Arm {
 
     this.scale = 32;
     this.singleHP = 50;
-    this.speed = 3;
+    this.speed = 2;
 
     this.meleeAttack = 16;
     this.missleAttack = 68;
-    this.missleRange = 9;
+    this.missleRange = 7;
 
     this.loadRealtimeProps();
   }
@@ -216,7 +217,7 @@ export class FlameKnight extends ArmPrimary.Arm {
 
     this.scale = 32;
     this.singleHP = 80;
-    this.speed = 9;
+    this.speed = 7;
 
     this.meleeArmor = 0;
     this.missleArmor = 30;
@@ -258,7 +259,7 @@ export class CoralCavalry extends ArmPrimary.Arm {
 
     this.scale = 32;
     this.singleHP = 100;
-    this.speed = 7;
+    this.speed = 6;
 
     this.meleeArmor = 30;
     this.missleArmor = 60;
@@ -287,11 +288,11 @@ export class GiantBallista extends ArmPrimary.Arm {
     this.cost = 5;
 
     this.scale = 7;
-    this.singleHP = 100;
-    this.speed = 2;
+    this.singleHP = 250;
+    this.speed = 1;
 
     this.missleAttack = 140;
-    this.missleRange = 12;
+    this.missleRange = 11;
 
     this.loadRealtimeProps();
   }
@@ -326,7 +327,7 @@ export class StoneGiant extends ArmPrimary.Arm {
 
     this.scale = 1;
     this.singleHP = 400;
-    this.speed = 4;
+    this.speed = 3;
 
     this.meleeArmor = 50;
     this.missleArmor = 50;
@@ -359,4 +360,20 @@ export class StoneGiant extends ArmPrimary.Arm {
   }
 
   // =============== Override Public APIs ===============
+}
+
+export function getTestArms(player) {
+  let pos = player === 1 ? ArmTestPos1 : ArmTestPos2;
+  let arms = [
+    new HallwayGuard(pos[0]),
+    new NordExecutioner(pos[1]),
+    new CoastDefender(pos[2]),
+    new CoastDefenderShield(pos[3]),
+    new BallistaSquad(pos[4]),
+    new FlameKnight(pos[5]),
+    new CoralCavalry(pos[6]),
+    new GiantBallista(pos[7]),
+    new StoneGiant(pos[8]),
+  ];
+  return arms;
 }

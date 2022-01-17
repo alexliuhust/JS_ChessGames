@@ -1,4 +1,5 @@
 import * as ArmPrimary from "../arm.js";
+import { ArmTestPos1, ArmTestPos2 } from "../../const.js";
 
 export class WoodsGuard extends ArmPrimary.Arm {
   constructor(value) {
@@ -13,7 +14,7 @@ export class WoodsGuard extends ArmPrimary.Arm {
 
     this.scale = 64;
     this.singleHP = 40;
-    this.speed = 4;
+    this.speed = 3;
 
     this.meleeArmor = 30;
     this.missleArmor = 50;
@@ -49,7 +50,7 @@ export class WildKiller extends ArmPrimary.Arm {
 
     this.scale = 64;
     this.singleHP = 40;
-    this.speed = 5;
+    this.speed = 4;
 
     this.meleeArmor = 50;
     this.missleArmor = 0;
@@ -97,7 +98,7 @@ export class HightreeScout extends ArmPrimary.Arm {
 
     this.scale = 50;
     this.singleHP = 40;
-    this.speed = 5;
+    this.speed = 4;
 
     this.meleeArmor = 50;
     this.missleArmor = 50;
@@ -136,7 +137,7 @@ export class ShadowArcherAP extends ArmPrimary.Arm {
 
     this.meleeAttack = 36;
     this.missleAttack = 44;
-    this.missleRange = 7;
+    this.missleRange = 6;
 
     this.loadRealtimeProps();
   }
@@ -179,7 +180,7 @@ export class ShadowArcherFL extends ArmPrimary.Arm {
 
     this.meleeAttack = 36;
     this.missleAttack = 52;
-    this.missleRange = 7;
+    this.missleRange = 6;
 
     this.loadRealtimeProps();
   }
@@ -197,12 +198,12 @@ export class LongbowRanger extends ArmPrimary.Arm {
 
     this.name = "Longbow Ranger";
     this.type = "archers";
-    this.description = "archers / anti-armor / high-damage";
+    this.description = "longbow archers / high-damage";
     this.cost = 2;
 
     this.scale = 32;
     this.singleHP = 40;
-    this.speed = 4;
+    this.speed = 3;
 
     this.meleeAttack = 20;
     this.missleAttack = 68;
@@ -281,6 +282,9 @@ export class DryadRangerRide extends ArmPrimary.Arm {
     this.missleRange = 9;
 
     this.loadRealtimeProps();
+
+    this.ammo = 18;
+    this.c_ammo = this.ammo;
   }
 
   // =============== Override private methods ===============
@@ -308,12 +312,12 @@ export class GiantTreeman extends ArmPrimary.Arm {
 
     this.name = "Giant Treeman";
     this.type = "monster";
-    this.description = "giant / anti-infantry";
+    this.description = "giant";
     this.cost = 6;
 
     this.scale = 1;
     this.singleHP = 600;
-    this.speed = 2;
+    this.speed = 1;
 
     this.meleeArmor = 60;
     this.missleArmor = 90;
@@ -327,4 +331,20 @@ export class GiantTreeman extends ArmPrimary.Arm {
   // =============== Override private methods ===============
 
   // =============== Override Public APIs ===============
+}
+
+export function getTestArms(player) {
+  let pos = player === 1 ? ArmTestPos1 : ArmTestPos2;
+  let arms = [
+    new WoodsGuard(pos[0]),
+    new WildKiller(pos[1]),
+    new HightreeScout(pos[2]),
+    new ShadowArcherAP(pos[3]),
+    new ShadowArcherFL(pos[4]),
+    new LongbowRanger(pos[5]),
+    new Dryad(pos[6]),
+    new DryadRangerRide(pos[7]),
+    new GiantTreeman(pos[8]),
+  ];
+  return arms;
 }

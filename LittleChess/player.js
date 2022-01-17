@@ -179,10 +179,11 @@ export class Player {
         } else if (this.currentStatus === "ready to attack") {
           Canvas.clear(this.canvasList.main, W, H);
           this.curAvailableTargets = null;
+          let blockers = this.pieceList.concat(this.enemyList);
           this.curAvailablePos = OpDraw.drawAvailableDestinations(
             this.canvasList.main,
             this.nowSelectPiece,
-            this.enemyList
+            blockers
           );
           this.currentStatus = "ready to move";
         }

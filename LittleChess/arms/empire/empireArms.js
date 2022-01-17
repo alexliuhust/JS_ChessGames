@@ -1,4 +1,5 @@
 import * as ArmPrimary from "../arm.js";
+import { ArmTestPos1, ArmTestPos2 } from "../../const.js";
 
 export class SwordInfantry extends ArmPrimary.Arm {
   constructor(value) {
@@ -13,7 +14,7 @@ export class SwordInfantry extends ArmPrimary.Arm {
 
     this.scale = 64;
     this.singleHP = 50;
-    this.speed = 3;
+    this.speed = 2;
 
     this.meleeArmor = 20;
     this.missleArmor = 50;
@@ -26,7 +27,6 @@ export class SwordInfantry extends ArmPrimary.Arm {
 
   // =============== Override private methods ===============
 
-  // SwordInfantry has higher damage on non-cavalry arms
   _getSingleDamage(damageType, targetType) {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmType(targetType);
@@ -48,7 +48,6 @@ export class SwordInfantry extends ArmPrimary.Arm {
 
   // =============== Override Public APIs ===============
 
-  // SwordInfantry has extra antiarmor for non-cavalry arms
   getAntiArmor(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
@@ -76,7 +75,7 @@ export class PalaceGuard extends ArmPrimary.Arm {
 
     this.scale = 64;
     this.singleHP = 50;
-    this.speed = 3;
+    this.speed = 2;
 
     this.meleeArmor = 20;
     this.missleArmor = 0;
@@ -89,7 +88,6 @@ export class PalaceGuard extends ArmPrimary.Arm {
 
   // =============== Override private methods ===============
 
-  // PalaceGuard has higher damage on cavalry arms
   _getSingleDamage(damageType, targetType) {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmType(targetType);
@@ -107,7 +105,6 @@ export class PalaceGuard extends ArmPrimary.Arm {
 
   // =============== Override Public APIs ===============
 
-  // PalaceGuard has extra antiarmor for cavalry arms
   getAntiArmor(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
@@ -135,7 +132,7 @@ export class Musketeer extends ArmPrimary.Arm {
 
     this.scale = 48;
     this.singleHP = 40;
-    this.speed = 4;
+    this.speed = 3;
 
     this.meleeAttack = 16;
     this.missleAttack = 48;
@@ -217,7 +214,7 @@ export class Vanguard extends ArmPrimary.Arm {
 
     this.scale = 32;
     this.singleHP = 90;
-    this.speed = 8;
+    this.speed = 6;
 
     this.meleeArmor = 10;
     this.missleArmor = 50;
@@ -259,7 +256,7 @@ export class PalaceKnight extends ArmPrimary.Arm {
 
     this.scale = 28;
     this.singleHP = 100;
-    this.speed = 5;
+    this.speed = 4;
 
     this.meleeArmor = 70;
     this.missleArmor = 70;
@@ -287,8 +284,8 @@ export class CannonGroup extends ArmPrimary.Arm {
     this.cost = 5;
 
     this.scale = 5;
-    this.singleHP = 60;
-    this.speed = 2;
+    this.singleHP = 300;
+    this.speed = 1;
 
     this.missleAttack = 150;
     this.missleRange = 12;
@@ -325,8 +322,8 @@ export class EmpireMortar extends ArmPrimary.Arm {
     this.cost = 6;
 
     this.scale = 5;
-    this.singleHP = 60;
-    this.speed = 2;
+    this.singleHP = 300;
+    this.speed = 1;
 
     this.missleAttack = 190;
     this.missleRange = 10;
@@ -354,7 +351,7 @@ export class SteamTank extends ArmPrimary.Arm {
 
     this.scale = 1;
     this.singleHP = 300;
-    this.speed = 3;
+    this.speed = 2;
 
     this.meleeArmor = 90;
     this.missleArmor = 90;
@@ -362,7 +359,7 @@ export class SteamTank extends ArmPrimary.Arm {
 
     this.meleeAttack = 450;
     this.missleAttack = 200;
-    this.missleRange = 9;
+    this.missleRange = 7;
 
     this.loadRealtimeProps();
 
@@ -385,4 +382,20 @@ export class SteamTank extends ArmPrimary.Arm {
 
     return antiArmor;
   }
+}
+
+export function getTestArms(player) {
+  let pos = player === 1 ? ArmTestPos1 : ArmTestPos2;
+  let arms = [
+    new SwordInfantry(pos[0]),
+    new PalaceGuard(pos[1]),
+    new Musketeer(pos[2]),
+    new MusketRider(pos[3]),
+    new Vanguard(pos[4]),
+    new PalaceKnight(pos[5]),
+    new CannonGroup(pos[6]),
+    new EmpireMortar(pos[7]),
+    new SteamTank(pos[8]),
+  ];
+  return arms;
 }
