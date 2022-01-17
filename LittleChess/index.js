@@ -22,7 +22,7 @@ const canvasList = {
 // =================== Refreshing Round Button ===================
 let endRoundForBlue = document.getElementById("endRoundForBlue");
 let endRoundForRed = document.getElementById("endRoundForRed");
-endRoundForBlue.onclick = (e) => {
+function endBluw() {
   endRoundForBlue.style.backgroundColor = "";
   endRoundForRed.style.backgroundColor = "red";
   player1.isMyRound = false;
@@ -31,8 +31,8 @@ endRoundForBlue.onclick = (e) => {
   for (let i = 0; i < player2.pieceList.length; i++) {
     player2.pieceList[i].roundRefresh();
   }
-};
-endRoundForRed.onclick = (e) => {
+}
+function endRed() {
   endRoundForBlue.style.backgroundColor = "blue";
   endRoundForRed.style.backgroundColor = "";
   player1.isMyRound = true;
@@ -41,7 +41,23 @@ endRoundForRed.onclick = (e) => {
   for (let i = 0; i < player1.pieceList.length; i++) {
     player1.pieceList[i].roundRefresh();
   }
+}
+endRoundForBlue.onclick = (e) => {
+  endBluw();
 };
+endRoundForRed.onclick = (e) => {
+  endRed();
+};
+document.addEventListener("keydown", (e) => {
+  // Press '1' to end round for blue
+  if (e.code == "KeyQ") {
+    endBluw();
+  }
+  // Press '2' to end round for red
+  else if (e.code == "KeyP") {
+    endRed();
+  }
+});
 
 // =================== Mouse Selection Event ===================
 let select = document.getElementById("select");
@@ -76,9 +92,8 @@ function start() {
 
 // =================== Load Players Info ===================
 let pieces1 = EmpireArms.getTestArms(1);
-let pieces2 = DimwoodsArms.getTestArms(2);
+let pieces2 = NordFortArms.getTestArms(2);
 
-//16,9
 pieces1.push(new EmpireArms.PalaceGuard([16, 8]));
 pieces1.push(new EmpireArms.PalaceGuard([16, 9]));
 pieces1.push(new EmpireArms.PalaceGuard([17, 9]));

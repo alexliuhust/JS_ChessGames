@@ -100,11 +100,11 @@ export class Arm {
       this.c_missleRadius = this.missleRadius;
 
       if (this.type === "archers") {
-        this.ammo = 24;
-      } else if (this.type === "cavalry" && this.missleAttack != 0) {
         this.ammo = 18;
+      } else if (this.type === "cavalry" && this.missleAttack != 0) {
+        this.ammo = 14;
       } else if (this.type === "artillery") {
-        this.ammo = 12;
+        this.ammo = 10;
       }
       this.c_ammo = this.ammo;
     };

@@ -161,9 +161,9 @@ export class Player {
 
     // =================== Key Down Events ===================
     document.addEventListener("keydown", (e) => {
-      // Press 'A' to switch between 'attack' and 'move'
+      // Press 'A' or 'L' to switch between 'attack' and 'move'
       if (
-        e.code == "KeyA" &&
+        (e.code == "KeyA" || e.code == "KeyL") &&
         this.nowSelectPiece != null &&
         !this.nowSelectPiece.hasAttacked
       ) {
