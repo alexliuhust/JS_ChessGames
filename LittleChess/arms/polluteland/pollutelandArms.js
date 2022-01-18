@@ -50,10 +50,13 @@ export class HurlerGas extends ArmPrimary.Arm {
     this.chargeArmor = 30;
 
     this.meleeAttack = 16;
-    this.missleAttack = 24;
+    this.missleAttack = 16;
     this.missleRange = 3;
 
     this.loadRealtimeProps();
+
+    this.ammo = 12;
+    this.c_ammo = this.ammo;
   }
 
   // =============== Override private methods ===============
@@ -66,7 +69,7 @@ export class HurlerGas extends ArmPrimary.Arm {
 
     let antiArmor = 0;
     if (damageType === "missle") {
-      antiArmor = 80;
+      antiArmor = 60;
     }
 
     return antiArmor;
@@ -93,10 +96,13 @@ export class HurlerFrgm extends ArmPrimary.Arm {
     this.chargeArmor = 30;
 
     this.meleeAttack = 16;
-    this.missleAttack = 24;
+    this.missleAttack = 16;
     this.missleRange = 3;
 
     this.loadRealtimeProps();
+
+    this.ammo = 12;
+    this.c_ammo = this.ammo;
   }
 
   // =============== Override private methods ===============
@@ -119,8 +125,9 @@ export class HurlerFrgm extends ArmPrimary.Arm {
         targetType === "archers" ||
         targetType === "artillery")
     ) {
-      singleDamage += 12;
+      singleDamage += 16;
     }
+    this.c_ammo--;
 
     return singleDamage;
   }
@@ -148,10 +155,13 @@ export class HurlerHE extends ArmPrimary.Arm {
     this.chargeArmor = 30;
 
     this.meleeAttack = 16;
-    this.missleAttack = 32;
+    this.missleAttack = 34;
     this.missleRange = 3;
 
     this.loadRealtimeProps();
+
+    this.ammo = 12;
+    this.c_ammo = this.ammo;
   }
 
   // =============== Override private methods ===============
@@ -167,7 +177,7 @@ export class WeapSqdGingall extends ArmPrimary.Arm {
 
     this.name = "Weapon Squad (Gingall)";
     this.type = "archers";
-    this.description = "shield archers / anti-large";
+    this.description = "shield-archers / anti-large";
     this.cost = 2;
 
     this.scale = 48;
@@ -207,6 +217,7 @@ export class WeapSqdGingall extends ArmPrimary.Arm {
     ) {
       singleDamage += 30;
     }
+    this.c_ammo--;
 
     return singleDamage;
   }
@@ -222,7 +233,7 @@ export class WeapSqdGatlin extends ArmPrimary.Arm {
 
     this.name = "Weapon Squad (Gatlin)";
     this.type = "archers";
-    this.description = "shield archers / anti-infantry";
+    this.description = "shield-archers / anti-infantry";
     this.cost = 2;
 
     this.scale = 48;
@@ -238,6 +249,9 @@ export class WeapSqdGatlin extends ArmPrimary.Arm {
     this.missleRange = 6;
 
     this.loadRealtimeProps();
+
+    this.ammo = 200;
+    this.c_ammo = this.ammo;
   }
 
   // =============== Override private methods ===============
@@ -262,6 +276,7 @@ export class WeapSqdGatlin extends ArmPrimary.Arm {
     ) {
       singleDamage += 14;
     }
+    this.c_ammo -= 20;
 
     return singleDamage;
   }
@@ -277,7 +292,7 @@ export class WeapSqdFlthr extends ArmPrimary.Arm {
 
     this.name = "Weapon Squad (Flamethrower)";
     this.type = "archers";
-    this.description = "shield archers / anti-nonarmor";
+    this.description = "shield-archers / anti-non-armor";
     this.cost = 2;
 
     this.scale = 48;
@@ -293,6 +308,9 @@ export class WeapSqdFlthr extends ArmPrimary.Arm {
     this.missleRange = 2;
 
     this.loadRealtimeProps();
+
+    this.ammo = 9;
+    this.c_ammo = this.ammo;
   }
 
   // =============== Override private methods ===============
@@ -315,6 +333,7 @@ export class WeapSqdFlthr extends ArmPrimary.Arm {
     ) {
       singleDamage += 20;
     }
+    this.c_ammo--;
 
     return singleDamage;
   }
@@ -330,7 +349,7 @@ export class MutantSlave extends ArmPrimary.Arm {
 
     this.name = "Mutant Slave";
     this.type = "monster-infantry";
-    this.description = "monster infantry / fast";
+    this.description = "monster-infantry / fast";
     this.cost = 2;
 
     this.scale = 20;
@@ -371,15 +390,15 @@ export class Foulcannon extends ArmPrimary.Arm {
 
     this.name = "Foulcannon";
     this.type = "artillery";
-    this.description = "artillery / anti-armor";
+    this.description = "artillery / high-damage";
     this.cost = 5;
 
     this.scale = 5;
     this.singleHP = 300;
     this.speed = 1;
 
-    this.missleAttack = 200;
-    this.missleRange = 11;
+    this.missleAttack = 220;
+    this.missleRange = 10;
 
     this.loadRealtimeProps();
   }

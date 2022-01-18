@@ -92,13 +92,34 @@ function start() {
 }
 
 // =================== Load Players Info ===================
-let pieces1 = EmpireArms.getTestArms(1);
-let pieces2 = PollutelandArms.getTestArms(2);
+let pieces1 = [
+  new PollutelandArms.MutantSlave([9, 3]),
+  new PollutelandArms.MutantSlave([5, 4]),
+  new PollutelandArms.MutantSlave([9, 5]),
 
-pieces1.push(new EmpireArms.PalaceGuard([16, 8]));
-pieces1.push(new EmpireArms.PalaceGuard([16, 9]));
-pieces1.push(new EmpireArms.PalaceGuard([17, 9]));
-pieces1.push(new EmpireArms.PalaceGuard([17, 10]));
+  new PollutelandArms.MutantSlave([9, 7]),
+  new PollutelandArms.MutantSlave([9, 8]),
+  new PollutelandArms.MutantSlave([9, 9]),
+
+  new PollutelandArms.MutantSlave([9, 11]),
+  new PollutelandArms.MutantSlave([9, 12]),
+  new PollutelandArms.MutantSlave([9, 13]),
+  new PollutelandArms.MutantSlave([9, 14]),
+];
+let pieces2 = [
+  new EmpireArms.Musketeer([11, 3]),
+  new EmpireArms.EmpireMortar([11, 4]),
+  new EmpireArms.CannonGroup([11, 5]),
+
+  new NordFortArms.CoastDefender([11, 7]),
+  new NordFortArms.BallistaSquad([11, 8]),
+  new NordFortArms.GiantBallista([11, 9]),
+
+  new DimwoodsArms.HightreeScout([11, 11]),
+  new DimwoodsArms.ShadowArcherAP([11, 12]),
+  new DimwoodsArms.ShadowArcherFL([11, 13]),
+  new DimwoodsArms.LongbowRanger([11, 14]),
+];
 
 let player1 = new Player(pieces1, pieces2, "blue", canvasList);
 let player2 = new Player(pieces2, pieces1, "red", canvasList);

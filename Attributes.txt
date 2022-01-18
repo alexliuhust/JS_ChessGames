@@ -1,54 +1,38 @@
+infantry
+monster-infantry
+armor-infantry
+shield-infantry
 
-name: 
-type: (infantry, cavalry, archers, artillery, mages)
-cost: 
+archers
+shield-archers
+armor-archers
+heavy-archers
+melee-archers
+long-range-archers
+melee-shield-archers
 
-scale: 
-singleHP: 
+melee-cavalry
+missle-cavalry
+charging-cavalry
 
-speed: 
-positionX:  
-positionY: 
-currentDrct: (u, d, l ,r)
+artillery
+bombing-artillery
 
-meleeArmor: 
-missleArmor:
-chargeArmor: 
-
-meleeAttack: 
-missleAttack: 
-chargeAttack: 
-
-
-getRawTotalDamage()
-
-decreaseScale(damageType, antiArmor, rawTotalDamage)
-
-getCounterattackDamage()
+mech
+giant
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+anti-infantry
+anti-large
+anti-armor
+anti-non-armor
+resist-charging
+long-range
+high-damage
+melee-master
+heavy-armor
+missle-attack (for mech/giant)
+fast (for mech/giant)
 
 

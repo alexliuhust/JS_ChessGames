@@ -71,7 +71,7 @@ export class PalaceGuard extends ArmPrimary.Arm {
 
     this.name = "Palace Guard";
     this.type = "infantry";
-    this.description = "infantry / charge-resist";
+    this.description = "infantry / resist-charging";
     this.cost = 1;
 
     this.scale = 64;
@@ -129,7 +129,7 @@ export class Musketeer extends ArmPrimary.Arm {
 
     this.name = "Musketeer";
     this.type = "archers";
-    this.description = "archers / anti-armor";
+    this.description = "archers";
     this.cost = 2;
 
     this.scale = 48;
@@ -168,7 +168,7 @@ export class MusketRider extends ArmPrimary.Arm {
 
     this.name = "Musket Rider";
     this.type = "cavalry";
-    this.description = "missle cavalry";
+    this.description = "missle-cavalry";
     this.cost = 4;
 
     this.scale = 32;
@@ -211,7 +211,7 @@ export class Vanguard extends ArmPrimary.Arm {
 
     this.name = "Vanguard";
     this.type = "cavalry";
-    this.description = "charging cavalry";
+    this.description = "charging-cavalry / anti-armor";
     this.cost = 4;
 
     this.scale = 32;
@@ -253,7 +253,7 @@ export class PalaceKnight extends ArmPrimary.Arm {
 
     this.name = "Palace Knight";
     this.type = "cavalry";
-    this.description = "melee cavalry / heavy-armor";
+    this.description = "melee-cavalry / heavy-armor";
     this.cost = 4;
 
     this.scale = 28;
@@ -320,7 +320,7 @@ export class EmpireMortar extends ArmPrimary.Arm {
 
     this.name = "Empire Mortar";
     this.type = "artillery";
-    this.description = "bombing artillery";
+    this.description = "bombing-artillery";
     this.cost = 6;
 
     this.scale = 5;
@@ -348,7 +348,7 @@ export class SteamTank extends ArmPrimary.Arm {
 
     this.name = "Steam Tank";
     this.type = "monster";
-    this.description = "mech / heavy-armor";
+    this.description = "mech / heavy-armor / missle-attack";
     this.cost = 6;
 
     this.scale = 1;

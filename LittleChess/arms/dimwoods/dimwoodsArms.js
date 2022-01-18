@@ -9,7 +9,7 @@ export class WoodsGuard extends ArmPrimary.Arm {
 
     this.name = "Woods Guard";
     this.type = "infantry";
-    this.description = "shield-infantry / charge-resist";
+    this.description = "shield-infantry / resist-charging / anti-armor";
     this.cost = 1;
 
     this.scale = 64;
@@ -45,7 +45,7 @@ export class WildKiller extends ArmPrimary.Arm {
 
     this.name = "Wild Killer";
     this.type = "infantry";
-    this.description = "infantry / melee master";
+    this.description = "infantry / melee-master";
     this.cost = 1;
 
     this.scale = 64;
@@ -94,7 +94,7 @@ export class HightreeScout extends ArmPrimary.Arm {
 
     this.name = "Hightree Scout";
     this.type = "archers";
-    this.description = "melee archers";
+    this.description = "melee-archers";
     this.cost = 2;
 
     this.scale = 50;
@@ -123,9 +123,9 @@ export class ShadowArcherAP extends ArmPrimary.Arm {
     this.img = document.getElementById("ShadowArcherAP_img");
     // Override original data
 
-    this.name = "Shadow Archer (AP)";
+    this.name = "Shadow Archer (Armor-Piercing)";
     this.type = "archers";
-    this.description = "melee archers / anti-armor";
+    this.description = "melee-archers / anti-armor";
     this.cost = 2;
 
     this.scale = 40;
@@ -168,7 +168,7 @@ export class ShadowArcherFL extends ArmPrimary.Arm {
 
     this.name = "Shadow Archer (Flame)";
     this.type = "archers";
-    this.description = "melee archers / high-damage";
+    this.description = "melee-archers / high-damage";
     this.cost = 2;
 
     this.scale = 40;
@@ -199,7 +199,7 @@ export class LongbowRanger extends ArmPrimary.Arm {
 
     this.name = "Longbow Ranger";
     this.type = "archers";
-    this.description = "longbow archers / high-damage";
+    this.description = "long-range-archers / anti-armor";
     this.cost = 2;
 
     this.scale = 32;
@@ -238,7 +238,7 @@ export class Dryad extends ArmPrimary.Arm {
 
     this.name = "Dryad";
     this.type = "monster-infantry";
-    this.description = "monster infantry / tough";
+    this.description = "monster-infantry / heavy-armor";
     this.cost = 2;
 
     this.scale = 16;
@@ -267,7 +267,7 @@ export class DryadRangerRide extends ArmPrimary.Arm {
 
     this.name = "Dryad (Ranger-Ride)";
     this.type = "monster-infantry";
-    this.description = "monster infantry / tough";
+    this.description = "monster-infantry / heavy-armor / missle-attack";
     this.cost = 2;
 
     this.scale = 16;
@@ -313,7 +313,7 @@ export class GiantTreeman extends ArmPrimary.Arm {
 
     this.name = "Giant Treeman";
     this.type = "monster";
-    this.description = "giant";
+    this.description = "giant / heavy-armor";
     this.cost = 6;
 
     this.scale = 1;

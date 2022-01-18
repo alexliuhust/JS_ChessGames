@@ -9,7 +9,7 @@ export class HallwayGuard extends ArmPrimary.Arm {
 
     this.name = "Hallway Guard";
     this.type = "infantry";
-    this.description = "infantry / charge-resist";
+    this.description = "infantry / resist-charging";
     this.cost = 1;
 
     this.scale = 64;
@@ -45,7 +45,7 @@ export class NordExecutioner extends ArmPrimary.Arm {
 
     this.name = "Nord Executioner";
     this.type = "infantry";
-    this.description = "armor infantry / anti-infantry";
+    this.description = "armor-infantry / anti-armor";
     this.cost = 1;
 
     this.scale = 56;
@@ -69,11 +69,7 @@ export class NordExecutioner extends ArmPrimary.Arm {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
-    let targetType = targetArm.type;
-    let antiArmor = 0;
-    if (targetType === "infantry") {
-      antiArmor += 16;
-    }
+    let antiArmor = 16;
 
     return antiArmor;
   }
@@ -87,7 +83,7 @@ export class CoastDefender extends ArmPrimary.Arm {
 
     this.name = "Coast Defender";
     this.type = "archers";
-    this.description = "archers / charge-resist";
+    this.description = "melee-archers / resist-charging";
     this.cost = 1;
 
     this.scale = 48;
@@ -130,7 +126,7 @@ export class CoastDefenderShield extends ArmPrimary.Arm {
 
     this.name = "Coast Defender (Shield)";
     this.type = "archers";
-    this.description = "shield archers / charge-resist";
+    this.description = "melee-shield-archers / resist-charging";
     this.cost = 1;
 
     this.scale = 48;
@@ -173,7 +169,7 @@ export class BallistaSquad extends ArmPrimary.Arm {
 
     this.name = "Ballista Squad";
     this.type = "archers";
-    this.description = "archers / anti-armor";
+    this.description = "heavy-archers / anti-armor";
     this.cost = 2;
 
     this.scale = 32;
@@ -212,7 +208,7 @@ export class FlameKnight extends ArmPrimary.Arm {
 
     this.name = "Flame Knight";
     this.type = "cavalry";
-    this.description = "charging cavalry / anti-armor";
+    this.description = "charging-cavalry / anti-armor";
     this.cost = 1;
 
     this.scale = 32;
@@ -254,14 +250,14 @@ export class CoralCavalry extends ArmPrimary.Arm {
 
     this.name = "Coral Cavalry";
     this.type = "cavalry";
-    this.description = "charging cavalry / shield";
+    this.description = "charging-cavalry / heavy-armor";
     this.cost = 1;
 
     this.scale = 32;
     this.singleHP = 100;
-    this.speed = 6;
+    this.speed = 5;
 
-    this.meleeArmor = 30;
+    this.meleeArmor = 50;
     this.missleArmor = 60;
     this.chargeArmor = 40;
 
@@ -322,7 +318,7 @@ export class StoneGiant extends ArmPrimary.Arm {
 
     this.name = "Stone Giant";
     this.type = "monster";
-    this.description = "giant / anti-infantry";
+    this.description = "giant / heavy-armor / anti-infantry";
     this.cost = 6;
 
     this.scale = 1;

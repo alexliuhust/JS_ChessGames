@@ -19,7 +19,7 @@ export function drawInfoForSelectedPiece(cxt, piece) {
 function drawTitle(cxt, piece) {
   Canvas.drawImg(cxt, piece.img, 0, 0, 50, 50, 10, 10, 85, 85);
   Canvas.drawText(cxt, piece.name, 105, 45, "white", 24);
-  Canvas.drawText(cxt, piece.description, 105, 80, "white", 15);
+  Canvas.drawText(cxt, piece.description, 105, 80, "white", 16);
 }
 
 function drawHPAndAmmoBars(cxt, piece) {
