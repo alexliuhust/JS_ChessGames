@@ -349,18 +349,18 @@ export class MutantSlave extends ArmPrimary.Arm {
 
     this.name = "Mutant Slave";
     this.type = "monster-infantry";
-    this.description = "monster-infantry / fast";
+    this.description = "monster-infantry / melee-master / fast";
     this.cost = 2;
 
     this.scale = 20;
     this.singleHP = 200;
     this.speed = 5;
 
-    this.meleeArmor = 80;
+    this.meleeArmor = 70;
     this.missleArmor = 0;
     this.chargeArmor = 60;
 
-    this.meleeAttack = 40;
+    this.meleeAttack = 50;
 
     this.loadRealtimeProps();
   }
@@ -368,18 +368,6 @@ export class MutantSlave extends ArmPrimary.Arm {
   // =============== Override private methods ===============
 
   // =============== Override Public APIs ===============
-
-  getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
-    let antiArmor = 0;
-    if (damageType === "melee") {
-      antiArmor = 36;
-    }
-
-    return antiArmor;
-  }
 }
 
 export class Foulcannon extends ArmPrimary.Arm {

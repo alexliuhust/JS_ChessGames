@@ -5,6 +5,7 @@ shield-infantry
 
 archers
 shield-archers
+giant-shield-archers
 armor-archers
 heavy-archers
 melee-archers

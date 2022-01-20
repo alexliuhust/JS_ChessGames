@@ -10,6 +10,7 @@ import * as EmpireArms from "./arms/empire/empireArms.js";
 import * as NordFortArms from "./arms/nordfort/nordfortArms.js";
 import * as DimwoodsArms from "./arms/dimwoods/dimwoodsArms.js";
 import * as PollutelandArms from "./arms/polluteland/pollutelandArms.js";
+import * as SnowhauptArms from "./arms/snowhaupt/snowhauptArms.js";
 
 // =================== Load All Canvases ===================
 const canvasList = {
@@ -23,7 +24,7 @@ const canvasList = {
 // =================== Refreshing Round Button ===================
 let endRoundForBlue = document.getElementById("endRoundForBlue");
 let endRoundForRed = document.getElementById("endRoundForRed");
-function endBluw() {
+function endBlue() {
   endRoundForBlue.style.backgroundColor = "";
   endRoundForRed.style.backgroundColor = "red";
   player1.isMyRound = false;
@@ -50,12 +51,12 @@ endRoundForRed.onclick = (e) => {
   endRed();
 };
 document.addEventListener("keydown", (e) => {
-  // Press '1' to end round for blue
-  if (e.code == "KeyQ") {
-    endBluw();
-  }
-  // Press '2' to end round for red
-  else if (e.code == "KeyP") {
+  if (e.code == "KeyS") {
+    if (player1.isMyRound) endBlue();
+    else endRed();
+  } else if (e.code == "KeyQ") {
+    endBlue();
+  } else if (e.code == "KeyP") {
     endRed();
   }
 });
@@ -92,33 +93,36 @@ function start() {
 }
 
 // =================== Load Players Info ===================
+// let pieces1 = DimwoodsArms.getTestArms(1);
+// let pieces2 = SnowhauptArms.getTestArms(2);
+
 let pieces1 = [
-  new PollutelandArms.MutantSlave([9, 3]),
-  new PollutelandArms.MutantSlave([5, 4]),
-  new PollutelandArms.MutantSlave([9, 5]),
+  new NordFortArms.NordExecutioner([10, 3]),
+  new PollutelandArms.MutantSlave([10, 4]),
+  // new SnowhauptArms.DwarfWarrior([10, 5]),
 
-  new PollutelandArms.MutantSlave([9, 7]),
-  new PollutelandArms.MutantSlave([9, 8]),
-  new PollutelandArms.MutantSlave([9, 9]),
+  // new SnowhauptArms.BoneBreaker([10, 7]),
+  // new SnowhauptArms.BoneBreaker([10, 8]),
+  // new SnowhauptArms.BoneBreaker([10, 9]),
 
-  new PollutelandArms.MutantSlave([9, 11]),
-  new PollutelandArms.MutantSlave([9, 12]),
-  new PollutelandArms.MutantSlave([9, 13]),
-  new PollutelandArms.MutantSlave([9, 14]),
+  // new SnowhauptArms.Berserker([10, 11]),
+  // new SnowhauptArms.Berserker([10, 12]),
+  // new SnowhauptArms.Berserker([10, 13]),
+  // new SnowhauptArms.MutantSlave([9, 14]),
 ];
 let pieces2 = [
-  new EmpireArms.Musketeer([11, 3]),
-  new EmpireArms.EmpireMortar([11, 4]),
-  new EmpireArms.CannonGroup([11, 5]),
+  new PollutelandArms.MutantSlave([11, 3]),
+  new NordFortArms.NordExecutioner([11, 4]),
+  // new PollutelandArms.MutantSlave([11, 5]),
 
-  new NordFortArms.CoastDefender([11, 7]),
-  new NordFortArms.BallistaSquad([11, 8]),
-  new NordFortArms.GiantBallista([11, 9]),
+  // new NordFortArms.NordExecutioner([11, 7]),
+  // new DimwoodsArms.WildKiller([11, 8]),
+  // new PollutelandArms.MutantSlave([11, 9]),
 
-  new DimwoodsArms.HightreeScout([11, 11]),
-  new DimwoodsArms.ShadowArcherAP([11, 12]),
-  new DimwoodsArms.ShadowArcherFL([11, 13]),
-  new DimwoodsArms.LongbowRanger([11, 14]),
+  // new NordFortArms.NordExecutioner([11, 11]),
+  // new DimwoodsArms.WildKiller([11, 12]),
+  // new PollutelandArms.MutantSlave([11, 13]),
+  // new DimwoodsArms.LongbowRanger([11, 14]),
 ];
 
 let player1 = new Player(pieces1, pieces2, "blue", canvasList);
