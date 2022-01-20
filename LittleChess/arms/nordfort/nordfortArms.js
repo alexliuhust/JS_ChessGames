@@ -9,7 +9,7 @@ export class HallwayGuard extends ArmPrimary.Arm {
 
     this.name = "Hallway Guard";
     this.type = "infantry";
-    this.description = "infantry / resist-charging";
+    this.description = "infantry / resist-charging / anti-armor";
     this.cost = 1;
 
     this.scale = 64;

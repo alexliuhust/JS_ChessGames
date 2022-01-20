@@ -333,7 +333,11 @@ export class Arm {
     let realDamge = rawTotalDamage * damagePercentage;
 
     if (this.scale === 1) {
-      this.c_singleHP -= Math.round(realDamge / 10);
+      if (damageType === "melee" || damageType === "charge") {
+        this.c_singleHP -= Math.round(realDamge / 10);
+      } else {
+        this.c_singleHP -= Math.round(realDamge / 4);
+      }
       if (this.c_singleHP <= 0) {
         this.isAlive = false;
       }

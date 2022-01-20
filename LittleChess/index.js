@@ -97,30 +97,30 @@ function start() {
 // let pieces2 = SnowhauptArms.getTestArms(2);
 
 let pieces1 = [
-  new NordFortArms.NordExecutioner([10, 3]),
-  new PollutelandArms.MutantSlave([10, 4]),
-  // new SnowhauptArms.DwarfWarrior([10, 5]),
+  new SnowhauptArms.BoneBreaker([10, 3]),
+  new SnowhauptArms.BoneBreaker([10, 4]),
+  new SnowhauptArms.BoneBreaker([10, 5]),
 
-  // new SnowhauptArms.BoneBreaker([10, 7]),
-  // new SnowhauptArms.BoneBreaker([10, 8]),
-  // new SnowhauptArms.BoneBreaker([10, 9]),
+  new SnowhauptArms.BoneBreaker([10, 7]),
+  new SnowhauptArms.BoneBreaker([10, 8]),
+  new SnowhauptArms.BoneBreaker([10, 9]),
 
-  // new SnowhauptArms.Berserker([10, 11]),
+  // new NordFortArms.NordExecutioner([10, 11]),
   // new SnowhauptArms.Berserker([10, 12]),
   // new SnowhauptArms.Berserker([10, 13]),
   // new SnowhauptArms.MutantSlave([9, 14]),
 ];
 let pieces2 = [
-  new PollutelandArms.MutantSlave([11, 3]),
-  new NordFortArms.NordExecutioner([11, 4]),
-  // new PollutelandArms.MutantSlave([11, 5]),
+  new EmpireArms.SteamTank([11, 3]),
+  new NordFortArms.StoneGiant([11, 4]),
+  new DimwoodsArms.Dryad([11, 5]),
 
-  // new NordFortArms.NordExecutioner([11, 7]),
-  // new DimwoodsArms.WildKiller([11, 8]),
-  // new PollutelandArms.MutantSlave([11, 9]),
+  new DimwoodsArms.GiantTreeman([11, 7]),
+  new EmpireArms.PalaceKnight([11, 8]),
+  new PollutelandArms.MutantSlave([11, 9]),
 
-  // new NordFortArms.NordExecutioner([11, 11]),
-  // new DimwoodsArms.WildKiller([11, 12]),
+  // new NordFortArms.HallwayGuard([11, 11]),
+  // new NordFortArms.HallwayGuard([11, 12]),
   // new PollutelandArms.MutantSlave([11, 13]),
   // new DimwoodsArms.LongbowRanger([11, 14]),
 ];

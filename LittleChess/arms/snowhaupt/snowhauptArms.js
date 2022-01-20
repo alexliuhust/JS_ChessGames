@@ -72,7 +72,7 @@ export class BoneBreaker extends ArmPrimary.Arm {
         targetType === "moster" ||
         targetType === "monster-infantry")
     ) {
-      singleDamage += 20;
+      singleDamage += 40;
     }
 
     return singleDamage;
@@ -100,7 +100,7 @@ export class Berserker extends ArmPrimary.Arm {
     this.missleArmor = 0;
     this.chargeArmor = 0;
 
-    this.meleeAttack = 56;
+    this.meleeAttack = 66;
 
     this.loadRealtimeProps();
   }
