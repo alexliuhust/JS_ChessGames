@@ -3,7 +3,13 @@ import * as MoveActions from "./actions/move.js";
 import { Canvas, Rect } from "./tools.js";
 import * as OpDraw from "./prompts/operationDrawings.js";
 import * as InfoDraw from "./prompts/infoDrawings.js";
-import { GameWidth as W, GameHeight as H } from "./const.js";
+import {
+  GameWidth as W,
+  GameHeight as H,
+  SelectPieceColor as SPC,
+  SelectEnemyColor as SEC,
+  ReadyToAttackColor as RTA,
+} from "./const.js";
 
 export class Player {
   constructor(pieces, enemies, color, _canvaslist) {
@@ -46,7 +52,15 @@ export class Player {
 
       // draw selection effect
       if (this.nowSelectPiece != null) {
-        OpDraw.drawSelectionRect(this.canvasList.main, this.nowSelectPiece);
+        let color = SPC;
+        if (this.currentStatus === "ready to attack") {
+          color = RTA;
+        }
+        OpDraw.drawSelectionRect(
+          this.canvasList.main,
+          this.nowSelectPiece,
+          color
+        );
         InfoDraw.drawInfoForSelectedPiece(
           this.canvasList.info,
           this.nowSelectPiece
@@ -54,7 +68,11 @@ export class Player {
       }
 
       if (this.nowSelectEnemy != null) {
-        OpDraw.drawSelectionRect(this.canvasList.main, this.nowSelectEnemy);
+        OpDraw.drawSelectionRect(
+          this.canvasList.main,
+          this.nowSelectEnemy,
+          SEC
+        );
         InfoDraw.drawInfoForSelectedPiece(
           this.canvasList.info,
           this.nowSelectEnemy

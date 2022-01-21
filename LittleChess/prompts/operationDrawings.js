@@ -11,8 +11,8 @@ const dir = [
   [-1, 0],
 ];
 
-export function drawSelectionRect(cxt, piece) {
-  Canvas.drawRect(cxt, piece.x - 7, piece.y - 7, 64, 64, "rgb(50, 195, 50)", 3);
+export function drawSelectionRect(cxt, piece, color) {
+  Canvas.drawRect(cxt, piece.x - 7, piece.y - 7, 64, 64, color, 3);
 }
 
 export function drawAvailableDestinations(cxt, self, others) {

@@ -103,7 +103,7 @@ let pieces1 = [
 
   new SnowhauptArms.BoneBreaker([10, 7]),
   new SnowhauptArms.BoneBreaker([10, 8]),
-  new SnowhauptArms.BoneBreaker([10, 9]),
+  new PollutelandArms.WeapSqdFlthr([10, 9]),
 
   // new NordFortArms.NordExecutioner([10, 11]),
   // new SnowhauptArms.Berserker([10, 12]),

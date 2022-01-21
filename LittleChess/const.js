@@ -4,6 +4,9 @@ export const InfoWidth = 530;
 export const InfoHeight = 850;
 export const HpColor = "rgb(100, 200, 100)";
 export const AmmoColor = "rgb(150, 100, 0)";
+export const SelectPieceColor = "rgb(50, 195, 50)";
+export const SelectEnemyColor = "rgb(200, 100, 50)";
+export const ReadyToAttackColor = "rgb(195, 50, 50)";
 export const ArmTestPos1 = [
   [5, 4],
   [6, 5],
