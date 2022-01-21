@@ -167,6 +167,16 @@ export class Player {
           }
         }
         if (p === len) this.clearForNoSelection();
+
+        len = this.enemyList.length;
+        p = 0;
+        for (p = 0; p < len; p++) {
+          if (Rect.pointInRect({ x: x, y: y }, this.enemyList[p])) {
+            this.selectAnEnemyPiece(p);
+            return;
+          }
+        }
+        if (p === len) this.clearForNoSelection();
       }
 
       // Click to let the selected piece attack the target

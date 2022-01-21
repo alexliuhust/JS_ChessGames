@@ -32,7 +32,10 @@ export function armBombArea(attacker, centerPosition, defenders) {
       if (distance === 1) {
         att_totalRowDamage = Math.ceil(att_totalRowDamage * 0.7);
       } else if (distance > 1) {
-        att_totalRowDamage = Math.ceil(att_totalRowDamage * 0.4);
+        att_totalRowDamage = Math.ceil(att_totalRowDamage * 0.25);
+      }
+      if (defender.scale === 1) {
+        att_totalRowDamage = Math.ceil(att_totalRowDamage * 0.5);
       }
       defender.decreaseScale(damageType, 0, att_totalRowDamage);
     }
