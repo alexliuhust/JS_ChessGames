@@ -16,12 +16,14 @@ export class Player {
     this.enemyList = enemies;
 
     this.nowSelectPiece = null;
+    this.nowSelectEnemy = null;
     this.curAvailablePos = null;
     this.curAvailableTargets = null;
     this.currentStatus = "no selection";
 
-    this.clearWhenNoSelection = function () {
+    this.clearForNoSelection = function () {
       this.nowSelectPiece = null;
+      this.nowSelectEnemy = null;
       this.curAvailablePos = null;
       this.curAvailableTargets = null;
       this.currentStatus = "no selection";
@@ -50,6 +52,14 @@ export class Player {
           this.nowSelectPiece
         );
       }
+
+      if (this.nowSelectEnemy != null) {
+        OpDraw.drawSelectionRect(this.canvasList.main, this.nowSelectEnemy);
+        InfoDraw.drawInfoForSelectedPiece(
+          this.canvasList.info,
+          this.nowSelectEnemy
+        );
+      }
     };
 
     // =================== Mouse Clicking Events ===================
@@ -61,13 +71,13 @@ export class Player {
       let x = e.offsetX || e.layerX;
       let y = e.offsetY || e.layerY;
 
-      // Click to select a piece and make it ready to move
+      // Click to select a piece and make it ready to move if it is a comrade piece
       if (this.currentStatus === "no selection") {
         let len = this.pieceList.length;
         let p = 0;
         for (p = 0; p < len; p++) {
           if (Rect.pointInRect({ x: x, y: y }, this.pieceList[p])) {
-            this.clearWhenNoSelection();
+            this.clearForNoSelection();
             this.nowSelectPiece = this.pieceList[p];
             let blockers = this.pieceList.concat(this.enemyList);
             this.curAvailablePos = OpDraw.drawAvailableDestinations(
@@ -76,10 +86,21 @@ export class Player {
               blockers
             );
             this.currentStatus = "ready to move";
-            break;
+            return;
           }
         }
-        if (p === len) this.clearWhenNoSelection();
+        if (p === len) this.clearForNoSelection();
+
+        len = this.enemyList.length;
+        p = 0;
+        for (p = 0; p < len; p++) {
+          if (Rect.pointInRect({ x: x, y: y }, this.enemyList[p])) {
+            this.clearForNoSelection();
+            this.nowSelectEnemy = this.enemyList[p];
+            return;
+          }
+        }
+        if (p === len) this.clearForNoSelection();
       }
 
       // Click to move the selected piece
@@ -104,11 +125,11 @@ export class Player {
               toPosition,
               blockers
             );
-            this.clearWhenNoSelection();
+            this.clearForNoSelection();
             break;
           }
         }
-        if (c === len) this.clearWhenNoSelection();
+        if (c === len) this.clearForNoSelection();
       }
 
       // Click to let the selected piece attack the target
@@ -128,11 +149,11 @@ export class Player {
                 target,
                 this.enemyList
               );
-              this.clearWhenNoSelection();
+              this.clearForNoSelection();
               break;
             }
           }
-          if (c === len) this.clearWhenNoSelection();
+          if (c === len) this.clearForNoSelection();
         }
 
         // Bombing arms
@@ -150,11 +171,11 @@ export class Player {
             let affected = this.pieceList.concat(this.enemyList);
             if (Rect.pointInRect({ x: x, y: y }, rect)) {
               AttackActions.armBombArea(this.nowSelectPiece, center, affected);
-              this.clearWhenNoSelection();
+              this.clearForNoSelection();
               break;
             }
           }
-          if (c === len) this.clearWhenNoSelection();
+          if (c === len) this.clearForNoSelection();
         }
       }
     };

@@ -29,7 +29,7 @@ function endBlue() {
   endRoundForRed.style.backgroundColor = "red";
   player1.isMyRound = false;
   player2.isMyRound = true;
-  player1.clearWhenNoSelection();
+  player1.clearForNoSelection();
   for (let i = 0; i < player2.pieceList.length; i++) {
     player2.pieceList[i].roundRefresh();
   }
@@ -39,7 +39,7 @@ function endRed() {
   endRoundForRed.style.backgroundColor = "";
   player1.isMyRound = true;
   player2.isMyRound = false;
-  player2.clearWhenNoSelection();
+  player2.clearForNoSelection();
   for (let i = 0; i < player1.pieceList.length; i++) {
     player1.pieceList[i].roundRefresh();
   }
