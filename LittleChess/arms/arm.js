@@ -45,10 +45,13 @@ function calculateCost(arm) {
   // Armor score
   let meleeArmorScore =
     arm.meleeArmor >= 60 ? arm.meleeArmor * 1.3 : arm.meleeArmor;
+  if (arm.meleeArmor >= 80) meleeArmorScore *= 1.3;
   let missleArmorScore =
     arm.missleArmor >= 60 ? arm.missleArmor * 1.3 : arm.missleArmor;
+  if (arm.missleArmor >= 80) missleArmorScore *= 1.3;
   let chargeArmorScore =
     arm.chargeArmor >= 60 ? arm.chargeArmor * 1.3 : arm.chargeArmor;
+  if (arm.chargeArmor >= 80) chargeArmorScore *= 1.3;
   let armorScore = Math.floor(
     (meleeArmorScore + missleArmorScore + chargeArmorScore) * 0.6
   );
@@ -341,18 +344,6 @@ export class Arm {
   }
 
   // =============== Public APIs ===============
-
-  isOperable() {
-    if (this.c_speed === 0 && this.hasAttacked) {
-      return false;
-    }
-    return true;
-  }
-
-  optOut() {
-    this.c_speed = 0;
-    this.hasAttacked = true;
-  }
 
   roundRefresh() {
     this.c_speed = this.speed;
