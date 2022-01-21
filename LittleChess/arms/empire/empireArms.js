@@ -382,10 +382,10 @@ export class SteamTank extends ArmPrimary.Arm {
 
     this.antiArmor = 50;
 
-    this.loadRealtimeProps();
-
     this.ammo = 18;
     this.c_ammo = this.ammo;
+
+    this.loadRealtimeProps();
   }
 
   // =============== Override private methods ===============

@@ -41,7 +41,7 @@ export class HurlerGas extends ArmPrimary.Arm {
     this.description = "armor-archers / anti-armor";
     this.cost = 2;
 
-    this.scale = 80;
+    this.scale = 60;
     this.singleHP = 30;
     this.speed = 3;
 
@@ -53,10 +53,12 @@ export class HurlerGas extends ArmPrimary.Arm {
     this.missleAttack = 16;
     this.missleRange = 3;
 
-    this.loadRealtimeProps();
+    this.antiArmor = 40;
 
     this.ammo = 12;
     this.c_ammo = this.ammo;
+
+    this.loadRealtimeProps();
   }
 
   // =============== Override private methods ===============
@@ -67,12 +69,10 @@ export class HurlerGas extends ArmPrimary.Arm {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
-    let antiArmor = 0;
     if (damageType === "missle") {
-      antiArmor = 60;
+      return this.antiArmor;
     }
-
-    return antiArmor;
+    return 0;
   }
 }
 
@@ -87,7 +87,7 @@ export class HurlerFrgm extends ArmPrimary.Arm {
     this.description = "armor-archers / anti-infantry";
     this.cost = 2;
 
-    this.scale = 80;
+    this.scale = 60;
     this.singleHP = 30;
     this.speed = 3;
 
@@ -97,12 +97,13 @@ export class HurlerFrgm extends ArmPrimary.Arm {
 
     this.meleeAttack = 16;
     this.missleAttack = 16;
+    this.missleAttack_bonus = 36;
     this.missleRange = 3;
-
-    this.loadRealtimeProps();
 
     this.ammo = 12;
     this.c_ammo = this.ammo;
+
+    this.loadRealtimeProps();
   }
 
   // =============== Override private methods ===============
@@ -125,7 +126,7 @@ export class HurlerFrgm extends ArmPrimary.Arm {
         targetType === "archers" ||
         targetType === "artillery")
     ) {
-      singleDamage += 16;
+      singleDamage += this.missleAttack_bonus;
     }
     this.c_ammo--;
 
@@ -146,7 +147,7 @@ export class HurlerHE extends ArmPrimary.Arm {
     this.description = "armor-archers / high-damage";
     this.cost = 2;
 
-    this.scale = 80;
+    this.scale = 60;
     this.singleHP = 30;
     this.speed = 3;
 
@@ -155,13 +156,13 @@ export class HurlerHE extends ArmPrimary.Arm {
     this.chargeArmor = 30;
 
     this.meleeAttack = 16;
-    this.missleAttack = 34;
+    this.missleAttack = 30;
     this.missleRange = 3;
-
-    this.loadRealtimeProps();
 
     this.ammo = 12;
     this.c_ammo = this.ammo;
+
+    this.loadRealtimeProps();
   }
 
   // =============== Override private methods ===============
@@ -184,12 +185,13 @@ export class WeapSqdGingall extends ArmPrimary.Arm {
     this.singleHP = 30;
     this.speed = 3;
 
-    this.meleeArmor = 0;
+    this.meleeArmor = 30;
     this.missleArmor = 50;
     this.chargeArmor = 0;
 
     this.meleeAttack = 16;
     this.missleAttack = 30;
+    this.missleAttack_bonus = 50;
     this.missleRange = 6;
 
     this.loadRealtimeProps();
@@ -215,7 +217,7 @@ export class WeapSqdGingall extends ArmPrimary.Arm {
         targetType === "moster" ||
         targetType === "monster-infantry")
     ) {
-      singleDamage += 30;
+      singleDamage += this.missleAttack_bonus;
     }
     this.c_ammo--;
 
@@ -240,14 +242,16 @@ export class WeapSqdGatlin extends ArmPrimary.Arm {
     this.singleHP = 30;
     this.speed = 3;
 
-    this.meleeArmor = 0;
+    this.meleeArmor = 30;
     this.missleArmor = 50;
     this.chargeArmor = 0;
 
     this.meleeAttack = 16;
     this.missleAttack = 38;
+    this.missleAttack_bonus = 50;
     this.missleRange = 6;
 
+    this.ammo = 10;
     this.loadRealtimeProps();
 
     this.ammo = 200;
@@ -274,7 +278,9 @@ export class WeapSqdGatlin extends ArmPrimary.Arm {
         targetType === "archers" ||
         targetType === "artillery")
     ) {
-      singleDamage += 14;
+      if (targetArm.c_missleArmor > 0)
+        singleDamage += this.missleAttack_bonus / 5;
+      else singleDamage += this.missleAttack_bonus;
     }
     this.c_ammo -= 20;
 
@@ -299,18 +305,19 @@ export class WeapSqdFlthr extends ArmPrimary.Arm {
     this.singleHP = 30;
     this.speed = 2;
 
-    this.meleeArmor = 0;
+    this.meleeArmor = 30;
     this.missleArmor = 50;
     this.chargeArmor = 0;
 
     this.meleeAttack = 16;
     this.missleAttack = 48;
+    this.missleAttack_bonus = 30;
     this.missleRange = 2;
-
-    this.loadRealtimeProps();
 
     this.ammo = 9;
     this.c_ammo = this.ammo;
+
+    this.loadRealtimeProps();
   }
 
   // =============== Override private methods ===============
@@ -331,7 +338,7 @@ export class WeapSqdFlthr extends ArmPrimary.Arm {
       damageType === "missle" &&
       (targetArm.c_meleeArmor === 0 || targetArm.c_missleArmor === 0)
     ) {
-      singleDamage += 20;
+      singleDamage += this.missleAttack_bonus;
     }
     this.c_ammo--;
 

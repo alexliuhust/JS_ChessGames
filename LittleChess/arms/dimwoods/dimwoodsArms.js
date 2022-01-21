@@ -294,10 +294,10 @@ export class DryadRangerRide extends ArmPrimary.Arm {
 
     this.antiArmor = 60;
 
-    this.loadRealtimeProps();
-
     this.ammo = 10;
     this.c_ammo = this.ammo;
+
+    this.loadRealtimeProps();
   }
 
   // =============== Override private methods ===============
