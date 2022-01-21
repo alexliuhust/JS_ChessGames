@@ -1,101 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My JS Game</title>
-</head>
-<body>
-    <div style="display:none;">
-      <!-- Empire images -->
-      <img src="images/empire/SwordInfantry.png" id="SwordInfantry_img"/>
-      <img src="images/empire/PalaceGuard.png" id="PalaceGuard_img"/>
-      <img src="images/empire/Musketeer.png" id="Musketeer_img"/>
-      <img src="images/empire/MusketRider.png" id="MusketRider_img"/>
-      <img src="images/empire/Vanguard.png" id="Vanguard_img"/>
-      <img src="images/empire/PalaceKnight.png" id="PalaceKnight_img"/>
-      <img src="images/empire/CannonGroup.png" id="CannonGroup_img"/>
-      <img src="images/empire/EmpireMortar.png" id="EmpireMortar_img"/>
-      <img src="images/empire/SteamTank.png" id="SteamTank_img"/>
+  <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>My JS Game</title>
+  </head>
+  <body>
+      <!-------------------------------------------------------------------------------->
+      <!------------------------- The Images of All Arm Pieces ------------------------->
+      <!-------------------------------------------------------------------------------->
+      <div style="display:none;">
+        <!-- Empire images -->
+        <img src="images/empire/SwordInfantry.png" id="SwordInfantry_img"/>
+        <img src="images/empire/PalaceGuard.png" id="PalaceGuard_img"/>
+        <img src="images/empire/Musketeer.png" id="Musketeer_img"/>
+        <img src="images/empire/MusketRider.png" id="MusketRider_img"/>
+        <img src="images/empire/Vanguard.png" id="Vanguard_img"/>
+        <img src="images/empire/PalaceKnight.png" id="PalaceKnight_img"/>
+        <img src="images/empire/CannonGroup.png" id="CannonGroup_img"/>
+        <img src="images/empire/EmpireMortar.png" id="EmpireMortar_img"/>
+        <img src="images/empire/SteamTank.png" id="SteamTank_img"/>
 
-      <!-- Nordfort images -->
-      <img src="images/nordfort/HallwayGuard.png" id="HallwayGuard_img"/>
-      <img src="images/nordfort/NordExecutioner.png" id="NordExecutioner_img"/>
-      <img src="images/nordfort/CoastDefender.png" id="CoastDefender_img"/>
-      <img src="images/nordfort/CoastDefenderShield.png" id="CoastDefenderShield_img"/>
-      <img src="images/nordfort/BallistaSquad.png" id="BallistaSquad_img"/>
-      <img src="images/nordfort/FlameKnight.png" id="FlameKnight_img"/>
-      <img src="images/nordfort/CoralCavalry.png" id="CoralCavalry_img"/>
-      <img src="images/nordfort/GiantBallista.png" id="GiantBallista_img"/>
-      <img src="images/nordfort/StoneGiant.png" id="StoneGiant_img"/>
+        <!-- Nordfort images -->
+        <img src="images/nordfort/HallwayGuard.png" id="HallwayGuard_img"/>
+        <img src="images/nordfort/NordExecutioner.png" id="NordExecutioner_img"/>
+        <img src="images/nordfort/CoastDefender.png" id="CoastDefender_img"/>
+        <img src="images/nordfort/CoastDefenderShield.png" id="CoastDefenderShield_img"/>
+        <img src="images/nordfort/BallistaSquad.png" id="BallistaSquad_img"/>
+        <img src="images/nordfort/FlameKnight.png" id="FlameKnight_img"/>
+        <img src="images/nordfort/CoralCavalry.png" id="CoralCavalry_img"/>
+        <img src="images/nordfort/GiantBallista.png" id="GiantBallista_img"/>
+        <img src="images/nordfort/StoneGiant.png" id="StoneGiant_img"/>
 
-      <!-- Dimwoods images -->
-      <img src="images/dimwoods/WoodsGuard.png" id="WoodsGuard_img"/>
-      <img src="images/dimwoods/WildKiller.png" id="WildKiller_img"/>
-      <img src="images/dimwoods/HightreeScout.png" id="HightreeScout_img"/>
-      <img src="images/dimwoods/ShadowArcherAP.png" id="ShadowArcherAP_img"/>
-      <img src="images/dimwoods/ShadowArcherFL.png" id="ShadowArcherFL_img"/>
-      <img src="images/dimwoods/LongbowRanger.png" id="LongbowRanger_img"/>
-      <img src="images/dimwoods/Dryad.png" id="Dryad_img"/>
-      <img src="images/dimwoods/DryadRangerRide.png" id="DryadRangerRide_img"/>
-      <img src="images/dimwoods/GiantTreeman.png" id="GiantTreeman_img"/>
+        <!-- Dimwoods images -->
+        <img src="images/dimwoods/WoodsGuard.png" id="WoodsGuard_img"/>
+        <img src="images/dimwoods/WildKiller.png" id="WildKiller_img"/>
+        <img src="images/dimwoods/HightreeScout.png" id="HightreeScout_img"/>
+        <img src="images/dimwoods/ShadowArcherAP.png" id="ShadowArcherAP_img"/>
+        <img src="images/dimwoods/ShadowArcherFL.png" id="ShadowArcherFL_img"/>
+        <img src="images/dimwoods/LongbowRanger.png" id="LongbowRanger_img"/>
+        <img src="images/dimwoods/Dryad.png" id="Dryad_img"/>
+        <img src="images/dimwoods/DryadRangerRide.png" id="DryadRangerRide_img"/>
+        <img src="images/dimwoods/GiantTreeman.png" id="GiantTreeman_img"/>
 
-      <!-- Polluteland images -->
-      <img src="images/polluteland/SlaveConscript.png" id="SlaveConscript_img"/>
-      <img src="images/polluteland/HurlerGas.png" id="HurlerGas_img"/>
-      <img src="images/polluteland/HurlerFrgm.png" id="HurlerFrgm_img"/>
-      <img src="images/polluteland/HurlerHE.png" id="HurlerHE_img"/>
-      <img src="images/polluteland/WeapSqdGingall.png" id="WeapSqdGingall_img"/>
-      <img src="images/polluteland/WeapSqdGatlin.png" id="WeapSqdGatlin_img"/>
-      <img src="images/polluteland/WeapSqdFlthr.png" id="WeapSqdFlthr_img"/>
-      <img src="images/polluteland/MutantSlave.png" id="MutantSlave_img"/>
-      <img src="images/polluteland/Foulcannon.png" id="Foulcannon_img"/>
+        <!-- Polluteland images -->
+        <img src="images/polluteland/SlaveConscript.png" id="SlaveConscript_img"/>
+        <img src="images/polluteland/HurlerGas.png" id="HurlerGas_img"/>
+        <img src="images/polluteland/HurlerFrgm.png" id="HurlerFrgm_img"/>
+        <img src="images/polluteland/HurlerHE.png" id="HurlerHE_img"/>
+        <img src="images/polluteland/WeapSqdGingall.png" id="WeapSqdGingall_img"/>
+        <img src="images/polluteland/WeapSqdGatlin.png" id="WeapSqdGatlin_img"/>
+        <img src="images/polluteland/WeapSqdFlthr.png" id="WeapSqdFlthr_img"/>
+        <img src="images/polluteland/MutantSlave.png" id="MutantSlave_img"/>
+        <img src="images/polluteland/Foulcannon.png" id="Foulcannon_img"/>
+        
+        <!-- Snowhaupt images -->
+        <img src="images/snowhaupt/DwarfWarrior.png" id="DwarfWarrior_img"/>
+        <img src="images/snowhaupt/BoneBreaker.png" id="BoneBreaker_img"/>
+        <img src="images/snowhaupt/Berserker.png" id="Berserker_img"/>
+        <img src="images/snowhaupt/MountainShocker.png" id="MountainShocker_img"/>
+        <img src="images/snowhaupt/DwarfMusketeer.png" id="DwarfMusketeer_img"/>
+        <img src="images/snowhaupt/MortarSquad.png" id="MortarSquad_img"/>
+        <img src="images/snowhaupt/GoatCavalry.png" id="GoatCavalry_img"/>
+        <img src="images/snowhaupt/RevolvingCannon.png" id="RevolvingCannon_img"/>
+        <img src="images/snowhaupt/GiantCannon.png" id="GiantCannon_img"/>
+
+      </div>
       
-      <!-- Snowhaupt images -->
-      <img src="images/snowhaupt/DwarfWarrior.png" id="DwarfWarrior_img"/>
-      <img src="images/snowhaupt/BoneBreaker.png" id="BoneBreaker_img"/>
-      <img src="images/snowhaupt/Berserker.png" id="Berserker_img"/>
-      <img src="images/snowhaupt/MountainShocker.png" id="MountainShocker_img"/>
-      <img src="images/snowhaupt/DwarfMusketeer.png" id="DwarfMusketeer_img"/>
-      <img src="images/snowhaupt/MortarSquad.png" id="MortarSquad_img"/>
-      <img src="images/snowhaupt/GoatCavalry.png" id="GoatCavalry_img"/>
-      <img src="images/snowhaupt/RevolvingCannon.png" id="RevolvingCannon_img"/>
-      <img src="images/snowhaupt/GiantCannon.png" id="GiantCannon_img"/>
+      <!-------------------------------------------------------------------------------->
+      <!--------------------------- Round Refreshing Buttons --------------------------->
+      <!-------------------------------------------------------------------------------->
+      <div style="margin-left:10px;">
+          <input style="height:50px; font-size: 20px;
+                        border-color: blue;" 
+            id="endRoundForBlue" type="button" value="End Round For Blue" />
+          <input style="height:50px; font-size: 20px; margin-left: 950px;
+                        border-color: red;" 
+            id="endRoundForRed" type="button" value="End Round For Red" />
+      </div>
 
-    </div>
-    
+      <!-------------------------------------------------------------------------------->
+      <!------------------------------ Game Area Canvases ------------------------------>
+      <!-------------------------------------------------------------------------------->
+      <div style="margin-top: 10px; margin-left: 10px; height: 900px">
+          <div id="game" style="width:1350px;height:850px;">
+              <!-- map canvas, on which we draw the backgroud -->
+              <canvas id="map" width="1350" height="850" 
+                style="position:absolute; z-index: 100; background:url(images/map/bg.png) repeat;"></canvas>
+              <!-- piece canvas, on which we draw all the arm pieces -->
+              <canvas id="piece" width="1350" height="850" 
+                style="position:absolute; z-index: 101;"></canvas>
+              <!-- main canvas, on which we draw all the prompt effects -->
+              <canvas id="main" width="1350" height="850" 
+                style="position:absolute; z-index: 102;"></canvas>
+              <!-- select canvas, which accepts all mouse clicking events -->
+              <canvas id="select" width="1350" height="850" 
+                style="position:absolute; z-index: 103;"></canvas>
+          </div>
+      </div>
 
+      <!-------------------------------------------------------------------------------->
+      <!------------------------------- Info Area Canvas ------------------------------->
+      <!-------------------------------------------------------------------------------->
+      <div style="margin-top: -900px; margin-left: 1365px; height: 850px">
+          <canvas id="info" width="530" height="850" 
+            style="position:absolute; z-index: 100; background: black;"></canvas>
+      </div>
 
-    <div style="margin-left:10px;">
-        <input style="height:50px; font-size: 20px;
-                      border-color: blue;" 
-          id="endRoundForBlue" type="button" value="End Round For Blue" />
-        <input style="height:50px; font-size: 20px; margin-left: 950px;
-                      border-color: red;" 
-          id="endRoundForRed" type="button" value="End Round For Red" />
-    </div>
-
-    <div style="margin-top: 10px; margin-left: 10px; height: 900px">
-
-        <div id="game" style="width:1350px;height:850px;">
-            <canvas id="map" width="1350" height="850" 
-              style="position:absolute; z-index: 100; background:url(images/map/bg.png) repeat;"></canvas>
-            <canvas id="piece" width="1350" height="850" 
-              style="position:absolute; z-index: 101;"></canvas>
-            <canvas id="main" width="1350" height="850" 
-              style="position:absolute; z-index: 102;"></canvas>
-            <canvas id="select" width="1350" height="850" 
-              style="position:absolute; z-index: 103;"></canvas>
-        </div>
-
-    </div>
-
-    <div style="margin-top: -900px; margin-left: 1365px; height: 850px">
-        <canvas id="info" width="530" height="850" 
-           style="position:absolute; z-index: 100; background: black;"></canvas>
-    </div>
-
-    <script type="module" src="index.js"></script>
-</body>
+      <!-------------------------------------------------------------------------------->
+      <!------------------------ The Main Entrance of the Game ------------------------->
+      <!-------------------------------------------------------------------------------->
+      <script type="module" src="index.js"></script>
+  </body>
 </html>

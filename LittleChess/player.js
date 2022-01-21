@@ -36,7 +36,9 @@ export class Player {
       Canvas.clear(this.canvasList.main, W, H);
     };
 
-    // =================== Drawing ===================
+    // =================================================================================
+    // =================== Drawing Everything Related to this Player ===================
+    // =================================================================================
     this.drawForOneLoop = function () {
       // delete those dead arms
       for (let i = this.pieceList.length - 1; i >= 0; i--) {
@@ -80,39 +82,106 @@ export class Player {
       }
     };
 
-    // =================== Specific Actions ===================
-    this.getSelectedPieceReadyToMove = function (i) {
-      this.clearForNoSelection();
-      this.nowSelectPiece = this.pieceList[i];
-      let blockers = this.pieceList.concat(this.enemyList);
-      this.curAvailablePos = OpDraw.drawAvailableDestinations(
-        this.canvasList.main,
-        this.nowSelectPiece,
-        blockers
-      );
-      this.currentStatus = "ready to move";
-    };
-    this.selectAnEnemyPiece = function (i) {
-      this.clearForNoSelection();
-      this.nowSelectEnemy = this.enemyList[i];
-    };
-    this.moveSelectedPieceToDestination = function (i) {
-      let toPosition = [this.curAvailablePos[i][0], this.curAvailablePos[i][1]];
-      let blockers = this.pieceList.concat(this.enemyList);
-      MoveActions.moveToPosition(this.nowSelectPiece, toPosition, blockers);
-      this.clearForNoSelection();
-    };
-    this.letSelectedPieceAttackTarget = function (target) {
-      AttackActions.armAttackArm(this.nowSelectPiece, target, this.enemyList);
-      this.clearForNoSelection();
-    };
-    this.letSelectedPieceBombArea = function (center, affected) {
-      AttackActions.armBombArea(this.nowSelectPiece, center, affected);
-      this.clearForNoSelection();
+    // =================================================================================
+    // =============================== Specific Actions ================================
+    // =================================================================================
+    this.getSelectedPieceReadyToMove = function (x, y) {
+      let len = this.pieceList.length;
+      let p = 0;
+      for (p = 0; p < len; p++) {
+        if (Rect.pointInRect({ x: x, y: y }, this.pieceList[p])) {
+          this.clearForNoSelection();
+          this.nowSelectPiece = this.pieceList[p];
+          let blockers = this.pieceList.concat(this.enemyList);
+          this.curAvailablePos = OpDraw.drawAvailableDestinations(
+            this.canvasList.main,
+            this.nowSelectPiece,
+            blockers
+          );
+          this.currentStatus = "ready to move";
+          return true;
+        }
+      }
+      if (p === len) this.clearForNoSelection();
+      return false;
     };
 
-    // =================== Mouse Clicking Events that Trigger Specific Actions ===================
-    this.clickMouse = function (e) {
+    this.selectAnEnemyPiece = function (x, y) {
+      let len = this.enemyList.length;
+      let p = 0;
+      for (p = 0; p < len; p++) {
+        if (Rect.pointInRect({ x: x, y: y }, this.enemyList[p])) {
+          this.clearForNoSelection();
+          this.nowSelectEnemy = this.enemyList[p];
+          return true;
+        }
+      }
+      if (p === len) this.clearForNoSelection();
+      return false;
+    };
+
+    this.moveSelectedPieceToDestination = function (x, y) {
+      let len = this.curAvailablePos.length;
+      let c = 0;
+      for (c = 0; c < len; c++) {
+        let _x = this.curAvailablePos[c][0];
+        let _y = this.curAvailablePos[c][1];
+        let rect = CreateRect(_x, _y, 50, 50);
+        if (Rect.pointInRect({ x: x, y: y }, rect)) {
+          let toPosition = [
+            this.curAvailablePos[c][0],
+            this.curAvailablePos[c][1],
+          ];
+          let blockers = this.pieceList.concat(this.enemyList);
+          MoveActions.moveToPosition(this.nowSelectPiece, toPosition, blockers);
+          this.clearForNoSelection();
+          return true;
+        }
+      }
+      if (c === len) this.clearForNoSelection();
+      return false;
+    };
+
+    this.letSelectedPieceAttackTarget = function (x, y) {
+      let len = this.curAvailableTargets.length;
+      let c = 0;
+      for (c = 0; c < len; c++) {
+        let target = this.curAvailableTargets[c];
+        if (Rect.pointInRect({ x: x, y: y }, target)) {
+          AttackActions.armAttackArm(
+            this.nowSelectPiece,
+            target,
+            this.enemyList
+          );
+          this.clearForNoSelection();
+          return true;
+        }
+      }
+      if (c === len) this.clearForNoSelection();
+      return false;
+    };
+
+    this.letSelectedPieceBombArea = function (x, y) {
+      let len = this.curAvailableTargets.length;
+      let c = 0;
+      for (c = 0; c < len; c++) {
+        let center = this.curAvailableTargets[c];
+        let rect = CreateRect(center[0], center[1], 50, 50);
+        let affected = this.pieceList.concat(this.enemyList);
+        if (Rect.pointInRect({ x: x, y: y }, rect)) {
+          AttackActions.armBombArea(this.nowSelectPiece, center, affected);
+          this.clearForNoSelection();
+          return true;
+        }
+      }
+      if (c === len) this.clearForNoSelection();
+      return false;
+    };
+
+    // =================================================================================
+    // ==================== Click Mouse to Trigger Specific Actions ====================
+    // =================================================================================
+    this.mouseClickingEvents = function (e) {
       if (!this.isMyRound) {
         return;
       }
@@ -120,63 +189,17 @@ export class Player {
       let x = e.offsetX || e.layerX;
       let y = e.offsetY || e.layerY;
 
-      // Click to select a piece and make it ready to move if it is a comrade piece
+      // Click to select a piece, and make it ready to move if it is a comrade piece
       if (this.currentStatus === "no selection") {
-        let len = this.pieceList.length;
-        let p = 0;
-        for (p = 0; p < len; p++) {
-          if (Rect.pointInRect({ x: x, y: y }, this.pieceList[p])) {
-            this.getSelectedPieceReadyToMove(p);
-            return;
-          }
-        }
-        if (p === len) this.clearForNoSelection();
-
-        len = this.enemyList.length;
-        p = 0;
-        for (p = 0; p < len; p++) {
-          if (Rect.pointInRect({ x: x, y: y }, this.enemyList[p])) {
-            this.selectAnEnemyPiece(p);
-            return;
-          }
-        }
-        if (p === len) this.clearForNoSelection();
+        if (this.getSelectedPieceReadyToMove(x, y)) return;
+        if (this.selectAnEnemyPiece(x, y)) return;
       }
 
       // Click to move the selected piece, or select another piece
       else if (this.currentStatus === "ready to move") {
-        let len = this.curAvailablePos.length;
-        let c = 0;
-        for (c = 0; c < len; c++) {
-          let _x = this.curAvailablePos[c][0];
-          let _y = this.curAvailablePos[c][1];
-          let rect = CreateRect(_x, _y, 50, 50);
-          if (Rect.pointInRect({ x: x, y: y }, rect)) {
-            this.moveSelectedPieceToDestination(c);
-            return;
-          }
-        }
-        if (c === len) this.clearForNoSelection();
-
-        len = this.pieceList.length;
-        let p = 0;
-        for (p = 0; p < len; p++) {
-          if (Rect.pointInRect({ x: x, y: y }, this.pieceList[p])) {
-            this.getSelectedPieceReadyToMove(p);
-            return;
-          }
-        }
-        if (p === len) this.clearForNoSelection();
-
-        len = this.enemyList.length;
-        p = 0;
-        for (p = 0; p < len; p++) {
-          if (Rect.pointInRect({ x: x, y: y }, this.enemyList[p])) {
-            this.selectAnEnemyPiece(p);
-            return;
-          }
-        }
-        if (p === len) this.clearForNoSelection();
+        if (this.moveSelectedPieceToDestination(x, y)) return;
+        if (this.getSelectedPieceReadyToMove(x, y)) return;
+        if (this.selectAnEnemyPiece(x, y)) return;
       }
 
       // Click to let the selected piece attack the target
@@ -184,41 +207,19 @@ export class Player {
         this.currentStatus === "ready to attack" &&
         !this.nowSelectPiece.hasAttacked
       ) {
-        // Non-bombing arms
         if (!this.nowSelectPiece.isBombing) {
-          let len = this.curAvailableTargets.length;
-          let c = 0;
-          for (c = 0; c < len; c++) {
-            let target = this.curAvailableTargets[c];
-            if (Rect.pointInRect({ x: x, y: y }, target)) {
-              this.letSelectedPieceAttackTarget(target);
-              break;
-            }
-          }
-          if (c === len) this.clearForNoSelection();
-        }
-
-        // Bombing arms
-        else {
-          let len = this.curAvailableTargets.length;
-          let c = 0;
-          for (c = 0; c < len; c++) {
-            let center = this.curAvailableTargets[c];
-            let rect = CreateRect(center[0], center[1], 50, 50);
-            let affected = this.pieceList.concat(this.enemyList);
-            if (Rect.pointInRect({ x: x, y: y }, rect)) {
-              this.letSelectedPieceBombArea(center, affected);
-              break;
-            }
-          }
-          if (c === len) this.clearForNoSelection();
+          if (this.letSelectedPieceAttackTarget(x, y)) return;
+        } else {
+          if (this.letSelectedPieceBombArea(x, y)) return;
         }
       }
     };
 
-    // =================== Key Down Events ===================
-    document.addEventListener("keydown", (e) => {
-      // Press 'A' or 'L' to switch between 'attack' and 'move'
+    // =================================================================================
+    // ================================ Key Down Events ================================
+    // =================================================================================
+    this.keyDownEvents = function (e) {
+      // Press 'A' or 'L' to switch between 'attack mode' and 'move mode'
       if (
         (e.code == "KeyA" || e.code == "KeyL") &&
         this.nowSelectPiece != null &&
@@ -245,6 +246,10 @@ export class Player {
           this.currentStatus = "ready to move";
         }
       }
+    };
+
+    document.addEventListener("keydown", (e) => {
+      this.keyDownEvents(e);
     });
   }
 }
