@@ -108,7 +108,7 @@ let pieces1 = [
   // new NordFortArms.NordExecutioner([10, 11]),
   // new SnowhauptArms.Berserker([10, 12]),
   // new SnowhauptArms.Berserker([10, 13]),
-  // new SnowhauptArms.MutantSlave([9, 14]),
+  new EmpireArms.EmpireMortar([9, 14]),
 ];
 let pieces2 = [
   new EmpireArms.SteamTank([11, 3]),

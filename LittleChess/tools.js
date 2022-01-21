@@ -128,3 +128,12 @@ Array.prototype.remove = function (obj) {
     }
   }
 };
+
+export function CreateRect(_x, _y, _width, _height) {
+  return {
+    x: _x * 50,
+    y: _y * 50,
+    width: _width,
+    height: _height,
+  };
+}
