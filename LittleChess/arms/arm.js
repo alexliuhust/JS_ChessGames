@@ -31,6 +31,69 @@ export function checkArmClass(targetArm) {
   }
 }
 
+function calculateCost(arm) {
+  checkArmClass(arm);
+
+  // HP score
+  let hpScore = arm.scale * arm.singleHP;
+  if (arm.scale === 1) hpScore *= 8;
+  hpScore = Math.floor(hpScore / 100);
+
+  // Moving score
+  let movingScore = arm.speed * 10;
+
+  // Armor score
+  let meleeArmorScore =
+    arm.meleeArmor >= 60 ? arm.meleeArmor * 1.3 : arm.meleeArmor;
+  let missleArmorScore =
+    arm.missleArmor >= 60 ? arm.missleArmor * 1.3 : arm.missleArmor;
+  let chargeArmorScore =
+    arm.chargeArmor >= 60 ? arm.chargeArmor * 1.3 : arm.chargeArmor;
+  let armorScore = Math.floor(
+    (meleeArmorScore + missleArmorScore + chargeArmorScore) * 0.6
+  );
+
+  // Attack score
+  let meleeScore = Math.floor(
+    (arm.scale * (arm.meleeAttack + arm.meleeAttack_bonus / 2)) / 40
+  );
+  let rangeScore =
+    arm.missleRange >= 7 ? arm.missleRange * 1.7 : arm.missleRange;
+  let missleScore = Math.floor(
+    (arm.scale * (arm.missleAttack + arm.missleAttack_bonus / 2)) / 30 +
+      rangeScore * 7 +
+      arm.missleRadius * 30 +
+      arm.ammo
+  );
+  let chargeScore = Math.floor(
+    (arm.scale * (arm.chargeAttack + arm.chargeAttack_bonus / 2)) / 30 +
+      arm.speed * 3
+  );
+  let attackScore = Math.floor((meleeScore + missleScore + chargeScore) / 2);
+
+  // Anti-armor score
+  let antiArmorScore = Math.floor(Math.sqrt(arm.antiArmor) * 3);
+
+  // Type score
+  let artilleryScore = arm.type === "artillery" ? 150 : 0;
+  let monsterScore = arm.type === "monster" ? 150 : 0;
+  let typeScore = artilleryScore + monsterScore;
+
+  // Final cost
+  let cost =
+    Math.floor(
+      (hpScore +
+        movingScore +
+        armorScore +
+        attackScore +
+        antiArmorScore +
+        typeScore) /
+        5
+    ) * 5;
+
+  return cost;
+}
+
 export class Arm {
   constructor(positionValue) {
     // Properties for drawing
@@ -45,7 +108,6 @@ export class Arm {
     this.height = 50;
     this.img = null;
 
-    this.currentDirection = "u";
     this.isAlive = true;
     this.hasAttacked = false;
     this.hasMoved = false;
@@ -72,12 +134,17 @@ export class Arm {
     this.chargeArmor = 0;
 
     this.meleeAttack = 0;
+    this.meleeAttack_bonus = 0;
     this.chargeAttack = 0;
+    this.chargeAttack_bonus = 0;
 
     this.missleAttack = 0;
+    this.missleAttack_bonus = 0;
     this.missleRange = 0;
     this.missleRadius = 0;
     this.isBombing = false;
+
+    this.antiArmor = 0;
 
     this.ammo = -1;
 
@@ -107,6 +174,8 @@ export class Arm {
         this.ammo = 10;
       }
       this.c_ammo = this.ammo;
+
+      this.cost = calculateCost(this);
     };
   }
 

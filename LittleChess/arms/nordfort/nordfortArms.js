@@ -22,6 +22,8 @@ export class HallwayGuard extends ArmPrimary.Arm {
 
     this.meleeAttack = 30;
 
+    this.antiArmor = 40;
+
     this.loadRealtimeProps();
   }
 
@@ -33,7 +35,8 @@ export class HallwayGuard extends ArmPrimary.Arm {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
-    return 40;
+    if (damageType === "melee") return this.antiArmor;
+    return 0;
   }
 }
 
@@ -58,6 +61,8 @@ export class NordExecutioner extends ArmPrimary.Arm {
 
     this.meleeAttack = 42;
 
+    this.antiArmor = 16;
+
     this.loadRealtimeProps();
   }
 
@@ -69,9 +74,8 @@ export class NordExecutioner extends ArmPrimary.Arm {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
-    let antiArmor = 16;
-
-    return antiArmor;
+    if (damageType === "melee") return this.antiArmor;
+    return 0;
   }
 }
 
@@ -98,6 +102,8 @@ export class CoastDefender extends ArmPrimary.Arm {
     this.missleAttack = 40;
     this.missleRange = 5;
 
+    this.antiArmor = 16;
+
     this.loadRealtimeProps();
   }
 
@@ -111,7 +117,7 @@ export class CoastDefender extends ArmPrimary.Arm {
 
     let antiArmor = 0;
     if (damageType !== "melee") {
-      antiArmor += 16;
+      antiArmor += this.antiArmor;
     }
 
     return antiArmor;
@@ -141,6 +147,8 @@ export class CoastDefenderShield extends ArmPrimary.Arm {
     this.missleAttack = 40;
     this.missleRange = 5;
 
+    this.antiArmor = 16;
+
     this.loadRealtimeProps();
   }
 
@@ -154,7 +162,7 @@ export class CoastDefenderShield extends ArmPrimary.Arm {
 
     let antiArmor = 0;
     if (damageType !== "melee") {
-      antiArmor += 16;
+      antiArmor += this.antiArmor;
     }
 
     return antiArmor;
@@ -178,7 +186,9 @@ export class BallistaSquad extends ArmPrimary.Arm {
 
     this.meleeAttack = 16;
     this.missleAttack = 68;
-    this.missleRange = 7;
+    this.missleRange = 8;
+
+    this.antiArmor = 36;
 
     this.loadRealtimeProps();
   }
@@ -193,7 +203,7 @@ export class BallistaSquad extends ArmPrimary.Arm {
 
     let antiArmor = 0;
     if (damageType === "missle") {
-      antiArmor = 36;
+      antiArmor = this.antiArmor;
     }
 
     return antiArmor;
@@ -222,6 +232,8 @@ export class FlameKnight extends ArmPrimary.Arm {
     this.meleeAttack = 32;
     this.chargeAttack = 72;
 
+    this.antiArmor = 80;
+
     this.loadRealtimeProps();
   }
 
@@ -235,7 +247,7 @@ export class FlameKnight extends ArmPrimary.Arm {
 
     let antiArmor = 0;
     if (damageType === "charge") {
-      antiArmor = 80;
+      antiArmor = this.antiArmor;
     }
 
     return antiArmor;
@@ -257,7 +269,7 @@ export class CoralCavalry extends ArmPrimary.Arm {
     this.singleHP = 100;
     this.speed = 5;
 
-    this.meleeArmor = 50;
+    this.meleeArmor = 60;
     this.missleArmor = 60;
     this.chargeArmor = 40;
 
@@ -290,6 +302,8 @@ export class GiantBallista extends ArmPrimary.Arm {
     this.missleAttack = 140;
     this.missleRange = 11;
 
+    this.antiArmor = 48;
+
     this.loadRealtimeProps();
   }
 
@@ -303,7 +317,7 @@ export class GiantBallista extends ArmPrimary.Arm {
 
     let antiArmor = 0;
     if (damageType === "missle") {
-      antiArmor = 48;
+      antiArmor = this.antiArmor;
     }
 
     return antiArmor;
@@ -330,6 +344,7 @@ export class StoneGiant extends ArmPrimary.Arm {
     this.chargeArmor = 50;
 
     this.meleeAttack = 550;
+    this.meleeAttack_bonus = 150;
 
     this.loadRealtimeProps();
   }
@@ -350,7 +365,7 @@ export class StoneGiant extends ArmPrimary.Arm {
       targetType === "archers" ||
       targetType === "artillery"
     ) {
-      singleDamage += 150;
+      singleDamage += meleeAttack_bonus;
     }
 
     return singleDamage;

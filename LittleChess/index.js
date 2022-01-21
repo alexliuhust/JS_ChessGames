@@ -26,42 +26,36 @@ const canvasList = {
 // ===============================================================
 // ====================== Load Players Info ======================
 // ===============================================================
-// let pieces1 = DimwoodsArms.getTestArms(1);
-// let pieces2 = SnowhauptArms.getTestArms(2);
+let pieces1 = EmpireArms.getTestArms(1);
+let pieces2 = NordFortArms.getTestArms(2);
 
-let pieces1 = [
-  // new SnowhauptArms.BoneBreaker([10, 3]),
-  // new SnowhauptArms.BoneBreaker([10, 4]),
-  // new SnowhauptArms.BoneBreaker([10, 5]),
+// let pieces1 = [
+// new SnowhauptArms.BoneBreaker([10, 3]),
+// new SnowhauptArms.BoneBreaker([10, 4]),
+// new SnowhauptArms.BoneBreaker([10, 5]),
 
-  // new SnowhauptArms.BoneBreaker([10, 7]),
-  // new SnowhauptArms.BoneBreaker([10, 8]),
-  // new PollutelandArms.WeapSqdFlthr([10, 9]),
+// new SnowhauptArms.BoneBreaker([10, 7]),
+// new SnowhauptArms.BoneBreaker([10, 8]),
+// new PollutelandArms.WeapSqdFlthr([10, 9]),
 
-  new NordFortArms.NordExecutioner([10, 11]),
-  // new SnowhauptArms.Berserker([10, 12]),
-  // new SnowhauptArms.Berserker([10, 13]),
-  new EmpireArms.MusketRider([9, 14]),
-];
+// new NordFortArms.NordExecutioner([10, 11]),
+// new SnowhauptArms.Berserker([10, 12]),
+// new SnowhauptArms.Berserker([10, 13]),
+// new EmpireArms.MusketRider([9, 14]),
+// ];
 
-let pieces2 = [
-  // new EmpireArms.SteamTank([11, 3]),
-  // new NordFortArms.StoneGiant([11, 4]),
-  // new DimwoodsArms.Dryad([11, 5]),
-  // new DimwoodsArms.GiantTreeman([11, 7]),
-  // new EmpireArms.PalaceKnight([11, 8]),
-  // new PollutelandArms.MutantSlave([11, 9]),
-  // new NordFortArms.HallwayGuard([11, 11]),
-  // new NordFortArms.HallwayGuard([11, 12]),
-  // new PollutelandArms.MutantSlave([11, 13]),
-  // new DimwoodsArms.LongbowRanger([11, 14]),
-];
-
-for (let i = 7; i <= 11; i++) {
-  for (let j = 6; j <= 10; j++) {
-    pieces2.push(new NordFortArms.StoneGiant([i, j]));
-  }
-}
+// let pieces2 = [
+// new EmpireArms.SteamTank([11, 3]),
+// new NordFortArms.StoneGiant([11, 4]),
+// new DimwoodsArms.Dryad([11, 5]),
+// new DimwoodsArms.GiantTreeman([11, 7]),
+// new EmpireArms.PalaceKnight([11, 8]),
+// new PollutelandArms.MutantSlave([11, 9]),
+// new NordFortArms.HallwayGuard([11, 11]),
+// new NordFortArms.HallwayGuard([11, 12]),
+// new PollutelandArms.MutantSlave([11, 13]),
+// new DimwoodsArms.LongbowRanger([11, 14]),
+// ];
 
 let player1 = new Player(pieces1, pieces2, "blue", canvasList);
 let player2 = new Player(pieces2, pieces1, "red", canvasList);

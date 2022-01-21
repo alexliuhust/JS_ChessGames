@@ -21,6 +21,9 @@ export class SwordInfantry extends ArmPrimary.Arm {
     this.chargeArmor = 0;
 
     this.meleeAttack = 24;
+    this.meleeAttack_bonus = 8;
+
+    this.antiArmor = 8;
 
     this.loadRealtimeProps();
   }
@@ -41,7 +44,7 @@ export class SwordInfantry extends ArmPrimary.Arm {
       targetType === "archers" ||
       targetType === "artillery"
     ) {
-      singleDamage += 8;
+      singleDamage += this.meleeAttack_bonus;
     }
 
     return singleDamage;
@@ -56,7 +59,7 @@ export class SwordInfantry extends ArmPrimary.Arm {
     let targetType = targetArm.type;
     let antiArmor = 0;
     if (targetType !== "cavalry") {
-      antiArmor += 8;
+      antiArmor += this.antiArmor;
     }
 
     return antiArmor;
@@ -83,6 +86,9 @@ export class PalaceGuard extends ArmPrimary.Arm {
     this.chargeArmor = 80;
 
     this.meleeAttack = 20;
+    this.meleeAttack_bonus = 24;
+
+    this.antiArmor = 10;
 
     this.loadRealtimeProps();
   }
@@ -98,8 +104,11 @@ export class PalaceGuard extends ArmPrimary.Arm {
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
     }
-    if (targetType === "cavalry" || targetType === "monster") {
-      singleDamage += 24;
+    if (
+      damageType === "melee" &&
+      (targetType === "cavalry" || targetType === "monster")
+    ) {
+      singleDamage += this.meleeAttack_bonus;
     }
 
     return singleDamage;
@@ -112,7 +121,7 @@ export class PalaceGuard extends ArmPrimary.Arm {
     ArmPrimary.checkArmClass(targetArm);
 
     let targetType = targetArm.type;
-    let antiArmor = 6;
+    let antiArmor = this.antiArmor;
     if (targetType === "cavalry") {
       antiArmor += 10;
     }
@@ -140,6 +149,8 @@ export class Musketeer extends ArmPrimary.Arm {
     this.missleAttack = 48;
     this.missleRange = 6;
 
+    this.antiArmor = 10;
+
     this.loadRealtimeProps();
   }
 
@@ -153,7 +164,7 @@ export class Musketeer extends ArmPrimary.Arm {
 
     let antiArmor = 0;
     if (damageType === "missle") {
-      antiArmor = 10;
+      antiArmor = this.antiArmor;
     }
 
     return antiArmor;
@@ -183,6 +194,8 @@ export class MusketRider extends ArmPrimary.Arm {
     this.missleAttack = 48;
     this.missleRange = 6;
 
+    this.antiArmor = 10;
+
     this.loadRealtimeProps();
   }
 
@@ -196,7 +209,7 @@ export class MusketRider extends ArmPrimary.Arm {
 
     let antiArmor = 0;
     if (damageType === "missle") {
-      antiArmor = 10;
+      antiArmor = this.antiArmor;
     }
 
     return antiArmor;
@@ -225,6 +238,8 @@ export class Vanguard extends ArmPrimary.Arm {
     this.meleeAttack = 24;
     this.chargeAttack = 76;
 
+    this.antiArmor = 16;
+
     this.loadRealtimeProps();
   }
 
@@ -238,7 +253,7 @@ export class Vanguard extends ArmPrimary.Arm {
 
     let antiArmor = 0;
     if (damageType === "charge") {
-      antiArmor = 16;
+      antiArmor = this.antiArmor;
     }
 
     return antiArmor;
@@ -292,6 +307,8 @@ export class CannonGroup extends ArmPrimary.Arm {
     this.missleAttack = 150;
     this.missleRange = 12;
 
+    this.antiArmor = 50;
+
     this.loadRealtimeProps();
   }
 
@@ -305,7 +322,7 @@ export class CannonGroup extends ArmPrimary.Arm {
 
     let antiArmor = 0;
     if (damageType === "missle") {
-      antiArmor = 50;
+      antiArmor = this.antiArmor;
     }
 
     return antiArmor;
@@ -363,6 +380,8 @@ export class SteamTank extends ArmPrimary.Arm {
     this.missleAttack = 300;
     this.missleRange = 7;
 
+    this.antiArmor = 50;
+
     this.loadRealtimeProps();
 
     this.ammo = 18;
@@ -379,7 +398,7 @@ export class SteamTank extends ArmPrimary.Arm {
 
     let antiArmor = 0;
     if (damageType === "missle") {
-      antiArmor = 50;
+      antiArmor = this.antiArmor;
     }
 
     return antiArmor;
