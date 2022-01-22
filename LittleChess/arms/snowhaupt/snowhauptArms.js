@@ -183,7 +183,7 @@ export class DwarfMusketeer extends ArmPrimary.Arm {
     if (damageType === "missle") {
       return this.antiArmor;
     }
-    return antiArmor;
+    return 0;
   }
 }
 
@@ -312,7 +312,7 @@ export class RevolvingCannon extends ArmPrimary.Arm {
       antiArmor = this.antiArmor;
     }
 
-    return antiArmor;
+    return 0;
   }
 }
 

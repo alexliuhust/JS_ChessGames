@@ -26,8 +26,8 @@ const canvasList = {
 // ===============================================================
 // ====================== Load Players Info ======================
 // ===============================================================
-let pieces1 = EmpireArms.getTestArms(1);
-let pieces2 = SnowhauptArms.getTestArms(2);
+let pieces1 = PollutelandArms.getTestArms(1);
+let pieces2 = EmpireArms.getTestArms(2);
 
 // let pieces1 = [
 // new SnowhauptArms.BoneBreaker([10, 3]),

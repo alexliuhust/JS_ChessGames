@@ -80,7 +80,8 @@ function calculateCost(arm) {
   // Type score
   let artilleryScore = arm.type === "artillery" ? 150 : 0;
   let monsterScore = arm.type === "monster" ? 150 : 0;
-  let typeScore = artilleryScore + monsterScore;
+  let monstInfScore = arm.type === "monster-infantry" ? 100 : 0;
+  let typeScore = artilleryScore + monsterScore + monstInfScore;
 
   // Final cost
   let cost =
@@ -406,6 +407,8 @@ export class Arm {
         this.isAlive = false;
       }
     } else {
+      if (this.type === "monster-infantry")
+        realDamge = Math.round(realDamge * 0.6);
       let totalDecrease = Math.ceil(realDamge / this.singleHP);
       this.c_scale -= totalDecrease;
       if (this.c_scale <= 0) {
