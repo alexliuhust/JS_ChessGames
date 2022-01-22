@@ -27,26 +27,26 @@ function drawHPAndAmmoBars(cxt, piece) {
   let hpBarY = 140;
   let ammoBarY = hpBarY + 20;
 
-  let hpText = `[${piece.c_scale} / ${piece.scale}]`;
-  let ammoText = `[${piece.c_ammo} / ${piece.ammo}]`;
+  let hpText = `${piece.c_scale} / ${piece.scale}`;
+  let ammoText = `${piece.c_ammo} / ${piece.ammo}`;
   let hpBarLength, ammoBarLength;
   if (piece.scale === 1) {
     hpBarLength = (194 * piece.c_singleHP) / piece.singleHP;
-    hpText = `[${piece.c_singleHP} / ${piece.singleHP}]`;
+    hpText = `${piece.c_singleHP} / ${piece.singleHP}`;
   } else {
     hpBarLength = (194 * piece.c_scale) / piece.scale;
   }
   if (piece.ammo === -1) {
     ammoBarLength = 0;
-    ammoText = "   none";
+    ammoText = "   N/A";
   } else {
     ammoBarLength = (194 * piece.c_ammo) / piece.ammo;
   }
 
-  Canvas.drawText(cxt, "Scale / HP: ", textLeftMostX, hpBarY, "white", 18);
-  Canvas.drawText(cxt, "Ammo left: ", textLeftMostX, ammoBarY, "white", 18);
+  Canvas.drawText(cxt, "Scale or HP: ", textLeftMostX, hpBarY, "white", 18);
+  Canvas.drawText(cxt, "Ammo per-unit: ", textLeftMostX, ammoBarY, "white", 18);
 
-  let barX = 120;
+  let barX = 170;
   hpBarY -= 8;
   ammoBarY -= 8;
 
@@ -72,14 +72,14 @@ function drawHPAndAmmoBars(cxt, piece) {
     12
   );
 
-  Canvas.drawText(cxt, hpText, textLeftMostX + 170, hpBarY + 5, "black", 16);
+  Canvas.drawText(cxt, hpText, textLeftMostX + 225, hpBarY + 5, "black", 15);
   Canvas.drawText(
     cxt,
     ammoText,
-    textLeftMostX + 170,
+    textLeftMostX + 225,
     ammoBarY + 5,
     "black",
-    16
+    15
   );
 }
 

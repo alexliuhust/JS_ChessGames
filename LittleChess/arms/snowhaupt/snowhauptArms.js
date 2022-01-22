@@ -46,10 +46,11 @@ export class BoneBreaker extends ArmPrimary.Arm {
     this.speed = 2;
 
     this.meleeArmor = 40;
-    this.missleArmor = 30;
+    this.missleArmor = 20;
     this.chargeArmor = 20;
 
     this.meleeAttack = 20;
+    this.meleeAttack_bonus = 60;
 
     this.loadRealtimeProps();
   }
@@ -72,7 +73,7 @@ export class BoneBreaker extends ArmPrimary.Arm {
         targetType === "moster" ||
         targetType === "monster-infantry")
     ) {
-      singleDamage += 40;
+      singleDamage += this.meleeAttack_bonus;
     }
 
     return singleDamage;
@@ -96,9 +97,9 @@ export class Berserker extends ArmPrimary.Arm {
     this.singleHP = 70;
     this.speed = 3;
 
-    this.meleeArmor = 0;
-    this.missleArmor = 0;
-    this.chargeArmor = 0;
+    this.meleeArmor = 40;
+    this.missleArmor = 20;
+    this.chargeArmor = 20;
 
     this.meleeAttack = 66;
 
@@ -118,25 +119,24 @@ export class MountainShocker extends ArmPrimary.Arm {
 
     this.name = "Mountain Shocker";
     this.type = "archers";
-    this.description = "giant-shield-archers / high-damage";
+    this.description = "giant-shield-infantry / high-missle-damage";
     this.cost = 2;
 
     this.scale = 48;
     this.singleHP = 70;
     this.speed = 2;
 
-    this.meleeArmor = 30;
-    this.missleArmor = 90;
+    this.meleeArmor = 0;
+    this.missleArmor = 80;
     this.chargeArmor = 50;
 
     this.meleeAttack = 20;
     this.missleAttack = 80;
     this.missleRange = 2;
 
-    this.loadRealtimeProps();
-
     this.ammo = 3;
-    this.c_ammo = this.ammo;
+
+    this.loadRealtimeProps();
   }
 
   // =============== Override private methods ===============
@@ -167,6 +167,8 @@ export class DwarfMusketeer extends ArmPrimary.Arm {
     this.missleAttack = 40;
     this.missleRange = 6;
 
+    this.antiArmor = 40;
+
     this.loadRealtimeProps();
   }
 
@@ -178,11 +180,9 @@ export class DwarfMusketeer extends ArmPrimary.Arm {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
-    let antiArmor = 0;
     if (damageType === "missle") {
-      antiArmor = 40;
+      return this.antiArmor;
     }
-
     return antiArmor;
   }
 }
@@ -198,7 +198,7 @@ export class MortarSquad extends ArmPrimary.Arm {
     this.description = "shield-archers / high-damage";
     this.cost = 2;
 
-    this.scale = 32;
+    this.scale = 36;
     this.singleHP = 70;
     this.speed = 2;
 
@@ -208,7 +208,7 @@ export class MortarSquad extends ArmPrimary.Arm {
 
     this.meleeAttack = 24;
     this.missleAttack = 80;
-    this.missleRange = 4;
+    this.missleRange = 6;
 
     this.loadRealtimeProps();
   }
@@ -264,9 +264,16 @@ export class RevolvingCannon extends ArmPrimary.Arm {
     this.speed = 1;
 
     this.missleAttack = 440;
+    this.missleAttack_bonus = 220;
     this.missleRange = 10;
 
+    this.antiArmor = 50;
+
+    this.ammo = 15;
     this.loadRealtimeProps();
+
+    this.ammo = 120;
+    this.c_ammo = this.ammo;
   }
 
   // =============== Override private methods ===============
@@ -287,9 +294,9 @@ export class RevolvingCannon extends ArmPrimary.Arm {
         targetType === "moster" ||
         targetType === "monster-infantry")
     ) {
-      singleDamage += 220;
+      singleDamage += this.missleAttack_bonus;
     }
-    this.c_ammo--;
+    this.c_ammo -= 8;
 
     return singleDamage;
   }
@@ -302,7 +309,7 @@ export class RevolvingCannon extends ArmPrimary.Arm {
 
     let antiArmor = 0;
     if (damageType === "missle") {
-      antiArmor = 50;
+      antiArmor = this.antiArmor;
     }
 
     return antiArmor;

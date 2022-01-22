@@ -9,7 +9,7 @@ export class SlaveConscript extends ArmPrimary.Arm {
 
     this.name = "Slave Conscript";
     this.type = "infantry";
-    this.description = "shield-infantry";
+    this.description = "shield-infantry / weak";
     this.cost = 1;
 
     this.scale = 100;
