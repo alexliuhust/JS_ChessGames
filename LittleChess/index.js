@@ -26,7 +26,7 @@ const canvasList = {
 // ===============================================================
 // ====================== Load Players Info ======================
 // ===============================================================
-let pieces1 = PollutelandArms.getTestArms(1);
+let pieces1 = NordFortArms.getTestArms(1);
 let pieces2 = EmpireArms.getTestArms(2);
 
 // let pieces1 = [

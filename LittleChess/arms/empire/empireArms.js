@@ -10,7 +10,6 @@ export class SwordInfantry extends ArmPrimary.Arm {
     this.name = "Sword Infantry";
     this.type = "infantry";
     this.description = "shield-infantry / anti-infantry";
-    this.cost = 1;
 
     this.scale = 64;
     this.singleHP = 50;
@@ -74,8 +73,7 @@ export class PalaceGuard extends ArmPrimary.Arm {
 
     this.name = "Palace Guard";
     this.type = "infantry";
-    this.description = "infantry / resist-charging";
-    this.cost = 1;
+    this.description = "infantry / resist-charging / anti-large";
 
     this.scale = 64;
     this.singleHP = 50;
@@ -88,7 +86,7 @@ export class PalaceGuard extends ArmPrimary.Arm {
     this.meleeAttack = 20;
     this.meleeAttack_bonus = 24;
 
-    this.antiArmor = 10;
+    this.antiArmor = 6;
 
     this.loadRealtimeProps();
   }
@@ -106,7 +104,9 @@ export class PalaceGuard extends ArmPrimary.Arm {
     }
     if (
       damageType === "melee" &&
-      (targetType === "cavalry" || targetType === "monster")
+      (targetType === "cavalry" ||
+        targetType === "monster" ||
+        targetType === "monster-infantry")
     ) {
       singleDamage += this.meleeAttack_bonus;
     }
@@ -123,7 +123,7 @@ export class PalaceGuard extends ArmPrimary.Arm {
     let targetType = targetArm.type;
     let antiArmor = this.antiArmor;
     if (targetType === "cavalry") {
-      antiArmor += 10;
+      antiArmor = 16;
     }
 
     return antiArmor;
@@ -139,7 +139,6 @@ export class Musketeer extends ArmPrimary.Arm {
     this.name = "Musketeer";
     this.type = "archers";
     this.description = "archers";
-    this.cost = 2;
 
     this.scale = 48;
     this.singleHP = 40;
@@ -180,7 +179,6 @@ export class MusketRider extends ArmPrimary.Arm {
     this.name = "Musket Rider";
     this.type = "cavalry";
     this.description = "missle-cavalry";
-    this.cost = 4;
 
     this.scale = 32;
     this.singleHP = 90;
@@ -225,7 +223,6 @@ export class Vanguard extends ArmPrimary.Arm {
     this.name = "Vanguard";
     this.type = "cavalry";
     this.description = "charging-cavalry / anti-armor";
-    this.cost = 4;
 
     this.scale = 32;
     this.singleHP = 90;
@@ -269,9 +266,8 @@ export class PalaceKnight extends ArmPrimary.Arm {
     this.name = "Palace Knight";
     this.type = "cavalry";
     this.description = "melee-cavalry / heavy-armor";
-    this.cost = 4;
 
-    this.scale = 28;
+    this.scale = 32;
     this.singleHP = 100;
     this.speed = 4;
 
@@ -279,7 +275,7 @@ export class PalaceKnight extends ArmPrimary.Arm {
     this.missleArmor = 70;
     this.chargeArmor = 70;
 
-    this.meleeAttack = 32;
+    this.meleeAttack = 48;
 
     this.loadRealtimeProps();
   }
@@ -298,7 +294,6 @@ export class CannonGroup extends ArmPrimary.Arm {
     this.name = "Cannon Group";
     this.type = "artillery";
     this.description = "artillery / anti-armor";
-    this.cost = 5;
 
     this.scale = 5;
     this.singleHP = 300;
@@ -338,7 +333,6 @@ export class EmpireMortar extends ArmPrimary.Arm {
     this.name = "Empire Mortar";
     this.type = "artillery";
     this.description = "bombing-artillery";
-    this.cost = 6;
 
     this.scale = 5;
     this.singleHP = 300;
@@ -366,7 +360,6 @@ export class SteamTank extends ArmPrimary.Arm {
     this.name = "Steam Tank";
     this.type = "monster";
     this.description = "mech / heavy-armor / missle-attack";
-    this.cost = 6;
 
     this.scale = 1;
     this.singleHP = 300;
