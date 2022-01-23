@@ -10,7 +10,6 @@ export class WoodsGuard extends ArmPrimary.Arm {
     this.name = "Woods Guard";
     this.type = "infantry";
     this.description = "shield-infantry / resist-charging";
-    this.cost = 1;
 
     this.scale = 64;
     this.singleHP = 40;
@@ -49,7 +48,6 @@ export class WildKiller extends ArmPrimary.Arm {
     this.name = "Wild Killer";
     this.type = "infantry";
     this.description = "infantry / melee-master";
-    this.cost = 1;
 
     this.scale = 64;
     this.singleHP = 40;
@@ -99,7 +97,6 @@ export class HightreeScout extends ArmPrimary.Arm {
     this.name = "Hightree Scout";
     this.type = "archers";
     this.description = "melee-archers";
-    this.cost = 2;
 
     this.scale = 50;
     this.singleHP = 40;
@@ -130,7 +127,6 @@ export class ShadowArcherAP extends ArmPrimary.Arm {
     this.name = "Shadow Archer (Armor-Piercing)";
     this.type = "archers";
     this.description = "melee-archers / anti-armor";
-    this.cost = 2;
 
     this.scale = 40;
     this.singleHP = 40;
@@ -157,12 +153,8 @@ export class ShadowArcherAP extends ArmPrimary.Arm {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
-    let antiArmor = 0;
-    if (damageType === "missle") {
-      antiArmor = this.antiArmor;
-    }
-
-    return antiArmor;
+    if (damageType === "missle") return this.antiArmor;
+    return 0;
   }
 }
 
@@ -175,7 +167,6 @@ export class ShadowArcherFL extends ArmPrimary.Arm {
     this.name = "Shadow Archer (Flame)";
     this.type = "archers";
     this.description = "melee-archers / high-damage";
-    this.cost = 2;
 
     this.scale = 40;
     this.singleHP = 40;
@@ -206,7 +197,6 @@ export class LongbowRanger extends ArmPrimary.Arm {
     this.name = "Longbow Ranger";
     this.type = "archers";
     this.description = "long-range-archers / anti-armor";
-    this.cost = 2;
 
     this.scale = 32;
     this.singleHP = 40;
@@ -233,9 +223,7 @@ export class LongbowRanger extends ArmPrimary.Arm {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
-    if (damageType === "missle") {
-      return this.antiArmor;
-    }
+    if (damageType === "missle") return this.antiArmor;
     return 0;
   }
 }
@@ -249,7 +237,6 @@ export class Dryad extends ArmPrimary.Arm {
     this.name = "Dryad";
     this.type = "monster-infantry";
     this.description = "monster-infantry / heavy-armor";
-    this.cost = 2;
 
     this.scale = 16;
     this.singleHP = 300;
@@ -278,7 +265,6 @@ export class DryadRangerRide extends ArmPrimary.Arm {
     this.name = "Dryad (Ranger-Ride)";
     this.type = "monster-infantry";
     this.description = "monster-infantry / heavy-armor / missle-attack";
-    this.cost = 2;
 
     this.scale = 16;
     this.singleHP = 300;
@@ -308,9 +294,7 @@ export class DryadRangerRide extends ArmPrimary.Arm {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
-    if (damageType === "missle") {
-      return this.antiArmor;
-    }
+    if (damageType === "missle") return this.antiArmor;
     return 0;
   }
 }
@@ -324,7 +308,6 @@ export class GiantTreeman extends ArmPrimary.Arm {
     this.name = "Giant Treeman";
     this.type = "monster";
     this.description = "giant / heavy-armor";
-    this.cost = 6;
 
     this.scale = 1;
     this.singleHP = 600;
