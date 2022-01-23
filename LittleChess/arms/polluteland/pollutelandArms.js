@@ -10,7 +10,6 @@ export class SlaveConscript extends ArmPrimary.Arm {
     this.name = "Slave Conscript";
     this.type = "infantry";
     this.description = "shield-infantry / weak";
-    this.cost = 1;
 
     this.scale = 100;
     this.singleHP = 30;
@@ -39,7 +38,6 @@ export class HurlerGas extends ArmPrimary.Arm {
     this.name = "Hurler (Gas Bomb)";
     this.type = "archers";
     this.description = "armor-archers / anti-armor";
-    this.cost = 2;
 
     this.scale = 60;
     this.singleHP = 30;
@@ -85,7 +83,6 @@ export class HurlerFrgm extends ArmPrimary.Arm {
     this.name = "Hurler (Fragmentation)";
     this.type = "archers";
     this.description = "armor-archers / anti-infantry";
-    this.cost = 2;
 
     this.scale = 60;
     this.singleHP = 30;
@@ -145,7 +142,6 @@ export class HurlerHE extends ArmPrimary.Arm {
     this.name = "Hurler (High-Explosion)";
     this.type = "archers";
     this.description = "armor-archers / high-damage";
-    this.cost = 2;
 
     this.scale = 60;
     this.singleHP = 30;
@@ -179,7 +175,6 @@ export class WeapSqdGingall extends ArmPrimary.Arm {
     this.name = "Weapon Squad (Gingall)";
     this.type = "archers";
     this.description = "shield-archers / anti-large";
-    this.cost = 2;
 
     this.scale = 48;
     this.singleHP = 30;
@@ -236,7 +231,6 @@ export class WeapSqdGatlin extends ArmPrimary.Arm {
     this.name = "Weapon Squad (Gatlin)";
     this.type = "archers";
     this.description = "shield-archers / anti-infantry";
-    this.cost = 2;
 
     this.scale = 48;
     this.singleHP = 30;
@@ -299,7 +293,6 @@ export class WeapSqdFlthr extends ArmPrimary.Arm {
     this.name = "Weapon Squad (Flamethrower)";
     this.type = "archers";
     this.description = "shield-archers / anti-non-armor";
-    this.cost = 2;
 
     this.scale = 48;
     this.singleHP = 30;
@@ -357,7 +350,6 @@ export class MutantSlave extends ArmPrimary.Arm {
     this.name = "Mutant Slave";
     this.type = "monster-infantry";
     this.description = "monster-infantry / melee-master / fast";
-    this.cost = 2;
 
     this.scale = 20;
     this.singleHP = 200;
@@ -386,13 +378,12 @@ export class Foulcannon extends ArmPrimary.Arm {
     this.name = "Foulcannon";
     this.type = "artillery";
     this.description = "artillery / high-damage";
-    this.cost = 5;
 
     this.scale = 5;
     this.singleHP = 300;
     this.speed = 1;
 
-    this.missleAttack = 220;
+    this.missleAttack = 240;
     this.missleRange = 10;
 
     this.loadRealtimeProps();
