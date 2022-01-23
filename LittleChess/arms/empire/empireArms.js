@@ -20,9 +20,7 @@ export class SwordInfantry extends ArmPrimary.Arm {
     this.chargeArmor = 0;
 
     this.meleeAttack = 24;
-    this.meleeAttack_bonus = 8;
-
-    this.antiArmor = 8;
+    this.meleeAttack_bonus = 12;
 
     this.loadRealtimeProps();
   }
@@ -50,19 +48,6 @@ export class SwordInfantry extends ArmPrimary.Arm {
   }
 
   // =============== Override Public APIs ===============
-
-  getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
-    let targetType = targetArm.type;
-    let antiArmor = 0;
-    if (targetType !== "cavalry") {
-      antiArmor += this.antiArmor;
-    }
-
-    return antiArmor;
-  }
 }
 
 export class PalaceGuard extends ArmPrimary.Arm {
@@ -86,7 +71,7 @@ export class PalaceGuard extends ArmPrimary.Arm {
     this.meleeAttack = 20;
     this.meleeAttack_bonus = 24;
 
-    this.antiArmor = 6;
+    this.antiArmor = 16;
 
     this.loadRealtimeProps();
   }
@@ -120,13 +105,8 @@ export class PalaceGuard extends ArmPrimary.Arm {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
-    let targetType = targetArm.type;
-    let antiArmor = this.antiArmor;
-    if (targetType === "cavalry") {
-      antiArmor = 16;
-    }
-
-    return antiArmor;
+    if (damageType === "melee") return this.antiArmor;
+    return 0;
   }
 }
 
@@ -161,12 +141,8 @@ export class Musketeer extends ArmPrimary.Arm {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
-    let antiArmor = 0;
-    if (damageType === "missle") {
-      antiArmor = this.antiArmor;
-    }
-
-    return antiArmor;
+    if (damageType === "missle") return this.antiArmor;
+    return 0;
   }
 }
 
@@ -205,12 +181,8 @@ export class MusketRider extends ArmPrimary.Arm {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
-    let antiArmor = 0;
-    if (damageType === "missle") {
-      antiArmor = this.antiArmor;
-    }
-
-    return antiArmor;
+    if (damageType === "missle") return this.antiArmor;
+    return 0;
   }
 }
 
@@ -248,12 +220,8 @@ export class Vanguard extends ArmPrimary.Arm {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
-    let antiArmor = 0;
-    if (damageType === "charge") {
-      antiArmor = this.antiArmor;
-    }
-
-    return antiArmor;
+    if (damageType === "charge") return this.antiArmor;
+    return 0;
   }
 }
 
@@ -315,12 +283,8 @@ export class CannonGroup extends ArmPrimary.Arm {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
-    let antiArmor = 0;
-    if (damageType === "missle") {
-      antiArmor = this.antiArmor;
-    }
-
-    return antiArmor;
+    if (damageType === "missle") return this.antiArmor;
+    return 0;
   }
 }
 
@@ -388,12 +352,8 @@ export class SteamTank extends ArmPrimary.Arm {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
-    let antiArmor = 0;
-    if (damageType === "missle") {
-      antiArmor = this.antiArmor;
-    }
-
-    return antiArmor;
+    if (damageType === "missle") return this.antiArmor;
+    return 0;
   }
 }
 

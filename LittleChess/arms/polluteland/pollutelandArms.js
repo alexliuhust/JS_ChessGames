@@ -67,9 +67,7 @@ export class HurlerGas extends ArmPrimary.Arm {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
-    if (damageType === "missle") {
-      return this.antiArmor;
-    }
+    if (damageType === "missle") return this.antiArmor;
     return 0;
   }
 }

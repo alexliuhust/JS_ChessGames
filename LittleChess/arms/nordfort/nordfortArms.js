@@ -189,7 +189,7 @@ export class BallistaSquad extends ArmPrimary.Arm {
     ArmPrimary.checkArmClass(targetArm);
 
     if (damageType === "missle") return this.antiArmor;
-    return antiArmor;
+    return 0;
   }
 }
 
@@ -228,7 +228,7 @@ export class FlameKnight extends ArmPrimary.Arm {
     ArmPrimary.checkArmClass(targetArm);
 
     if (damageType === "charge") return this.antiArmor;
-    return antiArmor;
+    return 0;
   }
 }
 
@@ -292,7 +292,7 @@ export class GiantBallista extends ArmPrimary.Arm {
     ArmPrimary.checkArmClass(targetArm);
 
     if (damageType === "missle") return this.antiArmor;
-    return antiArmor;
+    return 0;
   }
 }
 

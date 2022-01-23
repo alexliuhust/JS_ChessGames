@@ -10,7 +10,6 @@ export class DwarfWarrior extends ArmPrimary.Arm {
     this.name = "Dwarf Warrior";
     this.type = "infantry";
     this.description = "shield-infantry";
-    this.cost = 1;
 
     this.scale = 64;
     this.singleHP = 70;
@@ -39,7 +38,6 @@ export class BoneBreaker extends ArmPrimary.Arm {
     this.name = "Bone Breaker";
     this.type = "infantry";
     this.description = "infantry / anti-large";
-    this.cost = 1;
 
     this.scale = 64;
     this.singleHP = 70;
@@ -91,7 +89,6 @@ export class Berserker extends ArmPrimary.Arm {
     this.name = "Berserker";
     this.type = "infantry";
     this.description = "infantry / high-damage";
-    this.cost = 1;
 
     this.scale = 64;
     this.singleHP = 70;
@@ -120,7 +117,6 @@ export class MountainShocker extends ArmPrimary.Arm {
     this.name = "Mountain Shocker";
     this.type = "archers";
     this.description = "giant-shield-infantry / high-missle-damage";
-    this.cost = 2;
 
     this.scale = 48;
     this.singleHP = 70;
@@ -153,7 +149,6 @@ export class DwarfMusketeer extends ArmPrimary.Arm {
     this.name = "Dwarf Musketeer";
     this.type = "archers";
     this.description = "shield-archers / anti-armor";
-    this.cost = 2;
 
     this.scale = 48;
     this.singleHP = 70;
@@ -180,9 +175,7 @@ export class DwarfMusketeer extends ArmPrimary.Arm {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
-    if (damageType === "missle") {
-      return this.antiArmor;
-    }
+    if (damageType === "missle") return this.antiArmor;
     return 0;
   }
 }
@@ -196,7 +189,6 @@ export class MortarSquad extends ArmPrimary.Arm {
     this.name = "Mortar Squad";
     this.type = "archers";
     this.description = "shield-archers / high-damage";
-    this.cost = 2;
 
     this.scale = 36;
     this.singleHP = 70;
@@ -227,7 +219,6 @@ export class GoatCavalry extends ArmPrimary.Arm {
     this.name = "Goat Cavalry";
     this.type = "cavalry";
     this.description = "charging-cavalry";
-    this.cost = 4;
 
     this.scale = 32;
     this.singleHP = 120;
@@ -257,7 +248,6 @@ export class RevolvingCannon extends ArmPrimary.Arm {
     this.name = "Revolving Cannon";
     this.type = "artillery";
     this.description = "artillery / anti-large / anti-armor";
-    this.cost = 5;
 
     this.scale = 2;
     this.singleHP = 1200;
@@ -307,11 +297,7 @@ export class RevolvingCannon extends ArmPrimary.Arm {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
-    let antiArmor = 0;
-    if (damageType === "missle") {
-      antiArmor = this.antiArmor;
-    }
-
+    if (damageType === "missle") return this.antiArmor;
     return 0;
   }
 }
@@ -325,7 +311,6 @@ export class GiantCannon extends ArmPrimary.Arm {
     this.name = "Giant Cannon";
     this.type = "artillery";
     this.description = "bombing-artillery";
-    this.cost = 6;
 
     this.scale = 2;
     this.singleHP = 1200;
