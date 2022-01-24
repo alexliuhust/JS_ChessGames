@@ -50,6 +50,11 @@ export class Player {
         if (this.enemyList[i].c_leadership > this.enemyList[i].leadership)
           this.enemyList[i].c_leadership = this.enemyList[i].leadership;
       }
+      for (let i = 0; i < this.pieceList.length; i++) {
+        this.pieceList[i].c_leadership -= deathSocre;
+        if (this.pieceList[i].c_leadership < 0)
+          this.pieceList[i].c_leadership = 0;
+      }
     };
 
     // =================================================================================

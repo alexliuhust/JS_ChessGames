@@ -1,5 +1,5 @@
 import { Canvas, Rect } from "../tools.js";
-import { HpColor, AmmoColor } from "../const.js";
+import { HpColor, AmmoColor, LeadColor } from "../const.js";
 
 export const DamageTypes = ["melee", "missle", "charge", "bombing", "magic"];
 export const ArmTypes = [
@@ -308,18 +308,15 @@ export class Arm {
   }
 
   _attackWeaken(factor) {
-    this.c_meleeAttack = Math.round(this.c_meleeAttack * factor);
-    this.meleeAttack_bonus = Math.round(this.meleeAttack_bonus * factor);
-    this.c_missleAttack = Math.round(this.c_missleAttack * factor);
-    this.missleAttack_bonus = Math.round(this.missleAttack_bonus * factor);
-    this.c_chargeAttack = Math.round(this.c_chargeAttack * factor);
-    this.chargeAttack_bonus = Math.round(this.chargeAttack_bonus * factor);
+    this.c_meleeAttack = Math.round(this.meleeAttack * factor);
+    this.c_missleAttack = Math.round(this.missleAttack * factor);
+    this.c_chargeAttack = Math.round(this.chargeAttack * factor);
   }
 
   _armorWeaken(factor) {
-    this.c_meleeArmor = Math.round(this.c_meleeArmor * factor);
-    this.c_missleArmor = Math.round(this.c_missleArmor * factor);
-    this.c_chargeArmor = Math.round(this.c_chargeArmor * factor);
+    this.c_meleeArmor = Math.round(this.meleeArmor * factor);
+    this.c_missleArmor = Math.round(this.missleArmor * factor);
+    this.c_chargeArmor = Math.round(this.chargeArmor * factor);
   }
 
   _updatePropertiesAccordingToLeadership() {
@@ -335,7 +332,7 @@ export class Arm {
     }
 
     this._attackWeaken(factor);
-    this._armorWeaken(factor * 1.2);
+    this._armorWeaken(factor);
   }
 
   // =============== Drawing APIs ===============
@@ -354,29 +351,32 @@ export class Arm {
 
   draw(cxt, groupColor) {
     this.set_x_y();
+
     // Draw arm flag
     Canvas.drawImg(cxt, this.img, this.x, this.y);
+
     // Draw stripe color
     Canvas.drawLine(
       cxt,
       this.x + 2,
-      this.y + 7,
+      this.y + 8,
       this.x + 2,
-      this.y + 50,
+      this.y + 46,
       groupColor,
       5
     );
     Canvas.drawLine(
       cxt,
       this.x + 48,
-      this.y + 7,
+      this.y + 8,
       this.x + 48,
-      this.y + 50,
+      this.y + 46,
       groupColor,
       5
     );
-    // Draw HP and ammo bar
-    let hpBarLength, ammoBarLength;
+
+    // Draw HP, ammo, and leaddership bars
+    let hpBarLength, ammoBarLength, leadBarLength;
     if (this.scale === 1) {
       hpBarLength = (50 * this.c_singleHP) / this.singleHP;
     } else {
@@ -387,23 +387,34 @@ export class Arm {
     } else {
       ammoBarLength = (50 * this.c_ammo) / this.ammo;
     }
+    leadBarLength = (50 * this.c_leadership) / this.leadership;
+
     Canvas.drawLine(
       cxt,
       this.x,
-      this.y,
+      this.y + 2,
       this.x + hpBarLength,
-      this.y,
+      this.y + 2,
       HpColor,
-      5
+      4
     );
     Canvas.drawLine(
       cxt,
       this.x,
-      this.y + 5,
+      this.y + 6,
+      this.x + leadBarLength,
+      this.y + 6,
+      LeadColor,
+      4
+    );
+    Canvas.drawLine(
+      cxt,
+      this.x,
+      this.y + 48,
       this.x + ammoBarLength,
-      this.y + 5,
+      this.y + 48,
       AmmoColor,
-      5
+      4
     );
   }
 

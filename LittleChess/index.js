@@ -26,8 +26,8 @@ const canvasList = {
 // ===============================================================
 // ====================== Load Players Info ======================
 // ===============================================================
-let pieces1 = EmpireArms.getTestArms(1);
-let pieces2 = EmpireArms.getTestArms(2);
+let pieces1 = SnowhauptArms.getTestArms(1);
+let pieces2 = PollutelandArms.getTestArms(2);
 for (let i = 0; i < pieces1.length; i++) {
   pieces1[i].c_leadership = Math.round(pieces1[i].c_leadership * 0.5);
 }
