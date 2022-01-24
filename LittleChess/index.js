@@ -28,6 +28,9 @@ const canvasList = {
 // ===============================================================
 let pieces1 = EmpireArms.getTestArms(1);
 let pieces2 = EmpireArms.getTestArms(2);
+for (let i = 0; i < pieces1.length; i++) {
+  pieces1[i].c_leadership = Math.round(pieces1[i].c_leadership * 0.5);
+}
 
 // let pieces1 = [
 // new SnowhauptArms.BoneBreaker([10, 3]),

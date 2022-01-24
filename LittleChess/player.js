@@ -36,16 +36,28 @@ export class Player {
       Canvas.clear(this.canvasList.main, W, H);
     };
 
+    this.leadershipChangesAccordingToToll = function () {
+      let deathSocre = 0;
+      for (let i = this.pieceList.length - 1; i >= 0; i--) {
+        if (!this.pieceList[i].isAlive) {
+          deathSocre += this.pieceList[i].cost;
+          this.pieceList.splice(i, 1);
+        }
+      }
+      deathSocre = Math.round(deathSocre / 10);
+      for (let i = 0; i < this.enemyList.length; i++) {
+        this.enemyList[i].c_leadership += deathSocre;
+        if (this.enemyList[i].c_leadership > this.enemyList[i].leadership)
+          this.enemyList[i].c_leadership = this.enemyList[i].leadership;
+      }
+    };
+
     // =================================================================================
     // =================== Drawing Everything Related to this Player ===================
     // =================================================================================
     this.drawForOneLoop = function () {
-      // delete those dead arms
-      for (let i = this.pieceList.length - 1; i >= 0; i--) {
-        if (!this.pieceList[i].isAlive) {
-          this.pieceList.splice(i, 1);
-        }
-      }
+      // Change leadership of comrades and enemies according to the death tolls of both sides
+      this.leadershipChangesAccordingToToll();
 
       // draw the comrade pieces
       for (let i = 0; i < this.pieceList.length; i++) {

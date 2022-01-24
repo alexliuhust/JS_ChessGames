@@ -131,6 +131,8 @@ export class Arm {
 
     this.scale = 0;
     this.singleHP = 0;
+    this.leadership = 0;
+    this.c_leadership = 0;
     this.speed = 0;
 
     this.meleeArmor = 0;
@@ -184,6 +186,8 @@ export class Arm {
       this.c_ammo = this.ammo;
 
       this.cost = calculateCost(this);
+      this.leadership = this.cost;
+      this.c_leadership = this.cost;
     };
   }
 
@@ -279,6 +283,61 @@ export class Arm {
     return percentage;
   }
 
+  _damageCauseLeadershipDecreasing(realDamage, damageType) {
+    let decrease = 0;
+    if (realDamage >= this.singleHP * 0.8) decrease = 150;
+    else if (realDamage >= this.singleHP * 0.5) decrease = 100;
+    else if (realDamage >= this.singleHP * 0.3) decrease = 30;
+
+    if (damageType === "charge" || damageType === "bombing") decrease += 50;
+
+    this.c_leadership -= decrease;
+    if (this.c_leadership < 0) this.c_leadership = 0;
+  }
+
+  _scaleDecreasingCauseLeadershipDecreasing(totalDecrease, damageType) {
+    let decrease = 0;
+    if (totalDecrease >= this.scale * 0.8) decrease = 150;
+    else if (totalDecrease >= this.scale * 0.5) decrease = 100;
+    else if (totalDecrease >= this.scale * 0.3) decrease = 30;
+
+    if (damageType === "charge" || damageType === "bombing") decrease += 50;
+
+    this.c_leadership -= decrease;
+    if (this.c_leadership < 0) this.c_leadership = 0;
+  }
+
+  _attackWeaken(factor) {
+    this.c_meleeAttack = Math.round(this.c_meleeAttack * factor);
+    this.meleeAttack_bonus = Math.round(this.meleeAttack_bonus * factor);
+    this.c_missleAttack = Math.round(this.c_missleAttack * factor);
+    this.missleAttack_bonus = Math.round(this.missleAttack_bonus * factor);
+    this.c_chargeAttack = Math.round(this.c_chargeAttack * factor);
+    this.chargeAttack_bonus = Math.round(this.chargeAttack_bonus * factor);
+  }
+
+  _armorWeaken(factor) {
+    this.c_meleeArmor = Math.round(this.c_meleeArmor * factor);
+    this.c_missleArmor = Math.round(this.c_missleArmor * factor);
+    this.c_chargeArmor = Math.round(this.c_chargeArmor * factor);
+  }
+
+  _updatePropertiesAccordingToLeadership() {
+    let factor = 1;
+
+    let oneThird = Math.floor(this.leadership / 3);
+    let twoThirds = oneThird * 2;
+
+    if (oneThird < this.c_leadership && this.c_leadership < twoThirds) {
+      factor = 0.8;
+    } else if (this.c_leadership <= oneThird) {
+      factor = 0.6;
+    }
+
+    this._attackWeaken(factor);
+    this._armorWeaken(factor * 1.2);
+  }
+
   // =============== Drawing APIs ===============
 
   set_x_y() {
@@ -353,6 +412,7 @@ export class Arm {
   roundRefresh() {
     this.c_speed = this.speed;
     this.hasAttacked = false;
+    this._updatePropertiesAccordingToLeadership();
   }
 
   getAntiArmor(damageType, targetArm) {
@@ -395,22 +455,36 @@ export class Arm {
       damagePercentage = this._getDamagePercentage(damageType, antiArmor);
     }
 
-    let realDamge = rawTotalDamage * damagePercentage;
+    let realDamage = rawTotalDamage * damagePercentage;
 
+    // If this arm is a single-unit
     if (this.scale === 1) {
       if (damageType === "melee" || damageType === "charge") {
-        this.c_singleHP -= Math.round(realDamge / 10);
+        realDamage = Math.round(realDamage * 0.125);
       } else {
-        this.c_singleHP -= Math.round(realDamge / 4);
+        realDamage = Math.round(realDamage * 0.25);
       }
+      this.c_singleHP -= realDamage;
+
+      // Too-high damage will decrease the arm's leadership
+      this._damageCauseLeadershipDecreasing(realDamage, damageType);
+
       if (this.c_singleHP <= 0) {
         this.isAlive = false;
       }
-    } else {
-      if (this.type === "monster-infantry")
-        realDamge = Math.round(realDamge * 0.6);
-      let totalDecrease = Math.ceil(realDamge / this.singleHP);
+    }
+
+    // If this arm is a phalanx
+    else {
+      if (this.type === "monster-infantry") {
+        realDamage = Math.round(realDamage * 0.5);
+      }
+      let totalDecrease = Math.ceil(realDamage / this.singleHP);
       this.c_scale -= totalDecrease;
+
+      // Too-high damage will decrease the arm's leadership
+      this._scaleDecreasingCauseLeadershipDecreasing(totalDecrease, damageType);
+
       if (this.c_scale <= 0) {
         this.isAlive = false;
       }
