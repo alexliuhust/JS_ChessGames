@@ -74,8 +74,10 @@ function endBlue() {
   player1.isMyRound = false;
   player2.isMyRound = true;
   player1.clearForNoSelection();
+
+  player2.currentRound++;
   for (let i = 0; i < player2.pieceList.length; i++) {
-    player2.pieceList[i].roundRefresh();
+    player2.pieceList[i].roundRefresh(player2.currentRound);
   }
 }
 function endRed() {
@@ -84,8 +86,10 @@ function endRed() {
   player1.isMyRound = true;
   player2.isMyRound = false;
   player2.clearForNoSelection();
+
+  player1.currentRound++;
   for (let i = 0; i < player1.pieceList.length; i++) {
-    player1.pieceList[i].roundRefresh();
+    player1.pieceList[i].roundRefresh(player1.currentRound);
   }
 }
 endRoundForBlue.onclick = (e) => {

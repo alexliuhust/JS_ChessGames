@@ -102,7 +102,7 @@ export class Arm {
   constructor(positionValue) {
     // Properties for drawing
 
-    this.frameSpeed = 20;
+    this.currentRound = 0;
 
     this.x = 0;
     this.y = 0;
@@ -420,9 +420,17 @@ export class Arm {
 
   // =============== Public APIs ===============
 
-  roundRefresh() {
+  roundRefresh(currentRound) {
     this.c_speed = this.speed;
     this.hasAttacked = false;
+
+    if (currentRound % 7 === 0) {
+      this.c_leadership -= 5;
+    }
+    if (this.c_leadership < 0) {
+      this.c_leadership = 0;
+    }
+
     this._updatePropertiesAccordingToLeadership();
   }
 

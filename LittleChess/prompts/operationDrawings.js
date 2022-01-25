@@ -1,6 +1,11 @@
 import { Canvas, Rect } from "../tools.js";
 import * as ArmPrimary from "../arms/arm.js";
-import { GameWidth as W, GameHeight as H } from "../const.js";
+import {
+  GameWidth as W,
+  GameHeight as H,
+  SelectPieceColor,
+  ReadyToAttackColor,
+} from "../const.js";
 
 const maxX = Math.floor(W / 50);
 const maxY = Math.floor(H / 50);
@@ -41,7 +46,7 @@ export function drawAvailableDestinations(cxt, self, others) {
   for (let i = 0; i < availablePositions.length; i++) {
     let x = availablePositions[i][0] * 50 + 5;
     let y = availablePositions[i][1] * 50 + 5;
-    Canvas.fillRect(cxt, x, y, 40, 40, "rgb(150, 255, 150)");
+    Canvas.fillRect(cxt, x, y, 40, 40, SelectPieceColor);
   }
 
   return availablePositions;
@@ -85,7 +90,7 @@ export function drawAvailableTargets(cxt, self, others) {
     for (let i = 0; i < availablePositions.length; i++) {
       let x = availablePositions[i][0] * 50 + 25;
       let y = availablePositions[i][1] * 50 + 25;
-      let color = "rgb(195, 50, 50)";
+      let color = ReadyToAttackColor;
       let radius = 30;
       Canvas.drawArc(cxt, x, y, radius - 7, color);
       Canvas.drawLine(cxt, x + radius, y, x - radius, y, color, 3);
@@ -124,7 +129,7 @@ export function drawAvailableTargets(cxt, self, others) {
     for (let i = 0; i < availableBombingCenters.length; i++) {
       let x = availableBombingCenters[i][0] * 50 + 10;
       let y = availableBombingCenters[i][1] * 50 + 10;
-      Canvas.fillRect(cxt, x, y, 30, 30, "rgb(225, 100, 100)");
+      Canvas.fillRect(cxt, x, y, 30, 30, ReadyToAttackColor);
     }
 
     return availableBombingCenters;
