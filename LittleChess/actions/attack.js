@@ -40,6 +40,8 @@ export function armBombArea(attacker, centerPosition, defenders) {
       defender.decreaseScale(damageType, 0, att_totalRowDamage);
       if (!defender.isAlive) {
         attacker.c_leadership += Math.round(attacker.cost * 0.1);
+        attacker.exp += Math.round(attacker.cost * 0.1);
+
         if (attacker.c_leadership >= attacker.leadership)
           attacker.c_leadership = attacker.leadership;
       }
@@ -132,12 +134,16 @@ function decreaseScalesForArms(attacker, damageType, defender) {
   attacker.decreaseScale("melee", 0, dfd_counterAttack);
   if (!attacker.isAlive) {
     defender.c_leadership += Math.round(attacker.cost * 0.4);
+    defender.exp += Math.round(attacker.cost * 0.6);
+
     if (defender.c_leadership >= defender.leadership)
       defender.c_leadership = defender.leadership;
   }
   defender.decreaseScale(damageType, att_antiArmor, att_totalRowDamage);
   if (!defender.isAlive) {
     attacker.c_leadership += Math.round(attacker.cost * 0.4);
+    attacker.exp += Math.round(attacker.cost * 0.6);
+
     if (attacker.c_leadership >= attacker.leadership)
       attacker.c_leadership = attacker.leadership;
   }

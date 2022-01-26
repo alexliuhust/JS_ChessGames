@@ -1,6 +1,6 @@
 import { Canvas, Rect } from "../tools.js";
 import * as ArmPrimary from "../arms/arm.js";
-import { HpColor, AmmoColor, LeadColor } from "../const.js";
+import { HpColor, AmmoColor, LeadColor, ExpColor } from "../const.js";
 
 const textLeftMostX = 20;
 
@@ -21,6 +21,15 @@ function drawTitle(cxt, piece) {
   Canvas.drawText(cxt, piece.name, 105, 30, "white", 24);
   Canvas.drawText(cxt, piece.description, 105, 60, "white", 16);
   Canvas.drawText(cxt, `[cost: ${piece.cost}G]`, 105, 90, "white", 16);
+
+  let expLength = (144 * Math.min(piece.exp, piece.cost)) / piece.cost;
+  Canvas.drawLine(cxt, 320, 83, 470, 83, "white", 18);
+  Canvas.drawLine(cxt, 320 + 3, 83, 320 + expLength + 3, 83, ExpColor, 12);
+
+  let levelInfo = `Level: ${piece.level}`;
+  let expInfo = `exp: ${piece.exp}`;
+  Canvas.drawText(cxt, levelInfo, 250, 90, "white", 16);
+  Canvas.drawText(cxt, expInfo, 370, 88, "black", 14);
 }
 
 function drawHPAndAmmoBars(cxt, piece) {

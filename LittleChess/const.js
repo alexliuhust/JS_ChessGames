@@ -5,6 +5,7 @@ export const InfoHeight = 850;
 export const HpColor = "rgb(100, 200, 100)";
 export const AmmoColor = "rgb(250, 150, 70)";
 export const LeadColor = "rgb(170, 170, 255)";
+export const ExpColor = "rgb(70, 200, 255)";
 export const SelectPieceColor = "rgb(150, 255, 150)";
 export const SelectEnemyColor = "rgb(255, 180, 0)";
 export const ReadyToAttackColor = "rgb(255, 150, 150)";

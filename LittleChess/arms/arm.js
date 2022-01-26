@@ -129,6 +129,9 @@ export class Arm {
     this.description = "";
     this.cost = 0;
 
+    this.exp = 0;
+    this.level = 1;
+
     this.scale = 0;
     this.singleHP = 0;
     this.leadership = 0;
@@ -335,6 +338,22 @@ export class Arm {
     this._armorWeaken(factor);
   }
 
+  _updatePropertiesAccordingToExperience() {
+    if (this.exp < this.cost) return;
+
+    let factor = 1.2;
+    this.exp = 0;
+    this.level++;
+
+    this.singleHP = Math.round(this.singleHP * factor);
+    this.meleeArmor = Math.round(this.meleeArmor * factor);
+    this.missleArmor = Math.round(this.missleArmor * factor);
+    this.chargeArmor = Math.round(this.chargeArmor * factor);
+    this.meleeAttack = Math.round(this.meleeAttack * factor);
+    this.missleAttack = Math.round(this.missleAttack * factor);
+    this.chargeAttack = Math.round(this.chargeAttack * factor);
+  }
+
   // =============== Drawing APIs ===============
 
   set_x_y() {
@@ -431,6 +450,7 @@ export class Arm {
       this.c_leadership = 0;
     }
 
+    this._updatePropertiesAccordingToExperience();
     this._updatePropertiesAccordingToLeadership();
   }
 
