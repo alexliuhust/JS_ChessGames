@@ -141,6 +141,7 @@ function decreaseScalesForArms(attacker, damageType, defender) {
     if (defender.c_leadership >= defender.leadership)
       defender.c_leadership = defender.leadership;
   }
+
   defender.decreaseScale(damageType, att_antiArmor, att_totalRowDamage);
   if (!defender.isAlive) {
     // Attacker gains leadership and experience when eliminating the Defender.

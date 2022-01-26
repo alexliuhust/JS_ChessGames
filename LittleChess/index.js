@@ -29,10 +29,7 @@ const canvasList = {
 let pieces1 = DimwoodsArms.getTestArms(1);
 let pieces2 = NordFortArms.getTestArms(2);
 
-for (let i = 0; i < pieces1.length; i++) {
-  pieces1[i].c_leadership = Math.round(pieces1[i].c_leadership * 0.75);
-  pieces1[i].level = (i % 3) + 1;
-}
+pieces1.push(new DimwoodsArms.WoodsGuard([2, 4]));
 
 // let pieces1 = [
 // new SnowhauptArms.BoneBreaker([10, 3]),
@@ -71,9 +68,12 @@ let player2 = new Player(pieces2, pieces1, "red", canvasList);
 let endRoundForBlue = document.getElementById("endRoundForBlue");
 let endRoundForRed = document.getElementById("endRoundForRed");
 function refreshRound() {
+  player1.operatedPieces.clear();
   for (let i = 0; i < player1.pieceList.length; i++) {
     player1.pieceList[i].roundRefresh(player1.currentRound);
   }
+
+  player2.operatedPieces.clear();
   for (let i = 0; i < player2.pieceList.length; i++) {
     player2.pieceList[i].roundRefresh(player2.currentRound);
   }

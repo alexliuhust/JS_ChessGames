@@ -28,6 +28,11 @@ export class Player {
     this.curAvailableTargets = null;
     this.currentStatus = "no selection";
 
+    this.operatedPieces = new Set();
+
+    // =================================================================================
+    // =============================== Helper Functions ================================
+    // =================================================================================
     this.clearForNoSelection = function () {
       this.nowSelectPiece = null;
       this.nowSelectEnemy = null;
@@ -58,20 +63,25 @@ export class Player {
       }
     };
 
-    // =================================================================================
-    // =================== Drawing Everything Related to this Player ===================
-    // =================================================================================
-    this.executeOneLoop = function () {
-      // Change leadership of comrades and enemies according to the death tolls of both sides
-      this.leadershipChangesAccordingToToll();
-
-      // draw the comrade pieces and limit the max level for arms
+    this.drawPieces = function () {
       for (let i = 0; i < this.pieceList.length; i++) {
+        // limit the max level for the comrade pieces
         if (this.pieceList[i].level === 3) this.pieceList[i].exp = 0;
+        // draw the comrade pieces
         this.pieceList[i].draw(this.canvasList.piece, this.playerColor);
       }
+    };
 
-      // draw selection effect
+    this.checkAndDisableArms = function () {
+      if (this.operatedPieces.size >= 3) {
+        for (let i = 0; i < this.pieceList.length; i++) {
+          if (!this.operatedPieces.has(this.pieceList[i]))
+            this.pieceList[i].optOut();
+        }
+      }
+    };
+
+    this.drawSelectionEffect = function () {
       if (this.nowSelectPiece != null) {
         let color = SPC;
         if (this.currentStatus === "ready to attack") {
@@ -153,6 +163,7 @@ export class Player {
           ];
           let blockers = this.pieceList.concat(this.enemyList);
           MoveActions.moveToPosition(this.nowSelectPiece, toPosition, blockers);
+          this.operatedPieces.add(this.nowSelectPiece);
           this.clearForNoSelection();
           return true;
         }
@@ -172,6 +183,7 @@ export class Player {
             target,
             this.enemyList
           );
+          this.operatedPieces.add(this.nowSelectPiece);
           this.clearForNoSelection();
           return true;
         }
@@ -189,6 +201,7 @@ export class Player {
         let affected = this.pieceList.concat(this.enemyList);
         if (Rect.pointInRect({ x: x, y: y }, rect)) {
           AttackActions.armBombArea(this.nowSelectPiece, center, affected);
+          this.operatedPieces.add(this.nowSelectPiece);
           this.clearForNoSelection();
           return true;
         }
@@ -270,5 +283,19 @@ export class Player {
     document.addEventListener("keydown", (e) => {
       this.keyDownEvents(e);
     });
+
+    // =================================================================================
+    // ================== Execute All Actions Required for One Loop  ===================
+    // =================================================================================
+    this.executeOneLoop = function () {
+      // Change leadership of comrades and enemies according to the death tolls of both sides
+      this.leadershipChangesAccordingToToll();
+      // limit the max level for the comrade pieces and draw the comrade pieces
+      this.drawPieces();
+      // Disable all arms if there are N arms already operated
+      this.checkAndDisableArms();
+      // draw selection effect
+      this.drawSelectionEffect();
+    };
   }
 }

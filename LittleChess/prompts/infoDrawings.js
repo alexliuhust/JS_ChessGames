@@ -13,6 +13,7 @@ export function drawInfoForSelectedPiece(cxt, piece) {
   // Draw HP bar and ammo bar
   drawHPAndAmmoBars(cxt, piece);
 
+  // Draw the combat data
   drawCombatData(cxt, piece);
 }
 
@@ -133,7 +134,7 @@ function drawCombatData(cxt, piece) {
   let armorText = `Armor:     Melee[ ${piece.c_meleeArmor} ]         Missle[ ${piece.c_missleArmor} ]         Charge[ ${piece.c_chargeArmor} ]`;
   let attackText = `Damage:  Melee[ ${piece.c_meleeAttack}(+${piece.meleeAttack_bonus}) ]  Missle[ ${piece.c_missleAttack}(+${piece.missleAttack_bonus}) ]  Charge[ ${piece.c_chargeAttack}(+${piece.chargeAttack_bonus}) ]`;
   let missleInfo = `Missle-range: ${piece.c_missleRange}      Missle-radius: ${piece.c_missleRadius}`;
-  let antiArmorText = `Anti-armor:         ${piece.antiArmor}`;
+  let antiArmorText = `Anti-armor: ${piece.antiArmor}`;
 
   let color = "white";
   let fontSize = 17;

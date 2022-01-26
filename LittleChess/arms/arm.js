@@ -469,6 +469,11 @@ export class Arm {
 
   // =============== Battle APIs ===============
 
+  optOut() {
+    this.hasAttacked = true;
+    this.c_speed = 0;
+  }
+
   roundRefresh(currentRound) {
     this.c_speed = this.speed;
     this.hasAttacked = false;
