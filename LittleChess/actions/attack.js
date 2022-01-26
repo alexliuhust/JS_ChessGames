@@ -39,6 +39,7 @@ export function armBombArea(attacker, centerPosition, defenders) {
       }
       defender.decreaseScale(damageType, 0, att_totalRowDamage);
       if (!defender.isAlive) {
+        // Attacker gains leadership and experience when eliminating an enemy.
         attacker.c_leadership += Math.round(attacker.cost * 0.1);
         attacker.exp += Math.round(attacker.cost * 0.1);
 
@@ -133,6 +134,7 @@ function decreaseScalesForArms(attacker, damageType, defender) {
 
   attacker.decreaseScale("melee", 0, dfd_counterAttack);
   if (!attacker.isAlive) {
+    // Defender gains leadership and experience when eliminating the Attacker by counter attack.
     defender.c_leadership += Math.round(attacker.cost * 0.4);
     defender.exp += Math.round(attacker.cost * 0.6);
 
@@ -141,6 +143,7 @@ function decreaseScalesForArms(attacker, damageType, defender) {
   }
   defender.decreaseScale(damageType, att_antiArmor, att_totalRowDamage);
   if (!defender.isAlive) {
+    // Attacker gains leadership and experience when eliminating the Defender.
     attacker.c_leadership += Math.round(attacker.cost * 0.4);
     attacker.exp += Math.round(attacker.cost * 0.6);
 

@@ -68,6 +68,14 @@ let player2 = new Player(pieces2, pieces1, "red", canvasList);
 // ===============================================================
 let endRoundForBlue = document.getElementById("endRoundForBlue");
 let endRoundForRed = document.getElementById("endRoundForRed");
+function refreshRound() {
+  for (let i = 0; i < player1.pieceList.length; i++) {
+    player1.pieceList[i].roundRefresh(player1.currentRound);
+  }
+  for (let i = 0; i < player2.pieceList.length; i++) {
+    player2.pieceList[i].roundRefresh(player2.currentRound);
+  }
+}
 function endBlue() {
   endRoundForBlue.style.backgroundColor = "";
   endRoundForRed.style.backgroundColor = "red";
@@ -76,9 +84,7 @@ function endBlue() {
   player1.clearForNoSelection();
 
   player2.currentRound++;
-  for (let i = 0; i < player2.pieceList.length; i++) {
-    player2.pieceList[i].roundRefresh(player2.currentRound);
-  }
+  refreshRound();
 }
 function endRed() {
   endRoundForBlue.style.backgroundColor = "blue";
@@ -88,9 +94,7 @@ function endRed() {
   player2.clearForNoSelection();
 
   player1.currentRound++;
-  for (let i = 0; i < player1.pieceList.length; i++) {
-    player1.pieceList[i].roundRefresh(player1.currentRound);
-  }
+  refreshRound();
 }
 endRoundForBlue.onclick = (e) => {
   endBlue();

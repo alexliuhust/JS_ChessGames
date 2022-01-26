@@ -341,7 +341,7 @@ export class Arm {
   _updatePropertiesAccordingToExperience() {
     if (this.exp < this.cost) return;
 
-    let factor = 1.2;
+    let factor = 1.1;
     this.exp = 0;
     this.level++;
 
