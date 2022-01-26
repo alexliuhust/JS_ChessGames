@@ -1,5 +1,5 @@
 import { Canvas, Rect } from "../tools.js";
-import { HpColor, AmmoColor, LeadColor } from "../const.js";
+import { HpColor, AmmoColor, LeadColor, LevelColor } from "../const.js";
 
 export const DamageTypes = ["melee", "missle", "charge", "bombing", "magic"];
 export const ArmTypes = [
@@ -95,7 +95,19 @@ function calculateCost(arm) {
         5
     ) * 5;
 
-  return cost;
+  return [cost, armorScore];
+}
+
+function calculateLeaderShip(arm, costResults) {
+  let leadership = arm.cost + costResults[1] * 0.5;
+  if (arm.type === "infantry" || arm.type === "cavalry") {
+    leadership *= 1.25;
+  } else if (arm.type === "archers" || arm.type === "artillery") {
+    leadership *= 0.75;
+  }
+  leadership = Math.round(leadership / 50) * 50;
+
+  return leadership;
 }
 
 export class Arm {
@@ -175,6 +187,7 @@ export class Arm {
       this.c_missleRange = this.missleRange;
       this.c_missleRadius = this.missleRadius;
 
+      // Calculate the ammo, if not given above
       if (this.type === "archers" && this.ammo === -1) {
         this.ammo = 18;
       } else if (
@@ -188,9 +201,13 @@ export class Arm {
       }
       this.c_ammo = this.ammo;
 
-      this.cost = calculateCost(this);
-      this.leadership = this.cost;
-      this.c_leadership = this.cost;
+      // Calculate the cost according to the battle properties
+      let costResults = calculateCost(this);
+      this.cost = costResults[0];
+
+      // Calculate the leadership according to the battle properties
+      this.leadership = calculateLeaderShip(this, costResults);
+      this.c_leadership = this.leadership;
     };
   }
 
@@ -281,7 +298,7 @@ export class Arm {
     let realArmor = Math.floor(Math.random() * (max - min + 1) + min);
 
     let percentage = (100 - realArmor) / 100;
-    if (percentage > 1) percentage = 1;
+    if (percentage > 0.95) percentage = 0.95;
     if (percentage < 0) percentage = 0;
     return percentage;
   }
@@ -339,19 +356,22 @@ export class Arm {
   }
 
   _updatePropertiesAccordingToExperience() {
-    if (this.exp < this.cost) return;
+    if (this.exp < this.cost || this.level === 3) return;
 
-    let factor = 1.1;
-    this.exp = 0;
+    let factor = 1.2;
+    this.exp -= this.cost;
     this.level++;
 
-    this.singleHP = Math.round(this.singleHP * factor);
+    if (this.scale !== 1) this.singleHP = Math.round(this.singleHP * factor);
     this.meleeArmor = Math.round(this.meleeArmor * factor);
     this.missleArmor = Math.round(this.missleArmor * factor);
     this.chargeArmor = Math.round(this.chargeArmor * factor);
     this.meleeAttack = Math.round(this.meleeAttack * factor);
     this.missleAttack = Math.round(this.missleAttack * factor);
     this.chargeAttack = Math.round(this.chargeAttack * factor);
+
+    this.leadership += 50;
+    this.c_leadership += 50;
   }
 
   // =============== Drawing APIs ===============
@@ -393,6 +413,16 @@ export class Arm {
       groupColor,
       5
     );
+
+    // Draw level
+    let number = this.level >= 2 ? this.level : 0;
+    for (let i = 0; i < number; i++) {
+      let x1 = this.x,
+        x2 = this.x + 5;
+      let y1 = this.y + 39 - i * 5,
+        y2 = this.y + 39 - i * 5;
+      Canvas.drawLine(cxt, x1, y1, x2, y2, LevelColor, 4);
+    }
 
     // Draw HP, ammo, and leaddership bars
     let hpBarLength, ammoBarLength, leadBarLength;
@@ -437,7 +467,7 @@ export class Arm {
     );
   }
 
-  // =============== Public APIs ===============
+  // =============== Battle APIs ===============
 
   roundRefresh(currentRound) {
     this.c_speed = this.speed;

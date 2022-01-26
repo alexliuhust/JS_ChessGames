@@ -61,12 +61,13 @@ export class Player {
     // =================================================================================
     // =================== Drawing Everything Related to this Player ===================
     // =================================================================================
-    this.drawForOneLoop = function () {
+    this.executeOneLoop = function () {
       // Change leadership of comrades and enemies according to the death tolls of both sides
       this.leadershipChangesAccordingToToll();
 
-      // draw the comrade pieces
+      // draw the comrade pieces and limit the max level for arms
       for (let i = 0; i < this.pieceList.length; i++) {
+        if (this.pieceList[i].level === 3) this.pieceList[i].exp = 0;
         this.pieceList[i].draw(this.canvasList.piece, this.playerColor);
       }
 

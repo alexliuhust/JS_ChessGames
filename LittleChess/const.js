@@ -2,6 +2,7 @@ export const GameWidth = 1350;
 export const GameHeight = 850;
 export const InfoWidth = 530;
 export const InfoHeight = 850;
+export const LevelColor = "rgb(255, 230, 100)";
 export const HpColor = "rgb(100, 200, 100)";
 export const AmmoColor = "rgb(250, 150, 70)";
 export const LeadColor = "rgb(170, 170, 255)";

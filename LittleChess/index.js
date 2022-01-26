@@ -26,10 +26,12 @@ const canvasList = {
 // ===============================================================
 // ====================== Load Players Info ======================
 // ===============================================================
-let pieces1 = SnowhauptArms.getTestArms(1);
-let pieces2 = PollutelandArms.getTestArms(2);
+let pieces1 = DimwoodsArms.getTestArms(1);
+let pieces2 = NordFortArms.getTestArms(2);
+
 for (let i = 0; i < pieces1.length; i++) {
-  pieces1[i].c_leadership = Math.round(pieces1[i].c_leadership * 0.5);
+  pieces1[i].c_leadership = Math.round(pieces1[i].c_leadership * 0.75);
+  pieces1[i].level = (i % 3) + 1;
 }
 
 // let pieces1 = [
@@ -143,8 +145,8 @@ function start() {
     Canvas.clear(canvasList.piece, W, H);
     Canvas.clear(canvasList.info, IW, IH);
 
-    player1.drawForOneLoop();
-    player2.drawForOneLoop();
+    player1.executeOneLoop();
+    player2.executeOneLoop();
   }, 20);
 }
 
