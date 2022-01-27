@@ -11,6 +11,7 @@ import * as NordFortArms from "./arms/nordfort/nordfortArms.js";
 import * as DimwoodsArms from "./arms/dimwoods/dimwoodsArms.js";
 import * as PollutelandArms from "./arms/polluteland/pollutelandArms.js";
 import * as SnowhauptArms from "./arms/snowhaupt/snowhauptArms.js";
+import * as BurningterraArms from "./arms/burningterra/burningterraArms.js";
 
 // ===============================================================
 // ====================== Load All Canvases ======================
@@ -26,10 +27,8 @@ const canvasList = {
 // ===============================================================
 // ====================== Load Players Info ======================
 // ===============================================================
-let pieces1 = DimwoodsArms.getTestArms(1);
+let pieces1 = BurningterraArms.getTestArms(1);
 let pieces2 = NordFortArms.getTestArms(2);
-
-pieces1.push(new DimwoodsArms.WoodsGuard([2, 4]));
 
 // let pieces1 = [
 // new SnowhauptArms.BoneBreaker([10, 3]),

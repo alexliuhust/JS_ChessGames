@@ -114,8 +114,6 @@ export class Arm {
   constructor(positionValue) {
     // Properties for drawing
 
-    this.currentRound = 0;
-
     this.x = 0;
     this.y = 0;
     this.positionX = 0;
@@ -479,6 +477,7 @@ export class Arm {
     this.hasAttacked = false;
 
     if (currentRound % 7 === 0) {
+      console.log(currentRound);
       this.c_leadership -= 5;
     }
     if (this.c_leadership < 0) {
