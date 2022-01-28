@@ -31,8 +31,9 @@ const canvasList = {
 // ===============================================================
 // ====================== Load Players Info ======================
 // ===============================================================
-let pieces1 = NordFortArms.getTestArms(1);
-let pieces2 = PollutelandArms.getTestArms(2);
+let pieces1 = SnowhauptArms.getTestArms(1);
+let pieces2 = DimwoodsArms.getTestArms(2);
+for (let i = 0; i < pieces2.length; i++) pieces2[i].c_leadership = 10;
 
 // let pieces1 = [
 // new SnowhauptArms.BoneBreaker([10, 3]),

@@ -568,6 +568,11 @@ export class Arm {
     let percentage = 1;
     if (this.scale === 1) percentage = this.c_singleHP / this.singleHP;
     else percentage = this.c_scale / this.scale;
+
+    let leadershipDrop =
+      ((this.leadership - this.c_leadership) / this.leadership) * 0.5;
+    percentage -= leadershipDrop;
+
     for (let i = 1; i <= this.level - 1; i++) {
       percentage *= 1.2;
     }
