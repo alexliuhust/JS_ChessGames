@@ -143,6 +143,15 @@ function decreaseScalesForArms(attacker, damageType, defender) {
   }
 
   defender.decreaseScale(damageType, att_antiArmor, att_totalRowDamage);
+  // Monster or monster-infantry attacker will decrease defender's leadership
+  if (
+    (attacker.type === "monster" || attacker.type === "monster-infantry") &&
+    defender.type !== "monster" &&
+    defender.type !== "monster-infantry"
+  ) {
+    defender.c_leadership -= 40;
+    if (defender.c_leadership < 0) defender.c_leadership = 0;
+  }
   if (!defender.isAlive) {
     // Attacker gains leadership and experience when eliminating the Defender.
     attacker.c_leadership += Math.round(attacker.cost * 0.4);

@@ -307,7 +307,7 @@ export class GreatDemon extends ArmPrimary.Arm {
     this.description = "giant / anti-armor";
 
     this.scale = 1;
-    this.singleHP = 1400;
+    this.singleHP = 1600;
     this.speed = 4;
 
     this.meleeArmor = 0;

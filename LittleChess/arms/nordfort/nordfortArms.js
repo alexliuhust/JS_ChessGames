@@ -336,7 +336,7 @@ export class StoneGiant extends ArmPrimary.Arm {
       targetType === "archers" ||
       targetType === "artillery"
     ) {
-      singleDamage += meleeAttack_bonus;
+      singleDamage += this.meleeAttack_bonus;
     }
 
     return singleDamage;
