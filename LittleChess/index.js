@@ -5,7 +5,10 @@ import {
   GameHeight as H,
   InfoWidth as IW,
   InfoHeight as IH,
+  BannerWidth as BW,
+  BannerHeight as BH,
 } from "./const.js";
+import * as BannerDraw from "./prompts/bannerDrawings.js";
 import * as EmpireArms from "./arms/empire/empireArms.js";
 import * as NordFortArms from "./arms/nordfort/nordfortArms.js";
 import * as DimwoodsArms from "./arms/dimwoods/dimwoodsArms.js";
@@ -22,13 +25,14 @@ const canvasList = {
   piece: document.getElementById("piece").getContext("2d"),
   select: document.getElementById("select").getContext("2d"),
   info: document.getElementById("info").getContext("2d"),
+  banner: document.getElementById("banner").getContext("2d"),
 };
 
 // ===============================================================
 // ====================== Load Players Info ======================
 // ===============================================================
-let pieces1 = BurningterraArms.getTestArms(1);
-let pieces2 = NordFortArms.getTestArms(2);
+let pieces1 = NordFortArms.getTestArms(1);
+let pieces2 = PollutelandArms.getTestArms(2);
 
 // let pieces1 = [
 // new SnowhauptArms.BoneBreaker([10, 3]),
@@ -143,9 +147,12 @@ function start() {
   setInterval(() => {
     Canvas.clear(canvasList.piece, W, H);
     Canvas.clear(canvasList.info, IW, IH);
+    Canvas.clear(canvasList.banner, BW, BH);
 
     player1.executeOneLoop();
     player2.executeOneLoop();
+
+    BannerDraw.drawBannerInfo(canvasList.banner, player1, player2);
   }, 20);
 }
 

@@ -563,4 +563,14 @@ export class Arm {
       }
     }
   }
+
+  getCurrentCombatPower() {
+    let percentage = 1;
+    if (this.scale === 1) percentage = this.c_singleHP / this.singleHP;
+    else percentage = this.c_scale / this.scale;
+    for (let i = 1; i <= this.level - 1; i++) {
+      percentage *= 1.2;
+    }
+    return this.cost * percentage;
+  }
 }
