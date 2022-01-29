@@ -539,7 +539,7 @@ export class Arm {
         realDamage = Math.round(realDamage * 0.25);
       }
       this.c_singleHP -= realDamage;
-      decrease = realDamage;
+      decrease = Math.round(realDamage / 3);
 
       // Too-high damage will decrease the arm's leadership
       this._damageCauseLeadershipDecreasing(realDamage, damageType);
@@ -556,7 +556,7 @@ export class Arm {
       }
       let totalDecrease = Math.ceil(realDamage / this.singleHP);
       this.c_scale -= totalDecrease;
-      decrease = totalDecrease;
+      decrease = Math.round(realDamage / 30);
 
       // Too-high damage will decrease the arm's leadership
       this._scaleDecreasingCauseLeadershipDecreasing(totalDecrease, damageType);

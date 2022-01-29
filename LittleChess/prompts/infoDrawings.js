@@ -3,7 +3,7 @@ import * as ArmPrimary from "../arms/arm.js";
 import { HpColor, AmmoColor, LeadColor, ExpColor } from "../const.js";
 
 const textLeftMostX = 20;
-const backgroundColor = "grey";
+const BGC = "grey";
 
 export function drawInfoForSelectedPiece(cxt, piece) {
   ArmPrimary.checkArmClass(piece);
@@ -25,7 +25,7 @@ function drawTitle(cxt, piece) {
   Canvas.drawText(cxt, `[cost: ${piece.cost}G]`, 105, 90, "white", 16);
 
   let expLength = (144 * Math.min(piece.exp, piece.cost)) / piece.cost;
-  Canvas.drawLine(cxt, 320, 83, 470, 83, backgroundColor, 18);
+  Canvas.drawLine(cxt, 320, 83, 470, 83, BGC, 18);
   Canvas.drawLine(cxt, 320 + 3, 83, 320 + expLength + 3, 83, ExpColor, 12);
 
   let levelInfo = `Level: ${piece.level}`;
@@ -67,25 +67,9 @@ function drawHPAndAmmoBars(cxt, piece) {
   leadBarY -= 8;
   ammoBarY -= 8;
 
-  Canvas.drawLine(cxt, barX, hpBarY, barX + 200, hpBarY, backgroundColor, 18);
-  Canvas.drawLine(
-    cxt,
-    barX,
-    leadBarY,
-    barX + 200,
-    leadBarY,
-    backgroundColor,
-    18
-  );
-  Canvas.drawLine(
-    cxt,
-    barX,
-    ammoBarY,
-    barX + 200,
-    ammoBarY,
-    backgroundColor,
-    18
-  );
+  Canvas.drawLine(cxt, barX, hpBarY, barX + 200, hpBarY, BGC, 18);
+  Canvas.drawLine(cxt, barX, leadBarY, barX + 200, leadBarY, BGC, 18);
+  Canvas.drawLine(cxt, barX, ammoBarY, barX + 200, ammoBarY, BGC, 18);
 
   Canvas.drawLine(
     cxt,

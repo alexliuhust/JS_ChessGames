@@ -22,10 +22,10 @@ function drawText(cxt, player1, player2) {
 }
 
 function drawBars(cxt, player1, player2) {
-  let backgroundColor = "grey";
-  Canvas.drawLine(cxt, 250, 13, BW - 250, 13, backgroundColor, 20);
-  Canvas.drawLine(cxt, 250, 35, BW - 250, 35, backgroundColor, 20);
-  Canvas.drawLine(cxt, 250, 57, BW - 250, 57, backgroundColor, 20);
+  let BGC = "grey";
+  Canvas.drawLine(cxt, 250, 13, BW - 250, 13, BGC, 20);
+  Canvas.drawLine(cxt, 250, 35, BW - 250, 35, BGC, 20);
+  Canvas.drawLine(cxt, 250, 57, BW - 250, 57, BGC, 20);
 
   let resultP1 = getAggregateDataOfPlayer(player1);
   let resultP2 = getAggregateDataOfPlayer(player2);
