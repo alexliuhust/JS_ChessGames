@@ -22,9 +22,10 @@ function drawText(cxt, player1, player2) {
 }
 
 function drawBars(cxt, player1, player2) {
-  Canvas.drawLine(cxt, 250, 13, BW - 250, 13, "white", 20);
-  Canvas.drawLine(cxt, 250, 35, BW - 250, 35, "white", 20);
-  Canvas.drawLine(cxt, 250, 57, BW - 250, 57, "white", 20);
+  let backgroundColor = "grey";
+  Canvas.drawLine(cxt, 250, 13, BW - 250, 13, backgroundColor, 20);
+  Canvas.drawLine(cxt, 250, 35, BW - 250, 35, backgroundColor, 20);
+  Canvas.drawLine(cxt, 250, 57, BW - 250, 57, backgroundColor, 20);
 
   let resultP1 = getAggregateDataOfPlayer(player1);
   let resultP2 = getAggregateDataOfPlayer(player2);
@@ -32,14 +33,14 @@ function drawBars(cxt, player1, player2) {
   let powerLen1 = Math.round((resultP1[1] * 450) / (resultP1[1] + resultP2[1]));
   let leadLen1 = Math.round((resultP1[2] * 450) / (resultP1[2] + resultP2[2]));
 
-  Canvas.drawLine(cxt, 250, 13, 250 + scaleLen1, 13, "blue", 16);
-  Canvas.drawLine(cxt, 250 + scaleLen1, 13, BW - 250, 13, "red", 16);
-  Canvas.drawLine(cxt, 250, 35, 250 + powerLen1, 35, "blue", 16);
-  Canvas.drawLine(cxt, 250 + powerLen1, 35, BW - 250, 35, "red", 16);
-  Canvas.drawLine(cxt, 250, 57, 250 + leadLen1, 57, "blue", 16);
-  Canvas.drawLine(cxt, 250 + leadLen1, 57, BW - 250, 57, "red", 16);
+  Canvas.drawLine(cxt, 252, 13, 250 + scaleLen1, 13, "blue", 16);
+  Canvas.drawLine(cxt, 252 + scaleLen1, 13, BW - 252, 13, "red", 16);
+  Canvas.drawLine(cxt, 252, 35, 250 + powerLen1, 35, "blue", 16);
+  Canvas.drawLine(cxt, 252 + powerLen1, 35, BW - 252, 35, "red", 16);
+  Canvas.drawLine(cxt, 252, 57, 250 + leadLen1, 57, "blue", 16);
+  Canvas.drawLine(cxt, 252 + leadLen1, 57, BW - 252, 57, "red", 16);
 
-  Canvas.drawLine(cxt, BW / 2, 3, BW / 2, BH - 3, "grey", 2);
+  Canvas.drawLine(cxt, BW / 2, 3, BW / 2, BH - 3, "white", 2);
 }
 
 function getAggregateDataOfPlayer(player) {

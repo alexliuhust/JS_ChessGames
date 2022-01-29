@@ -15,7 +15,7 @@ export class Player {
   constructor(pieces, enemies, color, _canvaslist) {
     this.timer = 0;
     this.currentRound = 1;
-    this.isMyRound = color === "blue";
+    this.isMyRound = color === "red";
     this.canvasList = _canvaslist;
 
     this.playerColor = color;

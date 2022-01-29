@@ -262,7 +262,7 @@ export class RevolvingCannon extends ArmPrimary.Arm {
     this.ammo = 15;
     this.loadRealtimeProps();
 
-    this.ammo = 120;
+    this.ammo = 200;
     this.c_ammo = this.ammo;
   }
 

@@ -17,6 +17,7 @@ export function armBombArea(attacker, centerPosition, defenders) {
   }
 
   let damageType = "bombing";
+  let decrease = 0;
 
   for (let i = 0; i < defenders.length; i++) {
     let defender = defenders[i];
@@ -34,10 +35,11 @@ export function armBombArea(attacker, centerPosition, defenders) {
       } else if (distance > 1) {
         att_totalRowDamage = Math.ceil(att_totalRowDamage * 0.25);
       }
+
       if (defender.scale === 1) {
         att_totalRowDamage = Math.ceil(att_totalRowDamage * 0.5);
       }
-      defender.decreaseScale(damageType, 0, att_totalRowDamage);
+      decrease += defender.decreaseScale(damageType, 0, att_totalRowDamage);
       if (!defender.isAlive) {
         // Attacker gains leadership and experience when eliminating an enemy.
         attacker.c_leadership += Math.round(attacker.cost * 0.1);
@@ -48,7 +50,7 @@ export function armBombArea(attacker, centerPosition, defenders) {
       }
     }
   }
-
+  attacker.exp += decrease;
   attacker.c_ammo--;
   attacker.hasAttacked = true;
 }
@@ -132,7 +134,7 @@ function decreaseScalesForArms(attacker, damageType, defender) {
     attacker
   );
 
-  attacker.decreaseScale("melee", 0, dfd_counterAttack);
+  defender.exp += attacker.decreaseScale("melee", 0, dfd_counterAttack);
   if (!attacker.isAlive) {
     // Defender gains leadership and experience when eliminating the Attacker by counter attack.
     defender.c_leadership += Math.round(attacker.cost * 0.4);
@@ -142,7 +144,11 @@ function decreaseScalesForArms(attacker, damageType, defender) {
       defender.c_leadership = defender.leadership;
   }
 
-  defender.decreaseScale(damageType, att_antiArmor, att_totalRowDamage);
+  attacker.exp += defender.decreaseScale(
+    damageType,
+    att_antiArmor,
+    att_totalRowDamage
+  );
   // Monster or monster-infantry attacker will decrease defender's leadership
   if (
     (attacker.type === "monster" || attacker.type === "monster-infantry") &&

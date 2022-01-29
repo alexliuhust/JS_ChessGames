@@ -195,7 +195,7 @@ export class Arm {
       ) {
         this.ammo = 14;
       } else if (this.type === "artillery" && this.ammo === -1) {
-        this.ammo = 10;
+        this.ammo = 25;
       }
       this.c_ammo = this.ammo;
 
@@ -529,6 +529,7 @@ export class Arm {
     }
 
     let realDamage = rawTotalDamage * damagePercentage;
+    let decrease = 0;
 
     // If this arm is a single-unit
     if (this.scale === 1) {
@@ -538,6 +539,7 @@ export class Arm {
         realDamage = Math.round(realDamage * 0.25);
       }
       this.c_singleHP -= realDamage;
+      decrease = realDamage;
 
       // Too-high damage will decrease the arm's leadership
       this._damageCauseLeadershipDecreasing(realDamage, damageType);
@@ -554,6 +556,7 @@ export class Arm {
       }
       let totalDecrease = Math.ceil(realDamage / this.singleHP);
       this.c_scale -= totalDecrease;
+      decrease = totalDecrease;
 
       // Too-high damage will decrease the arm's leadership
       this._scaleDecreasingCauseLeadershipDecreasing(totalDecrease, damageType);
@@ -562,6 +565,8 @@ export class Arm {
         this.isAlive = false;
       }
     }
+
+    return decrease;
   }
 
   getCurrentCombatPower() {
