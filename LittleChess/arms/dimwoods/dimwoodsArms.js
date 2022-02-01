@@ -342,3 +342,18 @@ export function getTestArms(player) {
   ];
   return arms;
 }
+
+export function getImages() {
+  let images = [];
+  images.push("../images/dimwoods/WoodsGuard.png");
+  images.push("../images/dimwoods/WildKiller.png");
+  images.push("../images/dimwoods/HightreeScout.png");
+  images.push("../images/dimwoods/ShadowArcherAP.png");
+  images.push("../images/dimwoods/ShadowArcherFL.png");
+  images.push("../images/dimwoods/LongbowRanger.png");
+  images.push("../images/dimwoods/Dryad.png");
+  images.push("../images/dimwoods/DryadRangerRide.png");
+  images.push("../images/dimwoods/GiantTreeman.png");
+
+  return images;
+}

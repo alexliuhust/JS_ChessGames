@@ -407,3 +407,18 @@ export function getTestArms(player) {
   ];
   return arms;
 }
+
+export function getImages() {
+  let images = [];
+  images.push("../images/polluteland/SlaveConscript.png");
+  images.push("../images/polluteland/HurlerGas.png");
+  images.push("../images/polluteland/HurlerFrgm.png");
+  images.push("../images/polluteland/HurlerHE.png");
+  images.push("../images/polluteland/WeapSqdGingall.png");
+  images.push("../images/polluteland/WeapSqdGatlin.png");
+  images.push("../images/polluteland/WeapSqdFlthr.png");
+  images.push("../images/polluteland/MutantSlave.png");
+  images.push("../images/polluteland/Foulcannon.png");
+
+  return images;
+}

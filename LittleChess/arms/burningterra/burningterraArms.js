@@ -349,3 +349,18 @@ export function getTestArms(player) {
   ];
   return arms;
 }
+
+export function getImages() {
+  let images = [];
+  images.push("../images/burningterra/HenchWarrior.png");
+  images.push("../images/burningterra/HenchWarriorHalberd.png");
+  images.push("../images/burningterra/HenchWarriorGiantaxe.png");
+  images.push("../images/burningterra/BurningKnight.png");
+  images.push("../images/burningterra/BurningKnightHalberd.png");
+  images.push("../images/burningterra/Hellhound.png");
+  images.push("../images/burningterra/DemonEnvoyWild.png");
+  images.push("../images/burningterra/DemonEnvoyHellfire.png");
+  images.push("../images/burningterra/GreatDemon.png");
+
+  return images;
+}

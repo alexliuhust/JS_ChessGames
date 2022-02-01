@@ -372,3 +372,18 @@ export function getTestArms(player) {
   ];
   return arms;
 }
+
+export function getImages() {
+  let images = [];
+  images.push("../images/empire/SwordInfantry.png");
+  images.push("../images/empire/PalaceGuard.png");
+  images.push("../images/empire/Musketeer.png");
+  images.push("../images/empire/MusketRider.png");
+  images.push("../images/empire/Vanguard.png");
+  images.push("../images/empire/PalaceKnight.png");
+  images.push("../images/empire/CannonGroup.png");
+  images.push("../images/empire/EmpireMortar.png");
+  images.push("../images/empire/SteamTank.png");
+
+  return images;
+}

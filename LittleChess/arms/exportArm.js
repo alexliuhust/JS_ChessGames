@@ -5,7 +5,7 @@ import * as PollutelandArms from "./polluteland/pollutelandArms.js";
 import * as SnowhauptArms from "./snowhaupt/snowhauptArms.js";
 import * as BurningterraArms from "./burningterra/burningterraArms.js";
 
-export function exportArm(power) {
+export function exportPower(power) {
   if (power === "empire") return EmpireArms;
   if (power === "nordfort") return NordFortArms;
   if (power === "dimwoods") return DimwoodsArms;

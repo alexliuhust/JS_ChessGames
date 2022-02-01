@@ -344,3 +344,18 @@ export function getTestArms(player) {
   ];
   return arms;
 }
+
+export function getImages() {
+  let images = [];
+  images.push("../images/snowhaupt/DwarfWarrior.png");
+  images.push("../images/snowhaupt/BoneBreaker.png");
+  images.push("../images/snowhaupt/Berserker.png");
+  images.push("../images/snowhaupt/MountainShocker.png");
+  images.push("../images/snowhaupt/DwarfMusketeer.png");
+  images.push("../images/snowhaupt/MortarSquad.png");
+  images.push("../images/snowhaupt/GoatCavalry.png");
+  images.push("../images/snowhaupt/RevolvingCannon.png");
+  images.push("../images/snowhaupt/GiantCannon.png");
+
+  return images;
+}

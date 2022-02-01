@@ -360,3 +360,18 @@ export function getTestArms(player) {
   ];
   return arms;
 }
+
+export function getImages() {
+  let images = [];
+  images.push("../images/nordfort/HallwayGuard.png");
+  images.push("../images/nordfort/NordExecutioner.png");
+  images.push("../images/nordfort/CoastDefender.png");
+  images.push("../images/nordfort/CoastDefenderShield.png");
+  images.push("../images/nordfort/BallistaSquad.png");
+  images.push("../images/nordfort/FlameKnight.png");
+  images.push("../images/nordfort/CoralCavalry.png");
+  images.push("../images/nordfort/GiantBallista.png");
+  images.push("../images/nordfort/StoneGiant.png");
+
+  return images;
+}

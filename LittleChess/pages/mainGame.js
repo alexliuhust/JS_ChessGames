@@ -1,5 +1,5 @@
-import { Player } from "./player.js";
-import { Canvas } from "./tools.js";
+import { Player } from "../player.js";
+import { Canvas } from "../tools.js";
 import {
   GameWidth as W,
   GameHeight as H,
@@ -7,9 +7,9 @@ import {
   InfoHeight as IH,
   BannerWidth as BW,
   BannerHeight as BH,
-} from "./const.js";
-import * as BannerDraw from "./prompts/bannerDrawings.js";
-import { exportArm } from "./arms/exportArm.js";
+} from "../const.js";
+import * as BannerDraw from "../prompts/bannerDrawings.js";
+import { exportPower } from "../arms/exportArm.js";
 
 // ===============================================================
 // ====================== Load All Canvases ======================
@@ -26,8 +26,8 @@ const canvasList = {
 // ===============================================================
 // ====================== Load Players Info ======================
 // ===============================================================
-let pieces1 = exportArm(window.localStorage.getItem("power1")).getTestArms(1);
-let pieces2 = exportArm(window.localStorage.getItem("power2")).getTestArms(2);
+let pieces1 = exportPower(window.localStorage.getItem("power1")).getTestArms(1);
+let pieces2 = exportPower(window.localStorage.getItem("power2")).getTestArms(2);
 // for (let i = 0; i < pieces2.length; i++) pieces2[i].c_leadership = 10;
 
 // let pieces1 = [
