@@ -4,12 +4,11 @@ import { HpColor, AmmoColor, LeadColor, LevelColor } from "../const.js";
 export const DamageTypes = ["melee", "missle", "charge", "bombing", "magic"];
 export const ArmTypes = [
   "infantry",
-  "cavalry",
   "archers",
+  "cavalry",
   "monster-infantry",
   "monster",
   "artillery",
-  "mages",
 ];
 
 export function checkDamageType(damageType) {
