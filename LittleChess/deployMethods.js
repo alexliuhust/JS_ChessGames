@@ -10,12 +10,12 @@ export function toGold(string) {
 }
 
 export const containerIdPrefex = ["i", "a", "c", "mif", "m", "art"];
-export const containerMaxLength = [20, 20, 20, 10, 10, 6];
+export const containerMaxLength = [16, 16, 16, 10, 10, 6];
 
 export function addToContainer(arm, armIndex, img, containers) {
   let containerIndex = ArmTypes.indexOf(arm.type);
   let currentLength = containers[containerIndex].length;
-  if (currentLength >= containerMaxLength[containerIndex]) return;
+  if (currentLength >= containerMaxLength[containerIndex]) return false;
 
   containers[containerIndex].push(armIndex);
   let pre = containerIdPrefex[containerIndex];
@@ -25,6 +25,8 @@ export function addToContainer(arm, armIndex, img, containers) {
   let elem = document.createElement("img");
   elem.src = img;
   div.appendChild(elem);
+
+  return true;
 }
 
 export function showDeployInfo(player) {

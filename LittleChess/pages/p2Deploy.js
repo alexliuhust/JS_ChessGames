@@ -13,8 +13,9 @@ for (let i = 0; i < 9; i++) {
 
   elem.addEventListener("mousedown", (e) => {
     if (money < arms[i].cost) return;
-    addToContainer(arms[i], i, images[i], containers);
-    money -= arms[i].cost;
+    if (addToContainer(arms[i], i, images[i], containers)) {
+      money -= arms[i].cost;
+    } else return;
 
     let moneyLeftSpan = document.getElementById("moneyLeft");
     moneyLeftSpan.textContent = toGold(money);
