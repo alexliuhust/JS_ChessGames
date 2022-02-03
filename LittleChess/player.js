@@ -73,7 +73,10 @@ export class Player {
     };
 
     this.checkAndDisableArms = function () {
-      if (this.operatedPieces.size >= 3) {
+      let max = Math.floor(
+        Math.sqrt(this.pieceList.length + this.enemyList.length)
+      );
+      if (this.operatedPieces.size >= max) {
         for (let i = 0; i < this.pieceList.length; i++) {
           if (!this.operatedPieces.has(this.pieceList[i]))
             this.pieceList[i].optOut();
