@@ -1,6 +1,8 @@
 import cv2
 import os
 
+import numpy as np
+
 
 def get_file_list(dir, file_list, ext=None):
     new_dir = dir
@@ -30,6 +32,26 @@ def risize_images(from_dir, to_dir, size):
         cv2.imwrite(to_dir + img_name + ".png", img)
 
 
-risize_images('./raw_images/burningterra', './images/burningterra/', 50)
+def binarize_image(img_path, name):
+    img = cv2.imread(img_path, cv2.IMREAD_COLOR)
+    height = img.shape[0]
+    width = img.shape[1]
+
+    newImg = np.zeros_like(img)
+
+    o = 1
+    for i in range(height):
+        for j in range(width):
+            if img[i][j][0] == 239 and img[i][j][1] == 239 and img[i][j][2] == 239:
+                newImg[i][j] = [255, 255, 255]
+
+            elif (img[i][j][0] != 239 and img[i][j][1] != 239 and img[i][j][2] != 239) \
+                    and (img[i][j][0] != 255 and img[i][j][1] != 255 and img[i][j][2] != 255):
+                newImg[i][j] = [0, 0, 0]
+            else:
+                newImg[i][j] = img[i][j]
+
+    cv2.imwrite(name + ".png", newImg)
 
 
+risize_images('./raw_images/stormreef', './images/stormreef/', 50)
