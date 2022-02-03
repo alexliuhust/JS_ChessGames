@@ -1,25 +1,20 @@
-import { showDeployInfo, addToContainer, toGold } from "../deployMethods.js";
+import { Deploy } from "../deployMethods.js";
+import { DeployWidth as DW, DeployHeight as DH } from "../const.js";
+import { Canvas } from "../tools.js";
 
-let output = showDeployInfo(2);
-let POWER = output[0];
-let arms = output[1];
-let images = output[2];
-let money = output[3];
+const canvasList = {
+  map: document.getElementById("map").getContext("2d"),
+  piece: document.getElementById("piece").getContext("2d"),
+  select: document.getElementById("select").getContext("2d"),
+};
 
-let containers = [[], [], [], [], [], []];
+let deploy = new Deploy(canvasList, 2);
+deploy.showDeployInfo();
 
-for (let i = 0; i < 9; i++) {
-  let elem = document.getElementById(i).firstChild;
-
-  elem.addEventListener("mousedown", (e) => {
-    if (money < arms[i].cost) return;
-    if (addToContainer(arms[i], i, images[i], containers)) {
-      money -= arms[i].cost;
-    } else return;
-
-    let moneyLeftSpan = document.getElementById("moneyLeft");
-    moneyLeftSpan.textContent = toGold(money);
-
-    window.localStorage.setItem("containers2", JSON.stringify(containers));
-  });
-}
+// ===============================================================
+// ==================== Mouse Clicking Events ====================
+// ===============================================================
+let select = document.getElementById("select");
+select.onclick = (e) => {
+  deploy.mouseClickingActions(e);
+};

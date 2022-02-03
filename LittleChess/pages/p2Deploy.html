@@ -8,7 +8,7 @@
     </head>
     <body>
 
-        <div style="margin-left: 20px;">
+        <div style="margin-left: 220px; margin-top: -40px;">
             <h1 style="font-size: 60px;">
                 Player 2 Deploy
                 <a href="./p1Deploy.html" style="text-decoration: none;">
@@ -27,7 +27,7 @@
             <h1>Available Troops for <span id="power"></span></h1>
             <h2>Money Left: <span id="moneyLeft"></span></h2>
 
-            <div>
+            <div style="height: 400px;">
                 <div style="float: left;" id="0"></div>
                 <div style="float: left;" id="1"></div>
                 <div style="float: left;" id="2"></div>
@@ -36,115 +36,30 @@
                 <div style="float: left;" id="5"></div>
                 <div style="float: left;" id="6"></div>
                 <div style="float: left;" id="7"></div>
-                <div style="float: left;" id="8"></div><br /><br /><br />
+                <div style="float: left;" id="8"></div><br /><br /><br /><br />
     
                 <br />
                 <b><span style="font-size: 26px;" id="simpleInfo1">No Troop Info</span></b><br />
                 <span style="font-size: 26px;" id="simpleInfo2">No Troop Info</span>
             </div>
 
-            <div>
-                <h2>Infantry Container <button style="font-size: 20px;" id="clear_inf">clear all</button></h2>
-                <div style="margin-top: -20px">
-                    <div style="width: 50px; height: 50px; float: left;" id="i0"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="i1"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="i2"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="i3"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="i4"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="i5"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="i6"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="i7"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="i8"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="i9"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="i10"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="i11"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="i12"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="i13"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="i14"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="i15"></div><br /><br />
+            <div style="margin-top: -400px; margin-left: 650px; height: 650px">
+                <div style="width:850px; height: 50px; text-align: center;">
+                    <span style="font-size: 48px; color: blue"><b>Enemy Side</b></span>
                 </div>
-
-                <h2>Archers Container <button style="font-size: 20px;" id="clear_arc">clear all</button></h2>
-                <div style="margin-top: -20px">
-                    <div style="width: 50px; height: 50px; float: left;" id="a0"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="a1"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="a2"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="a3"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="a4"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="a5"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="a6"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="a7"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="a8"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="a9"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="a10"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="a11"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="a12"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="a13"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="a14"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="a15"></div><br /><br />
-                </div>
-
-                <h2>Cavalry Container <button style="font-size: 20px;" id="clear_cav">clear all</button></h2>
-                <div style="margin-top: -20px">
-                    <div style="width: 50px; height: 50px; float: left;" id="c0"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="c1"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="c2"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="c3"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="c4"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="c5"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="c6"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="c7"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="c8"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="c9"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="c10"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="c11"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="c12"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="c13"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="c14"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="c15"></div><br /><br />
-                </div>
-
-                <h2>Monster-Infantry Container <button style="font-size: 20px;" id="clear_mif">clear all</button></h2>
-                <div style="margin-top: -20px">
-                    <div style="width: 50px; height: 50px; float: left;" id="mif0"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="mif1"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="mif2"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="mif3"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="mif4"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="mif5"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="mif6"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="mif7"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="mif8"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="mif9"></div><br /><br />
-                </div>
-
-                <h2>Monster Container <button style="font-size: 20px;" id="clear_mon">clear all</button></h2>
-                <div style="margin-top: -20px">
-                    <div style="width: 50px; height: 50px; float: left;" id="m0"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="m1"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="m2"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="m3"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="m4"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="m5"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="m6"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="m7"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="m8"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="m9"></div><br /><br />
-                </div>
-
-                <h2>Artillery Container <button style="font-size: 20px;" id="clear_art">clear all</button></h2>
-                <div style="margin-top: -20px">
-                    <div style="width: 50px; height: 50px; float: left;" id="art0"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="art1"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="art2"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="art3"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="art4"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="art5"></div>
-                    <div style="width: 50px; height: 50px; float: left;" id="art6"></div><br /><br />
+                <div id="game" style="width:850px; height:600px; border: 5px red dashed">
+                    <!-- map canvas, on which we draw the backgroud -->
+                    <canvas id="map" width="850" height="600" 
+                      style="position:absolute; z-index: 100; background:url(../images/map/bg.png) repeat;"></canvas>
+                    <!-- piece canvas, on which we draw all the arm pieces -->
+                    <canvas id="piece" width="850" height="600" 
+                      style="position:absolute; z-index: 101;"></canvas>
+                    <!-- select canvas, which accepts all mouse clicking events -->
+                    <canvas id="select" width="850" height="600" 
+                      style="position:absolute; z-index: 103;"></canvas>
                 </div>
             </div>
             
-            <br /><br /><br /><br /><br /><br /><br /><br />
         </div>
         <script type="module" src="./p2Deploy.js"></script>
     </body>
