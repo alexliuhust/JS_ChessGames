@@ -408,6 +408,19 @@ export function getTestArms(player) {
   return arms;
 }
 
+export function newAnArm(i, posX, posY) {
+  let pos = [posX, posY];
+  if (i === 0) return new SlaveConscript(pos);
+  if (i === 1) return new HurlerGas(pos);
+  if (i === 2) return new HurlerFrgm(pos);
+  if (i === 3) return new HurlerHE(pos);
+  if (i === 4) return new WeapSqdGingall(pos);
+  if (i === 5) return new WeapSqdGatlin(pos);
+  if (i === 6) return new WeapSqdFlthr(pos);
+  if (i === 7) return new MutantSlave(pos);
+  if (i === 8) return new Foulcannon(pos);
+}
+
 export function getImages() {
   let images = [];
   images.push("../images/polluteland/SlaveConscript.png");

@@ -361,6 +361,19 @@ export function getTestArms(player) {
   return arms;
 }
 
+export function newAnArm(i, posX, posY) {
+  let pos = [posX, posY];
+  if (i === 0) return new HallwayGuard(pos);
+  if (i === 1) return new NordExecutioner(pos);
+  if (i === 2) return new CoastDefender(pos);
+  if (i === 3) return new CoastDefenderShield(pos);
+  if (i === 4) return new BallistaSquad(pos);
+  if (i === 5) return new FlameKnight(pos);
+  if (i === 6) return new CoralCavalry(pos);
+  if (i === 7) return new GiantBallista(pos);
+  if (i === 8) return new StoneGiant(pos);
+}
+
 export function getImages() {
   let images = [];
   images.push("../images/nordfort/HallwayGuard.png");

@@ -345,6 +345,19 @@ export function getTestArms(player) {
   return arms;
 }
 
+export function newAnArm(i, posX, posY) {
+  let pos = [posX, posY];
+  if (i === 0) return new DwarfWarrior(pos);
+  if (i === 1) return new BoneBreaker(pos);
+  if (i === 2) return new Berserker(pos);
+  if (i === 3) return new MountainShocker(pos);
+  if (i === 4) return new DwarfMusketeer(pos);
+  if (i === 5) return new MortarSquad(pos);
+  if (i === 6) return new GoatCavalry(pos);
+  if (i === 7) return new RevolvingCannon(pos);
+  if (i === 8) return new GiantCannon(pos);
+}
+
 export function getImages() {
   let images = [];
   images.push("../images/snowhaupt/DwarfWarrior.png");

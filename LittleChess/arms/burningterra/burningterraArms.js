@@ -350,6 +350,19 @@ export function getTestArms(player) {
   return arms;
 }
 
+export function newAnArm(i, posX, posY) {
+  let pos = [posX, posY];
+  if (i === 0) return new HenchWarrior(pos);
+  if (i === 1) return new HenchWarriorHalberd(pos);
+  if (i === 2) return new HenchWarriorGiantaxe(pos);
+  if (i === 3) return new BurningKnight(pos);
+  if (i === 4) return new BurningKnightHalberd(pos);
+  if (i === 5) return new Hellhound(pos);
+  if (i === 6) return new DemonEnvoyWild(pos);
+  if (i === 7) return new DemonEnvoyHellfire(pos);
+  if (i === 8) return new GreatDemon(pos);
+}
+
 export function getImages() {
   let images = [];
   images.push("../images/burningterra/HenchWarrior.png");

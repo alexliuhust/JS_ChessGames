@@ -29,9 +29,21 @@ function drawBars(cxt, player1, player2) {
 
   let resultP1 = getAggregateDataOfPlayer(player1);
   let resultP2 = getAggregateDataOfPlayer(player2);
-  let scaleLen1 = Math.round((resultP1[0] * 450) / (resultP1[0] + resultP2[0]));
-  let powerLen1 = Math.round((resultP1[1] * 450) / (resultP1[1] + resultP2[1]));
-  let leadLen1 = Math.round((resultP1[2] * 450) / (resultP1[2] + resultP2[2]));
+  let scaleLen1 = Math.max(
+    Math.round((resultP1[0] * 450) / (resultP1[0] + resultP2[0])),
+    2
+  );
+  let powerLen1 = Math.max(
+    Math.round((resultP1[1] * 450) / (resultP1[1] + resultP2[1])),
+    2
+  );
+  let leadLen1 = Math.max(
+    Math.round((resultP1[2] * 450) / (resultP1[2] + resultP2[2])),
+    2
+  );
+  scaleLen1 = Math.min(scaleLen1, 448);
+  powerLen1 = Math.min(powerLen1, 448);
+  leadLen1 = Math.min(leadLen1, 448);
 
   Canvas.drawLine(cxt, 252, 13, 250 + scaleLen1, 13, "blue", 16);
   Canvas.drawLine(cxt, 252 + scaleLen1, 13, BW - 252, 13, "red", 16);
@@ -41,6 +53,8 @@ function drawBars(cxt, player1, player2) {
   Canvas.drawLine(cxt, 252 + leadLen1, 57, BW - 252, 57, "red", 16);
 
   Canvas.drawLine(cxt, BW / 2, 3, BW / 2, BH - 3, "white", 2);
+  Canvas.drawLine(cxt, BW / 2 - 224, 3, BW / 2 - 224, BH - 3, BGC, 2);
+  Canvas.drawLine(cxt, BW / 2 + 224, 3, BW / 2 + 224, BH - 3, BGC, 2);
 }
 
 function getAggregateDataOfPlayer(player) {

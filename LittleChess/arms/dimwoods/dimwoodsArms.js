@@ -343,6 +343,19 @@ export function getTestArms(player) {
   return arms;
 }
 
+export function newAnArm(i, posX, posY) {
+  let pos = [posX, posY];
+  if (i === 0) return new WoodsGuard(pos);
+  if (i === 1) return new WildKiller(pos);
+  if (i === 2) return new HightreeScout(pos);
+  if (i === 3) return new ShadowArcherAP(pos);
+  if (i === 4) return new ShadowArcherFL(pos);
+  if (i === 5) return new LongbowRanger(pos);
+  if (i === 6) return new Dryad(pos);
+  if (i === 7) return new DryadRangerRide(pos);
+  if (i === 8) return new GiantTreeman(pos);
+}
+
 export function getImages() {
   let images = [];
   images.push("../images/dimwoods/WoodsGuard.png");
