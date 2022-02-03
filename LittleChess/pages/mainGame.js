@@ -10,6 +10,7 @@ import {
 } from "../const.js";
 import * as BannerDraw from "../prompts/bannerDrawings.js";
 import { exportPower } from "../arms/exportArm.js";
+import { decodeArmPositionInfo } from "../deployMethods.js";
 
 // ===============================================================
 // ====================== Load All Canvases ======================
@@ -26,8 +27,8 @@ const canvasList = {
 // ===============================================================
 // ====================== Load Players Info ======================
 // ===============================================================
-let pieces1 = exportPower(window.localStorage.getItem("power1")).getTestArms(1);
-let pieces2 = exportPower(window.localStorage.getItem("power2")).getTestArms(2);
+let pieces1 = decodeArmPositionInfo(1);
+let pieces2 = decodeArmPositionInfo(2);
 
 let player1 = new Player(pieces1, pieces2, "blue", canvasList);
 let player2 = new Player(pieces2, pieces1, "red", canvasList);

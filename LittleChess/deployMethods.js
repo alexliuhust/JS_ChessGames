@@ -1,6 +1,9 @@
 import { exportPower } from "./arms/exportArm.js";
-import { DeployWidth as DW, DeployHeight as DH } from "../const.js";
+import { DeployWidth as DW, DeployHeight as DH } from "./const.js";
 import { Canvas, Rect } from "./tools.js";
+
+const maxX = Math.floor(DW / 50);
+const maxY = Math.floor(DH / 50);
 
 export class Deploy {
   constructor(_canvasList, _player) {
@@ -72,6 +75,7 @@ export class Deploy {
         Canvas.drawImg(this.canvasList.piece, image, drawX, drawY);
 
         let piece = {
+          index: this.imageIndex,
           cost: cost,
           x: drawX,
           y: drawY,
@@ -123,18 +127,54 @@ export class Deploy {
     };
 
     this.drawMap = function () {
-      let maxX = Math.floor(DW / 50);
-      let maxY = Math.floor(DH / 50);
-
       for (let i = 0; i < maxX; i++) {
         for (let j = 0; j < maxY; j++) {
           Canvas.drawRect(this.canvasList.map, i * 50, j * 50, 50, 50, "black");
         }
       }
     };
+
+    this.storeArmInfo = function () {
+      let outputList = [];
+      for (let i = 0; i < this.pieceList.length; i++) {
+        let piece = this.pieceList[i];
+
+        // Calculate the real game positions of the pieces
+        let px = 0,
+          py = 0;
+        if (this.player === 1) {
+          px = maxY - piece.y / 50 - 1;
+          py = piece.x / 50;
+        } else {
+          px = 27 - (maxY - piece.y / 50);
+          py = maxX - piece.x / 50 - 1;
+        }
+        outputList.push([piece.index, px, py]);
+      }
+
+      if (this.player === 1)
+        window.localStorage.setItem("a1", JSON.stringify(outputList));
+      else window.localStorage.setItem("a2", JSON.stringify(outputList));
+    };
   }
 }
 
 function firstLetterUp(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+export function decodeArmPositionInfo(player) {
+  let armlistNumber = "a" + player;
+  let outputList = window.localStorage.getItem(armlistNumber);
+  let info = JSON.parse(outputList);
+
+  let powerNumber = "power" + player;
+  let Power = exportPower(window.localStorage.getItem(powerNumber));
+
+  let arms = [];
+  for (let i = 0; i < info.length; i++) {
+    arms.push(Power.newAnArm(info[i][0], info[i][1], info[i][2]));
+  }
+
+  return arms;
 }

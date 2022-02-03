@@ -373,6 +373,19 @@ export function getTestArms(player) {
   return arms;
 }
 
+export function newAnArm(i, posX, posY) {
+  let pos = [posX, posY];
+  if (i === 0) return new SwordInfantry(pos);
+  if (i === 1) return new PalaceGuard(pos);
+  if (i === 2) return new Musketeer(pos);
+  if (i === 3) return new MusketRider(pos);
+  if (i === 4) return new Vanguard(pos);
+  if (i === 5) return new PalaceKnight(pos);
+  if (i === 6) return new CannonGroup(pos);
+  if (i === 7) return new EmpireMortar(pos);
+  if (i === 8) return new SteamTank(pos);
+}
+
 export function getImages() {
   let images = [];
   images.push("../images/empire/SwordInfantry.png");

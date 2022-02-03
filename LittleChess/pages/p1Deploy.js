@@ -18,3 +18,7 @@ let select = document.getElementById("select");
 select.onclick = (e) => {
   deploy.mouseClickingActions(e);
 };
+
+window.addEventListener("beforeunload", (e) => {
+  deploy.storeArmInfo();
+});
