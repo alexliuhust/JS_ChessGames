@@ -2,6 +2,7 @@ infantry 近战步兵
 monster-infantry 怪兽步兵
 armor-infantry 装甲-近战步兵
 shield-infantry 持盾-近战步兵
+hurling-infantry 投掷-近战步兵
 
 archers 远程步兵
 shield-archers 持盾-远程步兵
@@ -32,8 +33,9 @@ resist-charging 抵御冲锋
 long-range 长程
 high-damage 高伤害
 melee-master 近战大师
-heavy-armor 高护甲
+heavy-armor 重装甲
 missle-attack (for mech/giant) 远程攻击
-fast (for mech/giant) 迅捷
+fast (for mech/giant) 迅捷如风
+weak 孱弱
 
 

@@ -205,7 +205,7 @@ export class Hellhound extends ArmPrimary.Arm {
 
     this.name = "Hellhound";
     this.type = "cavalry";
-    this.description = "monster-calvary / fast";
+    this.description = "monster-cavalry / fast";
 
     this.scale = 100;
     this.singleHP = 30;

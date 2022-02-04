@@ -233,7 +233,7 @@ export class Cancrimag extends ArmPrimary.Arm {
 
     this.name = "Cancrimag";
     this.type = "monster";
-    this.description = "missle-giant / heavy-armor";
+    this.description = "giant / heavy-armor / missle-attack";
 
     this.scale = 1;
     this.singleHP = 400;
