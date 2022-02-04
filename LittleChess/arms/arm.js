@@ -123,7 +123,7 @@ export class Arm {
 
     this.isAlive = true;
     this.hasAttacked = false;
-    this.hasMoved = false;
+    this.operable = true;
 
     if (positionValue !== null) {
       this.positionX = positionValue[0];
@@ -462,6 +462,28 @@ export class Arm {
       AmmoColor,
       4
     );
+
+    // Draw operablility mark
+    if (!this.operable) {
+      Canvas.drawLine(
+        cxt,
+        this.x + 33,
+        this.y + 10,
+        this.x + 43,
+        this.y + 20,
+        "red",
+        2
+      );
+      Canvas.drawLine(
+        cxt,
+        this.x + 33,
+        this.y + 20,
+        this.x + 43,
+        this.y + 10,
+        "red",
+        2
+      );
+    }
   }
 
   // =============== Battle APIs ===============
@@ -469,9 +491,11 @@ export class Arm {
   optOut() {
     this.hasAttacked = true;
     this.c_speed = 0;
+    this.operable = false;
   }
 
   roundRefresh(currentRound) {
+    this.operable = true;
     this.c_speed = this.speed;
     this.hasAttacked = false;
 
