@@ -4,6 +4,7 @@ import * as DimwoodsArms from "./dimwoods/dimwoodsArms.js";
 import * as PollutelandArms from "./polluteland/pollutelandArms.js";
 import * as SnowhauptArms from "./snowhaupt/snowhauptArms.js";
 import * as BurningterraArms from "./burningterra/burningterraArms.js";
+import * as StormreefArms from "./stormreef/stormreefArms.js";
 
 export function exportPower(power) {
   if (power === "empire") return EmpireArms;
@@ -12,4 +13,5 @@ export function exportPower(power) {
   if (power === "polluteland") return PollutelandArms;
   if (power === "snowhaupt") return SnowhauptArms;
   if (power === "burningterra") return BurningterraArms;
+  if (power === "stormreef") return StormreefArms;
 }
