@@ -19,10 +19,11 @@ export function drawInfoForSelectedPiece(cxt, piece) {
 }
 
 function drawTitle(cxt, piece) {
-  Canvas.drawImg(cxt, piece.img, 0, 0, 50, 50, 10, 10, 85, 85);
+  if (piece.img !== null)
+    Canvas.drawImg(cxt, piece.img, 0, 0, 50, 50, 10, 10, 85, 85);
   Canvas.drawText(cxt, piece.name, 105, 30, "white", 24);
   Canvas.drawText(cxt, piece.description, 105, 60, "white", 16);
-  Canvas.drawText(cxt, `[cost: ${piece.cost}G]`, 105, 90, "white", 16);
+  Canvas.drawText(cxt, `[cost: ${piece.cost}G]`, 105, 90, "yellow", 16);
 
   let expLength = (144 * Math.min(piece.exp, piece.cost)) / piece.cost;
   Canvas.drawLine(cxt, 320, 83, 470, 83, BGC, 18);

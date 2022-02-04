@@ -1,6 +1,12 @@
 import { exportPower } from "./arms/exportArm.js";
-import { DeployWidth as DW, DeployHeight as DH } from "./const.js";
+import {
+  DeployWidth as DW,
+  DeployHeight as DH,
+  DInfoWidth as DIW,
+  DInfoHeight as DIH,
+} from "./const.js";
 import { Canvas, Rect } from "./tools.js";
+import { drawInfoForSelectedPiece } from "./prompts/infoDrawings.js";
 
 const maxX = Math.floor(DW / 50);
 const maxY = Math.floor(DH / 50);
@@ -90,19 +96,18 @@ export class Deploy {
 
     // Bind Arm Images with Mouse Down event
     this.bindArmImagesMouseDown = function () {
-      let simpleInfoSpan1 = document.getElementById("simpleInfo1");
-      let simpleInfoSpan2 = document.getElementById("simpleInfo2");
+      let infoCanvas = document.getElementById("info").getContext("2d");
 
       for (let i = 0; i < this.elems.length; i++) {
         let elem = this.elems[i];
         elem.addEventListener("mousedown", (e) => {
           for (let i = 0; i < this.elems.length; i++)
             this.elems[i].style.border = "5px solid white";
-
-          simpleInfoSpan1.textContent = `${this.arms[i].name} [${this.arms[i].cost} G]`;
-          simpleInfoSpan2.textContent = this.arms[i].description;
           elem.style.border = "5px solid blue";
 
+          Canvas.clear(infoCanvas, DIW, DIH);
+          this.arms[i].img = this.elems[i];
+          drawInfoForSelectedPiece(infoCanvas, this.arms[i]);
           this.imageIndex = i;
         });
       }
