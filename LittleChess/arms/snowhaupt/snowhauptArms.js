@@ -16,7 +16,7 @@ export class DwarfWarrior extends ArmPrimary.Arm {
     this.speed = 2;
 
     this.meleeArmor = 40;
-    this.missleArmor = 50;
+    this.missileArmor = 50;
     this.chargeArmor = 20;
 
     this.meleeAttack = 24;
@@ -44,7 +44,7 @@ export class BoneBreaker extends ArmPrimary.Arm {
     this.speed = 2;
 
     this.meleeArmor = 40;
-    this.missleArmor = 20;
+    this.missileArmor = 20;
     this.chargeArmor = 20;
 
     this.meleeAttack = 20;
@@ -95,7 +95,7 @@ export class Berserker extends ArmPrimary.Arm {
     this.speed = 3;
 
     this.meleeArmor = 40;
-    this.missleArmor = 20;
+    this.missileArmor = 20;
     this.chargeArmor = 20;
 
     this.meleeAttack = 66;
@@ -116,19 +116,19 @@ export class MountainShocker extends ArmPrimary.Arm {
 
     this.name = "Mountain Shocker";
     this.type = "archers";
-    this.description = "giant-shield-infantry / high-missle-damage";
+    this.description = "giant-shield-infantry / high-missile-damage";
 
     this.scale = 48;
     this.singleHP = 70;
     this.speed = 2;
 
     this.meleeArmor = 0;
-    this.missleArmor = 80;
+    this.missileArmor = 80;
     this.chargeArmor = 50;
 
     this.meleeAttack = 20;
-    this.missleAttack = 80;
-    this.missleRange = 2;
+    this.missileAttack = 80;
+    this.missileRange = 2;
 
     this.ammo = 3;
 
@@ -155,12 +155,12 @@ export class DwarfMusketeer extends ArmPrimary.Arm {
     this.speed = 2;
 
     this.meleeArmor = 40;
-    this.missleArmor = 50;
+    this.missileArmor = 50;
     this.chargeArmor = 20;
 
     this.meleeAttack = 24;
-    this.missleAttack = 40;
-    this.missleRange = 6;
+    this.missileAttack = 40;
+    this.missileRange = 6;
 
     this.antiArmor = 40;
 
@@ -175,7 +175,7 @@ export class DwarfMusketeer extends ArmPrimary.Arm {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
-    if (damageType === "missle") return this.antiArmor;
+    if (damageType === "missile") return this.antiArmor;
     return 0;
   }
 }
@@ -195,12 +195,12 @@ export class MortarSquad extends ArmPrimary.Arm {
     this.speed = 2;
 
     this.meleeArmor = 40;
-    this.missleArmor = 50;
+    this.missileArmor = 50;
     this.chargeArmor = 20;
 
     this.meleeAttack = 24;
-    this.missleAttack = 80;
-    this.missleRange = 6;
+    this.missileAttack = 80;
+    this.missileRange = 6;
 
     this.loadRealtimeProps();
   }
@@ -225,7 +225,7 @@ export class GoatCavalry extends ArmPrimary.Arm {
     this.speed = 5;
 
     this.meleeArmor = 40;
-    this.missleArmor = 50;
+    this.missileArmor = 50;
     this.chargeArmor = 20;
 
     this.meleeAttack = 24;
@@ -253,9 +253,9 @@ export class RevolvingCannon extends ArmPrimary.Arm {
     this.singleHP = 1200;
     this.speed = 1;
 
-    this.missleAttack = 440;
-    this.missleAttack_bonus = 220;
-    this.missleRange = 10;
+    this.missileAttack = 440;
+    this.missileAttack_bonus = 220;
+    this.missileRange = 10;
 
     this.antiArmor = 50;
 
@@ -274,17 +274,17 @@ export class RevolvingCannon extends ArmPrimary.Arm {
     ArmPrimary.checkArmType(targetType);
 
     let singleDamage = 0;
-    if (damageType === "missle") {
-      singleDamage = this.c_missleAttack;
+    if (damageType === "missile") {
+      singleDamage = this.c_missileAttack;
     }
 
     if (
-      damageType === "missle" &&
+      damageType === "missile" &&
       (targetType === "cavalry" ||
         targetType === "moster" ||
         targetType === "monster-infantry")
     ) {
-      singleDamage += this.missleAttack_bonus;
+      singleDamage += this.missileAttack_bonus;
     }
     this.c_ammo -= 8;
 
@@ -297,7 +297,7 @@ export class RevolvingCannon extends ArmPrimary.Arm {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
-    if (damageType === "missle") return this.antiArmor;
+    if (damageType === "missile") return this.antiArmor;
     return 0;
   }
 }
@@ -316,9 +316,9 @@ export class GiantCannon extends ArmPrimary.Arm {
     this.singleHP = 1200;
     this.speed = 1;
 
-    this.missleAttack = 530;
-    this.missleRange = 13;
-    this.missleRadius = 2;
+    this.missileAttack = 530;
+    this.missileRange = 13;
+    this.missileRadius = 2;
     this.isBombing = true;
 
     this.loadRealtimeProps();

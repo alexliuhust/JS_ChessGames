@@ -16,7 +16,7 @@ export class HenchWarrior extends ArmPrimary.Arm {
     this.speed = 2;
 
     this.meleeArmor = 40;
-    this.missleArmor = 60;
+    this.missileArmor = 60;
     this.chargeArmor = 40;
 
     this.meleeAttack = 36;
@@ -44,7 +44,7 @@ export class HenchWarriorHalberd extends ArmPrimary.Arm {
     this.speed = 2;
 
     this.meleeArmor = 40;
-    this.missleArmor = 40;
+    this.missileArmor = 40;
     this.chargeArmor = 70;
 
     this.meleeAttack = 30;
@@ -95,7 +95,7 @@ export class HenchWarriorGiantaxe extends ArmPrimary.Arm {
     this.speed = 2;
 
     this.meleeArmor = 40;
-    this.missleArmor = 40;
+    this.missileArmor = 40;
     this.chargeArmor = 40;
 
     this.meleeAttack = 55;
@@ -133,7 +133,7 @@ export class BurningKnight extends ArmPrimary.Arm {
     this.speed = 4;
 
     this.meleeArmor = 50;
-    this.missleArmor = 70;
+    this.missileArmor = 70;
     this.chargeArmor = 50;
 
     this.meleeAttack = 36;
@@ -161,7 +161,7 @@ export class BurningKnightHalberd extends ArmPrimary.Arm {
     this.speed = 4;
 
     this.meleeArmor = 50;
-    this.missleArmor = 50;
+    this.missileArmor = 50;
     this.chargeArmor = 80;
 
     this.meleeAttack = 30;
@@ -212,7 +212,7 @@ export class Hellhound extends ArmPrimary.Arm {
     this.speed = 7;
 
     this.meleeArmor = 0;
-    this.missleArmor = 70;
+    this.missileArmor = 70;
     this.chargeArmor = 0;
 
     this.meleeAttack = 2;
@@ -241,7 +241,7 @@ export class DemonEnvoyWild extends ArmPrimary.Arm {
     this.speed = 5;
 
     this.meleeArmor = 0;
-    this.missleArmor = 0;
+    this.missileArmor = 0;
     this.chargeArmor = 0;
 
     this.meleeAttack = 80;
@@ -272,19 +272,19 @@ export class DemonEnvoyHellfire extends ArmPrimary.Arm {
 
     this.name = "Demon Envoy (Hellfire)";
     this.type = "monster-infantry";
-    this.description = "monster-infantry / missle-attack";
+    this.description = "monster-infantry / missile-attack";
 
     this.scale = 16;
     this.singleHP = 300;
     this.speed = 4;
 
     this.meleeArmor = 0;
-    this.missleArmor = 0;
+    this.missileArmor = 0;
     this.chargeArmor = 0;
 
     this.meleeAttack = 64;
-    this.missleAttack = 80;
-    this.missleRange = 6;
+    this.missileAttack = 80;
+    this.missileRange = 6;
 
     this.ammo = 30;
 
@@ -311,7 +311,7 @@ export class GreatDemon extends ArmPrimary.Arm {
     this.speed = 4;
 
     this.meleeArmor = 0;
-    this.missleArmor = 0;
+    this.missileArmor = 0;
     this.chargeArmor = 0;
 
     this.meleeAttack = 1000;

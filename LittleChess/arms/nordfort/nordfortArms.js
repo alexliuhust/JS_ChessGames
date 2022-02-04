@@ -16,7 +16,7 @@ export class HallwayGuard extends ArmPrimary.Arm {
     this.speed = 2;
 
     this.meleeArmor = 30;
-    this.missleArmor = 0;
+    this.missileArmor = 0;
     this.chargeArmor = 70;
 
     this.meleeAttack = 30;
@@ -54,7 +54,7 @@ export class NordExecutioner extends ArmPrimary.Arm {
     this.speed = 2;
 
     this.meleeArmor = 80;
-    this.missleArmor = 30;
+    this.missileArmor = 30;
     this.chargeArmor = 0;
 
     this.meleeAttack = 42;
@@ -92,12 +92,12 @@ export class CoastDefender extends ArmPrimary.Arm {
     this.speed = 3;
 
     this.meleeArmor = 0;
-    this.missleArmor = 0;
+    this.missileArmor = 0;
     this.chargeArmor = 70;
 
     this.meleeAttack = 32;
-    this.missleAttack = 40;
-    this.missleRange = 5;
+    this.missileAttack = 40;
+    this.missileRange = 5;
 
     this.antiArmor = 16;
 
@@ -132,12 +132,12 @@ export class CoastDefenderShield extends ArmPrimary.Arm {
     this.speed = 2;
 
     this.meleeArmor = 0;
-    this.missleArmor = 50;
+    this.missileArmor = 50;
     this.chargeArmor = 70;
 
     this.meleeAttack = 32;
-    this.missleAttack = 40;
-    this.missleRange = 5;
+    this.missileAttack = 40;
+    this.missileRange = 5;
 
     this.antiArmor = 16;
 
@@ -172,8 +172,8 @@ export class BallistaSquad extends ArmPrimary.Arm {
     this.speed = 2;
 
     this.meleeAttack = 16;
-    this.missleAttack = 68;
-    this.missleRange = 8;
+    this.missileAttack = 68;
+    this.missileRange = 8;
 
     this.antiArmor = 40;
 
@@ -188,7 +188,7 @@ export class BallistaSquad extends ArmPrimary.Arm {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
-    if (damageType === "missle") return this.antiArmor;
+    if (damageType === "missile") return this.antiArmor;
     return 0;
   }
 }
@@ -208,7 +208,7 @@ export class FlameKnight extends ArmPrimary.Arm {
     this.speed = 7;
 
     this.meleeArmor = 0;
-    this.missleArmor = 30;
+    this.missileArmor = 30;
     this.chargeArmor = 0;
 
     this.meleeAttack = 32;
@@ -247,7 +247,7 @@ export class CoralCavalry extends ArmPrimary.Arm {
     this.speed = 5;
 
     this.meleeArmor = 60;
-    this.missleArmor = 60;
+    this.missileArmor = 60;
     this.chargeArmor = 40;
 
     this.meleeAttack = 44;
@@ -275,8 +275,8 @@ export class GiantBallista extends ArmPrimary.Arm {
     this.singleHP = 250;
     this.speed = 1;
 
-    this.missleAttack = 140;
-    this.missleRange = 11;
+    this.missileAttack = 140;
+    this.missileRange = 11;
 
     this.antiArmor = 48;
 
@@ -291,7 +291,7 @@ export class GiantBallista extends ArmPrimary.Arm {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
-    if (damageType === "missle") return this.antiArmor;
+    if (damageType === "missile") return this.antiArmor;
     return 0;
   }
 }
@@ -311,7 +311,7 @@ export class StoneGiant extends ArmPrimary.Arm {
     this.speed = 3;
 
     this.meleeArmor = 50;
-    this.missleArmor = 50;
+    this.missileArmor = 50;
     this.chargeArmor = 50;
 
     this.meleeAttack = 550;

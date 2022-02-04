@@ -40,8 +40,8 @@ export class SeamanPistol extends ArmPrimary.Arm {
     this.speed = 3;
 
     this.meleeAttack = 20;
-    this.missleAttack = 16;
-    this.missleRange = 4;
+    this.missileAttack = 16;
+    this.missileRange = 4;
 
     this.ammo = 30;
     this.loadRealtimeProps();
@@ -67,8 +67,8 @@ export class SeamanMusket extends ArmPrimary.Arm {
     this.speed = 3;
 
     this.meleeAttack = 20;
-    this.missleAttack = 24;
-    this.missleRange = 6;
+    this.missileAttack = 24;
+    this.missileRange = 6;
 
     this.antiArmor = 10;
 
@@ -84,7 +84,7 @@ export class SeamanMusket extends ArmPrimary.Arm {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
-    if (damageType === "missle") return this.antiArmor;
+    if (damageType === "missile") return this.antiArmor;
     return 0;
   }
 }
@@ -97,14 +97,14 @@ export class Pisciculi extends ArmPrimary.Arm {
 
     this.name = "Pisciculi";
     this.type = "infantry";
-    this.description = "infantry / dodge-missle";
+    this.description = "infantry / dodge-missile";
 
     this.scale = 100;
     this.singleHP = 30;
     this.speed = 6;
 
     this.meleeArmor = 0;
-    this.missleArmor = 60;
+    this.missileArmor = 60;
     this.chargeArmor = 0;
 
     this.meleeAttack = 32;
@@ -125,14 +125,14 @@ export class PisciculiDoubleBlades extends ArmPrimary.Arm {
 
     this.name = "Pisciculi (Double Blades)";
     this.type = "infantry";
-    this.description = "infantry / dodge-missle / high-damage";
+    this.description = "infantry / dodge-missile / high-damage";
 
     this.scale = 100;
     this.singleHP = 30;
     this.speed = 6;
 
     this.meleeArmor = 0;
-    this.missleArmor = 60;
+    this.missileArmor = 60;
     this.chargeArmor = 0;
 
     this.meleeAttack = 50;
@@ -160,7 +160,7 @@ export class MurlocWarrior extends ArmPrimary.Arm {
     this.speed = 2;
 
     this.meleeArmor = 60;
-    this.missleArmor = 0;
+    this.missileArmor = 0;
     this.chargeArmor = 60;
 
     this.meleeAttack = 80;
@@ -198,13 +198,13 @@ export class MurlocWarriorHurling extends ArmPrimary.Arm {
     this.speed = 2;
 
     this.meleeArmor = 60;
-    this.missleArmor = 0;
+    this.missileArmor = 0;
     this.chargeArmor = 60;
 
     this.meleeAttack = 80;
 
-    this.missleAttack = 120;
-    this.missleRange = 4;
+    this.missileAttack = 120;
+    this.missileRange = 4;
 
     this.antiArmor = 30;
 
@@ -233,20 +233,20 @@ export class Cancrimag extends ArmPrimary.Arm {
 
     this.name = "Cancrimag";
     this.type = "monster";
-    this.description = "giant / heavy-armor / missle-attack";
+    this.description = "giant / heavy-armor / missile-attack";
 
     this.scale = 1;
     this.singleHP = 400;
     this.speed = 1;
 
     this.meleeArmor = 90;
-    this.missleArmor = 90;
+    this.missileArmor = 90;
     this.chargeArmor = 90;
 
     this.meleeAttack = 400;
 
-    this.missleAttack = 240;
-    this.missleRange = 6;
+    this.missileAttack = 240;
+    this.missileRange = 6;
 
     this.antiArmor = 10;
 
@@ -262,7 +262,7 @@ export class Cancrimag extends ArmPrimary.Arm {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
-    if (damageType === "missle") return this.antiArmor;
+    if (damageType === "missile") return this.antiArmor;
     return 0;
   }
 }
@@ -281,8 +281,8 @@ export class DeckGun extends ArmPrimary.Arm {
     this.singleHP = 300;
     this.speed = 1;
 
-    this.missleAttack = 150;
-    this.missleRange = 12;
+    this.missileAttack = 150;
+    this.missileRange = 12;
 
     this.antiArmor = 50;
 
@@ -297,7 +297,7 @@ export class DeckGun extends ArmPrimary.Arm {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
-    if (damageType === "missle") return this.antiArmor;
+    if (damageType === "missile") return this.antiArmor;
     return 0;
   }
 }

@@ -1,7 +1,7 @@
 import { Canvas, Rect } from "../tools.js";
 import { HpColor, AmmoColor, LeadColor, LevelColor } from "../const.js";
 
-export const DamageTypes = ["melee", "missle", "charge", "bombing", "magic"];
+export const DamageTypes = ["melee", "missile", "charge", "bombing", "magic"];
 export const ArmTypes = [
   "infantry",
   "archers",
@@ -45,14 +45,14 @@ function calculateCost(arm) {
   let meleeArmorScore =
     arm.meleeArmor >= 60 ? arm.meleeArmor * 1.3 : arm.meleeArmor;
   if (arm.meleeArmor >= 80) meleeArmorScore *= 1.3;
-  let missleArmorScore =
-    arm.missleArmor >= 60 ? arm.missleArmor * 1.3 : arm.missleArmor;
-  if (arm.missleArmor >= 80) missleArmorScore *= 1.3;
+  let missileArmorScore =
+    arm.missileArmor >= 60 ? arm.missileArmor * 1.3 : arm.missileArmor;
+  if (arm.missileArmor >= 80) missileArmorScore *= 1.3;
   let chargeArmorScore =
     arm.chargeArmor >= 60 ? arm.chargeArmor * 1.3 : arm.chargeArmor;
   if (arm.chargeArmor >= 80) chargeArmorScore *= 1.3;
   let armorScore = Math.floor(
-    (meleeArmorScore + missleArmorScore + chargeArmorScore) * 0.6
+    (meleeArmorScore + missileArmorScore + chargeArmorScore) * 0.6
   );
 
   // Attack score
@@ -60,18 +60,18 @@ function calculateCost(arm) {
     (arm.scale * (arm.meleeAttack + arm.meleeAttack_bonus / 2)) / 40
   );
   let rangeScore =
-    arm.missleRange >= 7 ? arm.missleRange * 1.7 : arm.missleRange;
-  let missleScore = Math.floor(
-    (arm.scale * (arm.missleAttack + arm.missleAttack_bonus / 2)) / 30 +
+    arm.missileRange >= 7 ? arm.missileRange * 1.7 : arm.missileRange;
+  let missileScore = Math.floor(
+    (arm.scale * (arm.missileAttack + arm.missileAttack_bonus / 2)) / 30 +
       rangeScore * 7 +
-      arm.missleRadius * 30 +
+      arm.missileRadius * 30 +
       arm.ammo
   );
   let chargeScore = Math.floor(
     (arm.scale * (arm.chargeAttack + arm.chargeAttack_bonus / 2)) / 30 +
       arm.speed * 3
   );
-  let attackScore = Math.floor((meleeScore + missleScore + chargeScore) / 2);
+  let attackScore = Math.floor((meleeScore + missileScore + chargeScore) / 2);
 
   // Anti-armor score
   let antiArmorScore = Math.floor(Math.sqrt(arm.antiArmor) * 3);
@@ -148,7 +148,7 @@ export class Arm {
     this.speed = 0;
 
     this.meleeArmor = 0;
-    this.missleArmor = 0;
+    this.missileArmor = 0;
     this.chargeArmor = 0;
 
     this.meleeAttack = 0;
@@ -156,10 +156,10 @@ export class Arm {
     this.chargeAttack = 0;
     this.chargeAttack_bonus = 0;
 
-    this.missleAttack = 0;
-    this.missleAttack_bonus = 0;
-    this.missleRange = 0;
-    this.missleRadius = 0;
+    this.missileAttack = 0;
+    this.missileAttack_bonus = 0;
+    this.missileRange = 0;
+    this.missileRadius = 0;
     this.isBombing = false;
 
     this.antiArmor = 0;
@@ -174,22 +174,22 @@ export class Arm {
       this.c_speed = this.speed;
 
       this.c_meleeArmor = this.meleeArmor;
-      this.c_missleArmor = this.missleArmor;
+      this.c_missileArmor = this.missileArmor;
       this.c_chargeArmor = this.chargeArmor;
 
       this.c_meleeAttack = this.meleeAttack;
       this.c_chargeAttack = this.chargeAttack;
 
-      this.c_missleAttack = this.missleAttack;
-      this.c_missleRange = this.missleRange;
-      this.c_missleRadius = this.missleRadius;
+      this.c_missileAttack = this.missileAttack;
+      this.c_missileRange = this.missileRange;
+      this.c_missileRadius = this.missileRadius;
 
       // Calculate the ammo, if not given above
       if (this.type === "archers" && this.ammo === -1) {
         this.ammo = 18;
       } else if (
         this.type === "cavalry" &&
-        this.missleAttack != 0 &&
+        this.missileAttack != 0 &&
         this.ammo === -1
       ) {
         this.ammo = 14;
@@ -243,16 +243,16 @@ export class Arm {
         singleDamage = this.c_meleeAttack;
         break;
 
-      case "missle":
+      case "missile":
         if (this.c_ammo > 0) {
-          singleDamage = this.c_missleAttack;
+          singleDamage = this.c_missileAttack;
           this.c_ammo--;
         }
         break;
 
       case "bombing":
         if (this.c_ammo > 0) {
-          let min = this.c_missleAttack;
+          let min = this.c_missileAttack;
           let max = Math.round(min * 1.25);
           singleDamage = Math.floor(Math.random() * (max - min + 1) + min);
         }
@@ -277,8 +277,8 @@ export class Arm {
         validArmor += this.c_meleeArmor;
         break;
 
-      case "missle":
-        validArmor += this.c_missleArmor;
+      case "missile":
+        validArmor += this.c_missileArmor;
         break;
 
       case "charge":
@@ -326,13 +326,13 @@ export class Arm {
 
   _attackWeaken(factor) {
     this.c_meleeAttack = Math.round(this.meleeAttack * factor);
-    this.c_missleAttack = Math.round(this.missleAttack * factor);
+    this.c_missileAttack = Math.round(this.missileAttack * factor);
     this.c_chargeAttack = Math.round(this.chargeAttack * factor);
   }
 
   _armorWeaken(factor) {
     this.c_meleeArmor = Math.round(this.meleeArmor * factor);
-    this.c_missleArmor = Math.round(this.missleArmor * factor);
+    this.c_missileArmor = Math.round(this.missileArmor * factor);
     this.c_chargeArmor = Math.round(this.chargeArmor * factor);
   }
 
@@ -361,10 +361,10 @@ export class Arm {
 
     if (this.scale !== 1) this.singleHP = Math.round(this.singleHP * factor);
     this.meleeArmor = Math.round(this.meleeArmor * factor);
-    this.missleArmor = Math.round(this.missleArmor * factor);
+    this.missileArmor = Math.round(this.missileArmor * factor);
     this.chargeArmor = Math.round(this.chargeArmor * factor);
     this.meleeAttack = Math.round(this.meleeAttack * factor);
-    this.missleAttack = Math.round(this.missleAttack * factor);
+    this.missileAttack = Math.round(this.missileAttack * factor);
     this.chargeAttack = Math.round(this.chargeAttack * factor);
 
     this.leadership += 50;

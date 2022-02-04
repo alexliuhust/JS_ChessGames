@@ -73,14 +73,14 @@ export function drawAvailableTargets(cxt, self, others) {
         others[i].positionY === self.positionY;
 
       let meleeAvailable = self.meleeAttack > 0 && distance === 1;
-      let missleAvailable =
-        self.c_missleAttack > 0 &&
+      let missileAvailable =
+        self.c_missileAttack > 0 &&
         self.c_ammo > 0 &&
-        distance <= self.c_missleRange;
+        distance <= self.c_missileRange;
       let chargeAvailable =
         self.c_chargeAttack > 0 && aligned && distance - 1 <= self.c_speed;
 
-      if (meleeAvailable || missleAvailable || chargeAvailable) {
+      if (meleeAvailable || missileAvailable || chargeAvailable) {
         availableTargets.push(others[i]);
         availablePositions.push([others[i].positionX, others[i].positionY]);
       }
@@ -107,7 +107,7 @@ export function drawAvailableTargets(cxt, self, others) {
     // Collect all available bombing centers
     let sx = self.positionX;
     let sy = self.positionY;
-    let range = self.c_missleRange;
+    let range = self.c_missileRange;
     for (let x = -range; x <= range; x++) {
       let restRange = range - Math.abs(x);
       for (let y = -restRange; y <= restRange; y++) {

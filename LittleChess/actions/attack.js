@@ -12,7 +12,7 @@ export function armBombArea(attacker, centerPosition, defenders) {
     Math.abs(centerPosition[0] - attacker.positionX) +
     Math.abs(centerPosition[1] - attacker.positionY);
 
-  if (bombDistance > attacker.c_missleRange || attacker.c_ammo <= 0) {
+  if (bombDistance > attacker.c_missileRange || attacker.c_ammo <= 0) {
     return;
   }
 
@@ -28,7 +28,7 @@ export function armBombArea(attacker, centerPosition, defenders) {
       Math.abs(centerPosition[0] - defender.positionX) +
       Math.abs(centerPosition[1] - defender.positionY);
 
-    if (distance <= attacker.c_missleRadius) {
+    if (distance <= attacker.c_missileRadius) {
       let att_totalRowDamage = attacker.getRawTotalDamage(damageType, defender);
       if (distance === 1) {
         att_totalRowDamage = Math.ceil(att_totalRowDamage * 0.7);
@@ -93,13 +93,13 @@ function determineDamageType(attacker, defender) {
     return "charge";
   }
 
-  // Missle Attack
+  // missile Attack
   if (
-    distance <= attacker.c_missleRange &&
-    attacker.c_missleAttack > 0 &&
+    distance <= attacker.c_missileRange &&
+    attacker.c_missileAttack > 0 &&
     attacker.c_ammo > 0
   ) {
-    return "missle";
+    return "missile";
   }
 
   return null;

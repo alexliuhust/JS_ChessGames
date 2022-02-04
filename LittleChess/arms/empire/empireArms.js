@@ -16,7 +16,7 @@ export class SwordInfantry extends ArmPrimary.Arm {
     this.speed = 2;
 
     this.meleeArmor = 20;
-    this.missleArmor = 50;
+    this.missileArmor = 50;
     this.chargeArmor = 0;
 
     this.meleeAttack = 24;
@@ -65,7 +65,7 @@ export class PalaceGuard extends ArmPrimary.Arm {
     this.speed = 2;
 
     this.meleeArmor = 20;
-    this.missleArmor = 0;
+    this.missileArmor = 0;
     this.chargeArmor = 80;
 
     this.meleeAttack = 20;
@@ -125,8 +125,8 @@ export class Musketeer extends ArmPrimary.Arm {
     this.speed = 3;
 
     this.meleeAttack = 16;
-    this.missleAttack = 48;
-    this.missleRange = 6;
+    this.missileAttack = 48;
+    this.missileRange = 6;
 
     this.antiArmor = 10;
 
@@ -141,7 +141,7 @@ export class Musketeer extends ArmPrimary.Arm {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
-    if (damageType === "missle") return this.antiArmor;
+    if (damageType === "missile") return this.antiArmor;
     return 0;
   }
 }
@@ -154,19 +154,19 @@ export class MusketRider extends ArmPrimary.Arm {
 
     this.name = "Musket Rider";
     this.type = "cavalry";
-    this.description = "missle-cavalry";
+    this.description = "missile-cavalry";
 
     this.scale = 32;
     this.singleHP = 90;
     this.speed = 6;
 
     this.meleeArmor = 10;
-    this.missleArmor = 30;
+    this.missileArmor = 30;
     this.chargeArmor = 0;
 
     this.meleeAttack = 24;
-    this.missleAttack = 48;
-    this.missleRange = 6;
+    this.missileAttack = 48;
+    this.missileRange = 6;
 
     this.antiArmor = 10;
 
@@ -181,7 +181,7 @@ export class MusketRider extends ArmPrimary.Arm {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
-    if (damageType === "missle") return this.antiArmor;
+    if (damageType === "missile") return this.antiArmor;
     return 0;
   }
 }
@@ -201,7 +201,7 @@ export class Vanguard extends ArmPrimary.Arm {
     this.speed = 6;
 
     this.meleeArmor = 10;
-    this.missleArmor = 50;
+    this.missileArmor = 50;
     this.chargeArmor = 0;
 
     this.meleeAttack = 24;
@@ -240,7 +240,7 @@ export class PalaceKnight extends ArmPrimary.Arm {
     this.speed = 4;
 
     this.meleeArmor = 70;
-    this.missleArmor = 70;
+    this.missileArmor = 70;
     this.chargeArmor = 70;
 
     this.meleeAttack = 48;
@@ -267,8 +267,8 @@ export class CannonGroup extends ArmPrimary.Arm {
     this.singleHP = 300;
     this.speed = 1;
 
-    this.missleAttack = 150;
-    this.missleRange = 12;
+    this.missileAttack = 150;
+    this.missileRange = 12;
 
     this.antiArmor = 50;
 
@@ -283,7 +283,7 @@ export class CannonGroup extends ArmPrimary.Arm {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
-    if (damageType === "missle") return this.antiArmor;
+    if (damageType === "missile") return this.antiArmor;
     return 0;
   }
 }
@@ -302,9 +302,9 @@ export class EmpireMortar extends ArmPrimary.Arm {
     this.singleHP = 300;
     this.speed = 1;
 
-    this.missleAttack = 190;
-    this.missleRange = 10;
-    this.missleRadius = 2;
+    this.missileAttack = 190;
+    this.missileRange = 10;
+    this.missileRadius = 2;
     this.isBombing = true;
 
     this.loadRealtimeProps();
@@ -323,19 +323,19 @@ export class SteamTank extends ArmPrimary.Arm {
 
     this.name = "Steam Tank";
     this.type = "monster";
-    this.description = "mech / heavy-armor / missle-attack";
+    this.description = "mech / heavy-armor / missile-attack";
 
     this.scale = 1;
     this.singleHP = 300;
     this.speed = 2;
 
     this.meleeArmor = 90;
-    this.missleArmor = 90;
+    this.missileArmor = 90;
     this.chargeArmor = 90;
 
     this.meleeAttack = 450;
-    this.missleAttack = 300;
-    this.missleRange = 7;
+    this.missileAttack = 300;
+    this.missileRange = 7;
 
     this.antiArmor = 50;
 
@@ -352,7 +352,7 @@ export class SteamTank extends ArmPrimary.Arm {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
-    if (damageType === "missle") return this.antiArmor;
+    if (damageType === "missile") return this.antiArmor;
     return 0;
   }
 }

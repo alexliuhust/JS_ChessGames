@@ -16,7 +16,7 @@ export class WoodsGuard extends ArmPrimary.Arm {
     this.speed = 3;
 
     this.meleeArmor = 0;
-    this.missleArmor = 50;
+    this.missileArmor = 50;
     this.chargeArmor = 70;
 
     this.meleeAttack = 24;
@@ -54,7 +54,7 @@ export class WildKiller extends ArmPrimary.Arm {
     this.speed = 4;
 
     this.meleeArmor = 60;
-    this.missleArmor = 0;
+    this.missileArmor = 0;
     this.chargeArmor = 0;
 
     this.meleeAttack = 48;
@@ -103,12 +103,12 @@ export class HightreeScout extends ArmPrimary.Arm {
     this.speed = 4;
 
     this.meleeArmor = 30;
-    this.missleArmor = 30;
+    this.missileArmor = 30;
     this.chargeArmor = 0;
 
     this.meleeAttack = 36;
-    this.missleAttack = 32;
-    this.missleRange = 5;
+    this.missileAttack = 32;
+    this.missileRange = 5;
 
     this.loadRealtimeProps();
   }
@@ -133,12 +133,12 @@ export class ShadowArcherAP extends ArmPrimary.Arm {
     this.speed = 4;
 
     this.meleeArmor = 30;
-    this.missleArmor = 30;
+    this.missileArmor = 30;
     this.chargeArmor = 0;
 
     this.meleeAttack = 36;
-    this.missleAttack = 44;
-    this.missleRange = 6;
+    this.missileAttack = 44;
+    this.missileRange = 6;
 
     this.antiArmor = 28;
 
@@ -153,7 +153,7 @@ export class ShadowArcherAP extends ArmPrimary.Arm {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
-    if (damageType === "missle") return this.antiArmor;
+    if (damageType === "missile") return this.antiArmor;
     return 0;
   }
 }
@@ -173,12 +173,12 @@ export class ShadowArcherFL extends ArmPrimary.Arm {
     this.speed = 4;
 
     this.meleeArmor = 30;
-    this.missleArmor = 30;
+    this.missileArmor = 30;
     this.chargeArmor = 0;
 
     this.meleeAttack = 36;
-    this.missleAttack = 72;
-    this.missleRange = 6;
+    this.missileAttack = 72;
+    this.missileRange = 6;
 
     this.loadRealtimeProps();
   }
@@ -203,12 +203,12 @@ export class LongbowRanger extends ArmPrimary.Arm {
     this.speed = 3;
 
     this.meleeArmor = 40;
-    this.missleArmor = 40;
+    this.missileArmor = 40;
     this.chargeArmor = 0;
 
     this.meleeAttack = 20;
-    this.missleAttack = 68;
-    this.missleRange = 9;
+    this.missileAttack = 68;
+    this.missileRange = 9;
 
     this.antiArmor = 60;
 
@@ -223,7 +223,7 @@ export class LongbowRanger extends ArmPrimary.Arm {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
-    if (damageType === "missle") return this.antiArmor;
+    if (damageType === "missile") return this.antiArmor;
     return 0;
   }
 }
@@ -243,7 +243,7 @@ export class Dryad extends ArmPrimary.Arm {
     this.speed = 2;
 
     this.meleeArmor = 50;
-    this.missleArmor = 60;
+    this.missileArmor = 60;
     this.chargeArmor = 60;
 
     this.meleeAttack = 48;
@@ -264,19 +264,19 @@ export class DryadRangerRide extends ArmPrimary.Arm {
 
     this.name = "Dryad (Ranger-Ride)";
     this.type = "monster-infantry";
-    this.description = "monster-infantry / heavy-armor / missle-attack";
+    this.description = "monster-infantry / heavy-armor / missile-attack";
 
     this.scale = 16;
     this.singleHP = 300;
     this.speed = 2;
 
     this.meleeArmor = 50;
-    this.missleArmor = 60;
+    this.missileArmor = 60;
     this.chargeArmor = 60;
 
     this.meleeAttack = 48;
-    this.missleAttack = 68;
-    this.missleRange = 9;
+    this.missileAttack = 68;
+    this.missileRange = 9;
 
     this.antiArmor = 60;
 
@@ -294,7 +294,7 @@ export class DryadRangerRide extends ArmPrimary.Arm {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
-    if (damageType === "missle") return this.antiArmor;
+    if (damageType === "missile") return this.antiArmor;
     return 0;
   }
 }
@@ -314,7 +314,7 @@ export class GiantTreeman extends ArmPrimary.Arm {
     this.speed = 1;
 
     this.meleeArmor = 60;
-    this.missleArmor = 90;
+    this.missileArmor = 90;
     this.chargeArmor = 60;
 
     this.meleeAttack = 600;
