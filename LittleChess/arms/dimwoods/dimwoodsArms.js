@@ -53,9 +53,7 @@ export class WildKiller extends ArmPrimary.Arm {
     this.singleHP = 40;
     this.speed = 4;
 
-    this.meleeArmor = 60;
-    this.missileArmor = 0;
-    this.chargeArmor = 0;
+    this.meleeDodge = 60;
 
     this.meleeAttack = 48;
     this.meleeAttack_bonus = 18;

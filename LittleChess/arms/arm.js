@@ -45,12 +45,18 @@ function calculateCost(arm) {
   let meleeArmorScore =
     arm.meleeArmor >= 60 ? arm.meleeArmor * 1.3 : arm.meleeArmor;
   if (arm.meleeArmor >= 80) meleeArmorScore *= 1.3;
+  meleeArmorScore += arm.meleeDodge * 1.5;
+
   let missileArmorScore =
     arm.missileArmor >= 60 ? arm.missileArmor * 1.3 : arm.missileArmor;
   if (arm.missileArmor >= 80) missileArmorScore *= 1.3;
+  missileArmorScore += arm.missileDodge * 1.5;
+
   let chargeArmorScore =
     arm.chargeArmor >= 60 ? arm.chargeArmor * 1.3 : arm.chargeArmor;
   if (arm.chargeArmor >= 80) chargeArmorScore *= 1.3;
+  chargeArmorScore += arm.chargeDodge * 1.5;
+
   let armorScore = Math.floor(
     (meleeArmorScore + missileArmorScore + chargeArmorScore) * 0.6
   );
@@ -151,6 +157,10 @@ export class Arm {
     this.missileArmor = 0;
     this.chargeArmor = 0;
 
+    this.meleeDodge = 0;
+    this.missileDodge = 0;
+    this.chargeDodge = 0;
+
     this.meleeAttack = 0;
     this.meleeAttack_bonus = 0;
     this.chargeAttack = 0;
@@ -176,6 +186,10 @@ export class Arm {
       this.c_meleeArmor = this.meleeArmor;
       this.c_missileArmor = this.missileArmor;
       this.c_chargeArmor = this.chargeArmor;
+
+      this.c_meleeDodge = this.meleeDodge;
+      this.c_missileDodge = this.missileDodge;
+      this.c_chargeDodge = this.chargeDodge;
 
       this.c_meleeAttack = this.meleeAttack;
       this.c_chargeAttack = this.chargeAttack;
@@ -272,17 +286,21 @@ export class Arm {
     checkDamageType(damageType);
 
     let validArmor = 0 - antiArmor;
+    let dodge = 0;
     switch (damageType) {
       case "melee":
         validArmor += this.c_meleeArmor;
+        dodge += this.c_meleeDodge;
         break;
 
       case "missile":
         validArmor += this.c_missileArmor;
+        dodge += this.c_missileDodge;
         break;
 
       case "charge":
         validArmor += this.c_chargeArmor;
+        dodge += this.c_chargeDodge;
         break;
 
       default:
@@ -294,9 +312,11 @@ export class Arm {
     let min = Math.round(validArmor * 0.8);
     let realArmor = Math.floor(Math.random() * (max - min + 1) + min);
 
-    let percentage = (100 - realArmor) / 100;
+    let percentage = (100 - (realArmor + dodge)) / 100;
+
     if (percentage > 0.95) percentage = 0.95;
     if (percentage < 0) percentage = 0;
+
     return percentage;
   }
 

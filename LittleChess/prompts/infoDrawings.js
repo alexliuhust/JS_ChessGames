@@ -133,9 +133,10 @@ function drawCombatData(cxt, piece) {
   );
 
   let speedText = `Speed:     ${piece.c_speed}`;
-  let armorText = `Armor:     Melee[ ${piece.c_meleeArmor} ]         missile[ ${piece.c_missileArmor} ]         Charge[ ${piece.c_chargeArmor} ]`;
-  let attackText = `Damage:  Melee[ ${piece.c_meleeAttack}(+${piece.meleeAttack_bonus}) ]  missile[ ${piece.c_missileAttack}(+${piece.missileAttack_bonus}) ]  Charge[ ${piece.c_chargeAttack}(+${piece.chargeAttack_bonus}) ]`;
-  let missileInfo = `missile-range: ${piece.c_missileRange}      missile-radius: ${piece.c_missileRadius}`;
+  let armorText = `Armor:     Melee[ ${piece.c_meleeArmor} ]         Missile[ ${piece.c_missileArmor} ]         Charge[ ${piece.c_chargeArmor} ]`;
+  let dodgeText = `Dodge:     Melee[ ${piece.c_meleeDodge} ]         Missile[ ${piece.c_missileDodge} ]         Charge[ ${piece.c_chargeDodge} ]`;
+  let attackText = `Damage:  Melee[ ${piece.c_meleeAttack}(+${piece.meleeAttack_bonus}) ]  Missile[ ${piece.c_missileAttack}(+${piece.missileAttack_bonus}) ]  Charge[ ${piece.c_chargeAttack}(+${piece.chargeAttack_bonus}) ]`;
+  let missileInfo = `Missile-range: ${piece.c_missileRange}      Missile-radius: ${piece.c_missileRadius}`;
   let antiArmorText = `Anti-armor: ${piece.antiArmor}`;
 
   let color = "white";
@@ -143,6 +144,8 @@ function drawCombatData(cxt, piece) {
   Canvas.drawText(cxt, speedText, textLeftMostX, textY, color, fontSize);
   textY += 30;
   Canvas.drawText(cxt, armorText, textLeftMostX, textY, color, fontSize);
+  textY += 30;
+  Canvas.drawText(cxt, dodgeText, textLeftMostX, textY, color, fontSize);
   textY += 30;
   Canvas.drawText(cxt, attackText, textLeftMostX, textY, color, fontSize);
   textY += 50;

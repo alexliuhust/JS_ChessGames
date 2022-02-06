@@ -203,13 +203,16 @@ export class MurlocWarriorHurling extends ArmPrimary.Arm {
 
     this.meleeAttack = 80;
 
-    this.missileAttack = 120;
+    this.missileAttack = 80;
     this.missileRange = 4;
 
     this.antiArmor = 30;
 
-    this.ammo = 3;
+    this.ammo = 2;
     this.loadRealtimeProps();
+
+    this.leadership = 350;
+    this.c_leadership = this.leadership;
   }
 
   // =============== Override private methods ===============
@@ -236,21 +239,21 @@ export class Cancrimag extends ArmPrimary.Arm {
     this.description = "giant / heavy-armor / missile-attack";
 
     this.scale = 1;
-    this.singleHP = 400;
+    this.singleHP = 300;
     this.speed = 1;
 
-    this.meleeArmor = 90;
-    this.missileArmor = 90;
-    this.chargeArmor = 90;
+    this.meleeArmor = 60;
+    this.missileArmor = 115;
+    this.chargeArmor = 50;
 
-    this.meleeAttack = 400;
+    this.meleeAttack = 200;
 
-    this.missileAttack = 240;
+    this.missileAttack = 520;
     this.missileRange = 6;
 
     this.antiArmor = 10;
 
-    this.ammo = 30;
+    this.ammo = 20;
     this.loadRealtimeProps();
   }
 
