@@ -59,7 +59,8 @@ function drawHPAndAmmoBars(cxt, piece) {
   }
   leadBarLength = (194 * piece.c_leadership) / piece.leadership;
 
-  Canvas.drawText(cxt, "Scale or HP: ", textLeftMostX, hpBarY, "white", 18);
+  let scaleOrHp = piece.scale === 1 ? "Total HP: " : "Total Scale: ";
+  Canvas.drawText(cxt, scaleOrHp, textLeftMostX, hpBarY, "white", 18);
   Canvas.drawText(cxt, "Leadership: ", textLeftMostX, leadBarY, "white", 18);
   Canvas.drawText(cxt, "Ammo per-unit: ", textLeftMostX, ammoBarY, "white", 18);
 
@@ -138,6 +139,7 @@ function drawCombatData(cxt, piece) {
   let attackText = `Damage:  Melee[ ${piece.c_meleeAttack}(+${piece.meleeAttack_bonus}) ]  Missile[ ${piece.c_missileAttack}(+${piece.missileAttack_bonus}) ]  Charge[ ${piece.c_chargeAttack}(+${piece.chargeAttack_bonus}) ]`;
   let missileInfo = `Missile-range: ${piece.c_missileRange}      Missile-radius: ${piece.c_missileRadius}`;
   let antiArmorText = `Anti-armor: ${piece.antiArmor}`;
+  if (piece.isBombing) antiArmorText = `Anti-armor: *Ignore any type of armor`;
 
   let color = "white";
   let fontSize = 17;

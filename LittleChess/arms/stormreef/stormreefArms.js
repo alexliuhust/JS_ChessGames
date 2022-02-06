@@ -103,9 +103,7 @@ export class Pisciculi extends ArmPrimary.Arm {
     this.singleHP = 30;
     this.speed = 6;
 
-    this.meleeArmor = 0;
-    this.missileArmor = 60;
-    this.chargeArmor = 0;
+    this.missileDodge = 60;
 
     this.meleeAttack = 32;
 
@@ -131,9 +129,7 @@ export class PisciculiDoubleBlades extends ArmPrimary.Arm {
     this.singleHP = 30;
     this.speed = 6;
 
-    this.meleeArmor = 0;
-    this.missileArmor = 60;
-    this.chargeArmor = 0;
+    this.missileDodge = 60;
 
     this.meleeAttack = 50;
 

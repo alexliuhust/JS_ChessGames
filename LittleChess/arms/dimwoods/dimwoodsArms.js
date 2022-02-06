@@ -100,9 +100,8 @@ export class HightreeScout extends ArmPrimary.Arm {
     this.singleHP = 40;
     this.speed = 4;
 
-    this.meleeArmor = 30;
-    this.missileArmor = 30;
-    this.chargeArmor = 0;
+    this.meleeDodge = 30;
+    this.missileDodge = 30;
 
     this.meleeAttack = 36;
     this.missileAttack = 32;
@@ -130,9 +129,8 @@ export class ShadowArcherAP extends ArmPrimary.Arm {
     this.singleHP = 40;
     this.speed = 4;
 
-    this.meleeArmor = 30;
-    this.missileArmor = 30;
-    this.chargeArmor = 0;
+    this.meleeDodge = 30;
+    this.missileDodge = 30;
 
     this.meleeAttack = 36;
     this.missileAttack = 44;
@@ -170,12 +168,11 @@ export class ShadowArcherFL extends ArmPrimary.Arm {
     this.singleHP = 40;
     this.speed = 4;
 
-    this.meleeArmor = 30;
-    this.missileArmor = 30;
-    this.chargeArmor = 0;
+    this.meleeDodge = 30;
+    this.missileDodge = 30;
 
     this.meleeAttack = 36;
-    this.missileAttack = 72;
+    this.missileAttack = 68;
     this.missileRange = 6;
 
     this.loadRealtimeProps();
@@ -200,9 +197,8 @@ export class LongbowRanger extends ArmPrimary.Arm {
     this.singleHP = 40;
     this.speed = 3;
 
-    this.meleeArmor = 40;
-    this.missileArmor = 40;
-    this.chargeArmor = 0;
+    this.meleeDodge = 30;
+    this.missileDodge = 30;
 
     this.meleeAttack = 20;
     this.missileAttack = 68;

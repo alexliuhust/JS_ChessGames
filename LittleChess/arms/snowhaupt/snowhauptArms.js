@@ -94,7 +94,7 @@ export class Berserker extends ArmPrimary.Arm {
     this.singleHP = 70;
     this.speed = 3;
 
-    this.meleeArmor = 40;
+    this.meleeDodge = 45;
     this.missileArmor = 20;
     this.chargeArmor = 20;
 
@@ -190,7 +190,7 @@ export class MortarSquad extends ArmPrimary.Arm {
     this.type = "archers";
     this.description = "shield-archers / high-damage";
 
-    this.scale = 36;
+    this.scale = 48;
     this.singleHP = 70;
     this.speed = 2;
 

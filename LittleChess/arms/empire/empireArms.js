@@ -160,9 +160,7 @@ export class MusketRider extends ArmPrimary.Arm {
     this.singleHP = 90;
     this.speed = 6;
 
-    this.meleeArmor = 10;
-    this.missileArmor = 30;
-    this.chargeArmor = 0;
+    this.missileDodge = 40;
 
     this.meleeAttack = 24;
     this.missileAttack = 48;
@@ -200,9 +198,9 @@ export class Vanguard extends ArmPrimary.Arm {
     this.singleHP = 90;
     this.speed = 6;
 
-    this.meleeArmor = 10;
-    this.missileArmor = 50;
-    this.chargeArmor = 0;
+    this.meleeArmor = 30;
+    this.missileArmor = 10;
+    this.missileDodge = 40;
 
     this.meleeAttack = 24;
     this.chargeAttack = 76;

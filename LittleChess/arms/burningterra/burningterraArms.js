@@ -211,9 +211,7 @@ export class Hellhound extends ArmPrimary.Arm {
     this.singleHP = 30;
     this.speed = 7;
 
-    this.meleeArmor = 0;
-    this.missileArmor = 70;
-    this.chargeArmor = 0;
+    this.missileDodge = 70;
 
     this.meleeAttack = 2;
     this.chargeAttack = 6;

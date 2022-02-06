@@ -84,6 +84,7 @@ function calculateCost(arm) {
 
   // Type score
   let artilleryScore = arm.type === "artillery" ? 150 : 0;
+  if (arm.isBombing) artilleryScore += 100;
   let monsterScore = arm.type === "monster" ? 150 : 0;
   let monstInfScore = arm.type === "monster-infantry" ? 100 : 0;
   let typeScore = artilleryScore + monsterScore + monstInfScore;
@@ -229,7 +230,7 @@ export class Arm {
 
     let factor = 0;
     if (this.type === "infantry") {
-      factor = 3;
+      factor = 3.5;
     } else if (
       this.type === "cavalry" ||
       this.type === "archers" ||

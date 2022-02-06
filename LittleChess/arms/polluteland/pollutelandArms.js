@@ -294,7 +294,7 @@ export class WeapSqdFlthr extends ArmPrimary.Arm {
 
     this.scale = 48;
     this.singleHP = 30;
-    this.speed = 2;
+    this.speed = 3;
 
     this.meleeArmor = 30;
     this.missileArmor = 50;
@@ -302,10 +302,10 @@ export class WeapSqdFlthr extends ArmPrimary.Arm {
 
     this.meleeAttack = 16;
     this.missileAttack = 48;
-    this.missileAttack_bonus = 30;
-    this.missileRange = 2;
+    this.missileAttack_bonus = 50;
+    this.missileRange = 3;
 
-    this.ammo = 9;
+    this.ammo = 12;
     this.c_ammo = this.ammo;
 
     this.loadRealtimeProps();
@@ -353,9 +353,7 @@ export class MutantSlave extends ArmPrimary.Arm {
     this.singleHP = 200;
     this.speed = 5;
 
-    this.meleeArmor = 70;
-    this.missileArmor = 0;
-    this.chargeArmor = 60;
+    this.meleeDodge = 70;
 
     this.meleeAttack = 50;
 

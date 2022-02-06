@@ -207,9 +207,7 @@ export class FlameKnight extends ArmPrimary.Arm {
     this.singleHP = 80;
     this.speed = 7;
 
-    this.meleeArmor = 0;
-    this.missileArmor = 30;
-    this.chargeArmor = 0;
+    this.missileDodge = 60;
 
     this.meleeAttack = 32;
     this.chargeAttack = 72;
