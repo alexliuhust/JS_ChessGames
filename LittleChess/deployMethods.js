@@ -12,8 +12,8 @@ const maxX = Math.floor(DW / 50);
 const maxY = Math.floor(DH / 50);
 
 export class Deploy {
-  constructor(_canvasList, _player, _useMandarin) {
-    this.useMandarin = _useMandarin;
+  constructor(_canvasList, _player) {
+    this.useMandarin = window.localStorage.getItem("useMandarin") === "true";
     this.canvasList = _canvasList;
     this.player = _player;
     this.moneyLeftSpan = document.getElementById("moneyLeft");

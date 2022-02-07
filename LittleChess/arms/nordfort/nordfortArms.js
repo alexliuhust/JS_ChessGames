@@ -172,20 +172,24 @@ export class BallistaSquad extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Ballista Squad";
-    this.m_name = "弩炮小队";
+    this.m_name = "重弩小队";
     this.type = "archers";
-    this.description = "heavy-archers / anti-armor";
-    this.m_description = "重装-远程步兵【高破甲】";
+    this.description = "armor-archers / long-range / anti-armor";
+    this.m_description = "装甲-远程步兵【长程，高破甲】";
 
     this.scale = 32;
     this.singleHP = 50;
     this.speed = 2;
 
+    this.meleeArmor = 40;
+    this.missileArmor = 40;
+    this.chargeArmor = 40;
+
     this.meleeAttack = 16;
     this.missileAttack = 68;
     this.missileRange = 8;
 
-    this.antiArmor = 40;
+    this.antiArmor = 70;
 
     this.loadRealtimeProps();
   }
