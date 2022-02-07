@@ -362,16 +362,18 @@ export class MutantSlave extends ArmPrimary.Arm {
     this.name = "Mutant Slave";
     this.m_name = "变异奴隶";
     this.type = "monster-infantry";
-    this.description = "monster-infantry / melee-master / fast";
-    this.m_description = "怪兽步兵【近战大师，迅捷如风】";
+    this.description = "monster-infantry / fast / shocking";
+    this.m_description = "怪兽步兵【迅捷如风，惊骇敌军】";
 
     this.scale = 20;
     this.singleHP = 200;
     this.speed = 5;
 
-    this.meleeDodge = 70;
+    this.meleeDodge = 45;
 
     this.meleeAttack = 50;
+
+    this.shock = 50;
 
     this.loadRealtimeProps();
   }

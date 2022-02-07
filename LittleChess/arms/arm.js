@@ -78,6 +78,7 @@ function calculateCost(arm) {
       arm.speed * 3
   );
   let attackScore = Math.floor((meleeScore + missileScore + chargeScore) / 2);
+  attackScore += Math.floor(arm.shock / 2);
 
   // Anti-armor score
   let antiArmorScore = Math.floor(Math.sqrt(arm.antiArmor) * 3);
@@ -176,6 +177,7 @@ export class Arm {
     this.isBombing = false;
 
     this.antiArmor = 0;
+    this.shock = 0;
 
     this.ammo = -1;
 
@@ -232,7 +234,7 @@ export class Arm {
 
     let factor = 0;
     if (this.type === "infantry") {
-      factor = 3.5;
+      factor = 4;
     } else if (
       this.type === "cavalry" ||
       this.type === "archers" ||
@@ -602,7 +604,7 @@ export class Arm {
       else if (this.type === "artillery") factor = 0.3;
 
       realDamage = Math.round(realDamage * factor);
-      let totalDecrease = Math.ceil(realDamage / this.singleHP);
+      let totalDecrease = Math.round(realDamage / this.singleHP);
       this.c_scale -= totalDecrease;
       decrease = Math.round(realDamage / 30);
 
