@@ -149,7 +149,8 @@ function drawCombatData(cxt, piece, useMandarin) {
   let armorText = `Armor:     Melee[ ${piece.c_meleeArmor} ]         Missile[ ${piece.c_missileArmor} ]         Charge[ ${piece.c_chargeArmor} ]`;
   let dodgeText = `Dodge:     Melee[ ${piece.c_meleeDodge} ]         Missile[ ${piece.c_missileDodge} ]         Charge[ ${piece.c_chargeDodge} ]`;
   let attackText = `Damage:  Melee[ ${piece.c_meleeAttack}(+${piece.meleeAttack_bonus}) ]  Missile[ ${piece.c_missileAttack}(+${piece.missileAttack_bonus}) ]  Charge[ ${piece.c_chargeAttack}(+${piece.chargeAttack_bonus}) ]`;
-  let missileInfo = `Missile-range: ${piece.c_missileRange}      Missile-radius: ${piece.c_missileRadius}`;
+  let rangeInfo = `Missile-range: ${piece.c_missileRange}`;
+  let radiusInfo = `Explose-radius: ${piece.c_missileRadius}`;
   let antiArmorText = `Anti-armor: ${piece.antiArmor}`;
   if (piece.isBombing) antiArmorText = `Anti-armor: *Ignore any type of armor`;
 
@@ -158,7 +159,8 @@ function drawCombatData(cxt, piece, useMandarin) {
     armorText = `装甲:     近战[ ${piece.c_meleeArmor} ]         远程[ ${piece.c_missileArmor} ]         冲杀[ ${piece.c_chargeArmor} ]`;
     dodgeText = `闪避:     近战[ ${piece.c_meleeDodge} ]         远程[ ${piece.c_missileDodge} ]         冲杀[ ${piece.c_chargeDodge} ]`;
     attackText = `伤害:     近战[ ${piece.c_meleeAttack}(+${piece.meleeAttack_bonus}) ]  远程[ ${piece.c_missileAttack}(+${piece.missileAttack_bonus}) ]  冲杀[ ${piece.c_chargeAttack}(+${piece.chargeAttack_bonus}) ]`;
-    missileInfo = `远程范围: ${piece.c_missileRange}      作用半径: ${piece.c_missileRadius}`;
+    rangeInfo = `远程范围: ${piece.c_missileRange}`;
+    radiusInfo = `爆炸半径: ${piece.c_missileRadius}`;
     antiArmorText = `破甲: ${piece.antiArmor}`;
     if (piece.isBombing) antiArmorText = `破甲: *无视所有类型护甲`;
   }
@@ -172,8 +174,20 @@ function drawCombatData(cxt, piece, useMandarin) {
   Canvas.drawText(cxt, dodgeText, textLeftMostX, textY, color, fontSize);
   textY += 30;
   Canvas.drawText(cxt, attackText, textLeftMostX, textY, color, fontSize);
-  textY += 50;
-  Canvas.drawText(cxt, missileInfo, textLeftMostX, textY, color, fontSize);
+  if (piece.missileAttack > 0) {
+    textY += 50;
+    Canvas.drawText(cxt, rangeInfo, textLeftMostX, textY, color, fontSize);
+    if (piece.isBombing) {
+      Canvas.drawText(
+        cxt,
+        radiusInfo,
+        textLeftMostX + 200,
+        textY,
+        color,
+        fontSize
+      );
+    }
+  }
   textY += 50;
   Canvas.drawText(cxt, antiArmorText, textLeftMostX, textY, color, fontSize);
 }
