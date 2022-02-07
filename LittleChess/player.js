@@ -12,7 +12,8 @@ import {
 } from "./const.js";
 
 export class Player {
-  constructor(pieces, enemies, color, _canvaslist) {
+  constructor(pieces, enemies, color, _canvaslist, _useMandarin) {
+    this.useMandarin = _useMandarin;
     this.timer = 0;
     this.currentRound = 1;
     this.isMyRound = color === "red";
@@ -97,7 +98,8 @@ export class Player {
         );
         InfoDraw.drawInfoForSelectedPiece(
           this.canvasList.info,
-          this.nowSelectPiece
+          this.nowSelectPiece,
+          this.useMandarin
         );
       }
 
@@ -109,7 +111,8 @@ export class Player {
         );
         InfoDraw.drawInfoForSelectedPiece(
           this.canvasList.info,
-          this.nowSelectEnemy
+          this.nowSelectEnemy,
+          this.useMandarin
         );
       }
     };

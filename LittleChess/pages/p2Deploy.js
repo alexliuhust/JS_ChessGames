@@ -8,7 +8,8 @@ const canvasList = {
   select: document.getElementById("select").getContext("2d"),
 };
 
-let deploy = new Deploy(canvasList, 2);
+let useMandarin = true;
+let deploy = new Deploy(canvasList, 2, useMandarin);
 deploy.showDeployInfo();
 
 // ===============================================================

@@ -12,7 +12,8 @@ const maxX = Math.floor(DW / 50);
 const maxY = Math.floor(DH / 50);
 
 export class Deploy {
-  constructor(_canvasList, _player) {
+  constructor(_canvasList, _player, _useMandarin) {
+    this.useMandarin = _useMandarin;
     this.canvasList = _canvasList;
     this.player = _player;
     this.moneyLeftSpan = document.getElementById("moneyLeft");
@@ -107,7 +108,7 @@ export class Deploy {
 
           Canvas.clear(infoCanvas, DIW, DIH);
           this.arms[i].img = this.elems[i];
-          drawInfoForSelectedPiece(infoCanvas, this.arms[i]);
+          drawInfoForSelectedPiece(infoCanvas, this.arms[i], this.useMandarin);
           this.imageIndex = i;
         });
       }

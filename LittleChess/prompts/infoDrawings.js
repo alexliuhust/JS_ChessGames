@@ -5,37 +5,43 @@ import { HpColor, AmmoColor, LeadColor, ExpColor } from "../const.js";
 const textLeftMostX = 20;
 const BGC = "grey";
 
-export function drawInfoForSelectedPiece(cxt, piece) {
+export function drawInfoForSelectedPiece(cxt, piece, useMandarin) {
   ArmPrimary.checkArmClass(piece);
 
   // Draw image and arm's name
-  drawTitle(cxt, piece);
+  drawTitle(cxt, piece, useMandarin);
 
   // Draw HP bar and ammo bar
-  drawHPAndAmmoBars(cxt, piece);
+  drawHPAndAmmoBars(cxt, piece, useMandarin);
 
   // Draw the combat data
-  drawCombatData(cxt, piece);
+  drawCombatData(cxt, piece, useMandarin);
 }
 
-function drawTitle(cxt, piece) {
+function drawTitle(cxt, piece, useMandarin) {
   if (piece.img !== null)
     Canvas.drawImg(cxt, piece.img, 0, 0, 50, 50, 10, 10, 85, 85);
+
   Canvas.drawText(cxt, piece.name, 105, 30, "white", 24);
   Canvas.drawText(cxt, piece.description, 105, 60, "white", 16);
-  Canvas.drawText(cxt, `[cost: ${piece.cost}G]`, 105, 90, "yellow", 16);
+  let costText = useMandarin
+    ? `[花费: ${piece.cost}金币]`
+    : `[cost: ${piece.cost}G]`;
+  Canvas.drawText(cxt, costText, 105, 90, "yellow", 16);
 
   let expLength = (144 * Math.min(piece.exp, piece.cost)) / piece.cost;
   Canvas.drawLine(cxt, 320, 83, 470, 83, BGC, 18);
   Canvas.drawLine(cxt, 320 + 3, 83, 320 + expLength + 3, 83, ExpColor, 12);
 
-  let levelInfo = `Level: ${piece.level}`;
-  let expInfo = `exp: ${piece.exp}`;
+  let levelInfo = useMandarin
+    ? `等级: ${piece.level}`
+    : `Level: ${piece.level}`;
+  let expInfo = useMandarin ? `经验: ${piece.exp}` : `exp: ${piece.exp}`;
   Canvas.drawText(cxt, levelInfo, 250, 90, "white", 16);
   Canvas.drawText(cxt, expInfo, 370, 88, "black", 14);
 }
 
-function drawHPAndAmmoBars(cxt, piece) {
+function drawHPAndAmmoBars(cxt, piece, useMandarin) {
   let hpBarY = 140;
   let leadBarY = hpBarY + 30;
   let ammoBarY = leadBarY + 30;
@@ -60,9 +66,13 @@ function drawHPAndAmmoBars(cxt, piece) {
   leadBarLength = (194 * piece.c_leadership) / piece.leadership;
 
   let scaleOrHp = piece.scale === 1 ? "Total HP: " : "Total Scale: ";
+  if (useMandarin)
+    scaleOrHp = piece.scale === 1 ? "总生命值: " : "总部队数量: ";
+  let leaderTitle = useMandarin ? "士气： " : "Leadership: ";
+  let ammoTitle = useMandarin ? "单位弹药剩余: " : "Ammo per-unit: ";
   Canvas.drawText(cxt, scaleOrHp, textLeftMostX, hpBarY, "white", 18);
-  Canvas.drawText(cxt, "Leadership: ", textLeftMostX, leadBarY, "white", 18);
-  Canvas.drawText(cxt, "Ammo per-unit: ", textLeftMostX, ammoBarY, "white", 18);
+  Canvas.drawText(cxt, leaderTitle, textLeftMostX, leadBarY, "white", 18);
+  Canvas.drawText(cxt, ammoTitle, textLeftMostX, ammoBarY, "white", 18);
 
   let barX = 170;
   hpBarY -= 8;
@@ -120,7 +130,7 @@ function drawHPAndAmmoBars(cxt, piece) {
   );
 }
 
-function drawCombatData(cxt, piece) {
+function drawCombatData(cxt, piece, useMandarin) {
   let textY = 280;
 
   Canvas.drawLine(
@@ -140,6 +150,16 @@ function drawCombatData(cxt, piece) {
   let missileInfo = `Missile-range: ${piece.c_missileRange}      Missile-radius: ${piece.c_missileRadius}`;
   let antiArmorText = `Anti-armor: ${piece.antiArmor}`;
   if (piece.isBombing) antiArmorText = `Anti-armor: *Ignore any type of armor`;
+
+  if (useMandarin) {
+    speedText = `速度:     ${piece.c_speed}`;
+    armorText = `装甲:     近战[ ${piece.c_meleeArmor} ]         远程[ ${piece.c_missileArmor} ]         冲杀[ ${piece.c_chargeArmor} ]`;
+    dodgeText = `闪避:     近战[ ${piece.c_meleeDodge} ]         远程[ ${piece.c_missileDodge} ]         冲杀[ ${piece.c_chargeDodge} ]`;
+    attackText = `伤害:     近战[ ${piece.c_meleeAttack}(+${piece.meleeAttack_bonus}) ]  远程[ ${piece.c_missileAttack}(+${piece.missileAttack_bonus}) ]  冲杀[ ${piece.c_chargeAttack}(+${piece.chargeAttack_bonus}) ]`;
+    missileInfo = `远程范围: ${piece.c_missileRange}      作用半径: ${piece.c_missileRadius}`;
+    antiArmorText = `破甲: ${piece.antiArmor}`;
+    if (piece.isBombing) antiArmorText = `破甲: *无视所有类型护甲`;
+  }
 
   let color = "white";
   let fontSize = 17;
