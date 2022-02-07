@@ -121,7 +121,7 @@ function start() {
     player1.executeOneLoop();
     player2.executeOneLoop();
 
-    BannerDraw.drawBannerInfo(canvasList.banner, player1, player2);
+    BannerDraw.drawBannerInfo(canvasList.banner, player1, player2, useMandarin);
   }, 20);
 }
 

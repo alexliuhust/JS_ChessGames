@@ -141,8 +141,10 @@ export class Arm {
     // The children classes will modify the following fields
 
     this.name = "";
+    this.m_name = "";
     this.type = "";
     this.description = "";
+    this.m_description = "";
     this.cost = 0;
 
     this.exp = 0;

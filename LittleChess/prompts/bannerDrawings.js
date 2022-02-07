@@ -1,24 +1,37 @@
 import { Canvas, Rect } from "../tools.js";
 import { BannerWidth as BW, BannerHeight as BH } from "../const.js";
 
-export function drawBannerInfo(cxt, player1, player2) {
-  drawText(cxt, player1, player2);
+export function drawBannerInfo(cxt, player1, player2, useMandarin) {
+  drawText(cxt, player1, player2, useMandarin);
   drawBars(cxt, player1, player2);
   return;
 }
 
-function drawText(cxt, player1, player2) {
+function drawText(cxt, player1, player2, useMandarin) {
   Canvas.drawText(cxt, "Round", 5, 25, "white", 20);
   Canvas.drawText(cxt, "Round", BW - 70, 25, "white", 20);
   Canvas.drawText(cxt, player1.currentRound - 1, 30, 55, "white", 30);
   Canvas.drawText(cxt, player2.currentRound - 1, BW - 45, 55, "white", 30);
 
-  Canvas.drawText(cxt, "Total Scale", 127, 20, "white", 18);
-  Canvas.drawText(cxt, "Combat Power", 110, 42, "white", 18);
-  Canvas.drawText(cxt, "Leadership", 127, 64, "white", 18);
-  Canvas.drawText(cxt, "Total Scale", 727, 20, "white", 18);
-  Canvas.drawText(cxt, "Combat Power", 710, 42, "white", 18);
-  Canvas.drawText(cxt, "Leadership", 727, 64, "white", 18);
+  let scaleTitle = useMandarin ? "总规模" : "Total Scale";
+  let powerTitle = useMandarin ? "战斗力" : "Combat Power";
+  let leadTitle = useMandarin ? "总士气" : "Leadership";
+
+  if (!useMandarin) {
+    Canvas.drawText(cxt, scaleTitle, 127, 20, "white", 18);
+    Canvas.drawText(cxt, powerTitle, 110, 42, "white", 18);
+    Canvas.drawText(cxt, leadTitle, 127, 64, "white", 18);
+    Canvas.drawText(cxt, scaleTitle, 727, 20, "white", 18);
+    Canvas.drawText(cxt, powerTitle, 710, 42, "white", 18);
+    Canvas.drawText(cxt, leadTitle, 727, 64, "white", 18);
+  } else {
+    Canvas.drawText(cxt, scaleTitle, 180, 20, "white", 18);
+    Canvas.drawText(cxt, powerTitle, 180, 42, "white", 18);
+    Canvas.drawText(cxt, leadTitle, 180, 64, "white", 18);
+    Canvas.drawText(cxt, scaleTitle, 715, 20, "white", 18);
+    Canvas.drawText(cxt, powerTitle, 715, 42, "white", 18);
+    Canvas.drawText(cxt, leadTitle, 715, 64, "white", 18);
+  }
 }
 
 function drawBars(cxt, player1, player2) {
