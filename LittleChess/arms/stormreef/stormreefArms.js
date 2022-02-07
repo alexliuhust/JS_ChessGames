@@ -8,8 +8,10 @@ export class Seaman extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Seaman";
+    this.m_name = "水手";
     this.type = "infantry";
     this.description = "infantry / weak";
+    this.m_description = "近战步兵【孱弱】";
 
     this.scale = 64;
     this.singleHP = 40;
@@ -32,8 +34,10 @@ export class SeamanPistol extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Seaman (Pistol)";
+    this.m_name = "水手-手枪";
     this.type = "archers";
     this.description = "archers";
+    this.m_description = "远程步兵";
 
     this.scale = 64;
     this.singleHP = 40;
@@ -59,8 +63,10 @@ export class SeamanMusket extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Seaman (Musket)";
+    this.m_name = "水手-步枪";
     this.type = "archers";
     this.description = "archers";
+    this.m_description = "远程步兵";
 
     this.scale = 64;
     this.singleHP = 40;
@@ -96,8 +102,10 @@ export class Pisciculi extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Pisciculi";
+    this.m_name = "侏儒鱼人";
     this.type = "infantry";
     this.description = "infantry / dodge-missile";
+    this.m_description = "近战步兵【远程闪避】";
 
     this.scale = 100;
     this.singleHP = 30;
@@ -122,8 +130,10 @@ export class PisciculiDoubleBlades extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Pisciculi (Double Blades)";
+    this.m_name = "侏儒鱼人-双刀";
     this.type = "infantry";
     this.description = "infantry / dodge-missile / high-damage";
+    this.m_description = "近战步兵【远程闪避，高伤害】";
 
     this.scale = 100;
     this.singleHP = 30;
@@ -148,8 +158,10 @@ export class MurlocWarrior extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Murloc Warrior";
+    this.m_name = "鱼人战士";
     this.type = "infantry";
     this.description = "infantry / anti-armor";
+    this.m_description = "近战步兵【高破甲】";
 
     this.scale = 48;
     this.singleHP = 120;
@@ -186,8 +198,10 @@ export class MurlocWarriorHurling extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Murloc Warrior (Hurling)";
+    this.m_name = "鱼人战士-投戟";
     this.type = "archers";
     this.description = "hurling-infantry / anti-armor";
+    this.m_description = "投掷-近战步兵【高破甲】";
 
     this.scale = 48;
     this.singleHP = 120;
@@ -231,8 +245,10 @@ export class Cancrimag extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Cancrimag";
+    this.m_name = "巨蟹";
     this.type = "monster";
     this.description = "giant / heavy-armor / missile-attack";
+    this.m_description = "巨兽【重装甲，远程攻击】";
 
     this.scale = 1;
     this.singleHP = 300;
@@ -273,8 +289,10 @@ export class DeckGun extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Deck Gun";
+    this.m_name = "甲板炮";
     this.type = "artillery";
     this.description = "artillery / anti-armor";
+    this.m_description = "炮兵【高破甲】";
 
     this.scale = 5;
     this.singleHP = 300;

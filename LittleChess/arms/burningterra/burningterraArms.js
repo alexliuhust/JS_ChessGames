@@ -8,8 +8,10 @@ export class HenchWarrior extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Hench Warrior";
+    this.m_name = "亲卫勇士";
     this.type = "infantry";
     this.description = "armor-shield-infantry";
+    this.m_description = "装甲-持盾-近战步兵";
 
     this.scale = 64;
     this.singleHP = 70;
@@ -36,8 +38,10 @@ export class HenchWarriorHalberd extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Hench Warrior (Halberd)";
+    this.m_name = "亲卫勇士-长戟";
     this.type = "infantry";
     this.description = "armor-infantry / anti-large";
+    this.m_description = "装甲-近战步兵【反大型】";
 
     this.scale = 64;
     this.singleHP = 70;
@@ -87,8 +91,10 @@ export class HenchWarriorGiantaxe extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Hench Warrior (Giantaxe)";
+    this.m_name = "亲卫勇士-巨斧";
     this.type = "infantry";
     this.description = "armor-infantry / anti-armor";
+    this.m_description = "装甲-近战步兵【高破甲】";
 
     this.scale = 64;
     this.singleHP = 70;
@@ -125,8 +131,10 @@ export class BurningKnight extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Burning Knight";
+    this.m_name = "燃烧骑士";
     this.type = "cavalry";
     this.description = "melee-cavalry / heavy-armor";
+    this.m_description = "近战骑兵【重装甲】";
 
     this.scale = 32;
     this.singleHP = 120;
@@ -153,8 +161,10 @@ export class BurningKnightHalberd extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Burning Knight (Halberd)";
+    this.m_name = "燃烧骑士-长戟";
     this.type = "cavalry";
     this.description = "melee-cavalry / heavy-armor / anti-large";
+    this.m_description = "近战骑兵【重装甲，反大型】";
 
     this.scale = 32;
     this.singleHP = 120;
@@ -204,8 +214,10 @@ export class Hellhound extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Hellhound";
+    this.m_name = "地狱猎犬";
     this.type = "cavalry";
     this.description = "monster-cavalry / fast";
+    this.m_description = "怪兽骑兵【迅捷如风】";
 
     this.scale = 100;
     this.singleHP = 30;
@@ -231,8 +243,10 @@ export class DemonEnvoyWild extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Demon Envoy (Wild)";
+    this.m_name = "恶魔使者-狂暴";
     this.type = "monster-infantry";
     this.description = "monster-infantry / anti-armor";
+    this.m_description = "怪兽步兵【高破甲】";
 
     this.scale = 16;
     this.singleHP = 300;
@@ -269,8 +283,10 @@ export class DemonEnvoyHellfire extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Demon Envoy (Hellfire)";
+    this.m_name = "恶魔使者-地狱火";
     this.type = "monster-infantry";
     this.description = "monster-infantry / missile-attack";
+    this.m_description = "怪兽步兵【远程攻击】";
 
     this.scale = 16;
     this.singleHP = 300;
@@ -301,8 +317,10 @@ export class GreatDemon extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Great Demon";
+    this.m_name = "大魔";
     this.type = "monster";
     this.description = "giant / anti-armor";
+    this.m_description = "巨兽【高破甲】";
 
     this.scale = 1;
     this.singleHP = 1600;

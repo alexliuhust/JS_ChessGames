@@ -8,8 +8,10 @@ export class DwarfWarrior extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Dwarf Warrior";
+    this.m_name = "矮人勇士";
     this.type = "infantry";
     this.description = "shield-infantry";
+    this.m_description = "持盾-近战步兵";
 
     this.scale = 64;
     this.singleHP = 70;
@@ -36,8 +38,10 @@ export class BoneBreaker extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Bone Breaker";
+    this.m_name = "碎骨者";
     this.type = "infantry";
     this.description = "infantry / anti-large";
+    this.m_description = "近战步兵【反大型】";
 
     this.scale = 64;
     this.singleHP = 70;
@@ -87,8 +91,10 @@ export class Berserker extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Berserker";
+    this.m_name = "狂战士";
     this.type = "infantry";
     this.description = "infantry / high-damage";
+    this.m_description = "近战步兵【反步兵】";
 
     this.scale = 64;
     this.singleHP = 70;
@@ -115,8 +121,10 @@ export class MountainShocker extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Mountain Shocker";
+    this.m_name = "震山矿工";
     this.type = "archers";
     this.description = "giant-shield-infantry / high-missile-damage";
+    this.m_description = "巨盾步兵【高远程伤害】";
 
     this.scale = 48;
     this.singleHP = 70;
@@ -147,8 +155,10 @@ export class DwarfMusketeer extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Dwarf Musketeer";
+    this.m_name = "矮人火枪手";
     this.type = "archers";
     this.description = "shield-archers / anti-armor";
+    this.m_description = "持盾-远程步兵【高破甲】";
 
     this.scale = 48;
     this.singleHP = 70;
@@ -187,8 +197,10 @@ export class MortarSquad extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Mortar Squad";
+    this.m_name = "迫击炮小组";
     this.type = "archers";
     this.description = "shield-archers / high-damage";
+    this.m_description = "持盾-远程步兵【高伤害】";
 
     this.scale = 48;
     this.singleHP = 70;
@@ -217,8 +229,10 @@ export class GoatCavalry extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Goat Cavalry";
+    this.m_name = "山羊骑兵";
     this.type = "cavalry";
     this.description = "charging-cavalry";
+    this.m_description = "冲击骑兵";
 
     this.scale = 32;
     this.singleHP = 120;
@@ -246,8 +260,10 @@ export class RevolvingCannon extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Revolving Cannon";
+    this.m_name = "转轮炮";
     this.type = "artillery";
     this.description = "artillery / anti-large / anti-armor";
+    this.m_description = "炮兵【反大型，高破甲】";
 
     this.scale = 2;
     this.singleHP = 1200;
@@ -308,9 +324,11 @@ export class GiantCannon extends ArmPrimary.Arm {
     this.img = document.getElementById("GiantCannon_img");
     // Override original data
 
-    this.name = "Giant Cannon";
+    this.name = "Giant Mortar";
+    this.m_name = "巨炮";
     this.type = "artillery";
     this.description = "bombing-artillery";
+    this.m_description = "轰炸炮兵";
 
     this.scale = 2;
     this.singleHP = 1200;
