@@ -50,8 +50,8 @@ export class WildKiller extends ArmPrimary.Arm {
     this.name = "Wild Killer";
     this.m_name = "狂野杀手";
     this.type = "infantry";
-    this.description = "infantry / melee-master";
-    this.m_description = "近战步兵【近战大师】";
+    this.description = "infantry / melee-master / shocking";
+    this.m_description = "近战步兵【近战大师，惊骇敌军】";
 
     this.scale = 64;
     this.singleHP = 40;
@@ -61,6 +61,8 @@ export class WildKiller extends ArmPrimary.Arm {
 
     this.meleeAttack = 48;
     this.meleeAttack_bonus = 18;
+
+    this.shock = 40;
 
     this.loadRealtimeProps();
   }

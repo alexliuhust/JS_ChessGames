@@ -78,7 +78,7 @@ function calculateCost(arm) {
       arm.speed * 3
   );
   let attackScore = Math.floor((meleeScore + missileScore + chargeScore) / 2);
-  attackScore += Math.floor(arm.shock / 2);
+  attackScore += Math.floor((arm.shock * arm.shock) / 200);
 
   // Anti-armor score
   let antiArmorScore = Math.floor(Math.sqrt(arm.antiArmor) * 3);

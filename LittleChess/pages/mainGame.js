@@ -9,7 +9,6 @@ import {
   BannerHeight as BH,
 } from "../const.js";
 import * as BannerDraw from "../prompts/bannerDrawings.js";
-import { exportPower } from "../arms/exportArm.js";
 import { decodeArmPositionInfo } from "../deployMethods.js";
 
 // ===============================================================
@@ -30,7 +29,7 @@ const canvasList = {
 let pieces1 = decodeArmPositionInfo(1);
 let pieces2 = decodeArmPositionInfo(2);
 
-let useMandarin = false;
+let useMandarin = true;
 let player1 = new Player(pieces1, pieces2, "blue", canvasList, useMandarin);
 let player2 = new Player(pieces2, pieces1, "red", canvasList, useMandarin);
 

@@ -247,8 +247,8 @@ export class Cancrimag extends ArmPrimary.Arm {
     this.name = "Cancrimag";
     this.m_name = "巨蟹";
     this.type = "monster";
-    this.description = "giant / heavy-armor / missile-attack";
-    this.m_description = "巨兽【重装甲，远程攻击】";
+    this.description = "giant / heavy-armor / missile-attack / shocking";
+    this.m_description = "巨兽【重装甲，远程攻击，惊骇敌军】";
 
     this.scale = 1;
     this.singleHP = 300;
@@ -264,6 +264,7 @@ export class Cancrimag extends ArmPrimary.Arm {
     this.missileRange = 6;
 
     this.antiArmor = 10;
+    this.shock = 70;
 
     this.ammo = 20;
     this.loadRealtimeProps();

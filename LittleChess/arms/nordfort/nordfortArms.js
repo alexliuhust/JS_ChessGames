@@ -212,8 +212,8 @@ export class FlameKnight extends ArmPrimary.Arm {
     this.name = "Flame Knight";
     this.m_name = "炎骑士";
     this.type = "cavalry";
-    this.description = "charging-cavalry / anti-armor";
-    this.m_description = "冲击骑兵【高破甲】";
+    this.description = "charging-cavalry / anti-armor / shocking";
+    this.m_description = "冲击骑兵【高破甲，惊骇敌军】";
 
     this.scale = 32;
     this.singleHP = 80;
@@ -225,6 +225,7 @@ export class FlameKnight extends ArmPrimary.Arm {
     this.chargeAttack = 72;
 
     this.antiArmor = 80;
+    this.shock = 50;
 
     this.loadRealtimeProps();
   }

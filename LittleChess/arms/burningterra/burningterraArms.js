@@ -245,8 +245,8 @@ export class DemonEnvoyWild extends ArmPrimary.Arm {
     this.name = "Demon Envoy (Wild)";
     this.m_name = "恶魔使者-狂暴";
     this.type = "monster-infantry";
-    this.description = "monster-infantry / anti-armor";
-    this.m_description = "怪兽步兵【高破甲】";
+    this.description = "monster-infantry / anti-armor / shocking";
+    this.m_description = "怪兽步兵【高破甲，惊骇敌军】";
 
     this.scale = 16;
     this.singleHP = 300;
@@ -256,9 +256,11 @@ export class DemonEnvoyWild extends ArmPrimary.Arm {
     this.missileArmor = 0;
     this.chargeArmor = 0;
 
-    this.meleeAttack = 80;
+    this.meleeAttack = 64;
 
     this.antiArmor = 40;
+
+    this.shock = 50;
 
     this.loadRealtimeProps();
   }
@@ -319,8 +321,8 @@ export class GreatDemon extends ArmPrimary.Arm {
     this.name = "Great Demon";
     this.m_name = "大魔";
     this.type = "monster";
-    this.description = "giant / anti-armor";
-    this.m_description = "巨兽【高破甲】";
+    this.description = "giant / anti-armor / shocking";
+    this.m_description = "巨兽【高破甲，惊骇敌军】";
 
     this.scale = 1;
     this.singleHP = 1600;
@@ -333,6 +335,8 @@ export class GreatDemon extends ArmPrimary.Arm {
     this.meleeAttack = 1000;
 
     this.antiArmor = 50;
+
+    this.shock = 100;
 
     this.loadRealtimeProps();
   }
