@@ -8,8 +8,10 @@ export class WoodsGuard extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Woods Guard";
+    this.m_name = "林地守卫";
     this.type = "infantry";
     this.description = "shield-infantry / resist-charging";
+    this.m_description = "持盾-近战步兵【抵御冲锋】";
 
     this.scale = 64;
     this.singleHP = 40;
@@ -46,8 +48,10 @@ export class WildKiller extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Wild Killer";
+    this.m_name = "狂野杀手";
     this.type = "infantry";
     this.description = "infantry / melee-master";
+    this.m_description = "近战步兵【近战大师】";
 
     this.scale = 64;
     this.singleHP = 40;
@@ -93,8 +97,10 @@ export class HightreeScout extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Hightree Scout";
+    this.m_name = "高木斥候";
     this.type = "archers";
     this.description = "melee-archers";
+    this.m_description = "近战-远程步兵";
 
     this.scale = 50;
     this.singleHP = 40;
@@ -122,8 +128,10 @@ export class ShadowArcherAP extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Shadow Archer (Armor-Piercing)";
+    this.m_name = "暗影弓箭手-破甲";
     this.type = "archers";
     this.description = "melee-archers / anti-armor";
+    this.m_description = "近战-远程步兵【高破甲】";
 
     this.scale = 40;
     this.singleHP = 40;
@@ -161,8 +169,10 @@ export class ShadowArcherFL extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Shadow Archer (Flame)";
+    this.m_name = "暗影弓箭手-火焰";
     this.type = "archers";
     this.description = "melee-archers / high-damage";
+    this.m_description = "近战-远程步兵【高伤害】";
 
     this.scale = 40;
     this.singleHP = 40;
@@ -190,8 +200,10 @@ export class LongbowRanger extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Longbow Ranger";
+    this.m_name = "长弓游侠";
     this.type = "archers";
     this.description = "long-range-archers / anti-armor";
+    this.m_description = "长程-远程步兵【高破甲】";
 
     this.scale = 32;
     this.singleHP = 40;
@@ -229,8 +241,10 @@ export class Dryad extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Dryad";
+    this.m_name = "树精";
     this.type = "monster-infantry";
     this.description = "monster-infantry / heavy-armor";
+    this.m_description = "怪兽步兵【重装甲】";
 
     this.scale = 16;
     this.singleHP = 300;
@@ -257,8 +271,10 @@ export class DryadRangerRide extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Dryad (Ranger-Ride)";
+    this.m_name = "树精-游侠搭乘";
     this.type = "monster-infantry";
     this.description = "monster-infantry / heavy-armor / missile-attack";
+    this.m_description = "怪兽步兵【重装甲，远程攻击】";
 
     this.scale = 16;
     this.singleHP = 300;
@@ -300,8 +316,10 @@ export class GiantTreeman extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Giant Treeman";
+    this.m_name = "巨树人";
     this.type = "monster";
     this.description = "giant / heavy-armor";
+    this.m_description = "巨兽【重装甲】";
 
     this.scale = 1;
     this.singleHP = 600;

@@ -8,8 +8,10 @@ export class SlaveConscript extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Slave Conscript";
+    this.m_name = "奴隶征召兵";
     this.type = "infantry";
     this.description = "shield-infantry / weak";
+    this.m_description = "持盾-近战步兵【孱弱】";
 
     this.scale = 100;
     this.singleHP = 30;
@@ -36,8 +38,10 @@ export class HurlerGas extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Hurler (Gas Bomb)";
+    this.m_name = "投掷小队-毒气弹";
     this.type = "archers";
     this.description = "armor-archers / anti-armor";
+    this.m_description = "装甲-远程步兵【高破甲】";
 
     this.scale = 60;
     this.singleHP = 30;
@@ -79,8 +83,10 @@ export class HurlerFrgm extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Hurler (Fragmentation)";
+    this.m_name = "投掷小队-破片弹";
     this.type = "archers";
     this.description = "armor-archers / anti-infantry";
+    this.m_description = "装甲-远程步兵【反步兵】";
 
     this.scale = 60;
     this.singleHP = 30;
@@ -138,8 +144,10 @@ export class HurlerHE extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Hurler (High-Explosion)";
+    this.m_name = "投掷小队-高爆弹";
     this.type = "archers";
     this.description = "armor-archers / high-damage";
+    this.m_description = "装甲-远程步兵【高伤害】";
 
     this.scale = 60;
     this.singleHP = 30;
@@ -171,8 +179,10 @@ export class WeapSqdGingall extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Weapon Squad (Gingall)";
+    this.m_name = "武器小队-火枪";
     this.type = "archers";
     this.description = "shield-archers / anti-large";
+    this.m_description = "持盾-远程步兵【反大型】";
 
     this.scale = 48;
     this.singleHP = 30;
@@ -227,8 +237,10 @@ export class WeapSqdGatlin extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Weapon Squad (Gatlin)";
+    this.m_name = "武器小队-加特林";
     this.type = "archers";
     this.description = "shield-archers / anti-infantry";
+    this.m_description = "持盾-远程步兵【反步兵】";
 
     this.scale = 48;
     this.singleHP = 30;
@@ -289,8 +301,10 @@ export class WeapSqdFlthr extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Weapon Squad (Flamethrower)";
+    this.m_name = "武器小队-火喷器";
     this.type = "archers";
     this.description = "shield-archers / anti-non-armor";
+    this.m_description = "持盾-远程步兵【反无甲】";
 
     this.scale = 48;
     this.singleHP = 30;
@@ -346,8 +360,10 @@ export class MutantSlave extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Mutant Slave";
+    this.m_name = "变异奴隶";
     this.type = "monster-infantry";
     this.description = "monster-infantry / melee-master / fast";
+    this.m_description = "怪兽步兵【近战大师，迅捷如风】";
 
     this.scale = 20;
     this.singleHP = 200;
@@ -372,8 +388,10 @@ export class Foulcannon extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Foulcannon";
+    this.m_name = "污秽加农炮";
     this.type = "artillery";
     this.description = "artillery / high-damage";
+    this.m_description = "炮兵【高伤害】";
 
     this.scale = 5;
     this.singleHP = 300;
