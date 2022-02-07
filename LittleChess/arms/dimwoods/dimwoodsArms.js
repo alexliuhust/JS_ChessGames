@@ -115,6 +115,7 @@ export class HightreeScout extends ArmPrimary.Arm {
     this.missileAttack = 32;
     this.missileRange = 5;
 
+    this.ammo = 24;
     this.loadRealtimeProps();
   }
 
@@ -148,6 +149,7 @@ export class ShadowArcherAP extends ArmPrimary.Arm {
 
     this.antiArmor = 28;
 
+    this.ammo = 30;
     this.loadRealtimeProps();
   }
 
@@ -187,6 +189,7 @@ export class ShadowArcherFL extends ArmPrimary.Arm {
     this.missileAttack = 68;
     this.missileRange = 6;
 
+    this.ammo = 30;
     this.loadRealtimeProps();
   }
 

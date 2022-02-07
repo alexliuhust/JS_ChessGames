@@ -392,15 +392,17 @@ export class Foulcannon extends ArmPrimary.Arm {
     this.name = "Foulcannon";
     this.m_name = "污秽加农炮";
     this.type = "artillery";
-    this.description = "artillery / high-damage";
-    this.m_description = "炮兵【高伤害】";
+    this.description = "artillery / high-damage / shocking";
+    this.m_description = "炮兵【高伤害，惊骇敌军】";
 
     this.scale = 5;
     this.singleHP = 300;
     this.speed = 1;
 
-    this.missileAttack = 240;
+    this.missileAttack = 320;
     this.missileRange = 10;
+
+    this.shock = 75;
 
     this.loadRealtimeProps();
   }

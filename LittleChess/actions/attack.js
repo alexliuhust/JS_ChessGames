@@ -17,7 +17,7 @@ export function armBombArea(attacker, centerPosition, defenders) {
   }
 
   let damageType = "bombing";
-  let decrease = 0;
+  let decreaseScore = 0;
 
   for (let i = 0; i < defenders.length; i++) {
     let defender = defenders[i];
@@ -39,7 +39,14 @@ export function armBombArea(attacker, centerPosition, defenders) {
       if (defender.scale === 1) {
         att_totalRowDamage = Math.ceil(att_totalRowDamage * 0.5);
       }
-      decrease += defender.decreaseScale(damageType, 0, att_totalRowDamage);
+      decreaseScore += defender.decreaseScale(
+        damageType,
+        0,
+        att_totalRowDamage
+      );
+
+      defender.c_leadership -= attacker.getShockingAbility();
+
       if (!defender.isAlive) {
         // Attacker gains leadership and experience when eliminating an enemy.
         attacker.c_leadership += Math.round(attacker.cost * 0.1);
@@ -50,7 +57,7 @@ export function armBombArea(attacker, centerPosition, defenders) {
       }
     }
   }
-  attacker.exp += decrease;
+  attacker.exp += decreaseScore;
   attacker.c_ammo--;
   attacker.hasAttacked = true;
 }
@@ -134,6 +141,7 @@ function decreaseScalesForArms(attacker, damageType, defender) {
     attacker
   );
 
+  // ============== Defender counter attacks ==============
   defender.exp += attacker.decreaseScale("melee", 0, dfd_counterAttack);
   if (!attacker.isAlive) {
     // Defender gains leadership and experience when eliminating the Attacker by counter attack.
@@ -144,6 +152,7 @@ function decreaseScalesForArms(attacker, damageType, defender) {
       defender.c_leadership = defender.leadership;
   }
 
+  // ============== Attacker attacks ==============
   attacker.exp += defender.decreaseScale(
     damageType,
     att_antiArmor,
@@ -159,7 +168,7 @@ function decreaseScalesForArms(attacker, damageType, defender) {
     defender.c_leadership -= 20;
   }
 
-  defender.c_leadership -= attacker.shock;
+  defender.c_leadership -= attacker.getShockingAbility();
 
   if (defender.c_leadership < 0) defender.c_leadership = 0;
 

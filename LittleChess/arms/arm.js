@@ -331,7 +331,7 @@ export class Arm {
     else if (realDamage >= this.singleHP * 0.5) decrease = 100;
     else if (realDamage >= this.singleHP * 0.3) decrease = 30;
 
-    if (damageType === "charge" || damageType === "bombing") decrease += 50;
+    if (damageType === "charge" || damageType === "bombing") decrease += 30;
 
     this.c_leadership -= decrease;
     if (this.c_leadership < 0) this.c_leadership = 0;
@@ -577,7 +577,7 @@ export class Arm {
     }
 
     let realDamage = rawTotalDamage * damagePercentage;
-    let decrease = 0;
+    let decreaseScore = 0;
 
     // If this arm is a single-unit
     if (this.scale === 1) {
@@ -586,8 +586,9 @@ export class Arm {
       } else {
         realDamage = Math.round(realDamage * 0.25);
       }
+      realDamage = Math.max(realDamage, 1);
       this.c_singleHP -= realDamage;
-      decrease = Math.round(realDamage / 3);
+      decreaseScore = Math.round(realDamage / 3);
 
       // Too-high damage will decrease the arm's leadership
       this._damageCauseLeadershipDecreasing(realDamage, damageType);
@@ -604,9 +605,12 @@ export class Arm {
       else if (this.type === "artillery") factor = 0.3;
 
       realDamage = Math.round(realDamage * factor);
-      let totalDecrease = Math.round(realDamage / this.singleHP);
+      let totalDecrease =
+        realDamage === 0
+          ? 0
+          : Math.max(Math.round(realDamage / this.singleHP), 1);
       this.c_scale -= totalDecrease;
-      decrease = Math.round(realDamage / 30);
+      decreaseScore = Math.round(realDamage / 30);
 
       // Too-high damage will decrease the arm's leadership
       this._scaleDecreasingCauseLeadershipDecreasing(totalDecrease, damageType);
@@ -616,7 +620,11 @@ export class Arm {
       }
     }
 
-    return decrease;
+    return decreaseScore;
+  }
+
+  getShockingAbility() {
+    return Math.round((this.shock * this.c_scale) / this.scale);
   }
 
   getCurrentCombatPower() {
