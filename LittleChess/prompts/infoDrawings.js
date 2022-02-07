@@ -22,8 +22,10 @@ function drawTitle(cxt, piece, useMandarin) {
   if (piece.img !== null)
     Canvas.drawImg(cxt, piece.img, 0, 0, 50, 50, 10, 10, 85, 85);
 
-  Canvas.drawText(cxt, piece.name, 105, 30, "white", 24);
-  Canvas.drawText(cxt, piece.description, 105, 60, "white", 16);
+  let name = useMandarin ? piece.m_name : piece.name;
+  let desc = useMandarin ? piece.m_description : piece.description;
+  Canvas.drawText(cxt, name, 105, 30, "white", 24);
+  Canvas.drawText(cxt, desc, 105, 60, "white", 16);
   let costText = useMandarin
     ? `[花费: ${piece.cost}金币]`
     : `[cost: ${piece.cost}G]`;

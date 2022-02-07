@@ -8,8 +8,10 @@ export class HallwayGuard extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Hallway Guard";
+    this.m_name = "门厅守卫";
     this.type = "infantry";
     this.description = "infantry / resist-charging / anti-armor";
+    this.m_description = "近战步兵【抵御冲锋，高破甲】";
 
     this.scale = 64;
     this.singleHP = 50;
@@ -46,8 +48,10 @@ export class NordExecutioner extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Nord Executioner";
+    this.m_name = "诺德刽子手";
     this.type = "infantry";
     this.description = "armor-infantry / anti-armor";
+    this.m_description = "装甲-近战步兵【高破甲】";
 
     this.scale = 56;
     this.singleHP = 50;
@@ -84,8 +88,10 @@ export class CoastDefender extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Coast Defender";
+    this.m_name = "滨海守卫";
     this.type = "archers";
     this.description = "melee-archers / resist-charging";
+    this.m_description = "近战-远程步兵【抵御冲锋】";
 
     this.scale = 48;
     this.singleHP = 50;
@@ -124,8 +130,10 @@ export class CoastDefenderShield extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Coast Defender (Shield)";
+    this.m_name = "滨海守卫-持盾";
     this.type = "archers";
     this.description = "melee-shield-archers / resist-charging";
+    this.m_description = "近战-持盾-远程步兵【抵御冲锋】";
 
     this.scale = 48;
     this.singleHP = 50;
@@ -164,8 +172,10 @@ export class BallistaSquad extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Ballista Squad";
+    this.m_name = "弩炮小队";
     this.type = "archers";
     this.description = "heavy-archers / anti-armor";
+    this.m_description = "重装-远程步兵【高破甲】";
 
     this.scale = 32;
     this.singleHP = 50;
@@ -200,8 +210,10 @@ export class FlameKnight extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Flame Knight";
+    this.m_name = "炎骑士";
     this.type = "cavalry";
     this.description = "charging-cavalry / anti-armor";
+    this.m_description = "冲击骑兵【高破甲】";
 
     this.scale = 32;
     this.singleHP = 80;
@@ -237,8 +249,10 @@ export class CoralCavalry extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Coral Cavalry";
+    this.m_name = "珊瑚骑兵团";
     this.type = "cavalry";
     this.description = "charging-cavalry / heavy-armor";
+    this.m_description = "冲击骑兵【重装甲】";
 
     this.scale = 32;
     this.singleHP = 100;
@@ -266,8 +280,10 @@ export class GiantBallista extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Giant Ballista";
+    this.m_name = "巨型弩炮";
     this.type = "artillery";
     this.description = "artillery / anti-armor";
+    this.m_description = "炮兵【高破甲】";
 
     this.scale = 7;
     this.singleHP = 250;
@@ -301,8 +317,10 @@ export class StoneGiant extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Stone Giant";
+    this.m_name = "诺德巨石人";
     this.type = "monster";
     this.description = "giant / anti-infantry";
+    this.m_description = "巨兽【反步兵】";
 
     this.scale = 1;
     this.singleHP = 400;

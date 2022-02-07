@@ -8,8 +8,10 @@ export class SwordInfantry extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Sword Infantry";
+    this.m_name = "剑盾步兵";
     this.type = "infantry";
     this.description = "shield-infantry / anti-infantry";
+    this.m_description = "持盾-近战步兵【反步兵】";
 
     this.scale = 64;
     this.singleHP = 50;
@@ -57,8 +59,10 @@ export class PalaceGuard extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Palace Guard";
+    this.m_name = "宫廷守卫";
     this.type = "infantry";
     this.description = "infantry / resist-charging / anti-large";
+    this.m_description = "近战步兵【抵御冲锋，反大型】";
 
     this.scale = 64;
     this.singleHP = 50;
@@ -117,8 +121,10 @@ export class Musketeer extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Musketeer";
+    this.m_name = "火枪手";
     this.type = "archers";
     this.description = "archers";
+    this.m_description = "远程步兵";
 
     this.scale = 48;
     this.singleHP = 40;
@@ -153,8 +159,10 @@ export class MusketRider extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Musket Rider";
+    this.m_name = "火枪骑兵";
     this.type = "cavalry";
     this.description = "missile-cavalry";
+    this.m_description = "远程骑兵";
 
     this.scale = 32;
     this.singleHP = 90;
@@ -191,8 +199,10 @@ export class Vanguard extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Vanguard";
+    this.m_name = "先锋骑兵";
     this.type = "cavalry";
     this.description = "charging-cavalry / anti-armor";
+    this.m_description = "冲击骑兵【高破甲】";
 
     this.scale = 32;
     this.singleHP = 90;
@@ -230,8 +240,10 @@ export class PalaceKnight extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Palace Knight";
+    this.m_name = "禁卫骑士";
     this.type = "cavalry";
     this.description = "melee-cavalry / heavy-armor";
+    this.m_description = "近战骑兵【重装甲】";
 
     this.scale = 32;
     this.singleHP = 100;
@@ -258,8 +270,10 @@ export class CannonGroup extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Cannon Group";
+    this.m_name = "加农炮组";
     this.type = "artillery";
     this.description = "artillery / anti-armor";
+    this.m_description = "炮兵【高破甲】";
 
     this.scale = 5;
     this.singleHP = 300;
@@ -293,8 +307,10 @@ export class EmpireMortar extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Empire Mortar";
+    this.m_name = "帝国臼炮";
     this.type = "artillery";
     this.description = "bombing-artillery";
+    this.m_description = "轰炸炮兵";
 
     this.scale = 5;
     this.singleHP = 300;
@@ -320,8 +336,10 @@ export class SteamTank extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Steam Tank";
+    this.m_name = "蒸汽坦克";
     this.type = "monster";
     this.description = "mech / heavy-armor / missile-attack";
+    this.m_description = "机甲【重装甲，远程攻击】";
 
     this.scale = 1;
     this.singleHP = 300;
