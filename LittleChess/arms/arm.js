@@ -150,6 +150,7 @@ export class Arm {
 
     this.exp = 0;
     this.level = 1;
+    this.pre_level = 1;
 
     this.scale = 0;
     this.singleHP = 0;
@@ -349,16 +350,20 @@ export class Arm {
     if (this.c_leadership < 0) this.c_leadership = 0;
   }
 
-  _attackWeaken(factor) {
+  _attackUpdate(factor) {
     this.c_meleeAttack = Math.round(this.meleeAttack * factor);
     this.c_missileAttack = Math.round(this.missileAttack * factor);
     this.c_chargeAttack = Math.round(this.chargeAttack * factor);
   }
 
-  _armorWeaken(factor) {
+  _armorUpdate(factor) {
     this.c_meleeArmor = Math.round(this.meleeArmor * factor);
     this.c_missileArmor = Math.round(this.missileArmor * factor);
     this.c_chargeArmor = Math.round(this.chargeArmor * factor);
+
+    this.c_meleeDodge = Math.round(this.meleeDodge * factor);
+    this.c_missileDodge = Math.round(this.missileDodge * factor);
+    this.c_chargeDodge = Math.round(this.chargeDodge * factor);
   }
 
   _updatePropertiesAccordingToLeadership() {
@@ -373,27 +378,47 @@ export class Arm {
       factor = 0.6;
     }
 
-    this._attackWeaken(factor);
-    this._armorWeaken(factor);
+    this._attackUpdate(factor);
+    this._armorUpdate(factor);
   }
 
-  _updatePropertiesAccordingToExperience() {
+  _upgradeLevel() {
     if (this.exp < this.cost || this.level === 3) return;
 
-    let factor = 1.2;
     this.exp -= this.cost;
     this.level++;
+  }
+
+  _updatePropertiesAccordingToLevel() {
+    if (this.pre_level === this.level) return;
+
+    this.pre_level = this.level;
+    let factor = 1.1;
+    if (this.level === 2) {
+      factor = 1.2;
+      this.leadership += 50;
+      this.c_leadership = this.leadership;
+    } else if (this.level === 3) {
+      factor = 1.5;
+      this.leadership += 50;
+      this.c_leadership = this.leadership;
+    }
 
     if (this.scale !== 1) this.singleHP = Math.round(this.singleHP * factor);
-    this.meleeArmor = Math.round(this.meleeArmor * factor);
-    this.missileArmor = Math.round(this.missileArmor * factor);
-    this.chargeArmor = Math.round(this.chargeArmor * factor);
+    else this.singleHP = Math.round(this.singleHP * (factor - 0.1));
+
+    this.meleeArmor = Math.round(this.meleeArmor * (factor - 0.1));
+    this.missileArmor = Math.round(this.missileArmor * (factor - 0.1));
+    this.chargeArmor = Math.round(this.chargeArmor * (factor - 0.1));
+    this.meleeDodge = Math.round(this.meleeDodge * (factor - 0.1));
+    this.missileDodge = Math.round(this.missileDodge * (factor - 0.1));
+    this.chargeDodge = Math.round(this.chargeDodge * (factor - 0.1));
+
     this.meleeAttack = Math.round(this.meleeAttack * factor);
     this.missileAttack = Math.round(this.missileAttack * factor);
     this.chargeAttack = Math.round(this.chargeAttack * factor);
 
-    this.leadership += 50;
-    this.c_leadership += 50;
+    this.cost = calculateCost(this)[0];
   }
 
   // =============== Drawing APIs ===============
@@ -525,14 +550,16 @@ export class Arm {
     this.hasAttacked = false;
 
     if (currentRound % 7 === 0) {
-      console.log(currentRound);
       this.c_leadership -= 5;
     }
     if (this.c_leadership < 0) {
       this.c_leadership = 0;
     }
 
-    this._updatePropertiesAccordingToExperience();
+    // Update static battle properties
+    this._upgradeLevel();
+    this._updatePropertiesAccordingToLevel();
+    // Update real-time battle properties
     this._updatePropertiesAccordingToLeadership();
   }
 
@@ -620,7 +647,7 @@ export class Arm {
       }
     }
 
-    return decreaseScore;
+    return decreaseScore * this.level;
   }
 
   getShockingAbility() {
