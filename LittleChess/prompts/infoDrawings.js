@@ -156,7 +156,7 @@ function drawCombatData(cxt, piece, useMandarin) {
 
   if (useMandarin) {
     speedText = `速度:     ${piece.c_speed}`;
-    armorText = `装甲:     近战[ ${piece.c_meleeArmor} ]         远程[ ${piece.c_missileArmor} ]         冲杀[ ${piece.c_chargeArmor} ]`;
+    armorText = `护甲:     近战[ ${piece.c_meleeArmor} ]         远程[ ${piece.c_missileArmor} ]         冲杀[ ${piece.c_chargeArmor} ]`;
     dodgeText = `闪避:     近战[ ${piece.c_meleeDodge} ]         远程[ ${piece.c_missileDodge} ]         冲杀[ ${piece.c_chargeDodge} ]`;
     attackText = `伤害:     近战[ ${piece.c_meleeAttack}(+${piece.meleeAttack_bonus}) ]  远程[ ${piece.c_missileAttack}(+${piece.missileAttack_bonus}) ]  冲杀[ ${piece.c_chargeAttack}(+${piece.chargeAttack_bonus}) ]`;
     rangeInfo = `远程范围: ${piece.c_missileRange}`;

@@ -54,4 +54,5 @@ def binarize_image(img_path, name):
     cv2.imwrite(name + ".png", newImg)
 
 
-risize_images('./raw_images/stormreef', './images/stormreef/', 50)
+# risize_images('./raw_images/stormreef', './images/stormreef/', 50)
+risize_images('./raw_images', './images/', 50)

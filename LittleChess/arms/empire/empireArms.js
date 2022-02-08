@@ -345,17 +345,18 @@ export class SteamTank extends ArmPrimary.Arm {
     this.singleHP = 300;
     this.speed = 2;
 
-    this.meleeArmor = 90;
-    this.missileArmor = 90;
-    this.chargeArmor = 90;
+    this.meleeArmor = 100;
+    this.missileArmor = 50;
+    this.missileDodge = 50;
+    this.chargeArmor = 75;
 
-    this.meleeAttack = 450;
-    this.missileAttack = 300;
+    this.meleeAttack = 300;
+    this.missileAttack = 500;
     this.missileRange = 7;
 
-    this.antiArmor = 50;
+    this.antiArmor = 60;
 
-    this.ammo = 18;
+    this.ammo = 30;
 
     this.loadRealtimeProps();
   }

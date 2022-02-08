@@ -92,19 +92,19 @@ export class WildKiller extends ArmPrimary.Arm {
   // =============== Override Public APIs ===============
 }
 
-export class HightreeScout extends ArmPrimary.Arm {
+export class ShadowArcherPS extends ArmPrimary.Arm {
   constructor(value) {
     super(value);
-    this.img = document.getElementById("HightreeScout_img");
+    this.img = document.getElementById("ShadowArcherPS_img");
     // Override original data
 
-    this.name = "Hightree Scout";
-    this.m_name = "高木斥候";
+    this.name = "Shadow Archer (Poisoned)";
+    this.m_name = "暗影弓手-淬毒箭";
     this.type = "archers";
-    this.description = "melee-archers";
-    this.m_description = "近战-远程步兵";
+    this.description = "melee-archers / anti-non-armor";
+    this.m_description = "近战-远程步兵【反无甲】";
 
-    this.scale = 50;
+    this.scale = 36;
     this.singleHP = 40;
     this.speed = 4;
 
@@ -112,14 +112,38 @@ export class HightreeScout extends ArmPrimary.Arm {
     this.missileDodge = 30;
 
     this.meleeAttack = 36;
-    this.missileAttack = 32;
-    this.missileRange = 5;
+    this.meleeAttack_bonus = 30;
+    this.missileAttack = 36;
+    this.missileAttack_bonus = 30;
+    this.missileRange = 6;
 
-    this.ammo = 24;
+    this.ammo = 30;
     this.loadRealtimeProps();
   }
 
   // =============== Override private methods ===============
+
+  _getSingleDamage(damageType, targetArm) {
+    let targetType = targetArm.type;
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmType(targetType);
+
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+    } else if (damageType === "missile") {
+      singleDamage = this.c_missileAttack;
+    }
+
+    if (damageType === "melee" && targetArm.c_meleeArmor === 0) {
+      singleDamage += this.meleeAttack_bonus;
+    } else if (damageType === "missile" && targetArm.c_missileArmor === 0) {
+      singleDamage += this.missileAttack_bonus;
+    }
+    this.c_ammo--;
+
+    return singleDamage;
+  }
 
   // =============== Override Public APIs ===============
 }
@@ -131,12 +155,12 @@ export class ShadowArcherAP extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Shadow Archer (Armor-Piercing)";
-    this.m_name = "暗影弓箭手-破甲";
+    this.m_name = "暗影弓手-穿甲箭";
     this.type = "archers";
     this.description = "melee-archers / anti-armor";
     this.m_description = "近战-远程步兵【高破甲】";
 
-    this.scale = 40;
+    this.scale = 36;
     this.singleHP = 40;
     this.speed = 4;
 
@@ -144,10 +168,10 @@ export class ShadowArcherAP extends ArmPrimary.Arm {
     this.missileDodge = 30;
 
     this.meleeAttack = 36;
-    this.missileAttack = 44;
+    this.missileAttack = 36;
     this.missileRange = 6;
 
-    this.antiArmor = 28;
+    this.antiArmor = 30;
 
     this.ammo = 30;
     this.loadRealtimeProps();
@@ -173,12 +197,12 @@ export class ShadowArcherFL extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Shadow Archer (Flame)";
-    this.m_name = "暗影弓箭手-火焰";
+    this.m_name = "暗影箭手-火焰箭";
     this.type = "archers";
     this.description = "melee-archers / high-damage";
     this.m_description = "近战-远程步兵【高伤害】";
 
-    this.scale = 40;
+    this.scale = 36;
     this.singleHP = 40;
     this.speed = 4;
 
@@ -186,7 +210,7 @@ export class ShadowArcherFL extends ArmPrimary.Arm {
     this.missileDodge = 30;
 
     this.meleeAttack = 36;
-    this.missileAttack = 68;
+    this.missileAttack = 75;
     this.missileRange = 6;
 
     this.ammo = 30;
@@ -349,7 +373,7 @@ export function getTestArms(player) {
   let arms = [
     new WoodsGuard(pos[0]),
     new WildKiller(pos[1]),
-    new HightreeScout(pos[2]),
+    new ShadowArcherPS(pos[2]),
     new ShadowArcherAP(pos[3]),
     new ShadowArcherFL(pos[4]),
     new LongbowRanger(pos[5]),
@@ -364,7 +388,7 @@ export function newAnArm(i, posX, posY) {
   let pos = [posX, posY];
   if (i === 0) return new WoodsGuard(pos);
   if (i === 1) return new WildKiller(pos);
-  if (i === 2) return new HightreeScout(pos);
+  if (i === 2) return new ShadowArcherPS(pos);
   if (i === 3) return new ShadowArcherAP(pos);
   if (i === 4) return new ShadowArcherFL(pos);
   if (i === 5) return new LongbowRanger(pos);
@@ -377,7 +401,7 @@ export function getImages() {
   let images = [];
   images.push("../images/dimwoods/WoodsGuard.png");
   images.push("../images/dimwoods/WildKiller.png");
-  images.push("../images/dimwoods/HightreeScout.png");
+  images.push("../images/dimwoods/ShadowArcherPS.png");
   images.push("../images/dimwoods/ShadowArcherAP.png");
   images.push("../images/dimwoods/ShadowArcherFL.png");
   images.push("../images/dimwoods/LongbowRanger.png");

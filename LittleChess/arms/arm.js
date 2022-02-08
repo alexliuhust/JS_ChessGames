@@ -613,7 +613,7 @@ export class Arm {
       } else {
         realDamage = Math.round(realDamage * 0.25);
       }
-      realDamage = Math.max(realDamage, 1);
+      if (realDamage > 0) realDamage = Math.max(realDamage, 1);
       this.c_singleHP -= realDamage;
       decreaseScore = Math.round(realDamage / 3);
 
