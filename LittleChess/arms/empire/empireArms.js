@@ -22,7 +22,7 @@ export class SwordInfantry extends ArmPrimary.Arm {
     this.chargeArmor = 0;
 
     this.meleeAttack = 24;
-    this.meleeAttack_bonus = 12;
+    this.meleeAttack_bonus = 20;
 
     this.loadRealtimeProps();
   }
