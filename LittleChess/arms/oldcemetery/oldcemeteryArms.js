@@ -102,17 +102,19 @@ export class Banshee extends ArmPrimary.Arm {
     this.name = "Banshee";
     this.m_name = "女妖";
     this.type = "infantry";
-    this.description = "infantry / high-dodge";
-    this.m_description = "近战步兵【高闪避】";
+    this.description = "infantry / high-dodge / shocking";
+    this.m_description = "近战步兵【高闪避，惊骇敌军】";
 
     this.scale = 32;
-    this.singleHP = 20;
+    this.singleHP = 40;
     this.speed = 5;
 
-    this.meleeDodge = 90;
-    this.missileDodge = 90;
+    this.meleeDodge = 75;
+    this.missileDodge = 95;
 
-    this.meleeAttack = 30;
+    this.meleeAttack = 24;
+
+    this.shock = 50;
 
     this.loadRealtimeProps();
   }
@@ -131,19 +133,21 @@ export class ScreamingBanshee extends ArmPrimary.Arm {
     this.name = "Screaming Banshee";
     this.m_name = "尖啸女妖";
     this.type = "archers";
-    this.description = "melee-archers / high-dodge";
-    this.m_description = "近战-远程步兵【高闪避】";
+    this.description = "melee-archers / high-dodge / shocking";
+    this.m_description = "近战-远程步兵【高闪避，惊骇敌军】";
 
     this.scale = 32;
-    this.singleHP = 20;
+    this.singleHP = 40;
     this.speed = 5;
 
-    this.meleeDodge = 90;
-    this.missileDodge = 90;
+    this.meleeDodge = 75;
+    this.missileDodge = 95;
 
-    this.meleeAttack = 30;
-    this.missileAttack = 48;
+    this.meleeAttack = 24;
+    this.missileAttack = 30;
     this.missileRange = 6;
+
+    this.shock = 50;
 
     this.loadRealtimeProps();
   }
@@ -162,20 +166,22 @@ export class ScreamingBansheeGF extends ArmPrimary.Arm {
     this.name = "Screaming Banshee (Ghost Fire)";
     this.m_name = "尖啸女妖-鬼火";
     this.type = "archers";
-    this.description = "melee-archers / high-dodge / anti-infantry";
-    this.m_description = "近战-远程步兵【高闪避，反步兵】";
+    this.description = "melee-archers / high-dodge / anti-infantry / shocking";
+    this.m_description = "近战-远程步兵【高闪避，反步兵， 惊骇敌军】";
 
     this.scale = 32;
-    this.singleHP = 20;
+    this.singleHP = 40;
     this.speed = 5;
 
-    this.meleeDodge = 90;
-    this.missileDodge = 90;
+    this.meleeDodge = 75;
+    this.missileDodge = 95;
 
-    this.meleeAttack = 30;
-    this.missileAttack = 48;
-    this.missileAttack_bonus = 12;
+    this.meleeAttack = 24;
+    this.missileAttack = 30;
+    this.missileAttack_bonus = 14;
     this.missileRange = 6;
+
+    this.shock = 50;
 
     this.loadRealtimeProps();
   }
