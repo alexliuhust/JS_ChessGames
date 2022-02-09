@@ -213,20 +213,22 @@ export class Hellhound extends ArmPrimary.Arm {
     this.img = document.getElementById("Hellhound_img");
     // Override original data
 
-    this.name = "Hellhound";
+    this.name = "Hell Hound";
     this.m_name = "地狱猎犬";
     this.type = "cavalry";
-    this.description = "monster-cavalry / fast";
-    this.m_description = "怪兽骑兵【迅捷如风】";
+    this.description = "monster-cavalry / fast / shocking";
+    this.m_description = "怪兽骑兵【迅捷如风，惊骇敌军】";
 
     this.scale = 100;
-    this.singleHP = 30;
+    this.singleHP = 25;
     this.speed = 7;
 
     this.missileDodge = 70;
 
-    this.meleeAttack = 2;
-    this.chargeAttack = 6;
+    this.meleeAttack = 7;
+    this.chargeAttack = 12;
+
+    this.shock = 30;
 
     this.loadRealtimeProps();
   }
