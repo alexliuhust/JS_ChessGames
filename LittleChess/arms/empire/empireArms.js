@@ -357,7 +357,6 @@ export class SteamTank extends ArmPrimary.Arm {
     this.antiArmor = 60;
 
     this.ammo = 30;
-
     this.loadRealtimeProps();
   }
 
