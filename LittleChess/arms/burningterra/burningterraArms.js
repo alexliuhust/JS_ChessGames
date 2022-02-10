@@ -320,8 +320,8 @@ export class GreatDemon extends ArmPrimary.Arm {
     this.img = document.getElementById("GreatDemon_img");
     // Override original data
 
-    this.name = "Great Demon";
-    this.m_name = "大魔";
+    this.name = "Chaos Great Demon";
+    this.m_name = "混沌大魔";
     this.type = "monster";
     this.description = "giant / anti-armor / shocking";
     this.m_description = "巨兽【高破甲，惊骇敌军】";

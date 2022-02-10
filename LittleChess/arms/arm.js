@@ -585,14 +585,11 @@ export class Arm {
 
   getCounterAttackTotalDamage(damageType, targetArm) {
     checkDamageType(damageType);
-
-    if (damageType !== "melee") {
-      return 0;
-    }
+    if (damageType !== "melee") return 0;
 
     let singleDamage = this._getSingleDamage("melee", targetArm);
     let validScale = this._getValidScale();
-    return Math.round(singleDamage * validScale * 0.75);
+    return Math.round(singleDamage * validScale * 0.85);
   }
 
   decreaseScale(damageType, antiArmor, rawTotalDamage) {

@@ -167,7 +167,7 @@ export class ScreamingBansheeGF extends ArmPrimary.Arm {
     this.m_name = "尖啸女妖-鬼火";
     this.type = "archers";
     this.description = "melee-archers / high-dodge / anti-infantry / shocking";
-    this.m_description = "近战-远程步兵【高闪避，反步兵， 惊骇敌军】";
+    this.m_description = "近战-远程步兵【高闪避，反步兵，惊骇敌军】";
 
     this.scale = 32;
     this.singleHP = 40;
@@ -230,11 +230,11 @@ export class DeathKnight extends ArmPrimary.Arm {
     this.singleHP = 120;
     this.speed = 3;
 
-    this.meleeArmor = 90;
-    this.missileArmor = 90;
-    this.chargeArmor = 90;
+    this.meleeArmor = 75;
+    this.missileArmor = 75;
+    this.chargeArmor = 75;
 
-    this.meleeAttack = 40;
+    this.meleeAttack = 35;
 
     this.loadRealtimeProps();
   }
@@ -260,11 +260,11 @@ export class DeathKnightDS extends ArmPrimary.Arm {
     this.singleHP = 120;
     this.speed = 3;
 
-    this.meleeArmor = 90;
-    this.missileArmor = 90;
-    this.chargeArmor = 90;
+    this.meleeArmor = 75;
+    this.missileArmor = 75;
+    this.chargeArmor = 75;
 
-    this.meleeAttack = 72;
+    this.meleeAttack = 65;
 
     this.loadRealtimeProps();
   }

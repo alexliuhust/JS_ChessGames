@@ -16,6 +16,36 @@ export const ExpColor = "rgb(70, 200, 255)";
 export const SelectPieceColor = "rgb(150, 255, 150)";
 export const SelectEnemyColor = "rgb(255, 180, 0)";
 export const ReadyToAttackColor = "rgb(255, 150, 150)";
+export const PowerList = [
+  "nordfort",
+  "dimwoods",
+  "stormreef",
+  "empire",
+  "snowhaupt",
+  "polluteland",
+  "burningterra",
+  "oldcemetery",
+];
+export const PowerMap = new Map([
+  ["nordfort", "Nord Fort"],
+  ["dimwoods", "Dim Woods"],
+  ["stormreef", "Storm Reef"],
+  ["empire", "Terran Empire"],
+  ["snowhaupt", "Snow Haupt"],
+  ["polluteland", "Pollute Land"],
+  ["burningterra", "Burning Terra"],
+  ["oldcemetery", "Old Cemetery"],
+]);
+export const M_PowerMap = new Map([
+  ["nordfort", "诺德堡"],
+  ["dimwoods", "幽暗森林"],
+  ["stormreef", "风暴礁"],
+  ["empire", "泰伦帝国"],
+  ["snowhaupt", "雪顶要塞"],
+  ["polluteland", "污染之地"],
+  ["burningterra", "燃烧领"],
+  ["oldcemetery", "老墓园"],
+]);
 export const ArmTestPos1 = [
   [6, 4],
   [7, 5],

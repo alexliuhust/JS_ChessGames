@@ -1,5 +1,7 @@
 import { exportPower } from "./arms/exportArm.js";
 import {
+  PowerMap,
+  M_PowerMap,
   DeployWidth as DW,
   DeployHeight as DH,
   DInfoWidth as DIW,
@@ -30,9 +32,12 @@ export class Deploy {
     this.showDeployInfo = function () {
       let powerNumber = "power" + this.player;
       this.POWER = exportPower(window.localStorage.getItem(powerNumber));
-      document.getElementById("power").textContent = firstLetterUp(
-        window.localStorage.getItem(powerNumber)
-      );
+      let powerValue = window.localStorage.getItem(powerNumber);
+      let powerRealName = this.useMandarin
+        ? M_PowerMap.get(powerValue)
+        : PowerMap.get(powerValue);
+      document.getElementById("power").textContent = powerRealName;
+
       this.updateMoneyLeftSpan();
       this.arms = this.POWER.getTestArms();
       this.images = this.POWER.getImages();
@@ -104,7 +109,10 @@ export class Deploy {
         elem.addEventListener("mousedown", (e) => {
           for (let i = 0; i < this.elems.length; i++)
             this.elems[i].style.border = "5px solid white";
-          elem.style.border = "5px solid blue";
+
+          let stl = "5px solid blue";
+          if (this.player === 2) stl = "5px solid red";
+          elem.style.border = stl;
 
           Canvas.clear(infoCanvas, DIW, DIH);
           this.arms[i].img = this.elems[i];
@@ -163,10 +171,6 @@ export class Deploy {
       else window.localStorage.setItem("a2", JSON.stringify(outputList));
     };
   }
-}
-
-function firstLetterUp(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 export function decodeArmPositionInfo(player) {

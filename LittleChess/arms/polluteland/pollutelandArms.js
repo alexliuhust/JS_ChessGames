@@ -367,7 +367,7 @@ export class MutantSlave extends ArmPrimary.Arm {
 
     this.scale = 20;
     this.singleHP = 200;
-    this.speed = 5;
+    this.speed = 6;
 
     this.meleeDodge = 45;
 
