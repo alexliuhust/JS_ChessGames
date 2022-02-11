@@ -282,7 +282,7 @@ export class CannonGroup extends ArmPrimary.Arm {
     this.missileAttack = 150;
     this.missileRange = 12;
 
-    this.antiArmor = 50;
+    this.antiArmor = 80;
 
     this.loadRealtimeProps();
   }

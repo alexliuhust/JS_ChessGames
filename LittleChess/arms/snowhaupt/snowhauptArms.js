@@ -136,7 +136,7 @@ export class MountainShocker extends ArmPrimary.Arm {
 
     this.meleeAttack = 20;
     this.missileAttack = 80;
-    this.missileRange = 2;
+    this.missileRange = 3;
 
     this.ammo = 3;
 

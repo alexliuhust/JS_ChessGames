@@ -297,7 +297,7 @@ export class GiantBallista extends ArmPrimary.Arm {
     this.missileAttack = 140;
     this.missileRange = 11;
 
-    this.antiArmor = 48;
+    this.antiArmor = 70;
 
     this.loadRealtimeProps();
   }
