@@ -18,10 +18,10 @@ export class HenchWarrior extends ArmPrimary.Arm {
     this.speed = 2;
 
     this.meleeArmor = 40;
-    this.missileArmor = 60;
+    this.missileArmor = 50;
     this.chargeArmor = 40;
 
-    this.meleeAttack = 36;
+    this.meleeAttack = 35;
 
     this.loadRealtimeProps();
   }
@@ -49,9 +49,9 @@ export class HenchWarriorHalberd extends ArmPrimary.Arm {
 
     this.meleeArmor = 40;
     this.missileArmor = 40;
-    this.chargeArmor = 70;
+    this.chargeArmor = 60;
 
-    this.meleeAttack = 30;
+    this.meleeAttack = 28;
     this.meleeAttack_bonus = 26;
 
     this.loadRealtimeProps();
@@ -60,23 +60,13 @@ export class HenchWarriorHalberd extends ArmPrimary.Arm {
   // =============== Override private methods ===============
 
   _getSingleDamage(damageType, targetArm) {
-    let targetType = targetArm.type;
     ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmType(targetType);
+    ArmPrimary.checkArmClass(targetArm);
 
     let singleDamage = 0;
-    if (damageType === "melee") {
-      singleDamage = this.c_meleeAttack;
-    }
-
-    if (
-      damageType === "melee" &&
-      (targetType === "cavalry" ||
-        targetType === "moster" ||
-        targetType === "monster-infantry")
-    ) {
+    if (damageType === "melee") singleDamage = this.c_meleeAttack;
+    if (damageType === "melee" && targetArm.isLarge())
       singleDamage += this.meleeAttack_bonus;
-    }
 
     return singleDamage;
   }
@@ -104,7 +94,7 @@ export class HenchWarriorGiantaxe extends ArmPrimary.Arm {
     this.missileArmor = 40;
     this.chargeArmor = 40;
 
-    this.meleeAttack = 55;
+    this.meleeAttack = 38;
 
     this.antiArmor = 40;
 
@@ -137,14 +127,14 @@ export class BurningKnight extends ArmPrimary.Arm {
     this.m_description = "近战骑兵【重装甲】";
 
     this.scale = 32;
-    this.singleHP = 120;
+    this.singleHP = 130;
     this.speed = 4;
 
     this.meleeArmor = 50;
-    this.missileArmor = 70;
+    this.missileArmor = 60;
     this.chargeArmor = 50;
 
-    this.meleeAttack = 36;
+    this.meleeAttack = 40;
 
     this.loadRealtimeProps();
   }
@@ -167,12 +157,12 @@ export class BurningKnightHalberd extends ArmPrimary.Arm {
     this.m_description = "近战骑兵【重装甲，反大型】";
 
     this.scale = 32;
-    this.singleHP = 120;
+    this.singleHP = 130;
     this.speed = 4;
 
     this.meleeArmor = 50;
     this.missileArmor = 50;
-    this.chargeArmor = 80;
+    this.chargeArmor = 70;
 
     this.meleeAttack = 30;
     this.meleeAttack_bonus = 26;
@@ -216,19 +206,17 @@ export class Hellhound extends ArmPrimary.Arm {
     this.name = "Hell Hound";
     this.m_name = "地狱猎犬";
     this.type = "cavalry";
-    this.description = "monster-cavalry / fast / shocking";
-    this.m_description = "怪兽骑兵【迅捷如风，惊骇敌军】";
+    this.description = "monster-cavalry / fast";
+    this.m_description = "怪兽骑兵【迅捷如风】";
 
     this.scale = 100;
     this.singleHP = 25;
     this.speed = 7;
 
-    this.missileDodge = 70;
+    this.missileDodge = 60;
 
-    this.meleeAttack = 7;
-    this.chargeAttack = 12;
-
-    this.shock = 30;
+    this.meleeAttack = 6;
+    this.chargeAttack = 10;
 
     this.loadRealtimeProps();
   }
@@ -258,9 +246,9 @@ export class DemonEnvoyWild extends ArmPrimary.Arm {
     this.missileArmor = 0;
     this.chargeArmor = 0;
 
-    this.meleeAttack = 64;
+    this.meleeAttack = 70;
 
-    this.antiArmor = 40;
+    this.antiArmor = 50;
 
     this.shock = 50;
 
@@ -289,8 +277,8 @@ export class DemonEnvoyHellfire extends ArmPrimary.Arm {
     this.name = "Demon Envoy (Hellfire)";
     this.m_name = "恶魔使者-地狱火";
     this.type = "monster-infantry";
-    this.description = "monster-infantry / missile-attack";
-    this.m_description = "怪兽步兵【远程攻击】";
+    this.description = "monster-infantry / missile-attack / shocking";
+    this.m_description = "怪兽步兵【远程攻击，惊骇敌军】";
 
     this.scale = 16;
     this.singleHP = 300;
@@ -300,11 +288,13 @@ export class DemonEnvoyHellfire extends ArmPrimary.Arm {
     this.missileArmor = 0;
     this.chargeArmor = 0;
 
-    this.meleeAttack = 64;
-    this.missileAttack = 80;
+    this.meleeAttack = 55;
+    this.missileAttack = 90;
     this.missileRange = 6;
 
-    this.ammo = 30;
+    this.ammo = 15;
+
+    this.shock = 50;
 
     this.loadRealtimeProps();
   }
@@ -336,9 +326,9 @@ export class GreatDemon extends ArmPrimary.Arm {
 
     this.meleeAttack = 1000;
 
-    this.antiArmor = 50;
+    this.antiArmor = 70;
 
-    this.shock = 100;
+    this.shock = 80;
 
     this.loadRealtimeProps();
   }
