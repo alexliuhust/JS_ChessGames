@@ -18,7 +18,7 @@ export class SlaveConscript extends ArmPrimary.Arm {
     this.speed = 4;
 
     this.meleeArmor = 0;
-    this.missileArmor = 40;
+    this.missileArmor = 20;
     this.chargeArmor = 0;
 
     this.meleeAttack = 16;
@@ -98,7 +98,7 @@ export class HurlerFrgm extends ArmPrimary.Arm {
 
     this.meleeAttack = 16;
     this.missileAttack = 16;
-    this.missileAttack_bonus = 36;
+    this.missileAttack_bonus = 20;
     this.missileRange = 3;
 
     this.ammo = 12;
@@ -110,9 +110,8 @@ export class HurlerFrgm extends ArmPrimary.Arm {
   // =============== Override private methods ===============
 
   _getSingleDamage(damageType, targetArm) {
-    let targetType = targetArm.type;
     ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmType(targetType);
+    ArmPrimary.checkArmClass(targetArm);
 
     let singleDamage = 0;
     if (damageType === "melee") {
@@ -121,12 +120,7 @@ export class HurlerFrgm extends ArmPrimary.Arm {
       singleDamage = this.c_missileAttack;
     }
 
-    if (
-      damageType === "missile" &&
-      (targetType === "infantry" ||
-        targetType === "archers" ||
-        targetType === "artillery")
-    ) {
+    if (damageType === "missile" && targetArm.isInfn()) {
       singleDamage += this.missileAttack_bonus;
     }
     this.c_ammo--;
@@ -158,7 +152,7 @@ export class HurlerHE extends ArmPrimary.Arm {
     this.chargeArmor = 30;
 
     this.meleeAttack = 16;
-    this.missileAttack = 30;
+    this.missileAttack = 32;
     this.missileRange = 3;
 
     this.ammo = 12;
@@ -188,13 +182,11 @@ export class WeapSqdGingall extends ArmPrimary.Arm {
     this.singleHP = 30;
     this.speed = 3;
 
-    this.meleeArmor = 30;
-    this.missileArmor = 50;
-    this.chargeArmor = 0;
+    this.missileArmor = 40;
 
     this.meleeAttack = 16;
     this.missileAttack = 30;
-    this.missileAttack_bonus = 50;
+    this.missileAttack_bonus = 60;
     this.missileRange = 6;
 
     this.loadRealtimeProps();
@@ -203,9 +195,8 @@ export class WeapSqdGingall extends ArmPrimary.Arm {
   // =============== Override private methods ===============
 
   _getSingleDamage(damageType, targetArm) {
-    let targetType = targetArm.type;
     ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmType(targetType);
+    ArmPrimary.checkArmClass(targetArm);
 
     let singleDamage = 0;
     if (damageType === "melee") {
@@ -214,12 +205,7 @@ export class WeapSqdGingall extends ArmPrimary.Arm {
       singleDamage = this.c_missileAttack;
     }
 
-    if (
-      damageType === "missile" &&
-      (targetType === "cavalry" ||
-        targetType === "moster" ||
-        targetType === "monster-infantry")
-    ) {
+    if (damageType === "missile" && targetArm.isLarge()) {
       singleDamage += this.missileAttack_bonus;
     }
     this.c_ammo--;
@@ -246,9 +232,7 @@ export class WeapSqdGatlin extends ArmPrimary.Arm {
     this.singleHP = 30;
     this.speed = 3;
 
-    this.meleeArmor = 30;
-    this.missileArmor = 50;
-    this.chargeArmor = 0;
+    this.missileArmor = 40;
 
     this.meleeAttack = 16;
     this.missileAttack = 38;
@@ -265,9 +249,8 @@ export class WeapSqdGatlin extends ArmPrimary.Arm {
   // =============== Override private methods ===============
 
   _getSingleDamage(damageType, targetArm) {
-    let targetType = targetArm.type;
     ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmType(targetType);
+    ArmPrimary.checkArmClass(targetArm);
 
     let singleDamage = 0;
     if (damageType === "melee") {
@@ -276,12 +259,7 @@ export class WeapSqdGatlin extends ArmPrimary.Arm {
       singleDamage = this.c_missileAttack;
     }
 
-    if (
-      damageType === "missile" &&
-      (targetType === "infantry" ||
-        targetType === "archers" ||
-        targetType === "artillery")
-    ) {
+    if (damageType === "missile" && targetArm.isInfn()) {
       if (targetArm.c_missileArmor > 0)
         singleDamage += this.missileAttack_bonus / 5;
       else singleDamage += this.missileAttack_bonus;
@@ -310,13 +288,11 @@ export class WeapSqdFlthr extends ArmPrimary.Arm {
     this.singleHP = 30;
     this.speed = 3;
 
-    this.meleeArmor = 30;
-    this.missileArmor = 50;
-    this.chargeArmor = 0;
+    this.missileArmor = 40;
 
     this.meleeAttack = 16;
-    this.missileAttack = 48;
-    this.missileAttack_bonus = 50;
+    this.missileAttack = 32;
+    this.missileAttack_bonus = 70;
     this.missileRange = 3;
 
     this.ammo = 12;
@@ -369,9 +345,9 @@ export class MutantSlave extends ArmPrimary.Arm {
     this.singleHP = 200;
     this.speed = 6;
 
-    this.meleeDodge = 45;
+    this.meleeDodge = 50;
 
-    this.meleeAttack = 50;
+    this.meleeAttack = 52;
 
     this.shock = 50;
 
@@ -389,7 +365,7 @@ export class Foulcannon extends ArmPrimary.Arm {
     this.img = document.getElementById("Foulcannon_img");
     // Override original data
 
-    this.name = "Foulcannon";
+    this.name = "Foul Cannon";
     this.m_name = "污秽加农炮";
     this.type = "artillery";
     this.description = "artillery / high-damage / shocking";

@@ -57,7 +57,7 @@ function calculateCost(arm) {
     (scale * (meleeAttack + missileAttack * 1.1 + chargeAttack * 1.2)) / 16;
   let rangeScore = arm.missileRange * (2 + arm.missileRange / 4);
   let radiusScore = arm.missileRadius * 5;
-  let ammoScore = arm.ammo / 3;
+  let ammoScore = arm.type === "artillery" ? arm.ammo * 1.5 : arm.ammo / 3;
   let shockScore = (arm.shock * arm.shock) / 200;
   let otherCombatScore =
     (rangeScore + radiusScore + ammoScore + shockScore) / 3;
