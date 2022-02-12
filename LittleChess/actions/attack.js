@@ -141,6 +141,11 @@ function decreaseScalesForArms(attacker, damageType, defender) {
     attacker
   );
 
+  if (attacker.isInfn() && defender.isInfn() && damageType === "melee") {
+    att_totalRowDamage = Math.round(att_totalRowDamage / 2);
+    dfd_counterAttack = Math.round(dfd_counterAttack / 2);
+  }
+
   // ============== Defender counter attacks ==============
   defender.exp += attacker.decreaseScale("melee", 0, dfd_counterAttack);
   if (!attacker.isAlive) {

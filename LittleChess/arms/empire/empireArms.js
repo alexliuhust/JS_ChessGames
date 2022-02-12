@@ -7,8 +7,8 @@ export class SwordInfantry extends ArmPrimary.Arm {
     this.img = document.getElementById("SwordInfantry_img");
     // Override original data
 
-    this.name = "Sword Infantry";
-    this.m_name = "剑盾步兵";
+    this.name = "Empire Infantry";
+    this.m_name = "帝国步兵";
     this.type = "infantry";
     this.description = "shield-infantry / anti-infantry";
     this.m_description = "持盾-近战步兵【反步兵】";
@@ -17,12 +17,10 @@ export class SwordInfantry extends ArmPrimary.Arm {
     this.singleHP = 50;
     this.speed = 2;
 
-    this.meleeArmor = 20;
-    this.missileArmor = 50;
-    this.chargeArmor = 0;
+    this.missileArmor = 40;
 
     this.meleeAttack = 24;
-    this.meleeAttack_bonus = 20;
+    this.meleeAttack_bonus = 24;
 
     this.loadRealtimeProps();
   }
@@ -30,19 +28,14 @@ export class SwordInfantry extends ArmPrimary.Arm {
   // =============== Override private methods ===============
 
   _getSingleDamage(damageType, targetArm) {
-    let targetType = targetArm.type;
     ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmType(targetType);
+    ArmPrimary.checkArmClass(targetArm);
 
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
     }
-    if (
-      targetType === "infantry" ||
-      targetType === "archers" ||
-      targetType === "artillery"
-    ) {
+    if (targetArm.isInfn()) {
       singleDamage += this.meleeAttack_bonus;
     }
 
@@ -58,8 +51,8 @@ export class PalaceGuard extends ArmPrimary.Arm {
     this.img = document.getElementById("PalaceGuard_img");
     // Override original data
 
-    this.name = "Palace Guard";
-    this.m_name = "宫廷守卫";
+    this.name = "Empire Guard";
+    this.m_name = "帝国守卫";
     this.type = "infantry";
     this.description = "infantry / resist-charging / anti-large";
     this.m_description = "近战步兵【抵御冲锋，反大型】";
@@ -68,14 +61,10 @@ export class PalaceGuard extends ArmPrimary.Arm {
     this.singleHP = 50;
     this.speed = 2;
 
-    this.meleeArmor = 20;
-    this.missileArmor = 0;
-    this.chargeArmor = 80;
+    this.chargeArmor = 40;
 
     this.meleeAttack = 20;
-    this.meleeAttack_bonus = 24;
-
-    this.antiArmor = 16;
+    this.meleeAttack_bonus = 28;
 
     this.loadRealtimeProps();
   }
@@ -83,20 +72,14 @@ export class PalaceGuard extends ArmPrimary.Arm {
   // =============== Override private methods ===============
 
   _getSingleDamage(damageType, targetArm) {
-    let targetType = targetArm.type;
     ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmType(targetType);
+    ArmPrimary.checkArmClass(targetArm);
 
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
     }
-    if (
-      damageType === "melee" &&
-      (targetType === "cavalry" ||
-        targetType === "monster" ||
-        targetType === "monster-infantry")
-    ) {
+    if (damageType === "melee" && targetArm.isLarge()) {
       singleDamage += this.meleeAttack_bonus;
     }
 
@@ -104,14 +87,6 @@ export class PalaceGuard extends ArmPrimary.Arm {
   }
 
   // =============== Override Public APIs ===============
-
-  getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
-    if (damageType === "melee") return this.antiArmor;
-    return 0;
-  }
 }
 
 export class Musketeer extends ArmPrimary.Arm {
@@ -123,18 +98,18 @@ export class Musketeer extends ArmPrimary.Arm {
     this.name = "Musketeer";
     this.m_name = "火枪手";
     this.type = "archers";
-    this.description = "archers";
-    this.m_description = "远程步兵";
+    this.description = "archers / anti-armor";
+    this.m_description = "远程步兵【高破甲】";
 
     this.scale = 48;
-    this.singleHP = 40;
+    this.singleHP = 50;
     this.speed = 3;
 
     this.meleeAttack = 16;
     this.missileAttack = 48;
     this.missileRange = 6;
 
-    this.antiArmor = 10;
+    this.antiArmor = 20;
 
     this.loadRealtimeProps();
   }
@@ -161,8 +136,8 @@ export class MusketRider extends ArmPrimary.Arm {
     this.name = "Musket Rider";
     this.m_name = "火枪骑兵";
     this.type = "cavalry";
-    this.description = "missile-cavalry";
-    this.m_description = "远程骑兵";
+    this.description = "missile-cavalry / anti-armor";
+    this.m_description = "远程骑兵【高破甲】";
 
     this.scale = 32;
     this.singleHP = 90;
@@ -174,7 +149,7 @@ export class MusketRider extends ArmPrimary.Arm {
     this.missileAttack = 48;
     this.missileRange = 6;
 
-    this.antiArmor = 10;
+    this.antiArmor = 20;
 
     this.loadRealtimeProps();
   }
@@ -209,13 +184,12 @@ export class Vanguard extends ArmPrimary.Arm {
     this.speed = 6;
 
     this.meleeArmor = 30;
-    this.missileArmor = 10;
     this.missileDodge = 40;
 
     this.meleeAttack = 24;
     this.chargeAttack = 76;
 
-    this.antiArmor = 16;
+    this.antiArmor = 20;
 
     this.loadRealtimeProps();
   }
@@ -240,20 +214,20 @@ export class PalaceKnight extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Palace Knight";
-    this.m_name = "禁卫骑士";
+    this.m_name = "大殿骑士";
     this.type = "cavalry";
     this.description = "melee-cavalry / heavy-armor";
     this.m_description = "近战骑兵【重装甲】";
 
     this.scale = 32;
-    this.singleHP = 100;
+    this.singleHP = 90;
     this.speed = 4;
 
-    this.meleeArmor = 70;
-    this.missileArmor = 70;
-    this.chargeArmor = 70;
+    this.meleeArmor = 60;
+    this.missileArmor = 50;
+    this.chargeArmor = 50;
 
-    this.meleeAttack = 48;
+    this.meleeAttack = 60;
 
     this.loadRealtimeProps();
   }
@@ -279,10 +253,10 @@ export class CannonGroup extends ArmPrimary.Arm {
     this.singleHP = 300;
     this.speed = 1;
 
-    this.missileAttack = 150;
+    this.missileAttack = 230;
     this.missileRange = 12;
 
-    this.antiArmor = 80;
+    this.antiArmor = 70;
 
     this.loadRealtimeProps();
   }
@@ -316,7 +290,7 @@ export class EmpireMortar extends ArmPrimary.Arm {
     this.singleHP = 300;
     this.speed = 1;
 
-    this.missileAttack = 190;
+    this.missileAttack = 250;
     this.missileRange = 10;
     this.missileRadius = 2;
     this.isBombing = true;
@@ -345,18 +319,17 @@ export class SteamTank extends ArmPrimary.Arm {
     this.singleHP = 300;
     this.speed = 2;
 
-    this.meleeArmor = 100;
-    this.missileArmor = 50;
-    this.missileDodge = 50;
+    this.meleeArmor = 95;
+    this.missileArmor = 75;
     this.chargeArmor = 75;
 
     this.meleeAttack = 300;
-    this.missileAttack = 500;
+    this.missileAttack = 1000;
     this.missileRange = 7;
 
-    this.antiArmor = 60;
+    this.antiArmor = 70;
 
-    this.ammo = 30;
+    this.ammo = 18;
     this.loadRealtimeProps();
   }
 
