@@ -1,5 +1,5 @@
-import { Canvas, Rect } from "../tools.js";
-import { HpColor, AmmoColor, LeadColor, LevelColor } from "../const.js";
+import { Canvas } from "../tools.js";
+import { calculateCost, calculateLeaderShip } from "./armTools.js";
 
 export const DamageTypes = ["melee", "missile", "charge", "bombing", "magic"];
 export const ArmTypes = [
@@ -30,98 +30,9 @@ export function checkArmClass(targetArm) {
   }
 }
 
-function calculateCost(arm) {
-  checkArmClass(arm);
-
-  // HP score
-  let hpScore = arm.scale * arm.singleHP;
-  if (arm.scale === 1) hpScore *= 8;
-  hpScore /= 100;
-
-  // Moving score
-  let movingScore = arm.speed * 10;
-
-  // Armor and dodge score
-  let meleeArmorScore = arm.meleeArmor + arm.meleeDodge * 1.1;
-  let missileArmorScore = arm.missileArmor + arm.missileDodge * 1.1;
-  let chargeArmorScore = arm.chargeArmor * 1.1 + arm.chargeDodge * 1.2;
-  let defendenceScore =
-    (meleeArmorScore + missileArmorScore + chargeArmorScore) * 0.6;
-
-  // Attack and other combat score
-  let meleeAttack = arm.meleeAttack + arm.meleeAttack_bonus / 2;
-  let missileAttack = arm.missileAttack + arm.missileAttack_bonus / 2;
-  let chargeAttack = arm.chargeAttack + arm.chargeAttack_bonus / 2;
-  let scale = arm._getValidScale();
-  let damageScore =
-    (scale * (meleeAttack + missileAttack * 1.1 + chargeAttack * 1.2)) / 16;
-  let rangeScore = arm.missileRange * (2 + arm.missileRange / 4);
-  let radiusScore = arm.missileRadius * 5;
-  let ammoScore = arm.type === "artillery" ? arm.ammo * 1.5 : arm.ammo / 3;
-  let shockScore = (arm.shock * arm.shock) / 200;
-  let otherCombatScore =
-    (rangeScore + radiusScore + ammoScore + shockScore) / 3;
-  let attackScore = damageScore + otherCombatScore;
-
-  // Anti-armor score
-  let antiArmorScore = arm.antiArmor * 0.6;
-
-  // Type score
-  let artilleryScore = arm.type === "artillery" ? 100 : 0;
-  if (arm.isBombing) artilleryScore += 100;
-  let monsterScore = arm.type === "monster" ? 150 : 0;
-  let monstInfScore = arm.type === "monster-infantry" ? 100 : 0;
-  let typeScore = artilleryScore + monsterScore + monstInfScore;
-
-  // Final cost
-  let cost =
-    Math.floor(
-      (hpScore +
-        movingScore +
-        defendenceScore +
-        attackScore +
-        antiArmorScore +
-        typeScore) /
-        5
-    ) * 5;
-
-  console.log(arm.name);
-  console.log(
-    "\t\t  hpScore",
-    Math.round(hpScore),
-    "movingScore",
-    Math.round(movingScore),
-    "defendenceScore",
-    Math.round(defendenceScore),
-    "attackScore",
-    Math.round(attackScore),
-    "antiArmorScore",
-    Math.round(antiArmorScore),
-    "typeScore",
-    Math.round(typeScore),
-    "COST",
-    cost
-  );
-
-  return [cost, defendenceScore];
-}
-
-function calculateLeaderShip(arm, costResults) {
-  let leadership = arm.cost + costResults[1] * 0.5;
-  if (arm.type === "infantry" || arm.type === "cavalry") {
-    leadership *= 1.25;
-  } else if (arm.type === "archers" || arm.type === "artillery") {
-    leadership *= 0.75;
-  }
-  leadership = Math.round(leadership / 50) * 50;
-
-  return leadership;
-}
-
 export class Arm {
   constructor(positionValue) {
     // Properties for drawing
-
     this.x = 0;
     this.y = 0;
     this.positionX = 0;
@@ -140,8 +51,7 @@ export class Arm {
     }
 
     // Properties of original data
-    // The children classes will modify the following fields
-
+    // The children classes will modify the following fields\
     this.name = "";
     this.m_name = "";
     this.type = "";
@@ -184,7 +94,6 @@ export class Arm {
     this.ammo = -1;
 
     // Load real-time properties for battle
-
     this.loadRealtimeProps = function () {
       this.c_scale = this.scale;
       this.c_singleHP = this.singleHP;
@@ -267,9 +176,6 @@ export class Arm {
       case "missile":
         if (this.c_ammo > 0) {
           singleDamage = this.c_missileAttack;
-          if (this.type === "artillery" && targetArm.isInfn())
-            singleDamage = Math.round(singleDamage / 3);
-
           this.c_ammo--;
         }
         break;
@@ -279,8 +185,6 @@ export class Arm {
           let min = this.c_missileAttack;
           let max = Math.round(min * 1.25);
           singleDamage = Math.floor(Math.random() * (max - min + 1) + min);
-          if (this.type === "artillery" && targetArm.isLarge())
-            singleDamage = Math.round(singleDamage / 3);
         }
         break;
 
@@ -330,30 +234,6 @@ export class Arm {
     if (percentage < 0) percentage = 0;
 
     return percentage;
-  }
-
-  _damageCauseLeadershipDecreasing(realDamage, damageType) {
-    let decrease = 0;
-    if (realDamage >= this.singleHP * 0.8) decrease = 150;
-    else if (realDamage >= this.singleHP * 0.5) decrease = 100;
-    else if (realDamage >= this.singleHP * 0.3) decrease = 30;
-
-    if (damageType === "charge" || damageType === "bombing") decrease += 30;
-
-    this.c_leadership -= decrease;
-    if (this.c_leadership < 0) this.c_leadership = 0;
-  }
-
-  _scaleDecreasingCauseLeadershipDecreasing(totalDecrease, damageType) {
-    let decrease = 0;
-    if (totalDecrease >= this.scale * 0.8) decrease = 150;
-    else if (totalDecrease >= this.scale * 0.5) decrease = 100;
-    else if (totalDecrease >= this.scale * 0.3) decrease = 30;
-
-    if (damageType === "charge" || damageType === "bombing") decrease += 50;
-
-    this.c_leadership -= decrease;
-    if (this.c_leadership < 0) this.c_leadership = 0;
   }
 
   _attackUpdate(factor) {
@@ -443,103 +323,7 @@ export class Arm {
 
   draw(cxt, groupColor) {
     this.set_x_y();
-
-    // Draw arm flag
-    Canvas.drawImg(cxt, this.img, this.x, this.y);
-
-    // Draw stripe color
-    Canvas.drawLine(
-      cxt,
-      this.x + 2,
-      this.y + 8,
-      this.x + 2,
-      this.y + 46,
-      groupColor,
-      5
-    );
-    Canvas.drawLine(
-      cxt,
-      this.x + 48,
-      this.y + 8,
-      this.x + 48,
-      this.y + 46,
-      groupColor,
-      5
-    );
-
-    // Draw level
-    let number = this.level >= 2 ? this.level : 0;
-    for (let i = 0; i < number; i++) {
-      let x1 = this.x,
-        x2 = this.x + 5;
-      let y1 = this.y + 39 - i * 5,
-        y2 = this.y + 39 - i * 5;
-      Canvas.drawLine(cxt, x1, y1, x2, y2, LevelColor, 4);
-    }
-
-    // Draw HP, ammo, and leaddership bars
-    let hpBarLength, ammoBarLength, leadBarLength;
-    if (this.scale === 1) {
-      hpBarLength = (50 * this.c_singleHP) / this.singleHP;
-    } else {
-      hpBarLength = (50 * this.c_scale) / this.scale;
-    }
-    if (this.ammo === -1) {
-      ammoBarLength = 0;
-    } else {
-      ammoBarLength = (50 * this.c_ammo) / this.ammo;
-    }
-    leadBarLength = (50 * this.c_leadership) / this.leadership;
-
-    Canvas.drawLine(
-      cxt,
-      this.x,
-      this.y + 2,
-      this.x + hpBarLength,
-      this.y + 2,
-      HpColor,
-      4
-    );
-    Canvas.drawLine(
-      cxt,
-      this.x,
-      this.y + 6,
-      this.x + leadBarLength,
-      this.y + 6,
-      LeadColor,
-      4
-    );
-    Canvas.drawLine(
-      cxt,
-      this.x,
-      this.y + 48,
-      this.x + ammoBarLength,
-      this.y + 48,
-      AmmoColor,
-      4
-    );
-
-    // Draw operablility mark
-    if (!this.operable) {
-      Canvas.drawLine(
-        cxt,
-        this.x + 33,
-        this.y + 10,
-        this.x + 43,
-        this.y + 20,
-        "red",
-        2
-      );
-      Canvas.drawLine(
-        cxt,
-        this.x + 33,
-        this.y + 20,
-        this.x + 43,
-        this.y + 10,
-        "red",
-        2
-      );
-    }
+    Canvas.drawPiece(cxt, this, groupColor);
   }
 
   // =============== Battle APIs ===============
@@ -600,6 +384,7 @@ export class Arm {
 
   decreaseScale(damageType, antiArmor, rawTotalDamage) {
     checkDamageType(damageType);
+    let results = [0, 0];
 
     let damagePercentage = 1;
     if (damageType !== "bombing" && damageType !== "magic") {
@@ -620,12 +405,8 @@ export class Arm {
       this.c_singleHP -= realDamage;
       decreaseScore = Math.round(realDamage / 3);
 
-      // Too-high damage will decrease the arm's leadership
-      this._damageCauseLeadershipDecreasing(realDamage, damageType);
-
-      if (this.c_singleHP <= 0) {
-        this.isAlive = false;
-      }
+      if (this.c_singleHP <= 0) this.isAlive = false;
+      results = [realDamage, decreaseScore];
     }
 
     // If this arm is a phalanx
@@ -642,15 +423,11 @@ export class Arm {
       this.c_scale -= totalDecrease;
       decreaseScore = Math.round(realDamage / 30);
 
-      // Too-high damage will decrease the arm's leadership
-      this._scaleDecreasingCauseLeadershipDecreasing(totalDecrease, damageType);
-
-      if (this.c_scale <= 0) {
-        this.isAlive = false;
-      }
+      if (this.c_scale <= 0) this.isAlive = false;
+      results = [totalDecrease, decreaseScore];
     }
 
-    return decreaseScore * this.level;
+    return results;
   }
 
   getShockingAbility() {
@@ -686,5 +463,9 @@ export class Arm {
       this.type === "archers" ||
       this.type === "artillery"
     );
+  }
+
+  isMon() {
+    return this.type === "moster" || this.type === "monster-infantry";
   }
 }

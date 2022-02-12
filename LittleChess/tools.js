@@ -1,29 +1,43 @@
-//画布类
+import {
+  HpColor as HC,
+  AmmoColor as AC,
+  LeadColor as DC,
+  LevelColor as LC,
+} from "./const.js";
+
+// ======================================================================
+// ============================ Canvas Class ============================
+// ======================================================================
+
 export const Canvas = {
-  //清除画布
+  // Clear the canvas
   clear: function (cxt, x, y) {
     cxt.clearRect(0, 0, x, y);
   },
   clearRect: function (cxt, x, y, width, height) {
     cxt.clearRect(x, y, width, height);
   },
-  //画图
+
+  // Draw an image
   drawImg: function (cxt, img, x, y, sw, sh, dx, dy, dw, dh) {
     if (!sw) cxt.drawImage(img, x, y);
     else cxt.drawImage(img, x, y, sw, sh, dx, dy, dw, dh);
   },
-  //画文字
+
+  // Draw text
   drawText: function (cxt, string, x, y, color, size) {
     cxt.fillStyle = color;
     cxt.font = `bold ${size}px sans-serif`;
     cxt.fillText(string, x, y);
   },
-  //画填充的方
+
+  // Draw a filled rect
   fillRect: function (cxt, x, y, width, height, color) {
     cxt.fillStyle = color;
     cxt.fillRect(x, y, width, height);
   },
-  //画边框的方
+
+  // Draw the borderline of a rect
   drawRect: function (cxt, x, y, width, height, color, weight) {
     cxt.strokeStyle = color;
     cxt.lineWidth = 1;
@@ -32,7 +46,18 @@ export const Canvas = {
     }
     cxt.strokeRect(x, y, width, height);
   },
-  //画圆的轮廓
+
+  // Draw a filled circle
+  // ctx:context2d, (x, y): center pos
+  fillArc: function (cxt, x, y, radius, color) {
+    cxt.fillStyle = color;
+    cxt.beginPath();
+    cxt.arc(x, y, radius, 0, Math.PI * 2, true);
+    cxt.closePath();
+    cxt.fill();
+  },
+
+  // Draw the borderline of a circle
   drawArc: function (cxt, x, y, radius, color, weight) {
     cxt.beginPath();
     cxt.arc(x, y, radius, 0, Math.PI * 2, true);
@@ -43,16 +68,8 @@ export const Canvas = {
     cxt.strokeStyle = color;
     cxt.stroke();
   },
-  //画填充圆
-  //ctx:context2d对象,x:圆心x坐标,y:圆心y坐标,radius:半径,color:颜色
-  fillArc: function (cxt, x, y, radius, color) {
-    cxt.fillStyle = color;
-    cxt.beginPath();
-    cxt.arc(x, y, radius, 0, Math.PI * 2, true);
-    cxt.closePath();
-    cxt.fill();
-  },
-  //画线
+
+  // Draw a line
   drawLine: function (cxt, x0, y0, x1, y1, color, weight) {
     cxt.beginPath();
     cxt.moveTo(x0, y0);
@@ -64,10 +81,52 @@ export const Canvas = {
     }
     cxt.stroke();
   },
+
+  // Draw a piece
+  drawPiece: function (cxt, arm, gc) {
+    // Draw arm flag
+    this.drawImg(cxt, arm.img, arm.x, arm.y);
+    // Draw stripe color
+    this.drawLine(cxt, arm.x + 2, arm.y + 8, arm.x + 2, arm.y + 46, gc, 5);
+    this.drawLine(cxt, arm.x + 48, arm.y + 8, arm.x + 48, arm.y + 46, gc, 5);
+    // Draw level
+    let number = arm.level >= 2 ? arm.level : 0;
+    for (let i = 0; i < number; i++) {
+      let x1 = arm.x,
+        x2 = arm.x + 5;
+      let y1 = arm.y + 39 - i * 5,
+        y2 = arm.y + 39 - i * 5;
+      this.drawLine(cxt, x1, y1, x2, y2, LC, 4);
+    }
+    // Draw HP, ammo, and leaddership bars
+    let hlen, alen, llen;
+    if (arm.scale === 1) hlen = (50 * arm.c_singleHP) / arm.singleHP;
+    else hlen = (50 * arm.c_scale) / arm.scale;
+    if (arm.ammo === -1) alen = 0;
+    else alen = (50 * arm.c_ammo) / arm.ammo;
+    llen = (50 * arm.c_leadership) / arm.leadership;
+    this.drawLine(cxt, arm.x, arm.y + 2, arm.x + hlen, arm.y + 2, HC, 4);
+    this.drawLine(cxt, arm.x, arm.y + 6, arm.x + llen, arm.y + 6, DC, 4);
+    this.drawLine(cxt, arm.x, arm.y + 48, arm.x + alen, arm.y + 48, AC, 4);
+    // Draw operablility mark
+    let x_s = arm.x + 33;
+    let x_e = arm.x + 43;
+    let y_1 = arm.y + 10;
+    let y_2 = arm.y + 20;
+    let thick = 4;
+    if (!arm.operable) {
+      this.drawLine(cxt, x_s, y_1, x_e, y_2, "red", thick);
+      this.drawLine(cxt, x_s, y_2, x_e, y_1, "red", thick);
+    }
+  },
 };
 
+// ======================================================================
+// ============================ Rect Class ============================
+// ======================================================================
+
 export const Rect = {
-  //判断一个点是否在一个矩形中
+  // Whether a point is located inside a rect
   pointInRect: function (point, rect) {
     if (
       point.x >= rect.x &&
@@ -79,7 +138,7 @@ export const Rect = {
 
     return false;
   },
-  //判断两个圆是否相交
+  // Whether two circles intersect
   circleInCircle: function (cir1, cir2) {
     if (
       Math.sqrt(Math.pow(cir1.x - cir2.x, 2) + Math.pow(cir1.y - cir2.y, 2)) <
@@ -89,7 +148,7 @@ export const Rect = {
 
     return false;
   },
-  //判断矩形与圆相交
+  // Whether a rect and a circle intersect
   rectInCircle: function (rect, cir) {
     var x1 = rect.x,
       y1 = rect.y,
@@ -109,24 +168,6 @@ export const Rect = {
 
     return false;
   },
-};
-//扩展查询方法
-Array.prototype.index = function (obj) {
-  for (var i = 0, l = this.length; i < l; i++) {
-    if (obj == this[i]) {
-      return i;
-    }
-  }
-  return -1;
-};
-//扩展删除
-Array.prototype.remove = function (obj) {
-  for (var i = 0, l = this.length; i < l; i++) {
-    if (obj == this[i]) {
-      this.splice(i, 1);
-      break;
-    }
-  }
 };
 
 export function CreateRect(_x, _y, _width, _height) {
