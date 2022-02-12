@@ -163,8 +163,8 @@ export class MurlocWarrior extends ArmPrimary.Arm {
     this.description = "infantry / anti-armor";
     this.m_description = "近战步兵【高破甲】";
 
-    this.scale = 48;
-    this.singleHP = 120;
+    this.scale = 40;
+    this.singleHP = 150;
     this.speed = 2;
 
     this.meleeArmor = 60;
@@ -199,12 +199,12 @@ export class MurlocWarriorHurling extends ArmPrimary.Arm {
 
     this.name = "Murloc Warrior (Hurling)";
     this.m_name = "鱼人战士-投戟";
-    this.type = "archers";
+    this.type = "infantry";
     this.description = "hurling-infantry / anti-armor";
     this.m_description = "投掷-近战步兵【高破甲】";
 
-    this.scale = 48;
-    this.singleHP = 120;
+    this.scale = 40;
+    this.singleHP = 150;
     this.speed = 2;
 
     this.meleeArmor = 60;
@@ -244,7 +244,7 @@ export class Cancrimag extends ArmPrimary.Arm {
     this.img = document.getElementById("Cancrimag_img");
     // Override original data
 
-    this.name = "Cancrimag";
+    this.name = "Cancrimagnus";
     this.m_name = "巨蟹";
     this.type = "monster";
     this.description = "giant / heavy-armor / missile-attack / shocking";
@@ -299,10 +299,10 @@ export class DeckGun extends ArmPrimary.Arm {
     this.singleHP = 300;
     this.speed = 1;
 
-    this.missileAttack = 150;
+    this.missileAttack = 230;
     this.missileRange = 12;
 
-    this.antiArmor = 50;
+    this.antiArmor = 70;
 
     this.loadRealtimeProps();
   }
