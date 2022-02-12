@@ -353,7 +353,7 @@ export class GiantTreeman extends ArmPrimary.Arm {
     this.missileArmor = 95;
     this.chargeArmor = 60;
 
-    this.meleeAttack = 600;
+    this.meleeAttack = 800;
 
     this.loadRealtimeProps();
   }

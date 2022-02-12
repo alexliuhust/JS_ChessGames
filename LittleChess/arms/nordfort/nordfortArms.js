@@ -334,8 +334,8 @@ export class StoneGiant extends ArmPrimary.Arm {
     this.missileArmor = 50;
     this.chargeArmor = 50;
 
-    this.meleeAttack = 550;
-    this.meleeAttack_bonus = 150;
+    this.meleeAttack = 800;
+    this.meleeAttack_bonus = 200;
 
     this.loadRealtimeProps();
   }

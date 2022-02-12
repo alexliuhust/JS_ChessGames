@@ -36,6 +36,8 @@ export function armBombArea(attacker, centerPosition, defenders) {
         att_totalRowDamage = Math.ceil(att_totalRowDamage * 0.25);
       }
 
+      console.log(att_totalRowDamage);
+
       if (defender.scale === 1) {
         att_totalRowDamage = Math.ceil(att_totalRowDamage * 0.5);
       }
@@ -145,6 +147,8 @@ function decreaseScalesForArms(attacker, damageType, defender) {
     att_totalRowDamage = Math.round(att_totalRowDamage / 2);
     dfd_counterAttack = Math.round(dfd_counterAttack / 2);
   }
+
+  console.log(att_totalRowDamage);
 
   // ============== Defender counter attacks ==============
   defender.exp += attacker.decreaseScale("melee", 0, dfd_counterAttack);

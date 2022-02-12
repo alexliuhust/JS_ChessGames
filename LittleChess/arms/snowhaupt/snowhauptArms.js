@@ -60,21 +60,14 @@ export class BoneBreaker extends ArmPrimary.Arm {
   // =============== Override private methods ===============
 
   _getSingleDamage(damageType, targetArm) {
-    let targetType = targetArm.type;
     ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmType(targetType);
-
+    ArmPrimary.checkArmClass(targetArm);
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
     }
 
-    if (
-      damageType === "melee" &&
-      (targetType === "cavalry" ||
-        targetType === "moster" ||
-        targetType === "monster-infantry")
-    ) {
+    if (damageType === "melee" && targetArm.isLarge()) {
       singleDamage += this.meleeAttack_bonus;
     }
 
@@ -94,7 +87,7 @@ export class Berserker extends ArmPrimary.Arm {
     this.m_name = "狂战士";
     this.type = "infantry";
     this.description = "infantry / high-damage";
-    this.m_description = "近战步兵【反步兵】";
+    this.m_description = "近战步兵【高伤害】";
 
     this.scale = 64;
     this.singleHP = 70;
@@ -104,7 +97,7 @@ export class Berserker extends ArmPrimary.Arm {
     this.missileArmor = 20;
     this.chargeArmor = 20;
 
-    this.meleeAttack = 66;
+    this.meleeAttack = 72;
 
     this.loadRealtimeProps();
   }
@@ -122,20 +115,20 @@ export class MountainShocker extends ArmPrimary.Arm {
 
     this.name = "Mountain Shocker";
     this.m_name = "震山矿工";
-    this.type = "archers";
+    this.type = "infantry";
     this.description = "giant-shield-infantry / high-missile-damage";
     this.m_description = "巨盾步兵【高远程伤害】";
 
-    this.scale = 48;
+    this.scale = 64;
     this.singleHP = 70;
     this.speed = 2;
 
-    this.meleeArmor = 0;
-    this.missileArmor = 80;
-    this.chargeArmor = 50;
+    this.meleeArmor = 10;
+    this.missileArmor = 70;
+    this.chargeArmor = 30;
 
-    this.meleeAttack = 20;
-    this.missileAttack = 80;
+    this.meleeAttack = 24;
+    this.missileAttack = 100;
     this.missileRange = 3;
 
     this.ammo = 3;
@@ -172,7 +165,7 @@ export class DwarfMusketeer extends ArmPrimary.Arm {
     this.missileAttack = 40;
     this.missileRange = 6;
 
-    this.antiArmor = 40;
+    this.antiArmor = 25;
 
     this.loadRealtimeProps();
   }
@@ -211,7 +204,7 @@ export class MortarSquad extends ArmPrimary.Arm {
     this.chargeArmor = 20;
 
     this.meleeAttack = 24;
-    this.missileAttack = 80;
+    this.missileAttack = 56;
     this.missileRange = 6;
 
     this.loadRealtimeProps();
@@ -243,7 +236,7 @@ export class GoatCavalry extends ArmPrimary.Arm {
     this.chargeArmor = 20;
 
     this.meleeAttack = 24;
-    this.chargeAttack = 78;
+    this.chargeAttack = 64;
 
     this.loadRealtimeProps();
   }
@@ -265,15 +258,15 @@ export class RevolvingCannon extends ArmPrimary.Arm {
     this.description = "artillery / anti-large / anti-armor";
     this.m_description = "炮兵【反大型，高破甲】";
 
-    this.scale = 2;
-    this.singleHP = 1200;
+    this.scale = 10;
+    this.singleHP = 300;
     this.speed = 1;
 
-    this.missileAttack = 440;
-    this.missileAttack_bonus = 220;
+    this.missileAttack = 120;
+    this.missileAttack_bonus = 100;
     this.missileRange = 10;
 
-    this.antiArmor = 50;
+    this.antiArmor = 70;
 
     this.ammo = 15;
     this.loadRealtimeProps();
@@ -285,22 +278,14 @@ export class RevolvingCannon extends ArmPrimary.Arm {
   // =============== Override private methods ===============
 
   _getSingleDamage(damageType, targetArm) {
-    let targetType = targetArm.type;
     ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmType(targetType);
+    ArmPrimary.checkArmClass(targetArm);
 
     let singleDamage = 0;
     if (damageType === "missile") {
       singleDamage = this.c_missileAttack;
-    }
-
-    if (
-      damageType === "missile" &&
-      (targetType === "cavalry" ||
-        targetType === "moster" ||
-        targetType === "monster-infantry")
-    ) {
-      singleDamage += this.missileAttack_bonus;
+      if (targetArm.isLarge()) singleDamage += this.missileAttack_bonus;
+      else singleDamage = Math.round(singleDamage / 3);
     }
     this.c_ammo -= 8;
 
@@ -334,7 +319,7 @@ export class GiantCannon extends ArmPrimary.Arm {
     this.singleHP = 1200;
     this.speed = 1;
 
-    this.missileAttack = 530;
+    this.missileAttack = 600;
     this.missileRange = 13;
     this.missileRadius = 2;
     this.isBombing = true;

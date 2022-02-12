@@ -258,9 +258,9 @@ export class Cancrimag extends ArmPrimary.Arm {
     this.missileArmor = 115;
     this.chargeArmor = 50;
 
-    this.meleeAttack = 200;
+    this.meleeAttack = 600;
 
-    this.missileAttack = 520;
+    this.missileAttack = 720;
     this.missileRange = 6;
 
     this.antiArmor = 10;
