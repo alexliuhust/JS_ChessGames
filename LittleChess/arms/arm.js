@@ -295,6 +295,11 @@ export class Arm {
     this.missileAttack = Math.round(this.missileAttack * factor);
     this.chargeAttack = Math.round(this.chargeAttack * factor);
 
+    if (this.ammo !== -1) {
+      this.c_ammo += Math.floor(this.ammo / 3);
+      this.c_ammo = Math.min(this.c_ammo, this.ammo);
+    }
+
     this.cost = calculateCost(this)[0];
   }
 
