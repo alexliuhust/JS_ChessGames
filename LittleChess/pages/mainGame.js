@@ -76,7 +76,8 @@ endRoundForRed.onclick = (e) => {
   endRed();
 };
 document.addEventListener("keydown", (e) => {
-  if (e.code == "KeyS") {
+  if (e.code == "Enter" || e.code == "Space") {
+    e.preventDefault();
     if (player1.isMyRound) endBlue();
     else endRed();
   } else if (e.code == "KeyQ") {

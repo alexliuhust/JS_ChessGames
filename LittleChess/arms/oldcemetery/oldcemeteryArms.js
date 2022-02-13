@@ -140,7 +140,7 @@ export class ScreamingBanshee extends ArmPrimary.Arm {
     this.missileRange = 6;
 
     this.shock = 50;
-
+    this.ammo = 18;
     this.loadRealtimeProps();
   }
 
@@ -174,7 +174,7 @@ export class ScreamingBansheeGF extends ArmPrimary.Arm {
     this.missileRange = 6;
 
     this.shock = 50;
-
+    this.ammo = 18;
     this.loadRealtimeProps();
   }
 

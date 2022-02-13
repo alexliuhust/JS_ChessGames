@@ -10,8 +10,10 @@ export function drawBannerInfo(cxt, player1, player2, useMandarin) {
 function drawText(cxt, player1, player2, useMandarin) {
   Canvas.drawText(cxt, "Round", 5, 25, "white", 20);
   Canvas.drawText(cxt, "Round", BW - 70, 25, "white", 20);
-  Canvas.drawText(cxt, player1.currentRound - 1, 30, 55, "white", 30);
-  Canvas.drawText(cxt, player2.currentRound - 1, BW - 45, 55, "white", 30);
+  let roundAndOp1 = `${player1.currentRound - 1}[${player1.operableNum}]`;
+  let roundAndOp2 = `${player2.currentRound - 1}[${player2.operableNum}]`;
+  Canvas.drawText(cxt, roundAndOp1, 10, 55, "white", 30);
+  Canvas.drawText(cxt, roundAndOp2, BW - 65, 55, "white", 30);
 
   let scaleTitle = useMandarin ? "总规模" : "Total Scale";
   let powerTitle = useMandarin ? "战斗力" : "Combat Power";

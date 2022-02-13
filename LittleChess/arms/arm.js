@@ -35,8 +35,8 @@ export class Arm {
     // Properties for drawing
     this.x = 0;
     this.y = 0;
-    this.positionX = 0;
-    this.positionY = 0;
+    this.positionX = positionValue !== null ? positionValue[0] : 0;
+    this.positionY = positionValue !== null ? positionValue[1] : 0;
     this.width = 50;
     this.height = 50;
     this.img = null;
@@ -45,13 +45,7 @@ export class Arm {
     this.hasAttacked = false;
     this.operable = true;
 
-    if (positionValue !== null) {
-      this.positionX = positionValue[0];
-      this.positionY = positionValue[1];
-    }
-
-    // Properties of original data
-    // The children classes will modify the following fields\
+    // Static properties
     this.name = "";
     this.m_name = "";
     this.type = "";
@@ -90,7 +84,6 @@ export class Arm {
 
     this.antiArmor = 0;
     this.shock = 0;
-
     this.ammo = -1;
 
     // Load real-time properties for battle
@@ -236,13 +229,13 @@ export class Arm {
     return percentage;
   }
 
-  _attackUpdate(factor) {
+  _realTimeAttackUpdate(factor) {
     this.c_meleeAttack = Math.round(this.meleeAttack * factor);
     this.c_missileAttack = Math.round(this.missileAttack * factor);
     this.c_chargeAttack = Math.round(this.chargeAttack * factor);
   }
 
-  _armorUpdate(factor) {
+  _realTimeArmorUpdate(factor) {
     this.c_meleeArmor = Math.round(this.meleeArmor * factor);
     this.c_missileArmor = Math.round(this.missileArmor * factor);
     this.c_chargeArmor = Math.round(this.chargeArmor * factor);
@@ -252,20 +245,18 @@ export class Arm {
     this.c_chargeDodge = Math.round(this.chargeDodge * factor);
   }
 
-  _updatePropertiesAccordingToLeadership() {
+  _updateRealTimeProperties() {
     let factor = 1;
 
     let oneThird = Math.floor(this.leadership / 3);
     let twoThirds = oneThird * 2;
 
-    if (oneThird < this.c_leadership && this.c_leadership < twoThirds) {
+    if (oneThird < this.c_leadership && this.c_leadership < twoThirds)
       factor = 0.8;
-    } else if (this.c_leadership <= oneThird) {
-      factor = 0.6;
-    }
+    else if (this.c_leadership <= oneThird) factor = 0.6;
 
-    this._attackUpdate(factor);
-    this._armorUpdate(factor);
+    this._realTimeAttackUpdate(factor);
+    this._realTimeArmorUpdate(factor);
   }
 
   _upgradeLevel() {
@@ -275,7 +266,7 @@ export class Arm {
     this.level++;
   }
 
-  _updatePropertiesAccordingToLevel() {
+  _updateStaticProperties() {
     if (this.pre_level === this.level) return;
 
     this.pre_level = this.level;
@@ -339,28 +330,17 @@ export class Arm {
     this.c_speed = this.speed;
     this.hasAttacked = false;
 
-    if (currentRound % 7 === 0) {
-      this.c_leadership -= 5;
-    }
-    if (this.c_leadership < 0) {
-      this.c_leadership = 0;
-    }
+    if (currentRound % 7 === 0) this.c_leadership -= 5;
+    if (this.c_leadership < 0) this.c_leadership = 0;
 
     // Update static battle properties
     this._upgradeLevel();
-    this._updatePropertiesAccordingToLevel();
+    this._updateStaticProperties();
     // Update real-time battle properties
-    this._updatePropertiesAccordingToLeadership();
+    this._updateRealTimeProperties();
   }
 
   getAntiArmor(damageType, targetArm) {
-    checkDamageType(damageType);
-    checkArmClass(targetArm);
-
-    if (!this.isAlive) {
-      return 0;
-    }
-
     return 0;
   }
 
@@ -396,12 +376,11 @@ export class Arm {
 
     // If this arm is a single-unit
     if (this.scale === 1) {
-      if (damageType === "melee" || damageType === "charge") {
+      if (damageType === "melee" || damageType === "charge")
         realDamage = Math.round(realDamage * 0.125);
-      } else {
-        realDamage = Math.round(realDamage * 0.25);
-      }
+      else realDamage = Math.round(realDamage * 0.25);
       if (realDamage > 0) realDamage = Math.max(realDamage, 1);
+
       this.c_singleHP -= realDamage;
       decreaseScore = Math.round(realDamage / 3);
 
@@ -414,8 +393,8 @@ export class Arm {
       let factor = 1;
       if (this.type === "monster-infantry") factor = 0.5;
       else if (this.type === "artillery") factor = 0.3;
-
       realDamage = Math.round(realDamage * factor);
+
       let totalDecrease =
         realDamage === 0
           ? 0

@@ -16,7 +16,8 @@ export class Player {
     this.useMandarin = _useMandarin;
     this.timer = 0;
     this.currentRound = 1;
-    this.isMyRound = color === "red";
+    this.isMyRound = false;
+    this.playerNumber = color === "red" ? 2 : 1;
     this.canvasList = _canvaslist;
 
     this.playerColor = color;
@@ -30,6 +31,7 @@ export class Player {
     this.currentStatus = "no selection";
 
     this.operatedPieces = new Set();
+    this.operableNum = 0;
 
     // =================================================================================
     // =============================== Helper Functions ================================
@@ -77,6 +79,7 @@ export class Player {
       let max = Math.floor(
         Math.sqrt(this.pieceList.length + this.enemyList.length)
       );
+      this.operableNum = max - this.operatedPieces.size;
       if (this.operatedPieces.size >= max) {
         for (let i = 0; i < this.pieceList.length; i++) {
           if (!this.operatedPieces.has(this.pieceList[i]))

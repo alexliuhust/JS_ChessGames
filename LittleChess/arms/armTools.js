@@ -52,35 +52,33 @@ export function calculateCost(arm) {
         5
     ) * 5;
 
-  console.log(arm.name);
-  console.log(
-    "\t\t  hpScore",
-    Math.round(hpScore),
-    "movingScore",
-    Math.round(movingScore),
-    "defendenceScore",
-    Math.round(defendenceScore),
-    "attackScore",
-    Math.round(attackScore),
-    "antiArmorScore",
-    Math.round(antiArmorScore),
-    "typeScore",
-    Math.round(typeScore),
-    "COST",
-    cost
-  );
+  // console.log(arm.name);
+  // console.log(
+  //   "\t\t  hpScore",
+  //   Math.round(hpScore),
+  //   "movingScore",
+  //   Math.round(movingScore),
+  //   "defendenceScore",
+  //   Math.round(defendenceScore),
+  //   "attackScore",
+  //   Math.round(attackScore),
+  //   "antiArmorScore",
+  //   Math.round(antiArmorScore),
+  //   "typeScore",
+  //   Math.round(typeScore),
+  //   "COST",
+  //   cost
+  // );
 
   return [cost, defendenceScore];
 }
 
 export function calculateLeaderShip(arm, costResults) {
   let leadership = arm.cost + costResults[1] * 0.5;
-  if (arm.type === "infantry" || arm.type === "cavalry") {
-    leadership *= 1.25;
-  } else if (arm.type === "archers" || arm.type === "artillery") {
+  if (arm.type === "infantry" || arm.type === "cavalry") leadership *= 1.25;
+  else if (arm.type === "archers" || arm.type === "artillery")
     leadership *= 0.75;
-  }
-  leadership = Math.round(leadership / 50) * 50;
 
+  leadership = Math.round(leadership / 50) * 50;
   return leadership;
 }
