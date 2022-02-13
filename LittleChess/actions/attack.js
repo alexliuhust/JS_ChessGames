@@ -45,7 +45,7 @@ export function armBombArea(attacker, centerPosition, defenders) {
 
       // This defender decrease scale
       let results = defender.decreaseScale(damageType, 0, att_totalRowDamage);
-      decreaseScore = results[1];
+      decreaseScore += results[1];
 
       // Defender decrease leadership
       defender.c_leadership -= leadershipDrop(defender, results[0]);

@@ -292,7 +292,7 @@ export class EmpireMortar extends ArmPrimary.Arm {
 
     this.missileAttack = 250;
     this.missileRange = 10;
-    this.missileRadius = 2;
+    this.missileRadius = 1;
     this.isBombing = true;
 
     this.loadRealtimeProps();

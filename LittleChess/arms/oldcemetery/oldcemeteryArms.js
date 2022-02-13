@@ -17,13 +17,13 @@ export class DarkSoldier extends ArmPrimary.Arm {
     this.singleHP = 40;
     this.speed = 3;
 
-    this.meleeArmor = 50;
+    this.meleeArmor = 40;
     this.missileArmor = 0;
-    this.chargeArmor = 50;
+    this.chargeArmor = 60;
 
     this.meleeAttack = 20;
 
-    this.antiArmor = 10;
+    this.antiArmor = 5;
 
     this.loadRealtimeProps();
   }
@@ -57,11 +57,11 @@ export class DarkSoldierScythe extends ArmPrimary.Arm {
     this.singleHP = 40;
     this.speed = 3;
 
-    this.meleeArmor = 50;
+    this.meleeArmor = 40;
     this.missileArmor = 0;
     this.chargeArmor = 30;
 
-    this.meleeAttack = 28;
+    this.meleeAttack = 33;
     this.meleeAttack_bonus = 36;
 
     this.loadRealtimeProps();
@@ -75,17 +75,9 @@ export class DarkSoldierScythe extends ArmPrimary.Arm {
     ArmPrimary.checkArmType(targetType);
 
     let singleDamage = 0;
-    if (damageType === "melee") {
-      singleDamage = this.c_meleeAttack;
-    }
-    if (
-      damageType === "melee" &&
-      (targetType === "cavalry" ||
-        targetType === "monster" ||
-        targetType === "monster-infantry")
-    ) {
+    if (damageType === "melee") singleDamage = this.c_meleeAttack;
+    if (damageType === "melee" && targetArm.isLarge())
       singleDamage += this.meleeAttack_bonus;
-    }
 
     return singleDamage;
   }
@@ -107,10 +99,10 @@ export class Banshee extends ArmPrimary.Arm {
 
     this.scale = 32;
     this.singleHP = 40;
-    this.speed = 5;
+    this.speed = 6;
 
-    this.meleeDodge = 75;
-    this.missileDodge = 95;
+    this.meleeDodge = 40;
+    this.missileDodge = 90;
 
     this.meleeAttack = 24;
 
@@ -132,19 +124,19 @@ export class ScreamingBanshee extends ArmPrimary.Arm {
 
     this.name = "Screaming Banshee";
     this.m_name = "尖啸女妖";
-    this.type = "archers";
+    this.type = "infantry";
     this.description = "melee-archers / high-dodge / shocking";
     this.m_description = "近战-远程步兵【高闪避，惊骇敌军】";
 
     this.scale = 32;
     this.singleHP = 40;
-    this.speed = 5;
+    this.speed = 6;
 
-    this.meleeDodge = 75;
-    this.missileDodge = 95;
+    this.meleeDodge = 40;
+    this.missileDodge = 90;
 
     this.meleeAttack = 24;
-    this.missileAttack = 30;
+    this.missileAttack = 24;
     this.missileRange = 6;
 
     this.shock = 50;
@@ -165,16 +157,16 @@ export class ScreamingBansheeGF extends ArmPrimary.Arm {
 
     this.name = "Screaming Banshee (Ghost Fire)";
     this.m_name = "尖啸女妖-鬼火";
-    this.type = "archers";
+    this.type = "infantry";
     this.description = "melee-archers / high-dodge / anti-infantry / shocking";
     this.m_description = "近战-远程步兵【高闪避，反步兵，惊骇敌军】";
 
     this.scale = 32;
     this.singleHP = 40;
-    this.speed = 5;
+    this.speed = 6;
 
-    this.meleeDodge = 75;
-    this.missileDodge = 95;
+    this.meleeDodge = 40;
+    this.missileDodge = 90;
 
     this.meleeAttack = 24;
     this.missileAttack = 30;
@@ -230,9 +222,9 @@ export class DeathKnight extends ArmPrimary.Arm {
     this.singleHP = 120;
     this.speed = 3;
 
-    this.meleeArmor = 75;
-    this.missileArmor = 75;
-    this.chargeArmor = 75;
+    this.meleeArmor = 90;
+    this.missileArmor = 90;
+    this.chargeArmor = 30;
 
     this.meleeAttack = 35;
 
@@ -260,9 +252,9 @@ export class DeathKnightDS extends ArmPrimary.Arm {
     this.singleHP = 120;
     this.speed = 3;
 
-    this.meleeArmor = 75;
-    this.missileArmor = 75;
-    this.chargeArmor = 75;
+    this.meleeArmor = 90;
+    this.missileArmor = 90;
+    this.chargeArmor = 30;
 
     this.meleeAttack = 65;
 
@@ -294,10 +286,10 @@ export class SpiritCoffinGF extends ArmPrimary.Arm {
     this.missileArmor = 30;
     this.chargeArmor = 30;
 
-    this.missileAttack = 700;
+    this.missileAttack = 1200;
     this.missileRange = 9;
     this.isBombing = true;
-    this.missileRadius = 2;
+    this.missileRadius = 1;
 
     this.ammo = 25;
     this.loadRealtimeProps();
@@ -328,10 +320,10 @@ export class SpiritCoffinBB extends ArmPrimary.Arm {
     this.missileArmor = 30;
     this.chargeArmor = 30;
 
-    this.missileAttack = 700;
+    this.missileAttack = 1200;
     this.missileRange = 9;
     this.isBombing = true;
-    this.missileRadius = 3;
+    this.missileRadius = 2;
 
     this.ammo = 25;
     this.loadRealtimeProps();

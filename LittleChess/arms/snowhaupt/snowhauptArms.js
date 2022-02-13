@@ -285,7 +285,6 @@ export class RevolvingCannon extends ArmPrimary.Arm {
     if (damageType === "missile") {
       singleDamage = this.c_missileAttack;
       if (targetArm.isLarge()) singleDamage += this.missileAttack_bonus;
-      else singleDamage = Math.round(singleDamage / 3);
     }
     this.c_ammo -= 8;
 
@@ -321,7 +320,7 @@ export class GiantCannon extends ArmPrimary.Arm {
 
     this.missileAttack = 600;
     this.missileRange = 13;
-    this.missileRadius = 2;
+    this.missileRadius = 1;
     this.isBombing = true;
 
     this.loadRealtimeProps();
