@@ -12,7 +12,12 @@ function selectClear() {
   for (let i = len2; i >= 0; i--) powersForPlayer2.remove(i);
 }
 
-function updatePowerName(selectElement) {
+function updateLanguage(selectElement) {
+  if (window.localStorage.getItem("useMandarin") != null)
+    selectElement.value = window.localStorage.getItem("useMandarin");
+}
+
+function updatePowerName(selectElement, player) {
   let useMandarin = language.value === "true";
   for (let i = 0; i < PowerList.length; i++) {
     let option = document.createElement("option");
@@ -24,10 +29,18 @@ function updatePowerName(selectElement) {
     selectElement.add(option);
     selectElement.add(option);
   }
+
+  let powerNum = `power${player}`;
+  if (window.localStorage.getItem(powerNum) != null)
+    selectElement.value = window.localStorage.getItem(powerNum);
 }
 
-function updateInfo() {
-  window.localStorage.clear();
+function updateMaxCost(selectElement) {
+  if (window.localStorage.getItem("maxCost") != null)
+    selectElement.value = window.localStorage.getItem("maxCost");
+}
+
+function updateLocalStorage() {
   let power1 = powersForPlayer1.value;
   let power2 = powersForPlayer2.value;
   let cost = parseInt(maxCost.value);
@@ -39,26 +52,28 @@ function updateInfo() {
 }
 
 window.addEventListener("load", (e) => {
-  updatePowerName(powersForPlayer1);
-  updatePowerName(powersForPlayer2);
-  updateInfo();
+  updateLanguage(language);
+  updatePowerName(powersForPlayer1, 1);
+  updatePowerName(powersForPlayer2, 2);
+  updateMaxCost(maxCost);
+  updateLocalStorage();
 });
 
 powersForPlayer1.addEventListener("input", (e) => {
-  updateInfo();
+  updateLocalStorage();
 });
 
 powersForPlayer2.addEventListener("input", (e) => {
-  updateInfo();
+  updateLocalStorage();
 });
 
 maxCost.addEventListener("input", (e) => {
-  updateInfo();
+  updateLocalStorage();
 });
 
 language.addEventListener("input", (e) => {
   selectClear();
-  updatePowerName(powersForPlayer1);
-  updatePowerName(powersForPlayer2);
-  updateInfo();
+  updatePowerName(powersForPlayer1, 1);
+  updatePowerName(powersForPlayer2, 2);
+  updateLocalStorage();
 });
