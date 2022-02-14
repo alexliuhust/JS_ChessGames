@@ -317,7 +317,7 @@ export class GreatDemon extends ArmPrimary.Arm {
     this.m_description = "巨兽【高破甲，惊骇敌军】";
 
     this.scale = 1;
-    this.singleHP = 1600;
+    this.singleHP = 2000;
     this.speed = 4;
 
     this.meleeArmor = 0;
