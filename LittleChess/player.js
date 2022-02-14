@@ -260,9 +260,11 @@ export class Player {
     // ================================ Key Down Events ================================
     // =================================================================================
     this.keyDownEvents = function (e) {
-      // Press 'A' or 'L' to switch between 'attack mode' and 'move mode'
       if (
-        (e.code == "KeyA" || e.code == "KeyL") &&
+        (e.code == "KeyA" ||
+          e.code == "KeyL" ||
+          e.code == "ShiftRight" ||
+          e.code == "ShiftLeft") &&
         this.nowSelectPiece != null &&
         !this.nowSelectPiece.hasAttacked
       ) {

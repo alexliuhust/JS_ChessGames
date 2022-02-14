@@ -140,7 +140,7 @@ export function drawAvailableTargets(cxt, self, others) {
     for (let i = 0; i < availableBombingCenters.length; i++) {
       let x = availableBombingCenters[i][0] * 50 + 10;
       let y = availableBombingCenters[i][1] * 50 + 10;
-      Canvas.fillRect(cxt, x, y, 30, 30, ReadyToAttackColor);
+      hightlightBombCenter(cxt, x, y, ReadyToAttackColor);
     }
 
     return availableBombingCenters;
@@ -173,6 +173,10 @@ function hightlightMissleTarget(cxt, posX, posY, color) {
   Canvas.drawArc(cxt, x, y, radius - 7, color);
   Canvas.drawLine(cxt, x + radius, y, x - radius, y, color, 3);
   Canvas.drawLine(cxt, x, y + radius, x, y - radius, color, 3);
+}
+
+function hightlightBombCenter(cxt, posX, posY, color) {
+  Canvas.fillRect(cxt, posX, posY, 30, 30, color);
 }
 
 function checkAvailablePosition(nx, ny, seenothers) {
