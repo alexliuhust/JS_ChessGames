@@ -386,6 +386,7 @@ export class Arm {
         realDamage = Math.round(realDamage * 0.125);
       else realDamage = Math.round(realDamage * 0.25);
       if (realDamage > 0) realDamage = Math.max(realDamage, 1);
+      console.log("realDamage", realDamage);
 
       this.c_singleHP -= realDamage;
       decreaseScore = Math.round(realDamage / 3);
@@ -400,6 +401,7 @@ export class Arm {
       if (this.type === "monster-infantry") factor = 0.5;
       else if (this.type === "artillery") factor = 0.3;
       realDamage = Math.round(realDamage * factor);
+      console.log("realDamage", realDamage);
 
       let totalDecrease =
         realDamage === 0

@@ -17,15 +17,15 @@ function drawText(cxt, player1, player2, useMandarin) {
 
   let scaleTitle = useMandarin ? "总规模" : "Total Scale";
   let powerTitle = useMandarin ? "战斗力" : "Combat Power";
-  let leadTitle = useMandarin ? "总士气" : "Leadership";
+  let leadTitle = useMandarin ? "总士气" : "Morale";
 
   if (!useMandarin) {
     Canvas.drawText(cxt, scaleTitle, 127, 20, "white", 18);
     Canvas.drawText(cxt, powerTitle, 110, 42, "white", 18);
-    Canvas.drawText(cxt, leadTitle, 127, 64, "white", 18);
+    Canvas.drawText(cxt, leadTitle, 145, 64, "white", 18);
     Canvas.drawText(cxt, scaleTitle, 727, 20, "white", 18);
     Canvas.drawText(cxt, powerTitle, 710, 42, "white", 18);
-    Canvas.drawText(cxt, leadTitle, 727, 64, "white", 18);
+    Canvas.drawText(cxt, leadTitle, 745, 64, "white", 18);
   } else {
     Canvas.drawText(cxt, scaleTitle, 180, 20, "white", 18);
     Canvas.drawText(cxt, powerTitle, 180, 42, "white", 18);

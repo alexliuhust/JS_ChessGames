@@ -327,7 +327,7 @@ export class StoneGiant extends ArmPrimary.Arm {
     this.m_description = "巨兽【反步兵】";
 
     this.scale = 1;
-    this.singleHP = 400;
+    this.singleHP = 900;
     this.speed = 3;
 
     this.meleeArmor = 50;

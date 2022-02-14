@@ -346,7 +346,7 @@ export class GiantTreeman extends ArmPrimary.Arm {
     this.m_description = "巨兽【重装甲】";
 
     this.scale = 1;
-    this.singleHP = 600;
+    this.singleHP = 1000;
     this.speed = 1;
 
     this.meleeArmor = 60;

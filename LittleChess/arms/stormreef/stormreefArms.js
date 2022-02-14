@@ -251,7 +251,7 @@ export class Cancrimag extends ArmPrimary.Arm {
     this.m_description = "巨兽【重装甲，远程攻击，惊骇敌军】";
 
     this.scale = 1;
-    this.singleHP = 300;
+    this.singleHP = 900;
     this.speed = 1;
 
     this.meleeArmor = 60;

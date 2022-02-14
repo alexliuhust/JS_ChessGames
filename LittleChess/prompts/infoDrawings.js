@@ -78,7 +78,7 @@ function drawHPAndAmmoBars(cxt, piece, useMandarin) {
   let scaleOrHp = piece.scale === 1 ? "Total HP: " : "Total Scale: ";
   if (useMandarin)
     scaleOrHp = piece.scale === 1 ? "总生命值: " : "总部队数量: ";
-  let leaderTitle = useMandarin ? "士气： " : "Leadership: ";
+  let leaderTitle = useMandarin ? "士气： " : "Morale: ";
   let ammoTitle = useMandarin ? "单位弹药剩余: " : "Ammo per-unit: ";
 
   let color = "white";
