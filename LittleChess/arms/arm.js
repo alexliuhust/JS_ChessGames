@@ -343,6 +343,7 @@ export class Arm {
     this._updateStaticProperties();
     // Update real-time battle properties
     this._updateRealTimeProperties();
+    if (this.c_leadership <= 0) this.optOut();
   }
 
   getAntiArmor(damageType, targetArm) {
