@@ -60,6 +60,7 @@ export function drawAvailableTargets(cxt, self, others) {
   if (!self.isBombing) {
     let availableTargets = [];
     let availablePositions = [];
+    let availableType = [];
 
     // Collect all available target arms and their chessboard positions
     for (let i = 0; i < others.length; i++) {
@@ -89,18 +90,21 @@ export function drawAvailableTargets(cxt, self, others) {
       if (meleeAvailable || missileAvailable || chargeAvailable) {
         availableTargets.push(others[i]);
         availablePositions.push([others[i].positionX, others[i].positionY]);
+        if (meleeAvailable) availableType.push(0);
+        else if (chargeAvailable) availableType.push(2);
+        else if (missileAvailable) availableType.push(1);
       }
     }
 
     // Highlight those target arms
     for (let i = 0; i < availablePositions.length; i++) {
-      let x = availablePositions[i][0] * 50 + 25;
-      let y = availablePositions[i][1] * 50 + 25;
       let color = ReadyToAttackColor;
-      let radius = 30;
-      Canvas.drawArc(cxt, x, y, radius - 7, color);
-      Canvas.drawLine(cxt, x + radius, y, x - radius, y, color, 3);
-      Canvas.drawLine(cxt, x, y + radius, x, y - radius, color, 3);
+      let posX = availablePositions[i][0];
+      let posY = availablePositions[i][1];
+      let type = availableType[i];
+      if (type === 0) hightlightMeleeTarget(cxt, posX, posY, color);
+      else if (type === 2) hightlightChargeTarget(cxt, posX, posY, color);
+      else hightlightMissleTarget(cxt, posX, posY, color);
     }
 
     return availableTargets;
@@ -141,6 +145,34 @@ export function drawAvailableTargets(cxt, self, others) {
 
     return availableBombingCenters;
   }
+}
+
+function hightlightMeleeTarget(cxt, posX, posY, color) {
+  let x = posX * 50;
+  let y = posY * 50;
+  let x1 = x + 12;
+  let y1 = y + 16;
+  let x2 = x1 + 26;
+  let y2 = y1 + 26;
+  Canvas.drawLine(cxt, x1, y1, x2, y2, color, 5);
+  Canvas.drawLine(cxt, x1, y2, x2, y1, color, 5);
+}
+
+function hightlightChargeTarget(cxt, posX, posY, color) {
+  let x = posX * 50 + 25;
+  let y = posY * 50 + 28;
+  Canvas.drawLine(cxt, x + 20, y, x - 20, y, color, 3);
+  Canvas.drawLine(cxt, x, y + 20, x, y - 20, color, 3);
+  Canvas.drawRect(cxt, x - 10, y - 10, 20, 20, color, 3);
+}
+
+function hightlightMissleTarget(cxt, posX, posY, color) {
+  let x = posX * 50 + 25;
+  let y = posY * 50 + 28;
+  let radius = 20;
+  Canvas.drawArc(cxt, x, y, radius - 7, color);
+  Canvas.drawLine(cxt, x + radius, y, x - radius, y, color, 3);
+  Canvas.drawLine(cxt, x, y + radius, x, y - radius, color, 3);
 }
 
 function checkAvailablePosition(nx, ny, seenothers) {
