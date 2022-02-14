@@ -1,5 +1,6 @@
 import { Canvas, Rect } from "../tools.js";
 import * as ArmPrimary from "../arms/arm.js";
+import { calculateDistance, areAligned } from "../actions/actionTools.js";
 import {
   GameWidth as W,
   GameHeight as H,
@@ -64,13 +65,18 @@ export function drawAvailableTargets(cxt, self, others) {
     for (let i = 0; i < others.length; i++) {
       if (others[i] === self) continue;
 
-      let distance =
-        Math.abs(others[i].positionX - self.positionX) +
-        Math.abs(others[i].positionY - self.positionY);
-
-      let aligned =
-        others[i].positionX === self.positionX ||
-        others[i].positionY === self.positionY;
+      let distance = calculateDistance(
+        others[i].positionX,
+        others[i].positionY,
+        self.positionX,
+        self.positionY
+      );
+      let aligned = areAligned(
+        others[i].positionX,
+        others[i].positionY,
+        self.positionX,
+        self.positionY
+      );
 
       let meleeAvailable = self.meleeAttack > 0 && distance === 1;
       let missileAvailable =
@@ -108,12 +114,13 @@ export function drawAvailableTargets(cxt, self, others) {
     let sx = self.positionX;
     let sy = self.positionY;
     let range = self.c_missileRange;
+
     for (let x = -range; x <= range; x++) {
-      let restRange = range - Math.abs(x);
-      for (let y = -restRange; y <= restRange; y++) {
+      // let restRange = range - Math.abs(x);
+      for (let y = -range; y <= range; y++) {
         let nx = sx + x;
         let ny = sy + y;
-        let distance = Math.abs(x) + Math.abs(y);
+        let distance = calculateDistance(0, 0, x, y);
         if (
           (nx === sx && ny === sy) ||
           distance <= Math.floor(range / 3) ||
@@ -121,7 +128,7 @@ export function drawAvailableTargets(cxt, self, others) {
         ) {
           continue;
         }
-        availableBombingCenters.push([nx, ny]);
+        if (distance <= range) availableBombingCenters.push([nx, ny]);
       }
     }
 

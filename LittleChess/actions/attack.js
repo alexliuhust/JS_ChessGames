@@ -1,5 +1,6 @@
 import * as ArmPrimary from "../arms/arm.js";
 import * as MoveActions from "../actions/move.js";
+import { calculateDistance, areAligned } from "./actionTools.js";
 
 export function armBombArea(attacker, centerPosition, defenders) {
   ArmPrimary.checkArmClass(attacker);
@@ -8,9 +9,12 @@ export function armBombArea(attacker, centerPosition, defenders) {
     throw new Error(`attacker should be able to bomb.`);
   }
 
-  let bombDistance =
-    Math.abs(centerPosition[0] - attacker.positionX) +
-    Math.abs(centerPosition[1] - attacker.positionY);
+  let bombDistance = calculateDistance(
+    centerPosition[0],
+    centerPosition[1],
+    attacker.positionX,
+    attacker.positionY
+  );
 
   if (bombDistance > attacker.c_missileRange || attacker.c_ammo <= 0) {
     return;
@@ -24,9 +28,12 @@ export function armBombArea(attacker, centerPosition, defenders) {
     if (defender === attacker) continue;
     ArmPrimary.checkArmClass(defender);
 
-    let distance =
-      Math.abs(centerPosition[0] - defender.positionX) +
-      Math.abs(centerPosition[1] - defender.positionY);
+    let distance = calculateDistance(
+      centerPosition[0],
+      centerPosition[1],
+      defender.positionX,
+      defender.positionY
+    );
 
     if (distance <= attacker.c_missileRadius) {
       // Get the total raw damage for attacker
@@ -83,36 +90,38 @@ export function armAttackArm(attacker, defender, defenders) {
 }
 
 function determineDamageType(attacker, defender) {
-  let distance =
-    Math.abs(attacker.positionX - defender.positionX) +
-    Math.abs(attacker.positionY - defender.positionY);
+  let distance = calculateDistance(
+    attacker.positionX,
+    attacker.positionY,
+    defender.positionX,
+    defender.positionY
+  );
 
-  let aligned =
-    attacker.positionX === defender.positionX ||
-    attacker.positionY === defender.positionY;
+  let aligned = areAligned(
+    attacker.positionX,
+    attacker.positionY,
+    defender.positionX,
+    defender.positionY
+  );
 
   // Melee attack
-  if (distance == 1) {
-    return "melee";
-  }
+  if (distance == 1) return "melee";
 
   // Charge attack
   if (
     aligned &&
     distance <= attacker.c_speed + 1 &&
     attacker.c_chargeAttack > 0
-  ) {
+  )
     return "charge";
-  }
 
   // missile Attack
   if (
     distance <= attacker.c_missileRange &&
     attacker.c_missileAttack > 0 &&
     attacker.c_ammo > 0
-  ) {
+  )
     return "missile";
-  }
 
   return null;
 }
@@ -124,12 +133,13 @@ function determineChargingTarget(attacker, defender, defenders) {
   defender = result[1];
 
   let damageType = "charge";
-  let distance =
-    Math.abs(attacker.positionX - realPosition[0]) +
-    Math.abs(attacker.positionY - realPosition[1]);
-  if (distance === 0) {
-    damageType = "melee";
-  }
+  let distance = calculateDistance(
+    attacker.positionX,
+    attacker.positionY,
+    realPosition[0],
+    realPosition[1]
+  );
+  if (distance === 0) damageType = "melee";
 
   attacker.positionX = realPosition[0];
   attacker.positionY = realPosition[1];
