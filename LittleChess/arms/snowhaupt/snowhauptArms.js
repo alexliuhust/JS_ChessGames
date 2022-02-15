@@ -270,9 +270,6 @@ export class RevolvingCannon extends ArmPrimary.Arm {
 
     this.ammo = 15;
     this.loadRealtimeProps();
-
-    this.ammo = 200;
-    this.c_ammo = this.ammo;
   }
 
   // =============== Override private methods ===============
@@ -285,8 +282,8 @@ export class RevolvingCannon extends ArmPrimary.Arm {
     if (damageType === "missile") {
       singleDamage = this.c_missileAttack;
       if (targetArm.isLarge()) singleDamage += this.missileAttack_bonus;
+      this.c_ammo--;
     }
-    this.c_ammo -= 8;
 
     return singleDamage;
   }

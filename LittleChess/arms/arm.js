@@ -223,8 +223,6 @@ export class Arm {
     let realArmor = Math.floor(Math.random() * (max - min + 1) + min);
 
     let percentage = (100 - (realArmor + dodge)) / 100;
-
-    // if (percentage > 0.95) percentage = 0.95;
     if (percentage < 0) percentage = 0;
 
     return percentage;

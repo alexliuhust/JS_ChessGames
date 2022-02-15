@@ -239,11 +239,8 @@ export class WeapSqdGatlin extends ArmPrimary.Arm {
     this.missileAttack_bonus = 50;
     this.missileRange = 6;
 
-    this.ammo = 10;
+    this.ammo = 15;
     this.loadRealtimeProps();
-
-    this.ammo = 200;
-    this.c_ammo = this.ammo;
   }
 
   // =============== Override private methods ===============
@@ -257,14 +254,13 @@ export class WeapSqdGatlin extends ArmPrimary.Arm {
       singleDamage = this.c_meleeAttack;
     } else if (damageType === "missile") {
       singleDamage = this.c_missileAttack;
+      if (targetArm.isInfn()) {
+        if (targetArm.c_missileArmor > 0)
+          singleDamage += this.missileAttack_bonus / 5;
+        else singleDamage += this.missileAttack_bonus;
+      }
+      this.c_ammo--;
     }
-
-    if (damageType === "missile" && targetArm.isInfn()) {
-      if (targetArm.c_missileArmor > 0)
-        singleDamage += this.missileAttack_bonus / 5;
-      else singleDamage += this.missileAttack_bonus;
-    }
-    this.c_ammo -= 20;
 
     return singleDamage;
   }
