@@ -24,13 +24,8 @@ export class HallwayGuard extends ArmPrimary.Arm {
     this.meleeAttack = 25;
 
     this.antiArmor = 20;
-
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 
   getAntiArmor(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);
@@ -64,13 +59,8 @@ export class NordExecutioner extends ArmPrimary.Arm {
     this.meleeAttack = 40;
 
     this.antiArmor = 28;
-
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 
   getAntiArmor(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);
@@ -104,13 +94,8 @@ export class CoastDefender extends ArmPrimary.Arm {
     this.missileRange = 6;
 
     this.antiArmor = 10;
-
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 
   getAntiArmor(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);
@@ -145,13 +130,8 @@ export class CoastDefenderShield extends ArmPrimary.Arm {
     this.missileRange = 6;
 
     this.antiArmor = 10;
-
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 
   getAntiArmor(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);
@@ -187,13 +167,8 @@ export class BallistaSquad extends ArmPrimary.Arm {
     this.missileRange = 8;
 
     this.antiArmor = 40;
-
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 
   getAntiArmor(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);
@@ -227,13 +202,8 @@ export class FlameKnight extends ArmPrimary.Arm {
     this.chargeAttack = 72;
 
     this.antiArmor = 40;
-
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 
   getAntiArmor(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);
@@ -268,13 +238,8 @@ export class CoralCavalry extends ArmPrimary.Arm {
     this.chargeAttack = 64;
 
     this.antiArmor = 40;
-
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 }
 
 export class GiantBallista extends ArmPrimary.Arm {
@@ -301,10 +266,6 @@ export class GiantBallista extends ArmPrimary.Arm {
     this.loadRealtimeProps();
   }
 
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
-
   getAntiArmor(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
@@ -320,7 +281,7 @@ export class StoneGiant extends ArmPrimary.Arm {
     this.img = document.getElementById("StoneGiant_img");
     // Override original data
 
-    this.name = "Stone Giant";
+    this.name = "Nord Stone Titan";
     this.m_name = "诺德巨石人";
     this.type = "monster";
     this.description = "giant / anti-infantry";
@@ -340,8 +301,6 @@ export class StoneGiant extends ArmPrimary.Arm {
     this.loadRealtimeProps();
   }
 
-  // =============== Override private methods ===============
-
   _getSingleDamage(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
@@ -349,15 +308,11 @@ export class StoneGiant extends ArmPrimary.Arm {
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
-    }
-    if (targetArm.isInfn()) {
-      singleDamage += this.meleeAttack_bonus;
+      if (targetArm.isInfn()) singleDamage += this.meleeAttack_bonus;
     }
 
     return singleDamage;
   }
-
-  // =============== Override Public APIs ===============
 }
 
 export function getTestArms(player) {

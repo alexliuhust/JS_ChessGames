@@ -25,10 +25,6 @@ export class DwarfWarrior extends ArmPrimary.Arm {
 
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 }
 
 export class BoneBreaker extends ArmPrimary.Arm {
@@ -57,24 +53,18 @@ export class BoneBreaker extends ArmPrimary.Arm {
     this.loadRealtimeProps();
   }
 
-  // =============== Override private methods ===============
-
   _getSingleDamage(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
+
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
-    }
-
-    if (damageType === "melee" && targetArm.isLarge()) {
-      singleDamage += this.meleeAttack_bonus;
+      if (targetArm.isLarge()) singleDamage += this.meleeAttack_bonus;
     }
 
     return singleDamage;
   }
-
-  // =============== Override Public APIs ===============
 }
 
 export class Berserker extends ArmPrimary.Arm {
@@ -101,10 +91,6 @@ export class Berserker extends ArmPrimary.Arm {
 
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 }
 
 export class MountainShocker extends ArmPrimary.Arm {
@@ -132,13 +118,8 @@ export class MountainShocker extends ArmPrimary.Arm {
     this.missileRange = 3;
 
     this.ammo = 3;
-
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 }
 
 export class DwarfMusketeer extends ArmPrimary.Arm {
@@ -166,13 +147,8 @@ export class DwarfMusketeer extends ArmPrimary.Arm {
     this.missileRange = 6;
 
     this.antiArmor = 25;
-
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 
   getAntiArmor(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);
@@ -209,10 +185,6 @@ export class MortarSquad extends ArmPrimary.Arm {
 
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 }
 
 export class GoatCavalry extends ArmPrimary.Arm {
@@ -240,10 +212,6 @@ export class GoatCavalry extends ArmPrimary.Arm {
 
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 }
 
 export class RevolvingCannon extends ArmPrimary.Arm {
@@ -272,14 +240,12 @@ export class RevolvingCannon extends ArmPrimary.Arm {
     this.loadRealtimeProps();
   }
 
-  // =============== Override private methods ===============
-
   _getSingleDamage(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
     let singleDamage = 0;
-    if (damageType === "missile") {
+    if (damageType === "missile" && this.c_ammo > 0) {
       singleDamage = this.c_missileAttack;
       if (targetArm.isLarge()) singleDamage += this.missileAttack_bonus;
       this.c_ammo--;
@@ -287,8 +253,6 @@ export class RevolvingCannon extends ArmPrimary.Arm {
 
     return singleDamage;
   }
-
-  // =============== Override Public APIs ===============
 
   getAntiArmor(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);
@@ -322,10 +286,6 @@ export class GiantCannon extends ArmPrimary.Arm {
 
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 }
 
 export function getTestArms(player) {

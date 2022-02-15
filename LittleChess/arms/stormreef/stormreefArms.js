@@ -21,10 +21,6 @@ export class Seaman extends ArmPrimary.Arm {
 
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 }
 
 export class SeamanPistol extends ArmPrimary.Arm {
@@ -50,10 +46,6 @@ export class SeamanPistol extends ArmPrimary.Arm {
     this.ammo = 30;
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 }
 
 export class SeamanMusket extends ArmPrimary.Arm {
@@ -81,10 +73,6 @@ export class SeamanMusket extends ArmPrimary.Arm {
     this.ammo = 24;
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 
   getAntiArmor(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);
@@ -117,10 +105,6 @@ export class Pisciculi extends ArmPrimary.Arm {
 
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 }
 
 export class PisciculiDoubleBlades extends ArmPrimary.Arm {
@@ -145,10 +129,6 @@ export class PisciculiDoubleBlades extends ArmPrimary.Arm {
 
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 }
 
 export class MurlocWarrior extends ArmPrimary.Arm {
@@ -174,13 +154,8 @@ export class MurlocWarrior extends ArmPrimary.Arm {
     this.meleeAttack = 80;
 
     this.antiArmor = 30;
-
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 
   getAntiArmor(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);
@@ -225,10 +200,6 @@ export class MurlocWarriorHurling extends ArmPrimary.Arm {
     this.c_leadership = this.leadership;
   }
 
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
-
   getAntiArmor(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
@@ -270,10 +241,6 @@ export class Cancrimag extends ArmPrimary.Arm {
     this.loadRealtimeProps();
   }
 
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
-
   getAntiArmor(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
@@ -303,13 +270,8 @@ export class DeckGun extends ArmPrimary.Arm {
     this.missileRange = 12;
 
     this.antiArmor = 70;
-
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 
   getAntiArmor(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);

@@ -25,10 +25,6 @@ export class SlaveConscript extends ArmPrimary.Arm {
 
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 }
 
 export class HurlerGas extends ArmPrimary.Arm {
@@ -58,14 +54,8 @@ export class HurlerGas extends ArmPrimary.Arm {
     this.antiArmor = 40;
 
     this.ammo = 12;
-    this.c_ammo = this.ammo;
-
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 
   getAntiArmor(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);
@@ -102,12 +92,8 @@ export class HurlerFrgm extends ArmPrimary.Arm {
     this.missileRange = 3;
 
     this.ammo = 12;
-    this.c_ammo = this.ammo;
-
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
 
   _getSingleDamage(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);
@@ -116,19 +102,14 @@ export class HurlerFrgm extends ArmPrimary.Arm {
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
-    } else if (damageType === "missile") {
+    } else if (damageType === "missile" && this.c_ammo > 0) {
       singleDamage = this.c_missileAttack;
+      if (targetArm.isInfn()) singleDamage += this.missileAttack_bonus;
+      this.c_ammo--;
     }
-
-    if (damageType === "missile" && targetArm.isInfn()) {
-      singleDamage += this.missileAttack_bonus;
-    }
-    this.c_ammo--;
 
     return singleDamage;
   }
-
-  // =============== Override Public APIs ===============
 }
 
 export class HurlerHE extends ArmPrimary.Arm {
@@ -156,14 +137,8 @@ export class HurlerHE extends ArmPrimary.Arm {
     this.missileRange = 3;
 
     this.ammo = 12;
-    this.c_ammo = this.ammo;
-
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 }
 
 export class WeapSqdGingall extends ArmPrimary.Arm {
@@ -192,8 +167,6 @@ export class WeapSqdGingall extends ArmPrimary.Arm {
     this.loadRealtimeProps();
   }
 
-  // =============== Override private methods ===============
-
   _getSingleDamage(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
@@ -201,19 +174,14 @@ export class WeapSqdGingall extends ArmPrimary.Arm {
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
-    } else if (damageType === "missile") {
+    } else if (damageType === "missile" && this.c_ammo > 0) {
       singleDamage = this.c_missileAttack;
+      if (targetArm.isLarge()) singleDamage += this.missileAttack_bonus;
+      this.c_ammo--;
     }
-
-    if (damageType === "missile" && targetArm.isLarge()) {
-      singleDamage += this.missileAttack_bonus;
-    }
-    this.c_ammo--;
 
     return singleDamage;
   }
-
-  // =============== Override Public APIs ===============
 }
 
 export class WeapSqdGatlin extends ArmPrimary.Arm {
@@ -243,8 +211,6 @@ export class WeapSqdGatlin extends ArmPrimary.Arm {
     this.loadRealtimeProps();
   }
 
-  // =============== Override private methods ===============
-
   _getSingleDamage(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
@@ -252,11 +218,11 @@ export class WeapSqdGatlin extends ArmPrimary.Arm {
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
-    } else if (damageType === "missile") {
+    } else if (damageType === "missile" && this.c_ammo > 0) {
       singleDamage = this.c_missileAttack;
       if (targetArm.isInfn()) {
         if (targetArm.c_missileArmor > 0)
-          singleDamage += this.missileAttack_bonus / 5;
+          singleDamage += this.missileAttack_bonus / 2;
         else singleDamage += this.missileAttack_bonus;
       }
       this.c_ammo--;
@@ -264,8 +230,6 @@ export class WeapSqdGatlin extends ArmPrimary.Arm {
 
     return singleDamage;
   }
-
-  // =============== Override Public APIs ===============
 }
 
 export class WeapSqdFlthr extends ArmPrimary.Arm {
@@ -292,12 +256,8 @@ export class WeapSqdFlthr extends ArmPrimary.Arm {
     this.missileRange = 3;
 
     this.ammo = 12;
-    this.c_ammo = this.ammo;
-
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
 
   _getSingleDamage(damageType, targetArm) {
     let targetType = targetArm.type;
@@ -307,22 +267,15 @@ export class WeapSqdFlthr extends ArmPrimary.Arm {
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
-    } else if (damageType === "missile") {
+    } else if (damageType === "missile" && this.c_ammo > 0) {
       singleDamage = this.c_missileAttack;
+      if (targetArm.c_meleeArmor === 0 || targetArm.c_missileArmor === 0)
+        singleDamage += this.missileAttack_bonus;
+      this.c_ammo--;
     }
-
-    if (
-      damageType === "missile" &&
-      (targetArm.c_meleeArmor === 0 || targetArm.c_missileArmor === 0)
-    ) {
-      singleDamage += this.missileAttack_bonus;
-    }
-    this.c_ammo--;
 
     return singleDamage;
   }
-
-  // =============== Override Public APIs ===============
 }
 
 export class MutantSlave extends ArmPrimary.Arm {
@@ -346,13 +299,8 @@ export class MutantSlave extends ArmPrimary.Arm {
     this.meleeAttack = 52;
 
     this.shock = 50;
-
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 }
 
 export class Foulcannon extends ArmPrimary.Arm {
@@ -375,13 +323,8 @@ export class Foulcannon extends ArmPrimary.Arm {
     this.missileRange = 10;
 
     this.shock = 75;
-
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 }
 
 export function getTestArms(player) {

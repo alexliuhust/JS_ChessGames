@@ -25,10 +25,6 @@ export class HenchWarrior extends ArmPrimary.Arm {
 
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 }
 
 export class HenchWarriorHalberd extends ArmPrimary.Arm {
@@ -57,21 +53,18 @@ export class HenchWarriorHalberd extends ArmPrimary.Arm {
     this.loadRealtimeProps();
   }
 
-  // =============== Override private methods ===============
-
   _getSingleDamage(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
     let singleDamage = 0;
-    if (damageType === "melee") singleDamage = this.c_meleeAttack;
-    if (damageType === "melee" && targetArm.isLarge())
-      singleDamage += this.meleeAttack_bonus;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+      if (targetArm.isLarge()) singleDamage += this.meleeAttack_bonus;
+    }
 
     return singleDamage;
   }
-
-  // =============== Override Public APIs ===============
 }
 
 export class HenchWarriorGiantaxe extends ArmPrimary.Arm {
@@ -100,10 +93,6 @@ export class HenchWarriorGiantaxe extends ArmPrimary.Arm {
 
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 
   getAntiArmor(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);
@@ -138,10 +127,6 @@ export class BurningKnight extends ArmPrimary.Arm {
 
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 }
 
 export class BurningKnightHalberd extends ArmPrimary.Arm {
@@ -170,31 +155,18 @@ export class BurningKnightHalberd extends ArmPrimary.Arm {
     this.loadRealtimeProps();
   }
 
-  // =============== Override private methods ===============
-
   _getSingleDamage(damageType, targetArm) {
-    let targetType = targetArm.type;
     ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmType(targetType);
+    ArmPrimary.checkArmClass(targetArm);
 
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
-    }
-
-    if (
-      damageType === "melee" &&
-      (targetType === "cavalry" ||
-        targetType === "moster" ||
-        targetType === "monster-infantry")
-    ) {
-      singleDamage += this.meleeAttack_bonus;
+      if (targetArm.isLarge()) singleDamage += this.meleeAttack_bonus;
     }
 
     return singleDamage;
   }
-
-  // =============== Override Public APIs ===============
 }
 
 export class Hellhound extends ArmPrimary.Arm {
@@ -220,10 +192,6 @@ export class Hellhound extends ArmPrimary.Arm {
 
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 }
 
 export class DemonEnvoyWild extends ArmPrimary.Arm {
@@ -251,13 +219,8 @@ export class DemonEnvoyWild extends ArmPrimary.Arm {
     this.antiArmor = 50;
 
     this.shock = 50;
-
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 
   getAntiArmor(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);
@@ -295,13 +258,8 @@ export class DemonEnvoyHellfire extends ArmPrimary.Arm {
     this.ammo = 15;
 
     this.shock = 50;
-
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 }
 
 export class GreatDemon extends ArmPrimary.Arm {
@@ -329,13 +287,8 @@ export class GreatDemon extends ArmPrimary.Arm {
     this.antiArmor = 70;
 
     this.shock = 80;
-
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 
   getAntiArmor(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);

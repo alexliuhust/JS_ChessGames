@@ -24,13 +24,8 @@ export class WoodsGuard extends ArmPrimary.Arm {
     this.meleeAttack = 24;
 
     this.antiArmor = 10;
-
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 
   getAntiArmor(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);
@@ -63,11 +58,8 @@ export class WildKiller extends ArmPrimary.Arm {
     this.meleeAttack_bonus = 18;
 
     this.shock = 40;
-
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
 
   _getSingleDamage(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);
@@ -76,15 +68,11 @@ export class WildKiller extends ArmPrimary.Arm {
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
-    }
-    if (targetArm.isInfn()) {
-      singleDamage += this.meleeAttack_bonus;
+      if (targetArm.isInfn()) singleDamage += this.meleeAttack_bonus;
     }
 
     return singleDamage;
   }
-
-  // =============== Override Public APIs ===============
 }
 
 export class ShadowArcherPS extends ArmPrimary.Arm {
@@ -116,31 +104,23 @@ export class ShadowArcherPS extends ArmPrimary.Arm {
     this.loadRealtimeProps();
   }
 
-  // =============== Override private methods ===============
-
   _getSingleDamage(damageType, targetArm) {
-    let targetType = targetArm.type;
     ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmType(targetType);
+    ArmPrimary.checkArmClass(targetArm);
 
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
-    } else if (damageType === "missile") {
+      if (targetArm.c_meleeArmor === 0) singleDamage += this.meleeAttack_bonus;
+    } else if (damageType === "missile" && this.c_ammo > 0) {
       singleDamage = this.c_missileAttack;
+      if (targetArm.c_missileArmor === 0)
+        singleDamage += this.missileAttack_bonus;
+      this.c_ammo--;
     }
-
-    if (damageType === "melee" && targetArm.c_meleeArmor === 0) {
-      singleDamage += this.meleeAttack_bonus;
-    } else if (damageType === "missile" && targetArm.c_missileArmor === 0) {
-      singleDamage += this.missileAttack_bonus;
-    }
-    this.c_ammo--;
 
     return singleDamage;
   }
-
-  // =============== Override Public APIs ===============
 }
 
 export class ShadowArcherAP extends ArmPrimary.Arm {
@@ -171,10 +151,6 @@ export class ShadowArcherAP extends ArmPrimary.Arm {
     this.ammo = 30;
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 
   getAntiArmor(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);
@@ -211,10 +187,6 @@ export class ShadowArcherFL extends ArmPrimary.Arm {
     this.ammo = 30;
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 }
 
 export class LongbowRanger extends ArmPrimary.Arm {
@@ -241,13 +213,8 @@ export class LongbowRanger extends ArmPrimary.Arm {
     this.missileRange = 10;
 
     this.antiArmor = 40;
-
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 
   getAntiArmor(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);
@@ -282,10 +249,6 @@ export class Dryad extends ArmPrimary.Arm {
 
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 }
 
 export class DryadRangerRide extends ArmPrimary.Arm {
@@ -315,14 +278,8 @@ export class DryadRangerRide extends ArmPrimary.Arm {
     this.antiArmor = 40;
 
     this.ammo = 20;
-    this.c_ammo = this.ammo;
-
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 
   getAntiArmor(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);
@@ -357,10 +314,6 @@ export class GiantTreeman extends ArmPrimary.Arm {
 
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 }
 
 export function getTestArms(player) {

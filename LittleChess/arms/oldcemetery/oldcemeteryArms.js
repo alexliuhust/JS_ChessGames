@@ -24,13 +24,8 @@ export class DarkSoldier extends ArmPrimary.Arm {
     this.meleeAttack = 20;
 
     this.antiArmor = 5;
-
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 
   getAntiArmor(damageType, targetArm) {
     ArmPrimary.checkDamageType(damageType);
@@ -67,22 +62,19 @@ export class DarkSoldierScythe extends ArmPrimary.Arm {
     this.loadRealtimeProps();
   }
 
-  // =============== Override private methods ===============
-
   _getSingleDamage(damageType, targetArm) {
     let targetType = targetArm.type;
     ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmType(targetType);
 
     let singleDamage = 0;
-    if (damageType === "melee") singleDamage = this.c_meleeAttack;
-    if (damageType === "melee" && targetArm.isLarge())
-      singleDamage += this.meleeAttack_bonus;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+      if (targetArm.isLarge()) singleDamage += this.meleeAttack_bonus;
+    }
 
     return singleDamage;
   }
-
-  // =============== Override Public APIs ===============
 }
 
 export class Banshee extends ArmPrimary.Arm {
@@ -110,10 +102,6 @@ export class Banshee extends ArmPrimary.Arm {
 
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 }
 
 export class ScreamingBanshee extends ArmPrimary.Arm {
@@ -143,10 +131,6 @@ export class ScreamingBanshee extends ArmPrimary.Arm {
     this.ammo = 18;
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 }
 
 export class ScreamingBansheeGF extends ArmPrimary.Arm {
@@ -178,8 +162,6 @@ export class ScreamingBansheeGF extends ArmPrimary.Arm {
     this.loadRealtimeProps();
   }
 
-  // =============== Override private methods ===============
-
   _getSingleDamage(damageType, targetArm) {
     let targetType = targetArm.type;
     ArmPrimary.checkDamageType(damageType);
@@ -188,22 +170,14 @@ export class ScreamingBansheeGF extends ArmPrimary.Arm {
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
-    } else if (damageType === "missile") {
+    } else if (damageType === "missile" && this.c_ammo > 0) {
       singleDamage = this.c_missileAttack;
-    }
-    if (
-      damageType === "missile" &&
-      (targetType === "infantry" ||
-        targetType === "archers" ||
-        targetType === "artillery")
-    ) {
-      singleDamage += this.c_missileAttack;
+      if (targetArm.isInfn()) singleDamage += this.missileAttack_bonus;
+      this.ammo--;
     }
 
     return singleDamage;
   }
-
-  // =============== Override Public APIs ===============
 }
 
 export class DeathKnight extends ArmPrimary.Arm {
@@ -230,10 +204,6 @@ export class DeathKnight extends ArmPrimary.Arm {
 
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 }
 
 export class DeathKnightDS extends ArmPrimary.Arm {
@@ -260,10 +230,6 @@ export class DeathKnightDS extends ArmPrimary.Arm {
 
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 }
 
 export class SpiritCoffinGF extends ArmPrimary.Arm {
@@ -291,13 +257,9 @@ export class SpiritCoffinGF extends ArmPrimary.Arm {
     this.isBombing = true;
     this.missileRadius = 1;
 
-    this.ammo = 25;
+    this.ammo = 18;
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 }
 
 export class SpiritCoffinBB extends ArmPrimary.Arm {
@@ -325,13 +287,9 @@ export class SpiritCoffinBB extends ArmPrimary.Arm {
     this.isBombing = true;
     this.missileRadius = 2;
 
-    this.ammo = 25;
+    this.ammo = 18;
     this.loadRealtimeProps();
   }
-
-  // =============== Override private methods ===============
-
-  // =============== Override Public APIs ===============
 }
 
 export function getTestArms(player) {
