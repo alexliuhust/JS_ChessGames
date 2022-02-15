@@ -237,7 +237,7 @@ export class Cancrimag extends ArmPrimary.Arm {
     this.antiArmor = 10;
     this.shock = 70;
 
-    this.ammo = 20;
+    this.ammo = 18;
     this.loadRealtimeProps();
   }
 

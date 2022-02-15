@@ -168,7 +168,7 @@ export class ShadowArcherFL extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Shadow Archer (Flame)";
-    this.m_name = "暗影箭手-火焰箭";
+    this.m_name = "暗影弓手-火焰箭";
     this.type = "archers";
     this.description = "melee-archers / high-damage";
     this.m_description = "近战-远程步兵【高伤害】";
@@ -277,7 +277,7 @@ export class DryadRangerRide extends ArmPrimary.Arm {
 
     this.antiArmor = 40;
 
-    this.ammo = 20;
+    this.ammo = 18;
     this.loadRealtimeProps();
   }
 

@@ -189,8 +189,8 @@ export class PalaceKnight extends ArmPrimary.Arm {
     this.name = "Palace Knight";
     this.m_name = "大殿骑士";
     this.type = "cavalry";
-    this.description = "melee-cavalry / heavy-armor";
-    this.m_description = "近战骑兵【重装甲】";
+    this.description = "melee-cavalry / heavy-armor / anti-infantry";
+    this.m_description = "近战骑兵【重装甲，反步兵】";
 
     this.scale = 32;
     this.singleHP = 90;
@@ -201,8 +201,22 @@ export class PalaceKnight extends ArmPrimary.Arm {
     this.chargeArmor = 50;
 
     this.meleeAttack = 60;
+    this.meleeAttack_bonus = 30;
 
     this.loadRealtimeProps();
+  }
+
+  _getSingleDamage(damageType, targetArm) {
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmClass(targetArm);
+
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+      if (targetArm.isInfn()) singleDamage += this.meleeAttack_bonus;
+    }
+
+    return singleDamage;
   }
 }
 

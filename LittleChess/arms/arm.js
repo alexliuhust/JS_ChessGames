@@ -115,10 +115,10 @@ export class Arm {
         this.missileAttack != 0 &&
         this.ammo === -1
       ) {
-        this.ammo = 14;
+        this.ammo = 12;
       } else if (this.type === "artillery" && this.ammo === -1) {
         if (this.isBombing) this.ammo = 15;
-        else this.ammo = 20;
+        else this.ammo = 18;
       }
       this.c_ammo = this.ammo;
 
