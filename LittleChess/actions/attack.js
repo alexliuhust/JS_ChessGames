@@ -7,10 +7,7 @@ const cxt = document.getElementById("piece").getContext("2d");
 
 export function armBombArea(attacker, centerPosition, defenders) {
   ArmPrimary.checkArmClass(attacker);
-
-  if (!attacker.isBombing) {
-    throw new Error(`attacker should be able to bomb.`);
-  }
+  if (!attacker.isBombing) throw new Error(`attacker should be able to bomb.`);
 
   let bombDistance = calculateDistance(
     centerPosition[0],
@@ -18,63 +15,22 @@ export function armBombArea(attacker, centerPosition, defenders) {
     attacker.positionX,
     attacker.positionY
   );
-
-  if (bombDistance > attacker.c_missileRange || attacker.c_ammo <= 0) {
-    return;
-  }
+  if (bombDistance > attacker.c_missileRange || attacker.c_ammo <= 0) return;
 
   let damageType = "bombing";
-  let decreaseScore = 0;
+  let sleepRound = addEffect(
+    attacker.player.effectList,
+    damageType,
+    attacker,
+    centerPosition,
+    cxt
+  );
 
-  for (let i = 0; i < defenders.length; i++) {
-    let defender = defenders[i];
-    if (defender === attacker) continue;
-    ArmPrimary.checkArmClass(defender);
-
-    let distance = calculateDistance(
-      centerPosition[0],
-      centerPosition[1],
-      defender.positionX,
-      defender.positionY
-    );
-
-    if (distance <= attacker.c_missileRadius) {
-      // Get the total raw damage for attacker
-      let att_totalRowDamage = attacker.getRawTotalDamage(damageType, defender);
-      if (distance === 1) {
-        att_totalRowDamage = Math.ceil(att_totalRowDamage * 0.7);
-      } else if (distance > 1) {
-        att_totalRowDamage = Math.ceil(att_totalRowDamage * 0.25);
-      }
-      if (defender.isLarge())
-        att_totalRowDamage = Math.round(att_totalRowDamage / 3);
-      if (defender.scale === 1) {
-        att_totalRowDamage = Math.ceil(att_totalRowDamage * 0.5);
-      }
-      console.log(att_totalRowDamage);
-
-      // This defender decrease scale
-      let results = defender.decreaseScale(damageType, 0, att_totalRowDamage);
-      decreaseScore += results[1];
-
-      // Defender decrease leadership
-      defender.c_leadership -= leadershipDrop(defender, results[0]);
-      defender.c_leadership -= 50 + attacker.getShockingAbility();
-      if (defender.c_leadership < 0) defender.c_leadership = 0;
-
-      if (!defender.isAlive) {
-        // Attacker gains leadership and experience when eliminating an enemy.
-        attacker.c_leadership += Math.round(attacker.cost * 0.1);
-        attacker.exp += Math.round(attacker.cost * 0.1);
-
-        if (attacker.c_leadership >= attacker.leadership)
-          attacker.c_leadership = attacker.leadership;
-      }
-    }
-  }
-  attacker.exp += decreaseScore;
-  attacker.c_ammo--;
-  attacker.hasAttacked = true;
+  setTimeout(() => {
+    decreaseBombingVictims(attacker, defenders, damageType, centerPosition);
+    attacker.c_ammo--;
+    attacker.hasAttacked = true;
+  }, sleepRound * 20);
 }
 
 export function armAttackArm(attacker, defender, defenders) {
@@ -89,10 +45,16 @@ export function armAttackArm(attacker, defender, defenders) {
     defender = result[1];
   }
 
-  addEffect(attacker.player.effectList, damageType, attacker, defender, cxt);
+  let list1 = attacker.player.effectList;
+  let list2 = defender.player.effectList;
+  let sleepRound = addEffect(list1, damageType, attacker, defender, cxt);
+  if (damageType === "melee" && defender.c_meleeAttack > 0)
+    addEffect(list2, "melee", defender, attacker, cxt);
 
-  decreaseScalesForArms(attacker, damageType, defender);
-  attacker.hasAttacked = true;
+  setTimeout(() => {
+    decreaseScalesForArms(attacker, damageType, defender);
+    attacker.hasAttacked = true;
+  }, sleepRound * 20);
 }
 
 function determineDamageType(attacker, defender) {
@@ -175,6 +137,61 @@ function scaleDecreasingCauseLeadershipDecreasing(self, totalDecrease) {
   else if (totalDecrease >= self.scale * 0.3) decrease = 30;
 
   return decrease;
+}
+
+function decreaseBombingVictims(
+  attacker,
+  defenders,
+  damageType,
+  centerPosition
+) {
+  let decreaseScore = 0;
+  for (let i = 0; i < defenders.length; i++) {
+    let defender = defenders[i];
+    if (defender === attacker) continue;
+    ArmPrimary.checkArmClass(defender);
+
+    let distance = calculateDistance(
+      centerPosition[0],
+      centerPosition[1],
+      defender.positionX,
+      defender.positionY
+    );
+
+    if (distance <= attacker.c_missileRadius) {
+      // Get the total raw damage for attacker
+      let att_totalRowDamage = attacker.getRawTotalDamage(damageType, defender);
+      if (distance === 1) {
+        att_totalRowDamage = Math.ceil(att_totalRowDamage * 0.7);
+      } else if (distance > 1) {
+        att_totalRowDamage = Math.ceil(att_totalRowDamage * 0.25);
+      }
+      if (defender.isLarge())
+        att_totalRowDamage = Math.round(att_totalRowDamage / 3);
+      if (defender.scale === 1) {
+        att_totalRowDamage = Math.ceil(att_totalRowDamage * 0.5);
+      }
+
+      // This defender decrease scale
+      let results = defender.decreaseScale(damageType, 0, att_totalRowDamage);
+      decreaseScore += results[1];
+
+      // Defender decrease leadership
+      defender.c_leadership -= leadershipDrop(defender, results[0]);
+      defender.c_leadership -= 50 + attacker.getShockingAbility();
+      if (defender.c_leadership < 0) defender.c_leadership = 0;
+
+      if (!defender.isAlive) {
+        // Attacker gains leadership and experience when eliminating an enemy.
+        attacker.c_leadership += Math.round(attacker.cost * 0.1);
+        attacker.exp += Math.round(attacker.cost * 0.1);
+
+        if (attacker.c_leadership >= attacker.leadership)
+          attacker.c_leadership = attacker.leadership;
+      }
+    }
+  }
+  attacker.exp += decreaseScore;
 }
 
 function decreaseScalesForArms(attacker, damageType, defender) {
