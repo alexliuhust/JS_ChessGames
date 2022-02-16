@@ -88,13 +88,9 @@ export function armAttackArm(attacker, defender, defenders) {
     damageType = result[0];
     defender = result[1];
   }
-  addEffect(
-    attacker.player.effectList,
-    damageType,
-    defender.x,
-    defender.y,
-    cxt
-  );
+
+  addEffect(attacker.player.effectList, damageType, attacker, defender, cxt);
+
   decreaseScalesForArms(attacker, damageType, defender);
   attacker.hasAttacked = true;
 }

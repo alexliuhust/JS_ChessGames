@@ -1,0 +1,54 @@
+import { Canvas } from "../tools.js";
+import { ReadyToAttackColor as RC } from "../const.js";
+import { calculateDistance } from "../actions/actionTools.js";
+
+export class MissileEffect {
+  constructor(attacker, defender, _cxt) {
+    this.cxt = _cxt;
+    this.x1 = attacker.x;
+    this.y1 = attacker.y;
+    this.x2 = defender.x;
+    this.y2 = defender.y;
+    this.time = 0;
+    this.isAlive = true;
+
+    this.speed = 10.0;
+    this.len = 2;
+    this.totalDistance = calculateDistance(this.x1, this.y1, this.x2, this.y2);
+    this.cos = Math.abs(this.x1 - this.x2) / this.totalDistance;
+    this.sin = Math.abs(this.y1 - this.y2) / this.totalDistance;
+    this.dx = this.speed * this.cos;
+    this.dy = this.speed * this.sin;
+    this.maxTime = this.totalDistance / this.speed;
+
+    this.bias = [
+      Math.floor(Math.random() * 30 - 15),
+      Math.floor(Math.random() * 30 - 15),
+      Math.floor(Math.random() * 30 - 15),
+    ];
+
+    if (this.x2 < this.x1) this.dx = -this.dx;
+    if (this.y2 < this.y1) this.dy = -this.dy;
+
+    this.drawLine = function (x1, y1, x2, y2) {
+      Canvas.drawLine(this.cxt, x1, y1, x2, y2, "yellow", 2);
+    };
+
+    this.draw = function () {
+      this.time++;
+      if (this.time > this.maxTime) {
+        this.isAlive = false;
+        return;
+      }
+
+      let x = this.x1 + 25 + this.time * this.dx;
+      let y = this.y1 + 25 + this.time * this.dy;
+      let Dx = this.dx * this.len;
+      let Dy = this.dy * this.len;
+
+      this.drawLine(x, y + this.bias[0], x + Dx, y + this.bias[0] + Dy);
+      this.drawLine(x, y + this.bias[1], x + Dx, y + this.bias[1] + Dy);
+      this.drawLine(x, y + this.bias[2], x + Dx, y + this.bias[2] + Dy);
+    };
+  }
+}
