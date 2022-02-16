@@ -1,7 +1,7 @@
 import * as ArmPrimary from "../arms/arm.js";
 import * as MoveActions from "../actions/move.js";
 import { calculateDistance, areAligned } from "./actionTools.js";
-import { addEffect, MeleeEffect } from "../effects/effect.js";
+import { addEffect } from "../effects/effect.js";
 
 const cxt = document.getElementById("piece").getContext("2d");
 
