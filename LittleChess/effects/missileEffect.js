@@ -1,5 +1,4 @@
 import { Canvas } from "../tools.js";
-import { ReadyToAttackColor as RC } from "../const.js";
 import { calculateDistance } from "../actions/actionTools.js";
 
 export class MissileEffect {
@@ -21,11 +20,14 @@ export class MissileEffect {
     this.dy = this.speed * this.sin;
     this.maxTime = this.totalDistance / this.speed;
 
-    this.bias = [
-      Math.floor(Math.random() * 30 - 15),
-      Math.floor(Math.random() * 30 - 15),
-      Math.floor(Math.random() * 30 - 15),
-    ];
+    this.bias = [];
+    for (let i = 0; i < 5; i++) {
+      let bias = Math.floor(Math.random() * 30 - 15);
+      if (Math.abs(bias - 0) < 5) {
+        i--;
+        continue;
+      } else this.bias.push(bias);
+    }
 
     if (this.x2 < this.x1) this.dx = -this.dx;
     if (this.y2 < this.y1) this.dy = -this.dy;
@@ -46,9 +48,8 @@ export class MissileEffect {
       let Dx = this.dx * this.len;
       let Dy = this.dy * this.len;
 
-      this.drawLine(x, y + this.bias[0], x + Dx, y + this.bias[0] + Dy);
-      this.drawLine(x, y + this.bias[1], x + Dx, y + this.bias[1] + Dy);
-      this.drawLine(x, y + this.bias[2], x + Dx, y + this.bias[2] + Dy);
+      for (let i = 0; i < 5; i++)
+        this.drawLine(x, y + this.bias[i], x + Dx, y + this.bias[i] + Dy);
     };
   }
 }

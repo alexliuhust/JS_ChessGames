@@ -1,5 +1,4 @@
 import { Canvas } from "../tools.js";
-import { ReadyToAttackColor as RC } from "../const.js";
 
 export class MeleeEffect {
   constructor(_x, _y, _cxt) {
