@@ -2,8 +2,8 @@ import * as ArmPrimary from "../arm.js";
 import { ArmTestPos1, ArmTestPos2 } from "../../const.js";
 
 export class DwarfWarrior extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("DwarfWarrior_img");
     // Override original data
 
@@ -28,8 +28,8 @@ export class DwarfWarrior extends ArmPrimary.Arm {
 }
 
 export class BoneBreaker extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("BoneBreaker_img");
     // Override original data
 
@@ -68,8 +68,8 @@ export class BoneBreaker extends ArmPrimary.Arm {
 }
 
 export class Berserker extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("Berserker_img");
     // Override original data
 
@@ -94,8 +94,8 @@ export class Berserker extends ArmPrimary.Arm {
 }
 
 export class MountainShocker extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("MountainShocker_img");
     // Override original data
 
@@ -123,8 +123,8 @@ export class MountainShocker extends ArmPrimary.Arm {
 }
 
 export class DwarfMusketeer extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("DwarfMusketeer_img");
     // Override original data
 
@@ -160,8 +160,8 @@ export class DwarfMusketeer extends ArmPrimary.Arm {
 }
 
 export class MortarSquad extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("MortarSquad_img");
     // Override original data
 
@@ -188,8 +188,8 @@ export class MortarSquad extends ArmPrimary.Arm {
 }
 
 export class GoatCavalry extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("GoatCavalry_img");
     // Override original data
 
@@ -215,8 +215,8 @@ export class GoatCavalry extends ArmPrimary.Arm {
 }
 
 export class RevolvingCannon extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("RevolvingCannon_img");
     // Override original data
 
@@ -264,8 +264,8 @@ export class RevolvingCannon extends ArmPrimary.Arm {
 }
 
 export class GiantCannon extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("GiantCannon_img");
     // Override original data
 
@@ -304,17 +304,17 @@ export function getTestArms(player) {
   return arms;
 }
 
-export function newAnArm(i, posX, posY) {
+export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
-  if (i === 0) return new DwarfWarrior(pos);
-  if (i === 1) return new BoneBreaker(pos);
-  if (i === 2) return new Berserker(pos);
-  if (i === 3) return new MountainShocker(pos);
-  if (i === 4) return new DwarfMusketeer(pos);
-  if (i === 5) return new MortarSquad(pos);
-  if (i === 6) return new GoatCavalry(pos);
-  if (i === 7) return new RevolvingCannon(pos);
-  if (i === 8) return new GiantCannon(pos);
+  if (i === 0) return new DwarfWarrior(pos, player);
+  if (i === 1) return new BoneBreaker(pos, player);
+  if (i === 2) return new Berserker(pos, player);
+  if (i === 3) return new MountainShocker(pos, player);
+  if (i === 4) return new DwarfMusketeer(pos, player);
+  if (i === 5) return new MortarSquad(pos, player);
+  if (i === 6) return new GoatCavalry(pos, player);
+  if (i === 7) return new RevolvingCannon(pos, player);
+  if (i === 8) return new GiantCannon(pos, player);
 }
 
 export function getImages() {

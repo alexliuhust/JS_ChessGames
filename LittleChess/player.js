@@ -12,17 +12,18 @@ import {
 } from "./const.js";
 
 export class Player {
-  constructor(pieces, enemies, color, _canvaslist, _useMandarin) {
+  constructor(color, _canvaslist, _useMandarin) {
     this.useMandarin = _useMandarin;
     this.timer = 0;
     this.currentRound = 1;
     this.isMyRound = false;
     this.playerNumber = color === "red" ? 2 : 1;
     this.canvasList = _canvaslist;
+    this.effectList = [];
 
     this.playerColor = color;
-    this.pieceList = pieces;
-    this.enemyList = enemies;
+    this.pieceList = [];
+    this.enemyList = [];
 
     this.nowSelectPiece = null;
     this.nowSelectEnemy = null;
@@ -32,6 +33,11 @@ export class Player {
 
     this.operatedPieces = new Set();
     this.operableNum = 0;
+
+    this.addPieces = function (pc1, pc2) {
+      this.pieceList = pc1;
+      this.enemyList = pc2;
+    };
 
     // =================================================================================
     // =============================== Helper Functions ================================
@@ -117,6 +123,17 @@ export class Player {
           this.nowSelectEnemy,
           this.useMandarin
         );
+      }
+    };
+
+    this.drawEffects = function () {
+      for (let i = this.effectList.length - 1; i >= 0; i--) {
+        if (!this.effectList[i].isAlive) this.effectList.splice(i, 1);
+      }
+      if (this.effectList.length > 0) {
+        for (let i = 0; i < this.effectList.length; i++) {
+          this.effectList[i].draw();
+        }
       }
     };
 

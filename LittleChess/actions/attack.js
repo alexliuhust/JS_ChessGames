@@ -1,6 +1,9 @@
 import * as ArmPrimary from "../arms/arm.js";
 import * as MoveActions from "../actions/move.js";
 import { calculateDistance, areAligned } from "./actionTools.js";
+import { addEffect, MeleeEffect } from "../effects/effect.js";
+
+const cxt = document.getElementById("piece").getContext("2d");
 
 export function armBombArea(attacker, centerPosition, defenders) {
   ArmPrimary.checkArmClass(attacker);
@@ -85,6 +88,13 @@ export function armAttackArm(attacker, defender, defenders) {
     damageType = result[0];
     defender = result[1];
   }
+  addEffect(
+    attacker.player.effectList,
+    damageType,
+    defender.x,
+    defender.y,
+    cxt
+  );
   decreaseScalesForArms(attacker, damageType, defender);
   attacker.hasAttacked = true;
 }
@@ -186,9 +196,8 @@ function decreaseScalesForArms(attacker, damageType, defender) {
     att_totalRowDamage = Math.round(att_totalRowDamage / 3);
   }
 
-  console.log(att_totalRowDamage);
-
   // ============== Defender counter attacks ==============
+  // Defender gains experience
   let results = attacker.decreaseScale("melee", 0, dfd_counterAttack);
   defender.exp += results[1];
 
@@ -197,18 +206,17 @@ function decreaseScalesForArms(attacker, damageType, defender) {
     // Defender gains leadership and experience when eliminating the Attacker by counter attack.
     defender.c_leadership += Math.round(attacker.cost * 0.4);
     defender.exp += Math.round(attacker.cost * 0.6);
-
     if (defender.c_leadership >= defender.leadership)
       defender.c_leadership = defender.leadership;
   }
 
   // ============== Attacker attacks ==============
+  // Attacker gains experience
   results = defender.decreaseScale(
     damageType,
     att_antiArmor,
     att_totalRowDamage
   );
-
   attacker.exp += results[1];
 
   // Defender decrease leadership
@@ -223,7 +231,6 @@ function decreaseScalesForArms(attacker, damageType, defender) {
     // Attacker gains leadership and experience when eliminating the Defender.
     attacker.c_leadership += Math.round(attacker.cost * 0.4);
     attacker.exp += Math.round(attacker.cost * 0.6);
-
     if (attacker.c_leadership >= attacker.leadership)
       attacker.c_leadership = attacker.leadership;
   }

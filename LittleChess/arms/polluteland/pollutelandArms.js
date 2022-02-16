@@ -2,8 +2,8 @@ import * as ArmPrimary from "../arm.js";
 import { ArmTestPos1, ArmTestPos2 } from "../../const.js";
 
 export class SlaveConscript extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("SlaveConscript_img");
     // Override original data
 
@@ -28,8 +28,8 @@ export class SlaveConscript extends ArmPrimary.Arm {
 }
 
 export class HurlerGas extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("HurlerGas_img");
     // Override original data
 
@@ -67,8 +67,8 @@ export class HurlerGas extends ArmPrimary.Arm {
 }
 
 export class HurlerFrgm extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("HurlerFrgm_img");
     // Override original data
 
@@ -113,8 +113,8 @@ export class HurlerFrgm extends ArmPrimary.Arm {
 }
 
 export class HurlerHE extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("HurlerHE_img");
     // Override original data
 
@@ -142,8 +142,8 @@ export class HurlerHE extends ArmPrimary.Arm {
 }
 
 export class WeapSqdGingall extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("WeapSqdGingall_img");
     // Override original data
 
@@ -185,8 +185,8 @@ export class WeapSqdGingall extends ArmPrimary.Arm {
 }
 
 export class WeapSqdGatlin extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("WeapSqdGatlin_img");
     // Override original data
 
@@ -233,8 +233,8 @@ export class WeapSqdGatlin extends ArmPrimary.Arm {
 }
 
 export class WeapSqdFlthr extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("WeapSqdFlthr_img");
     // Override original data
 
@@ -279,8 +279,8 @@ export class WeapSqdFlthr extends ArmPrimary.Arm {
 }
 
 export class MutantSlave extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("MutantSlave_img");
     // Override original data
 
@@ -304,8 +304,8 @@ export class MutantSlave extends ArmPrimary.Arm {
 }
 
 export class Foulcannon extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("Foulcannon_img");
     // Override original data
 
@@ -343,17 +343,17 @@ export function getTestArms(player) {
   return arms;
 }
 
-export function newAnArm(i, posX, posY) {
+export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
-  if (i === 0) return new SlaveConscript(pos);
-  if (i === 1) return new HurlerGas(pos);
-  if (i === 2) return new HurlerFrgm(pos);
-  if (i === 3) return new HurlerHE(pos);
-  if (i === 4) return new WeapSqdGingall(pos);
-  if (i === 5) return new WeapSqdGatlin(pos);
-  if (i === 6) return new WeapSqdFlthr(pos);
-  if (i === 7) return new MutantSlave(pos);
-  if (i === 8) return new Foulcannon(pos);
+  if (i === 0) return new SlaveConscript(pos, player);
+  if (i === 1) return new HurlerGas(pos, player);
+  if (i === 2) return new HurlerFrgm(pos, player);
+  if (i === 3) return new HurlerHE(pos, player);
+  if (i === 4) return new WeapSqdGingall(pos, player);
+  if (i === 5) return new WeapSqdGatlin(pos, player);
+  if (i === 6) return new WeapSqdFlthr(pos, player);
+  if (i === 7) return new MutantSlave(pos, player);
+  if (i === 8) return new Foulcannon(pos, player);
 }
 
 export function getImages() {

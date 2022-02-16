@@ -2,8 +2,8 @@ import * as ArmPrimary from "../arm.js";
 import { ArmTestPos1, ArmTestPos2 } from "../../const.js";
 
 export class SwordInfantry extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("SwordInfantry_img");
     // Override original data
 
@@ -40,8 +40,8 @@ export class SwordInfantry extends ArmPrimary.Arm {
 }
 
 export class PalaceGuard extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("PalaceGuard_img");
     // Override original data
 
@@ -78,8 +78,8 @@ export class PalaceGuard extends ArmPrimary.Arm {
 }
 
 export class Musketeer extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("Musketeer_img");
     // Override original data
 
@@ -111,8 +111,8 @@ export class Musketeer extends ArmPrimary.Arm {
 }
 
 export class MusketRider extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("MusketRider_img");
     // Override original data
 
@@ -146,8 +146,8 @@ export class MusketRider extends ArmPrimary.Arm {
 }
 
 export class Vanguard extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("Vanguard_img");
     // Override original data
 
@@ -181,8 +181,8 @@ export class Vanguard extends ArmPrimary.Arm {
 }
 
 export class PalaceKnight extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("PalaceKnight_img");
     // Override original data
 
@@ -193,7 +193,7 @@ export class PalaceKnight extends ArmPrimary.Arm {
     this.m_description = "近战骑兵【重装甲，反步兵】";
 
     this.scale = 32;
-    this.singleHP = 90;
+    this.singleHP = 100;
     this.speed = 4;
 
     this.meleeArmor = 60;
@@ -221,8 +221,8 @@ export class PalaceKnight extends ArmPrimary.Arm {
 }
 
 export class CannonGroup extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("CannonGroup_img");
     // Override original data
 
@@ -253,8 +253,8 @@ export class CannonGroup extends ArmPrimary.Arm {
 }
 
 export class EmpireMortar extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("EmpireMortar_img");
     // Override original data
 
@@ -278,8 +278,8 @@ export class EmpireMortar extends ArmPrimary.Arm {
 }
 
 export class SteamTank extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("SteamTank_img");
     // Override original data
 
@@ -332,17 +332,17 @@ export function getTestArms(player) {
   return arms;
 }
 
-export function newAnArm(i, posX, posY) {
+export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
-  if (i === 0) return new SwordInfantry(pos);
-  if (i === 1) return new PalaceGuard(pos);
-  if (i === 2) return new Musketeer(pos);
-  if (i === 3) return new MusketRider(pos);
-  if (i === 4) return new Vanguard(pos);
-  if (i === 5) return new PalaceKnight(pos);
-  if (i === 6) return new CannonGroup(pos);
-  if (i === 7) return new EmpireMortar(pos);
-  if (i === 8) return new SteamTank(pos);
+  if (i === 0) return new SwordInfantry(pos, player);
+  if (i === 1) return new PalaceGuard(pos, player);
+  if (i === 2) return new Musketeer(pos, player);
+  if (i === 3) return new MusketRider(pos, player);
+  if (i === 4) return new Vanguard(pos, player);
+  if (i === 5) return new PalaceKnight(pos, player);
+  if (i === 6) return new CannonGroup(pos, player);
+  if (i === 7) return new EmpireMortar(pos, player);
+  if (i === 8) return new SteamTank(pos, player);
 }
 
 export function getImages() {

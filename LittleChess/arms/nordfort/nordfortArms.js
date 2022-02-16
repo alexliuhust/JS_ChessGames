@@ -2,8 +2,8 @@ import * as ArmPrimary from "../arm.js";
 import { ArmTestPos1, ArmTestPos2 } from "../../const.js";
 
 export class HallwayGuard extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("HallwayGuard_img");
     // Override original data
 
@@ -37,8 +37,8 @@ export class HallwayGuard extends ArmPrimary.Arm {
 }
 
 export class NordExecutioner extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("NordExecutioner_img");
     // Override original data
 
@@ -72,8 +72,8 @@ export class NordExecutioner extends ArmPrimary.Arm {
 }
 
 export class CoastDefender extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("CoastDefender_img");
     // Override original data
 
@@ -107,8 +107,8 @@ export class CoastDefender extends ArmPrimary.Arm {
 }
 
 export class CoastDefenderShield extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("CoastDefenderShield_img");
     // Override original data
 
@@ -143,8 +143,8 @@ export class CoastDefenderShield extends ArmPrimary.Arm {
 }
 
 export class BallistaSquad extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("BallistaSquad_img");
     // Override original data
 
@@ -180,8 +180,8 @@ export class BallistaSquad extends ArmPrimary.Arm {
 }
 
 export class FlameKnight extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("FlameKnight_img");
     // Override original data
 
@@ -215,8 +215,8 @@ export class FlameKnight extends ArmPrimary.Arm {
 }
 
 export class CoralCavalry extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("CoralCavalry_img");
     // Override original data
 
@@ -243,8 +243,8 @@ export class CoralCavalry extends ArmPrimary.Arm {
 }
 
 export class GiantBallista extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("GiantBallista_img");
     // Override original data
 
@@ -276,8 +276,8 @@ export class GiantBallista extends ArmPrimary.Arm {
 }
 
 export class StoneGiant extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("StoneGiant_img");
     // Override original data
 
@@ -331,17 +331,17 @@ export function getTestArms(player) {
   return arms;
 }
 
-export function newAnArm(i, posX, posY) {
+export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
-  if (i === 0) return new HallwayGuard(pos);
-  if (i === 1) return new NordExecutioner(pos);
-  if (i === 2) return new CoastDefender(pos);
-  if (i === 3) return new CoastDefenderShield(pos);
-  if (i === 4) return new BallistaSquad(pos);
-  if (i === 5) return new FlameKnight(pos);
-  if (i === 6) return new CoralCavalry(pos);
-  if (i === 7) return new GiantBallista(pos);
-  if (i === 8) return new StoneGiant(pos);
+  if (i === 0) return new HallwayGuard(pos, player);
+  if (i === 1) return new NordExecutioner(pos, player);
+  if (i === 2) return new CoastDefender(pos, player);
+  if (i === 3) return new CoastDefenderShield(pos, player);
+  if (i === 4) return new BallistaSquad(pos, player);
+  if (i === 5) return new FlameKnight(pos, player);
+  if (i === 6) return new CoralCavalry(pos, player);
+  if (i === 7) return new GiantBallista(pos, player);
+  if (i === 8) return new StoneGiant(pos, player);
 }
 
 export function getImages() {

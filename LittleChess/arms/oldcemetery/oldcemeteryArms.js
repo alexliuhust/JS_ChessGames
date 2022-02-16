@@ -2,8 +2,8 @@ import * as ArmPrimary from "../arm.js";
 import { ArmTestPos1, ArmTestPos2 } from "../../const.js";
 
 export class DarkSoldier extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("DarkSoldier_img");
     // Override original data
 
@@ -37,8 +37,8 @@ export class DarkSoldier extends ArmPrimary.Arm {
 }
 
 export class DarkSoldierScythe extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("DarkSoldierScythe_img");
     // Override original data
 
@@ -78,8 +78,8 @@ export class DarkSoldierScythe extends ArmPrimary.Arm {
 }
 
 export class Banshee extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("Banshee_img");
     // Override original data
 
@@ -105,8 +105,8 @@ export class Banshee extends ArmPrimary.Arm {
 }
 
 export class ScreamingBanshee extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("ScreamingBanshee_img");
     // Override original data
 
@@ -134,8 +134,8 @@ export class ScreamingBanshee extends ArmPrimary.Arm {
 }
 
 export class ScreamingBansheeGF extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("ScreamingBansheeGF_img");
     // Override original data
 
@@ -181,8 +181,8 @@ export class ScreamingBansheeGF extends ArmPrimary.Arm {
 }
 
 export class DeathKnight extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("DeathKnight_img");
     // Override original data
 
@@ -207,8 +207,8 @@ export class DeathKnight extends ArmPrimary.Arm {
 }
 
 export class DeathKnightDS extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("DeathKnightDS_img");
     // Override original data
 
@@ -233,8 +233,8 @@ export class DeathKnightDS extends ArmPrimary.Arm {
 }
 
 export class SpiritCoffinGF extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("SpiritCoffinGF_img");
     // Override original data
 
@@ -263,8 +263,8 @@ export class SpiritCoffinGF extends ArmPrimary.Arm {
 }
 
 export class SpiritCoffinBB extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("SpiritCoffinBB_img");
     // Override original data
 
@@ -308,17 +308,17 @@ export function getTestArms(player) {
   return arms;
 }
 
-export function newAnArm(i, posX, posY) {
+export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
-  if (i === 0) return new DarkSoldier(pos);
-  if (i === 1) return new DarkSoldierScythe(pos);
-  if (i === 2) return new Banshee(pos);
-  if (i === 3) return new ScreamingBanshee(pos);
-  if (i === 4) return new ScreamingBansheeGF(pos);
-  if (i === 5) return new DeathKnight(pos);
-  if (i === 6) return new DeathKnightDS(pos);
-  if (i === 7) return new SpiritCoffinGF(pos);
-  if (i === 8) return new SpiritCoffinBB(pos);
+  if (i === 0) return new DarkSoldier(pos, player);
+  if (i === 1) return new DarkSoldierScythe(pos, player);
+  if (i === 2) return new Banshee(pos, player);
+  if (i === 3) return new ScreamingBanshee(pos, player);
+  if (i === 4) return new ScreamingBansheeGF(pos, player);
+  if (i === 5) return new DeathKnight(pos, player);
+  if (i === 6) return new DeathKnightDS(pos, player);
+  if (i === 7) return new SpiritCoffinGF(pos, player);
+  if (i === 8) return new SpiritCoffinBB(pos, player);
 }
 
 export function getImages() {

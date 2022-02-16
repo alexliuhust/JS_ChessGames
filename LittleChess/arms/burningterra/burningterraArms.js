@@ -2,8 +2,8 @@ import * as ArmPrimary from "../arm.js";
 import { ArmTestPos1, ArmTestPos2 } from "../../const.js";
 
 export class HenchWarrior extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("HenchWarrior_img");
     // Override original data
 
@@ -28,8 +28,8 @@ export class HenchWarrior extends ArmPrimary.Arm {
 }
 
 export class HenchWarriorHalberd extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("HenchWarriorHalberd_img");
     // Override original data
 
@@ -68,8 +68,8 @@ export class HenchWarriorHalberd extends ArmPrimary.Arm {
 }
 
 export class HenchWarriorGiantaxe extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("HenchWarriorGiantaxe_img");
     // Override original data
 
@@ -104,8 +104,8 @@ export class HenchWarriorGiantaxe extends ArmPrimary.Arm {
 }
 
 export class BurningKnight extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("BurningKnight_img");
     // Override original data
 
@@ -130,8 +130,8 @@ export class BurningKnight extends ArmPrimary.Arm {
 }
 
 export class BurningKnightHalberd extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("BurningKnightHalberd_img");
     // Override original data
 
@@ -170,8 +170,8 @@ export class BurningKnightHalberd extends ArmPrimary.Arm {
 }
 
 export class Hellhound extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("Hellhound_img");
     // Override original data
 
@@ -195,8 +195,8 @@ export class Hellhound extends ArmPrimary.Arm {
 }
 
 export class DemonEnvoyWild extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("DemonEnvoyWild_img");
     // Override original data
 
@@ -232,8 +232,8 @@ export class DemonEnvoyWild extends ArmPrimary.Arm {
 }
 
 export class DemonEnvoyHellfire extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("DemonEnvoyHellfire_img");
     // Override original data
 
@@ -263,8 +263,8 @@ export class DemonEnvoyHellfire extends ArmPrimary.Arm {
 }
 
 export class GreatDemon extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("GreatDemon_img");
     // Override original data
 
@@ -315,17 +315,17 @@ export function getTestArms(player) {
   return arms;
 }
 
-export function newAnArm(i, posX, posY) {
+export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
-  if (i === 0) return new HenchWarrior(pos);
-  if (i === 1) return new HenchWarriorHalberd(pos);
-  if (i === 2) return new HenchWarriorGiantaxe(pos);
-  if (i === 3) return new BurningKnight(pos);
-  if (i === 4) return new BurningKnightHalberd(pos);
-  if (i === 5) return new Hellhound(pos);
-  if (i === 6) return new DemonEnvoyWild(pos);
-  if (i === 7) return new DemonEnvoyHellfire(pos);
-  if (i === 8) return new GreatDemon(pos);
+  if (i === 0) return new HenchWarrior(pos, player);
+  if (i === 1) return new HenchWarriorHalberd(pos, player);
+  if (i === 2) return new HenchWarriorGiantaxe(pos, player);
+  if (i === 3) return new BurningKnight(pos, player);
+  if (i === 4) return new BurningKnightHalberd(pos, player);
+  if (i === 5) return new Hellhound(pos, player);
+  if (i === 6) return new DemonEnvoyWild(pos, player);
+  if (i === 7) return new DemonEnvoyHellfire(pos, player);
+  if (i === 8) return new GreatDemon(pos, player);
 }
 
 export function getImages() {

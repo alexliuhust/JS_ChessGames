@@ -2,8 +2,8 @@ import * as ArmPrimary from "../arm.js";
 import { ArmTestPos1, ArmTestPos2 } from "../../const.js";
 
 export class WoodsGuard extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("WoodsGuard_img");
     // Override original data
 
@@ -37,8 +37,8 @@ export class WoodsGuard extends ArmPrimary.Arm {
 }
 
 export class WildKiller extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("WildKiller_img");
     // Override original data
 
@@ -76,8 +76,8 @@ export class WildKiller extends ArmPrimary.Arm {
 }
 
 export class ShadowArcherPS extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("ShadowArcherPS_img");
     // Override original data
 
@@ -124,8 +124,8 @@ export class ShadowArcherPS extends ArmPrimary.Arm {
 }
 
 export class ShadowArcherAP extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("ShadowArcherAP_img");
     // Override original data
 
@@ -162,8 +162,8 @@ export class ShadowArcherAP extends ArmPrimary.Arm {
 }
 
 export class ShadowArcherFL extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("ShadowArcherFL_img");
     // Override original data
 
@@ -190,8 +190,8 @@ export class ShadowArcherFL extends ArmPrimary.Arm {
 }
 
 export class LongbowRanger extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("LongbowRanger_img");
     // Override original data
 
@@ -226,8 +226,8 @@ export class LongbowRanger extends ArmPrimary.Arm {
 }
 
 export class Dryad extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("Dryad_img");
     // Override original data
 
@@ -252,8 +252,8 @@ export class Dryad extends ArmPrimary.Arm {
 }
 
 export class DryadRangerRide extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("DryadRangerRide_img");
     // Override original data
 
@@ -291,8 +291,8 @@ export class DryadRangerRide extends ArmPrimary.Arm {
 }
 
 export class GiantTreeman extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("GiantTreeman_img");
     // Override original data
 
@@ -332,17 +332,17 @@ export function getTestArms(player) {
   return arms;
 }
 
-export function newAnArm(i, posX, posY) {
+export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
-  if (i === 0) return new WoodsGuard(pos);
-  if (i === 1) return new WildKiller(pos);
-  if (i === 2) return new ShadowArcherPS(pos);
-  if (i === 3) return new ShadowArcherAP(pos);
-  if (i === 4) return new ShadowArcherFL(pos);
-  if (i === 5) return new LongbowRanger(pos);
-  if (i === 6) return new Dryad(pos);
-  if (i === 7) return new DryadRangerRide(pos);
-  if (i === 8) return new GiantTreeman(pos);
+  if (i === 0) return new WoodsGuard(pos, player);
+  if (i === 1) return new WildKiller(pos, player);
+  if (i === 2) return new ShadowArcherPS(pos, player);
+  if (i === 3) return new ShadowArcherAP(pos, player);
+  if (i === 4) return new ShadowArcherFL(pos, player);
+  if (i === 5) return new LongbowRanger(pos, player);
+  if (i === 6) return new Dryad(pos, player);
+  if (i === 7) return new DryadRangerRide(pos, player);
+  if (i === 8) return new GiantTreeman(pos, player);
 }
 
 export function getImages() {

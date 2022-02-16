@@ -173,17 +173,17 @@ export class Deploy {
   }
 }
 
-export function decodeArmPositionInfo(player) {
-  let armlistNumber = "a" + player;
+export function decodeArmPositionInfo(playerNum, player) {
+  let armlistNumber = "a" + playerNum;
   let outputList = window.localStorage.getItem(armlistNumber);
   let info = JSON.parse(outputList);
 
-  let powerNumber = "power" + player;
+  let powerNumber = "power" + playerNum;
   let Power = exportPower(window.localStorage.getItem(powerNumber));
 
   let arms = [];
   for (let i = 0; i < info.length; i++) {
-    arms.push(Power.newAnArm(info[i][0], info[i][1], info[i][2]));
+    arms.push(Power.newAnArm(info[i][0], info[i][1], info[i][2], player));
   }
 
   return arms;

@@ -31,7 +31,7 @@ export function checkArmClass(targetArm) {
 }
 
 export class Arm {
-  constructor(positionValue) {
+  constructor(positionValue, _player) {
     // Properties for drawing
     this.x = 0;
     this.y = 0;
@@ -40,6 +40,7 @@ export class Arm {
     this.width = 50;
     this.height = 50;
     this.img = null;
+    this.player = _player !== null ? _player : null;
 
     this.isAlive = true;
     this.hasAttacked = false;

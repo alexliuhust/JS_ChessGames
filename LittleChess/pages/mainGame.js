@@ -26,12 +26,13 @@ const canvasList = {
 // ===============================================================
 // ====================== Load Players Info ======================
 // ===============================================================
-let pieces1 = decodeArmPositionInfo(1);
-let pieces2 = decodeArmPositionInfo(2);
-
 let useMandarin = window.localStorage.getItem("useMandarin") === "true";
-let player1 = new Player(pieces1, pieces2, "blue", canvasList, useMandarin);
-let player2 = new Player(pieces2, pieces1, "red", canvasList, useMandarin);
+let player1 = new Player("blue", canvasList, useMandarin);
+let player2 = new Player("red", canvasList, useMandarin);
+let pieces1 = decodeArmPositionInfo(1, player1);
+let pieces2 = decodeArmPositionInfo(2, player2);
+player1.addPieces(pieces1, pieces2);
+player2.addPieces(pieces2, pieces1);
 
 // ===============================================================
 // =================== Refreshing Round Button ===================
@@ -120,6 +121,8 @@ function start() {
 
     player1.executeOneLoop();
     player2.executeOneLoop();
+    player1.drawEffects();
+    player2.drawEffects();
 
     BannerDraw.drawBannerInfo(canvasList.banner, player1, player2, useMandarin);
   }, 20);

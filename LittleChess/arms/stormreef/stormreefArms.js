@@ -2,8 +2,8 @@ import * as ArmPrimary from "../arm.js";
 import { ArmTestPos1, ArmTestPos2 } from "../../const.js";
 
 export class Seaman extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("Seaman_img");
     // Override original data
 
@@ -24,8 +24,8 @@ export class Seaman extends ArmPrimary.Arm {
 }
 
 export class SeamanPistol extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("SeamanPistol_img");
     // Override original data
 
@@ -49,8 +49,8 @@ export class SeamanPistol extends ArmPrimary.Arm {
 }
 
 export class SeamanMusket extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("SeamanMusket_img");
     // Override original data
 
@@ -84,8 +84,8 @@ export class SeamanMusket extends ArmPrimary.Arm {
 }
 
 export class Pisciculi extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("Pisciculi_img");
     // Override original data
 
@@ -108,8 +108,8 @@ export class Pisciculi extends ArmPrimary.Arm {
 }
 
 export class PisciculiDoubleBlades extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("PisciculiDoubleBlades_img");
     // Override original data
 
@@ -132,8 +132,8 @@ export class PisciculiDoubleBlades extends ArmPrimary.Arm {
 }
 
 export class MurlocWarrior extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("MurlocWarrior_img");
     // Override original data
 
@@ -167,8 +167,8 @@ export class MurlocWarrior extends ArmPrimary.Arm {
 }
 
 export class MurlocWarriorHurling extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("MurlocWarriorHurling_img");
     // Override original data
 
@@ -210,8 +210,8 @@ export class MurlocWarriorHurling extends ArmPrimary.Arm {
 }
 
 export class Cancrimag extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("Cancrimag_img");
     // Override original data
 
@@ -251,8 +251,8 @@ export class Cancrimag extends ArmPrimary.Arm {
 }
 
 export class DeckGun extends ArmPrimary.Arm {
-  constructor(value) {
-    super(value);
+  constructor(value, player) {
+    super(value, player);
     this.img = document.getElementById("DeckGun_img");
     // Override original data
 
@@ -298,17 +298,17 @@ export function getTestArms(player) {
   return arms;
 }
 
-export function newAnArm(i, posX, posY) {
+export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
-  if (i === 0) return new Seaman(pos);
-  if (i === 1) return new SeamanPistol(pos);
-  if (i === 2) return new SeamanMusket(pos);
-  if (i === 3) return new Pisciculi(pos);
-  if (i === 4) return new PisciculiDoubleBlades(pos);
-  if (i === 5) return new MurlocWarrior(pos);
-  if (i === 6) return new MurlocWarriorHurling(pos);
-  if (i === 7) return new Cancrimag(pos);
-  if (i === 8) return new DeckGun(pos);
+  if (i === 0) return new Seaman(pos, player);
+  if (i === 1) return new SeamanPistol(pos, player);
+  if (i === 2) return new SeamanMusket(pos, player);
+  if (i === 3) return new Pisciculi(pos, player);
+  if (i === 4) return new PisciculiDoubleBlades(pos, player);
+  if (i === 5) return new MurlocWarrior(pos, player);
+  if (i === 6) return new MurlocWarriorHurling(pos, player);
+  if (i === 7) return new Cancrimag(pos, player);
+  if (i === 8) return new DeckGun(pos, player);
 }
 
 export function getImages() {
