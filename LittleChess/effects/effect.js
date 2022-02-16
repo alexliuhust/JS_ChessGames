@@ -1,4 +1,5 @@
 import { MeleeEffect } from "./meleeEffect.js";
+import { ChargeEffect } from "./chargeEffect.js";
 import { MissileEffect } from "./missileEffect.js";
 import { BombingEffect } from "./bombingEffect.js";
 
@@ -6,7 +7,11 @@ export function addEffect(list, damageType, attacker, defender, cxt) {
   if (damageType === "melee") {
     let effect = new MeleeEffect(defender.x, defender.y, cxt);
     list.push(effect);
-    return effect.maxTime - 4;
+    return effect.maxTime - 5;
+  } else if (damageType === "charge") {
+    let effect = new ChargeEffect(attacker, defender, cxt);
+    list.push(effect);
+    return effect.maxTime / 3 + 3;
   } else if (damageType === "missile") {
     let effect = new MissileEffect(attacker, defender, cxt);
     list.push(effect);

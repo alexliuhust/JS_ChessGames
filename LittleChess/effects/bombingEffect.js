@@ -44,7 +44,7 @@ export class BombingEffect {
 
       let x = this.x1 + 25 + this.time * this.dx;
       let y = this.y1 + 25 + this.time * this.dy;
-      this.drawCircle(x, y, 5, true);
+      this.drawCircle(x, y, 10, true);
     };
   }
 }

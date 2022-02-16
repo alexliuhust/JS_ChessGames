@@ -6,7 +6,7 @@ export class MeleeEffect {
     this.x = _x;
     this.y = _y;
     this.time = 0;
-    this.maxTime = 20;
+    this.maxTime = 32;
     this.isAlive = true;
 
     this.drawLine = function (x1, y1, x2, y2) {
@@ -37,25 +37,35 @@ export class MeleeEffect {
         let y2 = y + curLength;
         this.drawLine(x1, y1, x2, y2);
       } else if (t1 < this.time && this.time <= t2) {
-        let curLength = Math.round(((this.time - t1) * 40) / timeItv);
-        let x1 = x + curLength;
-        let y1 = y + curLength;
+        let x1 = x;
+        let y1 = y;
         let x2 = x + 40;
         let y2 = y + 40;
         this.drawLine(x1, y1, x2, y2);
       } else if (t2 < this.time && this.time <= t3) {
-        let curLength = Math.round(((this.time - t2) * 40) / timeItv);
-        let x1 = x + 40;
+        let x1 = x;
         let y1 = y;
-        let x2 = x + 40 - curLength;
-        let y2 = y + curLength;
+        let x2 = x + 40;
+        let y2 = y + 40;
+        this.drawLine(x1, y1, x2, y2);
+
+        let curLength = Math.round(((this.time - t2) * 40) / timeItv);
+        x1 = x + 40;
+        y1 = y;
+        x2 = x + 40 - curLength;
+        y2 = y + curLength;
         this.drawLine(x1, y1, x2, y2);
       } else if (t3 < this.time && this.time <= t4) {
-        let curLength = Math.round(((this.time - t3) * 40) / timeItv);
-        let x1 = x + 40 - curLength;
-        let y1 = y + curLength;
-        let x2 = x;
+        let x1 = x;
+        let y1 = y;
+        let x2 = x + 40;
         let y2 = y + 40;
+        this.drawLine(x1, y1, x2, y2);
+
+        x1 = x + 40;
+        y1 = y;
+        x2 = x;
+        y2 = y + 40;
         this.drawLine(x1, y1, x2, y2);
       }
     };
