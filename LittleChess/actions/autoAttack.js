@@ -21,8 +21,10 @@ function aotuAttack(attacker, defenders, isMissle) {
 function canAutoMissileAttack(attacker) {
   return (
     (attacker.type === "archers" ||
-      (attacker.type === "cavalry" && attacker.c_missileAttack > 0) ||
-      (attacker.type === "monster-infantry" && attacker.c_missileAttack > 0)) &&
+      ((attacker.type === "cavalry" ||
+        attacker.type === "monster-infantry" ||
+        attacker.type === "monster") &&
+        attacker.c_missileAttack > 0)) &&
     attacker.c_ammo >= attacker.ammo * 0.4 &&
     !attacker.hasAttacked
   );
