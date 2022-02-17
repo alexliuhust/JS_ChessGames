@@ -33,16 +33,19 @@ export function armBombArea(attacker, centerPosition, defenders) {
   }, sleepRound * 20);
 }
 
-export function armAttackArm(attacker, defender, defenders) {
+export function armAttackArm(attacker, defender, defenders, _damageType) {
   ArmPrimary.checkArmClass(attacker);
   ArmPrimary.checkArmClass(defender);
 
-  let damageType = determineDamageType(attacker, defender);
-  if (damageType == null) return;
-  if (damageType === "charge") {
-    let result = determineChargingTarget(attacker, defender, defenders);
-    damageType = result[0];
-    defender = result[1];
+  let damageType = _damageType;
+  if (typeof _damageType === "undefined") {
+    damageType = determineDamageType(attacker, defender);
+    if (damageType == null) return;
+    if (damageType === "charge") {
+      let result = determineChargingTarget(attacker, defender, defenders);
+      damageType = result[0];
+      defender = result[1];
+    }
   }
 
   let list1 = attacker.player.effectList;

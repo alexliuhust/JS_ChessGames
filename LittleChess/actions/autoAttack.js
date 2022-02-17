@@ -12,12 +12,6 @@ export function triggerAutoAttack(attacker, defenders) {
   }
 }
 
-function aotuAttack(attacker, defenders, isMissle) {
-  let nearestEnemy = getNearestEnemy(attacker, defenders, isMissle);
-  if (nearestEnemy === null) return;
-  armAttackArm(attacker, nearestEnemy, defenders);
-}
-
 function canAutoMissileAttack(attacker) {
   return (
     (attacker.type === "archers" ||
@@ -72,4 +66,11 @@ function getNearestEnemy(attacker, defenders, isMissile) {
   if (isMissile && minDistance <= attacker.c_missileRange) return nearestEnemy;
   if (!isMissile && minDistance === 1) return nearestEnemy;
   return null;
+}
+
+function aotuAttack(attacker, defenders, isMissile) {
+  let nearestEnemy = getNearestEnemy(attacker, defenders, isMissile);
+  if (nearestEnemy === null) return;
+  if (isMissile) armAttackArm(attacker, nearestEnemy, defenders, "missile");
+  else armAttackArm(attacker, nearestEnemy, defenders, "melee");
 }

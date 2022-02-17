@@ -290,14 +290,14 @@ export class SteamTank extends ArmPrimary.Arm {
     this.m_description = "机甲【重装甲，远程攻击】";
 
     this.scale = 1;
-    this.singleHP = 600;
-    this.speed = 2;
+    this.singleHP = 400;
+    this.speed = 3;
 
     this.meleeArmor = 95;
     this.missileArmor = 75;
     this.chargeArmor = 75;
 
-    this.meleeAttack = 300;
+    this.chargeAttack = 300;
     this.missileAttack = 1000;
     this.missileRange = 7;
 
