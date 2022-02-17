@@ -461,6 +461,6 @@ export class Arm {
   }
 
   isMon() {
-    return this.type === "moster" || this.type === "monster-infantry";
+    return this.type === "monster" || this.type === "monster-infantry";
   }
 }

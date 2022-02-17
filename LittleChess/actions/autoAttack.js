@@ -28,7 +28,8 @@ function canAutoMeleeAttack(attacker) {
   return (
     (attacker.type === "infantry" ||
       attacker.type === "monster-infantry" ||
-      attacker.type === "monster") &&
+      attacker.type === "monster" ||
+      (attacker.type === "cavalry" && attacker.c_chargeAttack === 0)) &&
     !attacker.hasAttacked
   );
 }

@@ -237,9 +237,9 @@ function decreaseScalesForArms(attacker, damageType, defender) {
 
   // Defender decrease leadership
   if (attacker.isMon() && !defender.isMon()) defender.c_leadership -= 30;
-  if (damageType === "charge") defender.c_leadership -= 50;
+  if (damageType === "charge" && !defender.isMon()) defender.c_leadership -= 50;
   defender.c_leadership -= leadershipDrop(defender, results[0]);
-  if (damageType === "melee" || damageType === "charge")
+  if ((damageType === "melee" || damageType === "charge") && !defender.isMon())
     defender.c_leadership -= attacker.getShockingAbility();
   if (defender.c_leadership < 0) defender.c_leadership = 0;
 

@@ -290,7 +290,7 @@ export class MutantSlave extends ArmPrimary.Arm {
     this.description = "monster-infantry / fast / shocking";
     this.m_description = "怪兽步兵【迅捷如风，惊骇敌军】";
 
-    this.scale = 20;
+    this.scale = 16;
     this.singleHP = 200;
     this.speed = 6;
 
