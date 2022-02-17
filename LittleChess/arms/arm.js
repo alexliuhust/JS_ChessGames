@@ -1,5 +1,6 @@
 import { Canvas } from "../tools.js";
 import { calculateCost, calculateLeaderShip } from "./armTools.js";
+import { triggerAutoAttack } from "../actions/autoAttack.js";
 
 export const DamageTypes = ["melee", "missile", "charge", "bombing", "magic"];
 export const ArmTypes = [
@@ -45,6 +46,7 @@ export class Arm {
     this.isAlive = true;
     this.hasAttacked = false;
     this.operable = true;
+    this.prepareToAuto = false;
 
     // Static properties
     this.name = "";
@@ -325,12 +327,13 @@ export class Arm {
   // =============== Battle APIs ===============
 
   optOut() {
-    this.hasAttacked = true;
     this.c_speed = 0;
     this.operable = false;
   }
 
-  roundRefresh(currentRound) {
+  roundRefresh(currentRound, endMyRound) {
+    if (endMyRound) triggerAutoAttack(this, this.player.enemyList);
+
     this.operable = true;
     this.c_speed = this.speed;
     this.hasAttacked = false;
@@ -344,6 +347,10 @@ export class Arm {
     // Update real-time battle properties
     this._updateRealTimeProperties();
     if (this.c_leadership <= 0) this.optOut();
+  }
+
+  getTotalHP() {
+    return this.c_singleHP * this.c_scale;
   }
 
   getAntiArmor(damageType, targetArm) {
@@ -386,7 +393,6 @@ export class Arm {
         realDamage = Math.round(realDamage * 0.125);
       else realDamage = Math.round(realDamage * 0.25);
       if (realDamage > 0) realDamage = Math.max(realDamage, 1);
-      console.log("realDamage", realDamage);
 
       this.c_singleHP -= realDamage;
       decreaseScore = Math.round(realDamage / 3);
@@ -401,7 +407,6 @@ export class Arm {
       if (this.type === "monster-infantry") factor = 0.5;
       else if (this.type === "artillery") factor = 0.3;
       realDamage = Math.round(realDamage * factor);
-      console.log("realDamage", realDamage);
 
       let totalDecrease =
         realDamage === 0

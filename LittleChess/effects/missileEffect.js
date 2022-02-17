@@ -12,7 +12,7 @@ export class MissileEffect {
     this.isAlive = true;
 
     this.speed = 10.0;
-    this.len = 2;
+    this.len = 3;
     this.totalDistance = calculateDistance(this.x1, this.y1, this.x2, this.y2);
     this.cos = Math.abs(this.x1 - this.x2) / this.totalDistance;
     this.sin = Math.abs(this.y1 - this.y2) / this.totalDistance;
@@ -22,7 +22,7 @@ export class MissileEffect {
 
     this.bias = [];
     for (let i = 0; i < 6; i++) {
-      let bias = Math.floor(Math.random() * 30 - 15);
+      let bias = Math.floor(Math.random() * 50 - 25);
       if (Math.abs(bias - 0) < 5) {
         i--;
         continue;

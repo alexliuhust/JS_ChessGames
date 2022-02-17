@@ -7,7 +7,7 @@ export function addEffect(list, damageType, attacker, defender, cxt) {
   if (damageType === "melee") {
     let effect = new MeleeEffect(defender.x, defender.y, cxt);
     list.push(effect);
-    return effect.maxTime - 5;
+    return effect.maxTime / 2 + 1;
   } else if (damageType === "charge") {
     let effect = new ChargeEffect(attacker, defender, cxt);
     list.push(effect);
