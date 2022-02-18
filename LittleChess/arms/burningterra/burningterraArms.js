@@ -210,11 +210,8 @@ export class DemonEnvoyWild extends ArmPrimary.Arm {
     this.singleHP = 300;
     this.speed = 5;
 
-    this.meleeArmor = 0;
-    this.missileArmor = 0;
-    this.chargeArmor = 0;
-
-    this.meleeAttack = 70;
+    this.meleeAttack = 55;
+    this.chargeAttack = 55;
 
     this.antiArmor = 50;
 
@@ -247,10 +244,6 @@ export class DemonEnvoyHellfire extends ArmPrimary.Arm {
     this.singleHP = 300;
     this.speed = 4;
 
-    this.meleeArmor = 0;
-    this.missileArmor = 0;
-    this.chargeArmor = 0;
-
     this.meleeAttack = 55;
     this.missileAttack = 90;
     this.missileRange = 6;
@@ -277,10 +270,6 @@ export class GreatDemon extends ArmPrimary.Arm {
     this.scale = 1;
     this.singleHP = 2000;
     this.speed = 4;
-
-    this.meleeArmor = 0;
-    this.missileArmor = 0;
-    this.chargeArmor = 0;
 
     this.meleeAttack = 1000;
 

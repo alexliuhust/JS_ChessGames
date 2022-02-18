@@ -56,6 +56,7 @@ export class WildKiller extends ArmPrimary.Arm {
 
     this.meleeAttack = 50;
     this.meleeAttack_bonus = 18;
+    this.chargeAttack = 40;
 
     this.shock = 40;
     this.loadRealtimeProps();
@@ -69,6 +70,8 @@ export class WildKiller extends ArmPrimary.Arm {
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
       if (targetArm.isInfn()) singleDamage += this.meleeAttack_bonus;
+    } else if (damageType === "charge") {
+      singleDamage = this.c_chargeAttack;
     }
 
     return singleDamage;
