@@ -127,7 +127,7 @@ export class Deploy {
     };
 
     this.addArmImagesToList = function () {
-      for (let i = 0; i < 9; i++) {
+      for (let i = 0; i < this.images.length; i++) {
         let div = document.getElementById(i);
         let elem = document.createElement("img");
         elem.src = this.images[i];

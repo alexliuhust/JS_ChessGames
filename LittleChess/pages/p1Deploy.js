@@ -1,6 +1,4 @@
 import { Deploy } from "../deployMethods.js";
-import { DeployWidth as DW, DeployHeight as DH } from "../const.js";
-import { Canvas } from "../tools.js";
 
 const canvasList = {
   map: document.getElementById("map").getContext("2d"),

@@ -283,8 +283,13 @@ export class Arm {
       this.c_leadership = this.leadership;
     }
 
-    if (this.scale !== 1) this.singleHP = Math.round(this.singleHP * factor);
-    else this.singleHP = Math.round(this.singleHP * (factor - 0.1));
+    if (this.scale !== 1) {
+      this.singleHP = Math.round(this.singleHP * factor);
+    } else {
+      let inc = Math.round(this.singleHP * (factor - 1.1));
+      this.singleHP += inc;
+      this.c_singleHP += inc;
+    }
 
     this.meleeArmor = Math.round(this.meleeArmor * (factor - 0.1));
     this.missileArmor = Math.round(this.missileArmor * (factor - 0.1));
