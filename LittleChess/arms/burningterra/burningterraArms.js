@@ -288,19 +288,15 @@ export class GreatDemon extends ArmPrimary.Arm {
   }
 }
 
-export function getTestArms(player) {
-  let pos = player === 1 ? ArmTestPos1 : ArmTestPos2;
-  let arms = [
-    new HenchWarrior(pos[0]),
-    new HenchWarriorHalberd(pos[1]),
-    new HenchWarriorGiantaxe(pos[2]),
-    new BurningKnight(pos[3]),
-    new BurningKnightHalberd(pos[4]),
-    new Hellhound(pos[5]),
-    new DemonEnvoyWild(pos[6]),
-    new DemonEnvoyHellfire(pos[7]),
-    new GreatDemon(pos[8]),
-  ];
+export function getTestArms() {
+  let arms = [];
+  let i = 0;
+  while (true) {
+    let arm = newAnArm(i, 0, 0, null);
+    if (arm === null) break;
+    arms.push(arm);
+    i++;
+  }
   return arms;
 }
 
@@ -315,6 +311,8 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 6) return new DemonEnvoyWild(pos, player);
   if (i === 7) return new DemonEnvoyHellfire(pos, player);
   if (i === 8) return new GreatDemon(pos, player);
+
+  return null;
 }
 
 export function getImages() {

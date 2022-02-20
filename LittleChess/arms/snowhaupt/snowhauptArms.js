@@ -288,19 +288,15 @@ export class GiantCannon extends ArmPrimary.Arm {
   }
 }
 
-export function getTestArms(player) {
-  let pos = player === 1 ? ArmTestPos1 : ArmTestPos2;
-  let arms = [
-    new DwarfWarrior(pos[0]),
-    new BoneBreaker(pos[1]),
-    new Berserker(pos[2]),
-    new MountainShocker(pos[3]),
-    new DwarfMusketeer(pos[4]),
-    new MortarSquad(pos[5]),
-    new GoatCavalry(pos[6]),
-    new RevolvingCannon(pos[7]),
-    new GiantCannon(pos[8]),
-  ];
+export function getTestArms() {
+  let arms = [];
+  let i = 0;
+  while (true) {
+    let arm = newAnArm(i, 0, 0, null);
+    if (arm === null) break;
+    arms.push(arm);
+    i++;
+  }
   return arms;
 }
 
@@ -315,6 +311,8 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 6) return new GoatCavalry(pos, player);
   if (i === 7) return new RevolvingCannon(pos, player);
   if (i === 8) return new GiantCannon(pos, player);
+
+  return null;
 }
 
 export function getImages() {

@@ -282,19 +282,15 @@ export class DeckGun extends ArmPrimary.Arm {
   }
 }
 
-export function getTestArms(player) {
-  let pos = player === 1 ? ArmTestPos1 : ArmTestPos2;
-  let arms = [
-    new Seaman(pos[0]),
-    new SeamanPistol(pos[1]),
-    new SeamanMusket(pos[2]),
-    new Pisciculi(pos[3]),
-    new PisciculiDoubleBlades(pos[4]),
-    new MurlocWarrior(pos[5]),
-    new MurlocWarriorHurling(pos[6]),
-    new Cancrimag(pos[7]),
-    new DeckGun(pos[8]),
-  ];
+export function getTestArms() {
+  let arms = [];
+  let i = 0;
+  while (true) {
+    let arm = newAnArm(i, 0, 0, null);
+    if (arm === null) break;
+    arms.push(arm);
+    i++;
+  }
   return arms;
 }
 
@@ -309,6 +305,8 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 6) return new MurlocWarriorHurling(pos, player);
   if (i === 7) return new Cancrimag(pos, player);
   if (i === 8) return new DeckGun(pos, player);
+
+  return null;
 }
 
 export function getImages() {

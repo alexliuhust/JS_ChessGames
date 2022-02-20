@@ -315,19 +315,15 @@ export class StoneGiant extends ArmPrimary.Arm {
   }
 }
 
-export function getTestArms(player) {
-  let pos = player === 1 ? ArmTestPos1 : ArmTestPos2;
-  let arms = [
-    new HallwayGuard(pos[0]),
-    new NordExecutioner(pos[1]),
-    new CoastDefender(pos[2]),
-    new CoastDefenderShield(pos[3]),
-    new BallistaSquad(pos[4]),
-    new FlameKnight(pos[5]),
-    new CoralCavalry(pos[6]),
-    new GiantBallista(pos[7]),
-    new StoneGiant(pos[8]),
-  ];
+export function getTestArms() {
+  let arms = [];
+  let i = 0;
+  while (true) {
+    let arm = newAnArm(i, 0, 0, null);
+    if (arm === null) break;
+    arms.push(arm);
+    i++;
+  }
   return arms;
 }
 
@@ -342,6 +338,8 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 6) return new CoralCavalry(pos, player);
   if (i === 7) return new GiantBallista(pos, player);
   if (i === 8) return new StoneGiant(pos, player);
+
+  return null;
 }
 
 export function getImages() {

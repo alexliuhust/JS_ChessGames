@@ -77,31 +77,6 @@ export class PalaceGuard extends ArmPrimary.Arm {
   }
 }
 
-export class TextGuard extends ArmPrimary.Arm {
-  constructor(value, player) {
-    super(value, player);
-    this.img = document.getElementById("Text_img");
-    // Override original data
-
-    this.name = "Test Guard";
-    this.m_name = "测试";
-    this.type = "infantry";
-    this.description = "infantry / resist-charging / anti-large";
-    this.m_description = "近战步兵【抵御冲锋，反大型】";
-
-    this.scale = 64;
-    this.singleHP = 50;
-    this.speed = 2;
-
-    this.chargeArmor = 40;
-
-    this.meleeAttack = 20;
-    this.meleeAttack_bonus = 28;
-
-    this.loadRealtimeProps();
-  }
-}
-
 export class Musketeer extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
@@ -341,22 +316,15 @@ export class SteamTank extends ArmPrimary.Arm {
   }
 }
 
-export function getTestArms(player) {
-  let pos = player === 1 ? ArmTestPos1 : ArmTestPos2;
-  let arms = [
-    new SwordInfantry(pos[0]),
-    new PalaceGuard(pos[1]),
-    new Musketeer(pos[2]),
-    new MusketRider(pos[3]),
-    new Vanguard(pos[4]),
-    new PalaceKnight(pos[5]),
-    new CannonGroup(pos[6]),
-    new EmpireMortar(pos[7]),
-    new SteamTank(pos[8]),
-    new TextGuard(pos[1]),
-    new TextGuard(pos[1]),
-    new TextGuard(pos[1]),
-  ];
+export function getTestArms() {
+  let arms = [];
+  let i = 0;
+  while (true) {
+    let arm = newAnArm(i, 0, 0, null);
+    if (arm === null) break;
+    arms.push(arm);
+    i++;
+  }
   return arms;
 }
 
@@ -371,7 +339,8 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 6) return new CannonGroup(pos, player);
   if (i === 7) return new EmpireMortar(pos, player);
   if (i === 8) return new SteamTank(pos, player);
-  if (i === 9) return new TextGuard(pos, player);
+
+  return null;
 }
 
 export function getImages() {
@@ -385,9 +354,6 @@ export function getImages() {
   images.push("../images/empire/CannonGroup.png");
   images.push("../images/empire/EmpireMortar.png");
   images.push("../images/empire/SteamTank.png");
-  images.push("../images/empire/Test.png");
-  images.push("../images/empire/Test.png");
-  images.push("../images/empire/Test.png");
 
   return images;
 }

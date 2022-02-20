@@ -328,19 +328,15 @@ export class Foulcannon extends ArmPrimary.Arm {
   }
 }
 
-export function getTestArms(player) {
-  let pos = player === 1 ? ArmTestPos1 : ArmTestPos2;
-  let arms = [
-    new SlaveConscript(pos[0]),
-    new HurlerGas(pos[1]),
-    new HurlerFrgm(pos[2]),
-    new HurlerHE(pos[3]),
-    new WeapSqdGingall(pos[4]),
-    new WeapSqdGatlin(pos[5]),
-    new WeapSqdFlthr(pos[6]),
-    new MutantSlave(pos[7]),
-    new Foulcannon(pos[8]),
-  ];
+export function getTestArms() {
+  let arms = [];
+  let i = 0;
+  while (true) {
+    let arm = newAnArm(i, 0, 0, null);
+    if (arm === null) break;
+    arms.push(arm);
+    i++;
+  }
   return arms;
 }
 
@@ -355,6 +351,8 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 6) return new WeapSqdFlthr(pos, player);
   if (i === 7) return new MutantSlave(pos, player);
   if (i === 8) return new Foulcannon(pos, player);
+
+  return null;
 }
 
 export function getImages() {

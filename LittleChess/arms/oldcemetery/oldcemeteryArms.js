@@ -292,19 +292,15 @@ export class SpiritCoffinBB extends ArmPrimary.Arm {
   }
 }
 
-export function getTestArms(player) {
-  let pos = player === 1 ? ArmTestPos1 : ArmTestPos2;
-  let arms = [
-    new DarkSoldier(pos[0]),
-    new DarkSoldierScythe(pos[1]),
-    new Banshee(pos[2]),
-    new ScreamingBanshee(pos[3]),
-    new ScreamingBansheeGF(pos[4]),
-    new DeathKnight(pos[5]),
-    new DeathKnightDS(pos[6]),
-    new SpiritCoffinGF(pos[7]),
-    new SpiritCoffinBB(pos[8]),
-  ];
+export function getTestArms() {
+  let arms = [];
+  let i = 0;
+  while (true) {
+    let arm = newAnArm(i, 0, 0, null);
+    if (arm === null) break;
+    arms.push(arm);
+    i++;
+  }
   return arms;
 }
 
@@ -319,6 +315,8 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 6) return new DeathKnightDS(pos, player);
   if (i === 7) return new SpiritCoffinGF(pos, player);
   if (i === 8) return new SpiritCoffinBB(pos, player);
+
+  return null;
 }
 
 export function getImages() {

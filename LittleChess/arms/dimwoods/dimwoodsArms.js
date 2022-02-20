@@ -319,19 +319,15 @@ export class GiantTreeman extends ArmPrimary.Arm {
   }
 }
 
-export function getTestArms(player) {
-  let pos = player === 1 ? ArmTestPos1 : ArmTestPos2;
-  let arms = [
-    new WoodsGuard(pos[0]),
-    new WildKiller(pos[1]),
-    new ShadowArcherPS(pos[2]),
-    new ShadowArcherAP(pos[3]),
-    new ShadowArcherFL(pos[4]),
-    new LongbowRanger(pos[5]),
-    new Dryad(pos[6]),
-    new DryadRangerRide(pos[7]),
-    new GiantTreeman(pos[8]),
-  ];
+export function getTestArms() {
+  let arms = [];
+  let i = 0;
+  while (true) {
+    let arm = newAnArm(i, 0, 0, null);
+    if (arm === null) break;
+    arms.push(arm);
+    i++;
+  }
   return arms;
 }
 
@@ -346,6 +342,8 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 6) return new Dryad(pos, player);
   if (i === 7) return new DryadRangerRide(pos, player);
   if (i === 8) return new GiantTreeman(pos, player);
+
+  return null;
 }
 
 export function getImages() {
