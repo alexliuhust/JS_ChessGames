@@ -1,5 +1,4 @@
 import * as ArmPrimary from "../arm.js";
-import { ArmTestPos1, ArmTestPos2 } from "../../const.js";
 
 export class HallwayGuard extends ArmPrimary.Arm {
   constructor(value, player) {
@@ -10,8 +9,8 @@ export class HallwayGuard extends ArmPrimary.Arm {
     this.name = "Hallway Guard";
     this.m_name = "门厅守卫";
     this.type = "infantry";
-    this.description = "infantry / resist-charging / anti-armor";
-    this.m_description = "近战步兵【抵御冲锋，高破甲】";
+    this.description = "infantry / resist-charging";
+    this.m_description = "近战步兵【抵御冲锋】";
 
     this.scale = 64;
     this.singleHP = 50;
@@ -19,6 +18,41 @@ export class HallwayGuard extends ArmPrimary.Arm {
 
     this.meleeArmor = 40;
     this.missileArmor = 0;
+    this.chargeArmor = 60;
+
+    this.meleeAttack = 25;
+
+    this.antiArmor = 20;
+    this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmClass(targetArm);
+
+    if (damageType === "melee") return this.antiArmor;
+    return 0;
+  }
+}
+
+export class HallwayGuardShield extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+    this.img = document.getElementById("HallwayGuardShield_img");
+    // Override original data
+
+    this.name = "Hallway Guard (Shield)";
+    this.m_name = "门厅守卫-持盾";
+    this.type = "infantry";
+    this.description = "shield-infantry / resist-charging";
+    this.m_description = "持盾-近战步兵【抵御冲锋】";
+
+    this.scale = 64;
+    this.singleHP = 50;
+    this.speed = 2;
+
+    this.meleeArmor = 40;
+    this.missileArmor = 40;
     this.chargeArmor = 60;
 
     this.meleeAttack = 25;
@@ -214,6 +248,42 @@ export class FlameKnight extends ArmPrimary.Arm {
   }
 }
 
+export class FlameKnightShield extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+    this.img = document.getElementById("FlameKnightShield_img");
+    // Override original data
+
+    this.name = "Flame Knight (Shield)";
+    this.m_name = "炎骑士-持盾";
+    this.type = "cavalry";
+    this.description = "shield-charging-cavalry / anti-armor / fast";
+    this.m_description = "冲击骑兵【高破甲，惊骇敌军，迅捷如风】";
+
+    this.scale = 32;
+    this.singleHP = 100;
+    this.speed = 7;
+
+    this.missileArmor = 40;
+    this.chargeArmor = 20;
+    this.missileDodge = 50;
+
+    this.meleeAttack = 32;
+    this.chargeAttack = 72;
+
+    this.antiArmor = 40;
+    this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmClass(targetArm);
+
+    if (damageType === "charge") return this.antiArmor;
+    return 0;
+  }
+}
+
 export class CoralCavalry extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
@@ -275,6 +345,29 @@ export class GiantBallista extends ArmPrimary.Arm {
   }
 }
 
+export class GiantBallistaShrapnel extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+    this.img = document.getElementById("GiantBallistaShrapnel_img");
+    // Override original data
+
+    this.name = "Giant Ballista (Shrapnel)";
+    this.m_name = "巨型弩炮-霰弹";
+    this.type = "artillery";
+    this.description = "artillery / high-damage";
+    this.m_description = "炮兵【高伤害】";
+
+    this.scale = 7;
+    this.singleHP = 250;
+    this.speed = 1;
+
+    this.missileAttack = 400;
+    this.missileRange = 11;
+
+    this.loadRealtimeProps();
+  }
+}
+
 export class StoneGiant extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
@@ -315,6 +408,46 @@ export class StoneGiant extends ArmPrimary.Arm {
   }
 }
 
+export class StoneGiantFlame extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+    this.img = document.getElementById("StoneGiantFlame_img");
+    // Override original data
+
+    this.name = "Nord Stone Titan (Flame)";
+    this.m_name = "诺德火焰巨石人";
+    this.type = "monster";
+    this.description = "giant / anti-infantry / high-damage";
+    this.m_description = "巨兽【反步兵，高伤害】";
+
+    this.scale = 1;
+    this.singleHP = 900;
+    this.speed = 4;
+
+    this.meleeArmor = 50;
+    this.missileArmor = 50;
+    this.chargeArmor = 50;
+
+    this.meleeAttack = 1100;
+    this.meleeAttack_bonus = 200;
+
+    this.loadRealtimeProps();
+  }
+
+  _getSingleDamage(damageType, targetArm) {
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmClass(targetArm);
+
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+      if (targetArm.isInfn()) singleDamage += this.meleeAttack_bonus;
+    }
+
+    return singleDamage;
+  }
+}
+
 export function getTestArms() {
   let arms = [];
   let i = 0;
@@ -330,14 +463,18 @@ export function getTestArms() {
 export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
   if (i === 0) return new HallwayGuard(pos, player);
-  if (i === 1) return new NordExecutioner(pos, player);
-  if (i === 2) return new CoastDefender(pos, player);
-  if (i === 3) return new CoastDefenderShield(pos, player);
-  if (i === 4) return new BallistaSquad(pos, player);
-  if (i === 5) return new FlameKnight(pos, player);
-  if (i === 6) return new CoralCavalry(pos, player);
-  if (i === 7) return new GiantBallista(pos, player);
-  if (i === 8) return new StoneGiant(pos, player);
+  if (i === 1) return new HallwayGuardShield(pos, player);
+  if (i === 2) return new NordExecutioner(pos, player);
+  if (i === 3) return new CoastDefender(pos, player);
+  if (i === 4) return new CoastDefenderShield(pos, player);
+  if (i === 5) return new BallistaSquad(pos, player);
+  if (i === 6) return new FlameKnight(pos, player);
+  if (i === 7) return new FlameKnightShield(pos, player);
+  if (i === 8) return new CoralCavalry(pos, player);
+  if (i === 9) return new GiantBallista(pos, player);
+  if (i === 10) return new GiantBallistaShrapnel(pos, player);
+  if (i === 11) return new StoneGiant(pos, player);
+  if (i === 12) return new StoneGiantFlame(pos, player);
 
   return null;
 }
@@ -345,14 +482,18 @@ export function newAnArm(i, posX, posY, player) {
 export function getImages() {
   let images = [];
   images.push("../images/nordfort/HallwayGuard.png");
+  images.push("../images/nordfort/HallwayGuardShield.png");
   images.push("../images/nordfort/NordExecutioner.png");
   images.push("../images/nordfort/CoastDefender.png");
   images.push("../images/nordfort/CoastDefenderShield.png");
   images.push("../images/nordfort/BallistaSquad.png");
   images.push("../images/nordfort/FlameKnight.png");
+  images.push("../images/nordfort/FlameKnightShield.png");
   images.push("../images/nordfort/CoralCavalry.png");
   images.push("../images/nordfort/GiantBallista.png");
+  images.push("../images/nordfort/GiantBallistaShrapnel.png");
   images.push("../images/nordfort/StoneGiant.png");
+  images.push("../images/nordfort/StoneGiantFlame.png");
 
   return images;
 }
