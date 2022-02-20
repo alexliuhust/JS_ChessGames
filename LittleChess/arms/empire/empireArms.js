@@ -1,5 +1,4 @@
 import * as ArmPrimary from "../arm.js";
-import { ArmTestPos1, ArmTestPos2 } from "../../const.js";
 
 export class SwordInfantry extends ArmPrimary.Arm {
   constructor(value, player) {
@@ -9,6 +8,42 @@ export class SwordInfantry extends ArmPrimary.Arm {
 
     this.name = "Empire Infantry";
     this.m_name = "帝国步兵";
+    this.type = "infantry";
+    this.description = "infantry / anti-infantry";
+    this.m_description = "近战步兵【反步兵】";
+
+    this.scale = 64;
+    this.singleHP = 50;
+    this.speed = 2;
+
+    this.meleeAttack = 24;
+    this.meleeAttack_bonus = 24;
+
+    this.loadRealtimeProps();
+  }
+
+  _getSingleDamage(damageType, targetArm) {
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmClass(targetArm);
+
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+      if (targetArm.isInfn()) singleDamage += this.meleeAttack_bonus;
+    }
+
+    return singleDamage;
+  }
+}
+
+export class SwordInfantryShield extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+    this.img = document.getElementById("SwordInfantryShield_img");
+    // Override original data
+
+    this.name = "Empire Infantry (Shield)";
+    this.m_name = "帝国步兵-持盾";
     this.type = "infantry";
     this.description = "shield-infantry / anti-infantry";
     this.m_description = "持盾-近战步兵【反步兵】";
@@ -77,6 +112,45 @@ export class PalaceGuard extends ArmPrimary.Arm {
   }
 }
 
+export class PalaceGuardShield extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+    this.img = document.getElementById("PalaceGuardShield_img");
+    // Override original data
+
+    this.name = "Empire Guard (Shield)";
+    this.m_name = "帝国守卫-持盾";
+    this.type = "infantry";
+    this.description = "shield-infantry / resist-charging / anti-large";
+    this.m_description = "持盾-近战步兵【抵御冲锋，反大型】";
+
+    this.scale = 64;
+    this.singleHP = 50;
+    this.speed = 2;
+
+    this.missileArmor = 40;
+    this.chargeArmor = 40;
+
+    this.meleeAttack = 20;
+    this.meleeAttack_bonus = 28;
+
+    this.loadRealtimeProps();
+  }
+
+  _getSingleDamage(damageType, targetArm) {
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmClass(targetArm);
+
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+      if (targetArm.isLarge()) singleDamage += this.meleeAttack_bonus;
+    }
+
+    return singleDamage;
+  }
+}
+
 export class Musketeer extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
@@ -92,6 +166,41 @@ export class Musketeer extends ArmPrimary.Arm {
     this.scale = 48;
     this.singleHP = 50;
     this.speed = 3;
+
+    this.meleeAttack = 16;
+    this.missileAttack = 48;
+    this.missileRange = 6;
+
+    this.antiArmor = 20;
+    this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmClass(targetArm);
+
+    if (damageType === "missile") return this.antiArmor;
+    return 0;
+  }
+}
+
+export class MusketeerShield extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+    this.img = document.getElementById("MusketeerShield_img");
+    // Override original data
+
+    this.name = "Musketeer (Shield)";
+    this.m_name = "火枪手-持盾";
+    this.type = "archers";
+    this.description = "shield-archers / anti-armor";
+    this.m_description = "持盾-远程步兵【高破甲】";
+
+    this.scale = 48;
+    this.singleHP = 50;
+    this.speed = 3;
+
+    this.missileArmor = 40;
 
     this.meleeAttack = 16;
     this.missileAttack = 48;
@@ -316,6 +425,36 @@ export class SteamTank extends ArmPrimary.Arm {
   }
 }
 
+export class SteamTankMortar extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+    this.img = document.getElementById("SteamTankMortar_img");
+    // Override original data
+
+    this.name = "Steam Tank (Mortar)";
+    this.m_name = "蒸汽坦克-臼炮";
+    this.type = "monster";
+    this.description = "bombing-mech / heavy-armor / missile-attack";
+    this.m_description = "轰炸机甲【重装甲，远程攻击】";
+
+    this.scale = 1;
+    this.singleHP = 400;
+    this.speed = 3;
+
+    this.meleeArmor = 95;
+    this.missileArmor = 70;
+    this.chargeArmor = 70;
+
+    this.missileAttack = 1200;
+    this.missileRange = 10;
+    this.missileRadius = 1;
+    this.isBombing = true;
+
+    this.ammo = 15;
+    this.loadRealtimeProps();
+  }
+}
+
 export function getTestArms() {
   let arms = [];
   let i = 0;
@@ -331,14 +470,18 @@ export function getTestArms() {
 export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
   if (i === 0) return new SwordInfantry(pos, player);
-  if (i === 1) return new PalaceGuard(pos, player);
-  if (i === 2) return new Musketeer(pos, player);
-  if (i === 3) return new MusketRider(pos, player);
-  if (i === 4) return new Vanguard(pos, player);
-  if (i === 5) return new PalaceKnight(pos, player);
-  if (i === 6) return new CannonGroup(pos, player);
-  if (i === 7) return new EmpireMortar(pos, player);
-  if (i === 8) return new SteamTank(pos, player);
+  if (i === 1) return new SwordInfantryShield(pos, player);
+  if (i === 2) return new PalaceGuard(pos, player);
+  if (i === 3) return new PalaceGuardShield(pos, player);
+  if (i === 4) return new Musketeer(pos, player);
+  if (i === 5) return new MusketeerShield(pos, player);
+  if (i === 6) return new MusketRider(pos, player);
+  if (i === 7) return new Vanguard(pos, player);
+  if (i === 8) return new PalaceKnight(pos, player);
+  if (i === 9) return new CannonGroup(pos, player);
+  if (i === 10) return new EmpireMortar(pos, player);
+  if (i === 11) return new SteamTank(pos, player);
+  if (i === 12) return new SteamTankMortar(pos, player);
 
   return null;
 }
@@ -346,14 +489,18 @@ export function newAnArm(i, posX, posY, player) {
 export function getImages() {
   let images = [];
   images.push("../images/empire/SwordInfantry.png");
+  images.push("../images/empire/SwordInfantryShield.png");
   images.push("../images/empire/PalaceGuard.png");
+  images.push("../images/empire/PalaceGuardShield.png");
   images.push("../images/empire/Musketeer.png");
+  images.push("../images/empire/MusketeerShield.png");
   images.push("../images/empire/MusketRider.png");
   images.push("../images/empire/Vanguard.png");
   images.push("../images/empire/PalaceKnight.png");
   images.push("../images/empire/CannonGroup.png");
   images.push("../images/empire/EmpireMortar.png");
   images.push("../images/empire/SteamTank.png");
+  images.push("../images/empire/SteamTankMortar.png");
 
   return images;
 }

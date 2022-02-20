@@ -20,6 +20,7 @@ function canAutoMissileAttack(attacker) {
         attacker.type === "monster") &&
         attacker.c_missileAttack > 0)) &&
     attacker.c_ammo >= attacker.ammo * 0.4 &&
+    !attacker.isBombing &&
     !attacker.hasAttacked
   );
 }

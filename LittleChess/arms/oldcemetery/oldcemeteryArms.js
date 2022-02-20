@@ -112,7 +112,7 @@ export class ScreamingBanshee extends ArmPrimary.Arm {
 
     this.name = "Screaming Banshee";
     this.m_name = "尖啸女妖";
-    this.type = "infantry";
+    this.type = "archers";
     this.description = "melee-archers / high-dodge / shocking";
     this.m_description = "近战-远程步兵【高闪避，惊骇敌军】";
 
@@ -131,6 +131,10 @@ export class ScreamingBanshee extends ArmPrimary.Arm {
     this.ammo = 18;
     this.loadRealtimeProps();
   }
+
+  _getValidScale() {
+    return Math.min(this.c_scale, Math.floor(this.scale / 4));
+  }
 }
 
 export class ScreamingBansheeGF extends ArmPrimary.Arm {
@@ -141,7 +145,7 @@ export class ScreamingBansheeGF extends ArmPrimary.Arm {
 
     this.name = "Screaming Banshee (Ghost Fire)";
     this.m_name = "尖啸女妖-鬼火";
-    this.type = "infantry";
+    this.type = "archers";
     this.description = "melee-archers / high-dodge / anti-infantry / shocking";
     this.m_description = "近战-远程步兵【高闪避，反步兵，惊骇敌军】";
 
@@ -160,6 +164,10 @@ export class ScreamingBansheeGF extends ArmPrimary.Arm {
     this.shock = 50;
     this.ammo = 18;
     this.loadRealtimeProps();
+  }
+
+  _getValidScale() {
+    return Math.min(this.c_scale, Math.floor(this.scale / 4));
   }
 
   _getSingleDamage(damageType, targetArm) {
