@@ -1,5 +1,4 @@
 import * as ArmPrimary from "../arm.js";
-import { ArmTestPos1, ArmTestPos2 } from "../../const.js";
 
 export class WoodsGuard extends ArmPrimary.Arm {
   constructor(value, player) {
@@ -9,6 +8,40 @@ export class WoodsGuard extends ArmPrimary.Arm {
 
     this.name = "Woods Guard";
     this.m_name = "林地守卫";
+    this.type = "infantry";
+    this.description = "infantry / resist-charging";
+    this.m_description = "近战步兵【抵御冲锋】";
+
+    this.scale = 64;
+    this.singleHP = 40;
+    this.speed = 3;
+
+    this.meleeArmor = 0;
+    this.chargeArmor = 40;
+
+    this.meleeAttack = 24;
+
+    this.antiArmor = 10;
+    this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmClass(targetArm);
+
+    if (damageType === "melee") return this.antiArmor;
+    return 0;
+  }
+}
+
+export class WoodsGuardShield extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+    this.img = document.getElementById("WoodsGuardShield_img");
+    // Override original data
+
+    this.name = "Woods Guard (Shield)";
+    this.m_name = "林地守卫-持盾";
     this.type = "infantry";
     this.description = "shield-infantry / resist-charging";
     this.m_description = "持盾-近战步兵【抵御冲锋】";
@@ -72,6 +105,54 @@ export class WildKiller extends ArmPrimary.Arm {
       if (targetArm.isInfn()) singleDamage += this.meleeAttack_bonus;
     } else if (damageType === "charge") {
       singleDamage = this.c_chargeAttack;
+    }
+
+    return singleDamage;
+  }
+}
+
+export class WildKillerPS extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+    this.img = document.getElementById("WildKillerPS_img");
+    // Override original data
+
+    this.name = "Wild Killer (Poisoned)";
+    this.m_name = "狂野杀手-淬毒";
+    this.type = "infantry";
+    this.description = "infantry / melee-master / shocking / anti-non-armor";
+    this.m_description = "近战步兵【近战大师，惊骇敌军，反无甲】";
+
+    this.scale = 64;
+    this.singleHP = 40;
+    this.speed = 4;
+
+    this.meleeDodge = 60;
+
+    this.meleeAttack = 50;
+    this.meleeAttack_bonus = 18;
+    this.chargeAttack = 40;
+    this.chargeAttack_bonus = 15;
+
+    this.shock = 40;
+    this.loadRealtimeProps();
+  }
+
+  _getSingleDamage(damageType, targetArm) {
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmClass(targetArm);
+
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+      if (targetArm.isInfn()) {
+        singleDamage += this.meleeAttack_bonus;
+        if (targetArm.c_meleeArmor === 0)
+          singleDamage += this.meleeAttack_bonus;
+      }
+    } else if (damageType === "charge") {
+      singleDamage = this.c_chargeAttack;
+      if (targetArm.c_meleeArmor === 0) singleDamage += this.chargeAttack_bonus;
     }
 
     return singleDamage;
@@ -228,6 +309,33 @@ export class LongbowRanger extends ArmPrimary.Arm {
   }
 }
 
+export class WarBear extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+    this.img = document.getElementById("WarBear_img");
+    // Override original data
+
+    this.name = "War Bear";
+    this.m_name = "战熊";
+    this.type = "monster-infantry";
+    this.description = "monster-infantry / fast";
+    this.m_description = "怪兽步兵【迅捷如风】";
+
+    this.scale = 16;
+    this.singleHP = 300;
+    this.speed = 6;
+
+    this.meleeArmor = 25;
+    this.missileArmor = 25;
+    this.chargeArmor = 25;
+
+    this.meleeAttack = 60;
+    this.chargeAttack = 70;
+
+    this.loadRealtimeProps();
+  }
+}
+
 export class Dryad extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
@@ -293,6 +401,37 @@ export class DryadRangerRide extends ArmPrimary.Arm {
   }
 }
 
+export class DryadStone extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+    this.img = document.getElementById("DryadStone_img");
+    // Override original data
+
+    this.name = "Dryad (Stone)";
+    this.m_name = "树精-投石";
+    this.type = "monster-infantry";
+    this.description = "monster-infantry / heavy-armor / missile-attack";
+    this.m_description = "怪兽步兵【重装甲，远程攻击】";
+
+    this.scale = 16;
+    this.singleHP = 320;
+    this.speed = 2;
+
+    this.meleeArmor = 45;
+    this.missileArmor = 45;
+    this.chargeArmor = 45;
+
+    this.meleeAttack = 48;
+    this.missileAttack = 60;
+    this.missileRange = 10;
+    this.missileRadius = 1;
+    this.isBombing = true;
+
+    this.ammo = 15;
+    this.loadRealtimeProps();
+  }
+}
+
 export class GiantTreeman extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
@@ -334,14 +473,18 @@ export function getTestArms() {
 export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
   if (i === 0) return new WoodsGuard(pos, player);
-  if (i === 1) return new WildKiller(pos, player);
-  if (i === 2) return new ShadowArcherPS(pos, player);
-  if (i === 3) return new ShadowArcherAP(pos, player);
-  if (i === 4) return new ShadowArcherFL(pos, player);
-  if (i === 5) return new LongbowRanger(pos, player);
-  if (i === 6) return new Dryad(pos, player);
-  if (i === 7) return new DryadRangerRide(pos, player);
-  if (i === 8) return new GiantTreeman(pos, player);
+  if (i === 1) return new WoodsGuardShield(pos, player);
+  if (i === 2) return new WildKiller(pos, player);
+  if (i === 3) return new WildKillerPS(pos, player);
+  if (i === 4) return new ShadowArcherPS(pos, player);
+  if (i === 5) return new ShadowArcherAP(pos, player);
+  if (i === 6) return new ShadowArcherFL(pos, player);
+  if (i === 7) return new LongbowRanger(pos, player);
+  if (i === 8) return new WarBear(pos, player);
+  if (i === 9) return new Dryad(pos, player);
+  if (i === 10) return new DryadRangerRide(pos, player);
+  if (i === 11) return new DryadStone(pos, player);
+  if (i === 12) return new GiantTreeman(pos, player);
 
   return null;
 }
@@ -349,13 +492,17 @@ export function newAnArm(i, posX, posY, player) {
 export function getImages() {
   let images = [];
   images.push("../images/dimwoods/WoodsGuard.png");
+  images.push("../images/dimwoods/WoodsGuardShield.png");
   images.push("../images/dimwoods/WildKiller.png");
+  images.push("../images/dimwoods/WildKillerPS.png");
   images.push("../images/dimwoods/ShadowArcherPS.png");
   images.push("../images/dimwoods/ShadowArcherAP.png");
   images.push("../images/dimwoods/ShadowArcherFL.png");
   images.push("../images/dimwoods/LongbowRanger.png");
+  images.push("../images/dimwoods/WarBear.png");
   images.push("../images/dimwoods/Dryad.png");
   images.push("../images/dimwoods/DryadRangerRide.png");
+  images.push("../images/dimwoods/DryadStone.png");
   images.push("../images/dimwoods/GiantTreeman.png");
 
   return images;
