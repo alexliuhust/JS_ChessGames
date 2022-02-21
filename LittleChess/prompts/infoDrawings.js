@@ -1,4 +1,4 @@
-import { Canvas, Rect } from "../tools.js";
+import { Canvas } from "../tools.js";
 import * as ArmPrimary from "../arms/arm.js";
 import {
   HpColor as HC,
@@ -7,7 +7,7 @@ import {
   ExpColor as EC,
 } from "../const.js";
 
-const leftX = 20;
+const leftX = 10;
 const BGC = "grey";
 
 export function drawInfoForSelectedPiece(cxt, piece, useMandarin) {

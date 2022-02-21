@@ -25,7 +25,7 @@ const canvasList = {
 };
 
 // ===============================================================
-// ==================== Add All Needed Images ====================
+// ==================== Load All Needed Images ===================
 // ===============================================================
 let srcList1 = getArmsAndImages(window.localStorage.getItem("power1"))[1];
 let srcList2 = getArmsAndImages(window.localStorage.getItem("power2"))[1];
