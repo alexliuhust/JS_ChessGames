@@ -155,6 +155,80 @@ export class MurlocWarriorHurling extends MurlocWarrior {
   }
 }
 
+export class Medusa extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Medusa";
+    this.m_name = "美杜莎";
+    this.type = "monster-infantry";
+    this.description = "monster-infantry / shocking";
+    this.m_description = "怪兽步兵【惊骇敌军】";
+
+    this.scale = 16;
+    this.singleHP = 140;
+    this.speed = 5;
+
+    this.meleeDodge = 40;
+    this.missileDodge = 30;
+    this.chargeDodge = 20;
+
+    this.meleeAttack = 48;
+
+    this.shock = 70;
+    this.loadRealtimeProps();
+  }
+}
+
+export class MedusaTrident extends Medusa {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Medusa (Trident)";
+    this.m_name = "美杜莎-三叉戟";
+    this.type = "monster-infantry";
+    this.description = "monster-infantry / anti-large / shocking";
+    this.m_description = "怪兽步兵【反大型，惊骇敌军】";
+
+    this.chargeArmor = 20;
+    this.meleeAttack_bonus = 70;
+
+    this.loadRealtimeProps();
+  }
+
+  _getSingleDamage(damageType, targetArm) {
+    let targetType = targetArm.type;
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmType(targetType);
+
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+      if (targetArm.isLarge()) singleDamage += this.meleeAttack_bonus;
+    }
+
+    return singleDamage;
+  }
+}
+
+export class MedusaMB extends Medusa {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Medusa (Magic Bow)";
+    this.m_name = "美杜莎-魔弓";
+    this.type = "monster-infantry";
+    this.description = "monster-infantry / missile-attack / shocking";
+    this.m_description = "怪兽步兵【远程攻击，惊骇敌军】";
+
+    this.missileAttack = 65;
+    this.missileRange = 8;
+
+    this.ammo = 12;
+    this.loadRealtimeProps();
+  }
+}
+
 export class Cancrimag extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
@@ -162,24 +236,38 @@ export class Cancrimag extends ArmPrimary.Arm {
     this.name = "Cancrimagnus";
     this.m_name = "巨蟹";
     this.type = "monster";
-    this.description = "giant / heavy-armor / missile-attack / shocking";
-    this.m_description = "巨兽【重装甲，远程攻击，惊骇敌军】";
+    this.description = "giant / heavy-armor / shocking";
+    this.m_description = "巨兽【重装甲，惊骇敌军】";
 
     this.scale = 1;
     this.singleHP = 900;
     this.speed = 1;
 
     this.meleeArmor = 60;
-    this.missileArmor = 115;
+    this.missileArmor = 99;
     this.chargeArmor = 50;
 
     this.meleeAttack = 600;
+
+    this.shock = 70;
+    this.loadRealtimeProps();
+  }
+}
+
+export class CancrimagMusket extends Cancrimag {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Cancrimagnus (Musket)";
+    this.m_name = "巨蟹-火枪";
+    this.type = "monster";
+    this.description = "giant / heavy-armor / missile-attack / shocking";
+    this.m_description = "巨兽【重装甲，远程攻击，惊骇敌军】";
 
     this.missileAttack = 720;
     this.missileRange = 6;
 
     this.antiArmor = 10;
-    this.shock = 70;
 
     this.ammo = 18;
     this.loadRealtimeProps();
@@ -233,8 +321,12 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 4) return new PisciculiDoubleBlades(pos, player);
   if (i === 5) return new MurlocWarrior(pos, player);
   if (i === 6) return new MurlocWarriorHurling(pos, player);
-  if (i === 7) return new Cancrimag(pos, player);
-  if (i === 8) return new DeckGun(pos, player);
+  if (i === 7) return new Medusa(pos, player);
+  if (i === 8) return new MedusaTrident(pos, player);
+  if (i === 9) return new MedusaMB(pos, player);
+  if (i === 10) return new Cancrimag(pos, player);
+  if (i === 11) return new CancrimagMusket(pos, player);
+  if (i === 12) return new DeckGun(pos, player);
 
   return null;
 }
