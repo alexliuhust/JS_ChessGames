@@ -22,10 +22,10 @@ export class SlaveConscript extends ArmPrimary.Arm {
   }
 }
 
-export class SlaveConscriptSield extends ArmPrimary.Arm {
+export class SlaveConscriptShield extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("SlaveConscript_img");
+    this.img = document.getElementById("SlaveConscriptShield_img");
     // Override original data
 
     this.name = "Slave Conscript (Shield)";
@@ -464,7 +464,7 @@ export class Foulcannon extends ArmPrimary.Arm {
     this.singleHP = 300;
     this.speed = 1;
 
-    this.missileAttack = 320;
+    this.missileAttack = 425;
     this.missileRange = 10;
 
     this.shock = 75;
@@ -487,7 +487,7 @@ export function getTestArms() {
 export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
   if (i === 0) return new SlaveConscript(pos, player);
-  if (i === 1) return new SlaveConscriptSield(pos, player);
+  if (i === 1) return new SlaveConscriptShield(pos, player);
   if (i === 2) return new HurlerGas(pos, player);
   if (i === 3) return new HurlerFrgm(pos, player);
   if (i === 4) return new HurlerHE(pos, player);
@@ -506,7 +506,7 @@ export function newAnArm(i, posX, posY, player) {
 export function getImages() {
   let images = [];
   images.push("../images/polluteland/SlaveConscript.png");
-  images.push("../images/polluteland/SlaveConscriptSield.png");
+  images.push("../images/polluteland/SlaveConscriptShield.png");
   images.push("../images/polluteland/HurlerGas.png");
   images.push("../images/polluteland/HurlerFrgm.png");
   images.push("../images/polluteland/HurlerHE.png");

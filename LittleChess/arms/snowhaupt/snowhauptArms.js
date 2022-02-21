@@ -93,6 +93,46 @@ export class Berserker extends ArmPrimary.Arm {
   }
 }
 
+export class DrawfKingsGuard extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+    this.img = document.getElementById("DrawfKingsGuard_img");
+    // Override original data
+
+    this.name = "Drawf King's Guard";
+    this.m_name = "矮人王禁卫";
+    this.type = "infantry";
+    this.description = "armor-infantry / anti-large";
+    this.m_description = "装甲-近战步兵【反大型】";
+
+    this.scale = 64;
+    this.singleHP = 80;
+    this.speed = 2;
+
+    this.meleeArmor = 60;
+    this.missileArmor = 50;
+    this.chargeArmor = 50;
+
+    this.meleeAttack = 35;
+    this.meleeAttack_bonus = 60;
+
+    this.loadRealtimeProps();
+  }
+
+  _getSingleDamage(damageType, targetArm) {
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmClass(targetArm);
+
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+      if (targetArm.isLarge()) singleDamage += this.meleeAttack_bonus;
+    }
+
+    return singleDamage;
+  }
+}
+
 export class MountainShocker extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
@@ -214,6 +254,37 @@ export class GoatCavalry extends ArmPrimary.Arm {
   }
 }
 
+export class GoatCavalryTA extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+    this.img = document.getElementById("GoatCavalryTA_img");
+    // Override original data
+
+    this.name = "Goat Cavalry (Throw Axe)";
+    this.m_name = "山羊骑兵-飞斧";
+    this.type = "cavalry";
+    this.description = "charging-cavalry / missile-attack";
+    this.m_description = "冲击骑兵【远程攻击】";
+
+    this.scale = 32;
+    this.singleHP = 120;
+    this.speed = 5;
+
+    this.meleeArmor = 40;
+    this.missileArmor = 50;
+    this.chargeArmor = 20;
+
+    this.meleeAttack = 24;
+    this.chargeAttack = 64;
+
+    this.missileAttack = 40;
+    this.missileRange = 5;
+
+    this.ammo = 4;
+    this.loadRealtimeProps();
+  }
+}
+
 export class RevolvingCannon extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
@@ -263,6 +334,70 @@ export class RevolvingCannon extends ArmPrimary.Arm {
   }
 }
 
+export class FireDragonGun extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+    this.img = document.getElementById("FireDragonGun_img");
+    // Override original data
+
+    this.name = "Fire Dragon Gun";
+    this.m_name = "火龙炮";
+    this.type = "artillery";
+    this.description = "artillery / anti-infantry / short-range";
+    this.m_description = "炮兵【反步兵，近程】";
+
+    this.scale = 10;
+    this.singleHP = 400;
+    this.speed = 1;
+
+    this.missileAttack = 160;
+    this.missileAttack_bonus = 240;
+    this.missileRange = 4;
+
+    this.ammo = 15;
+    this.loadRealtimeProps();
+  }
+
+  _getSingleDamage(damageType, targetArm) {
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmClass(targetArm);
+
+    let singleDamage = 0;
+    if (damageType === "missile" && this.c_ammo > 0) {
+      singleDamage = this.c_missileAttack;
+      if (targetArm.isInfn()) singleDamage += this.missileAttack_bonus;
+      this.c_ammo--;
+    }
+
+    return singleDamage;
+  }
+}
+
+export class DrawfMortar extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+    this.img = document.getElementById("DrawfMortar_img");
+    // Override original data
+
+    this.name = "Drawf Mortar";
+    this.m_name = "矮人臼炮";
+    this.type = "artillery";
+    this.description = "bombing-artillery";
+    this.m_description = "轰炸炮兵";
+
+    this.scale = 5;
+    this.singleHP = 400;
+    this.speed = 1;
+
+    this.missileAttack = 250;
+    this.missileRange = 10;
+    this.missileRadius = 1;
+    this.isBombing = true;
+
+    this.loadRealtimeProps();
+  }
+}
+
 export class GiantCannon extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
@@ -279,7 +414,7 @@ export class GiantCannon extends ArmPrimary.Arm {
     this.singleHP = 1200;
     this.speed = 1;
 
-    this.missileAttack = 600;
+    this.missileAttack = 750;
     this.missileRange = 13;
     this.missileRadius = 1;
     this.isBombing = true;
@@ -305,12 +440,16 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 0) return new DwarfWarrior(pos, player);
   if (i === 1) return new BoneBreaker(pos, player);
   if (i === 2) return new Berserker(pos, player);
-  if (i === 3) return new MountainShocker(pos, player);
-  if (i === 4) return new DwarfMusketeer(pos, player);
-  if (i === 5) return new MortarSquad(pos, player);
-  if (i === 6) return new GoatCavalry(pos, player);
-  if (i === 7) return new RevolvingCannon(pos, player);
-  if (i === 8) return new GiantCannon(pos, player);
+  if (i === 3) return new DrawfKingsGuard(pos, player);
+  if (i === 4) return new MountainShocker(pos, player);
+  if (i === 5) return new DwarfMusketeer(pos, player);
+  if (i === 6) return new MortarSquad(pos, player);
+  if (i === 7) return new GoatCavalry(pos, player);
+  if (i === 8) return new GoatCavalryTA(pos, player);
+  if (i === 9) return new RevolvingCannon(pos, player);
+  if (i === 10) return new FireDragonGun(pos, player);
+  if (i === 11) return new DrawfMortar(pos, player);
+  if (i === 12) return new GiantCannon(pos, player);
 
   return null;
 }
@@ -320,11 +459,15 @@ export function getImages() {
   images.push("../images/snowhaupt/DwarfWarrior.png");
   images.push("../images/snowhaupt/BoneBreaker.png");
   images.push("../images/snowhaupt/Berserker.png");
+  images.push("../images/snowhaupt/DrawfKingsGuard.png");
   images.push("../images/snowhaupt/MountainShocker.png");
   images.push("../images/snowhaupt/DwarfMusketeer.png");
   images.push("../images/snowhaupt/MortarSquad.png");
   images.push("../images/snowhaupt/GoatCavalry.png");
+  images.push("../images/snowhaupt/GoatCavalryTA.png");
   images.push("../images/snowhaupt/RevolvingCannon.png");
+  images.push("../images/snowhaupt/FireDragonGun.png");
+  images.push("../images/snowhaupt/DrawfMortar.png");
   images.push("../images/snowhaupt/GiantCannon.png");
 
   return images;

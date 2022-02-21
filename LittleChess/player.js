@@ -283,8 +283,10 @@ export class Player {
           e.code == "ShiftRight" ||
           e.code == "ShiftLeft") &&
         this.nowSelectPiece != null &&
-        this.nowSelectPiece.operable
+        this.nowSelectPiece.operable &&
+        !this.nowSelectPiece.hasAttacked
       ) {
+        console.log();
         if (this.currentStatus === "ready to move") {
           Canvas.clear(this.canvasList.main, W, H);
           this.curAvailablePos = null;
