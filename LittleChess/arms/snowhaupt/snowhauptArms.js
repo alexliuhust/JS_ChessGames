@@ -423,18 +423,6 @@ export class GiantCannon extends ArmPrimary.Arm {
   }
 }
 
-export function getTestArms() {
-  let arms = [];
-  let i = 0;
-  while (true) {
-    let arm = newAnArm(i, 0, 0, null);
-    if (arm === null) break;
-    arms.push(arm);
-    i++;
-  }
-  return arms;
-}
-
 export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
   if (i === 0) return new DwarfWarrior(pos, player);
@@ -452,23 +440,4 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 12) return new GiantCannon(pos, player);
 
   return null;
-}
-
-export function getImages() {
-  let images = [];
-  images.push("../images/snowhaupt/DwarfWarrior.png");
-  images.push("../images/snowhaupt/BoneBreaker.png");
-  images.push("../images/snowhaupt/Berserker.png");
-  images.push("../images/snowhaupt/DrawfKingsGuard.png");
-  images.push("../images/snowhaupt/MountainShocker.png");
-  images.push("../images/snowhaupt/DwarfMusketeer.png");
-  images.push("../images/snowhaupt/MortarSquad.png");
-  images.push("../images/snowhaupt/GoatCavalry.png");
-  images.push("../images/snowhaupt/GoatCavalryTA.png");
-  images.push("../images/snowhaupt/RevolvingCannon.png");
-  images.push("../images/snowhaupt/FireDragonGun.png");
-  images.push("../images/snowhaupt/DrawfMortar.png");
-  images.push("../images/snowhaupt/GiantCannon.png");
-
-  return images;
 }

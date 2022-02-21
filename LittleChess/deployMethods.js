@@ -1,4 +1,4 @@
-import { exportPower } from "./arms/exportArm.js";
+import { exportPower, getArmsAndImages } from "./arms/exportArm.js";
 import {
   PowerMap,
   M_PowerMap,
@@ -31,16 +31,17 @@ export class Deploy {
     // Initilize the deployment page
     this.showDeployInfo = function () {
       let powerNumber = "power" + this.player;
-      this.POWER = exportPower(window.localStorage.getItem(powerNumber));
-      let powerValue = window.localStorage.getItem(powerNumber);
+      let powerCodeName = window.localStorage.getItem(powerNumber);
+      this.POWER = exportPower(powerCodeName);
       let powerRealName = this.useMandarin
-        ? M_PowerMap.get(powerValue)
-        : PowerMap.get(powerValue);
+        ? M_PowerMap.get(powerCodeName)
+        : PowerMap.get(powerCodeName);
       document.getElementById("power").textContent = powerRealName;
 
+      let a_i = getArmsAndImages(powerCodeName);
+      this.arms = a_i[0];
+      this.images = a_i[1];
       this.updateMoneyLeftSpan();
-      this.arms = this.POWER.getTestArms();
-      this.images = this.POWER.getImages();
       this.addArmImagesToList();
 
       this.bindArmImagesMouseDown(this.elems, this.arms);

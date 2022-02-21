@@ -300,18 +300,6 @@ export class SpiritCoffinBB extends ArmPrimary.Arm {
   }
 }
 
-export function getTestArms() {
-  let arms = [];
-  let i = 0;
-  while (true) {
-    let arm = newAnArm(i, 0, 0, null);
-    if (arm === null) break;
-    arms.push(arm);
-    i++;
-  }
-  return arms;
-}
-
 export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
   if (i === 0) return new DarkSoldier(pos, player);
@@ -325,19 +313,4 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 8) return new SpiritCoffinBB(pos, player);
 
   return null;
-}
-
-export function getImages() {
-  let images = [];
-  images.push("../images/oldcemetery/DarkSoldier.png");
-  images.push("../images/oldcemetery/DarkSoldierScythe.png");
-  images.push("../images/oldcemetery/Banshee.png");
-  images.push("../images/oldcemetery/ScreamingBanshee.png");
-  images.push("../images/oldcemetery/ScreamingBansheeGF.png");
-  images.push("../images/oldcemetery/DeathKnight.png");
-  images.push("../images/oldcemetery/DeathKnightDS.png");
-  images.push("../images/oldcemetery/SpiritCoffinGF.png");
-  images.push("../images/oldcemetery/SpiritCoffinBB.png");
-
-  return images;
 }

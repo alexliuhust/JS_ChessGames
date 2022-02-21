@@ -448,18 +448,6 @@ export class StoneGiantFlame extends ArmPrimary.Arm {
   }
 }
 
-export function getTestArms() {
-  let arms = [];
-  let i = 0;
-  while (true) {
-    let arm = newAnArm(i, 0, 0, null);
-    if (arm === null) break;
-    arms.push(arm);
-    i++;
-  }
-  return arms;
-}
-
 export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
   if (i === 0) return new HallwayGuard(pos, player);
@@ -477,23 +465,4 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 12) return new StoneGiantFlame(pos, player);
 
   return null;
-}
-
-export function getImages() {
-  let images = [];
-  images.push("../images/nordfort/HallwayGuard.png");
-  images.push("../images/nordfort/HallwayGuardShield.png");
-  images.push("../images/nordfort/NordExecutioner.png");
-  images.push("../images/nordfort/CoastDefender.png");
-  images.push("../images/nordfort/CoastDefenderShield.png");
-  images.push("../images/nordfort/BallistaSquad.png");
-  images.push("../images/nordfort/FlameKnight.png");
-  images.push("../images/nordfort/FlameKnightShield.png");
-  images.push("../images/nordfort/CoralCavalry.png");
-  images.push("../images/nordfort/GiantBallista.png");
-  images.push("../images/nordfort/GiantBallistaShrapnel.png");
-  images.push("../images/nordfort/StoneGiant.png");
-  images.push("../images/nordfort/StoneGiantFlame.png");
-
-  return images;
 }

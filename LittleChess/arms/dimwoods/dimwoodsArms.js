@@ -458,18 +458,6 @@ export class GiantTreeman extends ArmPrimary.Arm {
   }
 }
 
-export function getTestArms() {
-  let arms = [];
-  let i = 0;
-  while (true) {
-    let arm = newAnArm(i, 0, 0, null);
-    if (arm === null) break;
-    arms.push(arm);
-    i++;
-  }
-  return arms;
-}
-
 export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
   if (i === 0) return new WoodsGuard(pos, player);
@@ -487,23 +475,4 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 12) return new GiantTreeman(pos, player);
 
   return null;
-}
-
-export function getImages() {
-  let images = [];
-  images.push("../images/dimwoods/WoodsGuard.png");
-  images.push("../images/dimwoods/WoodsGuardShield.png");
-  images.push("../images/dimwoods/WildKiller.png");
-  images.push("../images/dimwoods/WildKillerPS.png");
-  images.push("../images/dimwoods/ShadowArcherPS.png");
-  images.push("../images/dimwoods/ShadowArcherAP.png");
-  images.push("../images/dimwoods/ShadowArcherFL.png");
-  images.push("../images/dimwoods/LongbowRanger.png");
-  images.push("../images/dimwoods/WarBear.png");
-  images.push("../images/dimwoods/Dryad.png");
-  images.push("../images/dimwoods/DryadRangerRide.png");
-  images.push("../images/dimwoods/DryadStone.png");
-  images.push("../images/dimwoods/GiantTreeman.png");
-
-  return images;
 }

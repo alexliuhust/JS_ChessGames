@@ -455,18 +455,6 @@ export class SteamTankMortar extends ArmPrimary.Arm {
   }
 }
 
-export function getTestArms() {
-  let arms = [];
-  let i = 0;
-  while (true) {
-    let arm = newAnArm(i, 0, 0, null);
-    if (arm === null) break;
-    arms.push(arm);
-    i++;
-  }
-  return arms;
-}
-
 export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
   if (i === 0) return new SwordInfantry(pos, player);
@@ -484,23 +472,4 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 12) return new SteamTankMortar(pos, player);
 
   return null;
-}
-
-export function getImages() {
-  let images = [];
-  images.push("../images/empire/SwordInfantry.png");
-  images.push("../images/empire/SwordInfantryShield.png");
-  images.push("../images/empire/PalaceGuard.png");
-  images.push("../images/empire/PalaceGuardShield.png");
-  images.push("../images/empire/Musketeer.png");
-  images.push("../images/empire/MusketeerShield.png");
-  images.push("../images/empire/MusketRider.png");
-  images.push("../images/empire/Vanguard.png");
-  images.push("../images/empire/PalaceKnight.png");
-  images.push("../images/empire/CannonGroup.png");
-  images.push("../images/empire/EmpireMortar.png");
-  images.push("../images/empire/SteamTank.png");
-  images.push("../images/empire/SteamTankMortar.png");
-
-  return images;
 }

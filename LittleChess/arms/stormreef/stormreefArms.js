@@ -282,18 +282,6 @@ export class DeckGun extends ArmPrimary.Arm {
   }
 }
 
-export function getTestArms() {
-  let arms = [];
-  let i = 0;
-  while (true) {
-    let arm = newAnArm(i, 0, 0, null);
-    if (arm === null) break;
-    arms.push(arm);
-    i++;
-  }
-  return arms;
-}
-
 export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
   if (i === 0) return new Seaman(pos, player);
@@ -307,19 +295,4 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 8) return new DeckGun(pos, player);
 
   return null;
-}
-
-export function getImages() {
-  let images = [];
-  images.push("../images/stormreef/Seaman.png");
-  images.push("../images/stormreef/SeamanPistol.png");
-  images.push("../images/stormreef/SeamanMusket.png");
-  images.push("../images/stormreef/Pisciculi.png");
-  images.push("../images/stormreef/PisciculiDoubleBlades.png");
-  images.push("../images/stormreef/MurlocWarrior.png");
-  images.push("../images/stormreef/MurlocWarriorHurling.png");
-  images.push("../images/stormreef/Cancrimag.png");
-  images.push("../images/stormreef/DeckGun.png");
-
-  return images;
 }

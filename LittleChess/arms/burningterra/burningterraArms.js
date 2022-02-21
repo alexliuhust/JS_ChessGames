@@ -1,5 +1,4 @@
 import * as ArmPrimary from "../arm.js";
-import { ArmTestPos1, ArmTestPos2 } from "../../const.js";
 
 export class HenchWarrior extends ArmPrimary.Arm {
   constructor(value, player) {
@@ -288,18 +287,6 @@ export class GreatDemon extends ArmPrimary.Arm {
   }
 }
 
-export function getTestArms() {
-  let arms = [];
-  let i = 0;
-  while (true) {
-    let arm = newAnArm(i, 0, 0, null);
-    if (arm === null) break;
-    arms.push(arm);
-    i++;
-  }
-  return arms;
-}
-
 export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
   if (i === 0) return new HenchWarrior(pos, player);
@@ -313,19 +300,4 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 8) return new GreatDemon(pos, player);
 
   return null;
-}
-
-export function getImages() {
-  let images = [];
-  images.push("../images/burningterra/HenchWarrior.png");
-  images.push("../images/burningterra/HenchWarriorHalberd.png");
-  images.push("../images/burningterra/HenchWarriorGiantaxe.png");
-  images.push("../images/burningterra/BurningKnight.png");
-  images.push("../images/burningterra/BurningKnightHalberd.png");
-  images.push("../images/burningterra/Hellhound.png");
-  images.push("../images/burningterra/DemonEnvoyWild.png");
-  images.push("../images/burningterra/DemonEnvoyHellfire.png");
-  images.push("../images/burningterra/GreatDemon.png");
-
-  return images;
 }

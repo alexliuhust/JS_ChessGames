@@ -472,18 +472,6 @@ export class Foulcannon extends ArmPrimary.Arm {
   }
 }
 
-export function getTestArms() {
-  let arms = [];
-  let i = 0;
-  while (true) {
-    let arm = newAnArm(i, 0, 0, null);
-    if (arm === null) break;
-    arms.push(arm);
-    i++;
-  }
-  return arms;
-}
-
 export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
   if (i === 0) return new SlaveConscript(pos, player);
@@ -501,23 +489,4 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 12) return new Foulcannon(pos, player);
 
   return null;
-}
-
-export function getImages() {
-  let images = [];
-  images.push("../images/polluteland/SlaveConscript.png");
-  images.push("../images/polluteland/SlaveConscriptShield.png");
-  images.push("../images/polluteland/HurlerGas.png");
-  images.push("../images/polluteland/HurlerFrgm.png");
-  images.push("../images/polluteland/HurlerHE.png");
-  images.push("../images/polluteland/WeapSqdGingall.png");
-  images.push("../images/polluteland/WeapSqdGatlin.png");
-  images.push("../images/polluteland/WeapSqdFlthr.png");
-  images.push("../images/polluteland/MechGears.png");
-  images.push("../images/polluteland/MechGatlin.png");
-  images.push("../images/polluteland/MechMissile.png");
-  images.push("../images/polluteland/MutantSlave.png");
-  images.push("../images/polluteland/Foulcannon.png");
-
-  return images;
 }

@@ -7,13 +7,28 @@ import * as BurningterraArms from "./burningterra/burningterraArms.js";
 import * as StormreefArms from "./stormreef/stormreefArms.js";
 import * as OldcemeteryArms from "./oldcemetery/oldcemeteryArms.js";
 
-export function exportPower(power) {
-  if (power === "empire") return EmpireArms;
-  if (power === "nordfort") return NordFortArms;
-  if (power === "dimwoods") return DimwoodsArms;
-  if (power === "polluteland") return PollutelandArms;
-  if (power === "snowhaupt") return SnowhauptArms;
-  if (power === "burningterra") return BurningterraArms;
-  if (power === "stormreef") return StormreefArms;
-  if (power === "oldcemetery") return OldcemeteryArms;
+export function exportPower(powerCodeName) {
+  if (powerCodeName === "empire") return EmpireArms;
+  if (powerCodeName === "nordfort") return NordFortArms;
+  if (powerCodeName === "dimwoods") return DimwoodsArms;
+  if (powerCodeName === "polluteland") return PollutelandArms;
+  if (powerCodeName === "snowhaupt") return SnowhauptArms;
+  if (powerCodeName === "burningterra") return BurningterraArms;
+  if (powerCodeName === "stormreef") return StormreefArms;
+  if (powerCodeName === "oldcemetery") return OldcemeteryArms;
+}
+
+export function getArmsAndImages(powerCodeName) {
+  let POWER = exportPower(powerCodeName);
+  let arms = [];
+  let images = [];
+  let i = 0;
+  while (true) {
+    let arm = POWER.newAnArm(i, 0, 0, null);
+    if (arm === null) break;
+    arms.push(arm);
+    images.push(`../images/${powerCodeName}/${arm.constructor.name}.png`);
+    i++;
+  }
+  return [arms, images];
 }
