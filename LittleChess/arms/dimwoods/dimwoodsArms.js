@@ -32,7 +32,7 @@ export class WoodsGuard extends ArmPrimary.Arm {
   }
 }
 
-export class WoodsGuardShield extends ArmPrimary.Arm {
+export class WoodsGuardShield extends WoodsGuard {
   constructor(value, player) {
     super(value, player);
 
@@ -42,26 +42,9 @@ export class WoodsGuardShield extends ArmPrimary.Arm {
     this.description = "shield-infantry / resist-charging";
     this.m_description = "持盾-近战步兵【抵御冲锋】";
 
-    this.scale = 64;
-    this.singleHP = 40;
-    this.speed = 3;
-
-    this.meleeArmor = 0;
     this.missileArmor = 40;
-    this.chargeArmor = 40;
 
-    this.meleeAttack = 24;
-
-    this.antiArmor = 10;
     this.loadRealtimeProps();
-  }
-
-  getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
-    if (damageType === "melee") return this.antiArmor;
-    return 0;
   }
 }
 
@@ -105,7 +88,7 @@ export class WildKiller extends ArmPrimary.Arm {
   }
 }
 
-export class WildKillerPS extends ArmPrimary.Arm {
+export class WildKillerPS extends WildKiller {
   constructor(value, player) {
     super(value, player);
 
@@ -115,15 +98,6 @@ export class WildKillerPS extends ArmPrimary.Arm {
     this.description = "infantry / melee-master / shocking / anti-non-armor";
     this.m_description = "近战步兵【近战大师，惊骇敌军，反无甲】";
 
-    this.scale = 64;
-    this.singleHP = 40;
-    this.speed = 4;
-
-    this.meleeDodge = 60;
-
-    this.meleeAttack = 50;
-    this.meleeAttack_bonus = 18;
-    this.chargeAttack = 40;
     this.chargeAttack_bonus = 15;
 
     this.shock = 40;
@@ -151,88 +125,6 @@ export class WildKillerPS extends ArmPrimary.Arm {
   }
 }
 
-export class ShadowArcherPS extends ArmPrimary.Arm {
-  constructor(value, player) {
-    super(value, player);
-
-    this.name = "Shadow Archer (Poisoned)";
-    this.m_name = "暗影弓手-淬毒箭";
-    this.type = "archers";
-    this.description = "melee-archers / anti-non-armor";
-    this.m_description = "近战-远程步兵【反无甲】";
-
-    this.scale = 36;
-    this.singleHP = 40;
-    this.speed = 4;
-
-    this.meleeDodge = 30;
-    this.missileDodge = 30;
-
-    this.meleeAttack = 30;
-    this.meleeAttack_bonus = 15;
-    this.missileAttack = 36;
-    this.missileAttack_bonus = 15;
-    this.missileRange = 6;
-
-    this.ammo = 30;
-    this.loadRealtimeProps();
-  }
-
-  _getSingleDamage(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
-    let singleDamage = 0;
-    if (damageType === "melee") {
-      singleDamage = this.c_meleeAttack;
-      if (targetArm.c_meleeArmor === 0) singleDamage += this.meleeAttack_bonus;
-    } else if (damageType === "missile" && this.c_ammo > 0) {
-      singleDamage = this.c_missileAttack;
-      if (targetArm.c_missileArmor === 0)
-        singleDamage += this.missileAttack_bonus;
-      this.c_ammo--;
-    }
-
-    return singleDamage;
-  }
-}
-
-export class ShadowArcherAP extends ArmPrimary.Arm {
-  constructor(value, player) {
-    super(value, player);
-
-    this.name = "Shadow Archer (Armor-Piercing)";
-    this.m_name = "暗影弓手-穿甲箭";
-    this.type = "archers";
-    this.description = "melee-archers / anti-armor";
-    this.m_description = "近战-远程步兵【高破甲】";
-
-    this.scale = 36;
-    this.singleHP = 40;
-    this.speed = 4;
-
-    this.meleeDodge = 30;
-    this.missileDodge = 30;
-
-    this.meleeAttack = 30;
-    this.missileAttack = 36;
-    this.missileRange = 6;
-
-    this.antiArmor = 30;
-
-    this.ammo = 30;
-    this.loadRealtimeProps();
-  }
-
-  getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
-    if (damageType === "missile") return this.antiArmor;
-    return 0;
-  }
-}
-
 export class ShadowArcherFL extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
@@ -256,6 +148,67 @@ export class ShadowArcherFL extends ArmPrimary.Arm {
 
     this.ammo = 30;
     this.loadRealtimeProps();
+  }
+}
+
+export class ShadowArcherPS extends ShadowArcherFL {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Shadow Archer (Poisoned)";
+    this.m_name = "暗影弓手-淬毒箭";
+    this.type = "archers";
+    this.description = "melee-archers / anti-non-armor";
+    this.m_description = "近战-远程步兵【反无甲】";
+
+    this.meleeAttack_bonus = 15;
+    this.missileAttack = 36;
+    this.missileAttack_bonus = 15;
+
+    this.loadRealtimeProps();
+  }
+
+  _getSingleDamage(damageType, targetArm) {
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmClass(targetArm);
+
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+      if (targetArm.c_meleeArmor === 0) singleDamage += this.meleeAttack_bonus;
+    } else if (damageType === "missile" && this.c_ammo > 0) {
+      singleDamage = this.c_missileAttack;
+      if (targetArm.c_missileArmor === 0)
+        singleDamage += this.missileAttack_bonus;
+      this.c_ammo--;
+    }
+
+    return singleDamage;
+  }
+}
+
+export class ShadowArcherAP extends ShadowArcherFL {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Shadow Archer (Armor-Piercing)";
+    this.m_name = "暗影弓手-穿甲箭";
+    this.type = "archers";
+    this.description = "melee-archers / anti-armor";
+    this.m_description = "近战-远程步兵【高破甲】";
+
+    this.missileAttack = 36;
+
+    this.antiArmor = 30;
+    this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmClass(targetArm);
+
+    if (damageType === "missile") return this.antiArmor;
+    return 0;
   }
 }
 
@@ -342,7 +295,7 @@ export class Dryad extends ArmPrimary.Arm {
   }
 }
 
-export class DryadRangerRide extends ArmPrimary.Arm {
+export class DryadRangerRide extends Dryad {
   constructor(value, player) {
     super(value, player);
 
@@ -352,15 +305,6 @@ export class DryadRangerRide extends ArmPrimary.Arm {
     this.description = "monster-infantry / heavy-armor / missile-attack";
     this.m_description = "怪兽步兵【重装甲，远程攻击】";
 
-    this.scale = 16;
-    this.singleHP = 320;
-    this.speed = 2;
-
-    this.meleeArmor = 45;
-    this.missileArmor = 45;
-    this.chargeArmor = 45;
-
-    this.meleeAttack = 48;
     this.missileAttack = 60;
     this.missileRange = 10;
 
@@ -379,7 +323,7 @@ export class DryadRangerRide extends ArmPrimary.Arm {
   }
 }
 
-export class DryadStone extends ArmPrimary.Arm {
+export class DryadStone extends Dryad {
   constructor(value, player) {
     super(value, player);
 
@@ -389,15 +333,6 @@ export class DryadStone extends ArmPrimary.Arm {
     this.description = "monster-infantry / heavy-armor / missile-attack";
     this.m_description = "怪兽步兵【重装甲，远程攻击】";
 
-    this.scale = 16;
-    this.singleHP = 320;
-    this.speed = 2;
-
-    this.meleeArmor = 45;
-    this.missileArmor = 45;
-    this.chargeArmor = 45;
-
-    this.meleeAttack = 48;
     this.missileAttack = 60;
     this.missileRange = 10;
     this.missileRadius = 1;

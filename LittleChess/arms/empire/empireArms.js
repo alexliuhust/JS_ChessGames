@@ -34,7 +34,7 @@ export class SwordInfantry extends ArmPrimary.Arm {
   }
 }
 
-export class SwordInfantryShield extends ArmPrimary.Arm {
+export class SwordInfantryShield extends SwordInfantry {
   constructor(value, player) {
     super(value, player);
 
@@ -44,29 +44,9 @@ export class SwordInfantryShield extends ArmPrimary.Arm {
     this.description = "shield-infantry / anti-infantry";
     this.m_description = "持盾-近战步兵【反步兵】";
 
-    this.scale = 64;
-    this.singleHP = 50;
-    this.speed = 2;
-
     this.missileArmor = 40;
 
-    this.meleeAttack = 24;
-    this.meleeAttack_bonus = 24;
-
     this.loadRealtimeProps();
-  }
-
-  _getSingleDamage(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
-    let singleDamage = 0;
-    if (damageType === "melee") {
-      singleDamage = this.c_meleeAttack;
-      if (targetArm.isInfn()) singleDamage += this.meleeAttack_bonus;
-    }
-
-    return singleDamage;
   }
 }
 
@@ -106,7 +86,7 @@ export class PalaceGuard extends ArmPrimary.Arm {
   }
 }
 
-export class PalaceGuardShield extends ArmPrimary.Arm {
+export class PalaceGuardShield extends PalaceGuard {
   constructor(value, player) {
     super(value, player);
 
@@ -116,30 +96,9 @@ export class PalaceGuardShield extends ArmPrimary.Arm {
     this.description = "shield-infantry / resist-charging / anti-large";
     this.m_description = "持盾-近战步兵【抵御冲锋，反大型】";
 
-    this.scale = 64;
-    this.singleHP = 50;
-    this.speed = 2;
-
     this.missileArmor = 40;
-    this.chargeArmor = 40;
-
-    this.meleeAttack = 20;
-    this.meleeAttack_bonus = 28;
 
     this.loadRealtimeProps();
-  }
-
-  _getSingleDamage(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
-    let singleDamage = 0;
-    if (damageType === "melee") {
-      singleDamage = this.c_meleeAttack;
-      if (targetArm.isLarge()) singleDamage += this.meleeAttack_bonus;
-    }
-
-    return singleDamage;
   }
 }
 
@@ -174,7 +133,7 @@ export class Musketeer extends ArmPrimary.Arm {
   }
 }
 
-export class MusketeerShield extends ArmPrimary.Arm {
+export class MusketeerShield extends Musketeer {
   constructor(value, player) {
     super(value, player);
 
@@ -184,26 +143,9 @@ export class MusketeerShield extends ArmPrimary.Arm {
     this.description = "shield-archers / anti-armor";
     this.m_description = "持盾-远程步兵【高破甲】";
 
-    this.scale = 48;
-    this.singleHP = 50;
-    this.speed = 3;
-
     this.missileArmor = 40;
 
-    this.meleeAttack = 16;
-    this.missileAttack = 48;
-    this.missileRange = 6;
-
-    this.antiArmor = 20;
     this.loadRealtimeProps();
-  }
-
-  getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
-    if (damageType === "missile") return this.antiArmor;
-    return 0;
   }
 }
 
@@ -401,7 +343,7 @@ export class SteamTank extends ArmPrimary.Arm {
   }
 }
 
-export class SteamTankMortar extends ArmPrimary.Arm {
+export class SteamTankMortar extends SteamTank {
   constructor(value, player) {
     super(value, player);
 
@@ -411,19 +353,12 @@ export class SteamTankMortar extends ArmPrimary.Arm {
     this.description = "bombing-mech / heavy-armor / missile-attack";
     this.m_description = "轰炸机甲【重装甲，远程攻击】";
 
-    this.scale = 1;
-    this.singleHP = 400;
-    this.speed = 3;
-
-    this.meleeArmor = 95;
-    this.missileArmor = 70;
-    this.chargeArmor = 70;
-
     this.missileAttack = 1200;
     this.missileRange = 10;
     this.missileRadius = 1;
     this.isBombing = true;
 
+    this.antiArmor = 0;
     this.ammo = 15;
     this.loadRealtimeProps();
   }

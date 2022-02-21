@@ -33,7 +33,7 @@ export class DarkSoldier extends ArmPrimary.Arm {
   }
 }
 
-export class DarkSoldierScythe extends ArmPrimary.Arm {
+export class DarkSoldierScythe extends DarkSoldier {
   constructor(value, player) {
     super(value, player);
 
@@ -43,12 +43,6 @@ export class DarkSoldierScythe extends ArmPrimary.Arm {
     this.description = "infantry / anti-large";
     this.m_description = "近战步兵【反大型】";
 
-    this.scale = 64;
-    this.singleHP = 40;
-    this.speed = 3;
-
-    this.meleeArmor = 40;
-    this.missileArmor = 0;
     this.chargeArmor = 30;
 
     this.meleeAttack = 33;
@@ -97,7 +91,7 @@ export class Banshee extends ArmPrimary.Arm {
   }
 }
 
-export class ScreamingBanshee extends ArmPrimary.Arm {
+export class ScreamingBanshee extends Banshee {
   constructor(value, player) {
     super(value, player);
 
@@ -107,14 +101,6 @@ export class ScreamingBanshee extends ArmPrimary.Arm {
     this.description = "melee-archers / high-dodge / shocking";
     this.m_description = "近战-远程步兵【高闪避，惊骇敌军】";
 
-    this.scale = 32;
-    this.singleHP = 40;
-    this.speed = 6;
-
-    this.meleeDodge = 40;
-    this.missileDodge = 90;
-
-    this.meleeAttack = 24;
     this.missileAttack = 24;
     this.missileRange = 6;
 
@@ -128,7 +114,7 @@ export class ScreamingBanshee extends ArmPrimary.Arm {
   }
 }
 
-export class ScreamingBansheeGF extends ArmPrimary.Arm {
+export class ScreamingBansheeGF extends Banshee {
   constructor(value, player) {
     super(value, player);
 
@@ -138,14 +124,6 @@ export class ScreamingBansheeGF extends ArmPrimary.Arm {
     this.description = "melee-archers / high-dodge / anti-infantry / shocking";
     this.m_description = "近战-远程步兵【高闪避，反步兵，惊骇敌军】";
 
-    this.scale = 32;
-    this.singleHP = 40;
-    this.speed = 6;
-
-    this.meleeDodge = 40;
-    this.missileDodge = 90;
-
-    this.meleeAttack = 24;
     this.missileAttack = 30;
     this.missileAttack_bonus = 14;
     this.missileRange = 6;
@@ -201,7 +179,7 @@ export class DeathKnight extends ArmPrimary.Arm {
   }
 }
 
-export class DeathKnightDS extends ArmPrimary.Arm {
+export class DeathKnightDS extends DeathKnight {
   constructor(value, player) {
     super(value, player);
 
@@ -210,14 +188,6 @@ export class DeathKnightDS extends ArmPrimary.Arm {
     this.type = "cavalry";
     this.description = "melee-cavalry / heavy-armor / high-damage";
     this.m_description = "近战骑兵【重装甲，高伤害】";
-
-    this.scale = 32;
-    this.singleHP = 120;
-    this.speed = 3;
-
-    this.meleeArmor = 90;
-    this.missileArmor = 90;
-    this.chargeArmor = 30;
 
     this.meleeAttack = 65;
 
@@ -253,7 +223,7 @@ export class SpiritCoffinGF extends ArmPrimary.Arm {
   }
 }
 
-export class SpiritCoffinBB extends ArmPrimary.Arm {
+export class SpiritCoffinBB extends SpiritCoffinGF {
   constructor(value, player) {
     super(value, player);
 
@@ -263,20 +233,8 @@ export class SpiritCoffinBB extends ArmPrimary.Arm {
     this.description = "bombing-mech / large-bombing-radius";
     this.m_description = "轰炸机甲【大轰炸半径】";
 
-    this.scale = 1;
-    this.singleHP = 300;
-    this.speed = 2;
-
-    this.meleeArmor = 30;
-    this.missileArmor = 30;
-    this.chargeArmor = 30;
-
-    this.missileAttack = 1200;
-    this.missileRange = 9;
-    this.isBombing = true;
     this.missileRadius = 2;
 
-    this.ammo = 18;
     this.loadRealtimeProps();
   }
 }

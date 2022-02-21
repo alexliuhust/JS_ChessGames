@@ -24,7 +24,7 @@ export class DwarfWarrior extends ArmPrimary.Arm {
   }
 }
 
-export class BoneBreaker extends ArmPrimary.Arm {
+export class BoneBreaker extends DwarfWarrior {
   constructor(value, player) {
     super(value, player);
 
@@ -34,13 +34,7 @@ export class BoneBreaker extends ArmPrimary.Arm {
     this.description = "infantry / anti-large";
     this.m_description = "近战步兵【反大型】";
 
-    this.scale = 64;
-    this.singleHP = 70;
-    this.speed = 2;
-
-    this.meleeArmor = 40;
     this.missileArmor = 20;
-    this.chargeArmor = 20;
 
     this.meleeAttack = 20;
     this.meleeAttack_bonus = 60;
@@ -62,7 +56,7 @@ export class BoneBreaker extends ArmPrimary.Arm {
   }
 }
 
-export class Berserker extends ArmPrimary.Arm {
+export class Berserker extends DwarfWarrior {
   constructor(value, player) {
     super(value, player);
 
@@ -72,13 +66,9 @@ export class Berserker extends ArmPrimary.Arm {
     this.description = "infantry / high-damage";
     this.m_description = "近战步兵【高伤害】";
 
-    this.scale = 64;
-    this.singleHP = 70;
-    this.speed = 3;
-
+    this.meleeArmor = 0;
     this.meleeDodge = 45;
     this.missileArmor = 20;
-    this.chargeArmor = 20;
 
     this.meleeAttack = 72;
 
@@ -86,7 +76,7 @@ export class Berserker extends ArmPrimary.Arm {
   }
 }
 
-export class DrawfKingsGuard extends ArmPrimary.Arm {
+export class DrawfKingsGuard extends DwarfWarrior {
   constructor(value, player) {
     super(value, player);
 
@@ -96,12 +86,7 @@ export class DrawfKingsGuard extends ArmPrimary.Arm {
     this.description = "armor-infantry / anti-large";
     this.m_description = "装甲-近战步兵【反大型】";
 
-    this.scale = 64;
-    this.singleHP = 80;
-    this.speed = 2;
-
     this.meleeArmor = 60;
-    this.missileArmor = 50;
     this.chargeArmor = 50;
 
     this.meleeAttack = 35;
@@ -237,7 +222,7 @@ export class GoatCavalry extends ArmPrimary.Arm {
   }
 }
 
-export class GoatCavalryTA extends ArmPrimary.Arm {
+export class GoatCavalryTA extends GoatCavalry {
   constructor(value, player) {
     super(value, player);
 
@@ -246,17 +231,6 @@ export class GoatCavalryTA extends ArmPrimary.Arm {
     this.type = "cavalry";
     this.description = "charging-cavalry / missile-attack";
     this.m_description = "冲击骑兵【远程攻击】";
-
-    this.scale = 32;
-    this.singleHP = 120;
-    this.speed = 5;
-
-    this.meleeArmor = 40;
-    this.missileArmor = 50;
-    this.chargeArmor = 20;
-
-    this.meleeAttack = 24;
-    this.chargeAttack = 64;
 
     this.missileAttack = 40;
     this.missileRange = 5;

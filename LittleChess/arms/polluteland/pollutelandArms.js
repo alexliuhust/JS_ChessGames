@@ -20,7 +20,7 @@ export class SlaveConscript extends ArmPrimary.Arm {
   }
 }
 
-export class SlaveConscriptShield extends ArmPrimary.Arm {
+export class SlaveConscriptShield extends SlaveConscript {
   constructor(value, player) {
     super(value, player);
 
@@ -30,98 +30,9 @@ export class SlaveConscriptShield extends ArmPrimary.Arm {
     this.description = "shield-infantry / weak";
     this.m_description = "持盾-近战步兵【孱弱】";
 
-    this.scale = 100;
-    this.singleHP = 20;
-    this.speed = 4;
-
-    this.meleeArmor = 0;
     this.missileArmor = 20;
-    this.chargeArmor = 0;
-
-    this.meleeAttack = 16;
 
     this.loadRealtimeProps();
-  }
-}
-
-export class HurlerGas extends ArmPrimary.Arm {
-  constructor(value, player) {
-    super(value, player);
-
-    this.name = "Hurler (Gas Bomb)";
-    this.m_name = "投掷小队-毒气弹";
-    this.type = "archers";
-    this.description = "armor-archers / anti-armor";
-    this.m_description = "装甲-远程步兵【高破甲】";
-
-    this.scale = 60;
-    this.singleHP = 30;
-    this.speed = 3;
-
-    this.meleeArmor = 30;
-    this.missileArmor = 30;
-    this.chargeArmor = 30;
-
-    this.meleeAttack = 16;
-    this.missileAttack = 16;
-    this.missileRange = 3;
-
-    this.antiArmor = 40;
-
-    this.ammo = 12;
-    this.loadRealtimeProps();
-  }
-
-  getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
-    if (damageType === "missile") return this.antiArmor;
-    return 0;
-  }
-}
-
-export class HurlerFrgm extends ArmPrimary.Arm {
-  constructor(value, player) {
-    super(value, player);
-
-    this.name = "Hurler (Fragmentation)";
-    this.m_name = "投掷小队-破片弹";
-    this.type = "archers";
-    this.description = "armor-archers / anti-infantry";
-    this.m_description = "装甲-远程步兵【反步兵】";
-
-    this.scale = 60;
-    this.singleHP = 30;
-    this.speed = 3;
-
-    this.meleeArmor = 30;
-    this.missileArmor = 30;
-    this.chargeArmor = 30;
-
-    this.meleeAttack = 16;
-    this.missileAttack = 16;
-    this.missileAttack_bonus = 20;
-    this.missileRange = 3;
-
-    this.ammo = 12;
-    this.loadRealtimeProps();
-  }
-
-  _getSingleDamage(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
-    let singleDamage = 0;
-    if (damageType === "melee") {
-      singleDamage = this.c_meleeAttack;
-    } else if (damageType === "missile" && this.c_ammo > 0) {
-      singleDamage = this.c_missileAttack;
-      if (targetArm.isInfn()) singleDamage += this.missileAttack_bonus;
-      this.c_ammo--;
-    }
-
-    return singleDamage;
   }
 }
 
@@ -149,6 +60,64 @@ export class HurlerHE extends ArmPrimary.Arm {
 
     this.ammo = 12;
     this.loadRealtimeProps();
+  }
+}
+
+export class HurlerGas extends HurlerHE {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Hurler (Gas Bomb)";
+    this.m_name = "投掷小队-毒气弹";
+    this.type = "archers";
+    this.description = "armor-archers / anti-armor";
+    this.m_description = "装甲-远程步兵【高破甲】";
+
+    this.missileAttack = 16;
+
+    this.antiArmor = 40;
+    this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmClass(targetArm);
+
+    if (damageType === "missile") return this.antiArmor;
+    return 0;
+  }
+}
+
+export class HurlerFrgm extends HurlerHE {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Hurler (Fragmentation)";
+    this.m_name = "投掷小队-破片弹";
+    this.type = "archers";
+    this.description = "armor-archers / anti-infantry";
+    this.m_description = "装甲-远程步兵【反步兵】";
+
+    this.missileAttack = 16;
+    this.missileAttack_bonus = 20;
+
+    this.loadRealtimeProps();
+  }
+
+  _getSingleDamage(damageType, targetArm) {
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmClass(targetArm);
+
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+    } else if (damageType === "missile" && this.c_ammo > 0) {
+      singleDamage = this.c_missileAttack;
+      if (targetArm.isInfn()) singleDamage += this.missileAttack_bonus;
+      this.c_ammo--;
+    }
+
+    return singleDamage;
   }
 }
 
@@ -303,12 +272,11 @@ export class MechGears extends ArmPrimary.Arm {
 
     this.meleeAttack = 48;
 
-    this.antiArmor = 50;
     this.loadRealtimeProps();
   }
 }
 
-export class MechGatlin extends ArmPrimary.Arm {
+export class MechGatlin extends MechGears {
   constructor(value, player) {
     super(value, player);
 
@@ -318,15 +286,6 @@ export class MechGatlin extends ArmPrimary.Arm {
     this.description = "mech-infantry / heavy-armor / anti-infantry";
     this.m_description = "机甲步兵【重装甲，反步兵】";
 
-    this.scale = 16;
-    this.singleHP = 250;
-    this.speed = 3;
-
-    this.meleeArmor = 50;
-    this.missileArmor = 50;
-    this.chargeArmor = 40;
-
-    this.meleeAttack = 48;
     this.missileAttack = 60;
     this.missileAttack_bonus = 50;
     this.missileRange = 6;
@@ -356,7 +315,7 @@ export class MechGatlin extends ArmPrimary.Arm {
   }
 }
 
-export class MechMissile extends ArmPrimary.Arm {
+export class MechMissile extends MechGears {
   constructor(value, player) {
     super(value, player);
 
@@ -366,15 +325,6 @@ export class MechMissile extends ArmPrimary.Arm {
     this.description = "mech-infantry / heavy-armor / long-range / anti-large";
     this.m_description = "机甲步兵【重装甲，长程，反大型】";
 
-    this.scale = 16;
-    this.singleHP = 250;
-    this.speed = 3;
-
-    this.meleeArmor = 50;
-    this.missileArmor = 50;
-    this.chargeArmor = 40;
-
-    this.meleeAttack = 48;
     this.missileAttack = 70;
     this.missileAttack_bonus = 40;
     this.missileRange = 8;

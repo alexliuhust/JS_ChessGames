@@ -20,7 +20,7 @@ export class Seaman extends ArmPrimary.Arm {
   }
 }
 
-export class SeamanPistol extends ArmPrimary.Arm {
+export class SeamanPistol extends Seaman {
   constructor(value, player) {
     super(value, player);
 
@@ -30,11 +30,6 @@ export class SeamanPistol extends ArmPrimary.Arm {
     this.description = "archers";
     this.m_description = "远程步兵";
 
-    this.scale = 64;
-    this.singleHP = 40;
-    this.speed = 3;
-
-    this.meleeAttack = 20;
     this.missileAttack = 16;
     this.missileRange = 4;
 
@@ -43,7 +38,7 @@ export class SeamanPistol extends ArmPrimary.Arm {
   }
 }
 
-export class SeamanMusket extends ArmPrimary.Arm {
+export class SeamanMusket extends Seaman {
   constructor(value, player) {
     super(value, player);
 
@@ -53,11 +48,6 @@ export class SeamanMusket extends ArmPrimary.Arm {
     this.description = "archers";
     this.m_description = "远程步兵";
 
-    this.scale = 64;
-    this.singleHP = 40;
-    this.speed = 3;
-
-    this.meleeAttack = 20;
     this.missileAttack = 24;
     this.missileRange = 6;
 
@@ -98,7 +88,7 @@ export class Pisciculi extends ArmPrimary.Arm {
   }
 }
 
-export class PisciculiDoubleBlades extends ArmPrimary.Arm {
+export class PisciculiDoubleBlades extends Pisciculi {
   constructor(value, player) {
     super(value, player);
 
@@ -107,12 +97,6 @@ export class PisciculiDoubleBlades extends ArmPrimary.Arm {
     this.type = "infantry";
     this.description = "infantry / dodge-missile / high-damage";
     this.m_description = "近战步兵【远程闪避，高伤害】";
-
-    this.scale = 100;
-    this.singleHP = 30;
-    this.speed = 6;
-
-    this.missileDodge = 60;
 
     this.meleeAttack = 50;
 
@@ -153,7 +137,7 @@ export class MurlocWarrior extends ArmPrimary.Arm {
   }
 }
 
-export class MurlocWarriorHurling extends ArmPrimary.Arm {
+export class MurlocWarriorHurling extends MurlocWarrior {
   constructor(value, player) {
     super(value, player);
 
@@ -163,34 +147,11 @@ export class MurlocWarriorHurling extends ArmPrimary.Arm {
     this.description = "hurling-infantry / anti-armor";
     this.m_description = "投掷-近战步兵【高破甲】";
 
-    this.scale = 40;
-    this.singleHP = 150;
-    this.speed = 2;
-
-    this.meleeArmor = 60;
-    this.missileArmor = 0;
-    this.chargeArmor = 60;
-
-    this.meleeAttack = 80;
-
     this.missileAttack = 80;
     this.missileRange = 4;
 
-    this.antiArmor = 30;
-
     this.ammo = 2;
     this.loadRealtimeProps();
-
-    this.leadership = 350;
-    this.c_leadership = this.leadership;
-  }
-
-  getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
-    if (damageType === "melee") return this.antiArmor;
-    return 0;
   }
 }
 

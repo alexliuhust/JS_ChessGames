@@ -33,7 +33,7 @@ export class HallwayGuard extends ArmPrimary.Arm {
   }
 }
 
-export class HallwayGuardShield extends ArmPrimary.Arm {
+export class HallwayGuardShield extends HallwayGuard {
   constructor(value, player) {
     super(value, player);
 
@@ -43,26 +43,9 @@ export class HallwayGuardShield extends ArmPrimary.Arm {
     this.description = "shield-infantry / resist-charging";
     this.m_description = "持盾-近战步兵【抵御冲锋】";
 
-    this.scale = 64;
-    this.singleHP = 50;
-    this.speed = 2;
-
-    this.meleeArmor = 40;
     this.missileArmor = 40;
-    this.chargeArmor = 60;
 
-    this.meleeAttack = 25;
-
-    this.antiArmor = 20;
     this.loadRealtimeProps();
-  }
-
-  getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
-    if (damageType === "melee") return this.antiArmor;
-    return 0;
   }
 }
 
@@ -234,7 +217,7 @@ export class FlameKnight extends ArmPrimary.Arm {
   }
 }
 
-export class FlameKnightShield extends ArmPrimary.Arm {
+export class FlameKnightShield extends FlameKnight {
   constructor(value, player) {
     super(value, player);
 
@@ -244,27 +227,9 @@ export class FlameKnightShield extends ArmPrimary.Arm {
     this.description = "shield-charging-cavalry / anti-armor / fast";
     this.m_description = "冲击骑兵【高破甲，惊骇敌军，迅捷如风】";
 
-    this.scale = 32;
-    this.singleHP = 100;
-    this.speed = 7;
-
     this.missileArmor = 40;
-    this.chargeArmor = 20;
-    this.missileDodge = 50;
 
-    this.meleeAttack = 32;
-    this.chargeAttack = 72;
-
-    this.antiArmor = 40;
     this.loadRealtimeProps();
-  }
-
-  getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
-    if (damageType === "charge") return this.antiArmor;
-    return 0;
   }
 }
 
@@ -312,7 +277,6 @@ export class GiantBallista extends ArmPrimary.Arm {
     this.missileRange = 11;
 
     this.antiArmor = 60;
-
     this.loadRealtimeProps();
   }
 
@@ -325,7 +289,7 @@ export class GiantBallista extends ArmPrimary.Arm {
   }
 }
 
-export class GiantBallistaShrapnel extends ArmPrimary.Arm {
+export class GiantBallistaShrapnel extends GiantBallista {
   constructor(value, player) {
     super(value, player);
 
@@ -335,13 +299,9 @@ export class GiantBallistaShrapnel extends ArmPrimary.Arm {
     this.description = "artillery / high-damage";
     this.m_description = "炮兵【高伤害】";
 
-    this.scale = 7;
-    this.singleHP = 250;
-    this.speed = 1;
-
     this.missileAttack = 400;
-    this.missileRange = 11;
 
+    this.antiArmor = 0;
     this.loadRealtimeProps();
   }
 }
@@ -384,7 +344,7 @@ export class StoneGiant extends ArmPrimary.Arm {
   }
 }
 
-export class StoneGiantFlame extends ArmPrimary.Arm {
+export class StoneGiantFlame extends StoneGiant {
   constructor(value, player) {
     super(value, player);
 
@@ -394,31 +354,9 @@ export class StoneGiantFlame extends ArmPrimary.Arm {
     this.description = "giant / anti-infantry / high-damage";
     this.m_description = "巨兽【反步兵，高伤害】";
 
-    this.scale = 1;
-    this.singleHP = 900;
-    this.speed = 4;
-
-    this.meleeArmor = 50;
-    this.missileArmor = 50;
-    this.chargeArmor = 50;
-
-    this.meleeAttack = 1100;
-    this.meleeAttack_bonus = 200;
+    this.meleeAttack = 1200;
 
     this.loadRealtimeProps();
-  }
-
-  _getSingleDamage(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
-    let singleDamage = 0;
-    if (damageType === "melee") {
-      singleDamage = this.c_meleeAttack;
-      if (targetArm.isInfn()) singleDamage += this.meleeAttack_bonus;
-    }
-
-    return singleDamage;
   }
 }
 

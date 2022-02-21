@@ -12,6 +12,14 @@ export const ArmTypes = [
   "artillery",
 ];
 
+function getBaseClass(targetArm) {
+  let p1_targetArm = Object.getPrototypeOf(targetArm);
+  let p1_name = Object.getPrototypeOf(p1_targetArm).constructor.name;
+  let p2_targetArm = Object.getPrototypeOf(p1_targetArm);
+  let p2_name = Object.getPrototypeOf(p2_targetArm).constructor.name;
+  if (p1_name !== "Arm") return p2_name;
+  return p1_name;
+}
 export function checkDamageType(damageType) {
   if (!DamageTypes.includes(damageType)) {
     throw new Error("Invalid damage type: " + damageType);
@@ -23,7 +31,7 @@ export function checkArmType(targetType) {
   }
 }
 export function checkArmClass(targetArm) {
-  let className = Object.getPrototypeOf(targetArm.constructor).name;
+  let className = getBaseClass(targetArm);
   if (className !== "Arm") {
     throw new Error(
       `Invalid object type for targetArm: class name: {${className}}, type: {${typeof targetArm}}`

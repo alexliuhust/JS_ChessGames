@@ -24,7 +24,7 @@ export class HenchWarrior extends ArmPrimary.Arm {
   }
 }
 
-export class HenchWarriorHalberd extends ArmPrimary.Arm {
+export class HenchWarriorHalberd extends HenchWarrior {
   constructor(value, player) {
     super(value, player);
 
@@ -33,10 +33,6 @@ export class HenchWarriorHalberd extends ArmPrimary.Arm {
     this.type = "infantry";
     this.description = "armor-infantry / anti-large";
     this.m_description = "装甲-近战步兵【反大型】";
-
-    this.scale = 64;
-    this.singleHP = 70;
-    this.speed = 2;
 
     this.meleeArmor = 40;
     this.missileArmor = 40;
@@ -62,7 +58,7 @@ export class HenchWarriorHalberd extends ArmPrimary.Arm {
   }
 }
 
-export class HenchWarriorGiantaxe extends ArmPrimary.Arm {
+export class HenchWarriorGiantaxe extends HenchWarrior {
   constructor(value, player) {
     super(value, player);
 
@@ -72,10 +68,6 @@ export class HenchWarriorGiantaxe extends ArmPrimary.Arm {
     this.description = "armor-infantry / anti-armor";
     this.m_description = "装甲-近战步兵【高破甲】";
 
-    this.scale = 64;
-    this.singleHP = 70;
-    this.speed = 2;
-
     this.meleeArmor = 40;
     this.missileArmor = 40;
     this.chargeArmor = 40;
@@ -83,7 +75,6 @@ export class HenchWarriorGiantaxe extends ArmPrimary.Arm {
     this.meleeAttack = 38;
 
     this.antiArmor = 40;
-
     this.loadRealtimeProps();
   }
 
@@ -120,7 +111,7 @@ export class BurningKnight extends ArmPrimary.Arm {
   }
 }
 
-export class BurningKnightHalberd extends ArmPrimary.Arm {
+export class BurningKnightHalberd extends BurningKnight {
   constructor(value, player) {
     super(value, player);
 
@@ -129,10 +120,6 @@ export class BurningKnightHalberd extends ArmPrimary.Arm {
     this.type = "cavalry";
     this.description = "melee-cavalry / heavy-armor / anti-large";
     this.m_description = "近战骑兵【重装甲，反大型】";
-
-    this.scale = 32;
-    this.singleHP = 130;
-    this.speed = 4;
 
     this.meleeArmor = 50;
     this.missileArmor = 50;
@@ -181,12 +168,12 @@ export class Hellhound extends ArmPrimary.Arm {
   }
 }
 
-export class DemonEnvoyWild extends ArmPrimary.Arm {
+export class DemonEnvoy extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Demon Envoy (Wild)";
-    this.m_name = "恶魔使者-狂暴";
+    this.name = "Demon Envoy";
+    this.m_name = "恶魔使者";
     this.type = "monster-infantry";
     this.description = "monster-infantry / anti-armor / shocking";
     this.m_description = "怪兽步兵【高破甲，惊骇敌军】";
@@ -196,10 +183,8 @@ export class DemonEnvoyWild extends ArmPrimary.Arm {
     this.speed = 5;
 
     this.meleeAttack = 55;
-    this.chargeAttack = 55;
 
     this.antiArmor = 50;
-
     this.shock = 50;
     this.loadRealtimeProps();
   }
@@ -213,7 +198,23 @@ export class DemonEnvoyWild extends ArmPrimary.Arm {
   }
 }
 
-export class DemonEnvoyHellfire extends ArmPrimary.Arm {
+export class DemonEnvoyWild extends DemonEnvoy {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Demon Envoy (Wild)";
+    this.m_name = "恶魔使者-狂暴";
+    this.type = "monster-infantry";
+    this.description = "monster-infantry / anti-armor / shocking";
+    this.m_description = "怪兽步兵【高破甲，惊骇敌军】";
+
+    this.chargeAttack = 55;
+
+    this.loadRealtimeProps();
+  }
+}
+
+export class DemonEnvoyHellfire extends DemonEnvoy {
   constructor(value, player) {
     super(value, player);
 
@@ -223,16 +224,11 @@ export class DemonEnvoyHellfire extends ArmPrimary.Arm {
     this.description = "monster-infantry / missile-attack / shocking";
     this.m_description = "怪兽步兵【远程攻击，惊骇敌军】";
 
-    this.scale = 16;
-    this.singleHP = 300;
-    this.speed = 4;
-
-    this.meleeAttack = 55;
     this.missileAttack = 90;
     this.missileRange = 6;
 
     this.ammo = 15;
-
+    this.antiArmor = 0;
     this.shock = 50;
     this.loadRealtimeProps();
   }
@@ -277,9 +273,10 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 3) return new BurningKnight(pos, player);
   if (i === 4) return new BurningKnightHalberd(pos, player);
   if (i === 5) return new Hellhound(pos, player);
-  if (i === 6) return new DemonEnvoyWild(pos, player);
-  if (i === 7) return new DemonEnvoyHellfire(pos, player);
-  if (i === 8) return new GreatDemon(pos, player);
+  if (i === 6) return new DemonEnvoy(pos, player);
+  if (i === 7) return new DemonEnvoyWild(pos, player);
+  if (i === 8) return new DemonEnvoyHellfire(pos, player);
+  if (i === 9) return new GreatDemon(pos, player);
 
   return null;
 }
