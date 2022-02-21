@@ -3,8 +3,6 @@ import * as ArmPrimary from "../arm.js";
 export class SlaveConscript extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("SlaveConscript_img");
-    // Override original data
 
     this.name = "Slave Conscript";
     this.m_name = "奴隶征召兵";
@@ -25,8 +23,6 @@ export class SlaveConscript extends ArmPrimary.Arm {
 export class SlaveConscriptShield extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("SlaveConscriptShield_img");
-    // Override original data
 
     this.name = "Slave Conscript (Shield)";
     this.m_name = "奴隶征召兵-持盾";
@@ -51,8 +47,6 @@ export class SlaveConscriptShield extends ArmPrimary.Arm {
 export class HurlerGas extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("HurlerGas_img");
-    // Override original data
 
     this.name = "Hurler (Gas Bomb)";
     this.m_name = "投掷小队-毒气弹";
@@ -90,8 +84,6 @@ export class HurlerGas extends ArmPrimary.Arm {
 export class HurlerFrgm extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("HurlerFrgm_img");
-    // Override original data
 
     this.name = "Hurler (Fragmentation)";
     this.m_name = "投掷小队-破片弹";
@@ -136,8 +128,6 @@ export class HurlerFrgm extends ArmPrimary.Arm {
 export class HurlerHE extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("HurlerHE_img");
-    // Override original data
 
     this.name = "Hurler (High-Explosion)";
     this.m_name = "投掷小队-高爆弹";
@@ -165,8 +155,6 @@ export class HurlerHE extends ArmPrimary.Arm {
 export class WeapSqdGingall extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("WeapSqdGingall_img");
-    // Override original data
 
     this.name = "Weapon Squad (Gingall)";
     this.m_name = "武器小队-火枪";
@@ -208,8 +196,6 @@ export class WeapSqdGingall extends ArmPrimary.Arm {
 export class WeapSqdGatlin extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("WeapSqdGatlin_img");
-    // Override original data
 
     this.name = "Weapon Squad (Gatlin)";
     this.m_name = "武器小队-加特林";
@@ -256,8 +242,6 @@ export class WeapSqdGatlin extends ArmPrimary.Arm {
 export class WeapSqdFlthr extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("WeapSqdFlthr_img");
-    // Override original data
 
     this.name = "Weapon Squad (Flamethrower)";
     this.m_name = "武器小队-火焰喷射器";
@@ -302,8 +286,6 @@ export class WeapSqdFlthr extends ArmPrimary.Arm {
 export class MechGears extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("MechGears_img");
-    // Override original data
 
     this.name = "Mech Squad";
     this.m_name = "机甲小队";
@@ -329,8 +311,6 @@ export class MechGears extends ArmPrimary.Arm {
 export class MechGatlin extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("MechGatlin_img");
-    // Override original data
 
     this.name = "Mech Squad (Gatlin)";
     this.m_name = "机甲小队-加特林";
@@ -379,8 +359,6 @@ export class MechGatlin extends ArmPrimary.Arm {
 export class MechMissile extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("MechMissile_img");
-    // Override original data
 
     this.name = "Mech Squad (Missile)";
     this.m_name = "机甲小队-飞弹";
@@ -425,8 +403,6 @@ export class MechMissile extends ArmPrimary.Arm {
 export class MutantSlave extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("MutantSlave_img");
-    // Override original data
 
     this.name = "Mutant Slave";
     this.m_name = "变异奴隶";
@@ -451,8 +427,6 @@ export class MutantSlave extends ArmPrimary.Arm {
 export class Foulcannon extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("Foulcannon_img");
-    // Override original data
 
     this.name = "Foul Cannon";
     this.m_name = "污秽加农炮";

@@ -1,11 +1,8 @@
 import * as ArmPrimary from "../arm.js";
-import { ArmTestPos1, ArmTestPos2 } from "../../const.js";
 
 export class DarkSoldier extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("DarkSoldier_img");
-    // Override original data
 
     this.name = "Dark Soldier";
     this.m_name = "黑暗战士";
@@ -39,8 +36,6 @@ export class DarkSoldier extends ArmPrimary.Arm {
 export class DarkSoldierScythe extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("DarkSoldierScythe_img");
-    // Override original data
 
     this.name = "Dark Soldier (Scythe)";
     this.m_name = "黑暗战士-巨镰";
@@ -80,8 +75,6 @@ export class DarkSoldierScythe extends ArmPrimary.Arm {
 export class Banshee extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("Banshee_img");
-    // Override original data
 
     this.name = "Banshee";
     this.m_name = "女妖";
@@ -107,8 +100,6 @@ export class Banshee extends ArmPrimary.Arm {
 export class ScreamingBanshee extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("ScreamingBanshee_img");
-    // Override original data
 
     this.name = "Screaming Banshee";
     this.m_name = "尖啸女妖";
@@ -140,8 +131,6 @@ export class ScreamingBanshee extends ArmPrimary.Arm {
 export class ScreamingBansheeGF extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("ScreamingBansheeGF_img");
-    // Override original data
 
     this.name = "Screaming Banshee (Ghost Fire)";
     this.m_name = "尖啸女妖-鬼火";
@@ -191,8 +180,6 @@ export class ScreamingBansheeGF extends ArmPrimary.Arm {
 export class DeathKnight extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("DeathKnight_img");
-    // Override original data
 
     this.name = "Death Knight";
     this.m_name = "死亡骑士";
@@ -217,8 +204,6 @@ export class DeathKnight extends ArmPrimary.Arm {
 export class DeathKnightDS extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("DeathKnightDS_img");
-    // Override original data
 
     this.name = "Death Knight (Double-Scythe)";
     this.m_name = "死亡骑士-双镰";
@@ -243,8 +228,6 @@ export class DeathKnightDS extends ArmPrimary.Arm {
 export class SpiritCoffinGF extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("SpiritCoffinGF_img");
-    // Override original data
 
     this.name = "Spirit Coffin (Ghost Fire)";
     this.m_name = "灵棺-鬼火";
@@ -273,8 +256,6 @@ export class SpiritCoffinGF extends ArmPrimary.Arm {
 export class SpiritCoffinBB extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("SpiritCoffinBB_img");
-    // Override original data
 
     this.name = "Spirit Coffin (Broken Bones)";
     this.m_name = "灵棺-碎骨";

@@ -3,8 +3,6 @@ import * as ArmPrimary from "../arm.js";
 export class WoodsGuard extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("WoodsGuard_img");
-    // Override original data
 
     this.name = "Woods Guard";
     this.m_name = "林地守卫";
@@ -37,8 +35,6 @@ export class WoodsGuard extends ArmPrimary.Arm {
 export class WoodsGuardShield extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("WoodsGuardShield_img");
-    // Override original data
 
     this.name = "Woods Guard (Shield)";
     this.m_name = "林地守卫-持盾";
@@ -72,8 +68,6 @@ export class WoodsGuardShield extends ArmPrimary.Arm {
 export class WildKiller extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("WildKiller_img");
-    // Override original data
 
     this.name = "Wild Killer";
     this.m_name = "狂野杀手";
@@ -114,8 +108,6 @@ export class WildKiller extends ArmPrimary.Arm {
 export class WildKillerPS extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("WildKillerPS_img");
-    // Override original data
 
     this.name = "Wild Killer (Poisoned)";
     this.m_name = "狂野杀手-淬毒";
@@ -162,8 +154,6 @@ export class WildKillerPS extends ArmPrimary.Arm {
 export class ShadowArcherPS extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("ShadowArcherPS_img");
-    // Override original data
 
     this.name = "Shadow Archer (Poisoned)";
     this.m_name = "暗影弓手-淬毒箭";
@@ -210,8 +200,6 @@ export class ShadowArcherPS extends ArmPrimary.Arm {
 export class ShadowArcherAP extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("ShadowArcherAP_img");
-    // Override original data
 
     this.name = "Shadow Archer (Armor-Piercing)";
     this.m_name = "暗影弓手-穿甲箭";
@@ -248,8 +236,6 @@ export class ShadowArcherAP extends ArmPrimary.Arm {
 export class ShadowArcherFL extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("ShadowArcherFL_img");
-    // Override original data
 
     this.name = "Shadow Archer (Flame)";
     this.m_name = "暗影弓手-火焰箭";
@@ -276,8 +262,6 @@ export class ShadowArcherFL extends ArmPrimary.Arm {
 export class LongbowRanger extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("LongbowRanger_img");
-    // Override original data
 
     this.name = "Longbow Ranger";
     this.m_name = "长弓游侠";
@@ -312,8 +296,6 @@ export class LongbowRanger extends ArmPrimary.Arm {
 export class WarBear extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("WarBear_img");
-    // Override original data
 
     this.name = "War Bear";
     this.m_name = "战熊";
@@ -339,8 +321,6 @@ export class WarBear extends ArmPrimary.Arm {
 export class Dryad extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("Dryad_img");
-    // Override original data
 
     this.name = "Dryad";
     this.m_name = "树精";
@@ -365,8 +345,6 @@ export class Dryad extends ArmPrimary.Arm {
 export class DryadRangerRide extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("DryadRangerRide_img");
-    // Override original data
 
     this.name = "Dryad (Ranger-Ride)";
     this.m_name = "树精-游侠搭乘";
@@ -404,8 +382,6 @@ export class DryadRangerRide extends ArmPrimary.Arm {
 export class DryadStone extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("DryadStone_img");
-    // Override original data
 
     this.name = "Dryad (Stone)";
     this.m_name = "树精-投石";
@@ -435,8 +411,6 @@ export class DryadStone extends ArmPrimary.Arm {
 export class GiantTreeman extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("GiantTreeman_img");
-    // Override original data
 
     this.name = "Giant Treeman";
     this.m_name = "巨树人";

@@ -3,8 +3,6 @@ import * as ArmPrimary from "../arm.js";
 export class HallwayGuard extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("HallwayGuard_img");
-    // Override original data
 
     this.name = "Hallway Guard";
     this.m_name = "门厅守卫";
@@ -38,8 +36,6 @@ export class HallwayGuard extends ArmPrimary.Arm {
 export class HallwayGuardShield extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("HallwayGuardShield_img");
-    // Override original data
 
     this.name = "Hallway Guard (Shield)";
     this.m_name = "门厅守卫-持盾";
@@ -73,8 +69,6 @@ export class HallwayGuardShield extends ArmPrimary.Arm {
 export class NordExecutioner extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("NordExecutioner_img");
-    // Override original data
 
     this.name = "Nord Executioner";
     this.m_name = "诺德刽子手";
@@ -108,8 +102,6 @@ export class NordExecutioner extends ArmPrimary.Arm {
 export class CoastDefender extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("CoastDefender_img");
-    // Override original data
 
     this.name = "Coast Defender (Light)";
     this.m_name = "滨海守卫-轻装";
@@ -143,8 +135,6 @@ export class CoastDefender extends ArmPrimary.Arm {
 export class CoastDefenderShield extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("CoastDefenderShield_img");
-    // Override original data
 
     this.name = "Coast Defender (Shield)";
     this.m_name = "滨海守卫-持盾";
@@ -179,8 +169,6 @@ export class CoastDefenderShield extends ArmPrimary.Arm {
 export class BallistaSquad extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("BallistaSquad_img");
-    // Override original data
 
     this.name = "Ballista Squad";
     this.m_name = "重弩小队";
@@ -216,8 +204,6 @@ export class BallistaSquad extends ArmPrimary.Arm {
 export class FlameKnight extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("FlameKnight_img");
-    // Override original data
 
     this.name = "Flame Knight";
     this.m_name = "炎骑士";
@@ -251,8 +237,6 @@ export class FlameKnight extends ArmPrimary.Arm {
 export class FlameKnightShield extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("FlameKnightShield_img");
-    // Override original data
 
     this.name = "Flame Knight (Shield)";
     this.m_name = "炎骑士-持盾";
@@ -287,8 +271,6 @@ export class FlameKnightShield extends ArmPrimary.Arm {
 export class CoralCavalry extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("CoralCavalry_img");
-    // Override original data
 
     this.name = "Coral Cavalry";
     this.m_name = "珊瑚骑兵团";
@@ -315,8 +297,6 @@ export class CoralCavalry extends ArmPrimary.Arm {
 export class GiantBallista extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("GiantBallista_img");
-    // Override original data
 
     this.name = "Giant Ballista";
     this.m_name = "巨型弩炮";
@@ -348,8 +328,6 @@ export class GiantBallista extends ArmPrimary.Arm {
 export class GiantBallistaShrapnel extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("GiantBallistaShrapnel_img");
-    // Override original data
 
     this.name = "Giant Ballista (Shrapnel)";
     this.m_name = "巨型弩炮-霰弹";
@@ -371,8 +349,6 @@ export class GiantBallistaShrapnel extends ArmPrimary.Arm {
 export class StoneGiant extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("StoneGiant_img");
-    // Override original data
 
     this.name = "Nord Stone Titan";
     this.m_name = "诺德巨石人";
@@ -411,8 +387,6 @@ export class StoneGiant extends ArmPrimary.Arm {
 export class StoneGiantFlame extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("StoneGiantFlame_img");
-    // Override original data
 
     this.name = "Nord Stone Titan (Flame)";
     this.m_name = "诺德火焰巨石人";

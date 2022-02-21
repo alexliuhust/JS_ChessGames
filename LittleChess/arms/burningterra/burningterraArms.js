@@ -3,8 +3,6 @@ import * as ArmPrimary from "../arm.js";
 export class HenchWarrior extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("HenchWarrior_img");
-    // Override original data
 
     this.name = "Hench Warrior";
     this.m_name = "亲卫勇士";
@@ -29,8 +27,6 @@ export class HenchWarrior extends ArmPrimary.Arm {
 export class HenchWarriorHalberd extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("HenchWarriorHalberd_img");
-    // Override original data
 
     this.name = "Hench Warrior (Halberd)";
     this.m_name = "亲卫勇士-长戟";
@@ -69,8 +65,6 @@ export class HenchWarriorHalberd extends ArmPrimary.Arm {
 export class HenchWarriorGiantaxe extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("HenchWarriorGiantaxe_img");
-    // Override original data
 
     this.name = "Hench Warrior (Giantaxe)";
     this.m_name = "亲卫勇士-巨斧";
@@ -105,8 +99,6 @@ export class HenchWarriorGiantaxe extends ArmPrimary.Arm {
 export class BurningKnight extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("BurningKnight_img");
-    // Override original data
 
     this.name = "Burning Knight";
     this.m_name = "燃烧骑士";
@@ -131,8 +123,6 @@ export class BurningKnight extends ArmPrimary.Arm {
 export class BurningKnightHalberd extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("BurningKnightHalberd_img");
-    // Override original data
 
     this.name = "Burning Knight (Halberd)";
     this.m_name = "燃烧骑士-长戟";
@@ -171,8 +161,6 @@ export class BurningKnightHalberd extends ArmPrimary.Arm {
 export class Hellhound extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("Hellhound_img");
-    // Override original data
 
     this.name = "Hell Hound";
     this.m_name = "地狱猎犬";
@@ -196,8 +184,6 @@ export class Hellhound extends ArmPrimary.Arm {
 export class DemonEnvoyWild extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("DemonEnvoyWild_img");
-    // Override original data
 
     this.name = "Demon Envoy (Wild)";
     this.m_name = "恶魔使者-狂暴";
@@ -230,8 +216,6 @@ export class DemonEnvoyWild extends ArmPrimary.Arm {
 export class DemonEnvoyHellfire extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("DemonEnvoyHellfire_img");
-    // Override original data
 
     this.name = "Demon Envoy (Hellfire)";
     this.m_name = "恶魔使者-地狱火";
@@ -257,8 +241,6 @@ export class DemonEnvoyHellfire extends ArmPrimary.Arm {
 export class GreatDemon extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("GreatDemon_img");
-    // Override original data
 
     this.name = "Chaos Great Demon";
     this.m_name = "混沌大魔";

@@ -3,8 +3,6 @@ import * as ArmPrimary from "../arm.js";
 export class SwordInfantry extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("SwordInfantry_img");
-    // Override original data
 
     this.name = "Empire Infantry";
     this.m_name = "帝国步兵";
@@ -39,8 +37,6 @@ export class SwordInfantry extends ArmPrimary.Arm {
 export class SwordInfantryShield extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("SwordInfantryShield_img");
-    // Override original data
 
     this.name = "Empire Infantry (Shield)";
     this.m_name = "帝国步兵-持盾";
@@ -77,8 +73,6 @@ export class SwordInfantryShield extends ArmPrimary.Arm {
 export class PalaceGuard extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("PalaceGuard_img");
-    // Override original data
 
     this.name = "Empire Guard";
     this.m_name = "帝国守卫";
@@ -115,8 +109,6 @@ export class PalaceGuard extends ArmPrimary.Arm {
 export class PalaceGuardShield extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("PalaceGuardShield_img");
-    // Override original data
 
     this.name = "Empire Guard (Shield)";
     this.m_name = "帝国守卫-持盾";
@@ -154,8 +146,6 @@ export class PalaceGuardShield extends ArmPrimary.Arm {
 export class Musketeer extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("Musketeer_img");
-    // Override original data
 
     this.name = "Musketeer";
     this.m_name = "火枪手";
@@ -187,8 +177,6 @@ export class Musketeer extends ArmPrimary.Arm {
 export class MusketeerShield extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("MusketeerShield_img");
-    // Override original data
 
     this.name = "Musketeer (Shield)";
     this.m_name = "火枪手-持盾";
@@ -222,8 +210,6 @@ export class MusketeerShield extends ArmPrimary.Arm {
 export class MusketRider extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("MusketRider_img");
-    // Override original data
 
     this.name = "Musket Rider";
     this.m_name = "火枪骑兵";
@@ -257,8 +243,6 @@ export class MusketRider extends ArmPrimary.Arm {
 export class Vanguard extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("Vanguard_img");
-    // Override original data
 
     this.name = "Vanguard";
     this.m_name = "先锋骑兵";
@@ -292,8 +276,6 @@ export class Vanguard extends ArmPrimary.Arm {
 export class PalaceKnight extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("PalaceKnight_img");
-    // Override original data
 
     this.name = "Palace Knight";
     this.m_name = "大殿骑士";
@@ -332,8 +314,6 @@ export class PalaceKnight extends ArmPrimary.Arm {
 export class CannonGroup extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("CannonGroup_img");
-    // Override original data
 
     this.name = "Cannon Group";
     this.m_name = "加农炮组";
@@ -364,8 +344,6 @@ export class CannonGroup extends ArmPrimary.Arm {
 export class EmpireMortar extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("EmpireMortar_img");
-    // Override original data
 
     this.name = "Empire Mortar";
     this.m_name = "帝国臼炮";
@@ -389,8 +367,6 @@ export class EmpireMortar extends ArmPrimary.Arm {
 export class SteamTank extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("SteamTank_img");
-    // Override original data
 
     this.name = "Steam Tank";
     this.m_name = "蒸汽坦克";
@@ -428,8 +404,6 @@ export class SteamTank extends ArmPrimary.Arm {
 export class SteamTankMortar extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("SteamTankMortar_img");
-    // Override original data
 
     this.name = "Steam Tank (Mortar)";
     this.m_name = "蒸汽坦克-臼炮";

@@ -10,6 +10,7 @@ import {
 } from "../const.js";
 import * as BannerDraw from "../prompts/bannerDrawings.js";
 import { decodeArmPositionInfo } from "../deployMethods.js";
+import { getArmsAndImages } from "../arms/exportArm.js";
 
 // ===============================================================
 // ====================== Load All Canvases ======================
@@ -22,6 +23,25 @@ const canvasList = {
   info: document.getElementById("info").getContext("2d"),
   banner: document.getElementById("banner").getContext("2d"),
 };
+
+// ===============================================================
+// ==================== Add All Needed Images ====================
+// ===============================================================
+let srcList1 = getArmsAndImages(window.localStorage.getItem("power1"))[1];
+let srcList2 = getArmsAndImages(window.localStorage.getItem("power2"))[1];
+function addImage(srcList) {
+  for (let i = 0; i < srcList.length; i++) {
+    let div = document.getElementById("allArmImages");
+    let elem = document.createElement("img");
+    elem.src = srcList[i];
+    let start = elem.src.lastIndexOf("/") + 1;
+    let end = elem.src.lastIndexOf(".");
+    elem.id = elem.src.substring(start, end) + "_img";
+    div.appendChild(elem);
+  }
+}
+addImage(srcList1);
+addImage(srcList2);
 
 // ===============================================================
 // ====================== Load Players Info ======================

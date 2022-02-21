@@ -1,11 +1,8 @@
 import * as ArmPrimary from "../arm.js";
-import { ArmTestPos1, ArmTestPos2 } from "../../const.js";
 
 export class Seaman extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("Seaman_img");
-    // Override original data
 
     this.name = "Seaman";
     this.m_name = "水手";
@@ -26,8 +23,6 @@ export class Seaman extends ArmPrimary.Arm {
 export class SeamanPistol extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("SeamanPistol_img");
-    // Override original data
 
     this.name = "Seaman (Pistol)";
     this.m_name = "水手-手枪";
@@ -51,8 +46,6 @@ export class SeamanPistol extends ArmPrimary.Arm {
 export class SeamanMusket extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("SeamanMusket_img");
-    // Override original data
 
     this.name = "Seaman (Musket)";
     this.m_name = "水手-步枪";
@@ -86,8 +79,6 @@ export class SeamanMusket extends ArmPrimary.Arm {
 export class Pisciculi extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("Pisciculi_img");
-    // Override original data
 
     this.name = "Pisciculi";
     this.m_name = "侏儒鱼人";
@@ -110,8 +101,6 @@ export class Pisciculi extends ArmPrimary.Arm {
 export class PisciculiDoubleBlades extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("PisciculiDoubleBlades_img");
-    // Override original data
 
     this.name = "Pisciculi (Double Blades)";
     this.m_name = "侏儒鱼人-双刀";
@@ -134,8 +123,6 @@ export class PisciculiDoubleBlades extends ArmPrimary.Arm {
 export class MurlocWarrior extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("MurlocWarrior_img");
-    // Override original data
 
     this.name = "Murloc Warrior";
     this.m_name = "鱼人战士";
@@ -169,8 +156,6 @@ export class MurlocWarrior extends ArmPrimary.Arm {
 export class MurlocWarriorHurling extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("MurlocWarriorHurling_img");
-    // Override original data
 
     this.name = "Murloc Warrior (Hurling)";
     this.m_name = "鱼人战士-投戟";
@@ -212,8 +197,6 @@ export class MurlocWarriorHurling extends ArmPrimary.Arm {
 export class Cancrimag extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("Cancrimag_img");
-    // Override original data
 
     this.name = "Cancrimagnus";
     this.m_name = "巨蟹";
@@ -253,8 +236,6 @@ export class Cancrimag extends ArmPrimary.Arm {
 export class DeckGun extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.img = document.getElementById("DeckGun_img");
-    // Override original data
 
     this.name = "Deck Gun";
     this.m_name = "甲板炮";

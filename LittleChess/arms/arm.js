@@ -91,6 +91,8 @@ export class Arm {
 
     // Load real-time properties for battle
     this.loadRealtimeProps = function () {
+      this.img = document.getElementById(`${this.constructor.name}_img`);
+
       this.c_scale = this.scale;
       this.c_singleHP = this.singleHP;
       this.c_speed = this.speed;
