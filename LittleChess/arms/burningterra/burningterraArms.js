@@ -145,6 +145,29 @@ export class BurningKnightHalberd extends BurningKnight {
   }
 }
 
+export class BurningKnightCharge extends BurningKnight {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Burning Knight (Charge)";
+    this.m_name = "燃烧骑士-冲杀";
+    this.type = "cavalry";
+    this.description = "charge-cavalry / heavy-armor";
+    this.m_description = "冲杀骑兵【重装甲】";
+
+    this.speed = 6;
+
+    this.meleeArmor = 40;
+    this.missileArmor = 40;
+    this.chargeArmor = 60;
+
+    this.meleeAttack = 30;
+    this.chargeAttack = 60;
+
+    this.loadRealtimeProps();
+  }
+}
+
 export class Hellhound extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
@@ -163,6 +186,25 @@ export class Hellhound extends ArmPrimary.Arm {
 
     this.meleeAttack = 6;
     this.chargeAttack = 10;
+
+    this.loadRealtimeProps();
+  }
+}
+
+export class HellhoundFS extends Hellhound {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Hell Hound (Fire Shied)";
+    this.m_name = "地狱猎犬-火盾";
+    this.type = "cavalry";
+    this.description = "monster-cavalry / fast";
+    this.m_description = "怪兽骑兵【迅捷如风】";
+
+    this.meleeDodge = 60;
+
+    this.meleeAttack = 8;
+    this.chargeAttack = 12;
 
     this.loadRealtimeProps();
   }
@@ -265,6 +307,24 @@ export class GreatDemon extends ArmPrimary.Arm {
   }
 }
 
+export class GreatDemonHellfire extends GreatDemon {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Chaos Great Demon (Hellfire)";
+    this.m_name = "混沌大魔-地狱火";
+    this.type = "monster";
+    this.description = "giant / anti-armor / missile-attack / shocking";
+    this.m_description = "巨兽【高破甲，远程攻击，惊骇敌军】";
+
+    this.missileAttack = 800;
+    this.missileRange = 6;
+
+    this.ammo = 20;
+    this.loadRealtimeProps();
+  }
+}
+
 export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
   if (i === 0) return new HenchWarrior(pos, player);
@@ -272,11 +332,14 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 2) return new HenchWarriorGiantaxe(pos, player);
   if (i === 3) return new BurningKnight(pos, player);
   if (i === 4) return new BurningKnightHalberd(pos, player);
-  if (i === 5) return new Hellhound(pos, player);
-  if (i === 6) return new DemonEnvoy(pos, player);
-  if (i === 7) return new DemonEnvoyWild(pos, player);
-  if (i === 8) return new DemonEnvoyHellfire(pos, player);
-  if (i === 9) return new GreatDemon(pos, player);
+  if (i === 5) return new BurningKnightCharge(pos, player);
+  if (i === 6) return new Hellhound(pos, player);
+  if (i === 7) return new HellhoundFS(pos, player);
+  if (i === 8) return new DemonEnvoy(pos, player);
+  if (i === 9) return new DemonEnvoyWild(pos, player);
+  if (i === 10) return new DemonEnvoyHellfire(pos, player);
+  if (i === 11) return new GreatDemon(pos, player);
+  if (i === 12) return new GreatDemonHellfire(pos, player);
 
   return null;
 }
