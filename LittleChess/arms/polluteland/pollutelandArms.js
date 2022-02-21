@@ -1,5 +1,4 @@
 import * as ArmPrimary from "../arm.js";
-import { ArmTestPos1, ArmTestPos2 } from "../../const.js";
 
 export class SlaveConscript extends ArmPrimary.Arm {
   constructor(value, player) {
@@ -10,11 +9,33 @@ export class SlaveConscript extends ArmPrimary.Arm {
     this.name = "Slave Conscript";
     this.m_name = "奴隶征召兵";
     this.type = "infantry";
+    this.description = "infantry / weak";
+    this.m_description = "近战步兵【孱弱】";
+
+    this.scale = 100;
+    this.singleHP = 20;
+    this.speed = 4;
+
+    this.meleeAttack = 16;
+
+    this.loadRealtimeProps();
+  }
+}
+
+export class SlaveConscriptSield extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+    this.img = document.getElementById("SlaveConscript_img");
+    // Override original data
+
+    this.name = "Slave Conscript (Shield)";
+    this.m_name = "奴隶征召兵-持盾";
+    this.type = "infantry";
     this.description = "shield-infantry / weak";
     this.m_description = "持盾-近战步兵【孱弱】";
 
     this.scale = 100;
-    this.singleHP = 30;
+    this.singleHP = 20;
     this.speed = 4;
 
     this.meleeArmor = 0;
@@ -239,7 +260,7 @@ export class WeapSqdFlthr extends ArmPrimary.Arm {
     // Override original data
 
     this.name = "Weapon Squad (Flamethrower)";
-    this.m_name = "武器小队-火喷器";
+    this.m_name = "武器小队-火焰喷射器";
     this.type = "archers";
     this.description = "shield-archers / anti-non-armor";
     this.m_description = "持盾-远程步兵【反无甲】";
@@ -271,6 +292,129 @@ export class WeapSqdFlthr extends ArmPrimary.Arm {
       singleDamage = this.c_missileAttack;
       if (targetArm.c_meleeArmor === 0 || targetArm.c_missileArmor === 0)
         singleDamage += this.missileAttack_bonus;
+      this.c_ammo--;
+    }
+
+    return singleDamage;
+  }
+}
+
+export class MechGears extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+    this.img = document.getElementById("MechGears_img");
+    // Override original data
+
+    this.name = "Mech Squad";
+    this.m_name = "机甲小队";
+    this.type = "monster-infantry";
+    this.description = "mech-infantry / heavy-armor";
+    this.m_description = "机甲步兵【重装甲】";
+
+    this.scale = 16;
+    this.singleHP = 250;
+    this.speed = 3;
+
+    this.meleeArmor = 50;
+    this.missileArmor = 50;
+    this.chargeArmor = 40;
+
+    this.meleeAttack = 48;
+
+    this.antiArmor = 50;
+    this.loadRealtimeProps();
+  }
+}
+
+export class MechGatlin extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+    this.img = document.getElementById("MechGatlin_img");
+    // Override original data
+
+    this.name = "Mech Squad (Gatlin)";
+    this.m_name = "机甲小队-加特林";
+    this.type = "monster-infantry";
+    this.description = "mech-infantry / heavy-armor / anti-infantry";
+    this.m_description = "机甲步兵【重装甲，反步兵】";
+
+    this.scale = 16;
+    this.singleHP = 250;
+    this.speed = 3;
+
+    this.meleeArmor = 50;
+    this.missileArmor = 50;
+    this.chargeArmor = 40;
+
+    this.meleeAttack = 48;
+    this.missileAttack = 60;
+    this.missileAttack_bonus = 50;
+    this.missileRange = 6;
+
+    this.ammo = 15;
+    this.loadRealtimeProps();
+  }
+
+  _getSingleDamage(damageType, targetArm) {
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmClass(targetArm);
+
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+    } else if (damageType === "missile" && this.c_ammo > 0) {
+      singleDamage = this.c_missileAttack;
+      if (targetArm.isInfn()) {
+        if (targetArm.c_missileArmor > 0)
+          singleDamage += this.missileAttack_bonus / 2;
+        else singleDamage += this.missileAttack_bonus;
+      }
+      this.c_ammo--;
+    }
+
+    return singleDamage;
+  }
+}
+
+export class MechMissile extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+    this.img = document.getElementById("MechMissile_img");
+    // Override original data
+
+    this.name = "Mech Squad (Missile)";
+    this.m_name = "机甲小队-飞弹";
+    this.type = "monster-infantry";
+    this.description = "mech-infantry / heavy-armor / long-range / anti-large";
+    this.m_description = "机甲步兵【重装甲，长程，反大型】";
+
+    this.scale = 16;
+    this.singleHP = 250;
+    this.speed = 3;
+
+    this.meleeArmor = 50;
+    this.missileArmor = 50;
+    this.chargeArmor = 40;
+
+    this.meleeAttack = 48;
+    this.missileAttack = 70;
+    this.missileAttack_bonus = 40;
+    this.missileRange = 8;
+
+    this.ammo = 13;
+    this.loadRealtimeProps();
+  }
+
+  _getSingleDamage(damageType, targetArm) {
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmClass(targetArm);
+
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+    } else if (damageType === "missile" && this.c_ammo > 0) {
+      singleDamage = this.c_missileAttack;
+      if (targetArm.isLarge()) singleDamage += this.missileAttack_bonus;
       this.c_ammo--;
     }
 
@@ -343,14 +487,18 @@ export function getTestArms() {
 export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
   if (i === 0) return new SlaveConscript(pos, player);
-  if (i === 1) return new HurlerGas(pos, player);
-  if (i === 2) return new HurlerFrgm(pos, player);
-  if (i === 3) return new HurlerHE(pos, player);
-  if (i === 4) return new WeapSqdGingall(pos, player);
-  if (i === 5) return new WeapSqdGatlin(pos, player);
-  if (i === 6) return new WeapSqdFlthr(pos, player);
-  if (i === 7) return new MutantSlave(pos, player);
-  if (i === 8) return new Foulcannon(pos, player);
+  if (i === 1) return new SlaveConscriptSield(pos, player);
+  if (i === 2) return new HurlerGas(pos, player);
+  if (i === 3) return new HurlerFrgm(pos, player);
+  if (i === 4) return new HurlerHE(pos, player);
+  if (i === 5) return new WeapSqdGingall(pos, player);
+  if (i === 6) return new WeapSqdGatlin(pos, player);
+  if (i === 7) return new WeapSqdFlthr(pos, player);
+  if (i === 8) return new MechGears(pos, player);
+  if (i === 9) return new MechGatlin(pos, player);
+  if (i === 10) return new MechMissile(pos, player);
+  if (i === 11) return new MutantSlave(pos, player);
+  if (i === 12) return new Foulcannon(pos, player);
 
   return null;
 }
@@ -358,12 +506,16 @@ export function newAnArm(i, posX, posY, player) {
 export function getImages() {
   let images = [];
   images.push("../images/polluteland/SlaveConscript.png");
+  images.push("../images/polluteland/SlaveConscriptSield.png");
   images.push("../images/polluteland/HurlerGas.png");
   images.push("../images/polluteland/HurlerFrgm.png");
   images.push("../images/polluteland/HurlerHE.png");
   images.push("../images/polluteland/WeapSqdGingall.png");
   images.push("../images/polluteland/WeapSqdGatlin.png");
   images.push("../images/polluteland/WeapSqdFlthr.png");
+  images.push("../images/polluteland/MechGears.png");
+  images.push("../images/polluteland/MechGatlin.png");
+  images.push("../images/polluteland/MechMissile.png");
   images.push("../images/polluteland/MutantSlave.png");
   images.push("../images/polluteland/Foulcannon.png");
 
