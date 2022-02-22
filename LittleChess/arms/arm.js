@@ -15,9 +15,19 @@ export const ArmTypes = [
 function getBaseClass(targetArm) {
   let p1_targetArm = Object.getPrototypeOf(targetArm);
   let p1_name = Object.getPrototypeOf(p1_targetArm).constructor.name;
+
   let p2_targetArm = Object.getPrototypeOf(p1_targetArm);
   let p2_name = Object.getPrototypeOf(p2_targetArm).constructor.name;
-  if (p1_name !== "Arm") return p2_name;
+
+  if (p2_targetArm) {
+    let p3_targetArm = Object.getPrototypeOf(p2_targetArm);
+    if (Object.getPrototypeOf(p3_targetArm)) {
+      let p3_name = Object.getPrototypeOf(p3_targetArm).constructor.name;
+      if (p3_name === "Arm") return p3_name;
+    }
+  }
+
+  if (p2_name === "Arm") return p2_name;
   return p1_name;
 }
 export function checkDamageType(damageType) {
@@ -236,7 +246,7 @@ export class Arm {
     let realArmor = Math.floor(Math.random() * (max - min + 1) + min);
 
     let percentage = (100 - (realArmor + dodge)) / 100;
-    if (percentage < 0) percentage = 0;
+    if (percentage < 0.01) percentage = 0.01;
 
     return percentage;
   }
@@ -398,9 +408,8 @@ export class Arm {
     let results = [0, 0];
 
     let damagePercentage = 1;
-    if (damageType !== "bombing" && damageType !== "magic") {
+    if (damageType !== "bombing" && damageType !== "magic")
       damagePercentage = this._getDamagePercentage(damageType, antiArmor);
-    }
 
     let realDamage = rawTotalDamage * damagePercentage;
     let decreaseScore = 0;
@@ -408,8 +417,8 @@ export class Arm {
     // If this arm is a single-unit
     if (this.scale === 1) {
       if (damageType === "melee" || damageType === "charge")
-        realDamage = Math.round(realDamage * 0.125);
-      else realDamage = Math.round(realDamage * 0.25);
+        realDamage = Math.ceil(realDamage * 0.125);
+      else realDamage = Math.ceil(realDamage * 0.25);
       if (realDamage > 0) realDamage = Math.max(realDamage, 1);
 
       this.c_singleHP -= realDamage;

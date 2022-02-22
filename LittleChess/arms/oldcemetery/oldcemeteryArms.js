@@ -66,6 +66,22 @@ export class DarkSoldierScythe extends DarkSoldier {
   }
 }
 
+export class DarkSoldierSS extends DarkSoldierScythe {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Dark Soldier (Scythe, Shield)";
+    this.m_name = "黑暗战士-巨镰-持盾";
+    this.type = "infantry";
+    this.description = "shield-infantry / anti-large";
+    this.m_description = "持盾-近战步兵【反大型】";
+
+    this.missileArmor = 40;
+
+    this.loadRealtimeProps();
+  }
+}
+
 export class Banshee extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
@@ -97,20 +113,13 @@ export class ScreamingBanshee extends Banshee {
 
     this.name = "Screaming Banshee";
     this.m_name = "尖啸女妖";
-    this.type = "archers";
-    this.description = "melee-archers / high-dodge / shocking";
-    this.m_description = "近战-远程步兵【高闪避，惊骇敌军】";
+    this.type = "infantry";
+    this.description = "charge-infantry / high-dodge / shocking";
+    this.m_description = "冲杀-近战步兵【高闪避，惊骇敌军】";
 
-    this.missileAttack = 24;
-    this.missileRange = 6;
+    this.chargeAttack = 38;
 
-    this.shock = 50;
-    this.ammo = 18;
     this.loadRealtimeProps();
-  }
-
-  _getValidScale() {
-    return Math.min(this.c_scale, Math.floor(this.scale / 4));
   }
 }
 
@@ -118,8 +127,8 @@ export class ScreamingBansheeGF extends Banshee {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Screaming Banshee (Ghost Fire)";
-    this.m_name = "尖啸女妖-鬼火";
+    this.name = "Banshee (Ghost Fire)";
+    this.m_name = "女妖-鬼火";
     this.type = "archers";
     this.description = "melee-archers / high-dodge / anti-infantry / shocking";
     this.m_description = "近战-远程步兵【高闪避，反步兵，惊骇敌军】";
@@ -195,6 +204,92 @@ export class DeathKnightDS extends DeathKnight {
   }
 }
 
+export class BeetleRider extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Beetle Rider";
+    this.m_name = "甲虫骑兵";
+    this.type = "monster-infantry";
+    this.description = "monster-cavlary / heavy-armor / anti-infantry";
+    this.m_description = "怪兽骑兵【重装甲，反步兵】";
+
+    this.scale = 16;
+    this.singleHP = 180;
+    this.speed = 3;
+
+    this.meleeArmor = 40;
+    this.missileArmor = 50;
+    this.chargeArmor = 40;
+
+    this.meleeAttack = 40;
+    this.meleeAttack_bonus = 50;
+
+    this.loadRealtimeProps();
+  }
+
+  _getSingleDamage(damageType, targetArm) {
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmClass(targetArm);
+
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+      if (targetArm.isInfn()) singleDamage += this.meleeAttack_bonus;
+    }
+
+    return singleDamage;
+  }
+}
+
+export class FireBeetleRider extends BeetleRider {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Fire Beetle Rider";
+    this.m_name = "火甲虫骑兵";
+    this.type = "monster-infantry";
+    this.description = "monster-cavlary / heavy-armor / missile-attack";
+    this.m_description = "怪兽骑兵【重装甲，远程攻击】";
+
+    this.meleeAttack_bonus = 0;
+    this.missileAttack = 60;
+    this.missileRange = 3;
+
+    this.ammo = 30;
+    this.loadRealtimeProps();
+  }
+
+  _getSingleDamage(damageType, targetArm) {
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmClass(targetArm);
+
+    let singleDamage = 0;
+    if (damageType === "melee") singleDamage = this.c_meleeAttack;
+    else if (damageType === "missile") singleDamage = this.c_missileAttack;
+
+    return singleDamage;
+  }
+}
+
+export class BeetleChargeRider extends BeetleRider {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Beetle Charge Rider";
+    this.m_name = "甲虫冲击骑兵";
+    this.type = "monster-infantry";
+    this.description = "monster-charge-cavlary / heavy-armor / anti-infantry";
+    this.m_description = "怪兽冲杀骑兵【重装甲，反步兵】";
+
+    this.speed = 4;
+
+    this.chargeAttack = 70;
+
+    this.loadRealtimeProps();
+  }
+}
+
 export class SpiritCoffinGF extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
@@ -243,13 +338,17 @@ export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
   if (i === 0) return new DarkSoldier(pos, player);
   if (i === 1) return new DarkSoldierScythe(pos, player);
-  if (i === 2) return new Banshee(pos, player);
-  if (i === 3) return new ScreamingBanshee(pos, player);
-  if (i === 4) return new ScreamingBansheeGF(pos, player);
-  if (i === 5) return new DeathKnight(pos, player);
-  if (i === 6) return new DeathKnightDS(pos, player);
-  if (i === 7) return new SpiritCoffinGF(pos, player);
-  if (i === 8) return new SpiritCoffinBB(pos, player);
+  if (i === 2) return new DarkSoldierSS(pos, player);
+  if (i === 3) return new Banshee(pos, player);
+  if (i === 4) return new ScreamingBanshee(pos, player);
+  if (i === 5) return new ScreamingBansheeGF(pos, player);
+  if (i === 6) return new DeathKnight(pos, player);
+  if (i === 7) return new DeathKnightDS(pos, player);
+  if (i === 8) return new BeetleRider(pos, player);
+  if (i === 9) return new FireBeetleRider(pos, player);
+  if (i === 10) return new BeetleChargeRider(pos, player);
+  if (i === 11) return new SpiritCoffinGF(pos, player);
+  if (i === 12) return new SpiritCoffinBB(pos, player);
 
   return null;
 }
