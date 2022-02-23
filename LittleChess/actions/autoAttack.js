@@ -15,7 +15,8 @@ export function triggerAutoAttack(attacker, defenders) {
 function canAutoMissileAttack(attacker) {
   return (
     (attacker.type === "archers" ||
-      ((attacker.type === "cavalry" ||
+      ((attacker.type === "infantry" ||
+        attacker.type === "cavalry" ||
         attacker.type === "monster-infantry" ||
         attacker.type === "monster") &&
         attacker.c_missileAttack > 0)) &&

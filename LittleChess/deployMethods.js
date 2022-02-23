@@ -117,7 +117,12 @@ export class Deploy {
 
           Canvas.clear(infoCanvas, DIW, DIH);
           this.arms[i].img = this.elems[i];
-          drawInfoForSelectedPiece(infoCanvas, this.arms[i], this.useMandarin);
+          drawInfoForSelectedPiece(
+            infoCanvas,
+            this.arms[i],
+            this.useMandarin,
+            true
+          );
           this.imageIndex = i;
         });
       }

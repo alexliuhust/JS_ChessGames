@@ -9,7 +9,9 @@ import {
   SelectPieceColor as SPC,
   SelectEnemyColor as SEC,
   ReadyToAttackColor as RTA,
+  DirectMap,
 } from "./const.js";
+import { moveAligned } from "./actions/moveAligned.js";
 
 export class Player {
   constructor(color, _canvaslist, _useMandarin) {
@@ -277,6 +279,12 @@ export class Player {
     // ================================ Key Down Events ================================
     // =================================================================================
     this.keyDownEvents = function (e) {
+      if (this.isMyRound && e.code.includes("Arrow")) {
+        e.preventDefault();
+        let direction = DirectMap.get(e.code);
+        moveAligned(this.pieceList, this.enemyList, direction);
+      }
+
       if (
         (e.code == "KeyA" ||
           e.code == "KeyL" ||
@@ -286,7 +294,6 @@ export class Player {
         this.nowSelectPiece.operable &&
         !this.nowSelectPiece.hasAttacked
       ) {
-        console.log();
         if (this.currentStatus === "ready to move") {
           Canvas.clear(this.canvasList.main, W, H);
           this.curAvailablePos = null;

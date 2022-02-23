@@ -10,11 +10,11 @@ import {
 const leftX = 10;
 const BGC = "grey";
 
-export function drawInfoForSelectedPiece(cxt, piece, useMandarin) {
+export function drawInfoForSelectedPiece(cxt, piece, useMandarin, showCost) {
   ArmPrimary.checkArmClass(piece);
 
   // Draw image and arm's name
-  drawTitle(cxt, piece, useMandarin);
+  drawTitle(cxt, piece, useMandarin, showCost);
 
   // Draw HP bar and ammo bar
   drawHPAndAmmoBars(cxt, piece, useMandarin);
@@ -26,7 +26,7 @@ export function drawInfoForSelectedPiece(cxt, piece, useMandarin) {
   drawStatus(cxt, piece, useMandarin);
 }
 
-function drawTitle(cxt, piece, useMandarin) {
+function drawTitle(cxt, piece, useMandarin, showCost) {
   if (piece.img !== null)
     Canvas.drawImg(cxt, piece.img, 0, 0, 50, 50, 10, 10, 85, 85);
 
@@ -34,21 +34,25 @@ function drawTitle(cxt, piece, useMandarin) {
   let desc = useMandarin ? piece.m_description : piece.description;
   Canvas.drawText(cxt, name, 105, 30, "white", 24);
   Canvas.drawText(cxt, desc, 105, 60, "white", 16);
-  let costText = useMandarin
-    ? `[花费: ${piece.cost}金币]`
-    : `[cost: ${piece.cost}G]`;
-  Canvas.drawText(cxt, costText, 105, 90, "yellow", 16);
+  if (showCost) {
+    let costText = useMandarin
+      ? `[花费: ${piece.cost}金币]`
+      : `[cost: ${piece.cost}G]`;
+    Canvas.drawText(cxt, costText, 105, 90, "yellow", 16);
+  }
 
-  let expLength = (144 * Math.min(piece.exp, piece.cost)) / piece.cost;
-  Canvas.drawLine(cxt, 320, 83, 470, 83, BGC, 18);
-  Canvas.drawLine(cxt, 320 + 3, 83, 320 + expLength + 3, 83, EC, 12);
+  let lX = showCost ? 250 : 105;
+
+  let expL = (144 * Math.min(piece.exp, piece.cost)) / piece.cost;
+  Canvas.drawLine(cxt, lX + 70, 83, lX + 220, 83, BGC, 18);
+  Canvas.drawLine(cxt, lX + 73, 83, lX + 70 + expL + 3, 83, EC, 12);
 
   let levelInfo = useMandarin
     ? `等级: ${piece.level}`
     : `Level: ${piece.level}`;
   let expInfo = useMandarin ? `经验: ${piece.exp}` : `exp: ${piece.exp}`;
-  Canvas.drawText(cxt, levelInfo, 250, 90, "white", 16);
-  Canvas.drawText(cxt, expInfo, 370, 88, "black", 14);
+  Canvas.drawText(cxt, levelInfo, lX, 90, "white", 16);
+  Canvas.drawText(cxt, expInfo, lX + 120, 88, "black", 14);
 }
 
 function drawHPAndAmmoBars(cxt, piece, useMandarin) {

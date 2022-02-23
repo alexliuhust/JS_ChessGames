@@ -46,6 +46,12 @@ export const M_PowerMap = new Map([
   ["burningterra", "燃烧领"],
   ["oldcemetery", "老墓园"],
 ]);
+export const DirectMap = new Map([
+  ["ArrowUp", "U"],
+  ["ArrowDown", "D"],
+  ["ArrowLeft", "L"],
+  ["ArrowRight", "R"],
+]);
 export const ArmTestPos1 = [
   [6, 4],
   [7, 5],
