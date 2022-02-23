@@ -102,20 +102,10 @@ export function drawAvailableTargets(cxt, self, others) {
       let posX = availablePositions[i][0];
       let posY = availablePositions[i][1];
       let type = availableType[i];
-      if (type === 0) hightlightMeleeTarget(cxt, posX, posY, color);
+      if (type === 0) hightlightMeleeTarget(cxt, self, posX, posY, color);
       else if (type === 2) hightlightChargeTarget(cxt, self, posX, posY, color);
-      else hightlightMissleTarget(cxt, posX, posY, color);
+      else hightlightMissleTarget(cxt, self, posX, posY, color);
     }
-
-    // Highlight the range
-    Canvas.drawArc(
-      cxt,
-      self.x + 25,
-      self.y + 25,
-      self.missileRange * 50 + 15,
-      color,
-      4
-    );
 
     return availableTargets;
   }
@@ -147,17 +137,18 @@ export function drawAvailableTargets(cxt, self, others) {
     }
 
     // Highlight those available bombing centers
-    for (let i = 0; i < availableBombingCenters.length; i++) {
-      let x = availableBombingCenters[i][0] * 50 + 10;
-      let y = availableBombingCenters[i][1] * 50 + 10;
-      hightlightBombCenter(cxt, x, y, ReadyToAttackColor);
-    }
+    let r1 = Math.floor(range / 3) * 50 + 15;
+    let r2 = range * 50 + 20;
+    sx = sx * 50 + 25;
+    sy = sy * 50 + 25;
+    Canvas.drawArc(cxt, sx, sy, r1, ReadyToAttackColor, 5);
+    Canvas.drawArc(cxt, sx, sy, r2, ReadyToAttackColor, 5);
 
     return availableBombingCenters;
   }
 }
 
-function hightlightMeleeTarget(cxt, posX, posY, color) {
+function hightlightMeleeTarget(cxt, self, posX, posY, color) {
   let x = posX * 50;
   let y = posY * 50;
   let x1 = x + 12;
@@ -166,6 +157,7 @@ function hightlightMeleeTarget(cxt, posX, posY, color) {
   let y2 = y1 + 26;
   Canvas.drawLine(cxt, x1, y1, x2, y2, color, 5);
   Canvas.drawLine(cxt, x1, y2, x2, y1, color, 5);
+  Canvas.drawArc(cxt, self.x + 25, self.y + 25, 45, color, 4);
 }
 
 function hightlightChargeTarget(cxt, self, posX, posY, color) {
@@ -194,7 +186,7 @@ function hightlightChargeTarget(cxt, self, posX, posY, color) {
   Canvas.drawLine(cxt, x0, y0, x, y, color, 5);
 }
 
-function hightlightMissleTarget(cxt, posX, posY, color) {
+function hightlightMissleTarget(cxt, self, posX, posY, color) {
   let x = posX * 50 + 25;
   let y = posY * 50 + 28;
   let radius = 20;
