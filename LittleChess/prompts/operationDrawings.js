@@ -107,6 +107,10 @@ export function drawAvailableTargets(cxt, self, others) {
       else hightlightMissleTarget(cxt, self, posX, posY, color);
     }
 
+    let range = self.c_missileRange * 50 + 15;
+    if (range === 15) range = 70;
+    Canvas.drawArc(cxt, self.x + 25, self.y + 25, range, color, 5);
+
     return availableTargets;
   }
 
@@ -157,7 +161,6 @@ function hightlightMeleeTarget(cxt, self, posX, posY, color) {
   let y2 = y1 + 26;
   Canvas.drawLine(cxt, x1, y1, x2, y2, color, 5);
   Canvas.drawLine(cxt, x1, y2, x2, y1, color, 5);
-  Canvas.drawArc(cxt, self.x + 25, self.y + 25, 45, color, 4);
 }
 
 function hightlightChargeTarget(cxt, self, posX, posY, color) {
@@ -193,10 +196,6 @@ function hightlightMissleTarget(cxt, self, posX, posY, color) {
   Canvas.drawArc(cxt, x, y, radius - 7, color);
   Canvas.drawLine(cxt, x + radius, y, x - radius, y, color, 3);
   Canvas.drawLine(cxt, x, y + radius, x, y - radius, color, 3);
-}
-
-function hightlightBombCenter(cxt, posX, posY, color) {
-  Canvas.fillRect(cxt, posX, posY, 30, 30, color);
 }
 
 function checkAvailablePosition(nx, ny, seenOthers) {
