@@ -1,6 +1,7 @@
 import { Canvas } from "../tools.js";
 import { calculateCost, calculateLeaderShip } from "./armTools.js";
 import { triggerAutoAttack } from "../actions/autoAttack.js";
+import { SelectPieceColor as SPC } from "../const.js";
 
 export const DamageTypes = ["melee", "missile", "charge", "bombing", "magic"];
 export const ArmTypes = [
@@ -60,6 +61,7 @@ export class Arm {
     this.height = 50;
     this.img = null;
     this.player = _player !== null ? _player : null;
+    this.showSpeed = false;
 
     this.isAlive = true;
     this.hasAttacked = false;
@@ -347,6 +349,10 @@ export class Arm {
   draw(cxt, groupColor) {
     this.set_x_y();
     Canvas.drawPiece(cxt, this, groupColor);
+    if (this.showSpeed) {
+      let color = this.c_speed === 0 ? "red" : "green";
+      Canvas.drawText(cxt, this.c_speed, this.x + 5, this.y + 24, color, 20);
+    }
   }
 
   // =============== Battle APIs ===============
@@ -362,6 +368,7 @@ export class Arm {
     this.operable = true;
     this.c_speed = this.speed;
     this.hasAttacked = false;
+    this.showSpeed = false;
 
     if (currentRound % 7 === 0) this.c_leadership -= 5;
     if (this.c_leadership < 0) this.c_leadership = 0;

@@ -276,20 +276,22 @@ export class Player {
     };
 
     // =================================================================================
-    // ================================ Key Down Events ================================
+    // ================================== Key Events ===================================
     // =================================================================================
     this.keyDownEvents = function (e) {
+      if (this.isMyRound && e.code.includes("Control")) {
+        for (let i = 0; i < this.pieceList.length; i++) {
+          this.pieceList[i].showSpeed = !this.pieceList[i].showSpeed;
+        }
+      }
+
       if (this.isMyRound && e.code.includes("Arrow")) {
+        this.clearForNoSelection();
         e.preventDefault();
         let direction = DirectMap.get(e.code);
         moveAligned(this.pieceList, this.enemyList, direction);
-      }
-
-      if (
-        (e.code == "KeyA" ||
-          e.code == "KeyL" ||
-          e.code == "ShiftRight" ||
-          e.code == "ShiftLeft") &&
+      } else if (
+        (e.code == "KeyA" || e.code == "KeyL" || e.code.includes("Shift")) &&
         this.nowSelectPiece != null &&
         this.nowSelectPiece.operable &&
         !this.nowSelectPiece.hasAttacked

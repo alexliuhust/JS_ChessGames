@@ -139,10 +139,11 @@ function drawCombatData(cxt, piece, useMandarin) {
     if (piece.isBombing) antiArmorText = `破甲: *无视所有类型护甲`;
   }
 
-  let color = "white";
+  let color = piece.c_speed === 0 ? "red" : "white";
   let fontSize = 17;
   Canvas.drawText(cxt, speedText, leftX, textY, color, fontSize);
   textY += 30;
+  color = "white";
   Canvas.drawText(cxt, armorText, leftX, textY, color, fontSize);
   textY += 30;
   Canvas.drawText(cxt, dodgeText, leftX, textY, color, fontSize);
