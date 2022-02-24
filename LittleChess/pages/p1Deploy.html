@@ -8,18 +8,18 @@
     </head>
     <body>
 
-        <div style="margin-left: 220px; margin-top: -40px;">
+        <div style="margin-left: 300px; margin-top: 0px;">
             <h1 style="font-size: 60px;">
                 Player 1 Deploy
                 <a href="../index.html" style="text-decoration: none;">
                     <button style="font-size: 40px;">
-                        Back to Power Selection
+                        Back
                     </button>
                 </a>
     
                 <a href="./p2Deploy.html" style="text-decoration: none;">
                     <button style="font-size: 40px;">
-                        Go to Player 2's Deployment
+                        Next
                     </button>
                 </a>
             </h1>
@@ -52,19 +52,16 @@
                     style="position:absolute; z-index: 100; background: black;"></canvas>
             </div>
 
-            <div style="margin-top: -400px; margin-left: 650px; height: 650px">
-                <div style="width:850px; height: 50px; text-align: center;">
-                    <span style="font-size: 48px; color: red;"><b>Enemy Side</b></span>
-                </div>
-                <div id="game" style="width:850px; height:600px; border: 5px blue dashed">
+            <div style="margin-top: -600px; margin-left: 660px; height: 860px">
+                <div id="game" style="width:650px; height:850px; border: 5px blue dashed">
                     <!-- map canvas, on which we draw the backgroud -->
-                    <canvas id="map" width="850" height="600" 
+                    <canvas id="map" width="650" height="850" 
                       style="position:absolute; z-index: 100; background:url(../images/map/bg.png) repeat;"></canvas>
                     <!-- piece canvas, on which we draw all the arm pieces -->
-                    <canvas id="piece" width="850" height="600" 
+                    <canvas id="piece" width="650" height="850" 
                       style="position:absolute; z-index: 101;"></canvas>
                     <!-- select canvas, which accepts all mouse clicking events -->
-                    <canvas id="select" width="850" height="600" 
+                    <canvas id="select" width="650" height="850" 
                       style="position:absolute; z-index: 103;"></canvas>
                 </div>
             </div>

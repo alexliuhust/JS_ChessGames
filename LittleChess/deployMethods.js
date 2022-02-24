@@ -2,6 +2,7 @@ import { exportPower, getArmsAndImages } from "./arms/exportArm.js";
 import {
   PowerMap,
   M_PowerMap,
+  GameWidth as GW,
   DeployWidth as DW,
   DeployHeight as DH,
   DInfoWidth as DIW,
@@ -12,6 +13,7 @@ import { drawInfoForSelectedPiece } from "./prompts/infoDrawings.js";
 
 const maxX = Math.floor(DW / 50);
 const maxY = Math.floor(DH / 50);
+const gX = Math.floor(GW / 50);
 
 export class Deploy {
   constructor(_canvasList, _player) {
@@ -152,6 +154,25 @@ export class Deploy {
           Canvas.drawRect(this.canvasList.map, i * 50, j * 50, 50, 50, "black");
         }
       }
+      let y1 = 250;
+      let y2 = DH - y1;
+      let xOffset = 300;
+      let x1 = 0;
+      let x2 = 0;
+      let color = "";
+      if (this.player === 1) {
+        x1 = DW - xOffset;
+        x2 = DW;
+        color = "blue";
+      } else {
+        x1 = xOffset;
+        x2 = 0;
+        color = "red";
+      }
+      let weight = 2;
+      Canvas.drawLine(this.canvasList.map, x1, y1, x2, y1, color, weight);
+      Canvas.drawLine(this.canvasList.map, x1, y2, x2, y2, color, weight);
+      Canvas.drawLine(this.canvasList.map, x1, y1, x1, y2, color, weight);
     };
 
     this.storeArmInfo = function () {
@@ -160,21 +181,16 @@ export class Deploy {
         let piece = this.pieceList[i];
 
         // Calculate the real game positions of the pieces
-        let px = 0,
-          py = 0;
-        if (this.player === 1) {
-          px = maxY - piece.y / 50 - 1;
-          py = piece.x / 50;
-        } else {
-          px = 27 - (maxY - piece.y / 50);
-          py = maxX - piece.x / 50 - 1;
-        }
+        let px = 0;
+        let py = 0;
+        if (this.player === 1) px = piece.x / 50;
+        else px = piece.x / 50 + (gX - maxX);
+        py = piece.y / 50;
         outputList.push([piece.index, px, py]);
       }
 
-      if (this.player === 1)
-        window.localStorage.setItem("a1", JSON.stringify(outputList));
-      else window.localStorage.setItem("a2", JSON.stringify(outputList));
+      let armsNum = `a${this.player}`;
+      window.localStorage.setItem(armsNum, JSON.stringify(outputList));
     };
   }
 }

@@ -438,8 +438,8 @@ export class Arm {
     // If this arm is a phalanx
     else {
       let factor = 1;
-      if (this.type === "monster-infantry") factor = 0.5;
-      else if (this.type === "artillery") factor = 0.3;
+      if (this.type === "monster-infantry" || this.type === "artillery")
+        factor = 0.5;
       realDamage = Math.round(realDamage * factor);
 
       let totalDecrease =

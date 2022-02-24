@@ -21,7 +21,7 @@ export class MissileEffect {
     this.maxTime = this.totalDistance / this.speed;
 
     this.bias = [];
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 12; i++) {
       let bias = Math.floor(Math.random() * 50 - 25);
       if (Math.abs(bias - 0) < 5) {
         i--;
@@ -49,7 +49,12 @@ export class MissileEffect {
       let Dy = this.dy * this.len;
 
       for (let i = 0; i < 6; i++)
-        this.drawLine(x, y + this.bias[i], x + Dx, y + this.bias[i] + Dy);
+        this.drawLine(
+          x + this.bias[i],
+          y + this.bias[i + 6],
+          x + this.bias[i] + Dx,
+          y + this.bias[i + 6] + Dy
+        );
     };
   }
 }
