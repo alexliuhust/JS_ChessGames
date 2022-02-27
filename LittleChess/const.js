@@ -25,6 +25,7 @@ export const PowerList = [
   "polluteland",
   "burningterra",
   "oldcemetery",
+  "wildtribe",
 ];
 export const PowerMap = new Map([
   ["nordfort", "Nord Fort"],
@@ -35,6 +36,7 @@ export const PowerMap = new Map([
   ["polluteland", "Pollute Land"],
   ["burningterra", "Burning Terra"],
   ["oldcemetery", "Old Cemetery"],
+  ["wildtribe", "Wild Tribe"],
 ]);
 export const M_PowerMap = new Map([
   ["nordfort", "诺德堡"],
@@ -45,6 +47,7 @@ export const M_PowerMap = new Map([
   ["polluteland", "污染之地"],
   ["burningterra", "燃烧领"],
   ["oldcemetery", "老墓园"],
+  ["wildtribe", "蛮荒部落"],
 ]);
 export const DirectMap = new Map([
   ["ArrowUp", "U"],

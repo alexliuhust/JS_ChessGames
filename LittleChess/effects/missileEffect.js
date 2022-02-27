@@ -1,5 +1,6 @@
 import { Canvas } from "../tools.js";
 import { calculateDistance } from "../actions/actionTools.js";
+import { SelectPieceColor as SPC } from "../const.js";
 
 export class MissileEffect {
   constructor(attacker, defender, _cxt) {
@@ -32,8 +33,9 @@ export class MissileEffect {
     if (this.x2 < this.x1) this.dx = -this.dx;
     if (this.y2 < this.y1) this.dy = -this.dy;
 
+    let color = attacker.name.includes("(Poisoned)") ? SPC : "white";
     this.drawLine = function (x1, y1, x2, y2) {
-      Canvas.drawLine(this.cxt, x1, y1, x2, y2, "white", 2);
+      Canvas.drawLine(this.cxt, x1, y1, x2, y2, color, 2);
     };
 
     this.draw = function () {

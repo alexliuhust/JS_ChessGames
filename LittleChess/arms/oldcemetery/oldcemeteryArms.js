@@ -288,6 +288,21 @@ export class BeetleChargeRider extends BeetleRider {
 
     this.loadRealtimeProps();
   }
+
+  _getSingleDamage(damageType, targetArm) {
+    ArmPrimary.checkDamageType(damageType);
+    ArmPrimary.checkArmClass(targetArm);
+
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+      if (targetArm.isInfn()) singleDamage += this.meleeAttack_bonus;
+    } else if (damageType === "charge") {
+      singleDamage = this.c_chargeAttack;
+    }
+
+    return singleDamage;
+  }
 }
 
 export class SpiritCoffinGF extends ArmPrimary.Arm {

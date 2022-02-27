@@ -74,7 +74,7 @@ export function calculateCost(arm) {
 }
 
 export function calculateLeaderShip(arm, costResults) {
-  let leadership = arm.cost + costResults[1] * 0.5;
+  let leadership = 100 + arm.cost + costResults[1] * 0.5;
   if (arm.type === "infantry" || arm.type === "cavalry") leadership *= 1.25;
   else if (arm.type === "archers" || arm.type === "artillery")
     leadership *= 0.75;

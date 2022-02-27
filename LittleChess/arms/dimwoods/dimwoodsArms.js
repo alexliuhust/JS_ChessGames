@@ -261,7 +261,7 @@ export class WarBear extends ArmPrimary.Arm {
     this.speed = 6;
 
     this.meleeArmor = 25;
-    this.missileArmor = 25;
+    this.missileDodge = 30;
     this.chargeArmor = 25;
 
     this.meleeAttack = 60;

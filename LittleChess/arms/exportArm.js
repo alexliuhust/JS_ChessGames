@@ -6,6 +6,7 @@ import * as SnowhauptArms from "./snowhaupt/snowhauptArms.js";
 import * as BurningterraArms from "./burningterra/burningterraArms.js";
 import * as StormreefArms from "./stormreef/stormreefArms.js";
 import * as OldcemeteryArms from "./oldcemetery/oldcemeteryArms.js";
+import * as WildtribeArms from "./wildtribe/wildtribeArms.js";
 
 export function exportPower(powerCodeName) {
   if (powerCodeName === "empire") return EmpireArms;
@@ -16,6 +17,7 @@ export function exportPower(powerCodeName) {
   if (powerCodeName === "burningterra") return BurningterraArms;
   if (powerCodeName === "stormreef") return StormreefArms;
   if (powerCodeName === "oldcemetery") return OldcemeteryArms;
+  if (powerCodeName === "wildtribe") return WildtribeArms;
 }
 
 export function getArmsAndImages(powerCodeName) {
