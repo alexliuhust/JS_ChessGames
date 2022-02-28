@@ -44,7 +44,14 @@ function getNearestEnemy(attacker, defenders, isMissile) {
     );
 
     // If the archers are caught in melee combat, the auto-attack won't be triggered.
-    if (isMissile && attacker.type === "archers" && distance === 1) return null;
+    if (
+      isMissile &&
+      (attacker.type === "archers" ||
+        attacker.type === "infantry" ||
+        attacker.type === "monster-infantry") &&
+      distance === 1
+    )
+      return null;
 
     // Update the min distance and the nearest defender
     // If spotting closer distance, update.
