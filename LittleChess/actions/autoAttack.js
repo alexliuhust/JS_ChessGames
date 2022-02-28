@@ -2,14 +2,9 @@ import { armAttackArm } from "./attack.js";
 import { calculateDistance } from "./actionTools.js";
 
 export function triggerAutoAttack(attacker, defenders) {
-  if (canAutoMissileAttack(attacker)) {
-    aotuAttack(attacker, defenders, true);
-    return;
-  }
-  if (canAutoMeleeAttack(attacker)) {
-    aotuAttack(attacker, defenders, false);
-    return;
-  }
+  if (canAutoMissileAttack(attacker)) aotuAttack(attacker, defenders, true);
+
+  if (canAutoMeleeAttack(attacker)) aotuAttack(attacker, defenders, false);
 }
 
 function canAutoMissileAttack(attacker) {
@@ -31,7 +26,8 @@ function canAutoMeleeAttack(attacker) {
     (attacker.type === "infantry" ||
       attacker.type === "monster-infantry" ||
       attacker.type === "monster" ||
-      (attacker.type === "cavalry" && attacker.c_chargeAttack === 0)) &&
+      (attacker.type === "archers" && attacker.description.includes("melee")) ||
+      attacker.type === "cavalry") &&
     !attacker.hasAttacked
   );
 }
