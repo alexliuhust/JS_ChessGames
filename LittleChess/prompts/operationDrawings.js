@@ -56,100 +56,110 @@ export function drawAvailableDestinations(cxt, self, others) {
 export function drawAvailableTargets(cxt, self, others) {
   ArmPrimary.checkArmClass(self);
 
-  // Non-bombing arms
-  if (!self.isBombing) {
-    let availableTargets = [];
-    let availablePositions = [];
-    let availableType = [];
+  let availableTargets = null;
+  let availableCenters = null;
 
-    // Collect all available target arms and their chessboard positions
-    for (let i = 0; i < others.length; i++) {
-      if (others[i] === self) continue;
+  availableTargets = getAvailableTagetsForNonBombing(cxt, self, others);
+  if (self.isBombing)
+    availableCenters = getAvailableCentersForBombing(cxt, self, others);
 
-      let distance = calculateDistance(
-        others[i].positionX,
-        others[i].positionY,
-        self.positionX,
-        self.positionY
-      );
-      let aligned = areAligned(
-        others[i].positionX,
-        others[i].positionY,
-        self.positionX,
-        self.positionY
-      );
+  console.log([availableTargets, availableCenters]);
 
-      let meleeAvailable = self.meleeAttack > 0 && distance === 1;
-      let missileAvailable =
-        self.c_missileAttack > 0 &&
-        self.c_ammo > 0 &&
-        distance <= self.c_missileRange;
-      let chargeAvailable =
-        self.c_chargeAttack > 0 && aligned && distance - 1 <= self.c_speed;
+  return [availableTargets, availableCenters];
+}
 
-      if (meleeAvailable || missileAvailable || chargeAvailable) {
-        availableTargets.push(others[i]);
-        availablePositions.push([others[i].positionX, others[i].positionY]);
-        if (meleeAvailable) availableType.push(0);
-        else if (chargeAvailable) availableType.push(2);
-        else if (missileAvailable) availableType.push(1);
-      }
+function getAvailableTagetsForNonBombing(cxt, self, others) {
+  let availableTargets = [];
+  let availablePositions = [];
+  let availableType = [];
+
+  // Collect all available target arms and their chessboard positions
+  for (let i = 0; i < others.length; i++) {
+    if (others[i] === self) continue;
+
+    let distance = calculateDistance(
+      others[i].positionX,
+      others[i].positionY,
+      self.positionX,
+      self.positionY
+    );
+    let aligned = areAligned(
+      others[i].positionX,
+      others[i].positionY,
+      self.positionX,
+      self.positionY
+    );
+
+    let meleeAvailable = self.meleeAttack > 0 && distance === 1;
+    let missileAvailable =
+      !self.isBombing &&
+      self.c_missileAttack > 0 &&
+      self.c_ammo > 0 &&
+      distance <= self.c_missileRange;
+    let chargeAvailable =
+      self.c_chargeAttack > 0 && aligned && distance - 1 <= self.c_speed;
+
+    if (meleeAvailable || missileAvailable || chargeAvailable) {
+      availableTargets.push(others[i]);
+      availablePositions.push([others[i].positionX, others[i].positionY]);
+      if (meleeAvailable) availableType.push(0);
+      else if (chargeAvailable) availableType.push(2);
+      else if (missileAvailable) availableType.push(1);
     }
-
-    let color = ReadyToAttackColor;
-    // Highlight those target arms
-    for (let i = 0; i < availablePositions.length; i++) {
-      let posX = availablePositions[i][0];
-      let posY = availablePositions[i][1];
-      let type = availableType[i];
-      if (type === 0) hightlightMeleeTarget(cxt, self, posX, posY, color);
-      else if (type === 2) hightlightChargeTarget(cxt, self, posX, posY, color);
-      else hightlightMissleTarget(cxt, self, posX, posY, color);
-    }
-
-    let range = self.c_missileRange * 50 + 15;
-    if (range === 15) range = 70;
-    Canvas.drawArc(cxt, self.x + 25, self.y + 25, range, color, 5);
-
-    return availableTargets;
   }
 
-  // Bombing arms
-  else {
-    let availableBombingCenters = [];
-
-    // Collect all available bombing centers
-    let sx = self.positionX;
-    let sy = self.positionY;
-    let range = self.c_missileRange;
-
-    for (let x = -range; x <= range; x++) {
-      // let restRange = range - Math.abs(x);
-      for (let y = -range; y <= range; y++) {
-        let nx = sx + x;
-        let ny = sy + y;
-        let distance = calculateDistance(0, 0, x, y);
-        if (
-          (nx === sx && ny === sy) ||
-          distance <= Math.floor(range / 3) ||
-          !checkAvailablePosition(nx, ny, null)
-        ) {
-          continue;
-        }
-        if (distance <= range) availableBombingCenters.push([nx, ny]);
-      }
-    }
-
-    // Highlight those available bombing centers
-    let r1 = Math.floor(range / 3) * 50 + 15;
-    let r2 = range * 50 + 20;
-    sx = sx * 50 + 25;
-    sy = sy * 50 + 25;
-    Canvas.drawArc(cxt, sx, sy, r1, ReadyToAttackColor, 5);
-    Canvas.drawArc(cxt, sx, sy, r2, ReadyToAttackColor, 5);
-
-    return availableBombingCenters;
+  let color = ReadyToAttackColor;
+  // Highlight those target arms
+  for (let i = 0; i < availablePositions.length; i++) {
+    let posX = availablePositions[i][0];
+    let posY = availablePositions[i][1];
+    let type = availableType[i];
+    if (type === 0) hightlightMeleeTarget(cxt, self, posX, posY, color);
+    else if (type === 2) hightlightChargeTarget(cxt, self, posX, posY, color);
+    else hightlightMissleTarget(cxt, self, posX, posY, color);
   }
+
+  let range = self.c_missileRange * 50 + 15;
+  if (range === 15) range = 70;
+  Canvas.drawArc(cxt, self.x + 25, self.y + 25, range, color, 5);
+
+  return availableTargets;
+}
+
+function getAvailableCentersForBombing(cxt, self, others) {
+  let availableBombingCenters = [];
+
+  // Collect all available bombing centers
+  let sx = self.positionX;
+  let sy = self.positionY;
+  let range = self.c_missileRange;
+
+  for (let x = -range; x <= range; x++) {
+    // let restRange = range - Math.abs(x);
+    for (let y = -range; y <= range; y++) {
+      let nx = sx + x;
+      let ny = sy + y;
+      let distance = calculateDistance(0, 0, x, y);
+      if (
+        (nx === sx && ny === sy) ||
+        distance <= Math.floor(range / 3) ||
+        !checkAvailablePosition(nx, ny, null)
+      ) {
+        continue;
+      }
+      if (distance <= range) availableBombingCenters.push([nx, ny]);
+    }
+  }
+
+  // Highlight those available bombing centers
+  let r1 = Math.floor(range / 3) * 50 + 15;
+  let r2 = range * 50 + 20;
+  sx = sx * 50 + 25;
+  sy = sy * 50 + 25;
+  Canvas.drawArc(cxt, sx, sy, r1, ReadyToAttackColor, 5);
+  Canvas.drawArc(cxt, sx, sy, r2, ReadyToAttackColor, 5);
+
+  return availableBombingCenters;
 }
 
 function hightlightMeleeTarget(cxt, self, posX, posY, color) {

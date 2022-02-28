@@ -31,6 +31,7 @@ export class Player {
     this.nowSelectEnemy = null;
     this.curAvailablePos = null;
     this.curAvailableTargets = null;
+    this.curAvailableCenters = null;
     this.currentStatus = "no selection";
 
     this.operatedPieces = new Set();
@@ -221,10 +222,10 @@ export class Player {
     };
 
     this.letSelectedPieceBombArea = function (x, y) {
-      let len = this.curAvailableTargets.length;
+      let len = this.curAvailableCenters.length;
       let c = 0;
       for (c = 0; c < len; c++) {
-        let center = this.curAvailableTargets[c];
+        let center = this.curAvailableCenters[c];
         let rect = CreateRect(center[0], center[1], 50, 50);
         let affected = this.pieceList.concat(this.enemyList);
         if (Rect.pointInRect({ x: x, y: y }, rect)) {
@@ -234,7 +235,9 @@ export class Player {
           return true;
         }
       }
-      if (c === len) this.clearForNoSelection();
+      if (c === len) {
+        this.letSelectedPieceAttackTarget(x, y);
+      }
       return false;
     };
 
@@ -267,11 +270,9 @@ export class Player {
         this.currentStatus === "ready to attack" &&
         !this.nowSelectPiece.hasAttacked
       ) {
-        if (!this.nowSelectPiece.isBombing) {
+        if (!this.nowSelectPiece.isBombing)
           if (this.letSelectedPieceAttackTarget(x, y)) return;
-        } else {
-          if (this.letSelectedPieceBombArea(x, y)) return;
-        }
+        if (this.letSelectedPieceBombArea(x, y)) return;
       }
     };
 
@@ -299,11 +300,13 @@ export class Player {
         if (this.currentStatus === "ready to move") {
           Canvas.clear(this.canvasList.main, W, H);
           this.curAvailablePos = null;
-          this.curAvailableTargets = OpDraw.drawAvailableTargets(
+          let results = OpDraw.drawAvailableTargets(
             this.canvasList.main,
             this.nowSelectPiece,
             this.enemyList
           );
+          this.curAvailableTargets = results[0];
+          this.curAvailableCenters = results[1];
           this.currentStatus = "ready to attack";
         } else if (this.currentStatus === "ready to attack") {
           Canvas.clear(this.canvasList.main, W, H);
