@@ -3,7 +3,6 @@ import { calculateDistance } from "./actionTools.js";
 
 export function triggerAutoAttack(attacker, defenders) {
   if (canAutoMissileAttack(attacker)) aotuAttack(attacker, defenders, true);
-
   if (canAutoMeleeAttack(attacker)) aotuAttack(attacker, defenders, false);
 }
 
@@ -25,7 +24,7 @@ function canAutoMeleeAttack(attacker) {
   return (
     (attacker.type === "infantry" ||
       attacker.type === "monster-infantry" ||
-      attacker.type === "monster" ||
+      (attacker.type === "monster" && attacker.c_meleeAttack > 0) ||
       (attacker.type === "archers" && attacker.description.includes("melee")) ||
       attacker.type === "cavalry") &&
     !attacker.hasAttacked
@@ -45,7 +44,7 @@ function getNearestEnemy(attacker, defenders, isMissile) {
     );
 
     // If the archers are caught in melee combat, the auto-attack won't be triggered.
-    if (isMissile && distance === 1) return null;
+    if (isMissile && attacker.type === "archers" && distance === 1) return null;
 
     // Update the min distance and the nearest defender
     // If spotting closer distance, update.
