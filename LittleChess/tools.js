@@ -168,6 +168,28 @@ export const Rect = {
 
     return false;
   },
+  // Whether a line goes through a rect
+  lineThroughRect: function (line, rect) {
+    let x0 = line[0];
+    let y0 = line[1];
+    let x1 = line[2];
+    let y1 = line[3];
+    let x2 = rect.x + rect.width / 2;
+
+    // console.log(rect.name);
+    // console.log(`(${x0},${y0}), (${x1},${y1}), x2=${x2}`);
+
+    if (!(x0 < x2 && x2 < x1)) return false;
+
+    if (x0 === x1) {
+      if (x0 === x2) return true;
+      return false;
+    }
+
+    let y2 = ((x2 - x0) * (y1 - y0)) / (x1 - x0) + y0;
+    if (rect.y < y2 && y2 < rect.y + rect.height) return true;
+    return false;
+  },
 };
 
 export function CreateRect(_x, _y, _width, _height) {

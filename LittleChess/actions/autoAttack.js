@@ -62,7 +62,7 @@ function getNearestEnemy(attacker, defenders, isMissile) {
     // If spotting identical distance, but current enemy has less HP, update.
     else if (
       minDistance === distance &&
-      nearestEnemy.getTotalHP() > defender.getTotalHP
+      nearestEnemy.getTotalHP() > defender.getTotalHP()
     ) {
       minDistance = distance;
       nearestEnemy = defender;

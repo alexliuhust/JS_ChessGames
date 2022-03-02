@@ -104,6 +104,7 @@ export class Arm {
     this.missileRange = 0;
     this.missileRadius = 0;
     this.isBombing = false;
+    this.isParabola = false;
 
     this.antiArmor = 0;
     this.shock = 0;

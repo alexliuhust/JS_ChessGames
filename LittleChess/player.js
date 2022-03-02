@@ -202,6 +202,7 @@ export class Player {
     };
 
     this.letSelectedPieceAttackTarget = function (x, y) {
+      if (this.curAvailableTargets === null) return false;
       let len = this.curAvailableTargets.length;
       let c = 0;
       for (c = 0; c < len; c++) {
@@ -222,6 +223,7 @@ export class Player {
     };
 
     this.letSelectedPieceBombArea = function (x, y) {
+      if (this.curAvailableCenters === null) return false;
       let len = this.curAvailableCenters.length;
       let c = 0;
       for (c = 0; c < len; c++) {

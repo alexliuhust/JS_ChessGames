@@ -63,8 +63,6 @@ export function drawAvailableTargets(cxt, self, others) {
   if (self.isBombing)
     availableCenters = getAvailableCentersForBombing(cxt, self, others);
 
-  console.log([availableTargets, availableCenters]);
-
   return [availableTargets, availableCenters];
 }
 
@@ -95,7 +93,8 @@ function getAvailableTagetsForNonBombing(cxt, self, others) {
       !self.isBombing &&
       self.c_missileAttack > 0 &&
       self.c_ammo > 0 &&
-      distance <= self.c_missileRange;
+      distance <= self.c_missileRange &&
+      !isTargeBlocked(self, others[i], others);
     let chargeAvailable =
       self.c_chargeAttack > 0 && aligned && distance - 1 <= self.c_speed;
 
@@ -160,6 +159,18 @@ function getAvailableCentersForBombing(cxt, self, others) {
   Canvas.drawArc(cxt, sx, sy, r2, ReadyToAttackColor, 5);
 
   return availableBombingCenters;
+}
+
+function isTargeBlocked(self, target, others) {
+  if (self.isParabola) return false;
+  for (let i = 0; i < others.length; i++) {
+    let blocker = others[i];
+    if (blocker === self || blocker === target) continue;
+
+    let line = [self.x, self.y, target.x, target.y];
+    if (Rect.lineThroughRect(line, blocker)) return true;
+  }
+  return false;
 }
 
 function hightlightMeleeTarget(cxt, self, posX, posY, color) {
