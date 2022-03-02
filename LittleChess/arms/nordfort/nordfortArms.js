@@ -282,7 +282,9 @@ export class GiantBallistaShrapnel extends GiantBallista {
     this.description = "artillery / high-damage";
     this.m_description = "炮兵【高伤害】";
 
-    this.missileAttack = 400;
+    this.missileAttack = 500;
+    this.missileRange = 9;
+    this.isParabola = true;
 
     this.antiArmor = 0;
     this.loadRealtimeProps();
@@ -354,10 +356,10 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 6) return new FlameKnight(pos, player);
   if (i === 7) return new FlameKnightShield(pos, player);
   if (i === 8) return new CoralCavalry(pos, player);
-  if (i === 9) return new GiantBallista(pos, player);
-  if (i === 10) return new GiantBallistaShrapnel(pos, player);
-  if (i === 11) return new StoneGiant(pos, player);
-  if (i === 12) return new StoneGiantFlame(pos, player);
+  if (i === 9) return new StoneGiant(pos, player);
+  if (i === 10) return new StoneGiantFlame(pos, player);
+  if (i === 11) return new GiantBallista(pos, player);
+  if (i === 12) return new GiantBallistaShrapnel(pos, player);
 
   return null;
 }

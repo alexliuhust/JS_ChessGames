@@ -168,35 +168,86 @@ export const Rect = {
 
     return false;
   },
+  // Whether a line crosses a vertical line
+  lineCrossVerticalLine: function (line1, line2) {
+    if (line2[0] !== line2[2]) return 0;
+
+    let x0 = line1[0];
+    let y0 = line1[1];
+    let x1 = line1[2];
+    let y1 = line1[3];
+
+    let y_u = Math.min(line2[1], line2[3]);
+    let y_d = Math.max(line2[1], line2[3]);
+    let x_l = line2[0];
+
+    let y_l = ((x_l - x0) * (y1 - y0)) / (x1 - x0) + y0;
+
+    if (y_u < y_l && y_l < y_d) return 2;
+    if (y_u === y_l || y_l === y_d) return 1;
+    return 0;
+  },
+  // Whether a line crosses a horizontal line
+  lineCrossHorizontalLine: function (line1, line2) {
+    if (line2[1] !== line2[3]) return 0;
+
+    let x0 = line1[0];
+    let y0 = line1[1];
+    let x1 = line1[2];
+    let y1 = line1[3];
+
+    let x_f = Math.min(line2[0], line2[2]);
+    let x_r = Math.max(line2[0], line2[2]);
+    let y_l = line2[1];
+
+    let x_l = ((y_l - y0) * (x1 - x0)) / (y1 - y0) + x0;
+
+    if (x_f < x_l && x_l < x_r) return 2;
+    if (x_f === x_l || x_l === x_r) return 1;
+    return 0;
+  },
+
   // Whether a line goes through a rect
   lineThroughRect: function (line, rect) {
     let x0 = line[0];
     let y0 = line[1];
     let x1 = line[2];
     let y1 = line[3];
-    let x2 = rect.x + rect.width / 2;
+    let x2 = rect.x + 25;
+    let y2 = rect.y + 25;
 
-    // console.log("blocker", rect.name);
-    // console.log(
-    //   `self:(${x0},${y0}), target:(${x1},${y1}), blocker:(${x2}, nan)`
-    // );
+    // if the blocking rect is not even between the end points of the line
+    if (x2 < Math.min(x0, x1) || x2 > Math.max(x0, x1)) return false;
+    if (y2 < Math.min(y0, y1) || y2 > Math.max(y0, y1)) return false;
 
+    // if attacker, target, and blocking rect are aligned
     if (x0 === x1) {
       if (x0 === x2) return true;
       return false;
     }
-    if (!(Math.min(x0, x1) < x2 && x2 < Math.max(x0, x1))) return false;
+    if (y0 === y1) {
+      if (y0 === y2) return true;
+      return false;
+    }
 
-    let y2 = ((x2 - x0) * (y1 - y0)) / (x1 - x0) + y0;
-
-    // console.log("blocker", rect.name);
+    // whether the line crosses any side of the rect
+    let lineL = [rect.x, rect.y, rect.x, rect.y + 50];
+    let lineR = [rect.x + 50, rect.y, rect.x + 50, rect.y + 50];
+    let lineU = [rect.x, rect.y, rect.x + 50, rect.y];
+    let lineD = [rect.x, rect.y + 50, rect.x + 50, rect.y + 50];
+    let throughL = this.lineCrossVerticalLine(line, lineL);
+    let throughR = this.lineCrossVerticalLine(line, lineR);
+    let throughU = this.lineCrossHorizontalLine(line, lineU);
+    let throughD = this.lineCrossHorizontalLine(line, lineD);
+    let vertical =
+      throughL === 2 || throughR === 2 || (throughL !== 0 && throughR !== 0);
+    let horizontal =
+      throughU === 2 || throughD === 2 || (throughU !== 0 && throughD !== 0);
+    // console.log(rect.name);
     // console.log(
-    //   `self:(${x0},${y0}), target:(${x1},${y1}), blocker:(${x2},${y2})`
+    //   `throughL:${throughL}, throughR:${throughR}, throughU:${throughU}, throughD:${throughD}`
     // );
-    // console.log(`blocker:(y_up:${rect.y},y_down${rect.y + rect.height})`);
-
-    if (rect.y - 25 < y2 && y2 < rect.y + rect.height + 25) return true;
-    return false;
+    return vertical || horizontal;
   },
 };
 

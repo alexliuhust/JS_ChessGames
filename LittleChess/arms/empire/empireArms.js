@@ -375,10 +375,10 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 6) return new MusketRider(pos, player);
   if (i === 7) return new Vanguard(pos, player);
   if (i === 8) return new PalaceKnight(pos, player);
-  if (i === 9) return new CannonGroup(pos, player);
-  if (i === 10) return new EmpireMortar(pos, player);
-  if (i === 11) return new SteamTank(pos, player);
-  if (i === 12) return new SteamTankMortar(pos, player);
+  if (i === 9) return new SteamTank(pos, player);
+  if (i === 10) return new SteamTankMortar(pos, player);
+  if (i === 11) return new CannonGroup(pos, player);
+  if (i === 12) return new EmpireMortar(pos, player);
 
   return null;
 }

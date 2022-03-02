@@ -301,7 +301,7 @@ export class RhinoTrooper extends ArmPrimary.Arm {
     this.speed = 5;
 
     this.meleeArmor = 40;
-    this.missileDodge = 50;
+    this.missileArmor = 50;
 
     this.meleeAttack = 34;
     this.chargeAttack = 80;

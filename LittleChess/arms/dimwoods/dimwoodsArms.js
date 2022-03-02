@@ -145,6 +145,7 @@ export class ShadowArcherFL extends ArmPrimary.Arm {
     this.meleeAttack = 30;
     this.missileAttack = 70;
     this.missileRange = 6;
+    this.isParabola = true;
 
     this.ammo = 30;
     this.loadRealtimeProps();
@@ -232,6 +233,7 @@ export class LongbowRanger extends ArmPrimary.Arm {
     this.meleeAttack = 20;
     this.missileAttack = 60;
     this.missileRange = 10;
+    this.isParabola = true;
 
     this.antiArmor = 40;
     this.loadRealtimeProps();
@@ -307,6 +309,7 @@ export class DryadRangerRide extends Dryad {
 
     this.missileAttack = 60;
     this.missileRange = 10;
+    this.isParabola = true;
 
     this.antiArmor = 40;
 

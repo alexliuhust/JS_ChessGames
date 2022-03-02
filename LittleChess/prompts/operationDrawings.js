@@ -97,7 +97,10 @@ function getAvailableTagetsForNonBombing(cxt, self, others) {
       distance > 1 &&
       !isTargeBlocked(self, others[i], others);
     let chargeAvailable =
-      self.c_chargeAttack > 0 && aligned && distance - 1 <= self.c_speed;
+      distance > 1 &&
+      self.c_chargeAttack > 0 &&
+      aligned &&
+      distance - 1 <= self.c_speed;
 
     if (meleeAvailable || missileAvailable || chargeAvailable) {
       availableTargets.push(others[i]);

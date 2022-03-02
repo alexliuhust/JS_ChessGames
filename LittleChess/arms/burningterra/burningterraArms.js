@@ -330,11 +330,11 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 0) return new HenchWarrior(pos, player);
   if (i === 1) return new HenchWarriorHalberd(pos, player);
   if (i === 2) return new HenchWarriorGiantaxe(pos, player);
-  if (i === 3) return new BurningKnight(pos, player);
-  if (i === 4) return new BurningKnightHalberd(pos, player);
-  if (i === 5) return new BurningKnightCharge(pos, player);
-  if (i === 6) return new Hellhound(pos, player);
-  if (i === 7) return new HellhoundFS(pos, player);
+  if (i === 3) return new Hellhound(pos, player);
+  if (i === 4) return new HellhoundFS(pos, player);
+  if (i === 5) return new BurningKnight(pos, player);
+  if (i === 6) return new BurningKnightHalberd(pos, player);
+  if (i === 7) return new BurningKnightCharge(pos, player);
   if (i === 8) return new DemonEnvoy(pos, player);
   if (i === 9) return new DemonEnvoyWild(pos, player);
   if (i === 10) return new DemonEnvoyHellfire(pos, player);
