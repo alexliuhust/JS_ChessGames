@@ -33,12 +33,14 @@ export function calculateCost(arm) {
   let antiArmorScore = arm.antiArmor * 0.6;
 
   // Type score
+  let typeScore = 0;
   let artilleryScore = arm.type === "artillery" ? 100 : 0;
+  if (arm.isParabola) typeScore += 20;
   if (arm.isBombing) artilleryScore += 100;
   let monsterScore = arm.type === "monster" ? 150 : 0;
   if (arm.type === "monster" && arm.isBombing) monsterScore = 100;
   let monstInfScore = arm.type === "monster-infantry" ? 100 : 0;
-  let typeScore = artilleryScore + monsterScore + monstInfScore;
+  typeScore += artilleryScore + monsterScore + monstInfScore;
 
   // Final cost
   let cost =

@@ -69,6 +69,7 @@ export class OrcWarriorTS extends OrcWarrior {
     this.meleeAttack_bonus = 0;
     this.missileAttack = 52;
     this.missileRange = 6;
+    this.isParabola = true;
 
     this.ammo = 4;
     this.loadRealtimeProps();
@@ -103,6 +104,7 @@ export class ChampionWarrior extends OrcWarrior {
     this.meleeAttack_bonus = 30;
     this.missileAttack = 70;
     this.missileRange = 4;
+    this.isParabola = true;
 
     this.ammo = 4;
     this.loadRealtimeProps();
@@ -277,6 +279,7 @@ export class WolfCavalryTS extends WolfCavalry {
 
     this.missileAttack = 40;
     this.missileRange = 6;
+    this.isParabola = true;
 
     this.ammo = 5;
     this.loadRealtimeProps();

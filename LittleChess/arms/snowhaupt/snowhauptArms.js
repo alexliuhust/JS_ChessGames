@@ -234,6 +234,7 @@ export class GoatCavalryTA extends GoatCavalry {
 
     this.missileAttack = 40;
     this.missileRange = 5;
+    this.isParabola = true;
 
     this.ammo = 4;
     this.loadRealtimeProps();

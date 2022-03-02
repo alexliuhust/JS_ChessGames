@@ -101,6 +101,7 @@ export class CoastDefender extends ArmPrimary.Arm {
     this.meleeAttack = 25;
     this.missileAttack = 40;
     this.missileRange = 6;
+    this.isParabola = true;
 
     this.antiArmor = 10;
     this.loadRealtimeProps();
@@ -115,7 +116,7 @@ export class CoastDefender extends ArmPrimary.Arm {
   }
 }
 
-export class CoastDefenderShield extends ArmPrimary.Arm {
+export class CoastDefenderShield extends CoastDefender {
   constructor(value, player) {
     super(value, player);
 
@@ -125,27 +126,9 @@ export class CoastDefenderShield extends ArmPrimary.Arm {
     this.description = "melee-shield-archers / resist-charging";
     this.m_description = "近战-持盾-远程步兵【抵御冲锋】";
 
-    this.scale = 48;
-    this.singleHP = 50;
-    this.speed = 2;
-
     this.missileArmor = 30;
-    this.chargeArmor = 50;
 
-    this.meleeAttack = 25;
-    this.missileAttack = 40;
-    this.missileRange = 6;
-
-    this.antiArmor = 10;
     this.loadRealtimeProps();
-  }
-
-  getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
-    if (damageType !== "melee") return this.antiArmor;
-    return 0;
   }
 }
 

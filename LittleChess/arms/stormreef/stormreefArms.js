@@ -149,6 +149,7 @@ export class MurlocWarriorHurling extends MurlocWarrior {
 
     this.missileAttack = 80;
     this.missileRange = 4;
+    this.isParabola = true;
 
     this.ammo = 2;
     this.loadRealtimeProps();
@@ -223,6 +224,7 @@ export class MedusaMB extends Medusa {
 
     this.missileAttack = 65;
     this.missileRange = 8;
+    this.isParabola = true;
 
     this.ammo = 12;
     this.loadRealtimeProps();

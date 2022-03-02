@@ -176,18 +176,26 @@ export const Rect = {
     let y1 = line[3];
     let x2 = rect.x + rect.width / 2;
 
-    // console.log(rect.name);
-    // console.log(`(${x0},${y0}), (${x1},${y1}), x2=${x2}`);
-
-    if (!(x0 < x2 && x2 < x1)) return false;
+    // console.log("blocker", rect.name);
+    // console.log(
+    //   `self:(${x0},${y0}), target:(${x1},${y1}), blocker:(${x2}, nan)`
+    // );
 
     if (x0 === x1) {
       if (x0 === x2) return true;
       return false;
     }
+    if (!(Math.min(x0, x1) < x2 && x2 < Math.max(x0, x1))) return false;
 
     let y2 = ((x2 - x0) * (y1 - y0)) / (x1 - x0) + y0;
-    if (rect.y < y2 && y2 < rect.y + rect.height) return true;
+
+    // console.log("blocker", rect.name);
+    // console.log(
+    //   `self:(${x0},${y0}), target:(${x1},${y1}), blocker:(${x2},${y2})`
+    // );
+    // console.log(`blocker:(y_up:${rect.y},y_down${rect.y + rect.height})`);
+
+    if (rect.y - 25 < y2 && y2 < rect.y + rect.height + 25) return true;
     return false;
   },
 };

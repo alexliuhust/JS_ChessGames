@@ -94,6 +94,7 @@ function getAvailableTagetsForNonBombing(cxt, self, others) {
       self.c_missileAttack > 0 &&
       self.c_ammo > 0 &&
       distance <= self.c_missileRange &&
+      distance > 1 &&
       !isTargeBlocked(self, others[i], others);
     let chargeAvailable =
       self.c_chargeAttack > 0 && aligned && distance - 1 <= self.c_speed;
@@ -167,7 +168,7 @@ function isTargeBlocked(self, target, others) {
     let blocker = others[i];
     if (blocker === self || blocker === target) continue;
 
-    let line = [self.x, self.y, target.x, target.y];
+    let line = [self.x + 25, self.y + 25, target.x + 25, target.y + 25];
     if (Rect.lineThroughRect(line, blocker)) return true;
   }
   return false;

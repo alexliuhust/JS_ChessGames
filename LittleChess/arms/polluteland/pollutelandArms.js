@@ -57,6 +57,7 @@ export class HurlerHE extends ArmPrimary.Arm {
     this.meleeAttack = 16;
     this.missileAttack = 32;
     this.missileRange = 3;
+    this.isParabola = true;
 
     this.ammo = 12;
     this.loadRealtimeProps();
@@ -328,6 +329,7 @@ export class MechMissile extends MechGears {
     this.missileAttack = 70;
     this.missileAttack_bonus = 40;
     this.missileRange = 8;
+    this.isParabola = true;
 
     this.ammo = 13;
     this.loadRealtimeProps();
@@ -390,6 +392,7 @@ export class Foulcannon extends ArmPrimary.Arm {
 
     this.missileAttack = 425;
     this.missileRange = 10;
+    this.isParabola = true;
 
     this.shock = 75;
     this.loadRealtimeProps();
