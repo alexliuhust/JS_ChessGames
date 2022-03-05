@@ -35,7 +35,7 @@ export function calculateCost(arm) {
   // Type score
   let typeScore = 0;
   let artilleryScore = arm.type === "artillery" ? 100 : 0;
-  if (arm.isParabola) typeScore += 20;
+  if (arm.isParabola) typeScore += 10;
   if (arm.isBombing) artilleryScore += 100;
   let monsterScore = arm.type === "monster" ? 150 : 0;
   if (arm.type === "monster" && arm.isBombing) monsterScore = 100;

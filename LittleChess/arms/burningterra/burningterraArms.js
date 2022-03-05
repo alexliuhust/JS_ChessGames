@@ -62,7 +62,7 @@ export class HenchWarriorGiantaxe extends HenchWarrior {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Hench Warrior (Giantaxe)";
+    this.name = "Hench Warrior (Giant Axe)";
     this.m_name = "亲卫勇士-巨斧";
     this.type = "infantry";
     this.description = "armor-infantry / anti-armor";

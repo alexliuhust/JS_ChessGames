@@ -177,14 +177,19 @@ export const Rect = {
     let x1 = line1[2];
     let y1 = line1[3];
 
+    let offset = 12;
     let y_u = Math.min(line2[1], line2[3]);
     let y_d = Math.max(line2[1], line2[3]);
     let x_l = line2[0];
 
     let y_l = ((x_l - x0) * (y1 - y0)) / (x1 - x0) + y0;
 
-    if (y_u < y_l && y_l < y_d) return 2;
-    if (y_u === y_l || y_l === y_d) return 1;
+    if (y_u + offset < y_l && y_l < y_d - offset) return 2;
+    if (
+      (y_u <= y_l && y_l <= y_u + offset) ||
+      (y_d - offset <= y_l && y_l <= y_d)
+    )
+      return 1;
     return 0;
   },
   // Whether a line crosses a horizontal line
@@ -196,14 +201,19 @@ export const Rect = {
     let x1 = line1[2];
     let y1 = line1[3];
 
-    let x_f = Math.min(line2[0], line2[2]);
-    let x_r = Math.max(line2[0], line2[2]);
+    let offset = 12;
+    let x_f = Math.min(line2[0], line2[2]) + offset;
+    let x_r = Math.max(line2[0], line2[2]) - offset;
     let y_l = line2[1];
 
     let x_l = ((y_l - y0) * (x1 - x0)) / (y1 - y0) + x0;
 
-    if (x_f < x_l && x_l < x_r) return 2;
-    if (x_f === x_l || x_l === x_r) return 1;
+    if (x_f + offset < x_l && x_l < x_r - offset) return 2;
+    if (
+      (x_f <= x_l && x_l <= x_f + offset) ||
+      (x_r - offset <= x_l && x_l <= x_r)
+    )
+      return 1;
     return 0;
   },
 

@@ -364,7 +364,9 @@ export class Arm {
   }
 
   roundRefresh(currentRound, endMyRound) {
-    if (endMyRound) triggerAutoAttack(this, this.player.enemyList);
+    if (endMyRound) {
+      triggerAutoAttack(this, this.player.enemyList);
+    }
 
     this.operable = true;
     this.c_speed = this.speed;

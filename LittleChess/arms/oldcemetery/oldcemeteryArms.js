@@ -157,7 +157,7 @@ export class ScreamingBansheeGF extends Banshee {
     } else if (damageType === "missile" && this.c_ammo > 0) {
       singleDamage = this.c_missileAttack;
       if (targetArm.isInfn()) singleDamage += this.missileAttack_bonus;
-      this.ammo--;
+      this.c_ammo--;
     }
 
     return singleDamage;
@@ -266,7 +266,10 @@ export class FireBeetleRider extends BeetleRider {
 
     let singleDamage = 0;
     if (damageType === "melee") singleDamage = this.c_meleeAttack;
-    else if (damageType === "missile") singleDamage = this.c_missileAttack;
+    else if (damageType === "missile" && this.c_ammo > 0) {
+      singleDamage = this.c_missileAttack;
+      this.c_ammo--;
+    }
 
     return singleDamage;
   }

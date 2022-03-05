@@ -390,7 +390,7 @@ export class Foulcannon extends ArmPrimary.Arm {
     this.singleHP = 300;
     this.speed = 1;
 
-    this.missileAttack = 425;
+    this.missileAttack = 450;
     this.missileRange = 10;
     this.isParabola = true;
 
