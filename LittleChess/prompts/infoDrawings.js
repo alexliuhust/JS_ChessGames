@@ -11,8 +11,6 @@ const leftX = 10;
 const BGC = "grey";
 
 export function drawInfoForSelectedPiece(cxt, piece, useMandarin, showCost) {
-  ArmPrimary.checkArmClass(piece);
-
   // Draw image and arm's name
   drawTitle(cxt, piece, useMandarin, showCost);
 

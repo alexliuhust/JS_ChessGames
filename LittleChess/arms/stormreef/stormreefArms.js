@@ -58,7 +58,6 @@ export class SeamanMusket extends Seaman {
   }
 
   getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
     if (damageType === "missile") return this.antiArmor;
@@ -129,7 +128,6 @@ export class MurlocWarrior extends ArmPrimary.Arm {
   }
 
   getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
     if (damageType === "melee") return this.antiArmor;
@@ -198,10 +196,6 @@ export class MedusaTrident extends Medusa {
   }
 
   _getSingleDamage(damageType, targetArm) {
-    let targetType = targetArm.type;
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmType(targetType);
-
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
@@ -246,7 +240,7 @@ export class Cancrimag extends ArmPrimary.Arm {
     this.speed = 1;
 
     this.meleeArmor = 60;
-    this.missileArmor = 99;
+    this.missileArmor = 90;
     this.chargeArmor = 50;
 
     this.meleeAttack = 600;
@@ -276,7 +270,6 @@ export class CancrimagMusket extends Cancrimag {
   }
 
   getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
     if (damageType === "missile") return this.antiArmor;
@@ -306,7 +299,6 @@ export class DeckGun extends ArmPrimary.Arm {
   }
 
   getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmClass(targetArm);
 
     if (damageType === "missile") return this.antiArmor;

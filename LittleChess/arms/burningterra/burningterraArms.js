@@ -45,9 +45,6 @@ export class HenchWarriorHalberd extends HenchWarrior {
   }
 
   _getSingleDamage(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
@@ -79,9 +76,6 @@ export class HenchWarriorGiantaxe extends HenchWarrior {
   }
 
   getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     if (damageType === "melee") return this.antiArmor;
     return 0;
   }
@@ -132,9 +126,6 @@ export class BurningKnightHalberd extends BurningKnight {
   }
 
   _getSingleDamage(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
@@ -232,9 +223,6 @@ export class DemonEnvoy extends ArmPrimary.Arm {
   }
 
   getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     if (damageType === "melee") return this.antiArmor;
     return 0;
   }
@@ -299,9 +287,6 @@ export class GreatDemon extends ArmPrimary.Arm {
   }
 
   getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     if (damageType === "melee") return this.antiArmor;
     return 0;
   }

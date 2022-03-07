@@ -25,9 +25,6 @@ export class HallwayGuard extends ArmPrimary.Arm {
   }
 
   getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     if (damageType === "melee") return this.antiArmor;
     return 0;
   }
@@ -74,9 +71,6 @@ export class NordExecutioner extends ArmPrimary.Arm {
   }
 
   getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     if (damageType === "melee") return this.antiArmor;
     return 0;
   }
@@ -108,9 +102,6 @@ export class CoastDefender extends ArmPrimary.Arm {
   }
 
   getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     if (damageType !== "melee") return this.antiArmor;
     return 0;
   }
@@ -159,9 +150,6 @@ export class BallistaSquad extends ArmPrimary.Arm {
   }
 
   getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     if (damageType === "missile") return this.antiArmor;
     return 0;
   }
@@ -192,9 +180,6 @@ export class FlameKnight extends ArmPrimary.Arm {
   }
 
   getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     if (damageType === "charge") return this.antiArmor;
     return 0;
   }
@@ -264,9 +249,6 @@ export class GiantBallista extends ArmPrimary.Arm {
   }
 
   getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     if (damageType === "missile") return this.antiArmor;
     return 0;
   }
@@ -316,9 +298,6 @@ export class StoneGiant extends ArmPrimary.Arm {
   }
 
   _getSingleDamage(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;

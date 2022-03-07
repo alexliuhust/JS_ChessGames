@@ -25,9 +25,6 @@ export class DarkSoldier extends ArmPrimary.Arm {
   }
 
   getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     if (damageType === "melee") return this.antiArmor;
     return 0;
   }
@@ -53,7 +50,6 @@ export class DarkSoldierScythe extends DarkSoldier {
 
   _getSingleDamage(damageType, targetArm) {
     let targetType = targetArm.type;
-    ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmType(targetType);
 
     let singleDamage = 0;
@@ -148,7 +144,6 @@ export class ScreamingBansheeGF extends Banshee {
 
   _getSingleDamage(damageType, targetArm) {
     let targetType = targetArm.type;
-    ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmType(targetType);
 
     let singleDamage = 0;
@@ -229,9 +224,6 @@ export class BeetleRider extends ArmPrimary.Arm {
   }
 
   _getSingleDamage(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
@@ -261,9 +253,6 @@ export class FireBeetleRider extends BeetleRider {
   }
 
   _getSingleDamage(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     let singleDamage = 0;
     if (damageType === "melee") singleDamage = this.c_meleeAttack;
     else if (damageType === "missile" && this.c_ammo > 0) {
@@ -293,9 +282,6 @@ export class BeetleChargeRider extends BeetleRider {
   }
 
   _getSingleDamage(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;

@@ -1,7 +1,6 @@
 import { Canvas } from "../tools.js";
 import { calculateCost, calculateLeaderShip } from "./armTools.js";
 import { triggerAutoAttack } from "../actions/autoAttack.js";
-import { SelectPieceColor as SPC } from "../const.js";
 
 export const DamageTypes = ["melee", "missile", "charge", "bombing", "magic"];
 export const ArmTypes = [
@@ -12,43 +11,6 @@ export const ArmTypes = [
   "monster",
   "artillery",
 ];
-
-function getBaseClass(targetArm) {
-  let p1_targetArm = Object.getPrototypeOf(targetArm);
-  let p1_name = Object.getPrototypeOf(p1_targetArm).constructor.name;
-
-  let p2_targetArm = Object.getPrototypeOf(p1_targetArm);
-  let p2_name = Object.getPrototypeOf(p2_targetArm).constructor.name;
-
-  if (p2_targetArm) {
-    let p3_targetArm = Object.getPrototypeOf(p2_targetArm);
-    if (Object.getPrototypeOf(p3_targetArm)) {
-      let p3_name = Object.getPrototypeOf(p3_targetArm).constructor.name;
-      if (p3_name === "Arm") return p3_name;
-    }
-  }
-
-  if (p2_name === "Arm") return p2_name;
-  return p1_name;
-}
-export function checkDamageType(damageType) {
-  if (!DamageTypes.includes(damageType)) {
-    throw new Error("Invalid damage type: " + damageType);
-  }
-}
-export function checkArmType(targetType) {
-  if (!ArmTypes.includes(targetType)) {
-    throw new Error("Invalid target type: " + targetType);
-  }
-}
-export function checkArmClass(targetArm) {
-  let className = getBaseClass(targetArm);
-  if (className !== "Arm") {
-    throw new Error(
-      `Invalid object type for targetArm: class name: {${className}}, type: {${typeof targetArm}}`
-    );
-  }
-}
 
 export class Arm {
   constructor(positionValue, _player) {
@@ -161,8 +123,6 @@ export class Arm {
   // =============== Private methods ===============
 
   _getValidScale() {
-    checkArmType(this.type);
-
     let factor = 0;
     if (this.type === "infantry") {
       factor = 4;
@@ -180,9 +140,6 @@ export class Arm {
   }
 
   _getSingleDamage(damageType, targetArm) {
-    checkDamageType(damageType);
-    checkArmType(targetArm.type);
-
     if (!this.isAlive) {
       return 0;
     }
@@ -219,8 +176,6 @@ export class Arm {
   }
 
   _getDamagePercentage(attacker, damageType, antiArmor) {
-    checkDamageType(damageType);
-
     let validArmor = 0 - antiArmor;
     let dodge = 0;
     switch (damageType) {
@@ -399,16 +354,12 @@ export class Arm {
   }
 
   getRawTotalDamage(damageType, targetArm) {
-    checkDamageType(damageType);
-    checkArmClass(targetArm);
-
     let singleDamage = this._getSingleDamage(damageType, targetArm);
     let validScale = this._getValidScale();
     return singleDamage * validScale;
   }
 
   getCounterAttackTotalDamage(damageType, targetArm) {
-    checkDamageType(damageType);
     if (damageType !== "melee") return 0;
 
     let singleDamage = this._getSingleDamage("melee", targetArm);
@@ -417,10 +368,7 @@ export class Arm {
   }
 
   decreaseScale(attacker, damageType, antiArmor, rawTotalDamage) {
-    checkArmClass(attacker);
-    checkDamageType(damageType);
     let results = [0, 0];
-
     let damagePercentage = 1;
     if (damageType !== "bombing" && damageType !== "magic")
       damagePercentage = this._getDamagePercentage(

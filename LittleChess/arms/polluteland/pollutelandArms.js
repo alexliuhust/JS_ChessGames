@@ -81,9 +81,6 @@ export class HurlerGas extends HurlerHE {
   }
 
   getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     if (damageType === "missile") return this.antiArmor;
     return 0;
   }
@@ -106,9 +103,6 @@ export class HurlerFrgm extends HurlerHE {
   }
 
   _getSingleDamage(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
@@ -147,9 +141,6 @@ export class WeapSqdGingall extends ArmPrimary.Arm {
   }
 
   _getSingleDamage(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
@@ -189,9 +180,6 @@ export class WeapSqdGatlin extends ArmPrimary.Arm {
   }
 
   _getSingleDamage(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
@@ -236,7 +224,6 @@ export class WeapSqdFlthr extends ArmPrimary.Arm {
 
   _getSingleDamage(damageType, targetArm) {
     let targetType = targetArm.type;
-    ArmPrimary.checkDamageType(damageType);
     ArmPrimary.checkArmType(targetType);
 
     let singleDamage = 0;
@@ -296,9 +283,6 @@ export class MechGatlin extends MechGears {
   }
 
   _getSingleDamage(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
@@ -336,9 +320,6 @@ export class MechMissile extends MechGears {
   }
 
   _getSingleDamage(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;

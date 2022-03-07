@@ -24,9 +24,6 @@ export class WoodsGuard extends ArmPrimary.Arm {
   }
 
   getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     if (damageType === "melee") return this.antiArmor;
     return 0;
   }
@@ -73,9 +70,6 @@ export class WildKiller extends ArmPrimary.Arm {
   }
 
   _getSingleDamage(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
@@ -105,9 +99,6 @@ export class WildKillerPS extends WildKiller {
   }
 
   _getSingleDamage(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
@@ -170,9 +161,6 @@ export class ShadowArcherPS extends ShadowArcherFL {
   }
 
   _getSingleDamage(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
@@ -205,9 +193,6 @@ export class ShadowArcherAP extends ShadowArcherFL {
   }
 
   getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     if (damageType === "missile") return this.antiArmor;
     return 0;
   }
@@ -240,9 +225,6 @@ export class LongbowRanger extends ArmPrimary.Arm {
   }
 
   getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     if (damageType === "missile") return this.antiArmor;
     return 0;
   }
@@ -318,9 +300,6 @@ export class DryadRangerRide extends Dryad {
   }
 
   getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     if (damageType === "missile") return this.antiArmor;
     return 0;
   }

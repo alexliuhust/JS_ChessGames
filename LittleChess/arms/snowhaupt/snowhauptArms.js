@@ -43,9 +43,6 @@ export class BoneBreaker extends DwarfWarrior {
   }
 
   _getSingleDamage(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
@@ -96,9 +93,6 @@ export class DrawfKingsGuard extends DwarfWarrior {
   }
 
   _getSingleDamage(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
@@ -163,9 +157,6 @@ export class DwarfMusketeer extends ArmPrimary.Arm {
   }
 
   getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     if (damageType === "missile") return this.antiArmor;
     return 0;
   }
@@ -266,9 +257,6 @@ export class RevolvingCannon extends ArmPrimary.Arm {
   }
 
   _getSingleDamage(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     let singleDamage = 0;
     if (damageType === "missile" && this.c_ammo > 0) {
       singleDamage = this.c_missileAttack;
@@ -280,9 +268,6 @@ export class RevolvingCannon extends ArmPrimary.Arm {
   }
 
   getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     if (damageType === "missile") return this.antiArmor;
     return 0;
   }
@@ -311,9 +296,6 @@ export class FireDragonGun extends ArmPrimary.Arm {
   }
 
   _getSingleDamage(damageType, targetArm) {
-    ArmPrimary.checkDamageType(damageType);
-    ArmPrimary.checkArmClass(targetArm);
-
     let singleDamage = 0;
     if (damageType === "missile" && this.c_ammo > 0) {
       singleDamage = this.c_missileAttack;

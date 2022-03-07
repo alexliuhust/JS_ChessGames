@@ -6,7 +6,6 @@ import { addEffect } from "../effects/effect.js";
 const cxt = document.getElementById("piece").getContext("2d");
 
 export function armBombArea(attacker, centerPosition, defenders) {
-  ArmPrimary.checkArmClass(attacker);
   if (!attacker.isBombing) throw new Error(`attacker should be able to bomb.`);
 
   let bombDistance = calculateDistance(
@@ -34,9 +33,6 @@ export function armBombArea(attacker, centerPosition, defenders) {
 }
 
 export function armAttackArm(attacker, defender, defenders, _damageType) {
-  ArmPrimary.checkArmClass(attacker);
-  ArmPrimary.checkArmClass(defender);
-
   let damageType = _damageType;
   if (typeof _damageType === "undefined") {
     damageType = determineDamageType(attacker, defender);
@@ -152,7 +148,6 @@ function decreaseBombingVictims(
   for (let i = 0; i < defenders.length; i++) {
     let defender = defenders[i];
     if (defender === attacker) continue;
-    ArmPrimary.checkArmClass(defender);
 
     let distance = calculateDistance(
       centerPosition[0],
@@ -176,7 +171,12 @@ function decreaseBombingVictims(
       }
 
       // This defender decrease scale
-      let results = defender.decreaseScale(damageType, 0, att_totalRowDamage);
+      let results = defender.decreaseScale(
+        self,
+        damageType,
+        0,
+        att_totalRowDamage
+      );
       decreaseScore += results[1];
 
       // Defender decrease leadership

@@ -1,8 +1,6 @@
 import * as ArmPrimary from "../arms/arm.js";
 
 export function moveToPosition(mover, toPosition, blockers) {
-  ArmPrimary.checkArmClass(mover);
-
   let distance =
     Math.abs(mover.positionX - toPosition[0]) +
     Math.abs(mover.positionY - toPosition[1]);
@@ -34,7 +32,6 @@ export function getRealDestination(mover, toPosition, blockers) {
     for (let i = 0; i < blockers.length; i++) {
       let blocker = blockers[i];
       if (blocker === mover) continue;
-      ArmPrimary.checkArmClass(blocker);
 
       if (blocker.positionX === toPosition[0]) {
         if (
@@ -59,7 +56,6 @@ export function getRealDestination(mover, toPosition, blockers) {
   } else {
     for (let i = 0; i < blockers.length; i++) {
       let blocker = blockers[i];
-      ArmPrimary.checkArmClass(blocker);
 
       if (blocker.positionY === toPosition[1]) {
         if (

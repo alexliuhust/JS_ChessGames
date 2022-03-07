@@ -22,8 +22,6 @@ export function drawSelectionRect(cxt, piece, color) {
 }
 
 export function drawAvailableDestinations(cxt, self, others) {
-  ArmPrimary.checkArmClass(self);
-
   let seenOthers = new Set();
   for (let i = 0; i < others.length; i++) {
     seenOthers.add(`${others[i].positionX},${others[i].positionY}`);
@@ -54,8 +52,6 @@ export function drawAvailableDestinations(cxt, self, others) {
 }
 
 export function drawAvailableTargets(cxt, self, others) {
-  ArmPrimary.checkArmClass(self);
-
   let availableTargets = null;
   let availableCenters = null;
 
