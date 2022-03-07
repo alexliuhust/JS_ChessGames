@@ -218,7 +218,7 @@ export class Arm {
     return singleDamage;
   }
 
-  _getDamagePercentage(damageType, antiArmor) {
+  _getDamagePercentage(attacker, damageType, antiArmor) {
     checkDamageType(damageType);
 
     let validArmor = 0 - antiArmor;
@@ -227,6 +227,9 @@ export class Arm {
       case "melee":
         validArmor += this.c_meleeArmor;
         dodge += this.c_meleeDodge;
+        if (attacker.isLarge()) {
+          dodge += Math.round((this.c_chargeArmor + this.c_chargeDodge) / 2);
+        }
         break;
 
       case "missile":
@@ -413,13 +416,18 @@ export class Arm {
     return Math.round(singleDamage * validScale * 0.85);
   }
 
-  decreaseScale(damageType, antiArmor, rawTotalDamage) {
+  decreaseScale(attacker, damageType, antiArmor, rawTotalDamage) {
+    checkArmClass(attacker);
     checkDamageType(damageType);
     let results = [0, 0];
 
     let damagePercentage = 1;
     if (damageType !== "bombing" && damageType !== "magic")
-      damagePercentage = this._getDamagePercentage(damageType, antiArmor);
+      damagePercentage = this._getDamagePercentage(
+        attacker,
+        damageType,
+        antiArmor
+      );
 
     let realDamage = rawTotalDamage * damagePercentage;
     let decreaseScore = 0;

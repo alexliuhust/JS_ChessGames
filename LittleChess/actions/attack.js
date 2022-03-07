@@ -214,7 +214,7 @@ function decreaseScalesForArms(attacker, damageType, defender) {
 
   // ============== Defender counter attacks ==============
   // Defender gains experience
-  let results = attacker.decreaseScale("melee", 0, dfd_counterAttack);
+  let results = attacker.decreaseScale(defender, "melee", 0, dfd_counterAttack);
   defender.exp += results[1];
 
   // if attacker dies
@@ -229,6 +229,7 @@ function decreaseScalesForArms(attacker, damageType, defender) {
   // ============== Attacker attacks ==============
   // Attacker gains experience
   results = defender.decreaseScale(
+    attacker,
     damageType,
     att_antiArmor,
     att_totalRowDamage
