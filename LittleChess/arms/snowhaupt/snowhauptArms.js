@@ -10,12 +10,12 @@ export class DwarfWarrior extends ArmPrimary.Arm {
     this.description = "shield-infantry";
     this.m_description = "持盾-近战步兵";
 
-    this.scale = 64;
-    this.singleHP = 70;
+    this.scale = 100;
+    this.singleHP = 60;
     this.speed = 2;
 
-    this.meleeArmor = 40;
-    this.missileArmor = 50;
+    this.meleeArmor = 50;
+    this.missileArmor = 30;
     this.chargeArmor = 20;
 
     this.meleeAttack = 24;
@@ -34,7 +34,7 @@ export class BoneBreaker extends DwarfWarrior {
     this.description = "infantry / anti-large";
     this.m_description = "近战步兵【反大型】";
 
-    this.missileArmor = 20;
+    this.missileArmor = 0;
 
     this.meleeAttack = 20;
     this.meleeAttack_bonus = 60;
@@ -64,8 +64,8 @@ export class Berserker extends DwarfWarrior {
     this.m_description = "近战步兵【高伤害】";
 
     this.meleeArmor = 0;
-    this.meleeDodge = 45;
-    this.missileArmor = 20;
+    this.meleeDodge = 50;
+    this.missileArmor = 0;
 
     this.meleeAttack = 72;
 
@@ -84,7 +84,7 @@ export class DrawfKingsGuard extends DwarfWarrior {
     this.m_description = "装甲-近战步兵【反大型】";
 
     this.meleeArmor = 60;
-    this.chargeArmor = 50;
+    this.chargeArmor = 30;
 
     this.meleeAttack = 35;
     this.meleeAttack_bonus = 60;
@@ -106,6 +106,8 @@ export class DrawfKingsGuard extends DwarfWarrior {
 export class MountainShocker extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
+    this.missileColor = "yellow";
+    this.missileWeight = 4;
 
     this.name = "Mountain Shocker";
     this.m_name = "震山矿工";
@@ -113,13 +115,13 @@ export class MountainShocker extends ArmPrimary.Arm {
     this.description = "giant-shield-infantry / high-missile-damage";
     this.m_description = "巨盾步兵【高远程伤害】";
 
-    this.scale = 64;
-    this.singleHP = 70;
+    this.scale = 100;
+    this.singleHP = 60;
     this.speed = 2;
 
     this.meleeArmor = 10;
     this.missileArmor = 70;
-    this.chargeArmor = 30;
+    this.chargeArmor = 40;
 
     this.meleeAttack = 24;
     this.missileAttack = 100;
@@ -140,13 +142,12 @@ export class DwarfMusketeer extends ArmPrimary.Arm {
     this.description = "shield-archers / anti-armor";
     this.m_description = "持盾-远程步兵【高破甲】";
 
-    this.scale = 48;
-    this.singleHP = 70;
+    this.scale = 80;
+    this.singleHP = 60;
     this.speed = 2;
 
-    this.meleeArmor = 40;
-    this.missileArmor = 50;
-    this.chargeArmor = 20;
+    this.meleeArmor = 50;
+    this.missileArmor = 30;
 
     this.meleeAttack = 24;
     this.missileAttack = 40;
@@ -172,16 +173,15 @@ export class MortarSquad extends ArmPrimary.Arm {
     this.description = "shield-archers / high-damage";
     this.m_description = "持盾-远程步兵【高伤害】";
 
-    this.scale = 48;
-    this.singleHP = 70;
+    this.scale = 80;
+    this.singleHP = 60;
     this.speed = 2;
 
-    this.meleeArmor = 40;
-    this.missileArmor = 50;
-    this.chargeArmor = 20;
+    this.meleeArmor = 50;
+    this.missileArmor = 30;
 
     this.meleeAttack = 24;
-    this.missileAttack = 56;
+    this.missileAttack = 60;
     this.missileRange = 6;
 
     this.loadRealtimeProps();
@@ -198,12 +198,12 @@ export class GoatCavalry extends ArmPrimary.Arm {
     this.description = "charging-cavalry";
     this.m_description = "冲击骑兵";
 
-    this.scale = 32;
-    this.singleHP = 120;
+    this.scale = 50;
+    this.singleHP = 130;
     this.speed = 5;
 
-    this.meleeArmor = 40;
-    this.missileArmor = 50;
+    this.meleeArmor = 50;
+    this.missileArmor = 30;
     this.chargeArmor = 20;
 
     this.meleeAttack = 24;
@@ -235,6 +235,8 @@ export class GoatCavalryTA extends GoatCavalry {
 export class RevolvingCannon extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
+    this.missileColor = "yellow";
+    this.missileWeight = 3;
 
     this.name = "Revolving Cannon";
     this.m_name = "转轮炮";
@@ -243,7 +245,7 @@ export class RevolvingCannon extends ArmPrimary.Arm {
     this.m_description = "炮兵【反大型，高破甲】";
 
     this.scale = 10;
-    this.singleHP = 300;
+    this.singleHP = 500;
     this.speed = 1;
 
     this.missileAttack = 120;
@@ -276,6 +278,8 @@ export class RevolvingCannon extends ArmPrimary.Arm {
 export class FireDragonGun extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
+    this.missileColor = "red";
+    this.missileWeight = 7;
 
     this.name = "Fire Dragon Gun";
     this.m_name = "火龙炮";
@@ -284,7 +288,7 @@ export class FireDragonGun extends ArmPrimary.Arm {
     this.m_description = "炮兵【反步兵，近程】";
 
     this.scale = 10;
-    this.singleHP = 400;
+    this.singleHP = 500;
     this.speed = 1;
 
     this.missileAttack = 160;
@@ -318,7 +322,7 @@ export class DrawfMortar extends ArmPrimary.Arm {
     this.m_description = "轰炸炮兵";
 
     this.scale = 5;
-    this.singleHP = 400;
+    this.singleHP = 800;
     this.speed = 1;
 
     this.missileAttack = 250;
@@ -335,20 +339,21 @@ export class GiantCannon extends ArmPrimary.Arm {
     super(value, player);
 
     this.name = "Giant Mortar";
-    this.m_name = "巨炮";
-    this.type = "artillery";
+    this.m_name = "巨型臼炮";
+    this.type = "monster";
     this.description = "bombing-artillery";
     this.m_description = "轰炸炮兵";
 
-    this.scale = 2;
-    this.singleHP = 1200;
+    this.scale = 1;
+    this.singleHP = 4000;
     this.speed = 1;
 
-    this.missileAttack = 750;
+    this.missileAttack = 2200;
     this.missileRange = 13;
     this.missileRadius = 1;
     this.isBombing = true;
 
+    this.ammo = 18;
     this.loadRealtimeProps();
   }
 }

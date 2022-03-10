@@ -86,7 +86,7 @@ export class Player {
 
     this.checkAndDisableArms = function () {
       let max = Math.floor(
-        Math.sqrt(this.pieceList.length + this.enemyList.length)
+        Math.sqrt((this.pieceList.length + this.enemyList.length) * 2)
       );
       this.operableNum = max - this.operatedPieces.size;
       if (this.operatedPieces.size >= max) {

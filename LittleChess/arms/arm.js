@@ -311,7 +311,7 @@ export class Arm {
     this.set_x_y();
     Canvas.drawPiece(cxt, this, groupColor);
     if (this.showSpeed) {
-      let color = this.c_speed === 0 ? "red" : "green";
+      let color = this.c_speed !== this.speed ? "red" : "green";
       Canvas.drawText(cxt, this.c_speed, this.x + 5, this.y + 24, color, 20);
     }
   }

@@ -109,12 +109,12 @@ export const Canvas = {
     this.drawLine(cxt, arm.x, arm.y + 6, arm.x + llen, arm.y + 6, DC, 4);
     this.drawLine(cxt, arm.x, arm.y + 48, arm.x + alen, arm.y + 48, AC, 4);
     // Draw operablility mark
-    let x_s = arm.x + 33;
-    let x_e = arm.x + 43;
-    let y_1 = arm.y + 10;
-    let y_2 = arm.y + 20;
-    let thick = 4;
     if (!arm.operable) {
+      let x_s = arm.x + 33;
+      let x_e = arm.x + 43;
+      let y_1 = arm.y + 10;
+      let y_2 = arm.y + 20;
+      let thick = 4;
       this.drawLine(cxt, x_s, y_1, x_e, y_2, "red", thick);
       this.drawLine(cxt, x_s, y_2, x_e, y_1, "red", thick);
     }
