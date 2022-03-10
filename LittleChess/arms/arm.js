@@ -29,6 +29,7 @@ export class Arm {
     this.hasAttacked = false;
     this.operable = true;
     this.prepareToAuto = false;
+    this.useFire = false;
 
     // Static properties
     this.name = "";

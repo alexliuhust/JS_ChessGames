@@ -118,6 +118,7 @@ export class WildKillerPS extends WildKiller {
 export class ShadowArcherFL extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
+    this.useFire = true;
 
     this.name = "Shadow Archer (Flame)";
     this.m_name = "暗影弓手-火焰箭";
@@ -178,6 +179,7 @@ export class ShadowArcherPS extends ShadowArcherFL {
 export class ShadowArcherAP extends ShadowArcherFL {
   constructor(value, player) {
     super(value, player);
+    this.useFire = false;
 
     this.name = "Shadow Archer (Armor-Piercing)";
     this.m_name = "暗影弓手-穿甲箭";

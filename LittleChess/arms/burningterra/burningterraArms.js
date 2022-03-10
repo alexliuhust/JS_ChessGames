@@ -242,6 +242,7 @@ export class DemonEnvoyWild extends DemonEnvoy {
 export class DemonEnvoyHellfire extends DemonEnvoy {
   constructor(value, player) {
     super(value, player);
+    this.useFire = true;
 
     this.name = "Demon Envoy (Hellfire)";
     this.m_name = "恶魔使者-地狱火";
@@ -273,7 +274,7 @@ export class GreatDemon extends ArmPrimary.Arm {
     this.singleHP = 8000;
     this.speed = 4;
 
-    this.meleeAttack = 1000;
+    this.meleeAttack = 1800;
 
     this.antiArmor = 70;
 
@@ -290,6 +291,7 @@ export class GreatDemon extends ArmPrimary.Arm {
 export class GreatDemonHellfire extends GreatDemon {
   constructor(value, player) {
     super(value, player);
+    this.useFire = true;
 
     this.name = "Chaos Great Demon (Hellfire)";
     this.m_name = "混沌大魔-地狱火";
@@ -297,7 +299,7 @@ export class GreatDemonHellfire extends GreatDemon {
     this.description = "giant / anti-armor / missile-attack / shocking";
     this.m_description = "巨兽【高破甲，远程攻击，惊骇敌军】";
 
-    this.missileAttack = 800;
+    this.missileAttack = 2000;
     this.missileRange = 6;
 
     this.ammo = 20;
