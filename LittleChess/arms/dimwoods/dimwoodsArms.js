@@ -118,7 +118,8 @@ export class WildKillerPS extends WildKiller {
 export class ShadowArcherFL extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.useFire = true;
+    this.missileColor = "red";
+    this.missileWeight = 4;
 
     this.name = "Shadow Archer (Flame)";
     this.m_name = "暗影弓手-火焰箭";
@@ -146,6 +147,8 @@ export class ShadowArcherFL extends ArmPrimary.Arm {
 export class ShadowArcherPS extends ShadowArcherFL {
   constructor(value, player) {
     super(value, player);
+    this.missileColor = "green";
+    this.missileWeight = 2;
 
     this.name = "Shadow Archer (Poisoned)";
     this.m_name = "暗影弓手-淬毒箭";
@@ -179,7 +182,8 @@ export class ShadowArcherPS extends ShadowArcherFL {
 export class ShadowArcherAP extends ShadowArcherFL {
   constructor(value, player) {
     super(value, player);
-    this.useFire = false;
+    this.missileColor = null;
+    this.missileWeight = 2;
 
     this.name = "Shadow Archer (Armor-Piercing)";
     this.m_name = "暗影弓手-穿甲箭";

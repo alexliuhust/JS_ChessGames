@@ -29,7 +29,8 @@ export class Arm {
     this.hasAttacked = false;
     this.operable = true;
     this.prepareToAuto = false;
-    this.useFire = false;
+    this.missileColor = null;
+    this.missileWeight = 2;
 
     // Static properties
     this.name = "";

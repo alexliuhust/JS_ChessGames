@@ -238,6 +238,8 @@ export class PalaceKnight extends ArmPrimary.Arm {
 export class CannonGroup extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
+    this.missileColor = "yellow";
+    this.missileWeight = 4;
 
     this.name = "Cannon Group";
     this.m_name = "加农炮组";
@@ -287,6 +289,8 @@ export class EmpireMortar extends ArmPrimary.Arm {
 export class SteamTank extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
+    this.missileColor = "yellow";
+    this.missileWeight = 4;
 
     this.name = "Steam Tank";
     this.m_name = "蒸汽坦克";

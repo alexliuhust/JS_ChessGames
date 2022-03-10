@@ -35,14 +35,8 @@ export class MissileEffect {
 
     let color = "white";
     let weight = 2;
-    if (attacker.name.includes("(Poisoned)")) color = SPC;
-    else if (attacker.type === "artillery") {
-      color = "yellow";
-      weight = 4;
-    } else if (attacker.useFire) {
-      color = "red";
-      weight = 4;
-    }
+    if (attacker.missileColor) color = attacker.missileColor;
+    weight = attacker.missileWeight;
 
     this.drawLine = function (x1, y1, x2, y2) {
       Canvas.drawLine(this.cxt, x1, y1, x2, y2, color, weight);

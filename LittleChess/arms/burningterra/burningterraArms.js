@@ -242,7 +242,8 @@ export class DemonEnvoyWild extends DemonEnvoy {
 export class DemonEnvoyHellfire extends DemonEnvoy {
   constructor(value, player) {
     super(value, player);
-    this.useFire = true;
+    this.missileColor = "red";
+    this.missileWeight = 4;
 
     this.name = "Demon Envoy (Hellfire)";
     this.m_name = "恶魔使者-地狱火";
@@ -291,7 +292,8 @@ export class GreatDemon extends ArmPrimary.Arm {
 export class GreatDemonHellfire extends GreatDemon {
   constructor(value, player) {
     super(value, player);
-    this.useFire = true;
+    this.missileColor = "red";
+    this.missileWeight = 4;
 
     this.name = "Chaos Great Demon (Hellfire)";
     this.m_name = "混沌大魔-地狱火";

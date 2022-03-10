@@ -10,23 +10,16 @@ export class DarkSoldier extends ArmPrimary.Arm {
     this.description = "infantry / resist-charging";
     this.m_description = "近战步兵【抵御冲锋】";
 
-    this.scale = 64;
+    this.scale = 120;
     this.singleHP = 40;
     this.speed = 3;
 
-    this.meleeArmor = 40;
-    this.missileArmor = 0;
-    this.chargeArmor = 60;
+    this.meleeArmor = 30;
+    this.chargeArmor = 30;
 
     this.meleeAttack = 20;
 
-    this.antiArmor = 5;
     this.loadRealtimeProps();
-  }
-
-  getAntiArmor(damageType, targetArm) {
-    if (damageType === "melee") return this.antiArmor;
-    return 0;
   }
 }
 
@@ -40,18 +33,15 @@ export class DarkSoldierScythe extends DarkSoldier {
     this.description = "infantry / anti-large";
     this.m_description = "近战步兵【反大型】";
 
-    this.chargeArmor = 30;
+    this.chargeArmor = 20;
 
-    this.meleeAttack = 33;
-    this.meleeAttack_bonus = 36;
+    this.meleeAttack = 30;
+    this.meleeAttack_bonus = 35;
 
     this.loadRealtimeProps();
   }
 
   _getSingleDamage(damageType, targetArm) {
-    let targetType = targetArm.type;
-    ArmPrimary.checkArmType(targetType);
-
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
@@ -72,7 +62,7 @@ export class DarkSoldierSS extends DarkSoldierScythe {
     this.description = "shield-infantry / anti-large";
     this.m_description = "持盾-近战步兵【反大型】";
 
-    this.missileArmor = 40;
+    this.missileArmor = 30;
 
     this.loadRealtimeProps();
   }
@@ -88,17 +78,16 @@ export class Banshee extends ArmPrimary.Arm {
     this.description = "infantry / high-dodge / shocking";
     this.m_description = "近战步兵【高闪避，惊骇敌军】";
 
-    this.scale = 32;
+    this.scale = 120;
     this.singleHP = 40;
     this.speed = 6;
 
     this.meleeDodge = 40;
     this.missileDodge = 90;
 
-    this.meleeAttack = 24;
+    this.meleeAttack = 30;
 
     this.shock = 50;
-
     this.loadRealtimeProps();
   }
 }
@@ -113,8 +102,7 @@ export class ScreamingBanshee extends Banshee {
     this.description = "charge-infantry / high-dodge / shocking";
     this.m_description = "冲杀-近战步兵【高闪避，惊骇敌军】";
 
-    this.chargeAttack = 38;
-
+    this.chargeAttack = 40;
     this.loadRealtimeProps();
   }
 }
@@ -122,12 +110,16 @@ export class ScreamingBanshee extends Banshee {
 export class ScreamingBansheeGF extends Banshee {
   constructor(value, player) {
     super(value, player);
+    this.missileColor = "blue";
+    this.missileWeight = 4;
 
     this.name = "Banshee (Ghost Fire)";
     this.m_name = "女妖-鬼火";
     this.type = "archers";
     this.description = "melee-archers / high-dodge / anti-infantry / shocking";
     this.m_description = "近战-远程步兵【高闪避，反步兵，惊骇敌军】";
+
+    this.scale = 90;
 
     this.missileAttack = 30;
     this.missileAttack_bonus = 14;
@@ -138,14 +130,7 @@ export class ScreamingBansheeGF extends Banshee {
     this.loadRealtimeProps();
   }
 
-  _getValidScale() {
-    return Math.min(this.c_scale, Math.floor(this.scale / 4));
-  }
-
   _getSingleDamage(damageType, targetArm) {
-    let targetType = targetArm.type;
-    ArmPrimary.checkArmType(targetType);
-
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
@@ -169,15 +154,14 @@ export class DeathKnight extends ArmPrimary.Arm {
     this.description = "melee-cavalry / heavy-armor";
     this.m_description = "近战骑兵【重装甲】";
 
-    this.scale = 32;
-    this.singleHP = 120;
+    this.scale = 50;
+    this.singleHP = 140;
     this.speed = 3;
 
     this.meleeArmor = 90;
-    this.missileArmor = 90;
-    this.chargeArmor = 30;
+    this.chargeArmor = 20;
 
-    this.meleeAttack = 35;
+    this.meleeAttack = 30;
 
     this.loadRealtimeProps();
   }
@@ -193,7 +177,7 @@ export class DeathKnightDS extends DeathKnight {
     this.description = "melee-cavalry / heavy-armor / high-damage";
     this.m_description = "近战骑兵【重装甲，高伤害】";
 
-    this.meleeAttack = 65;
+    this.meleeAttack = 55;
 
     this.loadRealtimeProps();
   }
@@ -209,12 +193,12 @@ export class BeetleRider extends ArmPrimary.Arm {
     this.description = "monster-cavlary / heavy-armor / anti-infantry";
     this.m_description = "怪兽骑兵【重装甲，反步兵】";
 
-    this.scale = 16;
-    this.singleHP = 180;
+    this.scale = 30;
+    this.singleHP = 240;
     this.speed = 3;
 
-    this.meleeArmor = 40;
-    this.missileArmor = 50;
+    this.meleeArmor = 60;
+    this.missileArmor = 40;
     this.chargeArmor = 40;
 
     this.meleeAttack = 40;
@@ -237,6 +221,8 @@ export class BeetleRider extends ArmPrimary.Arm {
 export class FireBeetleRider extends BeetleRider {
   constructor(value, player) {
     super(value, player);
+    this.missileColor = "red";
+    this.missileWeight = 4;
 
     this.name = "Fire Beetle Rider";
     this.m_name = "火甲虫骑兵";
@@ -297,6 +283,7 @@ export class BeetleChargeRider extends BeetleRider {
 export class SpiritCoffinGF extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
+    this.missileColor = "blue";
 
     this.name = "Spirit Coffin (Ghost Fire)";
     this.m_name = "灵棺-鬼火";
@@ -305,7 +292,7 @@ export class SpiritCoffinGF extends ArmPrimary.Arm {
     this.m_description = "轰炸机甲";
 
     this.scale = 1;
-    this.singleHP = 300;
+    this.singleHP = 5000;
     this.speed = 2;
 
     this.meleeArmor = 30;
@@ -325,12 +312,15 @@ export class SpiritCoffinGF extends ArmPrimary.Arm {
 export class SpiritCoffinBB extends SpiritCoffinGF {
   constructor(value, player) {
     super(value, player);
+    this.missileColor = "white";
 
     this.name = "Spirit Coffin (Broken Bones)";
     this.m_name = "灵棺-碎骨";
     this.type = "monster";
     this.description = "bombing-mech / large-bombing-radius";
     this.m_description = "轰炸机甲【大轰炸半径】";
+
+    this.missileAttack = 1100;
 
     this.missileRadius = 2;
 

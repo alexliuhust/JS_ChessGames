@@ -25,9 +25,11 @@ export class BombingEffect {
     if (this.x2 < this.x1) this.dx = -this.dx;
     if (this.y2 < this.y1) this.dy = -this.dy;
 
+    let color = "yellow";
+    if (attacker.missileColor) color = attacker.missileColor;
     this.drawCircle = function (x, y, r, fill) {
-      if (fill) Canvas.fillArc(this.cxt, x, y, r, "yellow");
-      else Canvas.drawArc(this.cxt, x, y, r, "yellow", 6);
+      if (fill) Canvas.fillArc(this.cxt, x, y, r, color);
+      else Canvas.drawArc(this.cxt, x, y, r, color, 6);
     };
 
     this.draw = function () {
