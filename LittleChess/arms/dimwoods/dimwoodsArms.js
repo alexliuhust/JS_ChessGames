@@ -10,16 +10,15 @@ export class WoodsGuard extends ArmPrimary.Arm {
     this.description = "infantry / resist-charging";
     this.m_description = "近战步兵【抵御冲锋】";
 
-    this.scale = 64;
-    this.singleHP = 40;
+    this.scale = 100;
+    this.singleHP = 50;
     this.speed = 3;
 
-    this.meleeArmor = 0;
     this.chargeArmor = 40;
 
     this.meleeAttack = 24;
 
-    this.antiArmor = 10;
+    this.antiArmor = 20;
     this.loadRealtimeProps();
   }
 
@@ -39,7 +38,7 @@ export class WoodsGuardShield extends WoodsGuard {
     this.description = "shield-infantry / resist-charging";
     this.m_description = "持盾-近战步兵【抵御冲锋】";
 
-    this.missileArmor = 40;
+    this.missileArmor = 30;
 
     this.loadRealtimeProps();
   }
@@ -55,17 +54,17 @@ export class WildKiller extends ArmPrimary.Arm {
     this.description = "infantry / melee-master / shocking";
     this.m_description = "近战步兵【近战大师，惊骇敌军】";
 
-    this.scale = 64;
+    this.scale = 120;
     this.singleHP = 40;
     this.speed = 4;
 
-    this.meleeDodge = 60;
+    this.meleeDodge = 40;
 
-    this.meleeAttack = 50;
-    this.meleeAttack_bonus = 18;
-    this.chargeAttack = 40;
+    this.meleeAttack = 30;
+    this.meleeAttack_bonus = 35;
+    this.chargeAttack = 30;
 
-    this.shock = 40;
+    this.shock = 30;
     this.loadRealtimeProps();
   }
 
@@ -92,9 +91,8 @@ export class WildKillerPS extends WildKiller {
     this.description = "infantry / melee-master / shocking / anti-non-armor";
     this.m_description = "近战步兵【近战大师，惊骇敌军，反无甲】";
 
-    this.chargeAttack_bonus = 15;
+    this.chargeAttack_bonus = 35;
 
-    this.shock = 40;
     this.loadRealtimeProps();
   }
 
@@ -109,7 +107,8 @@ export class WildKillerPS extends WildKiller {
       }
     } else if (damageType === "charge") {
       singleDamage = this.c_chargeAttack;
-      if (targetArm.c_meleeArmor === 0) singleDamage += this.chargeAttack_bonus;
+      if (targetArm.c_chargeArmor === 0)
+        singleDamage += this.chargeAttack_bonus;
     }
 
     return singleDamage;
@@ -126,7 +125,7 @@ export class ShadowArcherFL extends ArmPrimary.Arm {
     this.description = "melee-archers / high-damage";
     this.m_description = "近战-远程步兵【高伤害】";
 
-    this.scale = 36;
+    this.scale = 90;
     this.singleHP = 40;
     this.speed = 4;
 
@@ -208,19 +207,19 @@ export class LongbowRanger extends ArmPrimary.Arm {
     this.description = "long-range-archers / anti-armor";
     this.m_description = "长程-远程步兵【高破甲】";
 
-    this.scale = 36;
+    this.scale = 90;
     this.singleHP = 40;
     this.speed = 3;
 
     this.meleeDodge = 30;
     this.missileDodge = 30;
 
-    this.meleeAttack = 20;
+    this.meleeAttack = 30;
     this.missileAttack = 60;
-    this.missileRange = 10;
+    this.missileRange = 11;
     this.isParabola = true;
 
-    this.antiArmor = 40;
+    this.antiArmor = 30;
     this.loadRealtimeProps();
   }
 
@@ -240,13 +239,11 @@ export class WarBear extends ArmPrimary.Arm {
     this.description = "monster-infantry / fast";
     this.m_description = "怪兽步兵【迅捷如风】";
 
-    this.scale = 16;
-    this.singleHP = 300;
+    this.scale = 30;
+    this.singleHP = 240;
     this.speed = 6;
 
-    this.meleeArmor = 25;
     this.missileDodge = 30;
-    this.chargeArmor = 25;
 
     this.meleeAttack = 60;
     this.chargeAttack = 70;
@@ -265,15 +262,15 @@ export class Dryad extends ArmPrimary.Arm {
     this.description = "monster-infantry / heavy-armor";
     this.m_description = "怪兽步兵【重装甲】";
 
-    this.scale = 16;
-    this.singleHP = 320;
+    this.scale = 30;
+    this.singleHP = 300;
     this.speed = 2;
 
-    this.meleeArmor = 45;
-    this.missileArmor = 45;
-    this.chargeArmor = 45;
+    this.meleeArmor = 40;
+    this.missileArmor = 60;
+    this.chargeArmor = 40;
 
-    this.meleeAttack = 48;
+    this.meleeAttack = 30;
 
     this.loadRealtimeProps();
   }
@@ -290,10 +287,10 @@ export class DryadRangerRide extends Dryad {
     this.m_description = "怪兽步兵【重装甲，远程攻击】";
 
     this.missileAttack = 60;
-    this.missileRange = 10;
+    this.missileRange = 11;
     this.isParabola = true;
 
-    this.antiArmor = 40;
+    this.antiArmor = 30;
 
     this.ammo = 18;
     this.loadRealtimeProps();
@@ -336,11 +333,11 @@ export class GiantTreeman extends ArmPrimary.Arm {
     this.m_description = "巨兽【重装甲】";
 
     this.scale = 1;
-    this.singleHP = 1000;
+    this.singleHP = 8000;
     this.speed = 1;
 
     this.meleeArmor = 60;
-    this.missileArmor = 95;
+    this.missileArmor = 60;
     this.chargeArmor = 60;
 
     this.meleeAttack = 800;

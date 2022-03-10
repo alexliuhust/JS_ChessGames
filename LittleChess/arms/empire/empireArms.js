@@ -10,7 +10,7 @@ export class SwordInfantry extends ArmPrimary.Arm {
     this.description = "infantry / anti-infantry";
     this.m_description = "近战步兵【反步兵】";
 
-    this.scale = 64;
+    this.scale = 100;
     this.singleHP = 50;
     this.speed = 2;
 
@@ -41,7 +41,7 @@ export class SwordInfantryShield extends SwordInfantry {
     this.description = "shield-infantry / anti-infantry";
     this.m_description = "持盾-近战步兵【反步兵】";
 
-    this.missileArmor = 40;
+    this.missileArmor = 30;
 
     this.loadRealtimeProps();
   }
@@ -57,7 +57,7 @@ export class PalaceGuard extends ArmPrimary.Arm {
     this.description = "infantry / resist-charging / anti-large";
     this.m_description = "近战步兵【抵御冲锋，反大型】";
 
-    this.scale = 64;
+    this.scale = 100;
     this.singleHP = 50;
     this.speed = 2;
 
@@ -90,7 +90,7 @@ export class PalaceGuardShield extends PalaceGuard {
     this.description = "shield-infantry / resist-charging / anti-large";
     this.m_description = "持盾-近战步兵【抵御冲锋，反大型】";
 
-    this.missileArmor = 40;
+    this.missileArmor = 30;
 
     this.loadRealtimeProps();
   }
@@ -106,15 +106,15 @@ export class Musketeer extends ArmPrimary.Arm {
     this.description = "archers / anti-armor";
     this.m_description = "远程步兵【高破甲】";
 
-    this.scale = 48;
+    this.scale = 80;
     this.singleHP = 50;
     this.speed = 3;
 
     this.meleeAttack = 16;
-    this.missileAttack = 48;
+    this.missileAttack = 24;
     this.missileRange = 6;
 
-    this.antiArmor = 20;
+    this.antiArmor = 40;
     this.loadRealtimeProps();
   }
 
@@ -134,7 +134,7 @@ export class MusketeerShield extends Musketeer {
     this.description = "shield-archers / anti-armor";
     this.m_description = "持盾-远程步兵【高破甲】";
 
-    this.missileArmor = 40;
+    this.missileArmor = 30;
 
     this.loadRealtimeProps();
   }
@@ -150,17 +150,17 @@ export class MusketRider extends ArmPrimary.Arm {
     this.description = "missile-cavalry / anti-armor";
     this.m_description = "远程骑兵【高破甲】";
 
-    this.scale = 32;
-    this.singleHP = 90;
+    this.scale = 50;
+    this.singleHP = 120;
     this.speed = 6;
 
     this.missileDodge = 40;
 
     this.meleeAttack = 24;
-    this.missileAttack = 48;
+    this.missileAttack = 24;
     this.missileRange = 6;
 
-    this.antiArmor = 20;
+    this.antiArmor = 40;
     this.loadRealtimeProps();
   }
 
@@ -180,8 +180,8 @@ export class Vanguard extends ArmPrimary.Arm {
     this.description = "charging-cavalry / anti-armor";
     this.m_description = "冲击骑兵【高破甲】";
 
-    this.scale = 32;
-    this.singleHP = 90;
+    this.scale = 50;
+    this.singleHP = 120;
     this.speed = 6;
 
     this.meleeArmor = 30;
@@ -190,7 +190,7 @@ export class Vanguard extends ArmPrimary.Arm {
     this.meleeAttack = 24;
     this.chargeAttack = 76;
 
-    this.antiArmor = 20;
+    this.antiArmor = 30;
     this.loadRealtimeProps();
   }
 
@@ -210,12 +210,12 @@ export class PalaceKnight extends ArmPrimary.Arm {
     this.description = "melee-cavalry / heavy-armor / anti-infantry";
     this.m_description = "近战骑兵【重装甲，反步兵】";
 
-    this.scale = 32;
-    this.singleHP = 100;
+    this.scale = 50;
+    this.singleHP = 120;
     this.speed = 4;
 
-    this.meleeArmor = 60;
-    this.missileArmor = 50;
+    this.meleeArmor = 40;
+    this.missileArmor = 60;
     this.chargeArmor = 50;
 
     this.meleeAttack = 60;
@@ -246,13 +246,12 @@ export class CannonGroup extends ArmPrimary.Arm {
     this.m_description = "炮兵【高破甲】";
 
     this.scale = 5;
-    this.singleHP = 300;
+    this.singleHP = 800;
     this.speed = 1;
 
     this.missileAttack = 230;
     this.missileRange = 12;
 
-    this.antiArmor = 70;
     this.loadRealtimeProps();
   }
 
@@ -273,7 +272,7 @@ export class EmpireMortar extends ArmPrimary.Arm {
     this.m_description = "轰炸炮兵";
 
     this.scale = 5;
-    this.singleHP = 300;
+    this.singleHP = 800;
     this.speed = 1;
 
     this.missileAttack = 250;
@@ -296,19 +295,20 @@ export class SteamTank extends ArmPrimary.Arm {
     this.m_description = "机甲【重装甲，远程攻击】";
 
     this.scale = 1;
-    this.singleHP = 400;
+    this.singleHP = 6000;
     this.speed = 3;
 
-    this.meleeArmor = 95;
-    this.missileArmor = 70;
-    this.chargeArmor = 70;
+    this.meleeArmor = 90;
+    this.missileArmor = 30;
+    this.missileDodge = 30;
+    this.chargeArmor = 30;
 
-    this.chargeAttack = 300;
-    this.missileAttack = 1000;
+    this.missileAttack = 750;
     this.missileRange = 7;
 
-    this.antiArmor = 70;
+    this.chargeAttack = 600;
 
+    this.antiArmor = 50;
     this.ammo = 18;
     this.loadRealtimeProps();
   }
@@ -329,7 +329,7 @@ export class SteamTankMortar extends SteamTank {
     this.description = "bombing-mech / heavy-armor / missile-attack";
     this.m_description = "轰炸机甲【重装甲，远程攻击】";
 
-    this.missileAttack = 1200;
+    this.missileAttack = 900;
     this.missileRange = 10;
     this.missileRadius = 1;
     this.isBombing = true;

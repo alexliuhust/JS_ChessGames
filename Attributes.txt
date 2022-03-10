@@ -1,41 +1,64 @@
-infantry 近战步兵
-monster-infantry 怪兽步兵
-armor-infantry 装甲-近战步兵
-shield-infantry 持盾-近战步兵
-hurling-infantry 投掷-近战步兵
+infantry (200*20, 120*40, 100*50, 80*80)
+singleHP 20, 40, 50, 80
 
-archers 远程步兵
-shield-archers 持盾-远程步兵
-giant-shield-archers 巨型-持盾-远程步兵
-armor-archers 装甲-远程步兵
-heavy-archers 重装-远程步兵
-melee-archers 近战-远程步兵
-long-range-archers 长程-远程步兵
-melee-shield-archers 近战-持盾-远程步兵
+meleeAttack ~24
 
-melee-cavalry 近战骑兵
-missle-cavalry 远程骑兵
-charging-cavalry 冲击骑兵
+archers (140*20, 90*40, 80*50, 60*80)
+singleHP 20, 40, 50, 80
 
-artillery 炮兵
-bombing-artillery 轰炸炮兵
+missileAttack ~24
 
-mech 机甲
-giant 巨型
+cavalry (50)
+singleHP 100, 120, 140
+
+monster-infantry (30)
+singleHP 200, 240, 250, 270, 300, 350
+
+monster
+singleHP 6000 ~ 10000
+
+artillery
+singleHP 800 ~ 1000
 
 
 
-anti-infantry 反步兵
-anti-large 反大型
-anti-armor 高破甲
-anti-non-armor 反无甲
-resist-charging 抵御冲锋
-long-range 长程
-high-damage 高伤害
-melee-master 近战大师
-heavy-armor 重装甲
-missle-attack (for mech/giant) 远程攻击
-fast (for mech/giant) 迅捷如风
-weak 孱弱
+meleeArm 0, 30, 40, 60
+missileArm 0, 30, 60
+chargeArm 0, 30, 40, 50
+
+melee: meleeArm + missileArm / 4 (normal melee attack)
+           meleeArm + chargeArm (monster melee attack)
+missile: meleeArm / 4 + missileArm
+charge: chargeArm
+
+antiArmor 
+melee 0, 20, 30
+missile 0, 10, 20, 30
+charge 0, 30, 60
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

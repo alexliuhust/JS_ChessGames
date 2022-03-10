@@ -124,7 +124,8 @@ function drawCombatData(cxt, piece, useMandarin) {
   let rangeInfo = `Missile-range: ${piece.c_missileRange}`;
   let radiusInfo = `Explose-radius: ${piece.c_missileRadius}`;
   let antiArmorText = `Anti-armor: ${piece.antiArmor}`;
-  if (piece.isBombing) antiArmorText = `Anti-armor: *Ignore any type of armor`;
+  if (piece.isBombing || piece.type === "artillery")
+    antiArmorText = `Anti-armor: *Ignore any type of armor`;
 
   if (useMandarin) {
     speedText = `速度:     ${piece.c_speed}`;
@@ -134,7 +135,8 @@ function drawCombatData(cxt, piece, useMandarin) {
     rangeInfo = `远程范围: ${piece.c_missileRange}`;
     radiusInfo = `爆炸半径: ${piece.c_missileRadius}`;
     antiArmorText = `破甲: ${piece.antiArmor}`;
-    if (piece.isBombing) antiArmorText = `破甲: *无视所有类型护甲`;
+    if (piece.isBombing || piece.type === "artillery")
+      antiArmorText = `破甲: *无视所有类型护甲`;
   }
 
   let color = piece.c_speed === 0 ? "red" : "white";

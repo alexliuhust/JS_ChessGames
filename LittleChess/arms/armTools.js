@@ -1,7 +1,6 @@
 export function calculateCost(arm) {
   // HP score
   let hpScore = arm.scale * arm.singleHP;
-  if (arm.scale === 1) hpScore *= 8;
   hpScore /= 100;
 
   // Moving score
@@ -34,9 +33,8 @@ export function calculateCost(arm) {
 
   // Type score
   let typeScore = 0;
-  let artilleryScore = arm.type === "artillery" ? 100 : 0;
-  if (arm.isParabola) typeScore += 10;
-  if (arm.isBombing) artilleryScore += 100;
+  let artilleryScore = arm.type === "artillery" ? 150 : 0;
+  if (arm.isBombing) artilleryScore += 50;
   let monsterScore = arm.type === "monster" ? 150 : 0;
   if (arm.type === "monster" && arm.isBombing) monsterScore = 100;
   let monstInfScore = arm.type === "monster-infantry" ? 100 : 0;
@@ -44,15 +42,14 @@ export function calculateCost(arm) {
 
   // Final cost
   let cost =
-    Math.floor(
-      (hpScore +
-        movingScore +
-        defendenceScore +
-        attackScore +
-        antiArmorScore +
-        typeScore) /
-        5
-    ) * 5;
+    hpScore +
+    movingScore +
+    defendenceScore +
+    attackScore +
+    antiArmorScore +
+    typeScore;
+  cost = Math.sqrt(cost) * 12;
+  cost = Math.floor(cost / 10) * 10;
 
   // console.log(arm.name);
   // console.log(
