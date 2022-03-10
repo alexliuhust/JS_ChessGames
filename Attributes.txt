@@ -1,9 +1,9 @@
-infantry (200*20, 120*40, 100*50, 80*80)
+infantry (160*20, 120*40, 100*50, 80*80)
 singleHP 20, 40, 50, 80
 
 meleeAttack ~24
 
-archers (140*20, 90*40, 80*50, 60*80)
+archers (120*20, 90*40, 80*50, 60*80)
 singleHP 20, 40, 50, 80
 
 missileAttack ~24

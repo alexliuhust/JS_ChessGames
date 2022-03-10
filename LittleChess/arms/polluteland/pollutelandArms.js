@@ -10,7 +10,7 @@ export class SlaveConscript extends ArmPrimary.Arm {
     this.description = "infantry / weak";
     this.m_description = "近战步兵【孱弱】";
 
-    this.scale = 100;
+    this.scale = 160;
     this.singleHP = 20;
     this.speed = 4;
 
@@ -30,7 +30,7 @@ export class SlaveConscriptShield extends SlaveConscript {
     this.description = "shield-infantry / weak";
     this.m_description = "持盾-近战步兵【孱弱】";
 
-    this.missileArmor = 20;
+    this.missileArmor = 30;
 
     this.loadRealtimeProps();
   }
@@ -39,6 +39,7 @@ export class SlaveConscriptShield extends SlaveConscript {
 export class HurlerHE extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
+    this.missileWeight = 4;
 
     this.name = "Hurler (High-Explosion)";
     this.m_name = "投掷小队-高爆弹";
@@ -46,13 +47,12 @@ export class HurlerHE extends ArmPrimary.Arm {
     this.description = "armor-archers / high-damage";
     this.m_description = "装甲-远程步兵【高伤害】";
 
-    this.scale = 60;
-    this.singleHP = 30;
+    this.scale = 90;
+    this.singleHP = 40;
     this.speed = 3;
 
-    this.meleeArmor = 30;
-    this.missileArmor = 30;
-    this.chargeArmor = 30;
+    this.meleeArmor = 40;
+    this.chargeArmor = 20;
 
     this.meleeAttack = 16;
     this.missileAttack = 32;
@@ -67,6 +67,7 @@ export class HurlerHE extends ArmPrimary.Arm {
 export class HurlerGas extends HurlerHE {
   constructor(value, player) {
     super(value, player);
+    this.missileColor = "green";
 
     this.name = "Hurler (Gas Bomb)";
     this.m_name = "投掷小队-毒气弹";
@@ -89,6 +90,7 @@ export class HurlerGas extends HurlerHE {
 export class HurlerFrgm extends HurlerHE {
   constructor(value, player) {
     super(value, player);
+    this.missileColor = "yellow";
 
     this.name = "Hurler (Fragmentation)";
     this.m_name = "投掷小队-破片弹";
@@ -126,11 +128,11 @@ export class WeapSqdGingall extends ArmPrimary.Arm {
     this.description = "shield-archers / anti-large";
     this.m_description = "持盾-远程步兵【反大型】";
 
-    this.scale = 48;
-    this.singleHP = 30;
+    this.scale = 90;
+    this.singleHP = 40;
     this.speed = 3;
 
-    this.missileArmor = 40;
+    this.missileArmor = 50;
 
     this.meleeAttack = 16;
     this.missileAttack = 30;
@@ -164,11 +166,11 @@ export class WeapSqdGatlin extends ArmPrimary.Arm {
     this.description = "shield-archers / anti-infantry";
     this.m_description = "持盾-远程步兵【反步兵】";
 
-    this.scale = 48;
-    this.singleHP = 30;
+    this.scale = 90;
+    this.singleHP = 40;
     this.speed = 3;
 
-    this.missileArmor = 40;
+    this.missileArmor = 50;
 
     this.meleeAttack = 16;
     this.missileAttack = 38;
@@ -207,15 +209,15 @@ export class WeapSqdFlthr extends ArmPrimary.Arm {
     this.description = "shield-archers / anti-non-armor";
     this.m_description = "持盾-远程步兵【反无甲】";
 
-    this.scale = 48;
-    this.singleHP = 30;
+    this.scale = 90;
+    this.singleHP = 40;
     this.speed = 3;
 
-    this.missileArmor = 40;
+    this.missileArmor = 50;
 
     this.meleeAttack = 16;
-    this.missileAttack = 32;
-    this.missileAttack_bonus = 70;
+    this.missileAttack = 40;
+    this.missileAttack_bonus = 50;
     this.missileRange = 3;
 
     this.ammo = 12;
@@ -223,16 +225,15 @@ export class WeapSqdFlthr extends ArmPrimary.Arm {
   }
 
   _getSingleDamage(damageType, targetArm) {
-    let targetType = targetArm.type;
-    ArmPrimary.checkArmType(targetType);
-
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
     } else if (damageType === "missile" && this.c_ammo > 0) {
       singleDamage = this.c_missileAttack;
-      if (targetArm.c_meleeArmor === 0 || targetArm.c_missileArmor === 0)
-        singleDamage += this.missileAttack_bonus;
+      if (targetArm.c_meleeArmor === 0)
+        singleDamage += this.missileAttack_bonus / 2;
+      if (targetArm.c_missileArmor === 0)
+        singleDamage += this.missileAttack_bonus / 2;
       this.c_ammo--;
     }
 
@@ -250,13 +251,12 @@ export class MechGears extends ArmPrimary.Arm {
     this.description = "mech-infantry / heavy-armor";
     this.m_description = "机甲步兵【重装甲】";
 
-    this.scale = 16;
-    this.singleHP = 250;
+    this.scale = 30;
+    this.singleHP = 300;
     this.speed = 3;
 
-    this.meleeArmor = 50;
-    this.missileArmor = 50;
-    this.chargeArmor = 40;
+    this.meleeArmor = 60;
+    this.chargeArmor = 30;
 
     this.meleeAttack = 48;
 
@@ -303,6 +303,7 @@ export class MechGatlin extends MechGears {
 export class MechMissile extends MechGears {
   constructor(value, player) {
     super(value, player);
+    this.missileWeight = 4;
 
     this.name = "Mech Squad (Missile)";
     this.m_name = "机甲小队-飞弹";
@@ -343,13 +344,13 @@ export class MutantSlave extends ArmPrimary.Arm {
     this.description = "monster-infantry / fast / shocking";
     this.m_description = "怪兽步兵【迅捷如风，惊骇敌军】";
 
-    this.scale = 16;
+    this.scale = 30;
     this.singleHP = 200;
     this.speed = 6;
 
     this.meleeDodge = 50;
 
-    this.meleeAttack = 52;
+    this.meleeAttack = 50;
     this.chargeAttack = 60;
 
     this.shock = 50;
@@ -360,6 +361,8 @@ export class MutantSlave extends ArmPrimary.Arm {
 export class Foulcannon extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
+    this.missileColor = "green";
+    this.missileWeight = 5;
 
     this.name = "Foul Cannon";
     this.m_name = "污秽加农炮";
@@ -368,10 +371,10 @@ export class Foulcannon extends ArmPrimary.Arm {
     this.m_description = "炮兵【高伤害，惊骇敌军】";
 
     this.scale = 5;
-    this.singleHP = 300;
+    this.singleHP = 900;
     this.speed = 1;
 
-    this.missileAttack = 450;
+    this.missileAttack = 600;
     this.missileRange = 10;
     this.isParabola = true;
 
