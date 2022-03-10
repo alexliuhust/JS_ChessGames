@@ -133,7 +133,7 @@ export class ShadowArcherFL extends ArmPrimary.Arm {
     this.missileDodge = 30;
 
     this.meleeAttack = 30;
-    this.missileAttack = 70;
+    this.missileAttack = 60;
     this.missileRange = 6;
     this.isParabola = true;
 
@@ -352,8 +352,8 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 1) return new WoodsGuardShield(pos, player);
   if (i === 2) return new WildKiller(pos, player);
   if (i === 3) return new WildKillerPS(pos, player);
-  if (i === 4) return new ShadowArcherPS(pos, player);
-  if (i === 5) return new ShadowArcherAP(pos, player);
+  if (i === 4) return new ShadowArcherAP(pos, player);
+  if (i === 5) return new ShadowArcherPS(pos, player);
   if (i === 6) return new ShadowArcherFL(pos, player);
   if (i === 7) return new LongbowRanger(pos, player);
   if (i === 8) return new WarBear(pos, player);

@@ -242,8 +242,8 @@ export class CannonGroup extends ArmPrimary.Arm {
     this.name = "Cannon Group";
     this.m_name = "加农炮组";
     this.type = "artillery";
-    this.description = "artillery / anti-armor";
-    this.m_description = "炮兵【高破甲】";
+    this.description = "artillery";
+    this.m_description = "炮兵";
 
     this.scale = 5;
     this.singleHP = 800;

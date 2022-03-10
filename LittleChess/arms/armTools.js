@@ -49,7 +49,7 @@ export function calculateCost(arm) {
     antiArmorScore +
     typeScore;
   cost = Math.sqrt(cost) * 12;
-  cost = Math.floor(cost / 10) * 10;
+  cost = Math.round(cost / 5) * 5;
 
   // console.log(arm.name);
   // console.log(

@@ -187,8 +187,8 @@ export class Arm {
       switch (damageType) {
         case "melee":
           dodge += this.c_meleeDodge;
-          if (attacker.isLarge())
-            armor += this.c_meleeArmor + this.c_chargeArmor;
+          if (!this.isMon() && attacker.isLarge())
+            armor += this.c_meleeArmor + this.c_chargeArmor / 2;
           else armor += this.c_meleeArmor + this.c_missileArmor / 4;
           break;
 
@@ -198,7 +198,8 @@ export class Arm {
           break;
 
         case "charge":
-          armor += this.c_chargeArmor;
+          armor +=
+            this.c_chargeArmor + (this.c_meleeArmor + this.c_missileArmor) / 5;
           dodge += this.c_chargeDodge;
           break;
 
@@ -210,7 +211,7 @@ export class Arm {
     dodge = Math.max(dodge, 0);
 
     let percentage = (100 - (armor + dodge)) / 100;
-    if (percentage < 0.01) percentage = 0.01;
+    if (percentage < 0.1) percentage = 0.1;
 
     return percentage;
   }

@@ -22,21 +22,6 @@ singleHP 800 ~ 1000
 
 
 
-meleeArm 0, 30, 40, 60
-missileArm 0, 30, 60
-chargeArm 0, 30, 40, 50
-
-melee: meleeArm + missileArm / 4 (normal melee attack)
-           meleeArm + chargeArm (monster melee attack)
-missile: meleeArm / 4 + missileArm
-charge: chargeArm
-
-antiArmor 
-melee 0, 20, 30
-missile 0, 10, 20, 30
-charge 0, 30, 60
-
-
 
 
 

@@ -10,15 +10,15 @@ export class HenchWarrior extends ArmPrimary.Arm {
     this.description = "armor-shield-infantry";
     this.m_description = "装甲-持盾-近战步兵";
 
-    this.scale = 64;
-    this.singleHP = 70;
+    this.scale = 80;
+    this.singleHP = 80;
     this.speed = 2;
 
-    this.meleeArmor = 40;
-    this.missileArmor = 50;
-    this.chargeArmor = 40;
+    this.meleeArmor = 60;
+    this.missileArmor = 30;
+    this.chargeArmor = 20;
 
-    this.meleeAttack = 35;
+    this.meleeAttack = 30;
 
     this.loadRealtimeProps();
   }
@@ -34,12 +34,11 @@ export class HenchWarriorHalberd extends HenchWarrior {
     this.description = "armor-infantry / anti-large";
     this.m_description = "装甲-近战步兵【反大型】";
 
-    this.meleeArmor = 40;
-    this.missileArmor = 40;
-    this.chargeArmor = 60;
+    this.missileArmor = 0;
+    this.chargeArmor = 50;
 
-    this.meleeAttack = 28;
-    this.meleeAttack_bonus = 26;
+    this.meleeAttack = 22;
+    this.meleeAttack_bonus = 24;
 
     this.loadRealtimeProps();
   }
@@ -65,11 +64,9 @@ export class HenchWarriorGiantaxe extends HenchWarrior {
     this.description = "armor-infantry / anti-armor";
     this.m_description = "装甲-近战步兵【高破甲】";
 
-    this.meleeArmor = 40;
-    this.missileArmor = 40;
-    this.chargeArmor = 40;
+    this.missileArmor = 0;
 
-    this.meleeAttack = 38;
+    this.meleeAttack = 30;
 
     this.antiArmor = 40;
     this.loadRealtimeProps();
@@ -91,13 +88,13 @@ export class BurningKnight extends ArmPrimary.Arm {
     this.description = "melee-cavalry / heavy-armor";
     this.m_description = "近战骑兵【重装甲】";
 
-    this.scale = 32;
-    this.singleHP = 130;
+    this.scale = 50;
+    this.singleHP = 140;
     this.speed = 4;
 
-    this.meleeArmor = 50;
-    this.missileArmor = 60;
-    this.chargeArmor = 50;
+    this.meleeArmor = 60;
+    this.missileArmor = 30;
+    this.chargeArmor = 20;
 
     this.meleeAttack = 40;
 
@@ -115,12 +112,11 @@ export class BurningKnightHalberd extends BurningKnight {
     this.description = "melee-cavalry / heavy-armor / anti-large";
     this.m_description = "近战骑兵【重装甲，反大型】";
 
-    this.meleeArmor = 50;
-    this.missileArmor = 50;
-    this.chargeArmor = 70;
+    this.missileArmor = 0;
+    this.chargeArmor = 50;
 
     this.meleeAttack = 30;
-    this.meleeAttack_bonus = 26;
+    this.meleeAttack_bonus = 24;
 
     this.loadRealtimeProps();
   }
@@ -148,9 +144,7 @@ export class BurningKnightCharge extends BurningKnight {
 
     this.speed = 6;
 
-    this.meleeArmor = 40;
-    this.missileArmor = 40;
-    this.chargeArmor = 60;
+    this.missileArmor = 0;
 
     this.meleeAttack = 30;
     this.chargeAttack = 60;
@@ -169,11 +163,11 @@ export class Hellhound extends ArmPrimary.Arm {
     this.description = "monster-cavalry / fast";
     this.m_description = "怪兽骑兵【迅捷如风】";
 
-    this.scale = 100;
-    this.singleHP = 25;
+    this.scale = 200;
+    this.singleHP = 20;
     this.speed = 7;
 
-    this.missileDodge = 60;
+    this.missileDodge = 40;
 
     this.meleeAttack = 6;
     this.chargeAttack = 10;
@@ -192,9 +186,10 @@ export class HellhoundFS extends Hellhound {
     this.description = "monster-cavalry / fast";
     this.m_description = "怪兽骑兵【迅捷如风】";
 
-    this.meleeDodge = 60;
+    this.meleeDodge = 20;
+    this.missileDodge = 40;
 
-    this.meleeAttack = 8;
+    this.meleeAttack = 7;
     this.chargeAttack = 12;
 
     this.loadRealtimeProps();
@@ -211,8 +206,8 @@ export class DemonEnvoy extends ArmPrimary.Arm {
     this.description = "monster-infantry / anti-armor / shocking";
     this.m_description = "怪兽步兵【高破甲，惊骇敌军】";
 
-    this.scale = 16;
-    this.singleHP = 300;
+    this.scale = 30;
+    this.singleHP = 270;
     this.speed = 5;
 
     this.meleeAttack = 55;
@@ -275,7 +270,7 @@ export class GreatDemon extends ArmPrimary.Arm {
     this.m_description = "巨兽【高破甲，惊骇敌军】";
 
     this.scale = 1;
-    this.singleHP = 2000;
+    this.singleHP = 8000;
     this.speed = 4;
 
     this.meleeAttack = 1000;

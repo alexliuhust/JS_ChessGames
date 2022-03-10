@@ -10,13 +10,12 @@ export class HallwayGuard extends ArmPrimary.Arm {
     this.description = "infantry / resist-charging";
     this.m_description = "近战步兵【抵御冲锋】";
 
-    this.scale = 64;
+    this.scale = 100;
     this.singleHP = 50;
     this.speed = 2;
 
-    this.meleeArmor = 40;
-    this.missileArmor = 0;
-    this.chargeArmor = 60;
+    this.meleeArmor = 20;
+    this.chargeArmor = 40;
 
     this.meleeAttack = 25;
 
@@ -40,7 +39,7 @@ export class HallwayGuardShield extends HallwayGuard {
     this.description = "shield-infantry / resist-charging";
     this.m_description = "持盾-近战步兵【抵御冲锋】";
 
-    this.missileArmor = 40;
+    this.missileArmor = 30;
 
     this.loadRealtimeProps();
   }
@@ -56,17 +55,16 @@ export class NordExecutioner extends ArmPrimary.Arm {
     this.description = "armor-infantry / anti-armor";
     this.m_description = "装甲-近战步兵【高破甲】";
 
-    this.scale = 64;
+    this.scale = 100;
     this.singleHP = 50;
     this.speed = 2;
 
-    this.meleeArmor = 80;
-    this.missileArmor = 20;
+    this.meleeArmor = 50;
     this.chargeArmor = 20;
 
-    this.meleeAttack = 40;
+    this.meleeAttack = 35;
 
-    this.antiArmor = 28;
+    this.antiArmor = 50;
     this.loadRealtimeProps();
   }
 
@@ -86,24 +84,18 @@ export class CoastDefender extends ArmPrimary.Arm {
     this.description = "melee-archers / resist-charging";
     this.m_description = "近战-远程步兵【抵御冲锋】";
 
-    this.scale = 48;
+    this.scale = 80;
     this.singleHP = 50;
     this.speed = 3;
 
-    this.chargeArmor = 50;
+    this.chargeArmor = 40;
 
     this.meleeAttack = 25;
-    this.missileAttack = 40;
+    this.missileAttack = 30;
     this.missileRange = 6;
     this.isParabola = true;
 
-    this.antiArmor = 10;
     this.loadRealtimeProps();
-  }
-
-  getAntiArmor(damageType, targetArm) {
-    if (damageType !== "melee") return this.antiArmor;
-    return 0;
   }
 }
 
@@ -130,22 +122,21 @@ export class BallistaSquad extends ArmPrimary.Arm {
     this.name = "Ballista Squad";
     this.m_name = "重弩小队";
     this.type = "archers";
-    this.description = "armor-archers / long-range / anti-armor";
-    this.m_description = "装甲-远程步兵【长程，高破甲】";
+    this.description = "melee-armor-archers / long-range / anti-armor";
+    this.m_description = "近战-装甲-远程步兵【长程，高破甲】";
 
-    this.scale = 36;
+    this.scale = 80;
     this.singleHP = 50;
     this.speed = 2;
 
-    this.meleeArmor = 80;
-    this.missileArmor = 20;
+    this.meleeArmor = 50;
     this.chargeArmor = 20;
 
-    this.meleeAttack = 24;
+    this.meleeAttack = 25;
     this.missileAttack = 50;
     this.missileRange = 8;
 
-    this.antiArmor = 40;
+    this.antiArmor = 30;
     this.loadRealtimeProps();
   }
 
@@ -165,11 +156,10 @@ export class FlameKnight extends ArmPrimary.Arm {
     this.description = "charging-cavalry / anti-armor / fast";
     this.m_description = "冲击骑兵【高破甲，惊骇敌军，迅捷如风】";
 
-    this.scale = 32;
-    this.singleHP = 100;
+    this.scale = 50;
+    this.singleHP = 120;
     this.speed = 7;
 
-    this.chargeArmor = 20;
     this.missileDodge = 50;
 
     this.meleeAttack = 32;
@@ -195,7 +185,7 @@ export class FlameKnightShield extends FlameKnight {
     this.description = "shield-charging-cavalry / anti-armor / fast";
     this.m_description = "冲击骑兵【高破甲，惊骇敌军，迅捷如风】";
 
-    this.missileArmor = 40;
+    this.missileArmor = 30;
 
     this.loadRealtimeProps();
   }
@@ -211,13 +201,13 @@ export class CoralCavalry extends ArmPrimary.Arm {
     this.description = "charging-cavalry / heavy-armor / anti-armor";
     this.m_description = "冲击骑兵【重装甲，高破甲】";
 
-    this.scale = 32;
+    this.scale = 50;
     this.singleHP = 100;
     this.speed = 5;
 
     this.meleeArmor = 50;
-    this.missileArmor = 50;
-    this.chargeArmor = 50;
+    this.missileDodge = 30;
+    this.chargeArmor = 20;
 
     this.meleeAttack = 32;
     this.chargeAttack = 64;
@@ -234,17 +224,16 @@ export class GiantBallista extends ArmPrimary.Arm {
     this.name = "Giant Ballista";
     this.m_name = "巨型弩炮";
     this.type = "artillery";
-    this.description = "artillery / anti-armor";
-    this.m_description = "炮兵【高破甲】";
+    this.description = "artillery";
+    this.m_description = "炮兵";
 
     this.scale = 7;
-    this.singleHP = 250;
+    this.singleHP = 700;
     this.speed = 1;
 
     this.missileAttack = 300;
     this.missileRange = 11;
 
-    this.antiArmor = 60;
     this.loadRealtimeProps();
   }
 
@@ -261,15 +250,26 @@ export class GiantBallistaShrapnel extends GiantBallista {
     this.name = "Giant Ballista (Shrapnel)";
     this.m_name = "巨型弩炮-霰弹";
     this.type = "artillery";
-    this.description = "artillery / high-damage";
-    this.m_description = "炮兵【高伤害】";
+    this.description = "artillery / anti-infantry";
+    this.m_description = "炮兵【反步兵】";
 
-    this.missileAttack = 500;
+    this.missileAttack = 300;
+    this.missileAttack_bonus = 400;
     this.missileRange = 9;
     this.isParabola = true;
 
-    this.antiArmor = 0;
     this.loadRealtimeProps();
+  }
+
+  _getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (damageType === "missile" && this.c_ammo > 0) {
+      singleDamage = this.c_missileAttack;
+      if (targetArm.isInfn()) singleDamage += this.missileAttack_bonus;
+      this.c_ammo--;
+    }
+
+    return singleDamage;
   }
 }
 
@@ -284,15 +284,15 @@ export class StoneGiant extends ArmPrimary.Arm {
     this.m_description = "巨兽【反步兵】";
 
     this.scale = 1;
-    this.singleHP = 900;
+    this.singleHP = 9000;
     this.speed = 3;
 
     this.meleeArmor = 50;
     this.missileArmor = 50;
     this.chargeArmor = 50;
 
-    this.meleeAttack = 800;
-    this.meleeAttack_bonus = 200;
+    this.meleeAttack = 600;
+    this.meleeAttack_bonus = 500;
 
     this.loadRealtimeProps();
   }
@@ -318,7 +318,8 @@ export class StoneGiantFlame extends StoneGiant {
     this.description = "giant / anti-infantry / high-damage";
     this.m_description = "巨兽【反步兵，高伤害】";
 
-    this.meleeAttack = 1200;
+    this.meleeAttack = 700;
+    this.meleeAttack_bonus = 800;
 
     this.loadRealtimeProps();
   }
