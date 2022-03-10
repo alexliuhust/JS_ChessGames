@@ -10,7 +10,7 @@ export class OrcWarrior extends ArmPrimary.Arm {
     this.description = "infantry / anti-infantry";
     this.m_description = "近战步兵【反步兵】";
 
-    this.scale = 64;
+    this.scale = 80;
     this.singleHP = 80;
     this.speed = 3;
 
@@ -41,7 +41,7 @@ export class OrcWarriorSpear extends OrcWarrior {
     this.description = "infantry / resist-charging";
     this.m_description = "近战步兵【抵御冲锋】";
 
-    this.chargeArmor = 40;
+    this.chargeArmor = 30;
 
     this.meleeAttack = 34;
     this.meleeAttack_bonus = 0;
@@ -60,7 +60,7 @@ export class OrcWarriorTS extends OrcWarrior {
     this.description = "hurling-infantry / resist-charging";
     this.m_description = "投掷-近战步兵【抵御冲锋】";
 
-    this.chargeArmor = 40;
+    this.chargeArmor = 30;
 
     this.meleeAttack = 34;
     this.meleeAttack_bonus = 0;
@@ -128,13 +128,13 @@ export class Tauren extends ArmPrimary.Arm {
     this.description = "monster-infantry";
     this.m_description = "怪兽步兵";
 
-    this.scale = 16;
-    this.singleHP = 400;
+    this.scale = 30;
+    this.singleHP = 300;
     this.speed = 4;
 
-    this.chargeArmor = 40;
+    this.chargeArmor = 30;
 
-    this.meleeAttack = 50;
+    this.meleeAttack = 40;
 
     this.loadRealtimeProps();
   }
@@ -176,7 +176,7 @@ export class TaurenGA extends Tauren {
     this.description = "monster-infantry / anti-large / anti-armor";
     this.m_description = "怪兽步兵【反大型，高破甲】";
 
-    this.meleeAttack_bonus = 30;
+    this.meleeAttack_bonus = 40;
 
     this.antiArmor = 30;
     this.loadRealtimeProps();
@@ -210,8 +210,8 @@ export class TaurenBerserker extends Tauren {
 
     this.speed = 6;
 
-    this.meleeAttack = 70;
-    this.chargeAttack = 80;
+    this.meleeAttack = 40;
+    this.chargeAttack = 50;
 
     this.antiArmor = 16;
     this.loadRealtimeProps();
@@ -233,14 +233,14 @@ export class WolfCavalry extends ArmPrimary.Arm {
     this.description = "melee-cavalry";
     this.m_description = "近战骑兵";
 
-    this.scale = 48;
+    this.scale = 60;
     this.singleHP = 100;
     this.speed = 8;
 
     this.meleeDodge = 40;
     this.missileDodge = 40;
 
-    this.meleeAttack = 34;
+    this.meleeAttack = 30;
 
     this.loadRealtimeProps();
   }
@@ -275,11 +275,11 @@ export class RhinoTrooper extends ArmPrimary.Arm {
     this.description = "charging-cavalry / anti-armor";
     this.m_description = "冲击骑兵【高破甲】";
 
-    this.scale = 32;
-    this.singleHP = 180;
+    this.scale = 50;
+    this.singleHP = 160;
     this.speed = 5;
 
-    this.meleeArmor = 40;
+    this.meleeArmor = 50;
     this.missileArmor = 50;
 
     this.meleeAttack = 34;
@@ -330,7 +330,7 @@ export class Minotaur extends ArmPrimary.Arm {
     this.m_description = "轰炸巨兽";
 
     this.scale = 1;
-    this.singleHP = 1500;
+    this.singleHP = 8000;
     this.speed = 2;
 
     this.meleeAttack = 800;

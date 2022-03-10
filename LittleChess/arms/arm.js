@@ -150,6 +150,10 @@ export class Arm {
     switch (damageType) {
       case "melee":
         singleDamage = this.c_meleeAttack;
+        if (this.type === "monster-infantry" && targetArm.isInfn())
+          singleDamage *= 1.3;
+        else if (this.type === "monster" && targetArm.isInfn())
+          singleDamage *= 1.6;
         break;
 
       case "missile":
@@ -169,6 +173,10 @@ export class Arm {
 
       case "charge":
         singleDamage = this.c_chargeAttack;
+        if (this.type === "monster-infantry" && targetArm.isInfn())
+          singleDamage *= 1.3;
+        else if (this.type === "monster" && targetArm.isInfn())
+          singleDamage *= 1.6;
         break;
 
       default:

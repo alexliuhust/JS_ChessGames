@@ -143,11 +143,11 @@ export class MurlocWarriorHurling extends MurlocWarrior {
     this.description = "hurling-infantry / anti-armor";
     this.m_description = "投掷-近战步兵【高破甲】";
 
-    this.missileAttack = 80;
+    this.missileAttack = 200;
     this.missileRange = 4;
     this.isParabola = true;
 
-    this.ammo = 2;
+    this.ammo = 3;
     this.loadRealtimeProps();
   }
 
