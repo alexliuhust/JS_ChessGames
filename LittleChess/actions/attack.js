@@ -200,6 +200,7 @@ function decreaseBombingVictims(
 function decreaseScalesForArms(attacker, damageType, defender) {
   // Get the total raw damage for attacker and counter attack damage for defender
   let att_antiArmor = attacker.getAntiArmor(damageType, defender);
+  let dfd_antiArmor = defender.getAntiArmor("melee", attacker);
   let att_totalRowDamage = attacker.getRawTotalDamage(damageType, defender);
   let dfd_counterAttack = defender.getCounterAttackTotalDamage(
     damageType,
@@ -208,7 +209,12 @@ function decreaseScalesForArms(attacker, damageType, defender) {
 
   // ============== Defender counter attacks ==============
   // Defender gains experience
-  let results = attacker.decreaseScale(defender, "melee", 0, dfd_counterAttack);
+  let results = attacker.decreaseScale(
+    defender,
+    "melee",
+    dfd_antiArmor,
+    dfd_counterAttack
+  );
   defender.exp += results[1];
   // if attacker dies
   if (!attacker.isAlive) {

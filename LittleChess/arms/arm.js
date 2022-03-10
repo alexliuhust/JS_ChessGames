@@ -378,7 +378,7 @@ export class Arm {
     let validScale = this._getValidScale();
     if (this.type === "infantry" && targetArm.type === "infantry")
       singleDamage = Math.round(singleDamage / 2);
-    return Math.round(singleDamage * validScale * 0.9);
+    return Math.round(singleDamage * validScale);
   }
 
   decreaseScale(attacker, damageType, antiArmor, rawTotalDamage) {

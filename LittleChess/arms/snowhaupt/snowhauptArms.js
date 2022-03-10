@@ -241,8 +241,8 @@ export class RevolvingCannon extends ArmPrimary.Arm {
     this.name = "Revolving Cannon";
     this.m_name = "转轮炮";
     this.type = "artillery";
-    this.description = "artillery / anti-large / anti-armor";
-    this.m_description = "炮兵【反大型，高破甲】";
+    this.description = "artillery / anti-large";
+    this.m_description = "炮兵【反大型】";
 
     this.scale = 10;
     this.singleHP = 500;

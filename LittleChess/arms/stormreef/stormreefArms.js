@@ -10,11 +10,11 @@ export class Seaman extends ArmPrimary.Arm {
     this.description = "infantry / weak";
     this.m_description = "近战步兵【孱弱】";
 
-    this.scale = 64;
+    this.scale = 100;
     this.singleHP = 40;
     this.speed = 3;
 
-    this.meleeAttack = 20;
+    this.meleeAttack = 15;
 
     this.loadRealtimeProps();
   }
@@ -30,7 +30,7 @@ export class SeamanPistol extends Seaman {
     this.description = "archers";
     this.m_description = "远程步兵";
 
-    this.missileAttack = 16;
+    this.missileAttack = 12;
     this.missileRange = 4;
 
     this.ammo = 30;
@@ -48,7 +48,7 @@ export class SeamanMusket extends Seaman {
     this.description = "archers";
     this.m_description = "远程步兵";
 
-    this.missileAttack = 24;
+    this.missileAttack = 16;
     this.missileRange = 6;
 
     this.antiArmor = 10;
@@ -58,8 +58,6 @@ export class SeamanMusket extends Seaman {
   }
 
   getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkArmClass(targetArm);
-
     if (damageType === "missile") return this.antiArmor;
     return 0;
   }
@@ -75,13 +73,13 @@ export class Pisciculi extends ArmPrimary.Arm {
     this.description = "infantry / dodge-missile";
     this.m_description = "近战步兵【远程闪避】";
 
-    this.scale = 100;
+    this.scale = 120;
     this.singleHP = 30;
     this.speed = 6;
 
     this.missileDodge = 60;
 
-    this.meleeAttack = 32;
+    this.meleeAttack = 30;
 
     this.loadRealtimeProps();
   }
@@ -97,7 +95,7 @@ export class PisciculiDoubleBlades extends Pisciculi {
     this.description = "infantry / dodge-missile / high-damage";
     this.m_description = "近战步兵【远程闪避，高伤害】";
 
-    this.meleeAttack = 50;
+    this.meleeAttack = 55;
 
     this.loadRealtimeProps();
   }
@@ -113,23 +111,21 @@ export class MurlocWarrior extends ArmPrimary.Arm {
     this.description = "infantry / anti-armor";
     this.m_description = "近战步兵【高破甲】";
 
-    this.scale = 40;
-    this.singleHP = 150;
+    this.scale = 50;
+    this.singleHP = 125;
     this.speed = 2;
 
-    this.meleeArmor = 60;
+    this.meleeArmor = 50;
     this.missileArmor = 0;
     this.chargeArmor = 60;
 
-    this.meleeAttack = 80;
+    this.meleeAttack = 70;
 
     this.antiArmor = 30;
     this.loadRealtimeProps();
   }
 
   getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkArmClass(targetArm);
-
     if (damageType === "melee") return this.antiArmor;
     return 0;
   }
@@ -138,6 +134,8 @@ export class MurlocWarrior extends ArmPrimary.Arm {
 export class MurlocWarriorHurling extends MurlocWarrior {
   constructor(value, player) {
     super(value, player);
+    this.missileColor = "yellow";
+    this.missileWeight = 5;
 
     this.name = "Murloc Warrior (Hurling)";
     this.m_name = "鱼人战士-投戟";
@@ -152,6 +150,10 @@ export class MurlocWarriorHurling extends MurlocWarrior {
     this.ammo = 2;
     this.loadRealtimeProps();
   }
+
+  getAntiArmor(damageType, targetArm) {
+    return this.antiArmor;
+  }
 }
 
 export class Medusa extends ArmPrimary.Arm {
@@ -164,15 +166,15 @@ export class Medusa extends ArmPrimary.Arm {
     this.description = "monster-infantry / shocking";
     this.m_description = "怪兽步兵【惊骇敌军】";
 
-    this.scale = 16;
-    this.singleHP = 140;
+    this.scale = 30;
+    this.singleHP = 180;
     this.speed = 5;
 
     this.meleeDodge = 40;
     this.missileDodge = 30;
     this.chargeDodge = 20;
 
-    this.meleeAttack = 48;
+    this.meleeAttack = 40;
 
     this.shock = 70;
     this.loadRealtimeProps();
@@ -189,8 +191,8 @@ export class MedusaTrident extends Medusa {
     this.description = "monster-infantry / anti-large / shocking";
     this.m_description = "怪兽步兵【反大型，惊骇敌军】";
 
-    this.chargeArmor = 20;
-    this.meleeAttack_bonus = 70;
+    this.chargeArmor = 30;
+    this.meleeAttack_bonus = 60;
 
     this.loadRealtimeProps();
   }
@@ -209,6 +211,7 @@ export class MedusaTrident extends Medusa {
 export class MedusaMB extends Medusa {
   constructor(value, player) {
     super(value, player);
+    this.missileColor = "violet";
 
     this.name = "Medusa (Magic Bow)";
     this.m_name = "美杜莎-魔弓";
@@ -216,7 +219,7 @@ export class MedusaMB extends Medusa {
     this.description = "monster-infantry / missile-attack / shocking";
     this.m_description = "怪兽步兵【远程攻击，惊骇敌军】";
 
-    this.missileAttack = 65;
+    this.missileAttack = 50;
     this.missileRange = 8;
     this.isParabola = true;
 
@@ -236,7 +239,7 @@ export class Cancrimag extends ArmPrimary.Arm {
     this.m_description = "巨兽【重装甲，惊骇敌军】";
 
     this.scale = 1;
-    this.singleHP = 900;
+    this.singleHP = 9000;
     this.speed = 1;
 
     this.meleeArmor = 60;
@@ -270,8 +273,6 @@ export class CancrimagMusket extends Cancrimag {
   }
 
   getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkArmClass(targetArm);
-
     if (damageType === "missile") return this.antiArmor;
     return 0;
   }
@@ -284,25 +285,17 @@ export class DeckGun extends ArmPrimary.Arm {
     this.name = "Deck Gun";
     this.m_name = "甲板炮";
     this.type = "artillery";
-    this.description = "artillery / anti-armor";
-    this.m_description = "炮兵【高破甲】";
+    this.description = "artillery";
+    this.m_description = "炮兵";
 
     this.scale = 5;
-    this.singleHP = 300;
+    this.singleHP = 800;
     this.speed = 1;
 
     this.missileAttack = 230;
     this.missileRange = 12;
 
-    this.antiArmor = 70;
     this.loadRealtimeProps();
-  }
-
-  getAntiArmor(damageType, targetArm) {
-    ArmPrimary.checkArmClass(targetArm);
-
-    if (damageType === "missile") return this.antiArmor;
-    return 0;
   }
 }
 
