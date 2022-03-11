@@ -81,7 +81,7 @@ function getAggregateDataOfPlayer(player) {
     let scale = player.pieceList[i].scale;
     let c_scale =
       scale === 1
-        ? Math.round(player.pieceList[i].c_singleHP / 10)
+        ? Math.round(player.pieceList[i].c_singleHP / 100)
         : player.pieceList[i].c_scale;
 
     totalScale += c_scale;

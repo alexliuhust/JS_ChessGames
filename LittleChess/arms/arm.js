@@ -31,6 +31,7 @@ export class Arm {
     this.prepareToAuto = false;
     this.missileColor = null;
     this.missileWeight = 2;
+    this.alignMoved = false;
 
     // Static properties
     this.name = "";
@@ -330,6 +331,7 @@ export class Arm {
 
     this.operable = true;
     this.c_speed = this.speed;
+    this.alignMoved = false;
     this.hasAttacked = false;
     this.showSpeed = false;
 
@@ -365,8 +367,12 @@ export class Arm {
       singleDamage /= 2;
 
     if (damageType === "missile") {
-      if (targetArm.c_scale <= targetArm.scale * 0.4) singleDamage *= 0.6;
-      if (targetArm.c_scale <= targetArm.scale * 0.2) singleDamage *= 0.6;
+      if (targetArm.isInfn()) {
+        if (targetArm.c_scale <= targetArm.scale * 0.4) singleDamage *= 0.6;
+        if (targetArm.c_scale <= targetArm.scale * 0.2) singleDamage *= 0.6;
+      } else if (targetArm.isMon()) {
+        singleDamage *= 1.3;
+      }
     }
 
     if (damageType === "melee" || damageType === "charge") {

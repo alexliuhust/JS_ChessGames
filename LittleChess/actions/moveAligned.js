@@ -67,6 +67,7 @@ function willBeWithinBound(mover, direction) {
 function moveOneStep(mover, direction) {
   if (
     mover.c_speed > 0 &&
+    !mover.alignMoved &&
     !willBeBlocked(mover, direction, blockers) &&
     willBeWithinBound(mover, direction)
   ) {
@@ -75,7 +76,8 @@ function moveOneStep(mover, direction) {
     if (direction === "D") mover.positionY++;
     if (direction === "L") mover.positionX--;
     if (direction === "R") mover.positionX++;
-    mover.c_speed = 0;
+    mover.c_speed--;
+    mover.alignMoved = true;
     blockers.add(`${mover.positionX}-${mover.positionY}`);
   }
 }
