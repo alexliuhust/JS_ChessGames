@@ -1,4 +1,5 @@
 import * as ArmPrimary from "../arm.js";
+import { MissileColor as MC } from "../../const.js";
 
 export class WoodsGuard extends ArmPrimary.Arm {
   constructor(value, player) {
@@ -118,7 +119,7 @@ export class WildKillerPS extends WildKiller {
 export class ShadowArcherFL extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.missileColor = "red";
+    this.missileColor = MC.FireColor;
     this.missileWeight = 4;
 
     this.name = "Shadow Archers (Flame)";
@@ -147,7 +148,7 @@ export class ShadowArcherFL extends ArmPrimary.Arm {
 export class ShadowArcherPS extends ShadowArcherFL {
   constructor(value, player) {
     super(value, player);
-    this.missileColor = "green";
+    this.missileColor = MC.PoisonColor;
     this.missileWeight = 2;
 
     this.name = "Shadow Archers (Poisoned)";

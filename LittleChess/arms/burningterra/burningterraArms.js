@@ -1,4 +1,5 @@
 import * as ArmPrimary from "../arm.js";
+import { MissileColor as MC } from "../../const.js";
 
 export class HenchWarrior extends ArmPrimary.Arm {
   constructor(value, player) {
@@ -242,7 +243,7 @@ export class DemonEnvoyWild extends DemonEnvoy {
 export class DemonEnvoyHellfire extends DemonEnvoy {
   constructor(value, player) {
     super(value, player);
-    this.missileColor = "red";
+    this.missileColor = MC.FireColor;
     this.missileWeight = 4;
 
     this.name = "Demon Envoys (Hellfire)";
@@ -292,7 +293,7 @@ export class GreatDemon extends ArmPrimary.Arm {
 export class GreatDemonHellfire extends GreatDemon {
   constructor(value, player) {
     super(value, player);
-    this.missileColor = "red";
+    this.missileColor = MC.FireColor;
     this.missileWeight = 4;
 
     this.name = "Chaos Great Demon (Hellfire)";

@@ -1,4 +1,5 @@
 import * as ArmPrimary from "../arm.js";
+import { MissileColor as MC } from "../../const.js";
 
 export class Seaman extends ArmPrimary.Arm {
   constructor(value, player) {
@@ -134,7 +135,7 @@ export class MurlocWarrior extends ArmPrimary.Arm {
 export class MurlocWarriorHurling extends MurlocWarrior {
   constructor(value, player) {
     super(value, player);
-    this.missileColor = "yellow";
+    this.missileColor = MC.ATColor;
     this.missileWeight = 5;
 
     this.name = "Murloc Warriors (Hurling)";
@@ -211,7 +212,8 @@ export class MedusaTrident extends Medusa {
 export class MedusaMB extends Medusa {
   constructor(value, player) {
     super(value, player);
-    this.missileColor = "violet";
+    this.missileColor = MC.MagicColor;
+    this.missileWeight = 3;
 
     this.name = "Medusas (Magic Bow)";
     this.m_name = "美杜莎-魔弓";

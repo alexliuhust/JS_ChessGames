@@ -1,4 +1,5 @@
 import * as ArmPrimary from "../arm.js";
+import { MissileColor as MC } from "../../const.js";
 
 export class DwarfWarrior extends ArmPrimary.Arm {
   constructor(value, player) {
@@ -106,7 +107,7 @@ export class DrawfKingsGuard extends DwarfWarrior {
 export class MountainShocker extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.missileColor = "yellow";
+    this.missileColor = MC.ATColor;
     this.missileWeight = 4;
 
     this.name = "Mountain Shockers";
@@ -235,7 +236,7 @@ export class GoatCavalryTA extends GoatCavalry {
 export class RevolvingCannon extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.missileColor = "yellow";
+    this.missileColor = MC.ATColor;
     this.missileWeight = 3;
 
     this.name = "Revolving Cannons";
@@ -278,7 +279,7 @@ export class RevolvingCannon extends ArmPrimary.Arm {
 export class FireDragonGun extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.missileColor = "red";
+    this.missileColor = MC.FireColor;
     this.missileWeight = 7;
 
     this.name = "Fire Dragon Guns";

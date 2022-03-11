@@ -1,4 +1,5 @@
 import * as ArmPrimary from "../arm.js";
+import { MissileColor as MC } from "../../const.js";
 
 export class DarkSoldier extends ArmPrimary.Arm {
   constructor(value, player) {
@@ -110,7 +111,7 @@ export class ScreamingBanshee extends Banshee {
 export class ScreamingBansheeGF extends Banshee {
   constructor(value, player) {
     super(value, player);
-    this.missileColor = "blue";
+    this.missileColor = MC.GhostColor;
     this.missileWeight = 4;
 
     this.name = "Banshees (Ghost Fire)";
@@ -221,7 +222,7 @@ export class BeetleRider extends ArmPrimary.Arm {
 export class FireBeetleRider extends BeetleRider {
   constructor(value, player) {
     super(value, player);
-    this.missileColor = "red";
+    this.missileColor = MC.FireColor;
     this.missileWeight = 4;
 
     this.name = "Fire Beetle Riders";
@@ -283,7 +284,7 @@ export class BeetleChargeRider extends BeetleRider {
 export class SpiritCoffinGF extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.missileColor = "blue";
+    this.missileColor = MC.GhostColor;
 
     this.name = "Spirit Coffin (Ghost Fire)";
     this.m_name = "灵棺-鬼火";

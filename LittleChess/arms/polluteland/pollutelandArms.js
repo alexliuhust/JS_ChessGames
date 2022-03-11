@@ -1,4 +1,5 @@
 import * as ArmPrimary from "../arm.js";
+import { MissileColor as MC } from "../../const.js";
 
 export class SlaveConscript extends ArmPrimary.Arm {
   constructor(value, player) {
@@ -67,7 +68,7 @@ export class HurlerHE extends ArmPrimary.Arm {
 export class HurlerGas extends HurlerHE {
   constructor(value, player) {
     super(value, player);
-    this.missileColor = "green";
+    this.missileColor = MC.PoisonColor;
 
     this.name = "Hurlers (Gas Bomb)";
     this.m_name = "投掷小队-毒气弹";
@@ -90,7 +91,7 @@ export class HurlerGas extends HurlerHE {
 export class HurlerFrgm extends HurlerHE {
   constructor(value, player) {
     super(value, player);
-    this.missileColor = "yellow";
+    this.missileColor = MC.ATColor;
 
     this.name = "Hurlers (Fragmentation)";
     this.m_name = "投掷小队-破片弹";
@@ -202,6 +203,8 @@ export class WeapSqdGatlin extends ArmPrimary.Arm {
 export class WeapSqdFlthr extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
+    this.missileColor = MC.FireColor;
+    this.missileWeight = 5;
 
     this.name = "Weapon Squad (Flamethrower)";
     this.m_name = "武器小队-火焰喷射器";
@@ -361,7 +364,7 @@ export class MutantSlave extends ArmPrimary.Arm {
 export class Foulcannon extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.missileColor = "green";
+    this.missileColor = MC.PoisonColor;
     this.missileWeight = 5;
 
     this.name = "Foul Cannons";

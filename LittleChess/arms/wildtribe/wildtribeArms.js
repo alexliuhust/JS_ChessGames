@@ -1,4 +1,5 @@
 import * as ArmPrimary from "../arm.js";
+import { MissileColor as MC } from "../../const.js";
 
 export class OrcWarrior extends ArmPrimary.Arm {
   constructor(value, player) {
@@ -298,6 +299,8 @@ export class RhinoTrooper extends ArmPrimary.Arm {
 export class RhinoTrooperBallista extends RhinoTrooper {
   constructor(value, player) {
     super(value, player);
+    this.missileColor = MC.ATColor;
+    this.missileWeight = 3;
 
     this.name = "Rhino Troopers (Ballista)";
     this.m_name = "犀牛骑兵-弩炮";
