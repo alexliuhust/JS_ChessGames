@@ -292,6 +292,7 @@ export class SteamTank extends ArmPrimary.Arm {
     super(value, player);
     this.missileColor = MC.ATColor;
     this.missileWeight = 4;
+    this.missileNumber = 1;
 
     this.name = "Steam Tank";
     this.m_name = "蒸汽坦克";

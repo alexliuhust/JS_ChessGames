@@ -11,8 +11,8 @@ export class MissileEffect {
     this.time = 0;
     this.isAlive = true;
 
-    this.speed = 9.0;
-    this.len = 3;
+    this.speed = 8.0;
+    this.len = 4;
     this.totalDistance = calculateDistance(this.x1, this.y1, this.x2, this.y2);
     this.cos = Math.abs(this.x1 - this.x2) / this.totalDistance;
     this.sin = Math.abs(this.y1 - this.y2) / this.totalDistance;
@@ -55,17 +55,20 @@ export class MissileEffect {
 
       let maxNum = attacker.missileWeight <= 3 ? 10 : 6;
       let num = maxNum;
-      if (attacker.scale > 1) {
-        num = Math.min(maxNum, attacker.c_scale);
-      }
+      if (attacker.scale > 1) num = Math.min(maxNum, attacker.c_scale);
+      if (attacker.missileNumber) num = attacker.missileNumber;
 
-      for (let i = 0; i < num; i++)
-        this.drawLine(
-          x + this.bias[i],
-          y + this.bias[i + num],
-          x + this.bias[i] + Dx,
-          y + this.bias[i + num] + Dy
-        );
+      if (num > 1) {
+        for (let i = 0; i < num; i++)
+          this.drawLine(
+            x + this.bias[i],
+            y + this.bias[i + num],
+            x + this.bias[i] + Dx,
+            y + this.bias[i + num] + Dy
+          );
+      } else {
+        this.drawLine(x, y, x + Dx, y + Dy);
+      }
     };
   }
 }
