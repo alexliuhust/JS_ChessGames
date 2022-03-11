@@ -24,6 +24,7 @@ export const MissileColor = {
   ATColor: "rgb(230, 230, 0)",
   GhostColor: "rgb(51, 255, 255)",
   MagicColor: "rgb(217, 102, 255)",
+  BombColor: "rgb(210, 121, 121)",
 };
 
 export const PowerList = [

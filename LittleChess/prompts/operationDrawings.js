@@ -152,7 +152,7 @@ function getAvailableCentersForBombing(cxt, self, others) {
 
   // Highlight those available bombing centers
   let r1 = Math.floor(range / 3) * 50 + 15;
-  let r2 = range * 50 + 20;
+  let r2 = range * 50 + 15;
   sx = sx * 50 + 25;
   sy = sy * 50 + 25;
   Canvas.drawArc(cxt, sx, sy, r1, ReadyToAttackColor, 5);

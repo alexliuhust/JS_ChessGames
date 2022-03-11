@@ -88,6 +88,7 @@ export class OrcWarriorTS extends OrcWarrior {
 export class ChampionWarrior extends OrcWarrior {
   constructor(value, player) {
     super(value, player);
+    this.missileWeight = 4;
 
     this.name = "Champion Warriors";
     this.m_name = "冠军勇士";
@@ -231,8 +232,8 @@ export class WolfCavalry extends ArmPrimary.Arm {
     this.name = "Wolf Cavalry";
     this.m_name = "狼骑兵";
     this.type = "cavalry";
-    this.description = "melee-cavalry";
-    this.m_description = "近战骑兵";
+    this.description = "melee-cavalry [fast]";
+    this.m_description = "近战骑兵【迅捷如风】";
 
     this.scale = 60;
     this.singleHP = 100;
@@ -254,8 +255,8 @@ export class WolfCavalryTS extends WolfCavalry {
     this.name = "Wolf Cavalry (Javelin)";
     this.m_name = "狼骑兵-标枪";
     this.type = "cavalry";
-    this.description = "missile-cavalry";
-    this.m_description = "远程骑兵";
+    this.description = "missile-cavalry [fast]";
+    this.m_description = "远程骑兵【迅捷如风】";
 
     this.missileAttack = 40;
     this.missileRange = 6;
