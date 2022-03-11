@@ -4,10 +4,10 @@ export class WoodsGuard extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Woods Guard";
+    this.name = "Woods Guards";
     this.m_name = "林地守卫";
     this.type = "infantry";
-    this.description = "infantry / resist-charging";
+    this.description = "infantry [resist-charging]";
     this.m_description = "近战步兵【抵御冲锋】";
 
     this.scale = 100;
@@ -32,10 +32,10 @@ export class WoodsGuardShield extends WoodsGuard {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Woods Guard (Shield)";
+    this.name = "Woods Guards (Shield)";
     this.m_name = "林地守卫-持盾";
     this.type = "infantry";
-    this.description = "shield-infantry / resist-charging";
+    this.description = "shield-infantry [resist-charging]";
     this.m_description = "持盾-近战步兵【抵御冲锋】";
 
     this.missileArmor = 30;
@@ -48,10 +48,10 @@ export class WildKiller extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Wild Killer";
+    this.name = "Wild Killers";
     this.m_name = "狂野杀手";
     this.type = "infantry";
-    this.description = "infantry / melee-master / shocking";
+    this.description = "infantry [melee-master, shocking]";
     this.m_description = "近战步兵【近战大师，惊骇敌军】";
 
     this.scale = 120;
@@ -85,10 +85,10 @@ export class WildKillerPS extends WildKiller {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Wild Killer (Poisoned)";
+    this.name = "Wild Killers (Poisoned)";
     this.m_name = "狂野杀手-淬毒";
     this.type = "infantry";
-    this.description = "infantry / melee-master / shocking / anti-non-armor";
+    this.description = "infantry [melee-master, shocking, anti-non-armor]";
     this.m_description = "近战步兵【近战大师，惊骇敌军，反无甲】";
 
     this.chargeAttack_bonus = 35;
@@ -121,10 +121,10 @@ export class ShadowArcherFL extends ArmPrimary.Arm {
     this.missileColor = "red";
     this.missileWeight = 4;
 
-    this.name = "Shadow Archer (Flame)";
+    this.name = "Shadow Archers (Flame)";
     this.m_name = "暗影弓手-火焰箭";
     this.type = "archers";
-    this.description = "melee-archers / high-damage";
+    this.description = "melee-archers [high-damage]";
     this.m_description = "近战-远程步兵【高伤害】";
 
     this.scale = 90;
@@ -150,10 +150,10 @@ export class ShadowArcherPS extends ShadowArcherFL {
     this.missileColor = "green";
     this.missileWeight = 2;
 
-    this.name = "Shadow Archer (Poisoned)";
+    this.name = "Shadow Archers (Poisoned)";
     this.m_name = "暗影弓手-淬毒箭";
     this.type = "archers";
-    this.description = "melee-archers / anti-non-armor";
+    this.description = "melee-archers [anti-non-armor]";
     this.m_description = "近战-远程步兵【反无甲】";
 
     this.meleeAttack_bonus = 15;
@@ -185,10 +185,10 @@ export class ShadowArcherAP extends ShadowArcherFL {
     this.missileColor = null;
     this.missileWeight = 2;
 
-    this.name = "Shadow Archer (Armor-Piercing)";
+    this.name = "Shadow Archers (Armor-Piercing)";
     this.m_name = "暗影弓手-穿甲箭";
     this.type = "archers";
-    this.description = "melee-archers / anti-armor";
+    this.description = "melee-archers [anti-armor]";
     this.m_description = "近战-远程步兵【高破甲】";
 
     this.missileAttack = 36;
@@ -207,10 +207,10 @@ export class LongbowRanger extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Longbow Ranger";
+    this.name = "Longbow Rangers";
     this.m_name = "长弓游侠";
     this.type = "archers";
-    this.description = "long-range-archers / anti-armor";
+    this.description = "long-range-archers [anti-armor]";
     this.m_description = "长程-远程步兵【高破甲】";
 
     this.scale = 90;
@@ -239,10 +239,10 @@ export class WarBear extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "War Bear";
+    this.name = "War Bears";
     this.m_name = "战熊";
     this.type = "monster-infantry";
-    this.description = "monster-infantry / fast";
+    this.description = "monster-infantry [fast]";
     this.m_description = "怪兽步兵【迅捷如风】";
 
     this.scale = 30;
@@ -262,10 +262,10 @@ export class Dryad extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Dryad";
+    this.name = "Dryads";
     this.m_name = "树精";
     this.type = "monster-infantry";
-    this.description = "monster-infantry / heavy-armor";
+    this.description = "monster-infantry [heavy-armor]";
     this.m_description = "怪兽步兵【重装甲】";
 
     this.scale = 30;
@@ -286,10 +286,10 @@ export class DryadRangerRide extends Dryad {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Dryad (Ranger-Ride)";
+    this.name = "Dryads (Ranger-Ride)";
     this.m_name = "树精-游侠搭乘";
     this.type = "monster-infantry";
-    this.description = "monster-infantry / heavy-armor / missile-attack";
+    this.description = "monster-infantry [heavy-armor, missile-attack]";
     this.m_description = "怪兽步兵【重装甲，远程攻击】";
 
     this.missileAttack = 60;
@@ -312,10 +312,10 @@ export class DryadStone extends Dryad {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Dryad (Stone)";
+    this.name = "Dryads (Stone)";
     this.m_name = "树精-投石";
     this.type = "monster-infantry";
-    this.description = "monster-infantry / heavy-armor / missile-attack";
+    this.description = "monster-infantry [heavy-armor, missile-attack]";
     this.m_description = "怪兽步兵【重装甲，远程攻击】";
 
     this.missileAttack = 60;
@@ -335,7 +335,7 @@ export class GiantTreeman extends ArmPrimary.Arm {
     this.name = "Giant Treeman";
     this.m_name = "巨树人";
     this.type = "monster";
-    this.description = "giant / heavy-armor";
+    this.description = "giant [heavy-armor]";
     this.m_description = "巨兽【重装甲】";
 
     this.scale = 1;

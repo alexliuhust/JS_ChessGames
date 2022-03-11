@@ -4,10 +4,10 @@ export class Seaman extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Seaman";
+    this.name = "Seamen";
     this.m_name = "水手";
     this.type = "infantry";
-    this.description = "infantry / weak";
+    this.description = "infantry [weak]";
     this.m_description = "近战步兵【孱弱】";
 
     this.scale = 100;
@@ -24,7 +24,7 @@ export class SeamanPistol extends Seaman {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Seaman (Pistol)";
+    this.name = "Seamen (Pistol)";
     this.m_name = "水手-手枪";
     this.type = "archers";
     this.description = "archers";
@@ -42,7 +42,7 @@ export class SeamanMusket extends Seaman {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Seaman (Musket)";
+    this.name = "Seamen (Musket)";
     this.m_name = "水手-步枪";
     this.type = "archers";
     this.description = "archers";
@@ -67,10 +67,10 @@ export class Pisciculi extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Pisciculi";
+    this.name = "Pisciculis";
     this.m_name = "侏儒鱼人";
     this.type = "infantry";
-    this.description = "infantry / dodge-missile";
+    this.description = "infantry [dodge-missile]";
     this.m_description = "近战步兵【远程闪避】";
 
     this.scale = 120;
@@ -89,10 +89,10 @@ export class PisciculiDoubleBlades extends Pisciculi {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Pisciculi (Double Blades)";
+    this.name = "Pisciculis (Double Blades)";
     this.m_name = "侏儒鱼人-双刀";
     this.type = "infantry";
-    this.description = "infantry / dodge-missile / high-damage";
+    this.description = "infantry [dodge-missile, high-damage]";
     this.m_description = "近战步兵【远程闪避，高伤害】";
 
     this.meleeAttack = 55;
@@ -105,10 +105,10 @@ export class MurlocWarrior extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Murloc Warrior";
+    this.name = "Murloc Warriors";
     this.m_name = "鱼人战士";
     this.type = "infantry";
-    this.description = "infantry / anti-armor";
+    this.description = "infantry [anti-armor]";
     this.m_description = "近战步兵【高破甲】";
 
     this.scale = 50;
@@ -137,10 +137,10 @@ export class MurlocWarriorHurling extends MurlocWarrior {
     this.missileColor = "yellow";
     this.missileWeight = 5;
 
-    this.name = "Murloc Warrior (Hurling)";
+    this.name = "Murloc Warriors (Hurling)";
     this.m_name = "鱼人战士-投戟";
     this.type = "infantry";
-    this.description = "hurling-infantry / anti-armor";
+    this.description = "hurling-infantry [anti-armor]";
     this.m_description = "投掷-近战步兵【高破甲】";
 
     this.missileAttack = 200;
@@ -160,10 +160,10 @@ export class Medusa extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Medusa";
+    this.name = "Medusas";
     this.m_name = "美杜莎";
     this.type = "monster-infantry";
-    this.description = "monster-infantry / shocking";
+    this.description = "monster-infantry [shocking]";
     this.m_description = "怪兽步兵【惊骇敌军】";
 
     this.scale = 30;
@@ -185,10 +185,10 @@ export class MedusaTrident extends Medusa {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Medusa (Trident)";
+    this.name = "Medusas (Trident)";
     this.m_name = "美杜莎-三叉戟";
     this.type = "monster-infantry";
-    this.description = "monster-infantry / anti-large / shocking";
+    this.description = "monster-infantry [anti-large, shocking]";
     this.m_description = "怪兽步兵【反大型，惊骇敌军】";
 
     this.chargeArmor = 30;
@@ -213,10 +213,10 @@ export class MedusaMB extends Medusa {
     super(value, player);
     this.missileColor = "violet";
 
-    this.name = "Medusa (Magic Bow)";
+    this.name = "Medusas (Magic Bow)";
     this.m_name = "美杜莎-魔弓";
     this.type = "monster-infantry";
-    this.description = "monster-infantry / missile-attack / shocking";
+    this.description = "monster-infantry [missile-attack, shocking]";
     this.m_description = "怪兽步兵【远程攻击，惊骇敌军】";
 
     this.missileAttack = 50;
@@ -235,7 +235,7 @@ export class Cancrimag extends ArmPrimary.Arm {
     this.name = "Cancrimagnus";
     this.m_name = "巨蟹";
     this.type = "monster";
-    this.description = "giant / heavy-armor / shocking";
+    this.description = "giant [heavy-armor, shocking]";
     this.m_description = "巨兽【重装甲，惊骇敌军】";
 
     this.scale = 1;
@@ -260,7 +260,7 @@ export class CancrimagMusket extends Cancrimag {
     this.name = "Cancrimagnus (Musket)";
     this.m_name = "巨蟹-火枪";
     this.type = "monster";
-    this.description = "giant / heavy-armor / missile-attack / shocking";
+    this.description = "giant [heavy-armor, missile-attack, shocking]";
     this.m_description = "巨兽【重装甲，远程攻击，惊骇敌军】";
 
     this.missileAttack = 720;
@@ -282,7 +282,7 @@ export class DeckGun extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Deck Gun";
+    this.name = "Deck Guns";
     this.m_name = "甲板炮";
     this.type = "artillery";
     this.description = "artillery";

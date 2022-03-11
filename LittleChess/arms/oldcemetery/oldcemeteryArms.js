@@ -4,10 +4,10 @@ export class DarkSoldier extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Dark Soldier";
+    this.name = "Dark Soldiers";
     this.m_name = "黑暗战士";
     this.type = "infantry";
-    this.description = "infantry / resist-charging";
+    this.description = "infantry [resist-charging]";
     this.m_description = "近战步兵【抵御冲锋】";
 
     this.scale = 120;
@@ -27,10 +27,10 @@ export class DarkSoldierScythe extends DarkSoldier {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Dark Soldier (Scythe)";
+    this.name = "Dark Soldiers (Scythe)";
     this.m_name = "黑暗战士-巨镰";
     this.type = "infantry";
-    this.description = "infantry / anti-large";
+    this.description = "infantry [anti-large]";
     this.m_description = "近战步兵【反大型】";
 
     this.chargeArmor = 20;
@@ -56,10 +56,10 @@ export class DarkSoldierSS extends DarkSoldierScythe {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Dark Soldier (Scythe, Shield)";
+    this.name = "Dark Soldiers (Scythe, Shield)";
     this.m_name = "黑暗战士-巨镰-持盾";
     this.type = "infantry";
-    this.description = "shield-infantry / anti-large";
+    this.description = "shield-infantry [anti-large]";
     this.m_description = "持盾-近战步兵【反大型】";
 
     this.missileArmor = 30;
@@ -72,10 +72,10 @@ export class Banshee extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Banshee";
+    this.name = "Banshees";
     this.m_name = "女妖";
     this.type = "infantry";
-    this.description = "infantry / high-dodge / shocking";
+    this.description = "infantry [high-dodge, shocking]";
     this.m_description = "近战步兵【高闪避，惊骇敌军】";
 
     this.scale = 120;
@@ -96,10 +96,10 @@ export class ScreamingBanshee extends Banshee {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Screaming Banshee";
+    this.name = "Screaming Banshees";
     this.m_name = "尖啸女妖";
     this.type = "infantry";
-    this.description = "charge-infantry / high-dodge / shocking";
+    this.description = "charge-infantry [high-dodge, shocking]";
     this.m_description = "冲杀-近战步兵【高闪避，惊骇敌军】";
 
     this.chargeAttack = 40;
@@ -113,10 +113,10 @@ export class ScreamingBansheeGF extends Banshee {
     this.missileColor = "blue";
     this.missileWeight = 4;
 
-    this.name = "Banshee (Ghost Fire)";
+    this.name = "Banshees (Ghost Fire)";
     this.m_name = "女妖-鬼火";
     this.type = "archers";
-    this.description = "melee-archers / high-dodge / anti-infantry / shocking";
+    this.description = "melee-archers [high-dodge, anti-infantry, shocking]";
     this.m_description = "近战-远程步兵【高闪避，反步兵，惊骇敌军】";
 
     this.scale = 90;
@@ -148,10 +148,10 @@ export class DeathKnight extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Death Knight";
+    this.name = "Death Knights";
     this.m_name = "死亡骑士";
     this.type = "cavalry";
-    this.description = "melee-cavalry / heavy-armor";
+    this.description = "melee-cavalry [heavy-armor]";
     this.m_description = "近战骑兵【重装甲】";
 
     this.scale = 50;
@@ -171,10 +171,10 @@ export class DeathKnightDS extends DeathKnight {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Death Knight (Double-Scythe)";
+    this.name = "Death Knights (Double-Scythe)";
     this.m_name = "死亡骑士-双镰";
     this.type = "cavalry";
-    this.description = "melee-cavalry / heavy-armor / high-damage";
+    this.description = "melee-cavalry [heavy-armor, high-damage]";
     this.m_description = "近战骑兵【重装甲，高伤害】";
 
     this.meleeAttack = 55;
@@ -187,10 +187,10 @@ export class BeetleRider extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Beetle Rider";
+    this.name = "Beetle Riders";
     this.m_name = "甲虫骑兵";
     this.type = "monster-infantry";
-    this.description = "monster-cavlary / heavy-armor / anti-infantry";
+    this.description = "monster-cavlary [heavy-armor, anti-infantry]";
     this.m_description = "怪兽骑兵【重装甲，反步兵】";
 
     this.scale = 30;
@@ -224,10 +224,10 @@ export class FireBeetleRider extends BeetleRider {
     this.missileColor = "red";
     this.missileWeight = 4;
 
-    this.name = "Fire Beetle Rider";
+    this.name = "Fire Beetle Riders";
     this.m_name = "火甲虫骑兵";
     this.type = "monster-infantry";
-    this.description = "monster-cavlary / heavy-armor / missile-attack";
+    this.description = "monster-cavlary [heavy-armor, missile-attack]";
     this.m_description = "怪兽骑兵【重装甲，远程攻击】";
 
     this.meleeAttack_bonus = 0;
@@ -254,10 +254,10 @@ export class BeetleChargeRider extends BeetleRider {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Beetle Charge Rider";
+    this.name = "Beetle Charge Riders";
     this.m_name = "甲虫冲击骑兵";
     this.type = "monster-infantry";
-    this.description = "monster-charge-cavlary / heavy-armor / anti-infantry";
+    this.description = "monster-charge-cavlary [heavy-armor, anti-infantry]";
     this.m_description = "怪兽冲杀骑兵【重装甲，反步兵】";
 
     this.speed = 4;
@@ -317,7 +317,7 @@ export class SpiritCoffinBB extends SpiritCoffinGF {
     this.name = "Spirit Coffin (Broken Bones)";
     this.m_name = "灵棺-碎骨";
     this.type = "monster";
-    this.description = "bombing-mech / large-bombing-radius";
+    this.description = "bombing-mech [large-bombing-radius]";
     this.m_description = "轰炸机甲【大轰炸半径】";
 
     this.missileAttack = 1100;

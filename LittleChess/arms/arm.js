@@ -150,10 +150,6 @@ export class Arm {
     switch (damageType) {
       case "melee":
         singleDamage = this.c_meleeAttack;
-        if (this.type === "monster-infantry" && targetArm.isInfn())
-          singleDamage *= 1.3;
-        else if (this.type === "monster" && targetArm.isInfn())
-          singleDamage *= 1.6;
         break;
 
       case "missile":
@@ -173,10 +169,6 @@ export class Arm {
 
       case "charge":
         singleDamage = this.c_chargeAttack;
-        if (this.type === "monster-infantry" && targetArm.isInfn())
-          singleDamage *= 1.3;
-        else if (this.type === "monster" && targetArm.isInfn())
-          singleDamage *= 1.6;
         break;
 
       default:
@@ -377,6 +369,13 @@ export class Arm {
       if (targetArm.c_scale <= targetArm.scale * 0.2) singleDamage *= 0.6;
     }
 
+    if (damageType === "melee" || damageType === "charge") {
+      if (this.type === "monster-infantry" && targetArm.isInfn())
+        singleDamage *= 1.3;
+      else if (this.type === "monster" && targetArm.isInfn())
+        singleDamage *= 1.6;
+    }
+
     return Math.round(singleDamage * validScale);
   }
 
@@ -386,6 +385,11 @@ export class Arm {
     let validScale = this._getValidScale();
     if (this.type === "infantry" && targetArm.type === "infantry")
       singleDamage = Math.round(singleDamage / 2);
+
+    if (this.type === "monster-infantry" && targetArm.isInfn())
+      singleDamage *= 1.3;
+    else if (this.type === "monster" && targetArm.isInfn()) singleDamage *= 1.6;
+
     return Math.round(singleDamage * validScale);
   }
 

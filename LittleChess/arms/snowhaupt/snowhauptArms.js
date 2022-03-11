@@ -4,7 +4,7 @@ export class DwarfWarrior extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Dwarf Warrior";
+    this.name = "Dwarf Warriors";
     this.m_name = "矮人勇士";
     this.type = "infantry";
     this.description = "shield-infantry";
@@ -28,10 +28,10 @@ export class BoneBreaker extends DwarfWarrior {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Bone Breaker";
+    this.name = "Bone Breakers";
     this.m_name = "碎骨者";
     this.type = "infantry";
-    this.description = "infantry / anti-large";
+    this.description = "infantry [anti-large]";
     this.m_description = "近战步兵【反大型】";
 
     this.missileArmor = 0;
@@ -57,10 +57,10 @@ export class Berserker extends DwarfWarrior {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Berserker";
+    this.name = "Berserkers";
     this.m_name = "狂战士";
     this.type = "infantry";
-    this.description = "infantry / high-damage";
+    this.description = "infantry [high-damage]";
     this.m_description = "近战步兵【高伤害】";
 
     this.meleeArmor = 0;
@@ -77,10 +77,10 @@ export class DrawfKingsGuard extends DwarfWarrior {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Drawf King's Guard";
+    this.name = "Drawf King's Guards";
     this.m_name = "矮人王禁卫";
     this.type = "infantry";
-    this.description = "armor-infantry / anti-large";
+    this.description = "armor-infantry [anti-large]";
     this.m_description = "装甲-近战步兵【反大型】";
 
     this.meleeArmor = 60;
@@ -109,10 +109,10 @@ export class MountainShocker extends ArmPrimary.Arm {
     this.missileColor = "yellow";
     this.missileWeight = 4;
 
-    this.name = "Mountain Shocker";
+    this.name = "Mountain Shockers";
     this.m_name = "震山矿工";
     this.type = "infantry";
-    this.description = "giant-shield-infantry / high-missile-damage";
+    this.description = "giant-shield-infantry [high-missile-damage]";
     this.m_description = "巨盾步兵【高远程伤害】";
 
     this.scale = 100;
@@ -136,10 +136,10 @@ export class DwarfMusketeer extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Dwarf Musketeer";
+    this.name = "Dwarf Musketeers";
     this.m_name = "矮人火枪手";
     this.type = "archers";
-    this.description = "shield-archers / anti-armor";
+    this.description = "shield-archers [anti-armor]";
     this.m_description = "持盾-远程步兵【高破甲】";
 
     this.scale = 80;
@@ -170,7 +170,7 @@ export class MortarSquad extends ArmPrimary.Arm {
     this.name = "Mortar Squad";
     this.m_name = "迫击炮小组";
     this.type = "archers";
-    this.description = "shield-archers / high-damage";
+    this.description = "shield-archers [high-damage]";
     this.m_description = "持盾-远程步兵【高伤害】";
 
     this.scale = 80;
@@ -220,7 +220,7 @@ export class GoatCavalryTA extends GoatCavalry {
     this.name = "Goat Cavalry (Throw Axe)";
     this.m_name = "山羊骑兵-飞斧";
     this.type = "cavalry";
-    this.description = "charging-cavalry / missile-attack";
+    this.description = "charging-cavalry [missile-attack]";
     this.m_description = "冲击骑兵【远程攻击】";
 
     this.missileAttack = 40;
@@ -238,10 +238,10 @@ export class RevolvingCannon extends ArmPrimary.Arm {
     this.missileColor = "yellow";
     this.missileWeight = 3;
 
-    this.name = "Revolving Cannon";
+    this.name = "Revolving Cannons";
     this.m_name = "转轮炮";
     this.type = "artillery";
-    this.description = "artillery / anti-large";
+    this.description = "artillery [anti-large]";
     this.m_description = "炮兵【反大型】";
 
     this.scale = 10;
@@ -281,10 +281,10 @@ export class FireDragonGun extends ArmPrimary.Arm {
     this.missileColor = "red";
     this.missileWeight = 7;
 
-    this.name = "Fire Dragon Gun";
+    this.name = "Fire Dragon Guns";
     this.m_name = "火龙炮";
     this.type = "artillery";
-    this.description = "artillery / anti-infantry / short-range";
+    this.description = "artillery [anti-infantry, short-range]";
     this.m_description = "炮兵【反步兵，近程】";
 
     this.scale = 10;
@@ -315,7 +315,7 @@ export class DrawfMortar extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Drawf Mortar";
+    this.name = "Drawf Mortars";
     this.m_name = "矮人臼炮";
     this.type = "artillery";
     this.description = "bombing-artillery";
@@ -338,7 +338,7 @@ export class GiantCannon extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Giant Mortar";
+    this.name = "Giant Mortars";
     this.m_name = "巨型臼炮";
     this.type = "monster";
     this.description = "bombing-artillery";

@@ -7,7 +7,7 @@ export class SwordInfantry extends ArmPrimary.Arm {
     this.name = "Empire Infantry";
     this.m_name = "帝国步兵";
     this.type = "infantry";
-    this.description = "infantry / anti-infantry";
+    this.description = "infantry [anti-infantry]";
     this.m_description = "近战步兵【反步兵】";
 
     this.scale = 100;
@@ -38,7 +38,7 @@ export class SwordInfantryShield extends SwordInfantry {
     this.name = "Empire Infantry (Shield)";
     this.m_name = "帝国步兵-持盾";
     this.type = "infantry";
-    this.description = "shield-infantry / anti-infantry";
+    this.description = "shield-infantry [anti-infantry]";
     this.m_description = "持盾-近战步兵【反步兵】";
 
     this.missileArmor = 30;
@@ -51,10 +51,10 @@ export class PalaceGuard extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Empire Guard";
+    this.name = "Empire Guards";
     this.m_name = "帝国守卫";
     this.type = "infantry";
-    this.description = "infantry / resist-charging / anti-large";
+    this.description = "infantry [resist-charging, anti-large]";
     this.m_description = "近战步兵【抵御冲锋，反大型】";
 
     this.scale = 100;
@@ -84,10 +84,10 @@ export class PalaceGuardShield extends PalaceGuard {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Empire Guard (Shield)";
+    this.name = "Empire Guards (Shield)";
     this.m_name = "帝国守卫-持盾";
     this.type = "infantry";
-    this.description = "shield-infantry / resist-charging / anti-large";
+    this.description = "shield-infantry [resist-charging, anti-large]";
     this.m_description = "持盾-近战步兵【抵御冲锋，反大型】";
 
     this.missileArmor = 30;
@@ -100,10 +100,10 @@ export class Musketeer extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Musketeer";
+    this.name = "Musketeers";
     this.m_name = "火枪手";
     this.type = "archers";
-    this.description = "archers / anti-armor";
+    this.description = "archers [anti-armor]";
     this.m_description = "远程步兵【高破甲】";
 
     this.scale = 80;
@@ -128,10 +128,10 @@ export class MusketeerShield extends Musketeer {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Musketeer (Shield)";
+    this.name = "Musketeers (Shield)";
     this.m_name = "火枪手-持盾";
     this.type = "archers";
-    this.description = "shield-archers / anti-armor";
+    this.description = "shield-archers [anti-armor]";
     this.m_description = "持盾-远程步兵【高破甲】";
 
     this.missileArmor = 30;
@@ -144,10 +144,10 @@ export class MusketRider extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Musket Rider";
+    this.name = "Musket Riders";
     this.m_name = "火枪骑兵";
     this.type = "cavalry";
-    this.description = "missile-cavalry / anti-armor";
+    this.description = "missile-cavalry [anti-armor]";
     this.m_description = "远程骑兵【高破甲】";
 
     this.scale = 50;
@@ -174,10 +174,10 @@ export class Vanguard extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Vanguard";
+    this.name = "Vanguards";
     this.m_name = "先锋骑兵";
     this.type = "cavalry";
-    this.description = "charging-cavalry / anti-armor";
+    this.description = "charging-cavalry [anti-armor]";
     this.m_description = "冲击骑兵【高破甲】";
 
     this.scale = 50;
@@ -204,10 +204,10 @@ export class PalaceKnight extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Palace Knight";
+    this.name = "Palace Knights";
     this.m_name = "大殿骑士";
     this.type = "cavalry";
-    this.description = "melee-cavalry / heavy-armor / anti-infantry";
+    this.description = "melee-cavalry [heavy-armor, anti-infantry]";
     this.m_description = "近战骑兵【重装甲，反步兵】";
 
     this.scale = 50;
@@ -267,7 +267,7 @@ export class EmpireMortar extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Empire Mortar";
+    this.name = "Empire Mortars";
     this.m_name = "帝国臼炮";
     this.type = "artillery";
     this.description = "bombing-artillery";
@@ -295,7 +295,7 @@ export class SteamTank extends ArmPrimary.Arm {
     this.name = "Steam Tank";
     this.m_name = "蒸汽坦克";
     this.type = "monster";
-    this.description = "mech / heavy-armor / missile-attack";
+    this.description = "mech [heavy-armor, missile-attack]";
     this.m_description = "机甲【重装甲，远程攻击】";
 
     this.scale = 1;
@@ -330,7 +330,7 @@ export class SteamTankMortar extends SteamTank {
     this.name = "Steam Tank (Mortar)";
     this.m_name = "蒸汽坦克-臼炮";
     this.type = "monster";
-    this.description = "bombing-mech / heavy-armor / missile-attack";
+    this.description = "bombing-mech [heavy-armor, missile-attack]";
     this.m_description = "轰炸机甲【重装甲，远程攻击】";
 
     this.missileAttack = 900;
