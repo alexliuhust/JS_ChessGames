@@ -1,6 +1,5 @@
 import { Canvas } from "../tools.js";
 import { calculateDistance } from "../actions/actionTools.js";
-import { SelectPieceColor as SPC } from "../const.js";
 
 export class MissileEffect {
   constructor(attacker, defender, _cxt) {
@@ -12,7 +11,7 @@ export class MissileEffect {
     this.time = 0;
     this.isAlive = true;
 
-    this.speed = 10.0;
+    this.speed = 9.0;
     this.len = 3;
     this.totalDistance = calculateDistance(this.x1, this.y1, this.x2, this.y2);
     this.cos = Math.abs(this.x1 - this.x2) / this.totalDistance;
@@ -22,7 +21,7 @@ export class MissileEffect {
     this.maxTime = this.totalDistance / this.speed;
 
     this.bias = [];
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < 20; i++) {
       let bias = Math.floor(Math.random() * 50 - 25);
       if (Math.abs(bias - 0) < 5) {
         i--;
@@ -54,12 +53,18 @@ export class MissileEffect {
       let Dx = this.dx * this.len;
       let Dy = this.dy * this.len;
 
-      for (let i = 0; i < 6; i++)
+      let maxNum = attacker.missileWeight <= 3 ? 10 : 6;
+      let num = maxNum;
+      if (attacker.scale > 1) {
+        num = Math.min(maxNum, attacker.c_scale);
+      }
+
+      for (let i = 0; i < num; i++)
         this.drawLine(
           x + this.bias[i],
-          y + this.bias[i + 6],
+          y + this.bias[i + num],
           x + this.bias[i] + Dx,
-          y + this.bias[i + 6] + Dy
+          y + this.bias[i + num] + Dy
         );
     };
   }
