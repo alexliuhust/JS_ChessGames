@@ -1,8 +1,9 @@
 import * as AttackActions from "./actions/attack.js";
 import * as MoveActions from "./actions/move.js";
-import { Canvas, Rect, CreateRect } from "./tools.js";
 import * as OpDraw from "./prompts/operationDrawings.js";
 import * as InfoDraw from "./prompts/infoDrawings.js";
+import { Canvas, Rect, CreateRect } from "./tools.js";
+import { moveAligned } from "./actions/moveAligned.js";
 import {
   GameWidth as W,
   GameHeight as H,
@@ -11,7 +12,6 @@ import {
   ReadyToAttackColor as RTA,
   DirectMap,
 } from "./const.js";
-import { moveAligned } from "./actions/moveAligned.js";
 
 export class Player {
   constructor(color, _canvaslist, _useMandarin) {
@@ -36,10 +36,17 @@ export class Player {
 
     this.operatedPieces = new Set();
     this.operableNum = 0;
+    this.maxOperations = 0;
 
     this.addPieces = function (pc1, pc2) {
       this.pieceList = pc1;
       this.enemyList = pc2;
+    };
+
+    this.refresh = function () {
+      this.maxOperations = Math.floor(
+        Math.sqrt((this.pieceList.length + this.enemyList.length) * 2)
+      );
     };
 
     // =================================================================================
@@ -85,11 +92,8 @@ export class Player {
     };
 
     this.checkAndDisableArms = function () {
-      let max = Math.floor(
-        Math.sqrt((this.pieceList.length + this.enemyList.length) * 2)
-      );
-      this.operableNum = max - this.operatedPieces.size;
-      if (this.operatedPieces.size >= max) {
+      this.operableNum = this.maxOperations - this.operatedPieces.size;
+      if (this.operatedPieces.size >= this.maxOperations) {
         for (let i = 0; i < this.pieceList.length; i++) {
           if (!this.operatedPieces.has(this.pieceList[i]))
             this.pieceList[i].optOut();

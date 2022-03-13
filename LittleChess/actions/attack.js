@@ -182,7 +182,7 @@ function decreaseBombingVictims(
 
       // Defender decrease leadership
       defender.c_leadership -= regularLeadershipDrop(defender, results[0]);
-      defender.c_leadership -= 50 + attacker.getShockingAbility();
+      defender.c_leadership -= 75 + attacker.getShockingAbility();
       if (defender.c_leadership < 0) defender.c_leadership = 0;
 
       if (!defender.isAlive) {

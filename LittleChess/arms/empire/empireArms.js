@@ -328,6 +328,7 @@ export class SteamTank extends ArmPrimary.Arm {
 export class SteamTankMortar extends SteamTank {
   constructor(value, player) {
     super(value, player);
+    this.missileColor = null;
 
     this.name = "Steam Tank (Mortar)";
     this.m_name = "蒸汽坦克-臼炮";

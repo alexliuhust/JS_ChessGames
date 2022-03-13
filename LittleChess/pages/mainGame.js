@@ -61,13 +61,15 @@ let endRoundForBlue = document.getElementById("endRoundForBlue");
 let endRoundForRed = document.getElementById("endRoundForRed");
 function refreshRound() {
   player1.operatedPieces.clear();
+  player1.refresh();
   let endMyRound = player1.currentRound !== 1 && !player1.isMyRound;
   for (let i = 0; i < player1.pieceList.length; i++) {
     player1.pieceList[i].roundRefresh(player1.currentRound, endMyRound);
   }
 
-  endMyRound = player2.currentRound !== 1 && !player2.isMyRound;
   player2.operatedPieces.clear();
+  player2.refresh();
+  endMyRound = player2.currentRound !== 1 && !player2.isMyRound;
   for (let i = 0; i < player2.pieceList.length; i++) {
     player2.pieceList[i].roundRefresh(player2.currentRound, endMyRound);
   }

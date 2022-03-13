@@ -85,7 +85,7 @@ export const Canvas = {
   // Draw a piece
   drawPiece: function (cxt, arm, gc) {
     // Draw arm flag
-    this.drawImg(cxt, arm.img, arm.x, arm.y);
+    this.drawImg(cxt, arm.img, 0, 0, 50, 50, arm.x, arm.y, 50, 50);
     // Draw stripe color
     this.drawLine(cxt, arm.x + 2, arm.y + 8, arm.x + 2, arm.y + 46, gc, 5);
     this.drawLine(cxt, arm.x + 48, arm.y + 8, arm.x + 48, arm.y + 46, gc, 5);

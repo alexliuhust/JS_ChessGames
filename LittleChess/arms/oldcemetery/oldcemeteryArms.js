@@ -152,8 +152,8 @@ export class DeathKnight extends ArmPrimary.Arm {
     this.name = "Death Knights";
     this.m_name = "死亡骑士";
     this.type = "cavalry";
-    this.description = "melee-cavalry [heavy-armor]";
-    this.m_description = "近战骑兵【重装甲】";
+    this.description = "melee-cavalry [heavy-armor, anti-large]";
+    this.m_description = "近战骑兵【重装甲，反大型】";
 
     this.scale = 50;
     this.singleHP = 140;
@@ -163,8 +163,19 @@ export class DeathKnight extends ArmPrimary.Arm {
     this.chargeArmor = 20;
 
     this.meleeAttack = 30;
+    this.meleeAttack_bonus = 35;
 
     this.loadRealtimeProps();
+  }
+
+  _getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+      if (targetArm.isLarge()) singleDamage += this.meleeAttack_bonus;
+    }
+
+    return singleDamage;
   }
 }
 
@@ -175,10 +186,11 @@ export class DeathKnightDS extends DeathKnight {
     this.name = "Death Knights (Double-Scythe)";
     this.m_name = "死亡骑士-双镰";
     this.type = "cavalry";
-    this.description = "melee-cavalry [heavy-armor, high-damage]";
-    this.m_description = "近战骑兵【重装甲，高伤害】";
+    this.description = "melee-cavalry [heavy-armor, anti-large, high-damage]";
+    this.m_description = "近战骑兵【重装甲，反大型，高伤害】";
 
     this.meleeAttack = 55;
+    this.meleeAttack_bonus = 45;
 
     this.loadRealtimeProps();
   }
