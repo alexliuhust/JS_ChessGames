@@ -1,4 +1,4 @@
-import { exportPower, getArmsAndImages } from "./arms/exportArm.js";
+import { exportPower, getArmsAndImages } from "../arms/exportArm.js";
 import {
   PowerMap,
   M_PowerMap,
@@ -9,7 +9,7 @@ import {
   DInfoHeight as DIH,
 } from "./const.js";
 import { Canvas, Rect } from "./tools.js";
-import { drawInfoForSelectedPiece } from "./prompts/infoDrawings.js";
+import { drawInfoForSelectedPiece } from "../prompts/infoDrawings.js";
 
 const maxX = Math.floor(DW / 50);
 const maxY = Math.floor(DH / 50);

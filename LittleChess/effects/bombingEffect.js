@@ -1,6 +1,6 @@
-import { Canvas } from "../tools.js";
+import { Canvas } from "../common/tools.js";
 import { calculateDistance } from "../actions/actionTools.js";
-import { MissileColor as MC } from "../const.js";
+import { MissileColor as MC } from "../common/const.js";
 
 export class BombingEffect {
   constructor(attacker, center, _cxt) {

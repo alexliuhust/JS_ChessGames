@@ -1,5 +1,5 @@
-import { Canvas, Rect } from "../tools.js";
-import { BannerWidth as BW, BannerHeight as BH } from "../const.js";
+import { Canvas } from "../common/tools.js";
+import { BannerWidth as BW, BannerHeight as BH } from "../common/const.js";
 
 export function drawBannerInfo(cxt, player1, player2, useMandarin) {
   drawText(cxt, player1, player2, useMandarin);

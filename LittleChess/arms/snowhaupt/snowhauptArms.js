@@ -1,5 +1,5 @@
 import * as ArmPrimary from "../arm.js";
-import { MissileColor as MC } from "../../const.js";
+import { MissileColor as MC } from "../../common/const.js";
 
 export class DwarfWarrior extends ArmPrimary.Arm {
   constructor(value, player) {

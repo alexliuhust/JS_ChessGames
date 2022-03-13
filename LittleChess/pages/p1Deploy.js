@@ -1,4 +1,4 @@
-import { Deploy } from "../deployMethods.js";
+import { Deploy } from "../common/deployMethods.js";
 
 const canvasList = {
   map: document.getElementById("map").getContext("2d"),

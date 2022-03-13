@@ -1,5 +1,5 @@
-import { Canvas } from "../tools.js";
-import { ReadyToAttackColor as RC } from "../const.js";
+import { Canvas } from "../common/tools.js";
+import { ReadyToAttackColor as RC } from "../common/const.js";
 
 export class ChargeEffect {
   constructor(attacker, defender, _cxt) {

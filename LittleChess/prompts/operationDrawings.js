@@ -1,12 +1,11 @@
-import { Canvas, Rect } from "../tools.js";
-import * as ArmPrimary from "../arms/arm.js";
+import { Canvas, Rect } from "../common/tools.js";
 import { calculateDistance, areAligned } from "../actions/actionTools.js";
 import {
   GameWidth as W,
   GameHeight as H,
   SelectPieceColor,
   ReadyToAttackColor,
-} from "../const.js";
+} from "../common/const.js";
 
 const maxX = Math.floor(W / 50);
 const maxY = Math.floor(H / 50);

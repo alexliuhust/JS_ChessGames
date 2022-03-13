@@ -1,11 +1,10 @@
-import { Canvas } from "../tools.js";
-import * as ArmPrimary from "../arms/arm.js";
+import { Canvas } from "../common/tools.js";
 import {
   HpColor as HC,
   AmmoColor as AC,
   LeadColor as DC,
   ExpColor as EC,
-} from "../const.js";
+} from "../common/const.js";
 
 const leftX = 10;
 const BGC = "grey";

@@ -1,4 +1,4 @@
-import { GameWidth, GameHeight } from "../const.js";
+import { GameWidth, GameHeight } from "../common/const.js";
 
 const maxX = GameWidth / 50;
 const maxY = GameHeight / 50;

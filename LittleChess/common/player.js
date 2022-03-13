@@ -1,9 +1,9 @@
-import * as AttackActions from "./actions/attack.js";
-import * as MoveActions from "./actions/move.js";
-import * as OpDraw from "./prompts/operationDrawings.js";
-import * as InfoDraw from "./prompts/infoDrawings.js";
+import * as AttackActions from "../actions/attack.js";
+import * as MoveActions from "../actions/move.js";
+import * as OpDraw from "../prompts/operationDrawings.js";
+import * as InfoDraw from "../prompts/infoDrawings.js";
 import { Canvas, Rect, CreateRect } from "./tools.js";
-import { moveAligned } from "./actions/moveAligned.js";
+import { moveAligned } from "../actions/moveAligned.js";
 import {
   GameWidth as W,
   GameHeight as H,

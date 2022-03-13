@@ -1,5 +1,3 @@
-import * as ArmPrimary from "../arms/arm.js";
-
 export function moveToPosition(mover, toPosition, blockers) {
   let distance =
     Math.abs(mover.positionX - toPosition[0]) +

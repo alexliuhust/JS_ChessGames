@@ -1,5 +1,5 @@
-import { Player } from "../player.js";
-import { Canvas } from "../tools.js";
+import { Player } from "../common/player.js";
+import { Canvas } from "../common/tools.js";
 import {
   GameWidth as W,
   GameHeight as H,
@@ -7,9 +7,9 @@ import {
   InfoHeight as IH,
   BannerWidth as BW,
   BannerHeight as BH,
-} from "../const.js";
+} from "../common/const.js";
 import * as BannerDraw from "../prompts/bannerDrawings.js";
-import { decodeArmPositionInfo } from "../deployMethods.js";
+import { decodeArmPositionInfo } from "../common/deployMethods.js";
 import { getArmsAndImages } from "../arms/exportArm.js";
 
 // ===============================================================

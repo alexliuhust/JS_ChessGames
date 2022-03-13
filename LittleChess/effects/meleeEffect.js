@@ -1,4 +1,4 @@
-import { Canvas } from "../tools.js";
+import { Canvas } from "../common/tools.js";
 
 export class MeleeEffect {
   constructor(_x, _y, _cxt) {

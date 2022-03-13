@@ -1,4 +1,4 @@
-import { PowerMap, M_PowerMap, PowerList } from "./const.js";
+import { PowerMap, M_PowerMap, PowerList } from "./common/const.js";
 
 let powersForPlayer1 = document.getElementById("powersForPlayer1");
 let powersForPlayer2 = document.getElementById("powersForPlayer2");

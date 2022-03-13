@@ -1,4 +1,4 @@
-import { Canvas } from "../tools.js";
+import { Canvas } from "../common/tools.js";
 import { calculateCost, calculateLeaderShip } from "./armTools.js";
 import { triggerAutoAttack } from "../actions/autoAttack.js";
 

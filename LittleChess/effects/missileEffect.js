@@ -1,4 +1,4 @@
-import { Canvas } from "../tools.js";
+import { Canvas } from "../common/tools.js";
 import { calculateDistance } from "../actions/actionTools.js";
 
 export class MissileEffect {
