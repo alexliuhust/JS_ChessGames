@@ -144,6 +144,7 @@ function decreaseBombingVictims(
   centerPosition
 ) {
   let decreaseScore = 0;
+
   for (let i = 0; i < defenders.length; i++) {
     let defender = defenders[i];
     if (defender === attacker) continue;
@@ -157,7 +158,7 @@ function decreaseBombingVictims(
 
     if (distance <= attacker.c_missileRadius) {
       // Get the total raw damage for attacker
-      let att_totalRowDamage = attacker.getRawTotalDamage(damageType, defender);
+      let att_totalRowDamage = attacker.getRawTotalDamage(damageType, null);
       if (distance === 1) {
         att_totalRowDamage = Math.ceil(att_totalRowDamage * 0.7);
       } else if (distance > 1) {
