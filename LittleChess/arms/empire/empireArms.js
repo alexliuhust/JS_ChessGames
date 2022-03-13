@@ -67,6 +67,7 @@ export class PalaceGuard extends ArmPrimary.Arm {
     this.meleeAttack = 20;
     this.meleeAttack_bonus = 28;
 
+    this.antiArmor = 20;
     this.loadRealtimeProps();
   }
 

@@ -84,7 +84,7 @@ export class Banshee extends ArmPrimary.Arm {
     this.speed = 6;
 
     this.meleeDodge = 40;
-    this.missileDodge = 90;
+    this.missileDodge = 60;
 
     this.meleeAttack = 30;
 

@@ -92,7 +92,8 @@ export class WildKillerPS extends WildKiller {
     this.description = "infantry [melee-master, shocking, anti-non-armor]";
     this.m_description = "近战步兵【近战大师，惊骇敌军，反无甲】";
 
-    this.chargeAttack_bonus = 35;
+    this.meleeAttack_bonus = 70;
+    this.chargeAttack_bonus = 70;
 
     this.loadRealtimeProps();
   }
@@ -102,14 +103,17 @@ export class WildKillerPS extends WildKiller {
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
       if (targetArm.isInfn()) {
-        singleDamage += this.meleeAttack_bonus;
+        singleDamage += this.meleeAttack_bonus / 2;
         if (targetArm.c_meleeArmor === 0)
-          singleDamage += this.meleeAttack_bonus;
+          singleDamage += this.meleeAttack_bonus / 2;
       }
     } else if (damageType === "charge") {
       singleDamage = this.c_chargeAttack;
-      if (targetArm.c_chargeArmor === 0)
-        singleDamage += this.chargeAttack_bonus;
+      if (targetArm.isInfn()) {
+        singleDamage += this.meleeAttack_bonus / 2;
+        if (targetArm.c_meleeArmor === 0)
+          singleDamage += this.meleeAttack_bonus / 2;
+      }
     }
 
     return singleDamage;

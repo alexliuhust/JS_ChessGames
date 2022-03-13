@@ -336,7 +336,7 @@ export class Arm {
     this.hasAttacked = false;
     this.showSpeed = false;
 
-    if (currentRound > 5) {
+    if (currentRound > 10) {
       this.c_leadership -= Math.ceil(currentRound / 3);
     }
     if (this.c_leadership < 0) this.c_leadership = 0;
