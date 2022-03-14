@@ -150,8 +150,28 @@ export class Deploy {
 
     this.drawMap = function () {
       for (let i = 0; i < maxX; i++) {
-        for (let j = 0; j < maxY; j++) {
-          Canvas.drawRect(this.canvasList.map, i * 50, j * 50, 50, 50, "black");
+        if (i % 2 === 0) {
+          for (let j = 0; j < maxY; j += 2) {
+            Canvas.drawRect(
+              this.canvasList.map,
+              i * 50,
+              j * 50,
+              50,
+              50,
+              "black"
+            );
+          }
+        } else {
+          for (let j = 1; j < maxY; j += 2) {
+            Canvas.drawRect(
+              this.canvasList.map,
+              i * 50,
+              j * 50,
+              50,
+              50,
+              "black"
+            );
+          }
         }
       }
       let y1 = 250;

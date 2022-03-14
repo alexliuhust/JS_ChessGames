@@ -183,6 +183,10 @@ export class Arm {
     let armor = 0;
     let dodge = 0;
 
+    if (this.speed >= 4) {
+      dodge += (speed - 3) * 6;
+    }
+
     if (attacker.type === "artillery" || damageType === "bombing") {
       armor = 0;
       dodge = 0;
