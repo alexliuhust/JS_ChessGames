@@ -62,6 +62,11 @@ function heal(healer, pieces) {
     lowestPiece.c_scale += recovered;
     lowestPiece.c_scale = Math.min(lowestPiece.c_scale, lowestPiece.scale);
   }
+  lowestPiece.c_leadership += Math.round(totalHealing / 10);
+  lowestPiece.c_leadership = Math.min(
+    lowestPiece.c_leadership,
+    lowestPiece.leadership
+  );
 
   return true;
 }

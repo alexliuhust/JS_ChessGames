@@ -40,6 +40,10 @@ export function calculateCost(arm) {
   let monstInfScore = arm.type === "monster-infantry" ? 150 : 0;
   typeScore += artilleryScore + monsterScore + monstInfScore;
 
+  // Healing score
+  let healingScore = (arm.healing * arm._getValidScale()) / 10;
+  healingScore += (arm.healRange * 10 + arm.totalHeal) / 3;
+
   // Final cost
   let cost =
     hpScore +
@@ -47,7 +51,8 @@ export function calculateCost(arm) {
     defendenceScore +
     attackScore +
     antiArmorScore +
-    typeScore;
+    typeScore +
+    healingScore;
   cost = Math.pow(cost, 0.8) * 2.5;
   cost = Math.round(cost / 10) * 10;
 
