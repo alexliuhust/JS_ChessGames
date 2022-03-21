@@ -3,6 +3,7 @@ import {
   AmmoColor as AC,
   LeadColor as DC,
   LevelColor as LC,
+  HealColor as EC,
 } from "./const.js";
 
 // ======================================================================
@@ -99,15 +100,20 @@ export const Canvas = {
       this.drawLine(cxt, x1, y1, x2, y2, LC, 4);
     }
     // Draw HP, ammo, and leaddership bars
-    let hlen, alen, llen;
+    let hlen, alen, llen, elen;
     if (arm.scale === 1) hlen = (50 * arm.c_singleHP) / arm.singleHP;
     else hlen = (50 * arm.c_scale) / arm.scale;
     if (arm.ammo === -1) alen = 0;
     else alen = (50 * arm.c_ammo) / arm.ammo;
     llen = (50 * arm.c_leadership) / arm.leadership;
+    elen = (50 * arm.c_totalHeal) / arm.totalHeal;
     this.drawLine(cxt, arm.x, arm.y + 2, arm.x + hlen, arm.y + 2, HC, 4);
     this.drawLine(cxt, arm.x, arm.y + 6, arm.x + llen, arm.y + 6, DC, 4);
     this.drawLine(cxt, arm.x, arm.y + 48, arm.x + alen, arm.y + 48, AC, 4);
+    let ey = arm.y + 48;
+    if (alen != 0) ey -= 4;
+    this.drawLine(cxt, arm.x, ey, arm.x + elen, ey, EC, 4);
+
     // Draw operablility mark
     if (!arm.operable) {
       let x_s = arm.x + 33;

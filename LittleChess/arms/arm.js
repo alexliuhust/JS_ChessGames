@@ -1,6 +1,7 @@
 import { Canvas } from "../common/tools.js";
 import { calculateCost, calculateLeaderShip } from "./armTools.js";
 import { triggerAutoAttack } from "../actions/autoAttack.js";
+import { triggerHealing } from "../actions/heal.js";
 
 export const DamageTypes = ["melee", "missile", "charge", "bombing", "magic"];
 export const ArmTypes = [
@@ -76,6 +77,10 @@ export class Arm {
     this.shock = 0;
     this.ammo = -1;
 
+    this.healing = 0;
+    this.healRange = 0;
+    this.totalHeal = 0;
+
     // Load real-time properties for battle
     this.loadRealtimeProps = function () {
       this.img = document.getElementById(`${this.constructor.name}_img`);
@@ -113,6 +118,8 @@ export class Arm {
         else this.ammo = 18;
       }
       this.c_ammo = this.ammo;
+
+      this.c_totalHeal = this.totalHeal;
 
       // Calculate the cost according to the battle properties
       let costResults = calculateCost(this);
@@ -184,7 +191,7 @@ export class Arm {
     let dodge = 0;
 
     if (this.speed >= 4) {
-      dodge += (speed - 3) * 6;
+      dodge += (this.speed - 3) * 6;
     }
 
     if (attacker.type === "artillery" || damageType === "bombing") {
@@ -333,6 +340,11 @@ export class Arm {
     if (endMyRound) {
       triggerAutoAttack(this, this.player.enemyList);
     }
+    let healed = triggerHealing(this, this.player.pieceList);
+    if (!healed) {
+      this.c_totalHeal += Math.round(this.healing / 2);
+      if (this.c_totalHeal > this.totalHeal) this.c_totalHeal = this.totalHeal;
+    }
 
     this.operable = true;
     this.c_speed = this.speed;
@@ -407,7 +419,7 @@ export class Arm {
   }
 
   decreaseScale(attacker, damageType, antiArmor, rawTotalDamage) {
-    console.log(this.name, "rawTotalDamage", rawTotalDamage);
+    // console.log(this.name, "rawTotalDamage", rawTotalDamage);
 
     let damagePercentage = this._getDamagePercentage(
       attacker,
@@ -417,7 +429,7 @@ export class Arm {
     let realDamage = Math.ceil(rawTotalDamage * damagePercentage);
     let decreaseScore = 0;
 
-    console.log(this.name, "realDamage", realDamage);
+    // console.log(this.name, "realDamage", realDamage);
 
     // If this arm is a single-unit
     if (this.scale === 1) {

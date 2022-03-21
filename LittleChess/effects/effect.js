@@ -2,6 +2,7 @@ import { MeleeEffect } from "./meleeEffect.js";
 import { ChargeEffect } from "./chargeEffect.js";
 import { MissileEffect } from "./missileEffect.js";
 import { BombingEffect } from "./bombingEffect.js";
+import { HealEffect } from "./healEffect.js";
 
 export function addEffect(list, damageType, attacker, defender, cxt) {
   if (damageType === "melee") {
@@ -20,5 +21,9 @@ export function addEffect(list, damageType, attacker, defender, cxt) {
     let effect = new BombingEffect(attacker, defender, cxt);
     list.push(effect);
     return effect.flyingTime + Math.round(effect.bombingTime / 2);
+  } else if (damageType === "healing") {
+    let effect = new HealEffect(defender.x, defender.y, cxt);
+    list.push(effect);
+    return 0;
   }
 }

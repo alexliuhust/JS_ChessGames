@@ -223,6 +223,9 @@ export class PalaceKnight extends ArmPrimary.Arm {
     this.meleeAttack = 60;
     this.meleeAttack_bonus = 30;
 
+    this.healing = 10;
+    this.healRange = 3;
+    this.totalHeal = 50;
     this.loadRealtimeProps();
   }
 
