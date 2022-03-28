@@ -297,6 +297,23 @@ export class RhinoTrooper extends ArmPrimary.Arm {
   }
 }
 
+export class RhinoShaman extends RhinoTrooper {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Rhino Shaman";
+    this.m_name = "犀牛骑兵-萨满";
+    this.type = "cavalry";
+    this.description = "charging-cavalry [anti-armor, healing]";
+    this.m_description = "冲击骑兵【高破甲，萨满】";
+
+    this.healing = 20;
+    this.healRange = 3;
+    this.totalHeal = 80;
+    this.loadRealtimeProps();
+  }
+}
+
 export class RhinoTrooperBallista extends RhinoTrooper {
   constructor(value, player) {
     super(value, player);
@@ -357,12 +374,13 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 4) return new WolfCavalry(pos, player);
   if (i === 5) return new WolfCavalryTS(pos, player);
   if (i === 6) return new RhinoTrooper(pos, player);
-  if (i === 7) return new RhinoTrooperBallista(pos, player);
-  if (i === 8) return new Tauren(pos, player);
-  if (i === 9) return new TaurenLog(pos, player);
-  if (i === 10) return new TaurenGA(pos, player);
-  if (i === 11) return new TaurenBerserker(pos, player);
-  if (i === 12) return new Minotaur(pos, player);
+  if (i === 7) return new RhinoShaman(pos, player);
+  if (i === 8) return new RhinoTrooperBallista(pos, player);
+  if (i === 9) return new Tauren(pos, player);
+  if (i === 10) return new TaurenLog(pos, player);
+  if (i === 11) return new TaurenGA(pos, player);
+  if (i === 12) return new TaurenBerserker(pos, player);
+  if (i === 13) return new Minotaur(pos, player);
 
   return null;
 }

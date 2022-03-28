@@ -322,6 +322,27 @@ export class SpiritCoffinGF extends ArmPrimary.Arm {
   }
 }
 
+export class SpiritCoffinDG extends SpiritCoffinGF {
+  constructor(value, player) {
+    super(value, player);
+    this.missileColor = MC.GhostColor;
+
+    this.name = "Spirit Coffin (Death Spirits)";
+    this.m_name = "灵棺-死灵";
+    this.type = "monster";
+    this.description = "bombing-mech [healing]";
+    this.m_description = "轰炸机甲【治疗】";
+
+    this.missileAttack = 700;
+    this.ammo = 8;
+
+    this.healing = 12;
+    this.healRange = 4;
+    this.totalHeal = 70;
+    this.loadRealtimeProps();
+  }
+}
+
 export class SpiritCoffinBB extends SpiritCoffinGF {
   constructor(value, player) {
     super(value, player);
@@ -354,8 +375,9 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 8) return new BeetleRider(pos, player);
   if (i === 9) return new FireBeetleRider(pos, player);
   if (i === 10) return new BeetleChargeRider(pos, player);
-  if (i === 11) return new SpiritCoffinGF(pos, player);
-  if (i === 12) return new SpiritCoffinBB(pos, player);
+  if (i === 11) return new SpiritCoffinDG(pos, player);
+  if (i === 12) return new SpiritCoffinGF(pos, player);
+  if (i === 13) return new SpiritCoffinBB(pos, player);
 
   return null;
 }

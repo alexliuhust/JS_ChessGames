@@ -50,6 +50,9 @@ function heal(healer, pieces) {
   let list = healer.player.effectList;
   addEffect(list, "healing", healer, lowestPiece, cxt);
   let totalHealing = healer.healing * healer._getValidScale();
+  if (healer._getValidScale() == 1) {
+    totalHealing = healer.healing * 50;
+  }
 
   if (lowestPiece.scale === 1) {
     lowestPiece.c_singleHP += totalHealing;

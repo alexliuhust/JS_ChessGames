@@ -370,6 +370,9 @@ export class GiantTreeman extends ArmPrimary.Arm {
 
     this.meleeAttack = 800;
 
+    this.healing = 8;
+    this.healRange = 4;
+    this.totalHeal = 60;
     this.loadRealtimeProps();
   }
 }
