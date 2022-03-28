@@ -222,10 +222,6 @@ export class PalaceKnight extends ArmPrimary.Arm {
 
     this.meleeAttack = 60;
     this.meleeAttack_bonus = 30;
-
-    this.healing = 10;
-    this.healRange = 3;
-    this.totalHeal = 50;
     this.loadRealtimeProps();
   }
 
@@ -237,6 +233,23 @@ export class PalaceKnight extends ArmPrimary.Arm {
     }
 
     return singleDamage;
+  }
+}
+
+export class Paladin extends PalaceKnight {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Paladin";
+    this.m_name = "圣骑士";
+    this.type = "cavalry";
+    this.description = "melee-cavalry [heavy-armor, anti-infantry, healing]";
+    this.m_description = "近战骑兵【重装甲，反步兵, 治疗】";
+
+    this.healing = 10;
+    this.healRange = 3;
+    this.totalHeal = 50;
+    this.loadRealtimeProps();
   }
 }
 
@@ -362,10 +375,11 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 6) return new MusketRider(pos, player);
   if (i === 7) return new Vanguard(pos, player);
   if (i === 8) return new PalaceKnight(pos, player);
-  if (i === 9) return new SteamTank(pos, player);
-  if (i === 10) return new SteamTankMortar(pos, player);
-  if (i === 11) return new CannonGroup(pos, player);
-  if (i === 12) return new EmpireMortar(pos, player);
+  if (i === 9) return new Paladin(pos, player);
+  if (i === 10) return new SteamTank(pos, player);
+  if (i === 11) return new SteamTankMortar(pos, player);
+  if (i === 12) return new CannonGroup(pos, player);
+  if (i === 13) return new EmpireMortar(pos, player);
 
   return null;
 }

@@ -339,11 +339,12 @@ export class Arm {
   roundRefresh(currentRound, endMyRound) {
     if (endMyRound) {
       triggerAutoAttack(this, this.player.enemyList);
-    }
-    let healed = triggerHealing(this, this.player.pieceList);
-    if (!healed) {
-      this.c_totalHeal += Math.round(this.healing / 2);
-      if (this.c_totalHeal > this.totalHeal) this.c_totalHeal = this.totalHeal;
+      let healed = triggerHealing(this, this.player.pieceList);
+      if (!healed) {
+        this.c_totalHeal += Math.round(this.healing / 2);
+        if (this.c_totalHeal > this.totalHeal)
+          this.c_totalHeal = this.totalHeal;
+      }
     }
 
     this.operable = true;

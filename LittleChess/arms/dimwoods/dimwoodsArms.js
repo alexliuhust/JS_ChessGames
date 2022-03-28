@@ -287,6 +287,23 @@ export class Dryad extends ArmPrimary.Arm {
   }
 }
 
+export class DryadHeal extends Dryad {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Dryad (Healing)";
+    this.m_name = "树精-治疗";
+    this.type = "monster-infantry";
+    this.description = "monster-infantry [heavy-armor, healing]";
+    this.m_description = "怪兽步兵【重装甲, 治疗】";
+
+    this.healing = 10;
+    this.healRange = 3;
+    this.totalHeal = 100;
+    this.loadRealtimeProps();
+  }
+}
+
 export class DryadRangerRide extends Dryad {
   constructor(value, player) {
     super(value, player);
@@ -369,9 +386,10 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 7) return new LongbowRanger(pos, player);
   if (i === 8) return new WarBear(pos, player);
   if (i === 9) return new Dryad(pos, player);
-  if (i === 10) return new DryadRangerRide(pos, player);
-  if (i === 11) return new DryadStone(pos, player);
-  if (i === 12) return new GiantTreeman(pos, player);
+  if (i === 10) return new DryadHeal(pos, player);
+  if (i === 11) return new DryadRangerRide(pos, player);
+  if (i === 12) return new DryadStone(pos, player);
+  if (i === 13) return new GiantTreeman(pos, player);
 
   return null;
 }
