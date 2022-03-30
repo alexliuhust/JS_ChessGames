@@ -45,7 +45,8 @@ export function calculateCost(arm) {
   healingScore += (arm.healRange * 10 + arm.totalHeal) / 3;
 
   // Enhance socre
-  let enhanceScore = arm.armorEnhance + arm.attackEnhance;
+  let enhanceScore =
+    (arm.armorEnhance + arm.attackEnhance + arm.enhanceRange * 10) / 2;
 
   // Final cost
   let cost =

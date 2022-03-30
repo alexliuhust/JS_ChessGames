@@ -60,18 +60,14 @@ export class FlameHerald extends HallwayGuard {
 
     this.meleeArmor = 40;
     this.missileArmor = 30;
-    this.chargeArmor = 40;
 
     this.meleeAttack = 30;
 
     this.antiArmor = 40;
-    this.armorEnhance = 30;
+    // this.armorEnhance = 30;
+    this.attackEnhance = 30;
+    this.enhanceRange = 2;
     this.loadRealtimeProps();
-  }
-
-  getAntiArmor(damageType, targetArm) {
-    if (damageType === "melee") return this.antiArmor;
-    return 0;
   }
 }
 
