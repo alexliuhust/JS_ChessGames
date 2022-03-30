@@ -81,6 +81,9 @@ export class Arm {
     this.healRange = 0;
     this.totalHeal = 0;
 
+    this.armorEnhance = 0;
+    this.attackEnhance = 0;
+
     // Load real-time properties for battle
     this.loadRealtimeProps = function () {
       this.img = document.getElementById(`${this.constructor.name}_img`);

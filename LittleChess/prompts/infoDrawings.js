@@ -126,6 +126,8 @@ function drawCombatData(cxt, piece, useMandarin) {
   if (piece.isBombing || piece.type === "artillery")
     antiArmorText = `Anti-armor: *Ignore any type of armor`;
   let healText = `Healing: ${piece.c_totalHeal} / ${piece.totalHeal}`;
+  let arEnhText = `Armor Enhancing: ${piece.armorEnhance}%`;
+  let atEnhText = `Attack Enhancing: ${piece.attackEnhance}%`;
 
   if (useMandarin) {
     speedText = `速度:     ${piece.c_speed}`;
@@ -138,6 +140,8 @@ function drawCombatData(cxt, piece, useMandarin) {
     if (piece.isBombing || piece.type === "artillery")
       antiArmorText = `破甲: *无视所有类型护甲`;
     healText = `治疗量: ${piece.c_totalHeal} / ${piece.totalHeal}`;
+    arEnhText = `护甲增强: ${piece.armorEnhance}%`;
+    atEnhText = `伤害增强: ${piece.attackEnhance}%`;
   }
 
   let color = piece.c_speed === 0 ? "red" : "white";
@@ -161,6 +165,10 @@ function drawCombatData(cxt, piece, useMandarin) {
   Canvas.drawText(cxt, antiArmorText, leftX, textY, color, fontSize);
   if (piece.healing > 0)
     Canvas.drawText(cxt, healText, leftX + 300, textY, color, fontSize);
+  else if (piece.armorEnhance > 0)
+    Canvas.drawText(cxt, arEnhText, leftX + 300, textY, color, fontSize);
+  else if (piece.attackEnhance > 0)
+    Canvas.drawText(cxt, atEnhText, leftX + 300, textY, color, fontSize);
 }
 
 function drawStatus(cxt, piece, useMandarin) {

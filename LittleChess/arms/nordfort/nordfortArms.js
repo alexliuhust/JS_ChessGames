@@ -46,6 +46,35 @@ export class HallwayGuardShield extends HallwayGuard {
   }
 }
 
+export class FlameHerald extends HallwayGuard {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Flame Herald";
+    this.m_name = "烈焰先锋";
+    this.type = "infantry";
+    this.description = "infantry [resist-charging, anti-armor]";
+    this.m_description = "近战步兵【抵御冲锋，高破甲】";
+
+    this.speed = 3;
+
+    this.meleeArmor = 40;
+    this.missileArmor = 30;
+    this.chargeArmor = 40;
+
+    this.meleeAttack = 30;
+
+    this.antiArmor = 40;
+    this.armorEnhance = 30;
+    this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee") return this.antiArmor;
+    return 0;
+  }
+}
+
 export class NordExecutioner extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
@@ -335,16 +364,17 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 0) return new HallwayGuard(pos, player);
   if (i === 1) return new HallwayGuardShield(pos, player);
   if (i === 2) return new NordExecutioner(pos, player);
-  if (i === 3) return new CoastDefender(pos, player);
-  if (i === 4) return new CoastDefenderShield(pos, player);
-  if (i === 5) return new BallistaSquad(pos, player);
-  if (i === 6) return new FlameKnight(pos, player);
-  if (i === 7) return new FlameKnightShield(pos, player);
-  if (i === 8) return new CoralCavalry(pos, player);
-  if (i === 9) return new StoneGiant(pos, player);
-  if (i === 10) return new StoneGiantFlame(pos, player);
-  if (i === 11) return new GiantBallista(pos, player);
-  if (i === 12) return new GiantBallistaShrapnel(pos, player);
+  if (i === 3) return new FlameHerald(pos, player);
+  if (i === 4) return new CoastDefender(pos, player);
+  if (i === 5) return new CoastDefenderShield(pos, player);
+  if (i === 6) return new BallistaSquad(pos, player);
+  if (i === 7) return new FlameKnight(pos, player);
+  if (i === 8) return new FlameKnightShield(pos, player);
+  if (i === 9) return new CoralCavalry(pos, player);
+  if (i === 10) return new StoneGiant(pos, player);
+  if (i === 11) return new StoneGiantFlame(pos, player);
+  if (i === 12) return new GiantBallista(pos, player);
+  if (i === 13) return new GiantBallistaShrapnel(pos, player);
 
   return null;
 }
