@@ -138,8 +138,8 @@ export class MurlocWarriorHurling extends MurlocWarrior {
     this.missileColor = MC.ATColor;
     this.missileWeight = 5;
 
-    this.name = "Murloc Warriors (Hurling)";
-    this.m_name = "鱼人战士-投戟";
+    this.name = "Murloc Hurler";
+    this.m_name = "鱼人投戟手";
     this.type = "infantry";
     this.description = "hurling-infantry [anti-armor]";
     this.m_description = "投掷-近战步兵【高破甲】";
@@ -154,6 +154,26 @@ export class MurlocWarriorHurling extends MurlocWarrior {
 
   getAntiArmor(damageType, targetArm) {
     return this.antiArmor;
+  }
+}
+
+export class MurlocElite extends MurlocWarrior {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Murloc Elites";
+    this.m_name = "鱼人精英";
+    this.type = "infantry";
+    this.description = "infantry [anti-armor, protector]";
+    this.m_description = "近战步兵【高破甲，护卫者】";
+
+    this.singleHP = 130;
+
+    this.meleeAttack = 80;
+
+    this.armorEnhance = 30;
+    this.enhanceRange = 2;
+    this.loadRealtimeProps();
   }
 }
 
@@ -237,8 +257,8 @@ export class Cancrimag extends ArmPrimary.Arm {
     this.name = "Cancrimagnus";
     this.m_name = "巨蟹";
     this.type = "monster";
-    this.description = "giant [heavy-armor, shocking]";
-    this.m_description = "巨兽【重装甲，惊骇敌军】";
+    this.description = "giant [heavy-armor, shocking, inspirator]";
+    this.m_description = "巨兽【重装甲，惊骇敌军，鼓舞者】";
 
     this.scale = 1;
     this.singleHP = 9000;
@@ -251,6 +271,9 @@ export class Cancrimag extends ArmPrimary.Arm {
     this.meleeAttack = 600;
 
     this.shock = 70;
+
+    this.inspiring = 8;
+    this.inspireRange = 3;
     this.loadRealtimeProps();
   }
 }
@@ -262,8 +285,9 @@ export class CancrimagMusket extends Cancrimag {
     this.name = "Cancrimagnus (Musket)";
     this.m_name = "巨蟹-火枪";
     this.type = "monster";
-    this.description = "giant [heavy-armor, missile-attack, shocking]";
-    this.m_description = "巨兽【重装甲，远程攻击，惊骇敌军】";
+    this.description =
+      "giant [heavy-armor, missile-attack, shocking, inspirator]";
+    this.m_description = "巨兽【重装甲，远程攻击，惊骇敌军，鼓舞者】";
 
     this.missileAttack = 720;
     this.missileRange = 6;
@@ -309,13 +333,14 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 3) return new Pisciculi(pos, player);
   if (i === 4) return new PisciculiDoubleBlades(pos, player);
   if (i === 5) return new MurlocWarrior(pos, player);
-  if (i === 6) return new MurlocWarriorHurling(pos, player);
-  if (i === 7) return new Medusa(pos, player);
-  if (i === 8) return new MedusaTrident(pos, player);
-  if (i === 9) return new MedusaMB(pos, player);
-  if (i === 10) return new Cancrimag(pos, player);
-  if (i === 11) return new CancrimagMusket(pos, player);
-  if (i === 12) return new DeckGun(pos, player);
+  if (i === 6) return new MurlocElite(pos, player);
+  if (i === 7) return new MurlocWarriorHurling(pos, player);
+  if (i === 8) return new Medusa(pos, player);
+  if (i === 9) return new MedusaTrident(pos, player);
+  if (i === 10) return new MedusaMB(pos, player);
+  if (i === 11) return new Cancrimag(pos, player);
+  if (i === 12) return new CancrimagMusket(pos, player);
+  if (i === 13) return new DeckGun(pos, player);
 
   return null;
 }

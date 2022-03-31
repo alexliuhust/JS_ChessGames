@@ -24,9 +24,13 @@ function inspire(inspirator, pieces) {
     );
     if (distance > inspirator.inspireRange) continue;
 
-    let totalInspiring = Math.round(
-      (inspirator.inspiring * inspirator._getValidScale()) / 5
-    );
+    let totalInspiring = 0;
+    if (inspirator.scale === 1)
+      totalInspiring = Math.round((inspirator.inspiring * 30) / 5);
+    else
+      totalInspiring = Math.round(
+        (inspirator.inspiring * inspirator._getValidScale()) / 5
+      );
 
     if (piece.c_leadership < piece.leadership)
       addEffect(list, "inspiring", inspirator, piece, cxt);
