@@ -8,8 +8,8 @@ export class SwordInfantry extends ArmPrimary.Arm {
     this.name = "Empire Infantry";
     this.m_name = "帝国步兵";
     this.type = "infantry";
-    this.description = "infantry [anti-infantry]";
-    this.m_description = "近战步兵【反步兵】";
+    this.description = "infantry [anti-infantry, rouser]";
+    this.m_description = "近战步兵【反步兵，激励者】";
 
     this.scale = 100;
     this.singleHP = 50;
@@ -18,6 +18,8 @@ export class SwordInfantry extends ArmPrimary.Arm {
     this.meleeAttack = 24;
     this.meleeAttack_bonus = 24;
 
+    this.attackEnhance = 20;
+    this.enhanceRange = 1;
     this.loadRealtimeProps();
   }
 
@@ -39,8 +41,8 @@ export class SwordInfantryShield extends SwordInfantry {
     this.name = "Empire Infantry (Shield)";
     this.m_name = "帝国步兵-持盾";
     this.type = "infantry";
-    this.description = "shield-infantry [anti-infantry]";
-    this.m_description = "持盾-近战步兵【反步兵】";
+    this.description = "shield-infantry [anti-infantry, rouser]";
+    this.m_description = "持盾-近战步兵【反步兵，激励者】";
 
     this.missileArmor = 30;
 

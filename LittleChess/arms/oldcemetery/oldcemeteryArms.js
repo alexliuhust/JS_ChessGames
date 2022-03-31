@@ -60,11 +60,13 @@ export class DarkSoldierSS extends DarkSoldierScythe {
     this.name = "Dark Soldiers (Scythe, Shield)";
     this.m_name = "黑暗战士-巨镰-持盾";
     this.type = "infantry";
-    this.description = "shield-infantry [anti-large]";
-    this.m_description = "持盾-近战步兵【反大型】";
+    this.description = "shield-infantry [anti-large, protector]";
+    this.m_description = "持盾-近战步兵【反大型，护卫者】";
 
     this.missileArmor = 30;
 
+    this.armorEnhance = 30;
+    this.enhanceRange = 2;
     this.loadRealtimeProps();
   }
 }

@@ -196,7 +196,7 @@ export class FireDragonSquad extends ArmPrimary.Arm {
     this.name = "Fire Dragon Squad";
     this.m_name = "火龙小组";
     this.type = "archers";
-    this.description = "shield-archers [high-damage, inspiring]";
+    this.description = "shield-archers [high-damage, inspirator]";
     this.m_description = "持盾-远程步兵【高伤害，鼓舞者】";
 
     this.scale = 80;

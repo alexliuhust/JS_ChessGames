@@ -207,8 +207,8 @@ export class TaurenBerserker extends Tauren {
     this.name = "Tauren Berserkers";
     this.m_name = "牛头人狂战士";
     this.type = "monster-infantry";
-    this.description = "monster-infantry [fast]";
-    this.m_description = "怪兽步兵【迅捷如风】";
+    this.description = "monster-infantry [fast, inspirator]";
+    this.m_description = "怪兽步兵【迅捷如风，鼓舞者】";
 
     this.speed = 6;
 
@@ -216,6 +216,9 @@ export class TaurenBerserker extends Tauren {
     this.chargeAttack = 50;
 
     this.antiArmor = 16;
+
+    this.inspiring = 10;
+    this.inspireRange = 3;
     this.loadRealtimeProps();
   }
 

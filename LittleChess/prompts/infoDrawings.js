@@ -127,8 +127,8 @@ function drawCombatData(cxt, piece, useMandarin) {
     antiArmorText = `Anti-armor: *Ignore any type of armor`;
   let healText = `Healing: ${piece.c_totalHeal} / ${piece.totalHeal}`;
   let inspText = `Inspiring: ${piece.inspiring}`;
-  let arEnhText = `Armor Enhancing: ${piece.armorEnhance}%`;
-  let atEnhText = `Attack Enhancing: ${piece.attackEnhance}%`;
+  let arEnhText = `Armor Enhance: ${piece.armorEnhance}%`;
+  let atEnhText = `Attack Enhance: ${piece.attackEnhance}%`;
 
   if (useMandarin) {
     speedText = `速度:     ${piece.c_speed}`;
@@ -165,19 +165,22 @@ function drawCombatData(cxt, piece, useMandarin) {
   }
   textY += 40;
   Canvas.drawText(cxt, antiArmorText, leftX, textY, color, fontSize);
-  if (piece.healing > 0)
-    Canvas.drawText(cxt, healText, leftX + 250, textY, color, fontSize);
+  textY -= 20;
+  if (piece.healing > 0) {
+    textY += 20;
+    Canvas.drawText(cxt, healText, leftX + 320, textY, color, fontSize);
+  }
   if (piece.inspiring > 0) {
     textY += 20;
-    Canvas.drawText(cxt, inspText, leftX + 250, textY, color, fontSize);
+    Canvas.drawText(cxt, inspText, leftX + 320, textY, color, fontSize);
   }
   if (piece.armorEnhance > 0) {
     textY += 20;
-    Canvas.drawText(cxt, arEnhText, leftX + 250, textY, color, fontSize);
+    Canvas.drawText(cxt, arEnhText, leftX + 320, textY, color, fontSize);
   }
   if (piece.attackEnhance > 0) {
     textY += 20;
-    Canvas.drawText(cxt, atEnhText, leftX + 250, textY, color, fontSize);
+    Canvas.drawText(cxt, atEnhText, leftX + 320, textY, color, fontSize);
   }
 }
 

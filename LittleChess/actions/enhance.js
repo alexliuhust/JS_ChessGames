@@ -20,6 +20,7 @@ function accumulateEnhancement(self, pieces, isArmor) {
     if (piece === self) continue;
     if (isArmor && piece.armorEnhance === 0) continue;
     if (!isArmor && piece.attackEnhance === 0) continue;
+
     let distance = calculateDistance(
       self.positionX,
       self.positionY,

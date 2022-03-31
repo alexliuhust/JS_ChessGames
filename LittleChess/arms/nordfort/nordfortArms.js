@@ -53,7 +53,7 @@ export class FlameHerald extends HallwayGuard {
     this.name = "Flame Herald";
     this.m_name = "烈焰先锋";
     this.type = "infantry";
-    this.description = "infantry [resist-charging, anti-armor, inspiring]";
+    this.description = "infantry [resist-charging, anti-armor, inspirator]";
     this.m_description = "近战步兵【抵御冲锋，高破甲，鼓舞者】";
 
     this.speed = 3;
@@ -345,12 +345,14 @@ export class StoneGiantFlame extends StoneGiant {
     this.name = "Nord Stone Titan (Flame)";
     this.m_name = "诺德火焰巨石人";
     this.type = "monster";
-    this.description = "giant [anti-infantry, high-damage]";
-    this.m_description = "巨兽【反步兵，高伤害】";
+    this.description = "giant [anti-infantry, high-damage, rouser]";
+    this.m_description = "巨兽【反步兵，高伤害，激励者】";
 
     this.meleeAttack = 700;
     this.meleeAttack_bonus = 800;
 
+    this.attackEnhance = 60;
+    this.enhanceRange = 4;
     this.loadRealtimeProps();
   }
 }
