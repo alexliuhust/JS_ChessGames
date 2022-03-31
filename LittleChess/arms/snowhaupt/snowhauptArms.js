@@ -187,6 +187,45 @@ export class MortarSquad extends ArmPrimary.Arm {
   }
 }
 
+export class FireDragonSquad extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Fire Dragon Squad";
+    this.m_name = "火龙小组";
+    this.type = "archers";
+    this.description = "shield-archers [high-damage, inspiring]";
+    this.m_description = "持盾-远程步兵【高伤害，鼓舞者】";
+
+    this.scale = 80;
+    this.singleHP = 60;
+    this.speed = 2;
+
+    this.meleeArmor = 50;
+    this.missileArmor = 30;
+
+    this.meleeAttack = 24;
+    this.missileAttack = 50;
+    this.missileAttack_bonus = 30;
+    this.missileRange = 3;
+
+    this.inspiring = 10;
+    this.inspireRange = 3;
+    this.loadRealtimeProps();
+  }
+
+  _getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (damageType === "missile" && this.c_ammo > 0) {
+      singleDamage = this.c_missileAttack;
+      if (targetArm.isInfn()) singleDamage += this.missileAttack_bonus;
+      this.c_ammo--;
+    }
+
+    return singleDamage;
+  }
+}
+
 export class GoatCavalry extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
@@ -366,12 +405,13 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 4) return new MountainShocker(pos, player);
   if (i === 5) return new DwarfMusketeer(pos, player);
   if (i === 6) return new MortarSquad(pos, player);
-  if (i === 7) return new GoatCavalry(pos, player);
-  if (i === 8) return new GoatCavalryTA(pos, player);
-  if (i === 9) return new RevolvingCannon(pos, player);
-  if (i === 10) return new FireDragonGun(pos, player);
-  if (i === 11) return new DrawfMortar(pos, player);
-  if (i === 12) return new GiantCannon(pos, player);
+  if (i === 7) return new FireDragonSquad(pos, player);
+  if (i === 8) return new GoatCavalry(pos, player);
+  if (i === 9) return new GoatCavalryTA(pos, player);
+  if (i === 10) return new RevolvingCannon(pos, player);
+  if (i === 11) return new FireDragonGun(pos, player);
+  if (i === 12) return new DrawfMortar(pos, player);
+  if (i === 13) return new GiantCannon(pos, player);
 
   return null;
 }
