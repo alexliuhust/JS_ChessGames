@@ -338,7 +338,7 @@ export class SpiritCoffinDG extends SpiritCoffinGF {
 
     this.healing = 12;
     this.healRange = 4;
-    this.totalHeal = 70;
+    this.totalHeal = 150;
     this.loadRealtimeProps();
   }
 }

@@ -299,7 +299,7 @@ export class DryadHeal extends Dryad {
 
     this.healing = 10;
     this.healRange = 3;
-    this.totalHeal = 100;
+    this.totalHeal = 200;
     this.loadRealtimeProps();
   }
 }
@@ -372,7 +372,7 @@ export class GiantTreeman extends ArmPrimary.Arm {
 
     this.healing = 8;
     this.healRange = 4;
-    this.totalHeal = 60;
+    this.totalHeal = 120;
     this.loadRealtimeProps();
   }
 }

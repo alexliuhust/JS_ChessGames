@@ -113,8 +113,8 @@ export class MountainShocker extends ArmPrimary.Arm {
     this.name = "Mountain Shockers";
     this.m_name = "震山矿工";
     this.type = "infantry";
-    this.description = "giant-shield-infantry [high-missile-damage]";
-    this.m_description = "巨盾步兵【高远程伤害】";
+    this.description = "giant-shield-infantry [high-missile-damage, protecter]";
+    this.m_description = "巨盾步兵【高远程伤害，护卫者】";
 
     this.scale = 100;
     this.singleHP = 60;
@@ -127,6 +127,8 @@ export class MountainShocker extends ArmPrimary.Arm {
     this.missileRange = 3;
 
     this.ammo = 3;
+    this.armorEnhance = 30;
+    this.enhanceRange = 3;
     this.loadRealtimeProps();
   }
 }

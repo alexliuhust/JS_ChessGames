@@ -42,7 +42,7 @@ export function calculateCost(arm) {
 
   // Healing score
   let healingScore = (arm.healing * arm._getValidScale()) / 10;
-  healingScore += (arm.healRange * 10 + arm.totalHeal) / 3;
+  healingScore += (arm.healRange * 10 + arm.totalHeal / 2) / 3;
 
   // Inspiring score
   let inspiringScore = (arm.inspiring * arm._getValidScale()) / 2 / 10;

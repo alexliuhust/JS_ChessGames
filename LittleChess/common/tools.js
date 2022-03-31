@@ -113,7 +113,6 @@ export const Canvas = {
     let ey = arm.y + 48;
     if (alen != 0) ey -= 4;
     this.drawLine(cxt, arm.x, ey, arm.x + elen, ey, EC, 4);
-
     // Draw operablility mark
     if (!arm.operable) {
       let x_s = arm.x + 33;

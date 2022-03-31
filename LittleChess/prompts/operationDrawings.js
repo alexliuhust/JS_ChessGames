@@ -18,6 +18,7 @@ const dir = [
 
 export function drawSelectionRect(cxt, piece, color) {
   Canvas.drawRect(cxt, piece.x - 7, piece.y - 7, 64, 64, color, 3);
+  hightlightExtrabilityRange(cxt, piece);
 }
 
 export function drawAvailableDestinations(cxt, self, others) {
@@ -216,6 +217,26 @@ function hightlightMissleTarget(cxt, self, posX, posY, color) {
   Canvas.drawArc(cxt, x, y, radius - 7, color);
   Canvas.drawLine(cxt, x + radius, y, x - radius, y, color, 3);
   Canvas.drawLine(cxt, x, y + radius, x, y - radius, color, 3);
+}
+
+function hightlightExtrabilityRange(cxt, self) {
+  let color = null;
+  let range = 0;
+  if (self.healRange > 0) {
+    color = "rgb(180, 200, 170)";
+    range = self.healRange * 50 + 17;
+    Canvas.drawArc(cxt, self.x + 25, self.y + 25, range, color, 1);
+  }
+  if (self.inspireRange > 0) {
+    color = "rgb(160, 160, 250)";
+    range = self.inspireRange * 50 + 21;
+    Canvas.drawArc(cxt, self.x + 25, self.y + 25, range, color, 1);
+  }
+  if (self.armorEnhance > 0) {
+    color = "rgb(85, 155, 200)";
+    range = self.enhanceRange * 50 + 25;
+    Canvas.drawArc(cxt, self.x + 25, self.y + 25, range, color, 1);
+  }
 }
 
 function checkAvailablePosition(nx, ny, seenOthers) {
