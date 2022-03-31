@@ -3,7 +3,10 @@ import { calculateCost, calculateLeaderShip } from "./armTools.js";
 import { triggerAutoAttack } from "../actions/autoAttack.js";
 import { triggerHealing } from "../actions/heal.js";
 import { triggerInspiring } from "../actions/inspire.js";
-import { afterArmorEnhancement } from "../actions/enhance.js";
+import {
+  afterArmorEnhancement,
+  afterAttackEnhancement,
+} from "../actions/enhance.js";
 
 export const DamageTypes = ["melee", "missile", "charge", "bombing", "magic"];
 export const ArmTypes = [
@@ -413,7 +416,11 @@ export class Arm {
         singleDamage *= 1.6;
     }
 
-    return Math.round(singleDamage * validScale);
+    let output = singleDamage * validScale;
+    let enh = afterAttackEnhancement(this, this.player.pieceList);
+    output = Math.round((output * (100 + enh)) / 100);
+
+    return output;
   }
 
   getCounterAttackTotalDamage(damageType, targetArm) {

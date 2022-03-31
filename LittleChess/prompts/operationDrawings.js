@@ -237,6 +237,11 @@ function hightlightExtrabilityRange(cxt, self) {
     range = self.enhanceRange * 50 + 25;
     Canvas.drawArc(cxt, self.x + 25, self.y + 25, range, color, 1);
   }
+  if (self.attackEnhance > 0) {
+    color = "rgb(163, 100, 215)";
+    range = self.enhanceRange * 50 + 29;
+    Canvas.drawArc(cxt, self.x + 25, self.y + 25, range, color, 1);
+  }
 }
 
 function checkAvailablePosition(nx, ny, seenOthers) {

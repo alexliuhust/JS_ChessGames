@@ -167,12 +167,18 @@ function drawCombatData(cxt, piece, useMandarin) {
   Canvas.drawText(cxt, antiArmorText, leftX, textY, color, fontSize);
   if (piece.healing > 0)
     Canvas.drawText(cxt, healText, leftX + 250, textY, color, fontSize);
-  else if (piece.inspiring > 0)
+  if (piece.inspiring > 0) {
+    textY += 20;
     Canvas.drawText(cxt, inspText, leftX + 250, textY, color, fontSize);
-  else if (piece.armorEnhance > 0)
+  }
+  if (piece.armorEnhance > 0) {
+    textY += 20;
     Canvas.drawText(cxt, arEnhText, leftX + 250, textY, color, fontSize);
-  else if (piece.attackEnhance > 0)
+  }
+  if (piece.attackEnhance > 0) {
+    textY += 20;
     Canvas.drawText(cxt, atEnhText, leftX + 250, textY, color, fontSize);
+  }
 }
 
 function drawStatus(cxt, piece, useMandarin) {

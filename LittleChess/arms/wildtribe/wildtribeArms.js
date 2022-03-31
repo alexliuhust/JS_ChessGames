@@ -304,12 +304,15 @@ export class RhinoShaman extends RhinoTrooper {
     this.name = "Rhino Shaman";
     this.m_name = "犀牛骑兵-萨满";
     this.type = "cavalry";
-    this.description = "charging-cavalry [anti-armor, healing]";
-    this.m_description = "冲击骑兵【高破甲，萨满】";
+    this.description = "charging-cavalry [anti-armor, healer, rouser]";
+    this.m_description = "冲击骑兵【高破甲，治疗者，激励者】";
 
     this.healing = 20;
     this.healRange = 3;
-    this.totalHeal = 80;
+    this.totalHeal = 160;
+
+    this.attackEnhance = 50;
+    this.enhanceRange = 3;
     this.loadRealtimeProps();
   }
 }
