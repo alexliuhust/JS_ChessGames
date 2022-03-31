@@ -294,8 +294,8 @@ export class DryadHeal extends Dryad {
     this.name = "Dryad (Healing)";
     this.m_name = "树精-治疗";
     this.type = "monster-infantry";
-    this.description = "monster-infantry [heavy-armor, healing]";
-    this.m_description = "怪兽步兵【重装甲, 治疗】";
+    this.description = "monster-infantry [heavy-armor, healer]";
+    this.m_description = "怪兽步兵【重装甲, 治疗者】";
 
     this.healing = 10;
     this.healRange = 3;
@@ -357,8 +357,8 @@ export class GiantTreeman extends ArmPrimary.Arm {
     this.name = "Giant Treeman";
     this.m_name = "巨树人";
     this.type = "monster";
-    this.description = "giant [heavy-armor]";
-    this.m_description = "巨兽【重装甲】";
+    this.description = "giant [heavy-armor, healer]";
+    this.m_description = "巨兽【重装甲，治疗者】";
 
     this.scale = 1;
     this.singleHP = 8000;

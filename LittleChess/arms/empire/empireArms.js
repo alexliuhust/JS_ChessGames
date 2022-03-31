@@ -243,12 +243,11 @@ export class Paladin extends PalaceKnight {
     this.name = "Paladin";
     this.m_name = "圣骑士";
     this.type = "cavalry";
-    this.description = "melee-cavalry [heavy-armor, anti-infantry, healing]";
-    this.m_description = "近战骑兵【重装甲，反步兵, 治疗】";
+    this.description = "melee-cavalry [heavy-armor, anti-infantry, protector]";
+    this.m_description = "近战骑兵【重装甲，反步兵，护卫者】";
 
-    this.healing = 10;
-    this.healRange = 3;
-    this.totalHeal = 50;
+    this.armorEnhance = 40;
+    this.enhanceRange = 3;
     this.loadRealtimeProps();
   }
 }

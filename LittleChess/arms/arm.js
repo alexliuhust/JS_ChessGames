@@ -3,7 +3,7 @@ import { calculateCost, calculateLeaderShip } from "./armTools.js";
 import { triggerAutoAttack } from "../actions/autoAttack.js";
 import { triggerHealing } from "../actions/heal.js";
 import { triggerInspiring } from "../actions/inspire.js";
-// import { triggerEnhancing } from "../actions/enhance.js";
+import { afterArmorEnhancement } from "../actions/enhance.js";
 
 export const DamageTypes = ["melee", "missile", "charge", "bombing", "magic"];
 export const ArmTypes = [
@@ -86,13 +86,9 @@ export class Arm {
     this.inspiring = 0;
     this.inspireRange = 0;
 
-    // this.armorEnhance = 0;
-    // this.attackEnhance = 0;
-    // this.enhanceRange = 0;
-    // this.enhanceSet = new Set();
-
-    // this.meleeArToChange = 0;
-    // this.meleeAtToChange = 0;
+    this.armorEnhance = 0;
+    this.attackEnhance = 0;
+    this.enhanceRange = 0;
 
     // Load real-time properties for battle
     this.loadRealtimeProps = function () {
@@ -237,8 +233,9 @@ export class Arm {
     }
     armor = Math.max(armor, 0);
     dodge = Math.max(dodge, 0);
+    let enh = afterArmorEnhancement(this, this.player.pieceList);
 
-    let percentage = (100 - (armor + dodge)) / 100;
+    let percentage = (100 - (armor + dodge + enh)) / 100;
     if (percentage < 0.1) percentage = 0.1;
 
     return percentage;
@@ -356,9 +353,6 @@ export class Arm {
       healed = triggerHealing(this, this.player.pieceList);
       triggerInspiring(this, this.player.pieceList);
     }
-    // if (!endMyRound) {
-    //   triggerEnhancing(this, this.player.pieceList);
-    // }
     if (!healed) {
       this.c_totalHeal += Math.round(this.healing / 3);
       if (this.c_totalHeal > this.totalHeal) this.c_totalHeal = this.totalHeal;
@@ -385,19 +379,6 @@ export class Arm {
       this.optOut();
     }
   }
-
-  // enhance() {
-  //   // console.log(
-  //   //   "this.meleeArToChange",
-  //   //   this.meleeArToChange,
-  //   //   "this.meleeAtToChange",
-  //   //   this.meleeAtToChange
-  //   // );
-  //   this.c_meleeArmor += this.meleeArToChange;
-  //   this.c_meleeAttack += this.meleeAtToChange;
-  //   this.meleeArToChange = 0;
-  //   this.meleeAtToChange = 0;
-  // }
 
   getTotalHP() {
     return this.c_singleHP * this.c_scale;

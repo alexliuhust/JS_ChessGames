@@ -330,8 +330,8 @@ export class SpiritCoffinDG extends SpiritCoffinGF {
     this.name = "Spirit Coffin (Death Spirits)";
     this.m_name = "灵棺-死灵";
     this.type = "monster";
-    this.description = "bombing-mech [healing]";
-    this.m_description = "轰炸机甲【治疗】";
+    this.description = "bombing-mech [healer]";
+    this.m_description = "轰炸机甲【治疗者】";
 
     this.missileAttack = 700;
     this.ammo = 8;
