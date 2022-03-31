@@ -66,9 +66,9 @@ function refreshRound() {
   for (let i = 0; i < player1.pieceList.length; i++) {
     player1.pieceList[i].roundRefresh(player1.currentRound, endMyRound);
   }
-  for (let i = 0; i < player1.pieceList.length; i++) {
-    if (!endMyRound) player1.pieceList[i].enhance();
-  }
+  // for (let i = 0; i < player1.pieceList.length; i++) {
+  //   if (!endMyRound) player1.pieceList[i].enhance();
+  // }
 
   player2.operatedPieces.clear();
   player2.refresh();
@@ -76,9 +76,9 @@ function refreshRound() {
   for (let i = 0; i < player2.pieceList.length; i++) {
     player2.pieceList[i].roundRefresh(player2.currentRound, endMyRound);
   }
-  for (let i = 0; i < player2.pieceList.length; i++) {
-    if (!endMyRound) player2.pieceList[i].enhance();
-  }
+  // for (let i = 0; i < player2.pieceList.length; i++) {
+  //   if (!endMyRound) player2.pieceList[i].enhance();
+  // }
 }
 function endBlue() {
   endRoundForBlue.style.backgroundColor = "";

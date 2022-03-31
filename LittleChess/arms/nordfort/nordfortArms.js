@@ -53,8 +53,8 @@ export class FlameHerald extends HallwayGuard {
     this.name = "Flame Herald";
     this.m_name = "烈焰先锋";
     this.type = "infantry";
-    this.description = "infantry [resist-charging, anti-armor]";
-    this.m_description = "近战步兵【抵御冲锋，高破甲】";
+    this.description = "infantry [resist-charging, anti-armor, inspiring]";
+    this.m_description = "近战步兵【抵御冲锋，高破甲，鼓舞者】";
 
     this.speed = 3;
 
@@ -64,9 +64,9 @@ export class FlameHerald extends HallwayGuard {
     this.meleeAttack = 30;
 
     this.antiArmor = 40;
-    // this.armorEnhance = 30;
-    this.attackEnhance = 30;
-    this.enhanceRange = 2;
+
+    this.inspiring = 10;
+    this.inspireRange = 3;
     this.loadRealtimeProps();
   }
 }

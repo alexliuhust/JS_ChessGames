@@ -44,9 +44,13 @@ export function calculateCost(arm) {
   let healingScore = (arm.healing * arm._getValidScale()) / 10;
   healingScore += (arm.healRange * 10 + arm.totalHeal) / 3;
 
+  // Inspiring score
+  let inspiringScore = (arm.inspiring * arm._getValidScale()) / 2 / 10;
+  inspiringScore += (arm.inspireRange * 10) / 2;
+
   // Enhance socre
-  let enhanceScore =
-    (arm.armorEnhance + arm.attackEnhance + arm.enhanceRange * 10) / 2;
+  // let enhanceScore =
+  //   (arm.armorEnhance + arm.attackEnhance + arm.enhanceRange * 10) / 2;
 
   // Final cost
   let cost =
@@ -57,7 +61,7 @@ export function calculateCost(arm) {
     antiArmorScore +
     typeScore +
     healingScore +
-    enhanceScore;
+    inspiringScore;
   cost = Math.pow(cost, 0.8) * 2.5;
   cost = Math.round(cost / 10) * 10;
 

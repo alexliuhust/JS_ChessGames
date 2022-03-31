@@ -126,8 +126,9 @@ function drawCombatData(cxt, piece, useMandarin) {
   if (piece.isBombing || piece.type === "artillery")
     antiArmorText = `Anti-armor: *Ignore any type of armor`;
   let healText = `Healing: ${piece.c_totalHeal} / ${piece.totalHeal}`;
-  let arEnhText = `Armor Enhancing: ${piece.armorEnhance}%`;
-  let atEnhText = `Attack Enhancing: ${piece.attackEnhance}%`;
+  let inspText = `Inspiring: ${piece.inspiring}`;
+  // let arEnhText = `Armor Enhancing: ${piece.armorEnhance}%`;
+  // let atEnhText = `Attack Enhancing: ${piece.attackEnhance}%`;
 
   if (useMandarin) {
     speedText = `速度:     ${piece.c_speed}`;
@@ -140,8 +141,9 @@ function drawCombatData(cxt, piece, useMandarin) {
     if (piece.isBombing || piece.type === "artillery")
       antiArmorText = `破甲: *无视所有类型护甲`;
     healText = `治疗量: ${piece.c_totalHeal} / ${piece.totalHeal}`;
-    arEnhText = `护甲增强: ${piece.armorEnhance}%`;
-    atEnhText = `伤害增强: ${piece.attackEnhance}%`;
+    inspText = `鼓舞: ${piece.inspiring}`;
+    // arEnhText = `护甲增强: ${piece.armorEnhance}%`;
+    // atEnhText = `伤害增强: ${piece.attackEnhance}%`;
   }
 
   let color = piece.c_speed === 0 ? "red" : "white";
@@ -161,14 +163,16 @@ function drawCombatData(cxt, piece, useMandarin) {
       Canvas.drawText(cxt, radiusInfo, leftX + 200, textY, color, fontSize);
     }
   }
-  textY += 50;
+  textY += 40;
   Canvas.drawText(cxt, antiArmorText, leftX, textY, color, fontSize);
   if (piece.healing > 0)
-    Canvas.drawText(cxt, healText, leftX + 300, textY, color, fontSize);
-  else if (piece.armorEnhance > 0)
-    Canvas.drawText(cxt, arEnhText, leftX + 300, textY, color, fontSize);
-  else if (piece.attackEnhance > 0)
-    Canvas.drawText(cxt, atEnhText, leftX + 300, textY, color, fontSize);
+    Canvas.drawText(cxt, healText, leftX + 250, textY, color, fontSize);
+  else if (piece.inspiring > 0)
+    Canvas.drawText(cxt, inspText, leftX + 250, textY, color, fontSize);
+  // else if (piece.armorEnhance > 0)
+  //   Canvas.drawText(cxt, arEnhText, leftX + 300, textY, color, fontSize);
+  // else if (piece.attackEnhance > 0)
+  //   Canvas.drawText(cxt, atEnhText, leftX + 300, textY, color, fontSize);
 }
 
 function drawStatus(cxt, piece, useMandarin) {
