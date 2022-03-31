@@ -244,6 +244,55 @@ export class WeapSqdFlthr extends ArmPrimary.Arm {
   }
 }
 
+export class HealingSqd extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+    this.missileColor = MC.FireColor;
+    this.missileWeight = 5;
+
+    this.name = "Healing Squad";
+    this.m_name = "医疗小队";
+    this.type = "infantry";
+    this.description = "infantry [healer]";
+    this.m_description = "近战步兵【治疗者】";
+
+    this.scale = 90;
+    this.singleHP = 40;
+    this.speed = 4;
+
+    this.meleeAttack = 16;
+
+    this.healing = 10;
+    this.healRange = 3;
+    this.totalHeal = 100;
+    this.loadRealtimeProps();
+  }
+}
+
+export class RousingSqd extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+    this.missileColor = MC.FireColor;
+    this.missileWeight = 5;
+
+    this.name = "Rousing Squad";
+    this.m_name = "激励小队";
+    this.type = "infantry";
+    this.description = "infantry [rouser]";
+    this.m_description = "近战步兵【激励者】";
+
+    this.scale = 90;
+    this.singleHP = 40;
+    this.speed = 4;
+
+    this.meleeAttack = 16;
+
+    this.attackEnhance = 30;
+    this.enhanceRange = 3;
+    this.loadRealtimeProps();
+  }
+}
+
 export class MechGears extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
@@ -396,11 +445,13 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 5) return new WeapSqdGingall(pos, player);
   if (i === 6) return new WeapSqdGatlin(pos, player);
   if (i === 7) return new WeapSqdFlthr(pos, player);
-  if (i === 8) return new MechGears(pos, player);
-  if (i === 9) return new MechGatlin(pos, player);
-  if (i === 10) return new MechMissile(pos, player);
-  if (i === 11) return new MutantSlave(pos, player);
-  if (i === 12) return new Foulcannon(pos, player);
+  if (i === 8) return new RousingSqd(pos, player);
+  if (i === 9) return new HealingSqd(pos, player);
+  if (i === 10) return new MechGears(pos, player);
+  if (i === 11) return new MechGatlin(pos, player);
+  if (i === 12) return new MechMissile(pos, player);
+  if (i === 13) return new MutantSlave(pos, player);
+  if (i === 14) return new Foulcannon(pos, player);
 
   return null;
 }

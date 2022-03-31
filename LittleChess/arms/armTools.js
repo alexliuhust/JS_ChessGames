@@ -50,7 +50,7 @@ export function calculateCost(arm) {
 
   // Enhance socre
   let enhanceScore =
-    (arm.armorEnhance + arm.attackEnhance + arm.enhanceRange * 10) / 3;
+    (arm.armorEnhance + arm.attackEnhance + arm.enhanceRange * 10) / 2;
 
   // Final cost
   let cost =
