@@ -1,6 +1,12 @@
 import * as MoveActions from "../actions/move.js";
 import { calculateDistance, areAligned } from "./actionTools.js";
 import { addEffect } from "../effects/effect.js";
+import {
+  afterArmorEnhancement,
+  afterAttackEnhancement,
+  addArmorEnhanceEffect,
+  addAttackEnhanceEffect,
+} from "./enhance.js";
 
 const cxt = document.getElementById("piece").getContext("2d");
 
@@ -23,6 +29,8 @@ export function armBombArea(attacker, centerPosition, defenders) {
     centerPosition,
     cxt
   );
+  let enh = afterAttackEnhancement(attacker, attacker.player.pieceList);
+  if (enh > 0) addAttackEnhanceEffect(attacker);
 
   setTimeout(() => {
     decreaseBombingVictims(attacker, defenders, damageType, centerPosition);
@@ -48,6 +56,8 @@ export function armAttackArm(attacker, defender, defenders, _damageType) {
   let sleepRound = addEffect(list1, damageType, attacker, defender, cxt);
   if (damageType === "melee" && defender.c_meleeAttack > 0)
     addEffect(list2, "melee", defender, attacker, cxt);
+  let enh = afterAttackEnhancement(attacker, attacker.player.pieceList);
+  if (enh > 0) addAttackEnhanceEffect(attacker);
 
   setTimeout(() => {
     decreaseScalesForArms(attacker, damageType, defender);

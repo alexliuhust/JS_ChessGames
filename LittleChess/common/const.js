@@ -19,6 +19,9 @@ export const SelectPieceColor = "rgb(150, 255, 150)";
 export const SelectEnemyColor = "rgb(255, 180, 0)";
 export const ReadyToAttackColor = "rgb(255, 150, 150)";
 
+export const ArmorEnhanceColor = "rgb(85, 155, 200)";
+export const AttackEnhanceColor = "rgb(163, 100, 215)";
+
 export const MissileColor = {
   PoisonColor: "rgb(153, 255, 153)",
   FireColor: "rgb(255, 102, 0)",

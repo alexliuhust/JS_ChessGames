@@ -4,6 +4,7 @@ import { MissileEffect } from "./missileEffect.js";
 import { BombingEffect } from "./bombingEffect.js";
 import { HealEffect } from "./healEffect.js";
 import { InspireEffect } from "./inspireEffect.js";
+import { EnhanceEffect } from "./enhanceEffect.js";
 
 export function addEffect(list, effectType, attacker, defender, cxt) {
   if (effectType === "melee") {
@@ -28,6 +29,14 @@ export function addEffect(list, effectType, attacker, defender, cxt) {
     return 0;
   } else if (effectType === "inspiring") {
     let effect = new InspireEffect(defender.x, defender.y, cxt);
+    list.push(effect);
+    return 0;
+  } else if (effectType === "armorEnhancing") {
+    let effect = new EnhanceEffect(defender, "armor", cxt);
+    list.push(effect);
+    return 0;
+  } else if (effectType === "attackEnhancing") {
+    let effect = new EnhanceEffect(defender, "attack", cxt);
     list.push(effect);
     return 0;
   }

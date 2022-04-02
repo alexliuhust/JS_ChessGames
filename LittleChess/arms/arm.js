@@ -6,6 +6,7 @@ import { triggerInspiring } from "../actions/inspire.js";
 import {
   afterArmorEnhancement,
   afterAttackEnhancement,
+  addArmorEnhanceEffect,
 } from "../actions/enhance.js";
 
 export const DamageTypes = ["melee", "missile", "charge", "bombing", "magic"];
@@ -237,7 +238,6 @@ export class Arm {
     armor = Math.max(armor, 0);
     dodge = Math.max(dodge, 0);
     let enh = afterArmorEnhancement(this, this.player.pieceList);
-
     let percentage = (100 - (armor + dodge + enh)) / 100;
     if (percentage < 0.1) percentage = 0.1;
 
@@ -453,7 +453,11 @@ export class Arm {
     // If this arm is a single-unit
     if (this.scale === 1) {
       if (damageType === "charge") realDamage = Math.ceil(realDamage / 2);
-      if (realDamage > 0) realDamage = Math.max(realDamage, 1);
+      if (realDamage > 0) {
+        realDamage = Math.max(realDamage, 1);
+        let enh = afterArmorEnhancement(this, this.player.pieceList);
+        if (enh > 0) addArmorEnhanceEffect(this);
+      }
 
       this.c_singleHP -= realDamage;
       if (this.c_singleHP <= 0) this.isAlive = false;
@@ -465,8 +469,11 @@ export class Arm {
     // If this arm is a phalanx
     else {
       let totalDecrease = 0;
-      if (realDamage > 0)
+      if (realDamage > 0) {
         totalDecrease = Math.max(Math.round(realDamage / this.singleHP), 1);
+        let enh = afterArmorEnhancement(this, this.player.pieceList);
+        if (enh > 0) addArmorEnhanceEffect(this);
+      }
 
       this.c_scale -= totalDecrease;
       if (this.c_scale <= 0) this.isAlive = false;

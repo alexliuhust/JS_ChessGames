@@ -3,6 +3,16 @@ import { addEffect } from "../effects/effect.js";
 
 const cxt = document.getElementById("piece").getContext("2d");
 
+export function addArmorEnhanceEffect(self) {
+  let list = self.player.effectList;
+  addEffect(list, "armorEnhancing", null, self, cxt);
+}
+
+export function addAttackEnhanceEffect(self) {
+  let list = self.player.effectList;
+  addEffect(list, "attackEnhancing", null, self, cxt);
+}
+
 export function afterArmorEnhancement(self, pieces) {
   let enhancement = accumulateEnhancement(self, pieces, true);
   return enhancement;
