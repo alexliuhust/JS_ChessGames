@@ -50,6 +50,31 @@ export class SwordInfantryShield extends SwordInfantry {
   }
 }
 
+export class SwordInfantryE extends SwordInfantryShield {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Elite Empire Infantry";
+    this.m_name = "精英帝国步兵";
+    this.type = "infantry";
+    this.description = "shield-infantry [anti-infantry, rouser]";
+    this.m_description = "持盾-近战步兵【反步兵，激励者】";
+
+    this.missileArmor = 30;
+    this.loadRealtimeProps();
+
+    this.pre_level = 1;
+    this.level = 2;
+    super._updateStaticProperties();
+    super._updateRealTimeProperties();
+    this.level = 3;
+    super._updateStaticProperties();
+    super._updateRealTimeProperties();
+    this.c_leadership += 200;
+    this.leadership += 200;
+  }
+}
+
 export class PalaceGuard extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
@@ -141,6 +166,31 @@ export class MusketeerShield extends Musketeer {
     this.missileArmor = 30;
 
     this.loadRealtimeProps();
+  }
+}
+
+export class MusketeerE extends Musketeer {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Elite Musketeers";
+    this.m_name = "精英火枪手";
+    this.type = "archers";
+    this.description = "shield-archers [anti-armor]";
+    this.m_description = "持盾-远程步兵【高破甲】";
+
+    this.missileArmor = 30;
+    this.loadRealtimeProps();
+
+    this.pre_level = 1;
+    this.level = 2;
+    super._updateStaticProperties();
+    super._updateRealTimeProperties();
+    this.level = 3;
+    super._updateStaticProperties();
+    super._updateRealTimeProperties();
+    this.c_leadership += 100;
+    this.leadership += 100;
   }
 }
 
@@ -369,18 +419,19 @@ export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
   if (i === 0) return new SwordInfantry(pos, player);
   if (i === 1) return new SwordInfantryShield(pos, player);
-  if (i === 2) return new PalaceGuard(pos, player);
-  if (i === 3) return new PalaceGuardShield(pos, player);
-  if (i === 4) return new Musketeer(pos, player);
-  if (i === 5) return new MusketeerShield(pos, player);
-  if (i === 6) return new MusketRider(pos, player);
-  if (i === 7) return new Vanguard(pos, player);
-  if (i === 8) return new PalaceKnight(pos, player);
-  if (i === 9) return new Paladin(pos, player);
-  if (i === 10) return new SteamTank(pos, player);
-  if (i === 11) return new SteamTankMortar(pos, player);
-  if (i === 12) return new CannonGroup(pos, player);
-  if (i === 13) return new EmpireMortar(pos, player);
-
+  if (i === 2) return new SwordInfantryE(pos, player);
+  if (i === 3) return new PalaceGuard(pos, player);
+  if (i === 4) return new PalaceGuardShield(pos, player);
+  if (i === 5) return new Musketeer(pos, player);
+  if (i === 6) return new MusketeerShield(pos, player);
+  if (i === 7) return new MusketeerE(pos, player);
+  if (i === 8) return new MusketRider(pos, player);
+  if (i === 9) return new Vanguard(pos, player);
+  if (i === 10) return new PalaceKnight(pos, player);
+  if (i === 11) return new Paladin(pos, player);
+  if (i === 12) return new SteamTank(pos, player);
+  if (i === 13) return new SteamTankMortar(pos, player);
+  if (i === 14) return new CannonGroup(pos, player);
+  if (i === 15) return new EmpireMortar(pos, player);
   return null;
 }

@@ -46,6 +46,31 @@ export class HallwayGuardShield extends HallwayGuard {
   }
 }
 
+export class HallwayGuardE extends HallwayGuardShield {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Elite Hallway Guards";
+    this.m_name = "精英门厅守卫";
+    this.type = "infantry";
+    this.description = "shield-infantry [resist-charging]";
+    this.m_description = "持盾-近战步兵【抵御冲锋】";
+
+    this.missileArmor = 30;
+    this.loadRealtimeProps();
+
+    this.pre_level = 1;
+    this.level = 2;
+    super._updateStaticProperties();
+    super._updateRealTimeProperties();
+    this.level = 3;
+    super._updateStaticProperties();
+    super._updateRealTimeProperties();
+    this.c_leadership += 100;
+    this.leadership += 100;
+  }
+}
+
 export class FlameHerald extends HallwayGuard {
   constructor(value, player) {
     super(value, player);
@@ -169,6 +194,30 @@ export class BallistaSquad extends ArmPrimary.Arm {
   getAntiArmor(damageType, targetArm) {
     if (damageType === "missile") return this.antiArmor;
     return 0;
+  }
+}
+
+export class BallistaSquadE extends BallistaSquad {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Elite Ballista Squad";
+    this.m_name = "精英重弩小队";
+    this.type = "archers";
+    this.description = "melee-armor-archers [long-range, anti-armor]";
+    this.m_description = "近战-装甲-远程步兵【长程，高破甲】";
+
+    this.loadRealtimeProps();
+
+    this.pre_level = 1;
+    this.level = 2;
+    super._updateStaticProperties();
+    super._updateRealTimeProperties();
+    this.level = 3;
+    super._updateStaticProperties();
+    super._updateRealTimeProperties();
+    this.c_leadership += 100;
+    this.leadership += 100;
   }
 }
 
@@ -361,18 +410,19 @@ export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
   if (i === 0) return new HallwayGuard(pos, player);
   if (i === 1) return new HallwayGuardShield(pos, player);
-  if (i === 2) return new NordExecutioner(pos, player);
-  if (i === 3) return new FlameHerald(pos, player);
-  if (i === 4) return new CoastDefender(pos, player);
-  if (i === 5) return new CoastDefenderShield(pos, player);
-  if (i === 6) return new BallistaSquad(pos, player);
-  if (i === 7) return new FlameKnight(pos, player);
-  if (i === 8) return new FlameKnightShield(pos, player);
-  if (i === 9) return new CoralCavalry(pos, player);
-  if (i === 10) return new StoneGiant(pos, player);
-  if (i === 11) return new StoneGiantFlame(pos, player);
-  if (i === 12) return new GiantBallista(pos, player);
-  if (i === 13) return new GiantBallistaShrapnel(pos, player);
-
+  if (i === 2) return new HallwayGuardE(pos, player);
+  if (i === 3) return new NordExecutioner(pos, player);
+  if (i === 4) return new FlameHerald(pos, player);
+  if (i === 5) return new CoastDefender(pos, player);
+  if (i === 6) return new CoastDefenderShield(pos, player);
+  if (i === 7) return new BallistaSquad(pos, player);
+  if (i === 8) return new BallistaSquadE(pos, player);
+  if (i === 9) return new FlameKnight(pos, player);
+  if (i === 10) return new FlameKnightShield(pos, player);
+  if (i === 11) return new CoralCavalry(pos, player);
+  if (i === 12) return new StoneGiant(pos, player);
+  if (i === 13) return new StoneGiantFlame(pos, player);
+  if (i === 14) return new GiantBallista(pos, player);
+  if (i === 15) return new GiantBallistaShrapnel(pos, player);
   return null;
 }
