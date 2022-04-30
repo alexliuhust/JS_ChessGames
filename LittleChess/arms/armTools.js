@@ -96,3 +96,88 @@ export function calculateLeaderShip(arm, costResults) {
   leadership = Math.round(leadership / 50) * 50;
   return leadership;
 }
+
+export function realTimeAttackUpdate(arm, factor) {
+  arm.c_meleeAttack = Math.round(arm.meleeAttack * factor);
+  arm.c_missileAttack = Math.round(arm.missileAttack * factor);
+  arm.c_chargeAttack = Math.round(arm.chargeAttack * factor);
+}
+
+export function realTimeArmorUpdate(arm, factor) {
+  arm.c_meleeArmor = Math.round(arm.meleeArmor * factor);
+  arm.c_missileArmor = Math.round(arm.missileArmor * factor);
+  arm.c_chargeArmor = Math.round(arm.chargeArmor * factor);
+  arm.c_meleeDodge = Math.round(arm.meleeDodge * factor);
+  arm.c_missileDodge = Math.round(arm.missileDodge * factor);
+  arm.c_chargeDodge = Math.round(arm.chargeDodge * factor);
+}
+
+export function updateRealTimeProperties(arm) {
+  let factor = 1;
+
+  let oneThird = Math.floor(arm.leadership / 3);
+  let twoThirds = oneThird * 2;
+
+  if (oneThird < arm.c_leadership && arm.c_leadership < twoThirds) factor = 0.8;
+  else if (arm.c_leadership <= oneThird) factor = 0.6;
+
+  realTimeAttackUpdate(arm, factor);
+  realTimeArmorUpdate(arm, factor);
+}
+
+export function upgradeLevel(arm) {
+  if (arm.exp < arm.cost || arm.level === 3) return;
+
+  arm.exp -= arm.cost;
+  arm.level++;
+}
+
+export function updateStaticProperties(arm) {
+  if (arm.pre_level === arm.level) return;
+
+  arm.pre_level = arm.level;
+  let factor = 1.1;
+  if (arm.level === 2) {
+    factor = 1.2;
+    arm.leadership += 50;
+    arm.c_leadership = arm.leadership;
+  } else if (arm.level === 3) {
+    factor = 1.4;
+    arm.leadership += 50;
+    arm.c_leadership = arm.leadership;
+  }
+
+  if (arm.scale !== 1) {
+    arm.singleHP = Math.round(arm.singleHP * factor);
+  }
+
+  arm.meleeArmor = Math.round(arm.meleeArmor * (factor - 0.1));
+  arm.missileArmor = Math.round(arm.missileArmor * (factor - 0.1));
+  arm.chargeArmor = Math.round(arm.chargeArmor * (factor - 0.1));
+  arm.meleeDodge = Math.round(arm.meleeDodge * (factor - 0.1));
+  arm.missileDodge = Math.round(arm.missileDodge * (factor - 0.1));
+  arm.chargeDodge = Math.round(arm.chargeDodge * (factor - 0.1));
+
+  arm.meleeAttack = Math.round(arm.meleeAttack * factor);
+  arm.missileAttack = Math.round(arm.missileAttack * factor);
+  arm.chargeAttack = Math.round(arm.chargeAttack * factor);
+
+  if (arm.ammo !== -1) {
+    arm.c_ammo += Math.floor(arm.ammo / 3);
+    arm.c_ammo = Math.min(arm.c_ammo, arm.ammo);
+  }
+
+  arm.cost = calculateCost(arm)[0];
+}
+
+export function updateEliteData(arm) {
+  arm.pre_level = 1;
+  arm.level = 2;
+  updateStaticProperties(arm);
+  updateRealTimeProperties(arm);
+  arm.level = 3;
+  updateStaticProperties(arm);
+  updateRealTimeProperties(arm);
+  arm.c_leadership += 200;
+  arm.leadership += 200;
+}

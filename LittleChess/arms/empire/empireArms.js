@@ -1,5 +1,6 @@
 import * as ArmPrimary from "../arm.js";
 import { MissileColor as MC } from "../../common/const.js";
+import { updateEliteData } from "../armTools.js";
 
 export class SwordInfantry extends ArmPrimary.Arm {
   constructor(value, player) {
@@ -63,15 +64,7 @@ export class SwordInfantryE extends SwordInfantryShield {
     this.missileArmor = 30;
     this.loadRealtimeProps();
 
-    this.pre_level = 1;
-    this.level = 2;
-    super._updateStaticProperties();
-    super._updateRealTimeProperties();
-    this.level = 3;
-    super._updateStaticProperties();
-    super._updateRealTimeProperties();
-    this.c_leadership += 200;
-    this.leadership += 200;
+    updateEliteData(this);
   }
 }
 
@@ -169,7 +162,7 @@ export class MusketeerShield extends Musketeer {
   }
 }
 
-export class MusketeerE extends Musketeer {
+export class MusketeerE extends MusketeerShield {
   constructor(value, player) {
     super(value, player);
 
@@ -182,15 +175,7 @@ export class MusketeerE extends Musketeer {
     this.missileArmor = 30;
     this.loadRealtimeProps();
 
-    this.pre_level = 1;
-    this.level = 2;
-    super._updateStaticProperties();
-    super._updateRealTimeProperties();
-    this.level = 3;
-    super._updateStaticProperties();
-    super._updateRealTimeProperties();
-    this.c_leadership += 100;
-    this.leadership += 100;
+    updateEliteData(this);
   }
 }
 

@@ -1,5 +1,6 @@
 import * as ArmPrimary from "../arm.js";
 import { MissileColor as MC } from "../../common/const.js";
+import { updateEliteData } from "../armTools.js";
 
 export class HallwayGuard extends ArmPrimary.Arm {
   constructor(value, player) {
@@ -59,15 +60,7 @@ export class HallwayGuardE extends HallwayGuardShield {
     this.missileArmor = 30;
     this.loadRealtimeProps();
 
-    this.pre_level = 1;
-    this.level = 2;
-    super._updateStaticProperties();
-    super._updateRealTimeProperties();
-    this.level = 3;
-    super._updateStaticProperties();
-    super._updateRealTimeProperties();
-    this.c_leadership += 100;
-    this.leadership += 100;
+    updateEliteData(this);
   }
 }
 
@@ -86,7 +79,7 @@ export class FlameHerald extends HallwayGuard {
     this.meleeArmor = 40;
     this.missileArmor = 30;
 
-    this.meleeAttack = 30;
+    this.meleeAttack = 35;
 
     this.antiArmor = 40;
 
@@ -209,15 +202,7 @@ export class BallistaSquadE extends BallistaSquad {
 
     this.loadRealtimeProps();
 
-    this.pre_level = 1;
-    this.level = 2;
-    super._updateStaticProperties();
-    super._updateRealTimeProperties();
-    this.level = 3;
-    super._updateStaticProperties();
-    super._updateRealTimeProperties();
-    this.c_leadership += 100;
-    this.leadership += 100;
+    updateEliteData(this);
   }
 }
 

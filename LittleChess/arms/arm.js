@@ -1,5 +1,11 @@
 import { Canvas } from "../common/tools.js";
-import { calculateCost, calculateLeaderShip } from "./armTools.js";
+import {
+  calculateCost,
+  calculateLeaderShip,
+  updateRealTimeProperties,
+  upgradeLevel,
+  updateStaticProperties,
+} from "./armTools.js";
 import { triggerAutoAttack } from "../actions/autoAttack.js";
 import { triggerHealing } from "../actions/heal.js";
 import { triggerInspiring } from "../actions/inspire.js";
@@ -244,81 +250,6 @@ export class Arm {
     return percentage;
   }
 
-  _realTimeAttackUpdate(factor) {
-    this.c_meleeAttack = Math.round(this.meleeAttack * factor);
-    this.c_missileAttack = Math.round(this.missileAttack * factor);
-    this.c_chargeAttack = Math.round(this.chargeAttack * factor);
-  }
-
-  _realTimeArmorUpdate(factor) {
-    this.c_meleeArmor = Math.round(this.meleeArmor * factor);
-    this.c_missileArmor = Math.round(this.missileArmor * factor);
-    this.c_chargeArmor = Math.round(this.chargeArmor * factor);
-
-    this.c_meleeDodge = Math.round(this.meleeDodge * factor);
-    this.c_missileDodge = Math.round(this.missileDodge * factor);
-    this.c_chargeDodge = Math.round(this.chargeDodge * factor);
-  }
-
-  _updateRealTimeProperties() {
-    let factor = 1;
-
-    let oneThird = Math.floor(this.leadership / 3);
-    let twoThirds = oneThird * 2;
-
-    if (oneThird < this.c_leadership && this.c_leadership < twoThirds)
-      factor = 0.8;
-    else if (this.c_leadership <= oneThird) factor = 0.6;
-
-    this._realTimeAttackUpdate(factor);
-    this._realTimeArmorUpdate(factor);
-  }
-
-  _upgradeLevel() {
-    if (this.exp < this.cost || this.level === 3) return;
-
-    this.exp -= this.cost;
-    this.level++;
-  }
-
-  _updateStaticProperties() {
-    if (this.pre_level === this.level) return;
-
-    this.pre_level = this.level;
-    let factor = 1.1;
-    if (this.level === 2) {
-      factor = 1.2;
-      this.leadership += 50;
-      this.c_leadership = this.leadership;
-    } else if (this.level === 3) {
-      factor = 1.5;
-      this.leadership += 50;
-      this.c_leadership = this.leadership;
-    }
-
-    if (this.scale !== 1) {
-      this.singleHP = Math.round(this.singleHP * factor);
-    }
-
-    this.meleeArmor = Math.round(this.meleeArmor * (factor - 0.1));
-    this.missileArmor = Math.round(this.missileArmor * (factor - 0.1));
-    this.chargeArmor = Math.round(this.chargeArmor * (factor - 0.1));
-    this.meleeDodge = Math.round(this.meleeDodge * (factor - 0.1));
-    this.missileDodge = Math.round(this.missileDodge * (factor - 0.1));
-    this.chargeDodge = Math.round(this.chargeDodge * (factor - 0.1));
-
-    this.meleeAttack = Math.round(this.meleeAttack * factor);
-    this.missileAttack = Math.round(this.missileAttack * factor);
-    this.chargeAttack = Math.round(this.chargeAttack * factor);
-
-    if (this.ammo !== -1) {
-      this.c_ammo += Math.floor(this.ammo / 3);
-      this.c_ammo = Math.min(this.c_ammo, this.ammo);
-    }
-
-    this.cost = calculateCost(this)[0];
-  }
-
   // =============== Drawing APIs ===============
 
   set_x_y() {
@@ -373,10 +304,10 @@ export class Arm {
     if (this.c_leadership < 0) this.c_leadership = 0;
 
     // Update static battle properties
-    this._upgradeLevel();
-    this._updateStaticProperties();
+    upgradeLevel();
+    updateStaticProperties();
     // Update real-time battle properties
-    this._updateRealTimeProperties();
+    updateRealTimeProperties();
     if (this.c_leadership <= 0) {
       this.hasAttacked = true;
       this.optOut();
