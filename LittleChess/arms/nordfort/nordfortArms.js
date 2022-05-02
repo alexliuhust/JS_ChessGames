@@ -47,48 +47,6 @@ export class HallwayGuardShield extends HallwayGuard {
   }
 }
 
-export class HallwayGuardE extends HallwayGuardShield {
-  constructor(value, player) {
-    super(value, player);
-
-    this.name = "Elite Hallway Guards";
-    this.m_name = "精英门厅守卫";
-    this.type = "infantry";
-    this.description = "shield-infantry [resist-charging]";
-    this.m_description = "持盾-近战步兵【抵御冲锋】";
-
-    this.missileArmor = 30;
-    this.loadRealtimeProps();
-
-    updateEliteData(this);
-  }
-}
-
-export class FlameHerald extends HallwayGuard {
-  constructor(value, player) {
-    super(value, player);
-
-    this.name = "Flame Herald";
-    this.m_name = "烈焰先锋";
-    this.type = "infantry";
-    this.description = "infantry [resist-charging, anti-armor, inspirator]";
-    this.m_description = "近战步兵【抵御冲锋，高破甲，鼓舞者】";
-
-    this.speed = 3;
-
-    this.meleeArmor = 40;
-    this.missileArmor = 30;
-
-    this.meleeAttack = 35;
-
-    this.antiArmor = 40;
-
-    this.inspiring = 10;
-    this.inspireRange = 3;
-    this.loadRealtimeProps();
-  }
-}
-
 export class NordExecutioner extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
@@ -106,15 +64,52 @@ export class NordExecutioner extends ArmPrimary.Arm {
     this.meleeArmor = 50;
     this.chargeArmor = 20;
 
-    this.meleeAttack = 35;
+    this.meleeAttack = 34;
 
-    this.antiArmor = 50;
+    this.antiArmor = 55;
     this.loadRealtimeProps();
   }
 
   getAntiArmor(damageType, targetArm) {
     if (damageType === "melee") return this.antiArmor;
     return 0;
+  }
+}
+
+export class NordHerald extends NordExecutioner {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Nord Heralds";
+    this.m_name = "诺德军锋";
+    this.type = "infantry";
+    this.description = "armor-infantry [resist-charging]";
+    this.m_description = "装甲-近战步兵【抵御冲锋】";
+
+    this.chargeArmor = 40;
+
+    this.meleeAttack = 40;
+
+    this.antiArmor = 0;
+    this.loadRealtimeProps();
+  }
+}
+
+export class NordHeraldE extends NordHerald {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Elite Nord Heralds";
+    this.m_name = "精英诺德军锋";
+    this.type = "infantry";
+    this.description = "armor-infantry [resist-charging, inspirator]";
+    this.m_description = "装甲-近战步兵【抵御冲锋，鼓舞者】";
+
+    this.inspiring = 12;
+    this.inspireRange = 3;
+    this.loadRealtimeProps();
+
+    updateEliteData(this);
   }
 }
 
@@ -206,6 +201,46 @@ export class BallistaSquadE extends BallistaSquad {
   }
 }
 
+export class CoastRanger extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Coast Rangers";
+    this.m_name = "滨海游骑兵";
+    this.type = "cavalry";
+    this.description = "missile-cavalry";
+    this.m_description = "远程骑兵";
+
+    this.scale = 50;
+    this.singleHP = 100;
+    this.speed = 6;
+
+    this.missileDodge = 30;
+
+    this.meleeAttack = 28;
+    this.missileAttack = 30;
+    this.missileRange = 6;
+    this.isParabola = true;
+
+    this.loadRealtimeProps();
+  }
+}
+
+export class CoastRangerCharge extends CoastRanger {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Coast Rangers (Charge)";
+    this.m_name = "滨海游骑兵-冲杀";
+    this.type = "cavalry";
+    this.description = "missile-charging-cavalry";
+    this.m_description = "远程/冲杀骑兵";
+
+    this.chargeAttack = 58;
+    this.loadRealtimeProps();
+  }
+}
+
 export class FlameKnight extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
@@ -262,7 +297,7 @@ export class CoralCavalry extends ArmPrimary.Arm {
     this.m_description = "冲击骑兵【重装甲，高破甲】";
 
     this.scale = 50;
-    this.singleHP = 100;
+    this.singleHP = 120;
     this.speed = 5;
 
     this.meleeArmor = 50;
@@ -395,19 +430,21 @@ export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
   if (i === 0) return new HallwayGuard(pos, player);
   if (i === 1) return new HallwayGuardShield(pos, player);
-  if (i === 2) return new HallwayGuardE(pos, player);
-  if (i === 3) return new NordExecutioner(pos, player);
-  if (i === 4) return new FlameHerald(pos, player);
+  if (i === 2) return new NordExecutioner(pos, player);
+  if (i === 3) return new NordHerald(pos, player);
+  if (i === 4) return new NordHeraldE(pos, player);
   if (i === 5) return new CoastDefender(pos, player);
   if (i === 6) return new CoastDefenderShield(pos, player);
   if (i === 7) return new BallistaSquad(pos, player);
   if (i === 8) return new BallistaSquadE(pos, player);
-  if (i === 9) return new FlameKnight(pos, player);
-  if (i === 10) return new FlameKnightShield(pos, player);
-  if (i === 11) return new CoralCavalry(pos, player);
-  if (i === 12) return new StoneGiant(pos, player);
-  if (i === 13) return new StoneGiantFlame(pos, player);
-  if (i === 14) return new GiantBallista(pos, player);
-  if (i === 15) return new GiantBallistaShrapnel(pos, player);
+  if (i === 9) return new CoastRanger(pos, player);
+  if (i === 10) return new CoastRangerCharge(pos, player);
+  if (i === 11) return new FlameKnight(pos, player);
+  if (i === 12) return new FlameKnightShield(pos, player);
+  if (i === 13) return new CoralCavalry(pos, player);
+  if (i === 14) return new StoneGiant(pos, player);
+  if (i === 15) return new StoneGiantFlame(pos, player);
+  if (i === 16) return new GiantBallista(pos, player);
+  if (i === 17) return new GiantBallistaShrapnel(pos, player);
   return null;
 }

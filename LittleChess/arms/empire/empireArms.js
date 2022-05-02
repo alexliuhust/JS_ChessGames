@@ -168,8 +168,8 @@ export class EmpireSniper extends Musketeer {
     this.name = "Empire Snipers";
     this.m_name = "帝国狙击手";
     this.type = "archers";
-    this.description = "archers [anti-armor, anti-large]";
-    this.m_description = "远程步兵【高破甲，反大型】";
+    this.description = "archers [anti-armor, anti-large, long-range]";
+    this.m_description = "远程步兵【高破甲，反大型，长程】";
 
     this.scale = 60;
 
@@ -207,8 +207,8 @@ export class EmpireSniperShield extends EmpireSniper {
     this.name = "Empire Snipers (Shield)";
     this.m_name = "帝国狙击手-持盾";
     this.type = "archers";
-    this.description = "archers [anti-armor, anti-large]";
-    this.m_description = "远程步兵【高破甲，反大型】";
+    this.description = "archers [anti-armor, anti-large, long-range]";
+    this.m_description = "远程步兵【高破甲，反大型，长程】";
 
     this.missileArmor = 30;
 
@@ -327,7 +327,7 @@ export class PalaceKnight extends ArmPrimary.Arm {
   }
 }
 
-export class Paladin extends PalaceKnight {
+export class PalaceKnightE extends PalaceKnight {
   constructor(value, player) {
     super(value, player);
 
@@ -340,6 +340,8 @@ export class Paladin extends PalaceKnight {
     this.armorEnhance = 40;
     this.enhanceRange = 3;
     this.loadRealtimeProps();
+
+    updateEliteData(this);
   }
 }
 
@@ -469,7 +471,7 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 10) return new MusketRider(pos, player);
   if (i === 11) return new Vanguard(pos, player);
   if (i === 12) return new PalaceKnight(pos, player);
-  if (i === 13) return new Paladin(pos, player);
+  if (i === 13) return new PalaceKnightE(pos, player);
   if (i === 14) return new SteamTank(pos, player);
   if (i === 15) return new SteamTankMortar(pos, player);
   if (i === 16) return new CannonGroup(pos, player);
