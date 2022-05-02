@@ -61,6 +61,7 @@ export class Arm {
 
     this.scale = 0;
     this.singleHP = 0;
+    this.wound = 0;
     this.leadership = 0;
     this.c_leadership = 0;
     this.speed = 0;
@@ -298,16 +299,15 @@ export class Arm {
     this.hasAttacked = false;
     this.showSpeed = false;
 
-    if (currentRound > 10) {
-      this.c_leadership -= Math.ceil(currentRound / 3);
-    }
+    if (currentRound > 10) this.c_leadership -= Math.ceil(currentRound / 3);
+
     if (this.c_leadership < 0) this.c_leadership = 0;
 
     // Update static battle properties
-    upgradeLevel();
-    updateStaticProperties();
+    upgradeLevel(this);
+    updateStaticProperties(this);
     // Update real-time battle properties
-    updateRealTimeProperties();
+    updateRealTimeProperties(this);
     if (this.c_leadership <= 0) {
       this.hasAttacked = true;
       this.optOut();
@@ -400,10 +400,15 @@ export class Arm {
     // If this arm is a phalanx
     else {
       let totalDecrease = 0;
-      if (realDamage > 0) {
-        totalDecrease = Math.max(Math.round(realDamage / this.singleHP), 1);
+      if (realDamage > this.wound) {
+        realDamage -= this.wound;
+        totalDecrease = Math.ceil(realDamage / this.singleHP);
+        this.wound = realDamage - totalDecrease * this.singleHP;
+
         let enh = afterArmorEnhancement(this, this.player.pieceList);
         if (enh > 0) addArmorEnhanceEffect(this);
+      } else if (realDamage > 0) {
+        this.wound -= realDamage;
       }
 
       this.c_scale -= totalDecrease;
