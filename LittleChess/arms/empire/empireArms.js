@@ -9,8 +9,8 @@ export class SwordInfantry extends ArmPrimary.Arm {
     this.name = "Empire Infantry";
     this.m_name = "帝国步兵";
     this.type = "infantry";
-    this.description = "infantry [anti-infantry, rouser]";
-    this.m_description = "近战步兵【反步兵，激励者】";
+    this.description = "infantry [anti-infantry]";
+    this.m_description = "近战步兵【反步兵】";
 
     this.scale = 100;
     this.singleHP = 50;
@@ -18,9 +18,6 @@ export class SwordInfantry extends ArmPrimary.Arm {
 
     this.meleeAttack = 24;
     this.meleeAttack_bonus = 24;
-
-    this.attackEnhance = 20;
-    this.enhanceRange = 1;
     this.loadRealtimeProps();
   }
 
@@ -42,11 +39,10 @@ export class SwordInfantryShield extends SwordInfantry {
     this.name = "Empire Infantry (Shield)";
     this.m_name = "帝国步兵-持盾";
     this.type = "infantry";
-    this.description = "shield-infantry [anti-infantry, rouser]";
-    this.m_description = "持盾-近战步兵【反步兵，激励者】";
+    this.description = "shield-infantry [anti-infantry]";
+    this.m_description = "持盾-近战步兵【反步兵】";
 
     this.missileArmor = 30;
-
     this.loadRealtimeProps();
   }
 }
@@ -62,6 +58,9 @@ export class SwordInfantryE extends SwordInfantryShield {
     this.m_description = "持盾-近战步兵【反步兵，激励者】";
 
     this.missileArmor = 30;
+
+    this.attackEnhance = 20;
+    this.enhanceRange = 1;
     this.loadRealtimeProps();
 
     updateEliteData(this);
@@ -155,6 +154,61 @@ export class MusketeerShield extends Musketeer {
     this.type = "archers";
     this.description = "shield-archers [anti-armor]";
     this.m_description = "持盾-远程步兵【高破甲】";
+
+    this.missileArmor = 30;
+
+    this.loadRealtimeProps();
+  }
+}
+
+export class EmpireSniper extends Musketeer {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Empire Snipers";
+    this.m_name = "帝国狙击手";
+    this.type = "archers";
+    this.description = "archers [anti-armor, anti-large]";
+    this.m_description = "远程步兵【高破甲，反大型】";
+
+    this.scale = 60;
+
+    this.meleeAttack = 24;
+    this.missileAttack = 30;
+    this.missileAttack_bonus = 30;
+    this.missileRange = 8;
+
+    this.antiArmor = 50;
+    this.loadRealtimeProps();
+  }
+
+  _getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+    } else if (damageType === "missile" && this.c_ammo > 0) {
+      singleDamage = this.c_missileAttack;
+      if (targetArm.isLarge()) singleDamage += this.missileAttack_bonus;
+    }
+
+    return singleDamage;
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "missile") return this.antiArmor;
+    return 0;
+  }
+}
+
+export class EmpireSniperShield extends EmpireSniper {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Empire Snipers (Shield)";
+    this.m_name = "帝国狙击手-持盾";
+    this.type = "archers";
+    this.description = "archers [anti-armor, anti-large]";
+    this.m_description = "远程步兵【高破甲，反大型】";
 
     this.missileArmor = 30;
 
@@ -350,8 +404,8 @@ export class SteamTank extends ArmPrimary.Arm {
     this.name = "Steam Tank";
     this.m_name = "蒸汽坦克";
     this.type = "monster";
-    this.description = "mech [heavy-armor, missile-attack]";
-    this.m_description = "机甲【重装甲，远程攻击】";
+    this.description = "vehicle [heavy-armor, missile-attack]";
+    this.m_description = "战车【重装甲，远程攻击】";
 
     this.scale = 1;
     this.singleHP = 6000;
@@ -386,8 +440,8 @@ export class SteamTankMortar extends SteamTank {
     this.name = "Steam Tank (Mortar)";
     this.m_name = "蒸汽坦克-臼炮";
     this.type = "monster";
-    this.description = "bombing-mech [heavy-armor, missile-attack]";
-    this.m_description = "轰炸机甲【重装甲，远程攻击】";
+    this.description = "bombing-vehicle [heavy-armor, missile-attack]";
+    this.m_description = "轰炸战车【重装甲，远程攻击】";
 
     this.missileAttack = 900;
     this.missileRange = 10;
@@ -409,14 +463,16 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 4) return new PalaceGuardShield(pos, player);
   if (i === 5) return new Musketeer(pos, player);
   if (i === 6) return new MusketeerShield(pos, player);
-  if (i === 7) return new MusketeerE(pos, player);
-  if (i === 8) return new MusketRider(pos, player);
-  if (i === 9) return new Vanguard(pos, player);
-  if (i === 10) return new PalaceKnight(pos, player);
-  if (i === 11) return new Paladin(pos, player);
-  if (i === 12) return new SteamTank(pos, player);
-  if (i === 13) return new SteamTankMortar(pos, player);
-  if (i === 14) return new CannonGroup(pos, player);
-  if (i === 15) return new EmpireMortar(pos, player);
+  if (i === 7) return new EmpireSniper(pos, player);
+  if (i === 8) return new EmpireSniperShield(pos, player);
+  if (i === 9) return new MusketeerE(pos, player);
+  if (i === 10) return new MusketRider(pos, player);
+  if (i === 11) return new Vanguard(pos, player);
+  if (i === 12) return new PalaceKnight(pos, player);
+  if (i === 13) return new Paladin(pos, player);
+  if (i === 14) return new SteamTank(pos, player);
+  if (i === 15) return new SteamTankMortar(pos, player);
+  if (i === 16) return new CannonGroup(pos, player);
+  if (i === 17) return new EmpireMortar(pos, player);
   return null;
 }

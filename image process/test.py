@@ -55,4 +55,4 @@ def binarize_image(img_path, name):
 
 
 # risize_images('./raw_images/stormreef', './images/stormreef/', 50)
-risize_images('./raw_images', './images/', 50)
+risize_images('./raw_images', './raw_images/', 50)
