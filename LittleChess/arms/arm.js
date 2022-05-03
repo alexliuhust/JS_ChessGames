@@ -402,7 +402,7 @@ export class Arm {
       let totalDecrease = 0;
       if (realDamage > this.wound) {
         realDamage -= this.wound;
-        totalDecrease = Math.ceil(realDamage / this.singleHP);
+        totalDecrease = Math.floor(realDamage / this.singleHP);
         this.wound = realDamage - totalDecrease * this.singleHP;
 
         let enh = afterArmorEnhancement(this, this.player.pieceList);

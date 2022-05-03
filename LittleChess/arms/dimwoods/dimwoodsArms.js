@@ -140,7 +140,7 @@ export class TwilightWarrior extends ArmPrimary.Arm {
     this.missileDodge = 20;
     this.chargeDodge = 20;
 
-    this.meleeAttack = 42;
+    this.meleeAttack = 50;
     this.loadRealtimeProps();
   }
 }
@@ -459,9 +459,9 @@ export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
   if (i === 0) return new WoodsGuard(pos, player);
   if (i === 1) return new WoodsGuardShield(pos, player);
-  if (i === 2) return new TwilightWarrior(pos, player);
-  if (i === 3) return new WildKiller(pos, player);
-  if (i === 4) return new WildKillerPS(pos, player);
+  if (i === 2) return new WildKiller(pos, player);
+  if (i === 3) return new WildKillerPS(pos, player);
+  if (i === 4) return new TwilightWarrior(pos, player);
   if (i === 5) return new TwilightWarriorE(pos, player);
   if (i === 6) return new ShadowArcherAP(pos, player);
   if (i === 7) return new ShadowArcherPS(pos, player);
