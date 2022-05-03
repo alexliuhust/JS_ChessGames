@@ -1,5 +1,6 @@
 import * as ArmPrimary from "../arm.js";
 import { MissileColor as MC } from "../../common/const.js";
+import { updateEliteData } from "../armTools.js";
 
 export class DarkSoldier extends ArmPrimary.Arm {
   constructor(value, player) {
@@ -20,6 +21,21 @@ export class DarkSoldier extends ArmPrimary.Arm {
 
     this.meleeAttack = 20;
 
+    this.loadRealtimeProps();
+  }
+}
+
+export class DarkSoldierSheild extends DarkSoldier {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Dark Soldiers (Sheild)";
+    this.m_name = "黑暗战士-持盾";
+    this.type = "infantry";
+    this.description = "infantry [resist-charging]";
+    this.m_description = "近战步兵【抵御冲锋】";
+
+    this.missileArmor = 30;
     this.loadRealtimeProps();
   }
 }
@@ -60,14 +76,29 @@ export class DarkSoldierSS extends DarkSoldierScythe {
     this.name = "Dark Soldiers (Scythe, Shield)";
     this.m_name = "黑暗战士-巨镰-持盾";
     this.type = "infantry";
-    this.description = "shield-infantry [anti-large, protector]";
-    this.m_description = "持盾-近战步兵【反大型，护卫者】";
+    this.description = "shield-infantry [anti-large]";
+    this.m_description = "持盾-近战步兵【反大型】";
 
     this.missileArmor = 30;
+    this.loadRealtimeProps();
+  }
+}
+
+export class DarkSoldierSSE extends DarkSoldierSS {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Elite Dark Soldiers";
+    this.m_name = "精英黑暗战士";
+    this.type = "infantry";
+    this.description = "shield-infantry [anti-large, protector]";
+    this.m_description = "持盾-近战步兵【反大型，护卫者】";
 
     this.armorEnhance = 30;
     this.enhanceRange = 2;
     this.loadRealtimeProps();
+
+    updateEliteData(this);
   }
 }
 
@@ -364,22 +395,99 @@ export class SpiritCoffinBB extends SpiritCoffinGF {
   }
 }
 
+export class WraithSkeleton extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Wraith Skeleton";
+    this.m_name = "缚灵骸骨";
+    this.type = "monster";
+    this.description = "giant [anti-infantry, shocking]";
+    this.m_description = "巨兽【反步兵，惊骇敌军】";
+
+    this.scale = 1;
+    this.singleHP = 7000;
+    this.speed = 2;
+
+    this.meleeArmor = 30;
+    this.missileArmor = 30;
+    this.meleeDodge = 30;
+    this.missileDodge = 30;
+
+    this.meleeAttack = 700;
+    this.meleeAttack_bonus = 420;
+
+    this.shock = 50;
+    this.loadRealtimeProps();
+  }
+
+  _getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+      if (targetArm.isInfn()) singleDamage += this.meleeAttack_bonus;
+    }
+
+    return singleDamage;
+  }
+}
+
+export class Werewolf extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Werewolf";
+    this.m_name = "狼人";
+    this.type = "monster";
+    this.description = "giant [anti-large, shocking]";
+    this.m_description = "巨兽【反大型，惊骇敌军】";
+
+    this.scale = 1;
+    this.singleHP = 5000;
+    this.speed = 4;
+
+    this.meleeDodge = 65;
+    this.missileDodge = 65;
+    this.chargeDodge = 50;
+
+    this.meleeAttack = 800;
+    this.meleeAttack_bonus = 600;
+
+    this.shock = 90;
+    this.loadRealtimeProps();
+  }
+
+  _getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+      if (targetArm.isLarge()) singleDamage += this.meleeAttack_bonus;
+    }
+
+    return singleDamage;
+  }
+}
+
 export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
   if (i === 0) return new DarkSoldier(pos, player);
-  if (i === 1) return new DarkSoldierScythe(pos, player);
-  if (i === 2) return new DarkSoldierSS(pos, player);
-  if (i === 3) return new Banshee(pos, player);
-  if (i === 4) return new ScreamingBanshee(pos, player);
-  if (i === 5) return new ScreamingBansheeGF(pos, player);
-  if (i === 6) return new DeathKnight(pos, player);
-  if (i === 7) return new DeathKnightDS(pos, player);
-  if (i === 8) return new BeetleRider(pos, player);
-  if (i === 9) return new FireBeetleRider(pos, player);
-  if (i === 10) return new BeetleChargeRider(pos, player);
-  if (i === 11) return new SpiritCoffinDG(pos, player);
-  if (i === 12) return new SpiritCoffinGF(pos, player);
-  if (i === 13) return new SpiritCoffinBB(pos, player);
+  if (i === 1) return new DarkSoldierSheild(pos, player);
+  if (i === 2) return new DarkSoldierScythe(pos, player);
+  if (i === 3) return new DarkSoldierSS(pos, player);
+  if (i === 4) return new DarkSoldierSSE(pos, player);
+  if (i === 5) return new Banshee(pos, player);
+  if (i === 6) return new ScreamingBanshee(pos, player);
+  if (i === 7) return new ScreamingBansheeGF(pos, player);
+  if (i === 8) return new DeathKnight(pos, player);
+  if (i === 9) return new DeathKnightDS(pos, player);
+  if (i === 10) return new BeetleRider(pos, player);
+  if (i === 11) return new FireBeetleRider(pos, player);
+  if (i === 12) return new BeetleChargeRider(pos, player);
+  if (i === 13) return new SpiritCoffinDG(pos, player);
+  if (i === 14) return new SpiritCoffinGF(pos, player);
+  if (i === 15) return new SpiritCoffinBB(pos, player);
+  if (i === 16) return new WraithSkeleton(pos, player);
+  if (i === 17) return new Werewolf(pos, player);
 
   return null;
 }
