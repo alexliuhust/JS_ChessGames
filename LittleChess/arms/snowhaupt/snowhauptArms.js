@@ -1,5 +1,6 @@
 import * as ArmPrimary from "../arm.js";
 import { MissileColor as MC } from "../../common/const.js";
+import { updateEliteData } from "../armTools.js";
 
 export class DwarfWarrior extends ArmPrimary.Arm {
   constructor(value, player) {
@@ -74,6 +75,24 @@ export class Berserker extends DwarfWarrior {
   }
 }
 
+export class BerserkerE extends Berserker {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Elite Berserkers";
+    this.m_name = "精英狂战士";
+    this.type = "infantry";
+    this.description = "infantry [high-damage, rouser]";
+    this.m_description = "近战步兵【高伤害，激励者】";
+
+    this.attackEnhance = 30;
+    this.enhanceRange = 3;
+    this.loadRealtimeProps();
+
+    updateEliteData(this);
+  }
+}
+
 export class DrawfKingsGuard extends DwarfWarrior {
   constructor(value, player) {
     super(value, player);
@@ -113,8 +132,8 @@ export class MountainShocker extends ArmPrimary.Arm {
     this.name = "Mountain Shockers";
     this.m_name = "震山矿工";
     this.type = "infantry";
-    this.description = "giant-shield-infantry [high-missile-damage, protecter]";
-    this.m_description = "巨盾步兵【高远程伤害，护卫者】";
+    this.description = "giant-shield-infantry [high-damage]";
+    this.m_description = "巨盾步兵【高伤害】";
 
     this.scale = 100;
     this.singleHP = 60;
@@ -127,9 +146,26 @@ export class MountainShocker extends ArmPrimary.Arm {
     this.missileRange = 3;
 
     this.ammo = 3;
+    this.loadRealtimeProps();
+  }
+}
+
+export class MountainShockerE extends MountainShocker {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Elite Mountain Shockers";
+    this.m_name = "精英震山矿工";
+    this.type = "infantry";
+    this.description = "giant-shield-infantry [high-damage, protecter]";
+    this.m_description = "巨盾步兵【高伤害，护卫者】";
+
+    this.ammo = 5;
     this.armorEnhance = 30;
     this.enhanceRange = 3;
     this.loadRealtimeProps();
+
+    updateEliteData(this);
   }
 }
 
@@ -196,8 +232,8 @@ export class FireDragonSquad extends ArmPrimary.Arm {
     this.name = "Fire Dragon Squad";
     this.m_name = "火龙小组";
     this.type = "archers";
-    this.description = "shield-archers [high-damage, inspirator]";
-    this.m_description = "持盾-远程步兵【高伤害，鼓舞者】";
+    this.description = "shield-archers [high-damage]";
+    this.m_description = "持盾-远程步兵【高伤害】";
 
     this.scale = 80;
     this.singleHP = 60;
@@ -211,8 +247,6 @@ export class FireDragonSquad extends ArmPrimary.Arm {
     this.missileAttack_bonus = 30;
     this.missileRange = 3;
 
-    this.inspiring = 10;
-    this.inspireRange = 3;
     this.loadRealtimeProps();
   }
 
@@ -225,6 +259,24 @@ export class FireDragonSquad extends ArmPrimary.Arm {
     }
 
     return singleDamage;
+  }
+}
+
+export class FireDragonSquadE extends FireDragonSquad {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Elite Fire Dragon Squad";
+    this.m_name = "精英火龙小组";
+    this.type = "archers";
+    this.description = "shield-archers [high-damage, inspirator]";
+    this.m_description = "持盾-远程步兵【高伤害，鼓舞者】";
+
+    this.inspiring = 20;
+    this.inspireRange = 3;
+    this.loadRealtimeProps();
+
+    updateEliteData(this);
   }
 }
 
@@ -351,6 +403,21 @@ export class FireDragonGun extends ArmPrimary.Arm {
   }
 }
 
+export class ERFireDragonGun extends FireDragonGun {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "ExRange Fire Dragon Guns";
+    this.m_name = "增程火龙炮";
+    this.type = "artillery";
+    this.description = "artillery [anti-infantry]";
+    this.m_description = "炮兵【反步兵】";
+
+    this.missileRange = 10;
+    this.loadRealtimeProps();
+  }
+}
+
 export class DrawfMortar extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
@@ -378,7 +445,7 @@ export class GiantCannon extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Giant Mortars";
+    this.name = "Giant Mortar";
     this.m_name = "巨型臼炮";
     this.type = "monster";
     this.description = "bombing-artillery";
@@ -403,17 +470,21 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 0) return new DwarfWarrior(pos, player);
   if (i === 1) return new BoneBreaker(pos, player);
   if (i === 2) return new Berserker(pos, player);
-  if (i === 3) return new DrawfKingsGuard(pos, player);
-  if (i === 4) return new MountainShocker(pos, player);
-  if (i === 5) return new DwarfMusketeer(pos, player);
-  if (i === 6) return new MortarSquad(pos, player);
-  if (i === 7) return new FireDragonSquad(pos, player);
-  if (i === 8) return new GoatCavalry(pos, player);
-  if (i === 9) return new GoatCavalryTA(pos, player);
-  if (i === 10) return new RevolvingCannon(pos, player);
-  if (i === 11) return new FireDragonGun(pos, player);
-  if (i === 12) return new DrawfMortar(pos, player);
-  if (i === 13) return new GiantCannon(pos, player);
+  if (i === 3) return new BerserkerE(pos, player);
+  if (i === 4) return new DrawfKingsGuard(pos, player);
+  if (i === 5) return new MountainShocker(pos, player);
+  if (i === 6) return new MountainShockerE(pos, player);
+  if (i === 7) return new DwarfMusketeer(pos, player);
+  if (i === 8) return new MortarSquad(pos, player);
+  if (i === 9) return new FireDragonSquad(pos, player);
+  if (i === 10) return new FireDragonSquadE(pos, player);
+  if (i === 11) return new GoatCavalry(pos, player);
+  if (i === 12) return new GoatCavalryTA(pos, player);
+  if (i === 13) return new RevolvingCannon(pos, player);
+  if (i === 14) return new FireDragonGun(pos, player);
+  if (i === 15) return new ERFireDragonGun(pos, player);
+  if (i === 16) return new DrawfMortar(pos, player);
+  if (i === 17) return new GiantCannon(pos, player);
 
   return null;
 }
