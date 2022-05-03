@@ -1,5 +1,6 @@
 import * as ArmPrimary from "../arm.js";
 import { MissileColor as MC } from "../../common/const.js";
+import { updateEliteData } from "../armTools.js";
 
 export class SlaveConscript extends ArmPrimary.Arm {
   constructor(value, player) {
@@ -244,19 +245,17 @@ export class WeapSqdFlthr extends ArmPrimary.Arm {
   }
 }
 
-export class HealingSqd extends ArmPrimary.Arm {
+export class SupplySqd extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.missileColor = MC.FireColor;
-    this.missileWeight = 5;
 
-    this.name = "Healing Squad";
-    this.m_name = "医疗小队";
+    this.name = "Supply Squad";
+    this.m_name = "补给小队";
     this.type = "infantry";
-    this.description = "infantry [healer]";
-    this.m_description = "近战步兵【治疗者】";
+    this.description = "infantry [healer, rouser]";
+    this.m_description = "近战步兵【治疗者，激励者】";
 
-    this.scale = 90;
+    this.scale = 120;
     this.singleHP = 40;
     this.speed = 4;
 
@@ -264,32 +263,57 @@ export class HealingSqd extends ArmPrimary.Arm {
 
     this.healing = 10;
     this.healRange = 3;
-    this.totalHeal = 100;
+    this.totalHeal = 250;
+    this.attackEnhance = 35;
+    this.enhanceRange = 3;
     this.loadRealtimeProps();
   }
 }
 
-export class RousingSqd extends ArmPrimary.Arm {
+export class WeapSqdGingallE extends WeapSqdGingall {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Elite Weapon Squad (Gingall)";
+    this.m_name = "精英武器小队-火枪";
+    this.type = "archers";
+    this.description = "shield-archers [anti-large]";
+    this.m_description = "持盾-远程步兵【反大型】";
+
+    this.loadRealtimeProps();
+    updateEliteData(this);
+  }
+}
+
+export class WeapSqdGatlinE extends WeapSqdGatlin {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Elite Weapon Squad (Gatlin)";
+    this.m_name = "精英武器小队-加特林";
+    this.type = "archers";
+    this.description = "shield-archers [anti-infantry]";
+    this.m_description = "持盾-远程步兵【反步兵】";
+
+    this.loadRealtimeProps();
+    updateEliteData(this);
+  }
+}
+
+export class WeapSqdFlthrE extends WeapSqdFlthr {
   constructor(value, player) {
     super(value, player);
     this.missileColor = MC.FireColor;
     this.missileWeight = 5;
 
-    this.name = "Rousing Squad";
-    this.m_name = "激励小队";
-    this.type = "infantry";
-    this.description = "infantry [rouser]";
-    this.m_description = "近战步兵【激励者】";
+    this.name = "Elite Weapon Squad (Flamethrower)";
+    this.m_name = "精英武器小队-火焰喷射器";
+    this.type = "archers";
+    this.description = "shield-archers [anti-non-armor]";
+    this.m_description = "持盾-远程步兵【反无甲】";
 
-    this.scale = 90;
-    this.singleHP = 40;
-    this.speed = 4;
-
-    this.meleeAttack = 16;
-
-    this.attackEnhance = 30;
-    this.enhanceRange = 3;
     this.loadRealtimeProps();
+    updateEliteData(this);
   }
 }
 
@@ -435,6 +459,30 @@ export class Foulcannon extends ArmPrimary.Arm {
   }
 }
 
+export class Vilecannon extends Foulcannon {
+  constructor(value, player) {
+    super(value, player);
+    this.missileWeight = 6;
+
+    this.name = "Vile Cannons";
+    this.m_name = "不洁加农炮";
+    this.type = "artillery";
+    this.description = "artillery [high-damage, shocking]";
+    this.m_description = "炮兵【高伤害，惊骇敌军】";
+
+    this.scale = 5;
+    this.singleHP = 900;
+    this.speed = 1;
+
+    this.missileAttack = 600;
+    this.missileRange = 11;
+    this.isParabola = true;
+
+    this.shock = 80;
+    this.loadRealtimeProps();
+  }
+}
+
 export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
   if (i === 0) return new SlaveConscript(pos, player);
@@ -445,13 +493,16 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 5) return new WeapSqdGingall(pos, player);
   if (i === 6) return new WeapSqdGatlin(pos, player);
   if (i === 7) return new WeapSqdFlthr(pos, player);
-  if (i === 8) return new RousingSqd(pos, player);
-  if (i === 9) return new HealingSqd(pos, player);
-  if (i === 10) return new MechGears(pos, player);
-  if (i === 11) return new MechGatlin(pos, player);
-  if (i === 12) return new MechMissile(pos, player);
-  if (i === 13) return new MutantSlave(pos, player);
-  if (i === 14) return new Foulcannon(pos, player);
+  if (i === 8) return new SupplySqd(pos, player);
+  if (i === 9) return new WeapSqdGingallE(pos, player);
+  if (i === 10) return new WeapSqdGatlinE(pos, player);
+  if (i === 11) return new WeapSqdFlthrE(pos, player);
+  if (i === 12) return new MechGears(pos, player);
+  if (i === 13) return new MechGatlin(pos, player);
+  if (i === 14) return new MechMissile(pos, player);
+  if (i === 15) return new MutantSlave(pos, player);
+  if (i === 16) return new Foulcannon(pos, player);
+  if (i === 17) return new Vilecannon(pos, player);
 
   return null;
 }
