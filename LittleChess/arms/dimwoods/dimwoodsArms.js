@@ -1,5 +1,6 @@
 import * as ArmPrimary from "../arm.js";
 import { MissileColor as MC } from "../../common/const.js";
+import { updateEliteData } from "../armTools.js";
 
 export class WoodsGuard extends ArmPrimary.Arm {
   constructor(value, player) {
@@ -117,6 +118,48 @@ export class WildKillerPS extends WildKiller {
     }
 
     return singleDamage;
+  }
+}
+
+export class TwilightWarrior extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Twilight Warriors";
+    this.m_name = "暮光战士";
+    this.type = "infantry";
+    this.description = "shield-infantry [high-damage]";
+    this.m_description = "持盾-近战步兵【高伤害】";
+
+    this.scale = 100;
+    this.singleHP = 70;
+    this.speed = 3;
+
+    this.missileArmor = 40;
+    this.meleeDodge = 20;
+    this.missileDodge = 20;
+    this.chargeDodge = 20;
+
+    this.meleeAttack = 42;
+    this.loadRealtimeProps();
+  }
+}
+
+export class TwilightWarriorE extends TwilightWarrior {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Elite Twilight Warriors";
+    this.m_name = "精英暮光战士";
+    this.type = "infantry";
+    this.description = "shield-infantry [high-damage, protector]";
+    this.m_description = "持盾-近战步兵【高伤害，护卫者】";
+
+    this.armorEnhance = 30;
+    this.enhanceRange = 2;
+    this.loadRealtimeProps();
+
+    updateEliteData(this);
   }
 }
 
@@ -256,10 +299,45 @@ export class WarBear extends ArmPrimary.Arm {
 
     this.missileDodge = 30;
 
-    this.meleeAttack = 60;
+    this.meleeAttack = 50;
     this.chargeAttack = 70;
 
     this.loadRealtimeProps();
+  }
+}
+
+export class WarBearRider extends WarBear {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "War Bear Riders";
+    this.m_name = "战熊骑兵";
+    this.type = "monster-infantry";
+    this.description = "monster-cavalry [high-damage]";
+    this.m_description = "怪兽步兵【高伤害】";
+
+    this.meleeDodge = 10;
+
+    this.meleeAttack = 64;
+    this.loadRealtimeProps();
+  }
+}
+
+export class WarBearRiderE extends WarBearRider {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Elite War Bear Riders";
+    this.m_name = "精英战熊骑兵";
+    this.type = "monster-infantry";
+    this.description = "monster-cavalry [high-damage, inspirator]";
+    this.m_description = "怪兽步兵【高伤害，鼓舞者】";
+
+    this.inspiring = 15;
+    this.inspireRange = 3;
+    this.loadRealtimeProps();
+
+    updateEliteData(this);
   }
 }
 
@@ -381,18 +459,22 @@ export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
   if (i === 0) return new WoodsGuard(pos, player);
   if (i === 1) return new WoodsGuardShield(pos, player);
-  if (i === 2) return new WildKiller(pos, player);
-  if (i === 3) return new WildKillerPS(pos, player);
-  if (i === 4) return new ShadowArcherAP(pos, player);
-  if (i === 5) return new ShadowArcherPS(pos, player);
-  if (i === 6) return new ShadowArcherFL(pos, player);
-  if (i === 7) return new LongbowRanger(pos, player);
-  if (i === 8) return new WarBear(pos, player);
-  if (i === 9) return new Dryad(pos, player);
-  if (i === 10) return new DryadHeal(pos, player);
-  if (i === 11) return new DryadRangerRide(pos, player);
-  if (i === 12) return new DryadStone(pos, player);
-  if (i === 13) return new GiantTreeman(pos, player);
+  if (i === 2) return new TwilightWarrior(pos, player);
+  if (i === 3) return new WildKiller(pos, player);
+  if (i === 4) return new WildKillerPS(pos, player);
+  if (i === 5) return new TwilightWarriorE(pos, player);
+  if (i === 6) return new ShadowArcherAP(pos, player);
+  if (i === 7) return new ShadowArcherPS(pos, player);
+  if (i === 8) return new ShadowArcherFL(pos, player);
+  if (i === 9) return new LongbowRanger(pos, player);
+  if (i === 10) return new WarBear(pos, player);
+  if (i === 11) return new WarBearRider(pos, player);
+  if (i === 12) return new WarBearRiderE(pos, player);
+  if (i === 13) return new Dryad(pos, player);
+  if (i === 14) return new DryadHeal(pos, player);
+  if (i === 15) return new DryadRangerRide(pos, player);
+  if (i === 16) return new DryadStone(pos, player);
+  if (i === 17) return new GiantTreeman(pos, player);
 
   return null;
 }

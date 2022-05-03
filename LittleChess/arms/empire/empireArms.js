@@ -460,9 +460,9 @@ export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
   if (i === 0) return new SwordInfantry(pos, player);
   if (i === 1) return new SwordInfantryShield(pos, player);
-  if (i === 2) return new SwordInfantryE(pos, player);
-  if (i === 3) return new PalaceGuard(pos, player);
-  if (i === 4) return new PalaceGuardShield(pos, player);
+  if (i === 2) return new PalaceGuard(pos, player);
+  if (i === 3) return new PalaceGuardShield(pos, player);
+  if (i === 4) return new SwordInfantryE(pos, player);
   if (i === 5) return new Musketeer(pos, player);
   if (i === 6) return new MusketeerShield(pos, player);
   if (i === 7) return new EmpireSniper(pos, player);
