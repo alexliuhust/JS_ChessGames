@@ -1,5 +1,6 @@
 import * as ArmPrimary from "../arm.js";
 import { MissileColor as MC } from "../../common/const.js";
+import { updateEliteData } from "../armTools.js";
 
 export class HenchWarrior extends ArmPrimary.Arm {
   constructor(value, player) {
@@ -8,19 +9,16 @@ export class HenchWarrior extends ArmPrimary.Arm {
     this.name = "Hench Warriors";
     this.m_name = "亲卫勇士";
     this.type = "infantry";
-    this.description = "armor-shield-infantry";
-    this.m_description = "装甲-持盾-近战步兵";
+    this.description = "shield-infantry";
+    this.m_description = "持盾-近战步兵";
 
     this.scale = 80;
     this.singleHP = 80;
     this.speed = 2;
 
-    this.meleeArmor = 60;
     this.missileArmor = 30;
-    this.chargeArmor = 20;
 
-    this.meleeAttack = 30;
-
+    this.meleeAttack = 28;
     this.loadRealtimeProps();
   }
 }
@@ -32,14 +30,13 @@ export class HenchWarriorHalberd extends HenchWarrior {
     this.name = "Hench Warriors (Halberd)";
     this.m_name = "亲卫勇士-长戟";
     this.type = "infantry";
-    this.description = "armor-infantry [anti-large]";
-    this.m_description = "装甲-近战步兵【反大型】";
+    this.description = "shield-infantry [anti-large, resist-charging]";
+    this.m_description = "持盾-近战步兵【反大型，抵御冲锋】";
 
-    this.missileArmor = 0;
-    this.chargeArmor = 50;
+    this.chargeArmor = 30;
 
-    this.meleeAttack = 22;
-    this.meleeAttack_bonus = 24;
+    this.meleeAttack = 20;
+    this.meleeAttack_bonus = 10;
 
     this.loadRealtimeProps();
   }
@@ -67,15 +64,109 @@ export class HenchWarriorGiantaxe extends HenchWarrior {
 
     this.missileArmor = 0;
 
-    this.meleeAttack = 30;
+    this.meleeAttack = 36;
 
-    this.antiArmor = 40;
+    this.antiArmor = 35;
     this.loadRealtimeProps();
   }
 
   getAntiArmor(damageType, targetArm) {
     if (damageType === "melee") return this.antiArmor;
     return 0;
+  }
+}
+
+export class BurningWarrior extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Burning Warriors";
+    this.m_name = "燃烧战士";
+    this.type = "infantry";
+    this.description = "armor-shield-infantry";
+    this.m_description = "装甲-持盾-近战步兵";
+
+    this.scale = 80;
+    this.singleHP = 80;
+    this.speed = 2;
+
+    this.meleeArmor = 60;
+    this.missileArmor = 30;
+    this.chargeArmor = 20;
+
+    this.meleeAttack = 35;
+
+    this.loadRealtimeProps();
+  }
+}
+
+export class BurningWarriorHalberd extends BurningWarrior {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Burning Warriors (Halberd)";
+    this.m_name = "燃烧战士-长戟";
+    this.type = "infantry";
+    this.description = "armor-infantry [anti-large]";
+    this.m_description = "装甲-近战步兵【反大型】";
+
+    this.missileArmor = 0;
+    this.chargeArmor = 50;
+
+    this.meleeAttack = 22;
+    this.meleeAttack_bonus = 28;
+
+    this.loadRealtimeProps();
+  }
+
+  _getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+      if (targetArm.isLarge()) singleDamage += this.meleeAttack_bonus;
+    }
+
+    return singleDamage;
+  }
+}
+
+export class BurningWarriorGiantaxe extends BurningWarrior {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Burning Warriors (Giant Axe)";
+    this.m_name = "燃烧战士-巨斧";
+    this.type = "infantry";
+    this.description = "armor-infantry [anti-armor]";
+    this.m_description = "装甲-近战步兵【高破甲】";
+
+    this.missileArmor = 0;
+
+    this.meleeAttack = 40;
+
+    this.antiArmor = 35;
+    this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee") return this.antiArmor;
+    return 0;
+  }
+}
+
+export class BurningWarriorE extends BurningWarriorGiantaxe {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Elite Burning Warriors";
+    this.m_name = "精英燃烧战士";
+    this.type = "infantry";
+    this.description = "armor-infantry [anti-armor]";
+    this.m_description = "装甲-近战步兵【高破甲】";
+
+    this.loadRealtimeProps();
+
+    updateEliteData(this);
   }
 }
 
@@ -151,6 +242,24 @@ export class BurningKnightCharge extends BurningKnight {
     this.chargeAttack = 60;
 
     this.loadRealtimeProps();
+  }
+}
+
+export class BurningKnightChargeE extends BurningKnightCharge {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Elite Burning Knights (Charge)";
+    this.m_name = "精英燃烧骑士-冲杀";
+    this.type = "cavalry";
+    this.description = "charge-cavalry [heavy-armor, inspirator]";
+    this.m_description = "冲杀骑兵【重装甲，鼓舞者】";
+
+    this.inspiring = 20;
+    this.inspireRange = 3;
+    this.loadRealtimeProps();
+
+    updateEliteData(this);
   }
 }
 
@@ -315,16 +424,21 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 0) return new HenchWarrior(pos, player);
   if (i === 1) return new HenchWarriorHalberd(pos, player);
   if (i === 2) return new HenchWarriorGiantaxe(pos, player);
-  if (i === 3) return new Hellhound(pos, player);
-  if (i === 4) return new HellhoundFS(pos, player);
-  if (i === 5) return new BurningKnight(pos, player);
-  if (i === 6) return new BurningKnightHalberd(pos, player);
-  if (i === 7) return new BurningKnightCharge(pos, player);
-  if (i === 8) return new DemonEnvoy(pos, player);
-  if (i === 9) return new DemonEnvoyWild(pos, player);
-  if (i === 10) return new DemonEnvoyHellfire(pos, player);
-  if (i === 11) return new GreatDemon(pos, player);
-  if (i === 12) return new GreatDemonHellfire(pos, player);
+  if (i === 3) return new BurningWarrior(pos, player);
+  if (i === 4) return new BurningWarriorHalberd(pos, player);
+  if (i === 5) return new BurningWarriorGiantaxe(pos, player);
+  if (i === 6) return new BurningWarriorE(pos, player);
+  if (i === 7) return new Hellhound(pos, player);
+  if (i === 8) return new HellhoundFS(pos, player);
+  if (i === 9) return new BurningKnight(pos, player);
+  if (i === 10) return new BurningKnightHalberd(pos, player);
+  if (i === 11) return new BurningKnightCharge(pos, player);
+  if (i === 12) return new BurningKnightChargeE(pos, player);
+  if (i === 13) return new DemonEnvoy(pos, player);
+  if (i === 14) return new DemonEnvoyWild(pos, player);
+  if (i === 15) return new DemonEnvoyHellfire(pos, player);
+  if (i === 16) return new GreatDemon(pos, player);
+  if (i === 17) return new GreatDemonHellfire(pos, player);
 
   return null;
 }

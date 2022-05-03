@@ -142,7 +142,7 @@ export function updateStaticProperties(arm) {
     arm.leadership += 50;
     arm.c_leadership = arm.leadership;
   } else if (arm.level === 3) {
-    factor = 1.4;
+    factor = 1.35;
     arm.leadership += 50;
     arm.c_leadership = arm.leadership;
   }
@@ -151,12 +151,12 @@ export function updateStaticProperties(arm) {
     arm.singleHP = Math.round(arm.singleHP * factor);
   }
 
-  arm.meleeArmor = Math.round(arm.meleeArmor * (factor - 0.1));
-  arm.missileArmor = Math.round(arm.missileArmor * (factor - 0.1));
-  arm.chargeArmor = Math.round(arm.chargeArmor * (factor - 0.1));
-  arm.meleeDodge = Math.round(arm.meleeDodge * (factor - 0.1));
-  arm.missileDodge = Math.round(arm.missileDodge * (factor - 0.1));
-  arm.chargeDodge = Math.round(arm.chargeDodge * (factor - 0.1));
+  arm.meleeArmor = Math.round(arm.meleeArmor * (factor - 0.12));
+  arm.missileArmor = Math.round(arm.missileArmor * (factor - 0.12));
+  arm.chargeArmor = Math.round(arm.chargeArmor * (factor - 0.12));
+  arm.meleeDodge = Math.round(arm.meleeDodge * (factor - 0.12));
+  arm.missileDodge = Math.round(arm.missileDodge * (factor - 0.12));
+  arm.chargeDodge = Math.round(arm.chargeDodge * (factor - 0.12));
 
   arm.meleeAttack = Math.round(arm.meleeAttack * factor);
   arm.missileAttack = Math.round(arm.missileAttack * factor);

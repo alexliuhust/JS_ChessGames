@@ -107,6 +107,7 @@ export class Arm {
 
       this.c_scale = this.scale;
       this.c_singleHP = this.singleHP;
+      this.wound = this.singleHP;
       this.c_speed = this.speed;
 
       this.c_meleeArmor = this.meleeArmor;
@@ -242,11 +243,11 @@ export class Arm {
           break;
       }
     }
-    armor = Math.max(armor, 0);
-    dodge = Math.max(dodge, 0);
+    armor = Math.max(armor, -3);
+    dodge = Math.max(dodge, -2);
     let enh = afterArmorEnhancement(this, this.player.pieceList);
     let percentage = (100 - (armor + dodge + enh)) / 100;
-    if (percentage < 0.1) percentage = 0.1;
+    if (percentage < 0.12) percentage = 0.12;
 
     return percentage;
   }
@@ -403,7 +404,10 @@ export class Arm {
       if (realDamage > this.wound) {
         realDamage -= this.wound;
         totalDecrease = Math.floor(realDamage / this.singleHP);
-        this.wound = realDamage - totalDecrease * this.singleHP;
+        this.wound =
+          this.singleHP - (realDamage - totalDecrease * this.singleHP);
+
+        totalDecrease++;
 
         let enh = afterArmorEnhancement(this, this.player.pieceList);
         if (enh > 0) addArmorEnhanceEffect(this);
