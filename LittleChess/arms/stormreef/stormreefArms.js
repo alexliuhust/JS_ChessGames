@@ -1,5 +1,6 @@
 import * as ArmPrimary from "../arm.js";
 import { MissileColor as MC } from "../../common/const.js";
+import { updateEliteData } from "../armTools.js";
 
 export class Seaman extends ArmPrimary.Arm {
   constructor(value, player) {
@@ -64,6 +65,23 @@ export class SeamanMusket extends Seaman {
   }
 }
 
+export class SeamanMusketE extends SeamanMusket {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Boatswains";
+    this.m_name = "水手长";
+    this.type = "archers";
+    this.description = "archers";
+    this.m_description = "远程步兵";
+
+    this.antiArmor = 20;
+    this.loadRealtimeProps();
+
+    updateEliteData(this);
+  }
+}
+
 export class Pisciculi extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
@@ -99,6 +117,24 @@ export class PisciculiDoubleBlades extends Pisciculi {
     this.meleeAttack = 55;
 
     this.loadRealtimeProps();
+  }
+}
+
+export class PisciculiE extends PisciculiDoubleBlades {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Elite Pisciculis";
+    this.m_name = "精英侏儒鱼人";
+    this.type = "infantry";
+    this.description = "infantry [dodge-missile, high-damage, rouser]";
+    this.m_description = "近战步兵【远程闪避，高伤害，激励者】";
+
+    this.attackEnhance = 20;
+    this.enhanceRange = 2;
+    this.loadRealtimeProps();
+
+    updateEliteData(this);
   }
 }
 
@@ -138,7 +174,7 @@ export class MurlocWarriorHurling extends MurlocWarrior {
     this.missileColor = MC.ATColor;
     this.missileWeight = 5;
 
-    this.name = "Murloc Hurler";
+    this.name = "Murloc Hurlers";
     this.m_name = "鱼人投戟手";
     this.type = "infantry";
     this.description = "hurling-infantry [anti-armor]";
@@ -157,23 +193,21 @@ export class MurlocWarriorHurling extends MurlocWarrior {
   }
 }
 
-export class MurlocElite extends MurlocWarrior {
+export class MurlocE extends MurlocWarrior {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Murloc Elites";
-    this.m_name = "鱼人精英";
+    this.name = "Elite Murlocs";
+    this.m_name = "精英鱼人";
     this.type = "infantry";
     this.description = "infantry [anti-armor, protector]";
     this.m_description = "近战步兵【高破甲，护卫者】";
 
-    this.singleHP = 130;
-
-    this.meleeAttack = 80;
-
     this.armorEnhance = 30;
     this.enhanceRange = 2;
     this.loadRealtimeProps();
+
+    updateEliteData(this);
   }
 }
 
@@ -257,8 +291,8 @@ export class Cancrimag extends ArmPrimary.Arm {
     this.name = "Cancrimagnus";
     this.m_name = "巨蟹";
     this.type = "monster";
-    this.description = "giant [heavy-armor, shocking, inspirator]";
-    this.m_description = "巨兽【重装甲，惊骇敌军，鼓舞者】";
+    this.description = "armor-giant [shocking]";
+    this.m_description = "装甲巨兽【惊骇敌军】";
 
     this.scale = 1;
     this.singleHP = 9000;
@@ -271,9 +305,6 @@ export class Cancrimag extends ArmPrimary.Arm {
     this.meleeAttack = 600;
 
     this.shock = 70;
-
-    this.inspiring = 8;
-    this.inspireRange = 3;
     this.loadRealtimeProps();
   }
 }
@@ -285,9 +316,8 @@ export class CancrimagMusket extends Cancrimag {
     this.name = "Cancrimagnus (Musket)";
     this.m_name = "巨蟹-火枪";
     this.type = "monster";
-    this.description =
-      "giant [heavy-armor, missile-attack, shocking, inspirator]";
-    this.m_description = "巨兽【重装甲，远程攻击，惊骇敌军，鼓舞者】";
+    this.description = "armor-giant [shocking, missile-attack]";
+    this.m_description = "装甲巨兽【惊骇敌军，远程攻击】";
 
     this.missileAttack = 720;
     this.missileRange = 6;
@@ -301,6 +331,42 @@ export class CancrimagMusket extends Cancrimag {
   getAntiArmor(damageType, targetArm) {
     if (damageType === "missile") return this.antiArmor;
     return 0;
+  }
+}
+
+export class CancrimagPK extends Cancrimag {
+  constructor(value, player) {
+    super(value, player);
+    this.missileColor = MC.FireColor;
+    this.missileWeight = 6;
+
+    this.name = "Cancrimagnus (Powder Kegs)";
+    this.m_name = "巨蟹-火枪";
+    this.type = "monster";
+    this.description = "armor-giant [shocking, missile-attack]";
+    this.m_description = "装甲巨兽【惊骇敌军，远程攻击】";
+
+    this.missileAttack = 2000;
+    this.missileRange = 3;
+
+    this.ammo = 10;
+    this.loadRealtimeProps();
+  }
+}
+
+export class CancrimagFlag extends Cancrimag {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Cancrimagnus (Flag)";
+    this.m_name = "巨蟹-军旗";
+    this.type = "monster";
+    this.description = "armor-giant [shocking, inspirator]";
+    this.m_description = "装甲巨兽【惊骇敌军，鼓舞者】";
+
+    this.inspiring = 15;
+    this.inspireRange = 4;
+    this.loadRealtimeProps();
   }
 }
 
@@ -330,17 +396,21 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 0) return new Seaman(pos, player);
   if (i === 1) return new SeamanPistol(pos, player);
   if (i === 2) return new SeamanMusket(pos, player);
-  if (i === 3) return new Pisciculi(pos, player);
-  if (i === 4) return new PisciculiDoubleBlades(pos, player);
-  if (i === 5) return new MurlocWarrior(pos, player);
-  if (i === 6) return new MurlocElite(pos, player);
-  if (i === 7) return new MurlocWarriorHurling(pos, player);
-  if (i === 8) return new Medusa(pos, player);
-  if (i === 9) return new MedusaTrident(pos, player);
-  if (i === 10) return new MedusaMB(pos, player);
-  if (i === 11) return new Cancrimag(pos, player);
-  if (i === 12) return new CancrimagMusket(pos, player);
-  if (i === 13) return new DeckGun(pos, player);
+  if (i === 3) return new SeamanMusketE(pos, player);
+  if (i === 4) return new Pisciculi(pos, player);
+  if (i === 5) return new PisciculiDoubleBlades(pos, player);
+  if (i === 6) return new PisciculiE(pos, player);
+  if (i === 7) return new MurlocWarrior(pos, player);
+  if (i === 8) return new MurlocWarriorHurling(pos, player);
+  if (i === 9) return new MurlocE(pos, player);
+  if (i === 10) return new Medusa(pos, player);
+  if (i === 11) return new MedusaTrident(pos, player);
+  if (i === 12) return new MedusaMB(pos, player);
+  if (i === 13) return new Cancrimag(pos, player);
+  if (i === 14) return new CancrimagFlag(pos, player);
+  if (i === 15) return new CancrimagMusket(pos, player);
+  if (i === 16) return new CancrimagPK(pos, player);
+  if (i === 17) return new DeckGun(pos, player);
 
   return null;
 }
