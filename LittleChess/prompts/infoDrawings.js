@@ -9,6 +9,8 @@ import {
   DodgeDataColor as GDC,
   DamageDataColor as DDC,
   RadiusDataColor as RDC,
+  ArmorEnhanceColor as ArEC,
+  AttackEnhanceColor as AtEC,
 } from "../common/const.js";
 
 const leftX = 10;
@@ -133,13 +135,23 @@ function drawHPAndAmmoBars(cxt, piece, useMandarin) {
 
 function drawCombatData(cxt, piece, useMandarin) {
   let textY = 265;
-
   Canvas.drawLine(cxt, leftX, textY - 30, leftX + 485, textY - 30, "white", 7);
+  textY = 260;
 
-  let speedText = `Speed:     ${piece.c_speed}`;
-  let armorText = `Armor:     (X)[ ${piece.c_meleeArmor} ]         ( // )[ ${piece.c_missileArmor} ]         (=>)[ ${piece.c_chargeArmor} ]`;
-  let dodgeText = `Dodge:     (X)[ ${piece.c_meleeDodge} ]         (//)[ ${piece.c_missileDodge} ]         (=>)[ ${piece.c_chargeDodge} ]`;
-  let attackText = `Damage:  Melee[ ${piece.c_meleeAttack}(+${piece.meleeAttack_bonus}) ]  Missile[ ${piece.c_missileAttack}(+${piece.missileAttack_bonus}) ]  Charge[ ${piece.c_chargeAttack}(+${piece.chargeAttack_bonus}) ]`;
+  let speedText = `Speed:        ${piece.c_speed}`;
+  let dataTitle = ["Melee(bonus)", "Missile(bonus)", "Charge(bonus)"];
+  let armorText = `Armor:`;
+  let dodgeText = `Dodge:`;
+  let attackText = `Damage:`;
+  let armorDt = [piece.c_meleeArmor, piece.c_missileArmor, piece.c_chargeArmor];
+  let dodgeDt = [piece.c_meleeDodge, piece.c_missileDodge, piece.c_chargeDodge];
+  let attackDt = [
+    `${piece.c_meleeAttack}(+${piece.meleeAttack_bonus})`,
+    `${piece.c_missileAttack}(+${piece.missileAttack_bonus})`,
+    `${piece.c_chargeAttack}(+${piece.chargeAttack_bonus})`,
+  ];
+  let dataX = [105, 235, 372];
+
   let rangeInfo = `Missile-range: ${piece.c_missileRange}`;
   let radiusInfo = `Explose-radius: ${piece.c_missileRadius}`;
   let antiArmorText = `Anti-armor: ${piece.antiArmor}`;
@@ -151,10 +163,11 @@ function drawCombatData(cxt, piece, useMandarin) {
   let atEnhText = `Attack Enhance: ${piece.attackEnhance}%`;
 
   if (useMandarin) {
-    speedText = `速度:     ${piece.c_speed}`;
-    armorText = `护甲:     近战[ ${piece.c_meleeArmor} ]         远程[ ${piece.c_missileArmor} ]         冲杀[ ${piece.c_chargeArmor} ]`;
-    dodgeText = `闪避:     近战[ ${piece.c_meleeDodge} ]         远程[ ${piece.c_missileDodge} ]         冲杀[ ${piece.c_chargeDodge} ]`;
-    attackText = `伤害:     近战[ ${piece.c_meleeAttack}(+${piece.meleeAttack_bonus}) ]  远程[ ${piece.c_missileAttack}(+${piece.missileAttack_bonus}) ]  冲杀[ ${piece.c_chargeAttack}(+${piece.chargeAttack_bonus}) ]`;
+    speedText = `速度:            ${piece.c_speed}`;
+    dataTitle = ["近战(加成)", "远程(加成)", "冲杀(加成)"];
+    armorText = `护甲:`;
+    dodgeText = `闪避:`;
+    attackText = `伤害:`;
     rangeInfo = `远程范围: ${piece.c_missileRange}`;
     radiusInfo = `爆炸半径: ${piece.c_missileRadius}`;
     antiArmorText = `破甲: ${piece.antiArmor}`;
@@ -169,13 +182,26 @@ function drawCombatData(cxt, piece, useMandarin) {
   let color = piece.c_speed === 0 ? "red" : "white";
   let fontSize = 17;
   Canvas.drawText(cxt, speedText, leftX, textY, color, fontSize);
-  textY += 30;
   color = "white";
+  textY += 30;
+  Canvas.drawText(cxt, dataTitle[0], dataX[0], textY, color, fontSize);
+  Canvas.drawText(cxt, dataTitle[1], dataX[1], textY, color, fontSize);
+  Canvas.drawText(cxt, dataTitle[2], dataX[2], textY, color, fontSize);
+  textY += 22;
   Canvas.drawText(cxt, armorText, leftX, textY, ADC, fontSize);
-  textY += 30;
+  Canvas.drawText(cxt, armorDt[0], dataX[0], textY, ADC, fontSize);
+  Canvas.drawText(cxt, armorDt[1], dataX[1], textY, ADC, fontSize);
+  Canvas.drawText(cxt, armorDt[2], dataX[2], textY, ADC, fontSize);
+  textY += 22;
   Canvas.drawText(cxt, dodgeText, leftX, textY, GDC, fontSize);
-  textY += 30;
+  Canvas.drawText(cxt, dodgeDt[0], dataX[0], textY, GDC, fontSize);
+  Canvas.drawText(cxt, dodgeDt[1], dataX[1], textY, GDC, fontSize);
+  Canvas.drawText(cxt, dodgeDt[2], dataX[2], textY, GDC, fontSize);
+  textY += 22;
   Canvas.drawText(cxt, attackText, leftX, textY, DDC, fontSize);
+  Canvas.drawText(cxt, attackDt[0], dataX[0], textY, DDC, fontSize);
+  Canvas.drawText(cxt, attackDt[1], dataX[1], textY, DDC, fontSize);
+  Canvas.drawText(cxt, attackDt[2], dataX[2], textY, DDC, fontSize);
   if (piece.missileAttack > 0) {
     textY += 30;
     Canvas.drawText(cxt, rangeInfo, leftX, textY, color, fontSize);
@@ -188,19 +214,19 @@ function drawCombatData(cxt, piece, useMandarin) {
   textY -= 20;
   if (piece.healing > 0) {
     textY += 20;
-    Canvas.drawText(cxt, healText, leftX + 320, textY, color, fontSize);
+    Canvas.drawText(cxt, healText, leftX + 320, textY, HC, fontSize);
   }
   if (piece.inspiring > 0) {
     textY += 20;
-    Canvas.drawText(cxt, inspText, leftX + 320, textY, color, fontSize);
+    Canvas.drawText(cxt, inspText, leftX + 310, textY, DC, fontSize);
   }
   if (piece.armorEnhance > 0) {
     textY += 20;
-    Canvas.drawText(cxt, arEnhText, leftX + 320, textY, color, fontSize);
+    Canvas.drawText(cxt, arEnhText, leftX + 310, textY, ArEC, fontSize);
   }
   if (piece.attackEnhance > 0) {
     textY += 20;
-    Canvas.drawText(cxt, atEnhText, leftX + 320, textY, color, fontSize);
+    Canvas.drawText(cxt, atEnhText, leftX + 310, textY, AtEC, fontSize);
   }
 }
 
