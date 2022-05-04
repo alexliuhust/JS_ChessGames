@@ -9,8 +9,8 @@ export class WoodsGuard extends ArmPrimary.Arm {
     this.name = "Woods Guards";
     this.m_name = "林地守卫";
     this.type = "infantry";
-    this.description = "infantry [resist-charging]";
-    this.m_description = "近战步兵【抵御冲锋】";
+    this.description = "infantry[resist-charging]";
+    this.m_description = "近战步兵[抵御冲锋]";
 
     this.scale = 100;
     this.singleHP = 50;
@@ -37,8 +37,8 @@ export class WoodsGuardShield extends WoodsGuard {
     this.name = "Woods Guards (Shield)";
     this.m_name = "林地守卫-持盾";
     this.type = "infantry";
-    this.description = "shield-infantry [resist-charging]";
-    this.m_description = "持盾-近战步兵【抵御冲锋】";
+    this.description = "shield-infantry[resist-charging]";
+    this.m_description = "持盾-近战步兵[抵御冲锋]";
 
     this.missileArmor = 30;
 
@@ -53,8 +53,8 @@ export class WildKiller extends ArmPrimary.Arm {
     this.name = "Wild Killers";
     this.m_name = "狂野杀手";
     this.type = "infantry";
-    this.description = "infantry [melee-master, shocking]";
-    this.m_description = "近战步兵【近战大师，惊骇敌军】";
+    this.description = "infantry[melee-master  shocking]";
+    this.m_description = "近战步兵[近战大师 惊骇敌军]";
 
     this.scale = 120;
     this.singleHP = 40;
@@ -90,8 +90,8 @@ export class WildKillerPS extends WildKiller {
     this.name = "Wild Killers (Poisoned)";
     this.m_name = "狂野杀手-淬毒";
     this.type = "infantry";
-    this.description = "infantry [melee-master, shocking, anti-non-armor]";
-    this.m_description = "近战步兵【近战大师，惊骇敌军，反无甲】";
+    this.description = "infantry[melee-master  shocking  anti-non-armor]";
+    this.m_description = "近战步兵[近战大师 惊骇敌军 反无甲]";
 
     this.meleeAttack_bonus = 70;
     this.chargeAttack_bonus = 70;
@@ -128,8 +128,8 @@ export class TwilightWarrior extends ArmPrimary.Arm {
     this.name = "Twilight Warriors";
     this.m_name = "暮光战士";
     this.type = "infantry";
-    this.description = "shield-infantry [high-damage]";
-    this.m_description = "持盾-近战步兵【高伤害】";
+    this.description = "shield-infantry[high-damage]";
+    this.m_description = "持盾-近战步兵[高伤害]";
 
     this.scale = 100;
     this.singleHP = 70;
@@ -152,8 +152,8 @@ export class TwilightWarriorE extends TwilightWarrior {
     this.name = "Elite Twilight Warriors";
     this.m_name = "精英暮光战士";
     this.type = "infantry";
-    this.description = "shield-infantry [high-damage, protector]";
-    this.m_description = "持盾-近战步兵【高伤害，护卫者】";
+    this.description = "shield-infantry  protector[high-damage]";
+    this.m_description = "持盾-近战步兵 护卫者[高伤害]";
 
     this.armorEnhance = 30;
     this.enhanceRange = 2;
@@ -172,8 +172,8 @@ export class ShadowArcherFL extends ArmPrimary.Arm {
     this.name = "Shadow Archers (Flame)";
     this.m_name = "暗影弓手-火焰箭";
     this.type = "archers";
-    this.description = "melee-archers [high-damage]";
-    this.m_description = "近战-远程步兵【高伤害】";
+    this.description = "melee-archers[high-damage]";
+    this.m_description = "近战-远程步兵[高伤害]";
 
     this.scale = 90;
     this.singleHP = 40;
@@ -201,8 +201,8 @@ export class ShadowArcherPS extends ShadowArcherFL {
     this.name = "Shadow Archers (Poisoned)";
     this.m_name = "暗影弓手-淬毒箭";
     this.type = "archers";
-    this.description = "melee-archers [anti-non-armor]";
-    this.m_description = "近战-远程步兵【反无甲】";
+    this.description = "melee-archers[anti-non-armor]";
+    this.m_description = "近战-远程步兵[反无甲]";
 
     this.meleeAttack_bonus = 15;
     this.missileAttack = 36;
@@ -236,8 +236,8 @@ export class ShadowArcherAP extends ShadowArcherFL {
     this.name = "Shadow Archers (Armor-Piercing)";
     this.m_name = "暗影弓手-穿甲箭";
     this.type = "archers";
-    this.description = "melee-archers [anti-armor]";
-    this.m_description = "近战-远程步兵【高破甲】";
+    this.description = "melee-archers[anti-armor]";
+    this.m_description = "近战-远程步兵[高破甲]";
 
     this.missileAttack = 36;
 
@@ -258,8 +258,8 @@ export class LongbowRanger extends ArmPrimary.Arm {
     this.name = "Longbow Rangers";
     this.m_name = "长弓游侠";
     this.type = "archers";
-    this.description = "long-range-archers [anti-armor]";
-    this.m_description = "长程-远程步兵【高破甲】";
+    this.description = "archers[anti-armor  long-range]";
+    this.m_description = "远程步兵[高破甲 长程]";
 
     this.scale = 90;
     this.singleHP = 40;
@@ -290,8 +290,8 @@ export class WarBear extends ArmPrimary.Arm {
     this.name = "War Bears";
     this.m_name = "战熊";
     this.type = "monster-infantry";
-    this.description = "monster-infantry [fast]";
-    this.m_description = "怪兽步兵【迅捷如风】";
+    this.description = "monster-infantry[agile]";
+    this.m_description = "怪兽步兵[迅捷如风]";
 
     this.scale = 30;
     this.singleHP = 240;
@@ -313,8 +313,8 @@ export class WarBearRider extends WarBear {
     this.name = "War Bear Riders";
     this.m_name = "战熊骑兵";
     this.type = "monster-infantry";
-    this.description = "monster-cavalry [high-damage]";
-    this.m_description = "怪兽步兵【高伤害】";
+    this.description = "monster-cavalry[agile  high-damage]";
+    this.m_description = "怪兽步兵[迅捷如风 高伤害]";
 
     this.meleeDodge = 10;
 
@@ -330,8 +330,8 @@ export class WarBearRiderE extends WarBearRider {
     this.name = "Elite War Bear Riders";
     this.m_name = "精英战熊骑兵";
     this.type = "monster-infantry";
-    this.description = "monster-cavalry [high-damage, inspirator]";
-    this.m_description = "怪兽步兵【高伤害，鼓舞者】";
+    this.description = "monster-cavalry  inspirator[agile  high-damage]";
+    this.m_description = "怪兽步兵 鼓舞者[迅捷如风 高伤害]";
 
     this.inspiring = 15;
     this.inspireRange = 3;
@@ -348,8 +348,8 @@ export class Dryad extends ArmPrimary.Arm {
     this.name = "Dryads";
     this.m_name = "树精";
     this.type = "monster-infantry";
-    this.description = "monster-infantry [heavy-armor]";
-    this.m_description = "怪兽步兵【重装甲】";
+    this.description = "armor-monster-infantry";
+    this.m_description = "装甲-怪兽步兵";
 
     this.scale = 30;
     this.singleHP = 300;
@@ -372,8 +372,8 @@ export class DryadHeal extends Dryad {
     this.name = "Dryad (Healing)";
     this.m_name = "树精-治疗";
     this.type = "monster-infantry";
-    this.description = "monster-infantry [heavy-armor, healer]";
-    this.m_description = "怪兽步兵【重装甲, 治疗者】";
+    this.description = "armor-monster-infantry  healer";
+    this.m_description = "装甲-怪兽步兵 治疗者";
 
     this.healing = 10;
     this.healRange = 3;
@@ -389,8 +389,8 @@ export class DryadRangerRide extends Dryad {
     this.name = "Dryads (Ranger-Ride)";
     this.m_name = "树精-游侠搭乘";
     this.type = "monster-infantry";
-    this.description = "monster-infantry [heavy-armor, missile-attack]";
-    this.m_description = "怪兽步兵【重装甲，远程攻击】";
+    this.description = "armor-monster-infantry[missile-attack]";
+    this.m_description = "装甲-怪兽步兵[远程攻击]";
 
     this.missileAttack = 60;
     this.missileRange = 11;
@@ -415,8 +415,8 @@ export class DryadStone extends Dryad {
     this.name = "Dryads (Stone)";
     this.m_name = "树精-投石";
     this.type = "monster-infantry";
-    this.description = "monster-infantry [heavy-armor, missile-attack]";
-    this.m_description = "怪兽步兵【重装甲，远程攻击】";
+    this.description = "armor-monster-infantry[missile-attack  bombing]";
+    this.m_description = "装甲-怪兽步兵[远程攻击 轰炸]";
 
     this.missileAttack = 60;
     this.missileRange = 10;
@@ -435,8 +435,8 @@ export class GiantTreeman extends ArmPrimary.Arm {
     this.name = "Giant Treeman";
     this.m_name = "巨树人";
     this.type = "monster";
-    this.description = "giant [heavy-armor, healer]";
-    this.m_description = "巨兽【重装甲，治疗者】";
+    this.description = "armor-giant  healer";
+    this.m_description = "装甲巨兽 治疗者";
 
     this.scale = 1;
     this.singleHP = 8000;

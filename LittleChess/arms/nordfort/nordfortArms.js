@@ -9,8 +9,8 @@ export class HallwayGuard extends ArmPrimary.Arm {
     this.name = "Hallway Guards";
     this.m_name = "门厅守卫";
     this.type = "infantry";
-    this.description = "infantry [resist-charging]";
-    this.m_description = "近战步兵【抵御冲锋】";
+    this.description = "infantry[resist-charging]";
+    this.m_description = "近战步兵[抵御冲锋]";
 
     this.scale = 100;
     this.singleHP = 50;
@@ -38,8 +38,8 @@ export class HallwayGuardShield extends HallwayGuard {
     this.name = "Hallway Guards (Shield)";
     this.m_name = "门厅守卫-持盾";
     this.type = "infantry";
-    this.description = "shield-infantry [resist-charging]";
-    this.m_description = "持盾-近战步兵【抵御冲锋】";
+    this.description = "shield-infantry[resist-charging]";
+    this.m_description = "持盾-近战步兵[抵御冲锋]";
 
     this.missileArmor = 30;
 
@@ -54,8 +54,8 @@ export class NordExecutioner extends ArmPrimary.Arm {
     this.name = "Nord Executioners";
     this.m_name = "诺德刽子手";
     this.type = "infantry";
-    this.description = "armor-infantry [anti-armor]";
-    this.m_description = "装甲-近战步兵【高破甲】";
+    this.description = "armor-infantry[anti-armor]";
+    this.m_description = "装甲-近战步兵[高破甲]";
 
     this.scale = 100;
     this.singleHP = 50;
@@ -83,8 +83,8 @@ export class NordHerald extends NordExecutioner {
     this.name = "Nord Heralds";
     this.m_name = "诺德军锋";
     this.type = "infantry";
-    this.description = "armor-infantry [resist-charging]";
-    this.m_description = "装甲-近战步兵【抵御冲锋】";
+    this.description = "armor-infantry[resist-charging]";
+    this.m_description = "装甲-近战步兵[抵御冲锋]";
 
     this.chargeArmor = 40;
 
@@ -102,8 +102,8 @@ export class NordHeraldE extends NordHerald {
     this.name = "Elite Nord Heralds";
     this.m_name = "精英诺德军锋";
     this.type = "infantry";
-    this.description = "armor-infantry [resist-charging, inspirator]";
-    this.m_description = "装甲-近战步兵【抵御冲锋，鼓舞者】";
+    this.description = "armor-infantry  inspirator[resist-charging]";
+    this.m_description = "装甲-近战步兵 鼓舞者[抵御冲锋]";
 
     this.inspiring = 12;
     this.inspireRange = 3;
@@ -120,8 +120,8 @@ export class CoastDefender extends ArmPrimary.Arm {
     this.name = "Coast Defenders (Light)";
     this.m_name = "滨海守卫-轻装";
     this.type = "archers";
-    this.description = "melee-archers [resist-charging]";
-    this.m_description = "近战-远程步兵【抵御冲锋】";
+    this.description = "melee-archers[resist-charging]";
+    this.m_description = "近战-远程步兵[抵御冲锋]";
 
     this.scale = 80;
     this.singleHP = 50;
@@ -145,8 +145,8 @@ export class CoastDefenderShield extends CoastDefender {
     this.name = "Coast Defenders (Shield)";
     this.m_name = "滨海守卫-持盾";
     this.type = "archers";
-    this.description = "melee-shield-archers [resist-charging]";
-    this.m_description = "近战-持盾-远程步兵【抵御冲锋】";
+    this.description = "melee-shield-archers[resist-charging]";
+    this.m_description = "近战-持盾-远程步兵[抵御冲锋]";
 
     this.missileArmor = 30;
 
@@ -161,8 +161,8 @@ export class BallistaSquad extends ArmPrimary.Arm {
     this.name = "Ballista Squad";
     this.m_name = "重弩小队";
     this.type = "archers";
-    this.description = "melee-armor-archers [long-range, anti-armor]";
-    this.m_description = "近战-装甲-远程步兵【长程，高破甲】";
+    this.description = "armor-melee-archers[long-range  anti-armor]";
+    this.m_description = "装甲-近战-远程步兵[长程 高破甲]";
 
     this.scale = 80;
     this.singleHP = 50;
@@ -192,8 +192,8 @@ export class BallistaSquadE extends BallistaSquad {
     this.name = "Elite Ballista Squad";
     this.m_name = "精英重弩小队";
     this.type = "archers";
-    this.description = "melee-armor-archers [long-range, anti-armor]";
-    this.m_description = "近战-装甲-远程步兵【长程，高破甲】";
+    this.description = "melee-armor-archers[long-range  anti-armor]";
+    this.m_description = "近战-装甲-远程步兵[长程 高破甲]";
 
     this.loadRealtimeProps();
 
@@ -234,7 +234,7 @@ export class CoastRangerCharge extends CoastRanger {
     this.m_name = "滨海游骑兵-冲杀";
     this.type = "cavalry";
     this.description = "missile-charging-cavalry";
-    this.m_description = "远程/冲杀骑兵";
+    this.m_description = "远程-冲杀骑兵";
 
     this.chargeAttack = 58;
     this.loadRealtimeProps();
@@ -248,8 +248,8 @@ export class FlameKnight extends ArmPrimary.Arm {
     this.name = "Flame Knights";
     this.m_name = "炎骑士";
     this.type = "cavalry";
-    this.description = "charging-cavalry [anti-armor, fast]";
-    this.m_description = "冲击骑兵【高破甲，惊骇敌军，迅捷如风】";
+    this.description = "charging-cavalry[anti-armor  agile]";
+    this.m_description = "冲击骑兵[高破甲 迅捷如风]";
 
     this.scale = 50;
     this.singleHP = 120;
@@ -277,8 +277,8 @@ export class FlameKnightShield extends FlameKnight {
     this.name = "Flame Knights (Shield)";
     this.m_name = "炎骑士-持盾";
     this.type = "cavalry";
-    this.description = "shield-charging-cavalry [anti-armor, fast]";
-    this.m_description = "冲击骑兵【高破甲，惊骇敌军，迅捷如风】";
+    this.description = "shield-charging-cavalry[anti-armor  agile]";
+    this.m_description = "持盾-冲击骑兵[高破甲 迅捷如风]";
 
     this.missileArmor = 30;
 
@@ -293,8 +293,8 @@ export class CoralCavalry extends ArmPrimary.Arm {
     this.name = "Coral Cavalry";
     this.m_name = "珊瑚骑兵团";
     this.type = "cavalry";
-    this.description = "charging-cavalry [heavy-armor, anti-armor]";
-    this.m_description = "冲击骑兵【重装甲，高破甲】";
+    this.description = "armor-charging-cavalry[anti-armor]";
+    this.m_description = "装甲-冲击骑兵[高破甲]";
 
     this.scale = 50;
     this.singleHP = 120;
@@ -349,8 +349,8 @@ export class GiantBallistaShrapnel extends GiantBallista {
     this.name = "Giant Ballistas (Shrapnel)";
     this.m_name = "巨型弩炮-霰弹";
     this.type = "artillery";
-    this.description = "artillery [anti-infantry]";
-    this.m_description = "炮兵【反步兵】";
+    this.description = "artillery[anti-infantry]";
+    this.m_description = "炮兵[反步兵]";
 
     this.missileAttack = 300;
     this.missileAttack_bonus = 400;
@@ -379,8 +379,8 @@ export class StoneGiant extends ArmPrimary.Arm {
     this.name = "Nord Stone Titan";
     this.m_name = "诺德巨石人";
     this.type = "monster";
-    this.description = "giant [anti-infantry]";
-    this.m_description = "巨兽【反步兵】";
+    this.description = "giant[anti-infantry]";
+    this.m_description = "巨兽[反步兵]";
 
     this.scale = 1;
     this.singleHP = 9000;
@@ -414,8 +414,8 @@ export class StoneGiantFlame extends StoneGiant {
     this.name = "Nord Stone Titan (Flame)";
     this.m_name = "诺德火焰巨石人";
     this.type = "monster";
-    this.description = "giant [anti-infantry, high-damage, rouser]";
-    this.m_description = "巨兽【反步兵，高伤害，激励者】";
+    this.description = "giant[anti-infantry  high-damage  rouser]";
+    this.m_description = "巨兽[反步兵 高伤害 激励者]";
 
     this.meleeAttack = 700;
     this.meleeAttack_bonus = 800;
