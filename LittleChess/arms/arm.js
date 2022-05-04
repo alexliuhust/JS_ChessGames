@@ -316,7 +316,12 @@ export class Arm {
   }
 
   getTotalHP() {
-    return this.c_singleHP * this.c_scale;
+    if (this.scale === 1) return this.c_singleHP;
+    return this.c_singleHP * (this.c_scale - 1) + this.wound;
+  }
+
+  getOriginalHP() {
+    return this.singleHP * this.scale;
   }
 
   getAntiArmor(damageType, targetArm) {

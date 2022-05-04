@@ -101,8 +101,9 @@ export const Canvas = {
     }
     // Draw HP, ammo, and leaddership bars
     let hlen, alen, llen, elen;
-    if (arm.scale === 1) hlen = (50 * arm.c_singleHP) / arm.singleHP;
-    else hlen = (50 * arm.c_scale) / arm.scale;
+    hlen = (50 * arm.getTotalHP()) / arm.getOriginalHP();
+    // if (arm.scale === 1) hlen = (50 * arm.c_singleHP) / arm.singleHP;
+    // else hlen = (50 * arm.c_scale) / arm.scale;
     if (arm.ammo === -1) alen = 0;
     else alen = (50 * arm.c_ammo) / arm.ammo;
     llen = (50 * arm.c_leadership) / arm.leadership;

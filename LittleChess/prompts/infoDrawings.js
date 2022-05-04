@@ -58,16 +58,18 @@ function drawHPAndAmmoBars(cxt, piece, useMandarin) {
   let amY = ldY + 30;
 
   let hpText = `${piece.c_scale} / ${piece.scale}`;
+  if (piece.scale === 1) hpText = `${piece.c_singleHP} / ${piece.singleHP}`;
   let leadText = `${piece.c_leadership} / ${piece.leadership}`;
   let ammoText = `${piece.c_ammo} / ${piece.ammo}`;
   let hpLen, ldLen, amLen;
 
-  if (piece.scale === 1) {
-    hpLen = (194 * piece.c_singleHP) / piece.singleHP;
-    hpText = `${piece.c_singleHP} / ${piece.singleHP}`;
-  } else {
-    hpLen = (194 * piece.c_scale) / piece.scale;
-  }
+  hpLen = (194 * piece.getTotalHP()) / piece.getOriginalHP();
+  // if (piece.scale === 1) {
+  //   hpLen = (194 * piece.c_singleHP) / piece.singleHP;
+  //   hpText = `${piece.c_singleHP} / ${piece.singleHP}`;
+  // } else {
+  //   hpLen = (194 * piece.c_scale) / piece.scale;
+  // }
   if (piece.ammo === -1) {
     amLen = 0;
     ammoText = "   N/A";

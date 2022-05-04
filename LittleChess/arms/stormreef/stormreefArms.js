@@ -341,7 +341,7 @@ export class CancrimagPK extends Cancrimag {
     this.missileWeight = 6;
 
     this.name = "Cancrimagnus (Powder Kegs)";
-    this.m_name = "巨蟹-火枪";
+    this.m_name = "巨蟹-火药桶";
     this.type = "monster";
     this.description = "armor-giant [shocking, missile-attack]";
     this.m_description = "装甲巨兽【惊骇敌军，远程攻击】";
