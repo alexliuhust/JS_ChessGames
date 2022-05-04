@@ -114,6 +114,8 @@ export function realTimeArmorUpdate(arm, factor) {
 
 export function updateRealTimeProperties(arm) {
   let factor = 1;
+  if (arm.scale != 1) arm.c_singleHP = arm.singleHP;
+  arm.wound = arm.c_singleHP;
 
   let oneThird = Math.floor(arm.leadership / 3);
   let twoThirds = oneThird * 2;

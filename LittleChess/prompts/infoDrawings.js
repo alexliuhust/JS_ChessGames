@@ -1,9 +1,14 @@
 import { Canvas } from "../common/tools.js";
 import {
+  DescrColor as DRC,
   HpColor as HC,
   AmmoColor as AC,
   LeadColor as DC,
   ExpColor as EC,
+  ArmorDataColor as ADC,
+  DodgeDataColor as GDC,
+  DamageDataColor as DDC,
+  RadiusDataColor as RDC,
 } from "../common/const.js";
 
 const leftX = 10;
@@ -29,31 +34,50 @@ function drawTitle(cxt, piece, useMandarin, showCost) {
 
   let name = useMandarin ? piece.m_name : piece.name;
   let desc = useMandarin ? piece.m_description : piece.description;
+  let idx = desc.indexOf("[");
+  let desc1 = "";
+  let desc2 = "";
+  if (idx != -1) {
+    desc1 = desc.substring(0, idx);
+    desc2 = desc.substring(idx + 1, desc.length - 1);
+  } else {
+    desc1 = desc;
+  }
+
+  if (idx === desc.length) desc2 = "";
   Canvas.drawText(cxt, name, 105, 30, "white", 24);
-  Canvas.drawText(cxt, desc, 105, 60, "white", 16);
+  Canvas.drawText(cxt, desc1, 105, 60, "white", 16);
+  Canvas.drawText(cxt, desc2, 105, 90, DRC, 16);
+
+  let yBs = 125;
   if (showCost) {
     let costText = useMandarin
       ? `[花费: ${piece.cost}金币]`
       : `[cost: ${piece.cost}G]`;
-    Canvas.drawText(cxt, costText, 105, 90, "yellow", 16);
+    Canvas.drawText(cxt, costText, leftX, yBs, "yellow", 16);
   }
 
-  let lX = showCost ? 250 : 105;
-
-  let expL = (144 * Math.min(piece.exp, piece.cost)) / piece.cost;
-  Canvas.drawLine(cxt, lX + 70, 83, lX + 220, 83, BGC, 18);
-  Canvas.drawLine(cxt, lX + 73, 83, lX + 70 + expL + 3, 83, EC, 12);
+  let lX = 425;
+  let yExb = yBs + 16;
+  let expL = (75 * Math.min(piece.exp, piece.cost)) / piece.cost;
+  Canvas.drawLine(cxt, 450, yExb, 450, yExb + 80, BGC, 70);
+  Canvas.drawLine(cxt, 450, yExb + 77, 450, yExb + 77 - expL, EC, 64);
 
   let levelInfo = useMandarin
     ? `等级: ${piece.level}`
     : `Level: ${piece.level}`;
-  let expInfo = useMandarin ? `经验: ${piece.exp}` : `exp: ${piece.exp}`;
-  Canvas.drawText(cxt, levelInfo, lX, 90, "white", 16);
-  Canvas.drawText(cxt, expInfo, lX + 120, 88, "black", 14);
+  let expTxt = useMandarin ? `经验` : `exp`;
+  let expInfo = `${piece.exp}`;
+  let xEx = lX + 22;
+  if (piece.exp >= 10) xEx -= 4;
+  if (piece.exp >= 100) xEx -= 4;
+  Canvas.drawText(cxt, levelInfo, lX, yBs, "white", 16);
+  Canvas.drawText(cxt, expTxt, lX + 10, yExb + 30, "black", 16);
+  Canvas.drawText(cxt, expInfo, xEx, yExb + 50, "black", 14);
 }
 
 function drawHPAndAmmoBars(cxt, piece, useMandarin) {
-  let hpY = 140;
+  let hpY = 160;
   let ldY = hpY + 30;
   let amY = ldY + 30;
 
@@ -64,12 +88,6 @@ function drawHPAndAmmoBars(cxt, piece, useMandarin) {
   let hpLen, ldLen, amLen;
 
   hpLen = (194 * piece.getTotalHP()) / piece.getOriginalHP();
-  // if (piece.scale === 1) {
-  //   hpLen = (194 * piece.c_singleHP) / piece.singleHP;
-  //   hpText = `${piece.c_singleHP} / ${piece.singleHP}`;
-  // } else {
-  //   hpLen = (194 * piece.c_scale) / piece.scale;
-  // }
   if (piece.ammo === -1) {
     amLen = 0;
     ammoText = "   N/A";
@@ -114,9 +132,9 @@ function drawHPAndAmmoBars(cxt, piece, useMandarin) {
 }
 
 function drawCombatData(cxt, piece, useMandarin) {
-  let textY = 280;
+  let textY = 265;
 
-  Canvas.drawLine(cxt, leftX, textY - 45, leftX + 485, textY - 45, "white", 7);
+  Canvas.drawLine(cxt, leftX, textY - 30, leftX + 485, textY - 30, "white", 7);
 
   let speedText = `Speed:     ${piece.c_speed}`;
   let armorText = `Armor:     Melee[ ${piece.c_meleeArmor} ]         Missile[ ${piece.c_missileArmor} ]         Charge[ ${piece.c_chargeArmor} ]`;
@@ -153,19 +171,19 @@ function drawCombatData(cxt, piece, useMandarin) {
   Canvas.drawText(cxt, speedText, leftX, textY, color, fontSize);
   textY += 30;
   color = "white";
-  Canvas.drawText(cxt, armorText, leftX, textY, color, fontSize);
+  Canvas.drawText(cxt, armorText, leftX, textY, ADC, fontSize);
   textY += 30;
-  Canvas.drawText(cxt, dodgeText, leftX, textY, color, fontSize);
+  Canvas.drawText(cxt, dodgeText, leftX, textY, GDC, fontSize);
   textY += 30;
-  Canvas.drawText(cxt, attackText, leftX, textY, color, fontSize);
+  Canvas.drawText(cxt, attackText, leftX, textY, DDC, fontSize);
   if (piece.missileAttack > 0) {
-    textY += 50;
+    textY += 30;
     Canvas.drawText(cxt, rangeInfo, leftX, textY, color, fontSize);
     if (piece.isBombing) {
-      Canvas.drawText(cxt, radiusInfo, leftX + 200, textY, color, fontSize);
+      Canvas.drawText(cxt, radiusInfo, leftX + 200, textY, RDC, fontSize);
     }
   }
-  textY += 40;
+  textY += 30;
   Canvas.drawText(cxt, antiArmorText, leftX, textY, color, fontSize);
   textY -= 20;
   if (piece.healing > 0) {
