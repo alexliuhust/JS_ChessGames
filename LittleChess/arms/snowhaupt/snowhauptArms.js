@@ -33,8 +33,8 @@ export class BoneBreaker extends DwarfWarrior {
     this.name = "Bone Breakers";
     this.m_name = "碎骨者";
     this.type = "infantry";
-    this.description = "infantry [anti-large]";
-    this.m_description = "近战步兵【反大型】";
+    this.description = "infantry[anti-large]";
+    this.m_description = "近战步兵[反大型]";
 
     this.missileArmor = 0;
 
@@ -62,8 +62,8 @@ export class Berserker extends DwarfWarrior {
     this.name = "Berserkers";
     this.m_name = "狂战士";
     this.type = "infantry";
-    this.description = "infantry [high-damage]";
-    this.m_description = "近战步兵【高伤害】";
+    this.description = "infantry[high-damage]";
+    this.m_description = "近战步兵[高伤害]";
 
     this.meleeArmor = 0;
     this.meleeDodge = 50;
@@ -82,8 +82,8 @@ export class BerserkerE extends Berserker {
     this.name = "Elite Berserkers";
     this.m_name = "精英狂战士";
     this.type = "infantry";
-    this.description = "infantry [high-damage, rouser]";
-    this.m_description = "近战步兵【高伤害，激励者】";
+    this.description = "infantry  rouser[high-damage]";
+    this.m_description = "近战步兵 激励者[高伤害]";
 
     this.attackEnhance = 30;
     this.enhanceRange = 3;
@@ -100,8 +100,8 @@ export class DrawfKingsGuard extends DwarfWarrior {
     this.name = "Drawf King's Guards";
     this.m_name = "矮人王禁卫";
     this.type = "infantry";
-    this.description = "armor-infantry [anti-large]";
-    this.m_description = "装甲-近战步兵【反大型】";
+    this.description = "armor-infantry[anti-large]";
+    this.m_description = "装甲-近战步兵[反大型]";
 
     this.meleeArmor = 60;
     this.chargeArmor = 30;
@@ -132,8 +132,8 @@ export class MountainShocker extends ArmPrimary.Arm {
     this.name = "Mountain Shockers";
     this.m_name = "震山矿工";
     this.type = "infantry";
-    this.description = "giant-shield-infantry [high-damage]";
-    this.m_description = "巨盾步兵【高伤害】";
+    this.description = "giant-shield-infantry[high-damage]";
+    this.m_description = "巨盾步兵[高伤害]";
 
     this.scale = 100;
     this.singleHP = 60;
@@ -157,8 +157,8 @@ export class MountainShockerE extends MountainShocker {
     this.name = "Elite Mountain Shockers";
     this.m_name = "精英震山矿工";
     this.type = "infantry";
-    this.description = "giant-shield-infantry [high-damage, protecter]";
-    this.m_description = "巨盾步兵【高伤害，护卫者】";
+    this.description = "giant-shield-infantry  protecter[high-damage]";
+    this.m_description = "巨盾步兵 护卫者[高伤害]";
 
     this.ammo = 5;
     this.armorEnhance = 30;
@@ -176,8 +176,8 @@ export class DwarfMusketeer extends ArmPrimary.Arm {
     this.name = "Dwarf Musketeers";
     this.m_name = "矮人火枪手";
     this.type = "archers";
-    this.description = "shield-archers [anti-armor]";
-    this.m_description = "持盾-远程步兵【高破甲】";
+    this.description = "shield-archers[anti-armor]";
+    this.m_description = "持盾-远程步兵[高破甲]";
 
     this.scale = 80;
     this.singleHP = 60;
@@ -207,8 +207,8 @@ export class MortarSquad extends ArmPrimary.Arm {
     this.name = "Mortar Squad";
     this.m_name = "迫击炮小组";
     this.type = "archers";
-    this.description = "shield-archers [high-damage]";
-    this.m_description = "持盾-远程步兵【高伤害】";
+    this.description = "shield-archers[high-damage]";
+    this.m_description = "持盾-远程步兵[高伤害]";
 
     this.scale = 80;
     this.singleHP = 60;
@@ -232,8 +232,8 @@ export class FireDragonSquad extends ArmPrimary.Arm {
     this.name = "Fire Dragon Squad";
     this.m_name = "火龙小组";
     this.type = "archers";
-    this.description = "shield-archers [high-damage]";
-    this.m_description = "持盾-远程步兵【高伤害】";
+    this.description = "shield-archers[high-damage]";
+    this.m_description = "持盾-远程步兵[高伤害]";
 
     this.scale = 80;
     this.singleHP = 60;
@@ -269,8 +269,8 @@ export class FireDragonSquadE extends FireDragonSquad {
     this.name = "Elite Fire Dragon Squad";
     this.m_name = "精英火龙小组";
     this.type = "archers";
-    this.description = "shield-archers [high-damage, inspirator]";
-    this.m_description = "持盾-远程步兵【高伤害，鼓舞者】";
+    this.description = "shield-archers  inspirator[high-damage]";
+    this.m_description = "持盾-远程步兵 鼓舞者[高伤害]";
 
     this.inspiring = 20;
     this.inspireRange = 3;
@@ -312,8 +312,8 @@ export class GoatCavalryTA extends GoatCavalry {
     this.name = "Goat Cavalry (Throw Axe)";
     this.m_name = "山羊骑兵-飞斧";
     this.type = "cavalry";
-    this.description = "charging-cavalry [missile-attack]";
-    this.m_description = "冲击骑兵【远程攻击】";
+    this.description = "charging-cavalry[missile-attack]";
+    this.m_description = "冲击骑兵[远程攻击]";
 
     this.missileAttack = 40;
     this.missileRange = 5;
@@ -333,8 +333,8 @@ export class RevolvingCannon extends ArmPrimary.Arm {
     this.name = "Revolving Cannons";
     this.m_name = "转轮炮";
     this.type = "artillery";
-    this.description = "artillery [anti-large]";
-    this.m_description = "炮兵【反大型】";
+    this.description = "artillery[anti-large]";
+    this.m_description = "炮兵[反大型]";
 
     this.scale = 10;
     this.singleHP = 500;
@@ -376,8 +376,8 @@ export class FireDragonGun extends ArmPrimary.Arm {
     this.name = "Fire Dragon Guns";
     this.m_name = "火龙炮";
     this.type = "artillery";
-    this.description = "artillery [anti-infantry, short-range]";
-    this.m_description = "炮兵【反步兵，近程】";
+    this.description = "artillery[anti-infantry  short-range]";
+    this.m_description = "炮兵[反步兵 近程]";
 
     this.scale = 10;
     this.singleHP = 500;
@@ -410,8 +410,8 @@ export class ERFireDragonGun extends FireDragonGun {
     this.name = "ExRange Fire Dragon Guns";
     this.m_name = "增程火龙炮";
     this.type = "artillery";
-    this.description = "artillery [anti-infantry]";
-    this.m_description = "炮兵【反步兵】";
+    this.description = "artillery[anti-infantry]";
+    this.m_description = "炮兵[反步兵]";
 
     this.missileRange = 10;
     this.loadRealtimeProps();
@@ -425,8 +425,8 @@ export class DrawfMortar extends ArmPrimary.Arm {
     this.name = "Drawf Mortars";
     this.m_name = "矮人臼炮";
     this.type = "artillery";
-    this.description = "bombing-artillery";
-    this.m_description = "轰炸炮兵";
+    this.description = "artillery[bombing]";
+    this.m_description = "炮兵[轰炸]";
 
     this.scale = 5;
     this.singleHP = 800;
@@ -448,8 +448,8 @@ export class GiantCannon extends ArmPrimary.Arm {
     this.name = "Giant Mortar";
     this.m_name = "巨型臼炮";
     this.type = "monster";
-    this.description = "bombing-artillery";
-    this.m_description = "轰炸炮兵";
+    this.description = "artillery[bombing]";
+    this.m_description = "炮兵[轰炸]";
 
     this.scale = 1;
     this.singleHP = 4000;

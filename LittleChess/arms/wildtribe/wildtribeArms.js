@@ -8,8 +8,8 @@ export class OrcWarrior extends ArmPrimary.Arm {
     this.name = "Orc Warriors";
     this.m_name = "兽人勇士";
     this.type = "infantry";
-    this.description = "infantry [anti-infantry]";
-    this.m_description = "近战步兵【反步兵】";
+    this.description = "infantry[anti-infantry]";
+    this.m_description = "近战步兵[反步兵]";
 
     this.scale = 80;
     this.singleHP = 80;
@@ -39,8 +39,8 @@ export class OrcWarriorSpear extends OrcWarrior {
     this.name = "Orc Warriors (Spear)";
     this.m_name = "兽人勇士-持矛";
     this.type = "infantry";
-    this.description = "infantry [resist-charging]";
-    this.m_description = "近战步兵【抵御冲锋】";
+    this.description = "infantry[resist-charging]";
+    this.m_description = "近战步兵[抵御冲锋]";
 
     this.chargeArmor = 30;
 
@@ -58,8 +58,8 @@ export class OrcWarriorTS extends OrcWarrior {
     this.name = "Orc Warriors (Javelin)";
     this.m_name = "兽人勇士-标枪";
     this.type = "infantry";
-    this.description = "hurling-infantry [resist-charging]";
-    this.m_description = "投掷-近战步兵【抵御冲锋】";
+    this.description = "hurling-infantry[resist-charging]";
+    this.m_description = "投掷-近战步兵[抵御冲锋]";
 
     this.chargeArmor = 30;
 
@@ -93,8 +93,8 @@ export class ChampionWarrior extends OrcWarrior {
     this.name = "Champion Warriors";
     this.m_name = "冠军勇士";
     this.type = "infantry";
-    this.description = "hurling-infantry [anti-infantry]";
-    this.m_description = "投掷-近战步兵【反步兵】";
+    this.description = "hurling-infantry[anti-infantry]";
+    this.m_description = "投掷-近战步兵[反步兵]";
 
     this.meleeAttack = 44;
     this.meleeAttack_bonus = 30;
@@ -149,8 +149,8 @@ export class TaurenLog extends Tauren {
     this.name = "Tauren (Log)";
     this.m_name = "牛头人-圆木";
     this.type = "monster-infantry";
-    this.description = "monster-infantry [anti-infantry]";
-    this.m_description = "怪兽步兵【反步兵】";
+    this.description = "monster-infantry[anti-infantry]";
+    this.m_description = "怪兽步兵[反步兵]";
 
     this.meleeAttack_bonus = 40;
 
@@ -175,8 +175,8 @@ export class TaurenGA extends Tauren {
     this.name = "Tauren (Great Axe)";
     this.m_name = "牛头人-巨斧";
     this.type = "monster-infantry";
-    this.description = "monster-infantry [anti-large, anti-armor]";
-    this.m_description = "怪兽步兵【反大型，高破甲】";
+    this.description = "monster-infantry[anti-large  anti-armor]";
+    this.m_description = "怪兽步兵[反大型 高破甲]";
 
     this.meleeAttack_bonus = 40;
 
@@ -207,8 +207,8 @@ export class TaurenBerserker extends Tauren {
     this.name = "Tauren Berserkers";
     this.m_name = "牛头人狂战士";
     this.type = "monster-infantry";
-    this.description = "monster-infantry [fast, inspirator]";
-    this.m_description = "怪兽步兵【迅捷如风，鼓舞者】";
+    this.description = "monster-infantry  inspirator[agile]";
+    this.m_description = "怪兽步兵 鼓舞者[迅捷如风]";
 
     this.speed = 6;
 
@@ -235,8 +235,8 @@ export class WolfCavalry extends ArmPrimary.Arm {
     this.name = "Wolf Cavalry";
     this.m_name = "狼骑兵";
     this.type = "cavalry";
-    this.description = "melee-cavalry [fast]";
-    this.m_description = "近战骑兵【迅捷如风】";
+    this.description = "melee-cavalry[agile]";
+    this.m_description = "近战骑兵[迅捷如风]";
 
     this.scale = 60;
     this.singleHP = 100;
@@ -258,8 +258,8 @@ export class WolfCavalryTS extends WolfCavalry {
     this.name = "Wolf Cavalry (Javelin)";
     this.m_name = "狼骑兵-标枪";
     this.type = "cavalry";
-    this.description = "missile-cavalry [fast]";
-    this.m_description = "远程骑兵【迅捷如风】";
+    this.description = "missile-cavalry[agile]";
+    this.m_description = "远程骑兵[迅捷如风]";
 
     this.missileAttack = 40;
     this.missileRange = 6;
@@ -277,8 +277,8 @@ export class RhinoTrooper extends ArmPrimary.Arm {
     this.name = "Rhino Troopers";
     this.m_name = "犀牛骑兵";
     this.type = "cavalry";
-    this.description = "charging-cavalry [anti-armor]";
-    this.m_description = "冲击骑兵【高破甲】";
+    this.description = "charging-cavalry[anti-armor]";
+    this.m_description = "冲击骑兵[高破甲]";
 
     this.scale = 50;
     this.singleHP = 160;
@@ -307,8 +307,8 @@ export class RhinoShaman extends RhinoTrooper {
     this.name = "Rhino Shaman";
     this.m_name = "犀牛骑兵-萨满";
     this.type = "cavalry";
-    this.description = "charging-cavalry [anti-armor, healer, rouser]";
-    this.m_description = "冲击骑兵【高破甲，治疗者，激励者】";
+    this.description = "charging-cavalry  healer  rouser[anti-armor]";
+    this.m_description = "冲击骑兵 治疗者 激励者[高破甲]";
 
     this.healing = 20;
     this.healRange = 3;
@@ -329,8 +329,8 @@ export class RhinoTrooperBallista extends RhinoTrooper {
     this.name = "Rhino Troopers (Ballista)";
     this.m_name = "犀牛骑兵-弩炮";
     this.type = "cavalry";
-    this.description = "charging-cavalry [anti-armor, missile-attack]";
-    this.m_description = "冲击骑兵【高破甲，远程攻击】";
+    this.description = "charging-cavalry[anti-armor  missile-attack]";
+    this.m_description = "冲击骑兵[高破甲 远程攻击]";
 
     this.missileAttack = 50;
     this.missileRange = 7;
@@ -353,8 +353,8 @@ export class Minotaur extends ArmPrimary.Arm {
     this.name = "Minotaur";
     this.m_name = "米诺陶";
     this.type = "monster";
-    this.description = "bombing-giant";
-    this.m_description = "轰炸巨兽";
+    this.description = "giant[bombing]";
+    this.m_description = "巨兽[轰炸]";
 
     this.scale = 1;
     this.singleHP = 8000;

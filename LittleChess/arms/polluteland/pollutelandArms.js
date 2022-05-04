@@ -9,8 +9,8 @@ export class SlaveConscript extends ArmPrimary.Arm {
     this.name = "Slave Conscripts";
     this.m_name = "奴隶征召兵";
     this.type = "infantry";
-    this.description = "infantry [weak]";
-    this.m_description = "近战步兵【孱弱】";
+    this.description = "infantry[weak]";
+    this.m_description = "近战步兵[孱弱]";
 
     this.scale = 160;
     this.singleHP = 20;
@@ -29,8 +29,8 @@ export class SlaveConscriptShield extends SlaveConscript {
     this.name = "Slave Conscripts (Shield)";
     this.m_name = "奴隶征召兵-持盾";
     this.type = "infantry";
-    this.description = "shield-infantry [weak]";
-    this.m_description = "持盾-近战步兵【孱弱】";
+    this.description = "shield-infantry[weak]";
+    this.m_description = "持盾-近战步兵[孱弱]";
 
     this.missileArmor = 30;
 
@@ -46,8 +46,8 @@ export class HurlerHE extends ArmPrimary.Arm {
     this.name = "Hurlers (High-Explosion)";
     this.m_name = "投掷小队-高爆弹";
     this.type = "archers";
-    this.description = "armor-archers [high-damage]";
-    this.m_description = "装甲-远程步兵【高伤害】";
+    this.description = "armor-archers[high-damage]";
+    this.m_description = "装甲-远程步兵[高伤害]";
 
     this.scale = 90;
     this.singleHP = 40;
@@ -74,8 +74,8 @@ export class HurlerGas extends HurlerHE {
     this.name = "Hurlers (Gas Bomb)";
     this.m_name = "投掷小队-毒气弹";
     this.type = "archers";
-    this.description = "armor-archers [anti-armor]";
-    this.m_description = "装甲-远程步兵【高破甲】";
+    this.description = "armor-archers[anti-armor]";
+    this.m_description = "装甲-远程步兵[高破甲]";
 
     this.missileAttack = 16;
 
@@ -97,8 +97,8 @@ export class HurlerFrgm extends HurlerHE {
     this.name = "Hurlers (Fragmentation)";
     this.m_name = "投掷小队-破片弹";
     this.type = "archers";
-    this.description = "armor-archers [anti-infantry]";
-    this.m_description = "装甲-远程步兵【反步兵】";
+    this.description = "armor-archers[anti-infantry]";
+    this.m_description = "装甲-远程步兵[反步兵]";
 
     this.missileAttack = 16;
     this.missileAttack_bonus = 20;
@@ -127,8 +127,8 @@ export class WeapSqdGingall extends ArmPrimary.Arm {
     this.name = "Weapon Squad (Gingall)";
     this.m_name = "武器小队-火枪";
     this.type = "archers";
-    this.description = "shield-archers [anti-large]";
-    this.m_description = "持盾-远程步兵【反大型】";
+    this.description = "shield-archers[anti-large]";
+    this.m_description = "持盾-远程步兵[反大型]";
 
     this.scale = 90;
     this.singleHP = 40;
@@ -165,8 +165,8 @@ export class WeapSqdGatlin extends ArmPrimary.Arm {
     this.name = "Weapon Squad (Gatlin)";
     this.m_name = "武器小队-加特林";
     this.type = "archers";
-    this.description = "shield-archers [anti-infantry]";
-    this.m_description = "持盾-远程步兵【反步兵】";
+    this.description = "shield-archers[anti-infantry]";
+    this.m_description = "持盾-远程步兵[反步兵]";
 
     this.scale = 90;
     this.singleHP = 40;
@@ -210,8 +210,8 @@ export class WeapSqdFlthr extends ArmPrimary.Arm {
     this.name = "Weapon Squad (Flamethrower)";
     this.m_name = "武器小队-火焰喷射器";
     this.type = "archers";
-    this.description = "shield-archers [anti-non-armor]";
-    this.m_description = "持盾-远程步兵【反无甲】";
+    this.description = "shield-archers[anti-non-armor]";
+    this.m_description = "持盾-远程步兵[反无甲]";
 
     this.scale = 90;
     this.singleHP = 40;
@@ -252,8 +252,8 @@ export class SupplySqd extends ArmPrimary.Arm {
     this.name = "Supply Squad";
     this.m_name = "补给小队";
     this.type = "infantry";
-    this.description = "infantry [healer, rouser]";
-    this.m_description = "近战步兵【治疗者，激励者】";
+    this.description = "infantry  healer  rouser";
+    this.m_description = "近战步兵 治疗者 激励者";
 
     this.scale = 120;
     this.singleHP = 40;
@@ -277,8 +277,8 @@ export class WeapSqdGingallE extends WeapSqdGingall {
     this.name = "Elite Weapon Squad (Gingall)";
     this.m_name = "精英武器小队-火枪";
     this.type = "archers";
-    this.description = "shield-archers [anti-large]";
-    this.m_description = "持盾-远程步兵【反大型】";
+    this.description = "shield-archers[anti-large]";
+    this.m_description = "持盾-远程步兵[反大型]";
 
     this.loadRealtimeProps();
     updateEliteData(this);
@@ -292,8 +292,8 @@ export class WeapSqdGatlinE extends WeapSqdGatlin {
     this.name = "Elite Weapon Squad (Gatlin)";
     this.m_name = "精英武器小队-加特林";
     this.type = "archers";
-    this.description = "shield-archers [anti-infantry]";
-    this.m_description = "持盾-远程步兵【反步兵】";
+    this.description = "shield-archers[anti-infantry]";
+    this.m_description = "持盾-远程步兵[反步兵]";
 
     this.loadRealtimeProps();
     updateEliteData(this);
@@ -309,8 +309,8 @@ export class WeapSqdFlthrE extends WeapSqdFlthr {
     this.name = "Elite Weapon Squad (Flamethrower)";
     this.m_name = "精英武器小队-火焰喷射器";
     this.type = "archers";
-    this.description = "shield-archers [anti-non-armor]";
-    this.m_description = "持盾-远程步兵【反无甲】";
+    this.description = "shield-archers[anti-non-armor]";
+    this.m_description = "持盾-远程步兵[反无甲]";
 
     this.loadRealtimeProps();
     updateEliteData(this);
@@ -324,8 +324,8 @@ export class MechGears extends ArmPrimary.Arm {
     this.name = "Mech Squad";
     this.m_name = "机甲小队";
     this.type = "monster-infantry";
-    this.description = "mech-infantry [heavy-armor]";
-    this.m_description = "机甲步兵【重装甲】";
+    this.description = "mech-infantry";
+    this.m_description = "机甲步兵";
 
     this.scale = 30;
     this.singleHP = 300;
@@ -347,8 +347,8 @@ export class MechGatlin extends MechGears {
     this.name = "Mech Squad (Gatlin)";
     this.m_name = "机甲小队-加特林";
     this.type = "monster-infantry";
-    this.description = "mech-infantry [heavy-armor, anti-infantry]";
-    this.m_description = "机甲步兵【重装甲，反步兵】";
+    this.description = "mech-infantry[anti-infantry]";
+    this.m_description = "机甲步兵[反步兵]";
 
     this.missileAttack = 60;
     this.missileAttack_bonus = 50;
@@ -384,8 +384,8 @@ export class MechMissile extends MechGears {
     this.name = "Mech Squad (Missile)";
     this.m_name = "机甲小队-飞弹";
     this.type = "monster-infantry";
-    this.description = "mech-infantry [heavy-armor, long-range, anti-large]";
-    this.m_description = "机甲步兵【重装甲，长程，反大型】";
+    this.description = "mech-infantry[long-range, anti-large]";
+    this.m_description = "机甲步兵[长程，反大型]";
 
     this.missileAttack = 70;
     this.missileAttack_bonus = 40;
@@ -417,8 +417,8 @@ export class MutantSlave extends ArmPrimary.Arm {
     this.name = "Mutant Slaves";
     this.m_name = "变异奴隶";
     this.type = "monster-infantry";
-    this.description = "monster-infantry [fast, shocking]";
-    this.m_description = "怪兽步兵【迅捷如风，惊骇敌军】";
+    this.description = "monster-infantry[agile  shocking]";
+    this.m_description = "怪兽步兵[迅捷如风 惊骇敌军]";
 
     this.scale = 30;
     this.singleHP = 200;
@@ -443,8 +443,8 @@ export class Foulcannon extends ArmPrimary.Arm {
     this.name = "Foul Cannons";
     this.m_name = "污秽加农炮";
     this.type = "artillery";
-    this.description = "artillery [high-damage, shocking]";
-    this.m_description = "炮兵【高伤害，惊骇敌军】";
+    this.description = "artillery[high-damage  shocking]";
+    this.m_description = "炮兵[高伤害 惊骇敌军]";
 
     this.scale = 5;
     this.singleHP = 900;
@@ -467,8 +467,8 @@ export class Vilecannon extends Foulcannon {
     this.name = "Vile Cannons";
     this.m_name = "不洁加农炮";
     this.type = "artillery";
-    this.description = "artillery [high-damage, shocking]";
-    this.m_description = "炮兵【高伤害，惊骇敌军】";
+    this.description = "artillery[high-damage  shocking]";
+    this.m_description = "炮兵[高伤害 惊骇敌军]";
 
     this.scale = 5;
     this.singleHP = 900;

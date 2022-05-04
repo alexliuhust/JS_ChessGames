@@ -133,7 +133,7 @@ export class ScreamingBanshee extends Banshee {
     this.name = "Screaming Banshees";
     this.m_name = "尖啸女妖";
     this.type = "infantry";
-    this.description = "charge-infantry[high-dodge  shocking]";
+    this.description = "charging-infantry[high-dodge  shocking]";
     this.m_description = "冲杀-近战步兵[高闪避 惊骇敌军]";
 
     this.chargeAttack = 40;
@@ -303,7 +303,7 @@ export class BeetleChargeRider extends BeetleRider {
     this.name = "Beetle Charge Riders";
     this.m_name = "甲虫冲击骑兵";
     this.type = "monster-infantry";
-    this.description = "armor-monster-charge-cavalry[anti-infantry]";
+    this.description = "armor-monster-charging-cavalry[anti-infantry]";
     this.m_description = "装甲-怪兽冲杀骑兵[反步兵]";
 
     this.speed = 4;

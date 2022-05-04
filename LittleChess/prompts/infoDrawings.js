@@ -137,8 +137,8 @@ function drawCombatData(cxt, piece, useMandarin) {
   Canvas.drawLine(cxt, leftX, textY - 30, leftX + 485, textY - 30, "white", 7);
 
   let speedText = `Speed:     ${piece.c_speed}`;
-  let armorText = `Armor:     Melee[ ${piece.c_meleeArmor} ]         Missile[ ${piece.c_missileArmor} ]         Charge[ ${piece.c_chargeArmor} ]`;
-  let dodgeText = `Dodge:     Melee[ ${piece.c_meleeDodge} ]         Missile[ ${piece.c_missileDodge} ]         Charge[ ${piece.c_chargeDodge} ]`;
+  let armorText = `Armor:     (X)[ ${piece.c_meleeArmor} ]         ( // )[ ${piece.c_missileArmor} ]         (=>)[ ${piece.c_chargeArmor} ]`;
+  let dodgeText = `Dodge:     (X)[ ${piece.c_meleeDodge} ]         (//)[ ${piece.c_missileDodge} ]         (=>)[ ${piece.c_chargeDodge} ]`;
   let attackText = `Damage:  Melee[ ${piece.c_meleeAttack}(+${piece.meleeAttack_bonus}) ]  Missile[ ${piece.c_missileAttack}(+${piece.missileAttack_bonus}) ]  Charge[ ${piece.c_chargeAttack}(+${piece.chargeAttack_bonus}) ]`;
   let rangeInfo = `Missile-range: ${piece.c_missileRange}`;
   let radiusInfo = `Explose-radius: ${piece.c_missileRadius}`;
