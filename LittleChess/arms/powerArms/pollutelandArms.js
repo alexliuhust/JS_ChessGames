@@ -53,7 +53,7 @@ export class HurlerHE extends ArmPrimary.Arm {
     this.singleHP = 40;
     this.speed = 3;
 
-    this.meleeArmor = 40;
+    this.meleeArmor = 50;
     this.chargeArmor = 20;
 
     this.meleeAttack = 16;
@@ -127,14 +127,12 @@ export class WeapSqdGingall extends ArmPrimary.Arm {
     this.name = "Weapon Squad (Gingall)";
     this.m_name = "武器小队-火枪";
     this.type = "archers";
-    this.description = "shield-archers[anti-large]";
-    this.m_description = "持盾-远程步兵[反大型]";
+    this.description = "archers[anti-large]";
+    this.m_description = "远程步兵[反大型]";
 
     this.scale = 90;
     this.singleHP = 40;
     this.speed = 3;
-
-    this.missileArmor = 50;
 
     this.meleeAttack = 16;
     this.missileAttack = 30;
@@ -165,14 +163,12 @@ export class WeapSqdGatlin extends ArmPrimary.Arm {
     this.name = "Weapon Squad (Gatlin)";
     this.m_name = "武器小队-加特林";
     this.type = "archers";
-    this.description = "shield-archers[anti-infantry]";
-    this.m_description = "持盾-远程步兵[反步兵]";
+    this.description = "archers[anti-infantry]";
+    this.m_description = "远程步兵[反步兵]";
 
     this.scale = 90;
     this.singleHP = 40;
     this.speed = 3;
-
-    this.missileArmor = 50;
 
     this.meleeAttack = 16;
     this.missileAttack = 38;
@@ -211,13 +207,11 @@ export class WeapSqdFlthr extends ArmPrimary.Arm {
     this.m_name = "武器小队-火焰喷射器";
     this.type = "archers";
     this.description = "shield-archers[anti-non-armor]";
-    this.m_description = "持盾-远程步兵[反无甲]";
+    this.m_description = "远程步兵[反无甲]";
 
     this.scale = 90;
     this.singleHP = 40;
     this.speed = 3;
-
-    this.missileArmor = 50;
 
     this.meleeAttack = 16;
     this.missileAttack = 40;
@@ -252,12 +246,14 @@ export class SupplySqd extends ArmPrimary.Arm {
     this.name = "Supply Squad";
     this.m_name = "补给小队";
     this.type = "infantry";
-    this.description = "infantry  healer  rouser";
-    this.m_description = "近战步兵 治疗者 激励者";
+    this.description = "sheild-infantry  healer  rouser";
+    this.m_description = "持盾-近战步兵 治疗者 激励者";
 
     this.scale = 120;
     this.singleHP = 40;
     this.speed = 4;
+
+    this.missileArmor = 30;
 
     this.meleeAttack = 16;
 
@@ -274,11 +270,11 @@ export class WeapSqdGingallE extends WeapSqdGingall {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Elite Weapon Squad (Gingall)";
-    this.m_name = "精英武器小队-火枪";
+    this.name = "Piercing Nail";
+    this.m_name = "穿刺之钉";
     this.type = "archers";
-    this.description = "shield-archers[anti-large]";
-    this.m_description = "持盾-远程步兵[反大型]";
+    this.description = "shield-archers[elite  anti-large]";
+    this.m_description = "持盾-远程步兵[精英 反大型]";
 
     this.loadRealtimeProps();
     updateEliteData(this);
@@ -289,11 +285,11 @@ export class WeapSqdGatlinE extends WeapSqdGatlin {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Elite Weapon Squad (Gatlin)";
-    this.m_name = "精英武器小队-加特林";
+    this.name = "Metal Storm";
+    this.m_name = "金属风暴";
     this.type = "archers";
-    this.description = "shield-archers[anti-infantry]";
-    this.m_description = "持盾-远程步兵[反步兵]";
+    this.description = "shield-archers[elite  anti-infantry]";
+    this.m_description = "持盾-远程步兵[精英 反步兵]";
 
     this.loadRealtimeProps();
     updateEliteData(this);
@@ -306,11 +302,15 @@ export class WeapSqdFlthrE extends WeapSqdFlthr {
     this.missileColor = MC.FireColor;
     this.missileWeight = 5;
 
-    this.name = "Elite Weapon Squad (Flamethrower)";
-    this.m_name = "精英武器小队-火焰喷射器";
+    this.name = "Armored Flame Furnace";
+    this.m_name = "装甲焰炉";
     this.type = "archers";
-    this.description = "shield-archers[anti-non-armor]";
-    this.m_description = "持盾-远程步兵[反无甲]";
+    this.description = "armor-archers[elite  anti-non-armor]";
+    this.m_description = "装甲-远程步兵[精英 反无甲]";
+
+    this.meleeArmor = 35;
+    this.missileArmor = 25;
+    this.chargeArmor = 20;
 
     this.loadRealtimeProps();
     updateEliteData(this);
@@ -384,8 +384,8 @@ export class MechMissile extends MechGears {
     this.name = "Mech Squad (Missile)";
     this.m_name = "机甲小队-飞弹";
     this.type = "monster-infantry";
-    this.description = "mech-infantry[long-range, anti-large]";
-    this.m_description = "机甲步兵[长程，反大型]";
+    this.description = "mech-infantry[long-range  anti-large]";
+    this.m_description = "机甲步兵[长程 反大型]";
 
     this.missileAttack = 70;
     this.missileAttack_bonus = 40;

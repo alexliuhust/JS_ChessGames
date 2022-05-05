@@ -72,8 +72,8 @@ export class SeamanMusketE extends SeamanMusket {
     this.name = "Boatswains";
     this.m_name = "水手长";
     this.type = "archers";
-    this.description = "archers";
-    this.m_description = "远程步兵";
+    this.description = "archers[elite]";
+    this.m_description = "远程步兵[精英]";
 
     this.antiArmor = 20;
     this.loadRealtimeProps();
@@ -127,8 +127,8 @@ export class PisciculiE extends PisciculiDoubleBlades {
     this.name = "Elite Pisciculis";
     this.m_name = "精英侏儒鱼人";
     this.type = "infantry";
-    this.description = "infantry  rouser[dodge-missile  high-damage]";
-    this.m_description = "近战步兵 激励者[远程闪避 高伤害]";
+    this.description = "infantry  rouser[elite  dodge-missile  high-damage]";
+    this.m_description = "近战步兵 激励者[精英 远程闪避 高伤害]";
 
     this.attackEnhance = 20;
     this.enhanceRange = 2;
@@ -197,11 +197,11 @@ export class MurlocE extends MurlocWarrior {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Elite Murlocs";
-    this.m_name = "精英鱼人";
+    this.name = "Deep-Sea Guards";
+    this.m_name = "深海卫士";
     this.type = "infantry";
-    this.description = "infantry  protector[anti-armor]";
-    this.m_description = "近战步兵 护卫者[高破甲]";
+    this.description = "infantry  protector[elite  anti-armor]";
+    this.m_description = "近战步兵 护卫者[精英 高破甲]";
 
     this.armorEnhance = 30;
     this.enhanceRange = 2;

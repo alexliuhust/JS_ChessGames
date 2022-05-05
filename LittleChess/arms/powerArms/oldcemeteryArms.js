@@ -88,11 +88,11 @@ export class DarkSoldierSSE extends DarkSoldierSS {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Elite Dark Soldiers";
-    this.m_name = "精英黑暗战士";
+    this.name = "Tomb Keeper";
+    this.m_name = "墓穴守望者";
     this.type = "infantry";
-    this.description = "shield-infantry  protector[anti-large]";
-    this.m_description = "持盾-近战步兵 护卫者[反大型]";
+    this.description = "shield-infantry  protector[elite  anti-large]";
+    this.m_description = "持盾-近战步兵 护卫者[精英 反大型]";
 
     this.armorEnhance = 30;
     this.enhanceRange = 2;

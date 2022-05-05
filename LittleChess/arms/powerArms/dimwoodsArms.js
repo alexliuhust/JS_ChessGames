@@ -149,11 +149,11 @@ export class TwilightWarriorE extends TwilightWarrior {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Elite Twilight Warriors";
-    this.m_name = "精英暮光战士";
+    this.name = "Twilight Shadow";
+    this.m_name = "暮光之影";
     this.type = "infantry";
-    this.description = "shield-infantry  protector[high-damage]";
-    this.m_description = "持盾-近战步兵 护卫者[高伤害]";
+    this.description = "shield-infantry  protector[elite  high-damage]";
+    this.m_description = "持盾-近战步兵 护卫者[精英 高伤害]";
 
     this.armorEnhance = 30;
     this.enhanceRange = 2;
@@ -327,11 +327,11 @@ export class WarBearRiderE extends WarBearRider {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Elite War Bear Riders";
-    this.m_name = "精英战熊骑兵";
+    this.name = "Roaring Guards";
+    this.m_name = "咆哮守卫";
     this.type = "monster-infantry";
-    this.description = "monster-cavalry  inspirator[agile  high-damage]";
-    this.m_description = "怪兽步兵 鼓舞者[迅捷如风 高伤害]";
+    this.description = "monster-cavalry  inspirator[elite  agile  high-damage]";
+    this.m_description = "怪兽步兵 鼓舞者[精英 迅捷如风 高伤害]";
 
     this.inspiring = 15;
     this.inspireRange = 3;

@@ -51,11 +51,11 @@ export class SwordInfantryE extends SwordInfantryShield {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Elite Empire Infantry";
-    this.m_name = "精英帝国步兵";
+    this.name = "Empire Blades";
+    this.m_name = "帝国之刃";
     this.type = "infantry";
-    this.description = "shield-infantry  rouser[anti-infantry]";
-    this.m_description = "持盾-近战步兵 激励者[反步兵]";
+    this.description = "shield-infantry  rouser[elite  anti-infantry]";
+    this.m_description = "持盾-近战步兵 激励者[精英 反步兵]";
 
     this.missileArmor = 30;
 
@@ -223,8 +223,8 @@ export class MusketeerE extends MusketeerShield {
     this.name = "Elite Musketeers";
     this.m_name = "精英火枪手";
     this.type = "archers";
-    this.description = "shield-archers[anti-armor]";
-    this.m_description = "持盾-远程步兵[高破甲]";
+    this.description = "shield-archers[elite  anti-armor]";
+    this.m_description = "持盾-远程步兵[精英 高破甲]";
 
     this.missileArmor = 30;
     this.loadRealtimeProps();
@@ -331,11 +331,11 @@ export class PalaceKnightE extends PalaceKnight {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Paladin";
+    this.name = "Paladins";
     this.m_name = "圣骑士";
     this.type = "cavalry";
-    this.description = "armor-melee-cavalry  protector[anti-infantry]";
-    this.m_description = "装甲-近战骑兵 护卫者[反步兵]";
+    this.description = "armor-melee-cavalry  protector[elite  anti-infantry]";
+    this.m_description = "装甲-近战骑兵 护卫者[精英 反步兵]";
 
     this.armorEnhance = 40;
     this.enhanceRange = 3;

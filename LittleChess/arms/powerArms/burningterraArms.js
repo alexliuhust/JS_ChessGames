@@ -158,11 +158,11 @@ export class BurningWarriorE extends BurningWarriorGiantaxe {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Elite Burning Warriors";
-    this.m_name = "精英燃烧战士";
+    this.name = "Demon Warriors";
+    this.m_name = "恶魔勇士";
     this.type = "infantry";
-    this.description = "armor-infantry[anti-armor]";
-    this.m_description = "装甲-近战步兵[高破甲]";
+    this.description = "armor-infantry[elite  anti-armor]";
+    this.m_description = "装甲-近战步兵[精英 高破甲]";
 
     this.loadRealtimeProps();
 
@@ -249,11 +249,11 @@ export class BurningKnightChargeE extends BurningKnightCharge {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Elite Burning Knights (Charge)";
-    this.m_name = "精英燃烧骑士-冲杀";
+    this.name = "Burning Gale";
+    this.m_name = "燃烧烈风";
     this.type = "cavalry";
-    this.description = "armor-charge-cavalry  inspirator";
-    this.m_description = "装甲-冲杀骑兵 鼓舞者";
+    this.description = "armor-charge-cavalry  inspirator[elite]";
+    this.m_description = "装甲-冲杀骑兵 鼓舞者[精英]";
 
     this.inspiring = 20;
     this.inspireRange = 3;

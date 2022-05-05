@@ -99,11 +99,11 @@ export class NordHeraldE extends NordHerald {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Elite Nord Heralds";
-    this.m_name = "精英诺德军锋";
+    this.name = "Flame Heralds";
+    this.m_name = "烈焰军锋";
     this.type = "infantry";
-    this.description = "armor-infantry  inspirator[resist-charging]";
-    this.m_description = "装甲-近战步兵 鼓舞者[抵御冲锋]";
+    this.description = "armor-infantry  inspirator[elite  resist-charging]";
+    this.m_description = "装甲-近战步兵 鼓舞者[精英 抵御冲锋]";
 
     this.inspiring = 12;
     this.inspireRange = 3;
@@ -189,11 +189,11 @@ export class BallistaSquadE extends BallistaSquad {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Elite Ballista Squad";
-    this.m_name = "精英重弩小队";
+    this.name = "Nord Piercers";
+    this.m_name = "诺德穿刺者";
     this.type = "archers";
-    this.description = "melee-armor-archers[long-range  anti-armor]";
-    this.m_description = "近战-装甲-远程步兵[长程 高破甲]";
+    this.description = "melee-armor-archers[elite  long-range  anti-armor]";
+    this.m_description = "近战-装甲-远程步兵[精英 长程 高破甲]";
 
     this.loadRealtimeProps();
 

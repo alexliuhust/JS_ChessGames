@@ -79,11 +79,11 @@ export class BerserkerE extends Berserker {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Elite Berserkers";
-    this.m_name = "精英狂战士";
+    this.name = "Mountborne Butchers";
+    this.m_name = "山岭屠夫";
     this.type = "infantry";
-    this.description = "infantry  rouser[high-damage]";
-    this.m_description = "近战步兵 激励者[高伤害]";
+    this.description = "infantry  rouser[elite  high-damage]";
+    this.m_description = "近战步兵 激励者[精英 高伤害]";
 
     this.attackEnhance = 30;
     this.enhanceRange = 3;
@@ -93,11 +93,11 @@ export class BerserkerE extends Berserker {
   }
 }
 
-export class DrawfKingsGuard extends DwarfWarrior {
+export class DwarfKingsGuard extends DwarfWarrior {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Drawf King's Guards";
+    this.name = "Dwarf King's Guards";
     this.m_name = "矮人王禁卫";
     this.type = "infantry";
     this.description = "armor-infantry[anti-large]";
@@ -154,11 +154,11 @@ export class MountainShockerE extends MountainShocker {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Elite Mountain Shockers";
-    this.m_name = "精英震山矿工";
+    this.name = "Dwarf Sheilds";
+    this.m_name = "矮人之盾";
     this.type = "infantry";
-    this.description = "giant-shield-infantry  protecter[high-damage]";
-    this.m_description = "巨盾步兵 护卫者[高伤害]";
+    this.description = "giant-shield-infantry  protecter[elite  high-damage]";
+    this.m_description = "巨盾步兵 护卫者[精英 高伤害]";
 
     this.ammo = 5;
     this.armorEnhance = 30;
@@ -266,11 +266,11 @@ export class FireDragonSquadE extends FireDragonSquad {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Elite Fire Dragon Squad";
-    this.m_name = "精英火龙小组";
+    this.name = "Frantic Burners";
+    this.m_name = "疯狂焚烧者";
     this.type = "archers";
-    this.description = "shield-archers  inspirator[high-damage]";
-    this.m_description = "持盾-远程步兵 鼓舞者[高伤害]";
+    this.description = "shield-archers  inspirator[elite  high-damage]";
+    this.m_description = "持盾-远程步兵 鼓舞者[精英 高伤害]";
 
     this.inspiring = 20;
     this.inspireRange = 3;
@@ -418,11 +418,11 @@ export class ERFireDragonGun extends FireDragonGun {
   }
 }
 
-export class DrawfMortar extends ArmPrimary.Arm {
+export class DwarfMortar extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Drawf Mortars";
+    this.name = "Dwarf Mortars";
     this.m_name = "矮人臼炮";
     this.type = "artillery";
     this.description = "artillery[bombing]";
@@ -471,7 +471,7 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 1) return new BoneBreaker(pos, player);
   if (i === 2) return new Berserker(pos, player);
   if (i === 3) return new BerserkerE(pos, player);
-  if (i === 4) return new DrawfKingsGuard(pos, player);
+  if (i === 4) return new DwarfKingsGuard(pos, player);
   if (i === 5) return new MountainShocker(pos, player);
   if (i === 6) return new MountainShockerE(pos, player);
   if (i === 7) return new DwarfMusketeer(pos, player);
@@ -483,7 +483,7 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 13) return new RevolvingCannon(pos, player);
   if (i === 14) return new FireDragonGun(pos, player);
   if (i === 15) return new ERFireDragonGun(pos, player);
-  if (i === 16) return new DrawfMortar(pos, player);
+  if (i === 16) return new DwarfMortar(pos, player);
   if (i === 17) return new GiantCannon(pos, player);
 
   return null;
