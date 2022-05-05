@@ -102,13 +102,15 @@ export const Canvas = {
     // Draw HP, ammo, and leaddership bars
     let hlen, alen, llen, elen;
     hlen = (50 * arm.getTotalHP()) / arm.getOriginalHP();
-    // if (arm.scale === 1) hlen = (50 * arm.c_singleHP) / arm.singleHP;
-    // else hlen = (50 * arm.c_scale) / arm.scale;
     if (arm.ammo === -1) alen = 0;
     else alen = (50 * arm.c_ammo) / arm.ammo;
     llen = (50 * arm.c_leadership) / arm.leadership;
     elen = (50 * arm.c_totalHeal) / arm.totalHeal;
-    this.drawLine(cxt, arm.x, arm.y + 2, arm.x + hlen, arm.y + 2, HC, 4);
+
+    let hpcolor = HC;
+    if (hlen <= 10) hpcolor = "rgb(226, 192, 141)";
+    if (hlen <= 5) hpcolor = "rgb(241, 76, 76)";
+    this.drawLine(cxt, arm.x, arm.y + 2, arm.x + hlen, arm.y + 2, hpcolor, 4);
     this.drawLine(cxt, arm.x, arm.y + 6, arm.x + llen, arm.y + 6, DC, 4);
     this.drawLine(cxt, arm.x, arm.y + 48, arm.x + alen, arm.y + 48, AC, 4);
     let ey = arm.y + 48;

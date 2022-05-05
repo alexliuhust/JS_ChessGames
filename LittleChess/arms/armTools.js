@@ -112,10 +112,13 @@ export function realTimeArmorUpdate(arm, factor) {
   arm.c_chargeDodge = Math.round(arm.chargeDodge * factor);
 }
 
-export function updateRealTimeProperties(arm) {
+export function updateRealTimeProperties(arm, levelUpgraded) {
   let factor = 1;
-  if (arm.scale != 1) arm.c_singleHP = arm.singleHP;
-  arm.wound = arm.c_singleHP;
+
+  if (levelUpgraded) {
+    if (arm.scale != 1) arm.c_singleHP = arm.singleHP;
+    arm.wound = arm.c_singleHP;
+  }
 
   let oneThird = Math.floor(arm.leadership / 3);
   let twoThirds = oneThird * 2;
@@ -128,10 +131,11 @@ export function updateRealTimeProperties(arm) {
 }
 
 export function upgradeLevel(arm) {
-  if (arm.exp < arm.cost || arm.level === 3) return;
+  if (arm.exp < arm.cost || arm.level === 3) return false;
 
   arm.exp -= arm.cost;
   arm.level++;
+  return true;
 }
 
 export function updateStaticProperties(arm) {
@@ -151,6 +155,10 @@ export function updateStaticProperties(arm) {
 
   if (arm.scale !== 1) {
     arm.singleHP = Math.round(arm.singleHP * factor);
+  } else {
+    let inc = arm.singleHP * 0.1;
+    arm.singleHP += inc;
+    arm.c_singleHP += inc;
   }
 
   arm.meleeArmor = Math.round(arm.meleeArmor * (factor - 0.12));
@@ -176,10 +184,10 @@ export function updateEliteData(arm) {
   arm.pre_level = 1;
   arm.level = 2;
   updateStaticProperties(arm);
-  updateRealTimeProperties(arm);
+  updateRealTimeProperties(arm, true);
   arm.level = 3;
   updateStaticProperties(arm);
-  updateRealTimeProperties(arm);
+  updateRealTimeProperties(arm, true);
   arm.c_leadership += 200;
   arm.leadership += 200;
 }

@@ -21,10 +21,10 @@ export function drawInfoForSelectedPiece(cxt, piece, useMandarin, showCost) {
   drawTitle(cxt, piece, useMandarin, showCost);
 
   // Draw HP bar and ammo bar
-  drawHPAndAmmoBars(cxt, piece, useMandarin);
+  drawHPAndAmmoBars(cxt, piece, useMandarin, showCost);
 
   // Draw the combat data
-  drawCombatData(cxt, piece, useMandarin);
+  drawCombatData(cxt, piece, useMandarin, showCost);
 
   // Draw status
   drawStatus(cxt, piece, useMandarin);
@@ -51,7 +51,7 @@ function drawTitle(cxt, piece, useMandarin, showCost) {
   Canvas.drawText(cxt, desc1, 105, 60, "white", 16);
   Canvas.drawText(cxt, desc2, 105, 90, DRC, 16);
 
-  let yBs = 125;
+  let yBs = showCost ? 125 : 95;
   if (showCost) {
     let costText = useMandarin
       ? `[花费: ${piece.cost}金币]`
@@ -78,8 +78,8 @@ function drawTitle(cxt, piece, useMandarin, showCost) {
   Canvas.drawText(cxt, expInfo, xEx, yExb + 50, "black", 14);
 }
 
-function drawHPAndAmmoBars(cxt, piece, useMandarin) {
-  let hpY = 160;
+function drawHPAndAmmoBars(cxt, piece, useMandarin, showCost) {
+  let hpY = showCost ? 160 : 130;
   let ldY = hpY + 30;
   let amY = ldY + 30;
 
@@ -124,7 +124,10 @@ function drawHPAndAmmoBars(cxt, piece, useMandarin) {
   Canvas.drawLine(cxt, bX, ldY, bX + 200, ldY, BGC, 18);
   Canvas.drawLine(cxt, bX, amY, bX + 200, amY, BGC, 18);
 
-  Canvas.drawLine(cxt, bX + 3, hpY, bX + hpLen + 3, hpY, HC, 12);
+  let hpcolor = HC;
+  if (hpLen <= 38.8) hpcolor = "rgb(226, 192, 141)";
+  if (hpLen <= 19.4) hpcolor = "rgb(241, 76, 76)";
+  Canvas.drawLine(cxt, bX + 3, hpY, bX + hpLen + 3, hpY, hpcolor, 12);
   Canvas.drawLine(cxt, bX + 3, ldY, bX + ldLen + 3, ldY, DC, 12);
   Canvas.drawLine(cxt, bX + 3, amY, bX + amLen + 3, amY, AC, 12);
 
@@ -133,22 +136,22 @@ function drawHPAndAmmoBars(cxt, piece, useMandarin) {
   Canvas.drawText(cxt, ammoText, leftX + 225, amY + 5, "black", 15);
 }
 
-function drawCombatData(cxt, piece, useMandarin) {
-  let textY = 265;
+function drawCombatData(cxt, piece, useMandarin, showCost) {
+  let textY = showCost ? 280 : 250;
   Canvas.drawLine(cxt, leftX, textY - 30, leftX + 485, textY - 30, "white", 7);
-  textY = 260;
+  textY = showCost ? 285 : 255;
 
   let speedText = `Speed:        ${piece.c_speed}`;
-  let dataTitle = ["Melee(bonus)", "Missile(bonus)", "Charge(bonus)"];
+  let dataTitle = ["Melee (bonus)", "Missile (bonus)", "Charge (bonus)"];
   let armorText = `Armor:`;
   let dodgeText = `Dodge:`;
   let attackText = `Damage:`;
   let armorDt = [piece.c_meleeArmor, piece.c_missileArmor, piece.c_chargeArmor];
   let dodgeDt = [piece.c_meleeDodge, piece.c_missileDodge, piece.c_chargeDodge];
   let attackDt = [
-    `${piece.c_meleeAttack}(+${piece.meleeAttack_bonus})`,
-    `${piece.c_missileAttack}(+${piece.missileAttack_bonus})`,
-    `${piece.c_chargeAttack}(+${piece.chargeAttack_bonus})`,
+    `${piece.c_meleeAttack} (+${piece.meleeAttack_bonus})`,
+    `${piece.c_missileAttack} (+${piece.missileAttack_bonus})`,
+    `${piece.c_chargeAttack} (+${piece.chargeAttack_bonus})`,
   ];
   let dataX = [105, 235, 372];
 
@@ -164,7 +167,7 @@ function drawCombatData(cxt, piece, useMandarin) {
 
   if (useMandarin) {
     speedText = `速度:            ${piece.c_speed}`;
-    dataTitle = ["近战(加成)", "远程(加成)", "冲杀(加成)"];
+    dataTitle = ["近战 (加成)", "远程 (加成)", "冲杀 (加成)"];
     armorText = `护甲:`;
     dodgeText = `闪避:`;
     attackText = `伤害:`;
@@ -214,7 +217,7 @@ function drawCombatData(cxt, piece, useMandarin) {
   textY -= 20;
   if (piece.healing > 0) {
     textY += 20;
-    Canvas.drawText(cxt, healText, leftX + 320, textY, HC, fontSize);
+    Canvas.drawText(cxt, healText, leftX + 330, textY, HC, fontSize);
   }
   if (piece.inspiring > 0) {
     textY += 20;
@@ -231,7 +234,7 @@ function drawCombatData(cxt, piece, useMandarin) {
 }
 
 function drawStatus(cxt, piece, useMandarin) {
-  let textY = 560;
+  let textY = 510;
   Canvas.drawLine(cxt, leftX, textY - 45, leftX + 485, textY - 45, "white", 7);
 
   if (piece.c_leadership <= 0) {

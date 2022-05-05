@@ -52,8 +52,8 @@ export class DarkSoldierScythe extends DarkSoldier {
 
     this.chargeArmor = 20;
 
-    this.meleeAttack = 30;
-    this.meleeAttack_bonus = 35;
+    this.meleeAttack = 20;
+    this.meleeAttack_bonus = 45;
 
     this.loadRealtimeProps();
   }
@@ -195,8 +195,8 @@ export class DeathKnight extends ArmPrimary.Arm {
     this.meleeArmor = 90;
     this.chargeArmor = 20;
 
-    this.meleeAttack = 30;
-    this.meleeAttack_bonus = 35;
+    this.meleeAttack = 20;
+    this.meleeAttack_bonus = 45;
 
     this.loadRealtimeProps();
   }
@@ -219,11 +219,11 @@ export class DeathKnightDS extends DeathKnight {
     this.name = "Death Knights (Double-Scythe)";
     this.m_name = "死亡骑士-双镰";
     this.type = "cavalry";
-    this.description = "armor-melee-cavalry[anti-large  high-damage]";
-    this.m_description = "装甲-近战骑兵[反大型 高伤害]";
+    this.description = "armor-melee-cavalry[monster-hunter  high-damage]";
+    this.m_description = "装甲-近战骑兵[怪兽猎人 高伤害]";
 
-    this.meleeAttack = 55;
-    this.meleeAttack_bonus = 45;
+    this.meleeAttack = 35;
+    this.meleeAttack_bonus = 65;
 
     this.loadRealtimeProps();
   }

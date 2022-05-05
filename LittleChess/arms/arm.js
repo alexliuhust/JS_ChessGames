@@ -305,10 +305,10 @@ export class Arm {
     if (this.c_leadership < 0) this.c_leadership = 0;
 
     // Update static battle properties
-    upgradeLevel(this);
+    let upgraded = upgradeLevel(this);
     updateStaticProperties(this);
     // Update real-time battle properties
-    updateRealTimeProperties(this);
+    updateRealTimeProperties(this, upgraded);
     if (this.c_leadership <= 0) {
       this.hasAttacked = true;
       this.optOut();
