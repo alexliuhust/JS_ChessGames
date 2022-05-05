@@ -1,12 +1,12 @@
-import * as EmpireArms from "./empire/empireArms.js";
-import * as NordFortArms from "./nordfort/nordfortArms.js";
-import * as DimwoodsArms from "./dimwoods/dimwoodsArms.js";
-import * as PollutelandArms from "./polluteland/pollutelandArms.js";
-import * as SnowhauptArms from "./snowhaupt/snowhauptArms.js";
-import * as BurningterraArms from "./burningterra/burningterraArms.js";
-import * as StormreefArms from "./stormreef/stormreefArms.js";
-import * as OldcemeteryArms from "./oldcemetery/oldcemeteryArms.js";
-import * as WildtribeArms from "./wildtribe/wildtribeArms.js";
+import * as EmpireArms from "./powerArms/empireArms.js";
+import * as NordFortArms from "./powerArms/nordfortArms.js";
+import * as DimwoodsArms from "./powerArms/dimwoodsArms.js";
+import * as PollutelandArms from "./powerArms/pollutelandArms.js";
+import * as SnowhauptArms from "./powerArms/snowhauptArms.js";
+import * as BurningterraArms from "./powerArms/burningterraArms.js";
+import * as StormreefArms from "./powerArms/stormreefArms.js";
+import * as OldcemeteryArms from "./powerArms/oldcemeteryArms.js";
+import * as WildtribeArms from "./powerArms/wildtribeArms.js";
 
 export function exportPower(powerCodeName) {
   if (powerCodeName === "empire") return EmpireArms;
