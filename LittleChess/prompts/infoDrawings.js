@@ -92,7 +92,7 @@ function drawHPAndAmmoBars(cxt, piece, useMandarin, showCost) {
   hpLen = (194 * piece.getTotalHP()) / piece.getOriginalHP();
   if (piece.ammo === -1) {
     amLen = 0;
-    ammoText = "   N/A";
+    ammoText = "N/A";
   } else {
     amLen = (194 * piece.c_ammo) / piece.ammo;
   }
@@ -105,9 +105,7 @@ function drawHPAndAmmoBars(cxt, piece, useMandarin, showCost) {
   let ammoTitle = useMandarin ? "单位弹药剩余: " : "Ammo per-unit: ";
 
   let color = "white";
-  if (piece.scale === 1 && piece.c_singleHP <= piece.singleHP * 0.1)
-    color = "red";
-  else if (piece.scale > 1 && piece.c_scale <= piece.scale * 0.1) color = "red";
+  if (hpLen <= 194 / 8) color = "red";
   Canvas.drawText(cxt, scaleOrHp, leftX, hpY, color, 18);
   color = piece.c_leadership <= piece.leadership * 0.1 ? "red" : "white";
   Canvas.drawText(cxt, leaderTitle, leftX, ldY, color, 18);
@@ -125,15 +123,19 @@ function drawHPAndAmmoBars(cxt, piece, useMandarin, showCost) {
   Canvas.drawLine(cxt, bX, amY, bX + 200, amY, BGC, 18);
 
   let hpcolor = HC;
-  if (hpLen <= 38.8) hpcolor = "rgb(226, 192, 141)";
-  if (hpLen <= 19.4) hpcolor = "rgb(241, 76, 76)";
+  if (hpLen <= 194 / 4) hpcolor = "rgb(255, 180, 0)";
+  if (hpLen <= 194 / 8) hpcolor = "rgb(241, 76, 76)";
   Canvas.drawLine(cxt, bX + 3, hpY, bX + hpLen + 3, hpY, hpcolor, 12);
   Canvas.drawLine(cxt, bX + 3, ldY, bX + ldLen + 3, ldY, DC, 12);
   Canvas.drawLine(cxt, bX + 3, amY, bX + amLen + 3, amY, AC, 12);
 
-  Canvas.drawText(cxt, hpText, leftX + 225, hpY + 5, "black", 15);
-  Canvas.drawText(cxt, leadText, leftX + 217, ldY + 5, "black", 15);
-  Canvas.drawText(cxt, ammoText, leftX + 225, amY + 5, "black", 15);
+  let midX = leftX + 269;
+  let hpTxtX = midX - hpText.length * 5;
+  let leadTxtX = midX - leadText.length * 5;
+  let ammoTxtX = ammoText == "N/A" ? 252 : midX - ammoText.length * 5;
+  Canvas.drawText(cxt, hpText, hpTxtX, hpY + 5, "black", 15);
+  Canvas.drawText(cxt, leadText, leadTxtX, ldY + 5, "black", 15);
+  Canvas.drawText(cxt, ammoText, ammoTxtX, amY + 5, "black", 15);
 }
 
 function drawCombatData(cxt, piece, useMandarin, showCost) {
@@ -159,7 +161,7 @@ function drawCombatData(cxt, piece, useMandarin, showCost) {
   let radiusInfo = `Explose-radius: ${piece.c_missileRadius}`;
   let antiArmorText = `Anti-armor: ${piece.antiArmor}`;
   if (piece.isBombing || piece.type === "artillery")
-    antiArmorText = `Anti-armor: *Ignore any type of armor`;
+    antiArmorText = `Anti-armor: *Ignore armor`;
   let healText = `Healing: ${piece.c_totalHeal} / ${piece.totalHeal}`;
   let inspText = `Inspiring: ${piece.inspiring}`;
   let arEnhText = `Armor Enhance: ${piece.armorEnhance}%`;
@@ -175,7 +177,7 @@ function drawCombatData(cxt, piece, useMandarin, showCost) {
     radiusInfo = `爆炸半径: ${piece.c_missileRadius}`;
     antiArmorText = `破甲: ${piece.antiArmor}`;
     if (piece.isBombing || piece.type === "artillery")
-      antiArmorText = `破甲: *无视所有类型护甲`;
+      antiArmorText = `破甲: *无视护甲`;
     healText = `治疗量: ${piece.c_totalHeal} / ${piece.totalHeal}`;
     inspText = `鼓舞: ${piece.inspiring}`;
     arEnhText = `抗性增强: ${piece.armorEnhance}%`;
@@ -217,7 +219,7 @@ function drawCombatData(cxt, piece, useMandarin, showCost) {
   textY -= 20;
   if (piece.healing > 0) {
     textY += 20;
-    Canvas.drawText(cxt, healText, leftX + 330, textY, HC, fontSize);
+    Canvas.drawText(cxt, healText, leftX + 310, textY, HC, fontSize);
   }
   if (piece.inspiring > 0) {
     textY += 20;

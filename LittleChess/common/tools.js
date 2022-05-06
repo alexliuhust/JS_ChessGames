@@ -108,8 +108,8 @@ export const Canvas = {
     elen = (50 * arm.c_totalHeal) / arm.totalHeal;
 
     let hpcolor = HC;
-    if (hlen <= 10) hpcolor = "rgb(226, 192, 141)";
-    if (hlen <= 5) hpcolor = "rgb(241, 76, 76)";
+    if (hlen <= 50 / 4) hpcolor = "rgb(255, 180, 0)";
+    if (hlen <= 50 / 8) hpcolor = "rgb(241, 76, 76)";
     this.drawLine(cxt, arm.x, arm.y + 2, arm.x + hlen, arm.y + 2, hpcolor, 4);
     this.drawLine(cxt, arm.x, arm.y + 6, arm.x + llen, arm.y + 6, DC, 4);
     this.drawLine(cxt, arm.x, arm.y + 48, arm.x + alen, arm.y + 48, AC, 4);

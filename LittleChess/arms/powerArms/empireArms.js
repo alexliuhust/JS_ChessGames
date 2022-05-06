@@ -9,7 +9,7 @@ export class SwordInfantry extends ArmPrimary.Arm {
     this.name = "Empire Infantry";
     this.m_name = "帝国步兵";
     this.type = "infantry";
-    this.description = "infantry[anti-infantry]";
+    this.description = "Infantry[Anti-Infantry]";
     this.m_description = "近战步兵[反步兵]";
 
     this.scale = 100;
@@ -39,7 +39,7 @@ export class SwordInfantryShield extends SwordInfantry {
     this.name = "Empire Infantry (Shield)";
     this.m_name = "帝国步兵-持盾";
     this.type = "infantry";
-    this.description = "shield-infantry[anti-infantry]";
+    this.description = "Shield-Infantry[Anti-Infantry]";
     this.m_description = "持盾-近战步兵[反步兵]";
 
     this.missileArmor = 30;
@@ -54,7 +54,7 @@ export class SwordInfantryE extends SwordInfantryShield {
     this.name = "Empire Blades";
     this.m_name = "帝国之刃";
     this.type = "infantry";
-    this.description = "shield-infantry  rouser[elite  anti-infantry]";
+    this.description = "Shield-Infantry  Rouser[Elite  Anti-Infantry]";
     this.m_description = "持盾-近战步兵 激励者[精英 反步兵]";
 
     this.missileArmor = 30;
@@ -74,7 +74,7 @@ export class PalaceGuard extends ArmPrimary.Arm {
     this.name = "Empire Guards";
     this.m_name = "帝国守卫";
     this.type = "infantry";
-    this.description = "infantry[resist-charging  anti-large]";
+    this.description = "Infantry[Resist-Charging  Anti-Large]";
     this.m_description = "近战步兵[抵御冲锋 反大型]";
 
     this.scale = 100;
@@ -108,7 +108,7 @@ export class PalaceGuardShield extends PalaceGuard {
     this.name = "Empire Guards (Shield)";
     this.m_name = "帝国守卫-持盾";
     this.type = "infantry";
-    this.description = "shield-infantry[resist-charging  anti-large]";
+    this.description = "Shield-Infantry[Resist-Charging  Anti-Large]";
     this.m_description = "持盾-近战步兵[抵御冲锋 反大型]";
 
     this.missileArmor = 30;
@@ -124,7 +124,7 @@ export class Musketeer extends ArmPrimary.Arm {
     this.name = "Musketeers";
     this.m_name = "火枪手";
     this.type = "archers";
-    this.description = "archers[anti-armor]";
+    this.description = "Archers[Anti-Armor]";
     this.m_description = "远程步兵[高破甲]";
 
     this.scale = 80;
@@ -152,7 +152,7 @@ export class MusketeerShield extends Musketeer {
     this.name = "Musketeers (Shield)";
     this.m_name = "火枪手-持盾";
     this.type = "archers";
-    this.description = "shield-archers[anti-armor]";
+    this.description = "Shield-Archers[Anti-Armor]";
     this.m_description = "持盾-远程步兵[高破甲]";
 
     this.missileArmor = 30;
@@ -168,7 +168,7 @@ export class EmpireSniper extends Musketeer {
     this.name = "Empire Snipers";
     this.m_name = "帝国狙击手";
     this.type = "archers";
-    this.description = "archers[anti-armor  anti-large  long-range]";
+    this.description = "Archers[Anti-Armor  Anti-Large  Long-Range]";
     this.m_description = "远程步兵[高破甲 反大型 长程]";
 
     this.scale = 60;
@@ -207,7 +207,7 @@ export class EmpireSniperShield extends EmpireSniper {
     this.name = "Empire Snipers (Shield)";
     this.m_name = "帝国狙击手-持盾";
     this.type = "archers";
-    this.description = "sheild-archers[anti-armor  anti-large  long-range]";
+    this.description = "Shield-Archers[Anti-Armor  Anti-Large  Long-Range]";
     this.m_description = "持盾-远程步兵[高破甲 反大型 长程]";
 
     this.missileArmor = 30;
@@ -223,7 +223,7 @@ export class MusketeerE extends MusketeerShield {
     this.name = "Elite Musketeers";
     this.m_name = "精英火枪手";
     this.type = "archers";
-    this.description = "shield-archers[elite  anti-armor]";
+    this.description = "Shield-Archers[Elite  Anti-Armor]";
     this.m_description = "持盾-远程步兵[精英 高破甲]";
 
     this.missileArmor = 30;
@@ -240,7 +240,7 @@ export class MusketRider extends ArmPrimary.Arm {
     this.name = "Musket Riders";
     this.m_name = "火枪骑兵";
     this.type = "cavalry";
-    this.description = "missile-cavalry[anti-armor]";
+    this.description = "Missile-Cavalry[Anti-Armor]";
     this.m_description = "远程骑兵[高破甲]";
 
     this.scale = 50;
@@ -270,7 +270,7 @@ export class Vanguard extends ArmPrimary.Arm {
     this.name = "Vanguards";
     this.m_name = "先锋骑兵";
     this.type = "cavalry";
-    this.description = "charging-cavalry[anti-armor]";
+    this.description = "Charging-Cavalry[Anti-Armor]";
     this.m_description = "冲击骑兵[高破甲]";
 
     this.scale = 50;
@@ -300,7 +300,7 @@ export class PalaceKnight extends ArmPrimary.Arm {
     this.name = "Palace Knights";
     this.m_name = "大殿骑士";
     this.type = "cavalry";
-    this.description = "armor-melee-cavalry[anti-infantry]";
+    this.description = "Armor-Melee-Cavalry[Anti-Infantry]";
     this.m_description = "装甲-近战骑兵[反步兵]";
 
     this.scale = 50;
@@ -334,7 +334,7 @@ export class PalaceKnightE extends PalaceKnight {
     this.name = "Paladins";
     this.m_name = "圣骑士";
     this.type = "cavalry";
-    this.description = "armor-melee-cavalry  protector[elite  anti-infantry]";
+    this.description = "Armor-Melee-Cavalry  Protector[Elite  Anti-Infantry]";
     this.m_description = "装甲-近战骑兵 护卫者[精英 反步兵]";
 
     this.armorEnhance = 40;
@@ -354,7 +354,7 @@ export class CannonGroup extends ArmPrimary.Arm {
     this.name = "Cannon Group";
     this.m_name = "加农炮组";
     this.type = "artillery";
-    this.description = "artillery";
+    this.description = "Artillery";
     this.m_description = "炮兵";
 
     this.scale = 5;
@@ -380,7 +380,7 @@ export class EmpireMortar extends ArmPrimary.Arm {
     this.name = "Empire Mortars";
     this.m_name = "帝国臼炮";
     this.type = "artillery";
-    this.description = "artillery[bombing]";
+    this.description = "Artillery[Bombing]";
     this.m_description = "炮兵[轰炸]";
 
     this.scale = 5;
@@ -406,7 +406,7 @@ export class SteamTank extends ArmPrimary.Arm {
     this.name = "Steam Tank";
     this.m_name = "蒸汽坦克";
     this.type = "monster";
-    this.description = "armor-vehicle[missile-attack]";
+    this.description = "Armor-Vehicle[Missile-Attack]";
     this.m_description = "装甲战车[远程攻击]";
 
     this.scale = 1;
@@ -442,7 +442,7 @@ export class SteamTankMortar extends SteamTank {
     this.name = "Steam Tank (Mortar)";
     this.m_name = "蒸汽坦克-臼炮";
     this.type = "monster";
-    this.description = "armor-vehicle[missile-attack  bombing]";
+    this.description = "Armor-Vehicle[Missile-Attack  Bombing]";
     this.m_description = "装甲战车[远程攻击 轰炸]";
 
     this.missileAttack = 900;

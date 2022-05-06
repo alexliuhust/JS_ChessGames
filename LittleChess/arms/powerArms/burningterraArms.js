@@ -9,7 +9,7 @@ export class HenchWarrior extends ArmPrimary.Arm {
     this.name = "Hench Warriors";
     this.m_name = "亲卫勇士";
     this.type = "infantry";
-    this.description = "shield-infantry";
+    this.description = "Shield-Infantry";
     this.m_description = "持盾-近战步兵";
 
     this.scale = 80;
@@ -30,7 +30,7 @@ export class HenchWarriorHalberd extends HenchWarrior {
     this.name = "Hench Warriors (Halberd)";
     this.m_name = "亲卫勇士-长戟";
     this.type = "infantry";
-    this.description = "shield-infantry[anti-large  resist-charging]";
+    this.description = "Shield-Infantry[Anti-Large  Resist-Charging]";
     this.m_description = "持盾-近战步兵[反大型 抵御冲锋]";
 
     this.chargeArmor = 30;
@@ -59,7 +59,7 @@ export class HenchWarriorGiantaxe extends HenchWarrior {
     this.name = "Hench Warriors (Giant Axe)";
     this.m_name = "亲卫勇士-巨斧";
     this.type = "infantry";
-    this.description = "infantry[anti-armor]";
+    this.description = "Infantry[Anti-Armor]";
     this.m_description = "近战步兵[高破甲]";
 
     this.missileArmor = 0;
@@ -83,7 +83,7 @@ export class BurningWarrior extends ArmPrimary.Arm {
     this.name = "Burning Warriors";
     this.m_name = "燃烧战士";
     this.type = "infantry";
-    this.description = "armor-shield-infantry";
+    this.description = "Armor-Shield-Infantry";
     this.m_description = "装甲-持盾-近战步兵";
 
     this.scale = 80;
@@ -107,7 +107,7 @@ export class BurningWarriorHalberd extends BurningWarrior {
     this.name = "Burning Warriors (Halberd)";
     this.m_name = "燃烧战士-长戟";
     this.type = "infantry";
-    this.description = "armor-infantry[anti-large]";
+    this.description = "Armor-Infantry[Anti-Large]";
     this.m_description = "装甲-近战步兵[反大型]";
 
     this.missileArmor = 0;
@@ -137,7 +137,7 @@ export class BurningWarriorGiantaxe extends BurningWarrior {
     this.name = "Burning Warriors (Giant Axe)";
     this.m_name = "燃烧战士-巨斧";
     this.type = "infantry";
-    this.description = "armor-infantry[anti-armor]";
+    this.description = "Armor-Infantry[Anti-Armor]";
     this.m_description = "装甲-近战步兵[高破甲]";
 
     this.missileArmor = 0;
@@ -161,7 +161,7 @@ export class BurningWarriorE extends BurningWarriorGiantaxe {
     this.name = "Demon Warriors";
     this.m_name = "恶魔勇士";
     this.type = "infantry";
-    this.description = "armor-infantry[elite  anti-armor]";
+    this.description = "Armor-Infantry[Elite  Anti-Armor]";
     this.m_description = "装甲-近战步兵[精英 高破甲]";
 
     this.loadRealtimeProps();
@@ -177,7 +177,7 @@ export class BurningKnight extends ArmPrimary.Arm {
     this.name = "Burning Knights";
     this.m_name = "燃烧骑士";
     this.type = "cavalry";
-    this.description = "armor-melee-cavalry";
+    this.description = "Armor-Melee-Cavalry";
     this.m_description = "装甲-近战骑兵";
 
     this.scale = 50;
@@ -201,7 +201,7 @@ export class BurningKnightHalberd extends BurningKnight {
     this.name = "Burning Knights (Halberd)";
     this.m_name = "燃烧骑士-长戟";
     this.type = "cavalry";
-    this.description = "armor-melee-cavalry[anti-large]";
+    this.description = "Armor-Melee-Cavalry[Anti-Large]";
     this.m_description = "装甲-近战骑兵[反大型]";
 
     this.missileArmor = 0;
@@ -231,7 +231,7 @@ export class BurningKnightCharge extends BurningKnight {
     this.name = "Burning Knights (Charge)";
     this.m_name = "燃烧骑士-冲杀";
     this.type = "cavalry";
-    this.description = "armor-charge-cavalry";
+    this.description = "Armor-Charge-Cavalry";
     this.m_description = "装甲-冲杀骑兵";
 
     this.speed = 6;
@@ -252,7 +252,7 @@ export class BurningKnightChargeE extends BurningKnightCharge {
     this.name = "Burning Gale";
     this.m_name = "燃烧烈风";
     this.type = "cavalry";
-    this.description = "armor-charge-cavalry  inspirator[elite]";
+    this.description = "Armor-Charge-Cavalry  Inspirator[Elite]";
     this.m_description = "装甲-冲杀骑兵 鼓舞者[精英]";
 
     this.inspiring = 20;
@@ -270,7 +270,7 @@ export class Hellhound extends ArmPrimary.Arm {
     this.name = "Hell Hounds";
     this.m_name = "地狱猎犬";
     this.type = "cavalry";
-    this.description = "monster-cavalry[agile]";
+    this.description = "Monster-Cavalry[Agile]";
     this.m_description = "怪兽骑兵[迅捷如风]";
 
     this.scale = 200;
@@ -293,7 +293,7 @@ export class HellhoundFS extends Hellhound {
     this.name = "Hell Hounds (Fire Shied)";
     this.m_name = "地狱猎犬-火盾";
     this.type = "cavalry";
-    this.description = "monster-cavalry[agile]";
+    this.description = "Monster-Cavalry[Agile]";
     this.m_description = "怪兽骑兵[迅捷如风]";
 
     this.meleeDodge = 20;
@@ -313,7 +313,7 @@ export class DemonEnvoy extends ArmPrimary.Arm {
     this.name = "Demon Envoys";
     this.m_name = "恶魔使者";
     this.type = "monster-infantry";
-    this.description = "monster-infantry[anti-armor  shocking]";
+    this.description = "Monster-Infantry[Anti-Armor  Shocking]";
     this.m_description = "怪兽步兵[高破甲 惊骇敌军]";
 
     this.scale = 30;
@@ -340,7 +340,7 @@ export class DemonEnvoyWild extends DemonEnvoy {
     this.name = "Demon Envoys (Wild)";
     this.m_name = "恶魔使者-狂暴";
     this.type = "monster-infantry";
-    this.description = "monster-infantry[anti-armor  shocking]";
+    this.description = "Monster-Infantry[Anti-Armor  Shocking]";
     this.m_description = "怪兽步兵[高破甲 惊骇敌军]";
 
     this.chargeAttack = 55;
@@ -358,7 +358,7 @@ export class DemonEnvoyHellfire extends DemonEnvoy {
     this.name = "Demon Envoys (Hellfire)";
     this.m_name = "恶魔使者-地狱火";
     this.type = "monster-infantry";
-    this.description = "monster-infantry[missile-attack  shocking]";
+    this.description = "Monster-Infantry[Missile-Attack  Shocking]";
     this.m_description = "怪兽步兵[远程攻击 惊骇敌军]";
 
     this.missileAttack = 90;
@@ -378,7 +378,7 @@ export class GreatDemon extends ArmPrimary.Arm {
     this.name = "Chaos Great Demon";
     this.m_name = "混沌大魔";
     this.type = "monster";
-    this.description = "giant[anti-armor  shocking]";
+    this.description = "Giant[Anti-Armor  Shocking]";
     this.m_description = "巨兽[高破甲 惊骇敌军]";
 
     this.scale = 1;
@@ -408,7 +408,7 @@ export class GreatDemonHellfire extends GreatDemon {
     this.name = "Chaos Great Demon (Hellfire)";
     this.m_name = "混沌大魔-地狱火";
     this.type = "monster";
-    this.description = "giant[anti-armor  missile-attack  shocking]";
+    this.description = "Giant[Anti-Armor  Missile-Attack  Shocking]";
     this.m_description = "巨兽[高破甲 远程攻击 惊骇敌军]";
 
     this.missileAttack = 2000;

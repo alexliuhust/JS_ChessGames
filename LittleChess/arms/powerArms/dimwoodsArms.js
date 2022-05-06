@@ -9,7 +9,7 @@ export class WoodsGuard extends ArmPrimary.Arm {
     this.name = "Woods Guards";
     this.m_name = "林地守卫";
     this.type = "infantry";
-    this.description = "infantry[resist-charging]";
+    this.description = "Infantry[Resist-Charging]";
     this.m_description = "近战步兵[抵御冲锋]";
 
     this.scale = 100;
@@ -37,7 +37,7 @@ export class WoodsGuardShield extends WoodsGuard {
     this.name = "Woods Guards (Shield)";
     this.m_name = "林地守卫-持盾";
     this.type = "infantry";
-    this.description = "shield-infantry[resist-charging]";
+    this.description = "Shield-Infantry[Resist-Charging]";
     this.m_description = "持盾-近战步兵[抵御冲锋]";
 
     this.missileArmor = 30;
@@ -53,7 +53,7 @@ export class WildKiller extends ArmPrimary.Arm {
     this.name = "Wild Killers";
     this.m_name = "狂野杀手";
     this.type = "infantry";
-    this.description = "infantry[melee-master  shocking]";
+    this.description = "Infantry[Melee-Master Shocking]";
     this.m_description = "近战步兵[近战大师 惊骇敌军]";
 
     this.scale = 120;
@@ -90,7 +90,7 @@ export class WildKillerPS extends WildKiller {
     this.name = "Wild Killers (Poisoned)";
     this.m_name = "狂野杀手-淬毒";
     this.type = "infantry";
-    this.description = "infantry[melee-master  shocking  anti-non-armor]";
+    this.description = "Infantry[Melee-Master Shocking  Anti-Non-Armor]";
     this.m_description = "近战步兵[近战大师 惊骇敌军 反无甲]";
 
     this.meleeAttack_bonus = 70;
@@ -128,7 +128,7 @@ export class TwilightWarrior extends ArmPrimary.Arm {
     this.name = "Twilight Warriors";
     this.m_name = "暮光战士";
     this.type = "infantry";
-    this.description = "shield-infantry[high-damage]";
+    this.description = "Shield-Infantry[High-Damage]";
     this.m_description = "持盾-近战步兵[高伤害]";
 
     this.scale = 100;
@@ -152,7 +152,7 @@ export class TwilightWarriorE extends TwilightWarrior {
     this.name = "Twilight Shadow";
     this.m_name = "暮光之影";
     this.type = "infantry";
-    this.description = "shield-infantry  protector[elite  high-damage]";
+    this.description = "Shield-Infantry  Protector[Elite  High-Damage]";
     this.m_description = "持盾-近战步兵 护卫者[精英 高伤害]";
 
     this.armorEnhance = 30;
@@ -172,7 +172,7 @@ export class ShadowArcherFL extends ArmPrimary.Arm {
     this.name = "Shadow Archers (Flame)";
     this.m_name = "暗影弓手-火焰箭";
     this.type = "archers";
-    this.description = "melee-archers[high-damage]";
+    this.description = "Melee-Archers[High-Damage]";
     this.m_description = "近战-远程步兵[高伤害]";
 
     this.scale = 90;
@@ -201,7 +201,7 @@ export class ShadowArcherPS extends ShadowArcherFL {
     this.name = "Shadow Archers (Poisoned)";
     this.m_name = "暗影弓手-淬毒箭";
     this.type = "archers";
-    this.description = "melee-archers[anti-non-armor]";
+    this.description = "Melee-Archers[Anti-Non-Armor]";
     this.m_description = "近战-远程步兵[反无甲]";
 
     this.meleeAttack_bonus = 15;
@@ -236,7 +236,7 @@ export class ShadowArcherAP extends ShadowArcherFL {
     this.name = "Shadow Archers (Armor-Piercing)";
     this.m_name = "暗影弓手-穿甲箭";
     this.type = "archers";
-    this.description = "melee-archers[anti-armor]";
+    this.description = "Melee-Archers[Anti-Armor]";
     this.m_description = "近战-远程步兵[高破甲]";
 
     this.missileAttack = 36;
@@ -258,7 +258,7 @@ export class LongbowRanger extends ArmPrimary.Arm {
     this.name = "Longbow Rangers";
     this.m_name = "长弓游侠";
     this.type = "archers";
-    this.description = "archers[anti-armor  long-range]";
+    this.description = "Archers[Anti-Armor  Long-Range]";
     this.m_description = "远程步兵[高破甲 长程]";
 
     this.scale = 90;
@@ -290,7 +290,7 @@ export class WarBear extends ArmPrimary.Arm {
     this.name = "War Bears";
     this.m_name = "战熊";
     this.type = "monster-infantry";
-    this.description = "monster-infantry[agile]";
+    this.description = "Monster-Infantry[Agile]";
     this.m_description = "怪兽步兵[迅捷如风]";
 
     this.scale = 30;
@@ -313,7 +313,7 @@ export class WarBearRider extends WarBear {
     this.name = "War Bear Riders";
     this.m_name = "战熊骑兵";
     this.type = "monster-infantry";
-    this.description = "monster-cavalry[agile  high-damage]";
+    this.description = "Monster-Cavalry[Agile  High-Damage]";
     this.m_description = "怪兽步兵[迅捷如风 高伤害]";
 
     this.meleeDodge = 10;
@@ -330,7 +330,7 @@ export class WarBearRiderE extends WarBearRider {
     this.name = "Roaring Guards";
     this.m_name = "咆哮守卫";
     this.type = "monster-infantry";
-    this.description = "monster-cavalry  inspirator[elite  agile  high-damage]";
+    this.description = "Monster-Cavalry  Inspirator[Elite  Agile  High-Damage]";
     this.m_description = "怪兽步兵 鼓舞者[精英 迅捷如风 高伤害]";
 
     this.inspiring = 15;
@@ -348,7 +348,7 @@ export class Dryad extends ArmPrimary.Arm {
     this.name = "Dryads";
     this.m_name = "树精";
     this.type = "monster-infantry";
-    this.description = "armor-monster-infantry";
+    this.description = "Armor-Monster-Infantry";
     this.m_description = "装甲-怪兽步兵";
 
     this.scale = 30;
@@ -372,7 +372,7 @@ export class DryadHeal extends Dryad {
     this.name = "Dryad (Healing)";
     this.m_name = "树精-治疗";
     this.type = "monster-infantry";
-    this.description = "armor-monster-infantry  healer";
+    this.description = "Armor-Monster-Infantry  Healer";
     this.m_description = "装甲-怪兽步兵 治疗者";
 
     this.healing = 10;
@@ -389,7 +389,7 @@ export class DryadRangerRide extends Dryad {
     this.name = "Dryads (Ranger-Ride)";
     this.m_name = "树精-游侠搭乘";
     this.type = "monster-infantry";
-    this.description = "armor-monster-infantry[missile-attack]";
+    this.description = "Armor-Monster-Infantry[Missile-Attack]";
     this.m_description = "装甲-怪兽步兵[远程攻击]";
 
     this.missileAttack = 60;
@@ -415,7 +415,7 @@ export class DryadStone extends Dryad {
     this.name = "Dryads (Stone)";
     this.m_name = "树精-投石";
     this.type = "monster-infantry";
-    this.description = "armor-monster-infantry[missile-attack  bombing]";
+    this.description = "Armor-Monster-Infantry[Missile-Attack  Bombing]";
     this.m_description = "装甲-怪兽步兵[远程攻击 轰炸]";
 
     this.missileAttack = 60;
@@ -435,7 +435,7 @@ export class GiantTreeman extends ArmPrimary.Arm {
     this.name = "Giant Treeman";
     this.m_name = "巨树人";
     this.type = "monster";
-    this.description = "armor-giant  healer";
+    this.description = "Armor-Giant  Healer";
     this.m_description = "装甲巨兽 治疗者";
 
     this.scale = 1;
