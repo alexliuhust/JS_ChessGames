@@ -154,7 +154,7 @@ export class MountainShockerE extends MountainShocker {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Dwarf Sheilds";
+    this.name = "Dwarf Shields";
     this.m_name = "矮人之盾";
     this.type = "infantry";
     this.description = "Giant-Shield-Infantry  Protecter[Elite  High-Damage]";

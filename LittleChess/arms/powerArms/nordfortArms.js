@@ -192,7 +192,7 @@ export class BallistaSquadE extends BallistaSquad {
     this.name = "Nord Piercers";
     this.m_name = "诺德穿刺者";
     this.type = "archers";
-    this.description = "Armor-Melee-Archers[Elite  Long-Range  Anti-Armor]";
+    this.description = "Melee-Armor-Archers[Elite  Long-Range  Anti-Armor]";
     this.m_description = "近战-装甲-远程步兵[精英 长程 高破甲]";
 
     this.loadRealtimeProps();

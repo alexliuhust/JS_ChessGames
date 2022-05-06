@@ -25,11 +25,11 @@ export class DarkSoldier extends ArmPrimary.Arm {
   }
 }
 
-export class DarkSoldierSheild extends DarkSoldier {
+export class DarkSoldierShield extends DarkSoldier {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Dark Soldiers (Sheild)";
+    this.name = "Dark Soldiers (Shield)";
     this.m_name = "黑暗战士-持盾";
     this.type = "infantry";
     this.description = "Infantry[Resist-Charging]";
@@ -471,7 +471,7 @@ export class Werewolf extends ArmPrimary.Arm {
 export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
   if (i === 0) return new DarkSoldier(pos, player);
-  if (i === 1) return new DarkSoldierSheild(pos, player);
+  if (i === 1) return new DarkSoldierShield(pos, player);
   if (i === 2) return new DarkSoldierScythe(pos, player);
   if (i === 3) return new DarkSoldierSS(pos, player);
   if (i === 4) return new DarkSoldierSSE(pos, player);

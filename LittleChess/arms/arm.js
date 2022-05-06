@@ -375,7 +375,7 @@ export class Arm {
   }
 
   decreaseScale(attacker, damageType, antiArmor, rawTotalDamage) {
-    // console.log(this.name, "rawTotalDamage", rawTotalDamage);
+    console.log(this.name, "rawTotalDamage", rawTotalDamage);
 
     let damagePercentage = this._getDamagePercentage(
       attacker,
@@ -385,7 +385,7 @@ export class Arm {
     let realDamage = Math.ceil(rawTotalDamage * damagePercentage);
     let decreaseScore = 0;
 
-    // console.log(this.name, "realDamage", realDamage);
+    console.log(this.name, "realDamage", realDamage);
 
     // If this arm is a single-unit
     if (this.scale === 1) {

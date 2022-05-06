@@ -246,7 +246,7 @@ export class SupplySqd extends ArmPrimary.Arm {
     this.name = "Supply Squad";
     this.m_name = "补给小队";
     this.type = "infantry";
-    this.description = "Sheild-Infantry  Healer  Rouser";
+    this.description = "Shield-Infantry  Healer  Rouser";
     this.m_description = "持盾-近战步兵 治疗者 激励者";
 
     this.scale = 120;

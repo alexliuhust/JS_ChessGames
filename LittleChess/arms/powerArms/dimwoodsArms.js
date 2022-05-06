@@ -87,7 +87,7 @@ export class WildKillerPS extends WildKiller {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Wild Killers (Poisoned)";
+    this.name = "Wild Killers (Poison)";
     this.m_name = "狂野杀手-淬毒";
     this.type = "infantry";
     this.description = "Infantry[Melee-Master Shocking  Anti-Non-Armor]";
@@ -198,7 +198,7 @@ export class ShadowArcherPS extends ShadowArcherFL {
     this.missileColor = MC.PoisonColor;
     this.missileWeight = 2;
 
-    this.name = "Shadow Archers (Poisoned)";
+    this.name = "Shadow Archers (Poison)";
     this.m_name = "暗影弓手-淬毒箭";
     this.type = "archers";
     this.description = "Melee-Archers[Anti-Non-Armor]";
