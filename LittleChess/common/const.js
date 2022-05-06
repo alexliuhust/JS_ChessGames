@@ -55,7 +55,7 @@ export const PowerMap = new Map([
   ["stormreef", "Storm Reef"],
   ["empire", "Terran Empire"],
   ["snowhaupt", "Snow Haupt"],
-  ["polluteland", "Pollute Land"],
+  ["polluteland", "Polluted Land"],
   ["burningterra", "Burning Terra"],
   ["oldcemetery", "Old Cemetery"],
   ["wildtribe", "Wild Tribe"],

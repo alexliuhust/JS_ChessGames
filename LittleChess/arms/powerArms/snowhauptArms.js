@@ -9,7 +9,7 @@ export class DwarfWarrior extends ArmPrimary.Arm {
     this.name = "Dwarf Warriors";
     this.m_name = "矮人勇士";
     this.type = "infantry";
-    this.description = "shield-infantry";
+    this.description = "Shield-Infantry";
     this.m_description = "持盾-近战步兵";
 
     this.scale = 100;
@@ -33,7 +33,7 @@ export class BoneBreaker extends DwarfWarrior {
     this.name = "Bone Breakers";
     this.m_name = "碎骨者";
     this.type = "infantry";
-    this.description = "infantry[anti-large]";
+    this.description = "Infantry[Anti-Large]";
     this.m_description = "近战步兵[反大型]";
 
     this.missileArmor = 0;
@@ -62,7 +62,7 @@ export class Berserker extends DwarfWarrior {
     this.name = "Berserkers";
     this.m_name = "狂战士";
     this.type = "infantry";
-    this.description = "infantry[high-damage]";
+    this.description = "Infantry[High-Damage]";
     this.m_description = "近战步兵[高伤害]";
 
     this.meleeArmor = 0;
@@ -82,7 +82,7 @@ export class BerserkerE extends Berserker {
     this.name = "Mountborne Butchers";
     this.m_name = "山岭屠夫";
     this.type = "infantry";
-    this.description = "infantry  rouser[elite  high-damage]";
+    this.description = "Infantry  Rouser[Elite  High-Damage]";
     this.m_description = "近战步兵 激励者[精英 高伤害]";
 
     this.attackEnhance = 30;
@@ -100,7 +100,7 @@ export class DwarfKingsGuard extends DwarfWarrior {
     this.name = "Dwarf King's Guards";
     this.m_name = "矮人王禁卫";
     this.type = "infantry";
-    this.description = "armor-infantry[anti-large]";
+    this.description = "Armor-Infantry[Anti-Large]";
     this.m_description = "装甲-近战步兵[反大型]";
 
     this.meleeArmor = 60;
@@ -132,7 +132,7 @@ export class MountainShocker extends ArmPrimary.Arm {
     this.name = "Mountain Shockers";
     this.m_name = "震山矿工";
     this.type = "infantry";
-    this.description = "giant-shield-infantry[high-damage]";
+    this.description = "Giant-Shield-Infantry[High-Damage]";
     this.m_description = "巨盾步兵[高伤害]";
 
     this.scale = 100;
@@ -157,7 +157,7 @@ export class MountainShockerE extends MountainShocker {
     this.name = "Dwarf Sheilds";
     this.m_name = "矮人之盾";
     this.type = "infantry";
-    this.description = "giant-shield-infantry  protecter[elite  high-damage]";
+    this.description = "Giant-Shield-Infantry  Protecter[Elite  High-Damage]";
     this.m_description = "巨盾步兵 护卫者[精英 高伤害]";
 
     this.ammo = 5;
@@ -176,7 +176,7 @@ export class DwarfMusketeer extends ArmPrimary.Arm {
     this.name = "Dwarf Musketeers";
     this.m_name = "矮人火枪手";
     this.type = "archers";
-    this.description = "shield-archers[anti-armor]";
+    this.description = "Shield-Archers[Anti-Armor]";
     this.m_description = "持盾-远程步兵[高破甲]";
 
     this.scale = 80;
@@ -207,7 +207,7 @@ export class MortarSquad extends ArmPrimary.Arm {
     this.name = "Mortar Squad";
     this.m_name = "迫击炮小组";
     this.type = "archers";
-    this.description = "shield-archers[high-damage]";
+    this.description = "Shield-Archers[High-Damage]";
     this.m_description = "持盾-远程步兵[高伤害]";
 
     this.scale = 80;
@@ -232,7 +232,7 @@ export class FireDragonSquad extends ArmPrimary.Arm {
     this.name = "Fire Dragon Squad";
     this.m_name = "火龙小组";
     this.type = "archers";
-    this.description = "shield-archers[high-damage]";
+    this.description = "Shield-Archers[High-Damage]";
     this.m_description = "持盾-远程步兵[高伤害]";
 
     this.scale = 80;
@@ -269,7 +269,7 @@ export class FireDragonSquadE extends FireDragonSquad {
     this.name = "Frantic Burners";
     this.m_name = "疯狂焚烧者";
     this.type = "archers";
-    this.description = "shield-archers  inspirator[elite  high-damage]";
+    this.description = "Shield-Archers  Inspirator[Elite  High-Damage]";
     this.m_description = "持盾-远程步兵 鼓舞者[精英 高伤害]";
 
     this.inspiring = 20;
@@ -287,7 +287,7 @@ export class GoatCavalry extends ArmPrimary.Arm {
     this.name = "Goat Cavalry";
     this.m_name = "山羊骑兵";
     this.type = "cavalry";
-    this.description = "charging-cavalry";
+    this.description = "Charging-Cavalry";
     this.m_description = "冲击骑兵";
 
     this.scale = 50;
@@ -312,7 +312,7 @@ export class GoatCavalryTA extends GoatCavalry {
     this.name = "Goat Cavalry (Throw Axe)";
     this.m_name = "山羊骑兵-飞斧";
     this.type = "cavalry";
-    this.description = "charging-cavalry[missile-attack]";
+    this.description = "Charging-Cavalry[Missile-Attack]";
     this.m_description = "冲击骑兵[远程攻击]";
 
     this.missileAttack = 40;
@@ -333,7 +333,7 @@ export class RevolvingCannon extends ArmPrimary.Arm {
     this.name = "Revolving Cannons";
     this.m_name = "转轮炮";
     this.type = "artillery";
-    this.description = "artillery[anti-large]";
+    this.description = "Artillery[Anti-Large]";
     this.m_description = "炮兵[反大型]";
 
     this.scale = 10;
@@ -376,7 +376,7 @@ export class FireDragonGun extends ArmPrimary.Arm {
     this.name = "Fire Dragon Guns";
     this.m_name = "火龙炮";
     this.type = "artillery";
-    this.description = "artillery[anti-infantry  short-range]";
+    this.description = "Artillery[Anti-Infantry  Short-Range]";
     this.m_description = "炮兵[反步兵 近程]";
 
     this.scale = 10;
@@ -410,7 +410,7 @@ export class ERFireDragonGun extends FireDragonGun {
     this.name = "ExRange Fire Dragon Guns";
     this.m_name = "增程火龙炮";
     this.type = "artillery";
-    this.description = "artillery[anti-infantry]";
+    this.description = "Artillery[Anti-Infantry]";
     this.m_description = "炮兵[反步兵]";
 
     this.missileRange = 10;
@@ -425,7 +425,7 @@ export class DwarfMortar extends ArmPrimary.Arm {
     this.name = "Dwarf Mortars";
     this.m_name = "矮人臼炮";
     this.type = "artillery";
-    this.description = "artillery[bombing]";
+    this.description = "Artillery[Bombing]";
     this.m_description = "炮兵[轰炸]";
 
     this.scale = 5;
@@ -448,7 +448,7 @@ export class GiantCannon extends ArmPrimary.Arm {
     this.name = "Giant Mortar";
     this.m_name = "巨型臼炮";
     this.type = "monster";
-    this.description = "artillery[bombing]";
+    this.description = "Artillery[Bombing]";
     this.m_description = "炮兵[轰炸]";
 
     this.scale = 1;

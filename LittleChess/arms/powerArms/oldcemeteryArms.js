@@ -9,7 +9,7 @@ export class DarkSoldier extends ArmPrimary.Arm {
     this.name = "Dark Soldiers";
     this.m_name = "黑暗战士";
     this.type = "infantry";
-    this.description = "infantry[resist-charging]";
+    this.description = "Infantry[Resist-Charging]";
     this.m_description = "近战步兵[抵御冲锋]";
 
     this.scale = 120;
@@ -32,7 +32,7 @@ export class DarkSoldierSheild extends DarkSoldier {
     this.name = "Dark Soldiers (Sheild)";
     this.m_name = "黑暗战士-持盾";
     this.type = "infantry";
-    this.description = "infantry[resist-charging]";
+    this.description = "Infantry[Resist-Charging]";
     this.m_description = "近战步兵[抵御冲锋]";
 
     this.missileArmor = 30;
@@ -47,7 +47,7 @@ export class DarkSoldierScythe extends DarkSoldier {
     this.name = "Dark Soldiers (Scythe)";
     this.m_name = "黑暗战士-巨镰";
     this.type = "infantry";
-    this.description = "infantry[anti-large]";
+    this.description = "Infantry[Anti-Large]";
     this.m_description = "近战步兵[反大型]";
 
     this.chargeArmor = 20;
@@ -76,7 +76,7 @@ export class DarkSoldierSS extends DarkSoldierScythe {
     this.name = "Dark Soldiers (Scythe, Shield)";
     this.m_name = "黑暗战士-巨镰-持盾";
     this.type = "infantry";
-    this.description = "shield-infantry[anti-large]";
+    this.description = "Shield-Infantry[Anti-Large]";
     this.m_description = "持盾-近战步兵[反大型]";
 
     this.missileArmor = 30;
@@ -91,7 +91,7 @@ export class DarkSoldierSSE extends DarkSoldierSS {
     this.name = "Tomb Keeper";
     this.m_name = "墓穴守望者";
     this.type = "infantry";
-    this.description = "shield-infantry  protector[elite  anti-large]";
+    this.description = "Shield-infantry  Protector[Elite  Anti-Large]";
     this.m_description = "持盾-近战步兵 护卫者[精英 反大型]";
 
     this.armorEnhance = 30;
@@ -109,7 +109,7 @@ export class Banshee extends ArmPrimary.Arm {
     this.name = "Banshees";
     this.m_name = "女妖";
     this.type = "infantry";
-    this.description = "infantry[high-dodge  shocking]";
+    this.description = "Infantry[High-Dodge  Shocking]";
     this.m_description = "近战步兵[高闪避 惊骇敌军]";
 
     this.scale = 120;
@@ -133,7 +133,7 @@ export class ScreamingBanshee extends Banshee {
     this.name = "Screaming Banshees";
     this.m_name = "尖啸女妖";
     this.type = "infantry";
-    this.description = "charging-infantry[high-dodge  shocking]";
+    this.description = "Charging-Infantry[High-Dodge  Shocking]";
     this.m_description = "冲杀-近战步兵[高闪避 惊骇敌军]";
 
     this.chargeAttack = 40;
@@ -150,7 +150,7 @@ export class ScreamingBansheeGF extends Banshee {
     this.name = "Banshees (Ghost Fire)";
     this.m_name = "女妖-鬼火";
     this.type = "archers";
-    this.description = "melee-archers[high-dodge  anti-infantry  shocking]";
+    this.description = "Melee-Archers[High-Dodge  Anti-Infantry  Shocking]";
     this.m_description = "近战-远程步兵[高闪避 反步兵 惊骇敌军]";
 
     this.scale = 90;
@@ -185,7 +185,7 @@ export class DeathKnight extends ArmPrimary.Arm {
     this.name = "Death Knights";
     this.m_name = "死亡骑士";
     this.type = "cavalry";
-    this.description = "armor-melee-cavalry[anti-large]";
+    this.description = "Armor-Melee-Cavalry[Anti-Large]";
     this.m_description = "装甲-近战骑兵[反大型]";
 
     this.scale = 50;
@@ -219,7 +219,7 @@ export class DeathKnightDS extends DeathKnight {
     this.name = "Death Knights (Double-Scythe)";
     this.m_name = "死亡骑士-双镰";
     this.type = "cavalry";
-    this.description = "armor-melee-cavalry[monster-hunter  high-damage]";
+    this.description = "Armor-Melee-Cavalry[Monster-Hunter  High-Damage]";
     this.m_description = "装甲-近战骑兵[怪兽猎人 高伤害]";
 
     this.meleeAttack = 35;
@@ -236,7 +236,7 @@ export class BeetleRider extends ArmPrimary.Arm {
     this.name = "Beetle Riders";
     this.m_name = "甲虫骑兵";
     this.type = "monster-infantry";
-    this.description = "armor-monster-cavalry[anti-infantry]";
+    this.description = "Armor-Monster-Cavalry[Anti-Infantry]";
     this.m_description = "装甲-怪兽骑兵[反步兵]";
 
     this.scale = 30;
@@ -273,7 +273,7 @@ export class FireBeetleRider extends BeetleRider {
     this.name = "Fire Beetle Riders";
     this.m_name = "火甲虫骑兵";
     this.type = "monster-infantry";
-    this.description = "armor-monster-cavalry[missile-attack]";
+    this.description = "Armor-Monster-Cavalry[Missile-Attack]";
     this.m_description = "装甲-怪兽骑兵[远程攻击]";
 
     this.meleeAttack_bonus = 0;
@@ -303,7 +303,7 @@ export class BeetleChargeRider extends BeetleRider {
     this.name = "Beetle Charge Riders";
     this.m_name = "甲虫冲击骑兵";
     this.type = "monster-infantry";
-    this.description = "armor-monster-charging-cavalry[anti-infantry]";
+    this.description = "Armor-Monster-Charging-Cavalry[Anti-Infantry]";
     this.m_description = "装甲-怪兽冲杀骑兵[反步兵]";
 
     this.speed = 4;
@@ -334,7 +334,7 @@ export class SpiritCoffinGF extends ArmPrimary.Arm {
     this.name = "Spirit Coffin (Ghost Fire)";
     this.m_name = "灵棺-鬼火";
     this.type = "monster";
-    this.description = "vehicle[bombing]";
+    this.description = "Vehicle[Bombing]";
     this.m_description = "战车[轰炸]";
 
     this.scale = 1;
@@ -363,7 +363,7 @@ export class SpiritCoffinDG extends SpiritCoffinGF {
     this.name = "Spirit Coffin (Death Spirits)";
     this.m_name = "灵棺-死灵";
     this.type = "monster";
-    this.description = "vehicle  healer[bombing]";
+    this.description = "Vehicle  Healer[Bombing]";
     this.m_description = "战车 治疗者[轰炸]";
 
     this.missileAttack = 700;
@@ -384,7 +384,7 @@ export class SpiritCoffinBB extends SpiritCoffinGF {
     this.name = "Spirit Coffin (Broken Bones)";
     this.m_name = "灵棺-碎骨";
     this.type = "monster";
-    this.description = "vehicle[bombing  large-bombing-radius]";
+    this.description = "Vehicle[Bombing  Large-Bombing-Radius]";
     this.m_description = "战车[轰炸 大轰炸半径]";
 
     this.missileAttack = 1100;
@@ -402,7 +402,7 @@ export class WraithSkeleton extends ArmPrimary.Arm {
     this.name = "Wraith Skeleton";
     this.m_name = "缚灵骸骨";
     this.type = "monster";
-    this.description = "giant[anti-infantry  shocking]";
+    this.description = "Giant[Anti-Infantry  Shocking]";
     this.m_description = "巨兽[反步兵 惊骇敌军]";
 
     this.scale = 1;
@@ -439,7 +439,7 @@ export class Werewolf extends ArmPrimary.Arm {
     this.name = "Werewolf";
     this.m_name = "狼人";
     this.type = "monster";
-    this.description = "giant[high-dodge  anti-large  shocking]";
+    this.description = "Giant[High-Dodge  Anti-Large  Shocking]";
     this.m_description = "巨兽[高闪避 反大型 惊骇敌军]";
 
     this.scale = 1;
