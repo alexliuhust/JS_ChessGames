@@ -1,5 +1,6 @@
 import * as ArmPrimary from "../arm.js";
 import { MissileColor as MC } from "../../common/const.js";
+import { updateEliteData } from "../armTools.js";
 
 export class OrcWarrior extends ArmPrimary.Arm {
   constructor(value, player) {
@@ -85,20 +86,51 @@ export class OrcWarriorTS extends OrcWarrior {
   }
 }
 
-export class ChampionWarrior extends OrcWarrior {
+export class OrcWarriorTSP extends OrcWarriorTS {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Orc Warriors (Poisoned Javelin)";
+    this.m_name = "兽人勇士-淬毒标枪";
+    this.type = "infantry";
+    this.description = "Hurling-Infantry[Resist-Charging  Anti-Non-Armor]";
+    this.m_description = "投掷-近战步兵[抵御冲锋 反无甲]";
+
+    this.meleeAttack_bonus = 20;
+    this.missileAttack_bonus = 25;
+    this.loadRealtimeProps();
+  }
+
+  _getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+      if (targetArm.c_meleeArmor === 0) singleDamage += this.meleeAttack_bonus;
+    } else if (damageType === "missile" && this.c_ammo > 0) {
+      singleDamage = this.c_missileAttack;
+      if (targetArm.c_missileArmor === 0)
+        singleDamage += this.missileAttack_bonus;
+      this.c_ammo--;
+    }
+
+    return singleDamage;
+  }
+}
+
+export class OrcWarriorTA extends OrcWarrior {
   constructor(value, player) {
     super(value, player);
     this.missileWeight = 4;
 
-    this.name = "Champion Warriors";
-    this.m_name = "冠军勇士";
+    this.name = "Orc Warriors (Throw Axe)";
+    this.m_name = "兽人勇士-投斧";
     this.type = "infantry";
     this.description = "Hurling-Infantry[Anti-Infantry]";
     this.m_description = "投掷-近战步兵[反步兵]";
 
-    this.meleeAttack = 44;
-    this.meleeAttack_bonus = 30;
-    this.missileAttack = 70;
+    this.meleeAttack = 38;
+    this.meleeAttack_bonus = 24;
+    this.missileAttack = 60;
     this.missileRange = 4;
     this.isParabola = true;
 
@@ -117,6 +149,24 @@ export class ChampionWarrior extends OrcWarrior {
     }
 
     return singleDamage;
+  }
+}
+
+export class ChampionWarrior extends OrcWarriorTA {
+  constructor(value, player) {
+    super(value, player);
+    this.missileWeight = 4;
+
+    this.name = "Champion Warriors";
+    this.m_name = "冠军勇士";
+    this.type = "infantry";
+    this.description = "Hurling-Infantry[Elite  Anti-Infantry]";
+    this.m_description = "投掷-近战步兵[精英 反步兵]";
+
+    this.ammo = 5;
+    this.loadRealtimeProps();
+
+    updateEliteData(this);
   }
 }
 
@@ -200,31 +250,22 @@ export class TaurenGA extends Tauren {
   }
 }
 
-export class TaurenBerserker extends Tauren {
+export class TaurenGAE extends TaurenGA {
   constructor(value, player) {
     super(value, player);
 
     this.name = "Tauren Berserkers";
     this.m_name = "牛头人狂战士";
     this.type = "monster-infantry";
-    this.description = "Monster-Infantry  Inspirator[Agile]";
-    this.m_description = "怪兽步兵 鼓舞者[迅捷如风]";
-
-    this.speed = 6;
-
-    this.meleeAttack = 40;
-    this.chargeAttack = 50;
-
-    this.antiArmor = 16;
+    this.description =
+      "Monster-Infantry  Inspirator[Elite  Anti-Large  Anti-Armor]";
+    this.m_description = "怪兽步兵 鼓舞者[精英 反大型 高破甲]";
 
     this.inspiring = 10;
     this.inspireRange = 3;
     this.loadRealtimeProps();
-  }
 
-  getAntiArmor(damageType, targetArm) {
-    if (damageType === "melee") return this.antiArmor;
-    return 0;
+    updateEliteData(this);
   }
 }
 
@@ -267,6 +308,39 @@ export class WolfCavalryTS extends WolfCavalry {
 
     this.ammo = 5;
     this.loadRealtimeProps();
+  }
+}
+
+export class WolfCavalryTSP extends WolfCavalryTS {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Wolf Cavalry (Poisoned Javelin)";
+    this.m_name = "狼骑兵-淬毒标枪";
+    this.type = "cavalry";
+    this.description = "Missile-Cavalry[Agile  Anti-Non-Armor]";
+    this.m_description = "远程骑兵[迅捷如风 反无甲]";
+
+    this.meleeAttack_bonus = 22;
+    this.missileAttack_bonus = 26;
+
+    this.ammo = 5;
+    this.loadRealtimeProps();
+  }
+
+  _getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+      if (targetArm.c_meleeArmor === 0) singleDamage += this.meleeAttack_bonus;
+    } else if (damageType === "missile" && this.c_ammo > 0) {
+      singleDamage = this.c_missileAttack;
+      if (targetArm.c_missileArmor === 0)
+        singleDamage += this.missileAttack_bonus;
+      this.c_ammo--;
+    }
+
+    return singleDamage;
   }
 }
 
@@ -353,14 +427,28 @@ export class Minotaur extends ArmPrimary.Arm {
     this.name = "Minotaur";
     this.m_name = "米诺陶";
     this.type = "monster";
-    this.description = "Giant[Bombing]";
-    this.m_description = "巨兽[轰炸]";
+    this.description = "Giant";
+    this.m_description = "巨兽";
 
     this.scale = 1;
     this.singleHP = 8000;
-    this.speed = 2;
+    this.speed = 3;
 
     this.meleeAttack = 800;
+    this.loadRealtimeProps();
+  }
+}
+
+export class MinotaurStone extends Minotaur {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Minotaur (Stone)";
+    this.m_name = "米诺陶-投石";
+    this.type = "monster";
+    this.description = "Giant[Bombing]";
+    this.m_description = "巨兽[轰炸]";
+
     this.missileAttack = 1200;
     this.missileRange = 10;
     this.missileRadius = 1;
@@ -376,17 +464,21 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 0) return new OrcWarrior(pos, player);
   if (i === 1) return new OrcWarriorSpear(pos, player);
   if (i === 2) return new OrcWarriorTS(pos, player);
-  if (i === 3) return new ChampionWarrior(pos, player);
-  if (i === 4) return new WolfCavalry(pos, player);
-  if (i === 5) return new WolfCavalryTS(pos, player);
-  if (i === 6) return new RhinoTrooper(pos, player);
-  if (i === 7) return new RhinoShaman(pos, player);
-  if (i === 8) return new RhinoTrooperBallista(pos, player);
-  if (i === 9) return new Tauren(pos, player);
-  if (i === 10) return new TaurenLog(pos, player);
-  if (i === 11) return new TaurenGA(pos, player);
-  if (i === 12) return new TaurenBerserker(pos, player);
-  if (i === 13) return new Minotaur(pos, player);
+  if (i === 3) return new OrcWarriorTSP(pos, player);
+  if (i === 4) return new OrcWarriorTA(pos, player);
+  if (i === 5) return new ChampionWarrior(pos, player);
+  if (i === 6) return new WolfCavalry(pos, player);
+  if (i === 7) return new WolfCavalryTS(pos, player);
+  if (i === 8) return new WolfCavalryTSP(pos, player);
+  if (i === 9) return new RhinoTrooper(pos, player);
+  if (i === 10) return new RhinoShaman(pos, player);
+  if (i === 11) return new RhinoTrooperBallista(pos, player);
+  if (i === 12) return new Tauren(pos, player);
+  if (i === 13) return new TaurenLog(pos, player);
+  if (i === 14) return new TaurenGA(pos, player);
+  if (i === 15) return new TaurenGAE(pos, player);
+  if (i === 16) return new Minotaur(pos, player);
+  if (i === 17) return new MinotaurStone(pos, player);
 
   return null;
 }
