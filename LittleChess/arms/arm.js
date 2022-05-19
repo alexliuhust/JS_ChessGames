@@ -245,6 +245,7 @@ export class Arm {
     }
     armor = Math.max(armor, -3);
     dodge = Math.max(dodge, -2);
+    // console.log("armor", armor, "dodge", dodge);
     let enh = afterArmorEnhancement(this, this.player.pieceList);
     let percentage = (100 - (armor + dodge + enh)) / 100;
     if (percentage < 0.12) percentage = 0.12;
@@ -339,10 +340,10 @@ export class Arm {
 
     if (damageType === "missile") {
       if (targetArm.isInfn()) {
-        if (targetArm.c_scale <= targetArm.scale * 0.4) singleDamage *= 0.6;
-        if (targetArm.c_scale <= targetArm.scale * 0.2) singleDamage *= 0.6;
+        if (targetArm.c_scale <= targetArm.scale * 0.4) singleDamage *= 0.75;
+        if (targetArm.c_scale <= targetArm.scale * 0.2) singleDamage *= 0.75;
       } else if (targetArm.isMon()) {
-        singleDamage *= 1.3;
+        singleDamage *= 1.25;
       }
     }
 
@@ -362,6 +363,8 @@ export class Arm {
 
   getCounterAttackTotalDamage(damageType, targetArm) {
     if (damageType !== "melee") return 0;
+    if (this.c_leadership <= 0) return 0;
+
     let singleDamage = this._getSingleDamage("melee", targetArm);
     let validScale = this._getValidScale();
     if (this.type === "infantry" && targetArm.type === "infantry")
@@ -375,7 +378,7 @@ export class Arm {
   }
 
   decreaseScale(attacker, damageType, antiArmor, rawTotalDamage) {
-    console.log(this.name, "rawTotalDamage", rawTotalDamage);
+    // console.log(this.name, "rawTotalDamage", rawTotalDamage);
 
     let damagePercentage = this._getDamagePercentage(
       attacker,
@@ -385,7 +388,7 @@ export class Arm {
     let realDamage = Math.ceil(rawTotalDamage * damagePercentage);
     let decreaseScore = 0;
 
-    console.log(this.name, "realDamage", realDamage);
+    // console.log(this.name, "realDamage", realDamage);
 
     // If this arm is a single-unit
     if (this.scale === 1) {

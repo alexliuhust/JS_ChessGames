@@ -189,6 +189,7 @@ export class EmpireSniper extends Musketeer {
     } else if (damageType === "missile" && this.c_ammo > 0) {
       singleDamage = this.c_missileAttack;
       if (targetArm.isLarge()) singleDamage += this.missileAttack_bonus;
+      this.c_ammo--;
     }
 
     return singleDamage;

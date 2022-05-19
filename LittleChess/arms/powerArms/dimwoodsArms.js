@@ -290,8 +290,8 @@ export class WarBear extends ArmPrimary.Arm {
     this.name = "War Bears";
     this.m_name = "战熊";
     this.type = "monster-infantry";
-    this.description = "Monster-Infantry[Agile]";
-    this.m_description = "怪兽步兵[迅捷如风]";
+    this.description = "Monster-Cavalry[Agile]";
+    this.m_description = "怪兽骑兵[迅捷如风]";
 
     this.scale = 30;
     this.singleHP = 240;
@@ -314,7 +314,7 @@ export class WarBearRider extends WarBear {
     this.m_name = "战熊骑兵";
     this.type = "monster-infantry";
     this.description = "Monster-Cavalry[Agile  High-Damage]";
-    this.m_description = "怪兽步兵[迅捷如风 高伤害]";
+    this.m_description = "怪兽骑兵[迅捷如风 高伤害]";
 
     this.meleeDodge = 10;
 
@@ -331,7 +331,7 @@ export class WarBearRiderE extends WarBearRider {
     this.m_name = "咆哮守卫";
     this.type = "monster-infantry";
     this.description = "Monster-Cavalry  Inspirator[Elite  Agile  High-Damage]";
-    this.m_description = "怪兽步兵 鼓舞者[精英 迅捷如风 高伤害]";
+    this.m_description = "怪兽骑兵 鼓舞者[精英 迅捷如风 高伤害]";
 
     this.inspiring = 15;
     this.inspireRange = 3;

@@ -323,7 +323,7 @@ export class MechGears extends ArmPrimary.Arm {
 
     this.name = "Mech Squad";
     this.m_name = "机甲小队";
-    this.type = "monster-Infantry";
+    this.type = "monster-infantry";
     this.description = "Mech-Infantry";
     this.m_description = "机甲步兵";
 
@@ -346,7 +346,7 @@ export class MechGatlin extends MechGears {
 
     this.name = "Mech Squad (Gatlin)";
     this.m_name = "机甲小队-加特林";
-    this.type = "monster-Infantry";
+    this.type = "monster-infantry";
     this.description = "Mech-Infantry[Anti-Infantry]";
     this.m_description = "机甲步兵[反步兵]";
 
@@ -383,7 +383,7 @@ export class MechMissile extends MechGears {
 
     this.name = "Mech Squad (Missile)";
     this.m_name = "机甲小队-飞弹";
-    this.type = "monster-Infantry";
+    this.type = "monster-infantry";
     this.description = "Mech-Infantry[Long-Range  Anti-Large]";
     this.m_description = "机甲步兵[长程 反大型]";
 
@@ -416,7 +416,7 @@ export class MutantSlave extends ArmPrimary.Arm {
 
     this.name = "Mutant Slaves";
     this.m_name = "变异奴隶";
-    this.type = "monster-Infantry";
+    this.type = "monster-infantry";
     this.description = "Monster-Infantry[Agile  Shocking]";
     this.m_description = "怪兽步兵[迅捷如风 惊骇敌军]";
 
@@ -426,10 +426,12 @@ export class MutantSlave extends ArmPrimary.Arm {
 
     this.meleeDodge = 50;
 
-    this.meleeAttack = 50;
-    this.chargeAttack = 60;
+    this.meleeAttack = 5;
+    this.chargeAttack = 5;
+    // this.meleeAttack = 50;
+    // this.chargeAttack = 60;
 
-    this.shock = 50;
+    this.shock = 150;
     this.loadRealtimeProps();
   }
 }

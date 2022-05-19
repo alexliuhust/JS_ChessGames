@@ -1,12 +1,7 @@
 import * as MoveActions from "../actions/move.js";
 import { calculateDistance, areAligned } from "./actionTools.js";
 import { addEffect } from "../effects/effect.js";
-import {
-  afterArmorEnhancement,
-  afterAttackEnhancement,
-  addArmorEnhanceEffect,
-  addAttackEnhanceEffect,
-} from "./enhance.js";
+import { afterAttackEnhancement, addAttackEnhanceEffect } from "./enhance.js";
 
 const cxt = document.getElementById("piece").getContext("2d");
 
@@ -54,7 +49,11 @@ export function armAttackArm(attacker, defender, defenders, _damageType) {
   let list1 = attacker.player.effectList;
   let list2 = defender.player.effectList;
   let sleepRound = addEffect(list1, damageType, attacker, defender, cxt);
-  if (damageType === "melee" && defender.c_meleeAttack > 0)
+  if (
+    damageType === "melee" &&
+    defender.c_meleeAttack > 0 &&
+    defender.c_leadership > 0
+  )
     addEffect(list2, "melee", defender, attacker, cxt);
   let enh = afterAttackEnhancement(attacker, attacker.player.pieceList);
   if (enh > 0) addAttackEnhanceEffect(attacker);
