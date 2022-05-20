@@ -432,7 +432,7 @@ export class Arm {
   }
 
   getShockingAbility() {
-    return Math.round((this.shock * this.c_scale) / this.scale);
+    return Math.round((this.shock * this.c_scale * 0.5) / this.scale);
   }
 
   getCurrentCombatPower() {

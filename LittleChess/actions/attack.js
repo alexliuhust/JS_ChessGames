@@ -225,6 +225,12 @@ function decreaseScalesForArms(attacker, damageType, defender) {
     dfd_counterAttack
   );
   defender.exp += results[1];
+  // Attacker decrease leadership
+  if (damageType === "melee" && defender.isMon() && !attacker.isMon())
+    attacker.c_leadership -= 30;
+  if (damageType === "melee" && !attacker.isMon())
+    attacker.c_leadership -= defender.getShockingAbility();
+  if (attacker.c_leadership < 0) attacker.c_leadership = 0;
   // if attacker dies
   if (!attacker.isAlive) {
     // Defender gains leadership and experience when eliminating the Attacker by counter attack.

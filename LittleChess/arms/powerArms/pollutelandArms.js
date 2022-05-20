@@ -426,12 +426,10 @@ export class MutantSlave extends ArmPrimary.Arm {
 
     this.meleeDodge = 50;
 
-    this.meleeAttack = 5;
-    this.chargeAttack = 5;
-    // this.meleeAttack = 50;
-    // this.chargeAttack = 60;
+    this.meleeAttack = 50;
+    this.chargeAttack = 60;
 
-    this.shock = 150;
+    this.shock = 50;
     this.loadRealtimeProps();
   }
 }

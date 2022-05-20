@@ -4,6 +4,7 @@ import * as OpDraw from "../prompts/operationDrawings.js";
 import * as InfoDraw from "../prompts/infoDrawings.js";
 import { Canvas, Rect, CreateRect } from "./tools.js";
 import { moveAligned } from "../actions/moveAligned.js";
+import { tryRetreat } from "../actions/retreat.js";
 import {
   GameWidth as W,
   GameHeight as H,
@@ -47,6 +48,7 @@ export class Player {
       this.maxOperations = Math.floor(
         Math.sqrt((this.pieceList.length + this.enemyList.length) * 2)
       );
+      tryRetreat(this.playerNumber, this.pieceList, this.enemyList);
     };
 
     // =================================================================================
