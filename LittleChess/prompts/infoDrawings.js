@@ -49,7 +49,7 @@ function drawTitle(cxt, piece, useMandarin, showCost) {
   if (idx === desc.length) desc2 = "";
   Canvas.drawText(cxt, name, 105, 30, "white", 24);
   Canvas.drawText(cxt, desc1, 105, 60, "white", 16);
-  Canvas.drawText(cxt, desc2, 105, 90, DRC, 16);
+  Canvas.drawText(cxt, desc2, 105, 82, DRC, 16);
 
   let yBs = showCost ? 125 : 95;
   if (showCost) {
@@ -73,7 +73,7 @@ function drawTitle(cxt, piece, useMandarin, showCost) {
   let xEx = lX + 22;
   if (piece.exp >= 10) xEx -= 4;
   if (piece.exp >= 100) xEx -= 4;
-  Canvas.drawText(cxt, levelInfo, lX, yBs, "white", 16);
+  Canvas.drawText(cxt, levelInfo, lX, yBs + 10, "white", 16);
   Canvas.drawText(cxt, expTxt, lX + 10, yExb + 30, "black", 16);
   Canvas.drawText(cxt, expInfo, xEx, yExb + 50, "black", 14);
 }

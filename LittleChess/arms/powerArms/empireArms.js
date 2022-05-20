@@ -446,6 +446,7 @@ export class SteamTankMortar extends SteamTank {
     this.description = "Armor-Vehicle[Missile-Attack  Bombing]";
     this.m_description = "装甲战车[远程攻击 轰炸]";
 
+    // this.missileAttack = 9;
     this.missileAttack = 900;
     this.missileRange = 10;
     this.missileRadius = 1;

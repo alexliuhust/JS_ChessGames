@@ -69,8 +69,8 @@ export class SeamanMusketE extends SeamanMusket {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Boatswains";
-    this.m_name = "水手长";
+    this.name = "Elite Shooters";
+    this.m_name = "精英射手";
     this.type = "archers";
     this.description = "Archers[Elite]";
     this.m_description = "远程步兵[精英]";
