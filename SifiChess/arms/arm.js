@@ -18,6 +18,12 @@ import {
 const ground_air = ["Ground", "Air"];
 const bio_mech = ["Bio", "Mech"];
 const light_heavy = ["Light", "Heavy"];
+const size = ["Small", "Medium", "Large"];
+
+const m_ground_air = ["地面", "空中"];
+const m_bio_mech = ["生物", "机械"];
+const m_light_heavy = ["轻甲", "重甲"];
+const m_size = ["小型", "中型", "大型"];
 
 export class Arm {
   constructor(positionValue, _player) {
@@ -64,6 +70,7 @@ export class Arm {
     this.G_A = 0;
     this.B_M = 0;
     this.L_H = 0;
+    this.size = 0;
 
     this.armor = 0;
     this.dodge = 0;
@@ -81,20 +88,18 @@ export class Arm {
     this.range_A = 0;
     this.ammo_A = -1;
 
-    this.isParabola = false;
-    this.isBombing = false;
-    this.missileRadius = 0;
+    this.GAtogether = false;
 
     this.shock = 0;
 
-    // this.healing = 0;
-    // this.healRange = 0;
-    // this.totalHeal = 0;
-    // this.inspiring = 0;
-    // this.inspireRange = 0;
-    // this.armorEnhance = 0;
-    // this.attackEnhance = 0;
-    // this.enhanceRange = 0;
+    this.healing = 0;
+    this.healRange = 0;
+    this.totalHeal = 0;
+    this.inspiring = 0;
+    this.inspireRange = 0;
+    this.armorEnhance = 0;
+    this.attackEnhance = 0;
+    this.enhanceRange = 0;
 
     // Load real-time properties for battle
     this.loadRealtimeProps = function () {
@@ -102,7 +107,10 @@ export class Arm {
 
       this.description = `${ground_air[this.G_A]}-${bio_mech[this.B_M]}-${
         light_heavy[this.L_H]
-      }`;
+      }-${size[this.size]}`;
+      this.m_description = `${m_ground_air[this.G_A]}-${m_bio_mech[this.B_M]}-${
+        m_light_heavy[this.L_H]
+      }-${m_size[this.size]}`;
 
       this.c_shield = this.shield;
       this.c_shield_armor = this.shield_armor;
@@ -118,6 +126,14 @@ export class Arm {
       this.c_melee = this.melee;
       this.c_missile_G = this.missile_G;
       this.c_ammo_G = this.ammo_G;
+
+      if (this.GAtogether) {
+        this.missile_A = this.missile_G;
+        this.missile_A_bonus = this.missile_G_bonus;
+        this.range_A = this.range_G;
+        this.ammo_A = this.ammo_G;
+      }
+
       this.c_missile_A = this.missile_A;
       this.c_ammo_A = this.ammo_A;
 
@@ -136,81 +152,34 @@ export class Arm {
   // =============== Private methods ===============
 
   _getSingleDamage(damageType, targetArm) {
-    if (!this.isAlive) {
-      return 0;
-    }
+    if (!this.isAlive) return 0;
 
     let singleDamage = 0;
-    switch (damageType) {
-      case "melee":
-        singleDamage = this.c_meleeAttack;
-        break;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+    } else if (damageType === "missile") {
+      if (targetArm.G_A === 0 && this.c_ammo_G > 0) {
+        this.c_ammo_G--;
+        if (this.GAtogether) this.c_ammo_A--;
 
-      case "missile":
-        if (this.c_ammo > 0) {
-          singleDamage = this.c_missileAttack;
-          this.c_ammo--;
-        }
-        break;
+        singleDamage = this.c_missile_G;
+      } else if (targetArm.G_A === 1 && this.c_ammo_A > 0) {
+        this.c_ammo_A--;
+        if (this.GAtogether) this.c_ammo_G--;
 
-      case "bombing":
-        if (this.c_ammo > 0) {
-          let min = this.c_missileAttack;
-          let max = Math.round(min * 1.25);
-          singleDamage = Math.floor(Math.random() * (max - min + 1) + min);
-        }
-        break;
-
-      case "charge":
-        singleDamage = this.c_chargeAttack;
-        break;
-
-      default:
-        break;
+        singleDamage = this.c_missile_A;
+      }
     }
+
     return singleDamage;
   }
 
-  _getDamagePercentage(attacker, damageType, antiArmor) {
-    let armor = 0;
-    let dodge = 0;
-
-    if (this.speed >= 4) {
-      dodge += (this.speed - 3) * 6;
-    }
-
-    if (attacker.type === "artillery" || damageType === "bombing") {
-      armor = 0;
-      dodge = 0;
-    } else {
-      armor -= antiArmor;
-      switch (damageType) {
-        case "melee":
-          dodge += this.c_meleeDodge;
-          if (!this.isMon() && attacker.isLarge())
-            armor += this.c_meleeArmor + this.c_chargeArmor / 2;
-          else armor += this.c_meleeArmor + this.c_missileArmor / 4;
-          break;
-
-        case "missile":
-          armor += this.c_missileArmor + this.c_meleeArmor / 4;
-          dodge += this.c_missileDodge;
-          break;
-
-        case "charge":
-          armor +=
-            this.c_chargeArmor + (this.c_meleeArmor + this.c_missileArmor) / 5;
-          dodge += this.c_chargeDodge;
-          break;
-
-        default:
-          break;
-      }
-    }
-    armor = Math.max(armor, -3);
-    dodge = Math.max(dodge, -2);
-    // console.log("armor", armor, "dodge", dodge);
-    let enh = afterArmorEnhancement(this, this.player.pieceList);
+  _getDamagePercentage() {
+    let enh = 0;
+    let armor = this.armor;
+    let dodge = this.dodge;
+    if (this.speed >= 4) dodge += (this.speed - 3) * 6;
+    // enh = afterArmorEnhancement(this, this.player.pieceList);
     let percentage = (100 - (armor + dodge + enh)) / 100;
     if (percentage < 0.12) percentage = 0.12;
 
@@ -254,7 +223,7 @@ export class Arm {
       healed = triggerHealing(this, this.player.pieceList);
       triggerInspiring(this, this.player.pieceList);
     }
-    if (!healed) {
+    if (!healed && this.healing > 0) {
       this.c_totalHeal += Math.round(this.healing / 3);
       if (this.c_totalHeal > this.totalHeal) this.c_totalHeal = this.totalHeal;
     }
@@ -289,66 +258,27 @@ export class Arm {
     return this.singleHP * this.scale;
   }
 
-  getAntiArmor(damageType, targetArm) {
-    return 0;
-  }
-
   getRawTotalDamage(damageType, targetArm) {
     let singleDamage = this._getSingleDamage(damageType, targetArm);
-    let validScale = this._getValidScale();
-    if (
-      (this.type === "infantry" && targetArm.type === "infantry") ||
-      (this.type === "artillery" && !this.isBombing && targetArm.isInfn())
-    )
-      singleDamage /= 2;
-
-    if (damageType === "missile") {
-      if (targetArm.isInfn()) {
-        if (targetArm.c_scale <= targetArm.scale * 0.4) singleDamage *= 0.75;
-        if (targetArm.c_scale <= targetArm.scale * 0.2) singleDamage *= 0.75;
-      } else if (targetArm.isMon()) {
-        singleDamage *= 1.25;
-      }
-    }
-
-    if (damageType === "melee" || damageType === "charge") {
-      if (this.type === "monster-infantry" && targetArm.isInfn())
-        singleDamage *= 1.3;
-      else if (this.type === "monster" && targetArm.isInfn())
-        singleDamage *= 1.6;
-    }
-
-    let output = singleDamage * validScale;
-    let enh = afterAttackEnhancement(this, this.player.pieceList);
+    let output = singleDamage * this.c_scale;
+    let enh = 0;
+    // enh = afterAttackEnhancement(this, this.player.pieceList);
     output = Math.round((output * (100 + enh)) / 100);
 
     return output;
   }
 
   getCounterAttackTotalDamage(damageType, targetArm) {
-    if (damageType !== "melee") return 0;
-    if (this.c_leadership <= 0) return 0;
+    if (damageType !== "melee" || this.c_leadership <= 0) return 0;
 
     let singleDamage = this._getSingleDamage("melee", targetArm);
-    let validScale = this._getValidScale();
-    if (this.type === "infantry" && targetArm.type === "infantry")
-      singleDamage = Math.round(singleDamage / 2);
-
-    if (this.type === "monster-infantry" && targetArm.isInfn())
-      singleDamage *= 1.3;
-    else if (this.type === "monster" && targetArm.isInfn()) singleDamage *= 1.6;
-
-    return Math.round(singleDamage * validScale);
+    return Math.round(singleDamage * this.c_scale);
   }
 
-  decreaseScale(attacker, damageType, antiArmor, rawTotalDamage) {
+  decreaseScale(attacker, damageType, rawTotalDamage) {
     // console.log(this.name, "rawTotalDamage", rawTotalDamage);
 
-    let damagePercentage = this._getDamagePercentage(
-      attacker,
-      damageType,
-      antiArmor
-    );
+    let damagePercentage = this._getDamagePercentage(attacker, damageType);
     let realDamage = Math.ceil(rawTotalDamage * damagePercentage);
     let decreaseScore = 0;
 
@@ -356,11 +286,10 @@ export class Arm {
 
     // If this arm is a single-unit
     if (this.scale === 1) {
-      if (damageType === "charge") realDamage = Math.ceil(realDamage / 2);
       if (realDamage > 0) {
         realDamage = Math.max(realDamage, 1);
-        let enh = afterArmorEnhancement(this, this.player.pieceList);
-        if (enh > 0) addArmorEnhanceEffect(this);
+        // let enh = afterArmorEnhancement(this, this.player.pieceList);
+        // if (enh > 0) addArmorEnhanceEffect(this);
       }
 
       this.c_singleHP -= realDamage;
@@ -378,11 +307,9 @@ export class Arm {
         totalDecrease = Math.floor(realDamage / this.singleHP);
         this.wound =
           this.singleHP - (realDamage - totalDecrease * this.singleHP);
-
         totalDecrease++;
-
-        let enh = afterArmorEnhancement(this, this.player.pieceList);
-        if (enh > 0) addArmorEnhanceEffect(this);
+        // let enh = afterArmorEnhancement(this, this.player.pieceList);
+        // if (enh > 0) addArmorEnhanceEffect(this);
       } else if (realDamage > 0) {
         this.wound -= realDamage;
       }
@@ -412,25 +339,5 @@ export class Arm {
       percentage *= 1.2;
     }
     return this.cost * percentage;
-  }
-
-  isLarge() {
-    return (
-      this.type === "cavalry" ||
-      this.type === "monster" ||
-      this.type === "monster-infantry"
-    );
-  }
-
-  isInfn() {
-    return (
-      this.type === "infantry" ||
-      this.type === "archers" ||
-      this.type === "artillery"
-    );
-  }
-
-  isMon() {
-    return this.type === "monster" || this.type === "monster-infantry";
   }
 }

@@ -36,20 +36,8 @@ function drawTitle(cxt, piece, useMandarin, showCost) {
 
   let name = useMandarin ? piece.m_name : piece.name;
   let desc = useMandarin ? piece.m_description : piece.description;
-  let idx = desc.indexOf("[");
-  let desc1 = "";
-  let desc2 = "";
-  if (idx != -1) {
-    desc1 = desc.substring(0, idx);
-    desc2 = desc.substring(idx + 1, desc.length - 1);
-  } else {
-    desc1 = desc;
-  }
-
-  if (idx === desc.length) desc2 = "";
   Canvas.drawText(cxt, name, 105, 30, "white", 24);
-  Canvas.drawText(cxt, desc1, 105, 60, "white", 16);
-  Canvas.drawText(cxt, desc2, 105, 82, DRC, 16);
+  Canvas.drawText(cxt, desc, 105, 60, DRC, 16);
 
   let yBs = showCost ? 125 : 95;
   if (showCost) {
@@ -83,29 +71,38 @@ function drawHPAndAmmoBars(cxt, piece, useMandarin, showCost) {
   let ldY = hpY + 30;
   let amY = ldY + 30;
 
+  let sdText = `${piece.c_shield} / ${piece.shield}`;
   let hpText = `${piece.c_scale} / ${piece.scale}`;
   if (piece.scale === 1) hpText = `${piece.c_singleHP} / ${piece.singleHP}`;
   let leadText = `${piece.c_leadership} / ${piece.leadership}`;
-  let ammoText = `${piece.c_ammo} / ${piece.ammo}`;
-  let hpLen, ldLen, amLen;
+  let ammoGText = `G: ${piece.c_ammo_G} / ${piece.ammo_G}`;
+  let ammoAText = `A: ${piece.c_ammo_A} / ${piece.ammo_A}`;
 
-  hpLen = (194 * piece.getTotalHP()) / piece.getOriginalHP();
-  if (piece.ammo === -1) {
-    amLen = 0;
-    ammoText = "N/A";
+  let sdLen, hpLen, ldLen, amGLen, amALen;
+  sdLen = (114 * piece.c_shield) / piece.shield;
+  hpLen = (114 * piece.getTotalHP()) / piece.getOriginalHP();
+  if (piece.ammo_G === -1) {
+    amGLen = 0;
+    ammoGText = "N/A";
   } else {
-    amLen = (194 * piece.c_ammo) / piece.ammo;
+    amGLen = (114 * piece.c_ammo_G) / piece.ammo_G;
   }
-  ldLen = (194 * piece.c_leadership) / piece.leadership;
+  if (piece.ammo_A === -1) {
+    amALen = 0;
+    ammoAText = "N/A";
+  } else {
+    amALen = (114 * piece.c_ammo_A) / piece.ammo_A;
+  }
+  ldLen = (234 * piece.c_leadership) / piece.leadership;
 
-  let scaleOrHp = piece.scale === 1 ? "Total HP: " : "Total Scale: ";
+  let scaleOrHp = piece.scale === 1 ? "HP & Shield:" : "Scale & Shield:";
   if (useMandarin)
-    scaleOrHp = piece.scale === 1 ? "总生命值: " : "总部队数量: ";
-  let leaderTitle = useMandarin ? "士气： " : "Morale: ";
-  let ammoTitle = useMandarin ? "单位弹药剩余: " : "Ammo per-unit: ";
+    scaleOrHp = piece.scale === 1 ? "生命值 & 护盾:" : "部队数量 & 护盾:";
+  let leaderTitle = useMandarin ? "士气:" : "Morale:";
+  let ammoTitle = useMandarin ? "单位弹药剩余:" : "Ammo per-unit:";
 
   let color = "white";
-  if (hpLen <= 194 / 8) color = "red";
+  if (hpLen <= 114 / 8) color = "red";
   Canvas.drawText(cxt, scaleOrHp, leftX, hpY, color, 18);
   color = piece.c_leadership <= piece.leadership * 0.1 ? "red" : "white";
   Canvas.drawText(cxt, leaderTitle, leftX, ldY, color, 18);
@@ -113,29 +110,35 @@ function drawHPAndAmmoBars(cxt, piece, useMandarin, showCost) {
   if (piece.ammo !== -1 && piece.c_ammo <= piece.ammo * 0.1) color = "red";
   Canvas.drawText(cxt, ammoTitle, leftX, amY, color, 18);
 
-  let bX = 170;
-  hpY -= 8;
-  ldY -= 8;
-  amY -= 8;
+  let bX = 160;
+  hpY -= 6;
+  ldY -= 6;
+  amY -= 6;
 
-  Canvas.drawLine(cxt, bX, hpY, bX + 200, hpY, BGC, 18);
-  Canvas.drawLine(cxt, bX, ldY, bX + 200, ldY, BGC, 18);
-  Canvas.drawLine(cxt, bX, amY, bX + 200, amY, BGC, 18);
+  Canvas.drawLine(cxt, bX, hpY, bX + 240, hpY, BGC, 18);
+  Canvas.drawLine(cxt, bX, ldY, bX + 240, ldY, BGC, 18);
+  Canvas.drawLine(cxt, bX, amY, bX + 240, amY, BGC, 18);
 
   let hpcolor = HC;
   if (hpLen <= 194 / 4) hpcolor = "rgb(255, 180, 0)";
   if (hpLen <= 194 / 8) hpcolor = "rgb(241, 76, 76)";
   Canvas.drawLine(cxt, bX + 3, hpY, bX + hpLen + 3, hpY, hpcolor, 12);
+  Canvas.drawLine(cxt, bX + 123, hpY, bX + sdLen + 123, hpY, EC, 12);
   Canvas.drawLine(cxt, bX + 3, ldY, bX + ldLen + 3, ldY, DC, 12);
-  Canvas.drawLine(cxt, bX + 3, amY, bX + amLen + 3, amY, AC, 12);
+  Canvas.drawLine(cxt, bX + 3, amY, bX + amGLen + 3, amY, AC, 12);
+  Canvas.drawLine(cxt, bX + 123, amY, bX + amALen + 123, amY, AC, 12);
 
-  let midX = leftX + 269;
-  let hpTxtX = midX - hpText.length * 5;
+  let midX = leftX + 285;
+  let hpTxtX = midX - hpText.length * 5 - 60;
+  let sdTxtX = midX - sdText.length * 5 + 60;
   let leadTxtX = midX - leadText.length * 5;
-  let ammoTxtX = ammoText == "N/A" ? 252 : midX - ammoText.length * 5;
+  let ammoGTxtX = ammoGText == "N/A" ? 202 : midX - ammoGText.length * 5 - 60;
+  let ammoATxtX = ammoAText == "N/A" ? 302 : midX - ammoAText.length * 5 + 60;
   Canvas.drawText(cxt, hpText, hpTxtX, hpY + 5, "black", 15);
+  Canvas.drawText(cxt, sdText, sdTxtX, hpY + 5, "black", 15);
   Canvas.drawText(cxt, leadText, leadTxtX, ldY + 5, "black", 15);
-  Canvas.drawText(cxt, ammoText, ammoTxtX, amY + 5, "black", 15);
+  Canvas.drawText(cxt, ammoGText, ammoGTxtX, amY + 5, "black", 15);
+  Canvas.drawText(cxt, ammoAText, ammoATxtX, amY + 5, "black", 15);
 }
 
 function drawCombatData(cxt, piece, useMandarin, showCost) {
@@ -143,41 +146,33 @@ function drawCombatData(cxt, piece, useMandarin, showCost) {
   Canvas.drawLine(cxt, leftX, textY - 30, leftX + 485, textY - 30, "white", 7);
   textY = showCost ? 285 : 255;
 
-  let speedText = `Speed:        ${piece.c_speed}`;
-  let dataTitle = ["Melee (bonus)", "Missile (bonus)", "Charge (bonus)"];
-  let armorText = `Armor:`;
-  let dodgeText = `Dodge:`;
-  let attackText = `Damage:`;
-  let armorDt = [piece.c_meleeArmor, piece.c_missileArmor, piece.c_chargeArmor];
-  let dodgeDt = [piece.c_meleeDodge, piece.c_missileDodge, piece.c_chargeDodge];
-  let attackDt = [
-    `${piece.c_meleeAttack} (+${piece.meleeAttack_bonus})`,
-    `${piece.c_missileAttack} (+${piece.missileAttack_bonus})`,
-    `${piece.c_chargeAttack} (+${piece.chargeAttack_bonus})`,
-  ];
-  let dataX = [105, 235, 372];
+  let speedText = `Speed: ${piece.c_speed}`;
+  let armorText = `Armor: ${piece.c_armor}%`;
+  let dodgeText = `Dodge: ${piece.c_dodge}%`;
 
-  let rangeInfo = `Missile-range: ${piece.c_missileRange}`;
-  let radiusInfo = `Explose-radius: ${piece.c_missileRadius}`;
-  let antiArmorText = `Anti-armor: ${piece.antiArmor}`;
-  if (piece.isBombing || piece.type === "artillery")
-    antiArmorText = `Anti-armor: *Ignore armor`;
+  let dataTitle = ["Melee", "Missile-Ground", "Missile-Air"];
+  let attackText = `Damage:`;
+  let attackDt = [
+    `${piece.c_melee} (+${piece.melee_bonus})`,
+    `${piece.c_missile_G} (+${piece.missile_G_bonus})`,
+    `${piece.c_missile_A} (+${piece.missile_A_bonus})`,
+  ];
+  let rangeText = `Range:`;
+  let rangeDt = ["1", `${piece.range_G}`, `${piece.range_A}`];
+  let dataX = [105, 225, 382];
+
   let healText = `Healing: ${piece.c_totalHeal} / ${piece.totalHeal}`;
   let inspText = `Inspiring: ${piece.inspiring}`;
   let arEnhText = `Armor Enhance: ${piece.armorEnhance}%`;
   let atEnhText = `Attack Enhance: ${piece.attackEnhance}%`;
 
   if (useMandarin) {
-    speedText = `速度:            ${piece.c_speed}`;
-    dataTitle = ["近战 (加成)", "远程 (加成)", "冲杀 (加成)"];
-    armorText = `护甲:`;
-    dodgeText = `闪避:`;
+    speedText = `速度: ${piece.c_speed}`;
+    armorText = `护甲: ${piece.c_armor}%`;
+    dodgeText = `闪避: ${piece.c_dodge}%`;
+    dataTitle = ["近战", "远程-对地", "远程-对空"];
     attackText = `伤害:`;
-    rangeInfo = `远程范围: ${piece.c_missileRange}`;
-    radiusInfo = `爆炸半径: ${piece.c_missileRadius}`;
-    antiArmorText = `破甲: ${piece.antiArmor}`;
-    if (piece.isBombing || piece.type === "artillery")
-      antiArmorText = `破甲: *无视护甲`;
+    rangeText = `射程:`;
     healText = `治疗量: ${piece.c_totalHeal} / ${piece.totalHeal}`;
     inspText = `鼓舞: ${piece.inspiring}`;
     arEnhText = `抗性增强: ${piece.armorEnhance}%`;
@@ -187,51 +182,41 @@ function drawCombatData(cxt, piece, useMandarin, showCost) {
   let color = piece.c_speed === 0 ? "red" : "white";
   let fontSize = 17;
   Canvas.drawText(cxt, speedText, leftX, textY, color, fontSize);
+  Canvas.drawText(cxt, armorText, leftX + 150, textY, ADC, fontSize);
+  Canvas.drawText(cxt, dodgeText, leftX + 330, textY, GDC, fontSize);
+
+  textY += 40;
   color = "white";
-  textY += 30;
   Canvas.drawText(cxt, dataTitle[0], dataX[0], textY, color, fontSize);
   Canvas.drawText(cxt, dataTitle[1], dataX[1], textY, color, fontSize);
   Canvas.drawText(cxt, dataTitle[2], dataX[2], textY, color, fontSize);
-  textY += 22;
-  Canvas.drawText(cxt, armorText, leftX, textY, ADC, fontSize);
-  Canvas.drawText(cxt, armorDt[0], dataX[0], textY, ADC, fontSize);
-  Canvas.drawText(cxt, armorDt[1], dataX[1], textY, ADC, fontSize);
-  Canvas.drawText(cxt, armorDt[2], dataX[2], textY, ADC, fontSize);
-  textY += 22;
-  Canvas.drawText(cxt, dodgeText, leftX, textY, GDC, fontSize);
-  Canvas.drawText(cxt, dodgeDt[0], dataX[0], textY, GDC, fontSize);
-  Canvas.drawText(cxt, dodgeDt[1], dataX[1], textY, GDC, fontSize);
-  Canvas.drawText(cxt, dodgeDt[2], dataX[2], textY, GDC, fontSize);
   textY += 22;
   Canvas.drawText(cxt, attackText, leftX, textY, DDC, fontSize);
   Canvas.drawText(cxt, attackDt[0], dataX[0], textY, DDC, fontSize);
   Canvas.drawText(cxt, attackDt[1], dataX[1], textY, DDC, fontSize);
   Canvas.drawText(cxt, attackDt[2], dataX[2], textY, DDC, fontSize);
-  if (piece.missileAttack > 0) {
-    textY += 30;
-    Canvas.drawText(cxt, rangeInfo, leftX, textY, color, fontSize);
-    if (piece.isBombing) {
-      Canvas.drawText(cxt, radiusInfo, leftX + 200, textY, RDC, fontSize);
-    }
-  }
-  textY += 30;
-  Canvas.drawText(cxt, antiArmorText, leftX, textY, color, fontSize);
-  textY -= 20;
+  textY += 22;
+  Canvas.drawText(cxt, rangeText, leftX, textY, RDC, fontSize);
+  Canvas.drawText(cxt, rangeDt[0], dataX[0], textY, RDC, fontSize);
+  Canvas.drawText(cxt, rangeDt[1], dataX[1], textY, RDC, fontSize);
+  Canvas.drawText(cxt, rangeDt[2], dataX[2], textY, RDC, fontSize);
+
+  textY += 20;
   if (piece.healing > 0) {
     textY += 20;
-    Canvas.drawText(cxt, healText, leftX + 310, textY, HC, fontSize);
+    Canvas.drawText(cxt, healText, leftX, textY, HC, fontSize);
   }
   if (piece.inspiring > 0) {
     textY += 20;
-    Canvas.drawText(cxt, inspText, leftX + 310, textY, DC, fontSize);
+    Canvas.drawText(cxt, inspText, leftX, textY, DC, fontSize);
   }
   if (piece.armorEnhance > 0) {
     textY += 20;
-    Canvas.drawText(cxt, arEnhText, leftX + 310, textY, ArEC, fontSize);
+    Canvas.drawText(cxt, arEnhText, leftX, textY, ArEC, fontSize);
   }
   if (piece.attackEnhance > 0) {
     textY += 20;
-    Canvas.drawText(cxt, atEnhText, leftX + 310, textY, AtEC, fontSize);
+    Canvas.drawText(cxt, atEnhText, leftX, textY, AtEC, fontSize);
   }
 }
 

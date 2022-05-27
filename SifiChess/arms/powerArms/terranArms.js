@@ -38,25 +38,34 @@ export class Marine extends ArmPrimary.Arm {
 
     this.name = "Marines";
     this.m_name = "陆战队";
-    this.type = "archers";
-    this.description = "Archers[Anti-Armor]";
-    this.m_description = "远程步兵[高破甲]";
 
-    this.scale = 80;
+    this.shield = 1500;
+    this.scale = 40;
     this.singleHP = 50;
-    this.speed = 3;
+    this.speed = 2;
 
-    this.meleeAttack = 16;
-    this.missileAttack = 24;
-    this.missileRange = 6;
+    this.G_A = 0;
+    this.B_M = 0;
+    this.L_H = 1;
+    this.size = 1;
 
-    this.antiArmor = 40;
+    this.armor = 20;
+    this.dodge = 50;
+
+    this.melee = 16;
+
+    this.missile_G = 24;
+    this.missile_G_bonus = 10;
+    this.range_G = 4;
+    this.ammo_G = 25;
+
+    this.GAtogether = true;
+
+    this.inspiring = 20;
+    this.inspireRange = 3;
+    this.armorEnhance = 20;
+    this.enhanceRange = 2;
     this.loadRealtimeProps();
-  }
-
-  getAntiArmor(damageType, targetArm) {
-    if (damageType === "missile") return this.antiArmor;
-    return 0;
   }
 }
 
@@ -130,7 +139,7 @@ export class Sniper extends ArmPrimary.Arm {
 export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
   if (i === 0) return new Marine(pos, player);
-  if (i === 1) return new BlackBat(pos, player);
-  if (i === 2) return new Sniper(pos, player);
+  // if (i === 1) return new BlackBat(pos, player);
+  // if (i === 2) return new Sniper(pos, player);
   return null;
 }

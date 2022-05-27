@@ -1,4 +1,8 @@
 export function calculateCost(arm) {
+  // Shield score
+  let sldScore = arm.shield;
+  sldScore /= 80;
+
   // HP score
   let hpScore = arm.scale * arm.singleHP;
   hpScore /= 100;
@@ -7,45 +11,23 @@ export function calculateCost(arm) {
   let movingScore = arm.speed * 10;
 
   // Armor and dodge score
-  let meleeArmorScore = arm.meleeArmor + arm.meleeDodge * 1.1;
-  let missileArmorScore = arm.missileArmor + arm.missileDodge * 1.1;
-  let chargeArmorScore = arm.chargeArmor * 1.1 + arm.chargeDodge * 1.2;
-  let defendenceScore =
-    (meleeArmorScore + missileArmorScore + chargeArmorScore) * 0.6;
+  let defendenceScore = (arm.shield_armor * 1.2 + arm.armor + arm.dodge) * 0.6;
 
   // Attack and other combat score
-  let meleeAttack = arm.meleeAttack + arm.meleeAttack_bonus / 2;
-  let missileAttack = arm.missileAttack + arm.missileAttack_bonus / 2;
-  let chargeAttack = arm.chargeAttack + arm.chargeAttack_bonus / 2;
-  let scale = arm._getValidScale();
-  let damageScore =
-    (scale * (meleeAttack + missileAttack * 1.1 + chargeAttack * 1.2)) / 16;
-  let rangeScore = arm.missileRange * (2 + arm.missileRange / 4);
-  let radiusScore = arm.missileRadius * arm.missileRadius * 5;
-  let ammoScore = arm.type === "artillery" ? arm.ammo * 1.5 : arm.ammo / 3;
-  let shockScore = (arm.shock * arm.shock) / 200;
-  let otherCombatScore =
-    (rangeScore + radiusScore + ammoScore + shockScore) / 3;
-  let attackScore = damageScore + otherCombatScore;
-
-  // Anti-armor score
-  let antiArmorScore = arm.antiArmor * 0.6;
-
-  // Type score
-  let typeScore = 0;
-  let artilleryScore = arm.type === "artillery" ? 250 : 0;
-  if (arm.isBombing) artilleryScore += 100;
-  let monsterScore = arm.type === "monster" ? 250 : 0;
-  if (arm.type === "monster" && arm.isBombing) monsterScore = 200;
-  let monstInfScore = arm.type === "monster-infantry" ? 150 : 0;
-  typeScore += artilleryScore + monsterScore + monstInfScore;
+  let meleeAttack = arm.melee + arm.melee_bonus / 2;
+  let missileAttack_G = arm.missile_G + arm.missile_G_bonus / 2;
+  let missileAttack_A = arm.missile_A + arm.missile_A_bonus / 2;
+  let missileAttack = missileAttack_G + missileAttack_A;
+  let ammo_range = arm.ammo_G + arm.ammo_A + arm.range_G + arm.range_A;
+  let shock = arm.shock / 2;
+  let attackScore = meleeAttack + missileAttack + ammo_range + shock;
 
   // Healing score
-  let healingScore = (arm.healing * arm._getValidScale()) / 10;
+  let healingScore = (arm.healing * arm.c_scale) / 10;
   healingScore += (arm.healRange * 10 + arm.totalHeal / 2) / 3;
 
   // Inspiring score
-  let inspiringScore = (arm.inspiring * arm._getValidScale()) / 2 / 10;
+  let inspiringScore = (arm.inspiring * arm.c_scale) / 2 / 10;
   inspiringScore += (arm.inspireRange * 10) / 2;
 
   // Enhance socre
@@ -54,62 +36,51 @@ export function calculateCost(arm) {
 
   // Final cost
   let cost =
+    sldScore +
     hpScore +
     movingScore +
     defendenceScore +
     attackScore +
-    antiArmorScore +
-    typeScore +
     healingScore +
     inspiringScore +
     enhanceScore;
   cost = Math.pow(cost, 0.8) * 2.5;
   cost = Math.round(cost / 10) * 10;
 
-  // console.log(arm.name);
-  // console.log(
-  //   "\t\t  hpScore",
-  //   Math.round(hpScore),
-  //   "movingScore",
-  //   Math.round(movingScore),
-  //   "defendenceScore",
-  //   Math.round(defendenceScore),
-  //   "attackScore",
-  //   Math.round(attackScore),
-  //   "antiArmorScore",
-  //   Math.round(antiArmorScore),
-  //   "typeScore",
-  //   Math.round(typeScore),
-  //   "COST",
-  //   cost
-  // );
+  console.log(arm.name);
+  console.log(
+    "\t\t  sldScore",
+    Math.round(sldScore),
+    "hpScore",
+    Math.round(hpScore),
+    "movingScore",
+    Math.round(movingScore),
+    "defendenceScore",
+    Math.round(defendenceScore),
+    "attackScore",
+    Math.round(attackScore),
+    "COST",
+    cost
+  );
 
   return [cost, defendenceScore];
 }
 
 export function calculateLeaderShip(arm, costResults) {
   let leadership = 100 + arm.cost + costResults[1] * 0.5;
-  if (arm.type === "infantry" || arm.type === "cavalry") leadership *= 1.25;
-  else if (arm.type === "archers" || arm.type === "artillery")
-    leadership *= 0.75;
-
   leadership = Math.round(leadership / 50) * 50;
   return leadership;
 }
 
 export function realTimeAttackUpdate(arm, factor) {
-  arm.c_meleeAttack = Math.round(arm.meleeAttack * factor);
-  arm.c_missileAttack = Math.round(arm.missileAttack * factor);
-  arm.c_chargeAttack = Math.round(arm.chargeAttack * factor);
+  arm.c_melee = Math.round(arm.melee * factor);
+  arm.c_missile_G = Math.round(arm.missile_G * factor);
+  arm.c_missile_A = Math.round(arm.missile_A * factor);
 }
 
 export function realTimeArmorUpdate(arm, factor) {
-  arm.c_meleeArmor = Math.round(arm.meleeArmor * factor);
-  arm.c_missileArmor = Math.round(arm.missileArmor * factor);
-  arm.c_chargeArmor = Math.round(arm.chargeArmor * factor);
-  arm.c_meleeDodge = Math.round(arm.meleeDodge * factor);
-  arm.c_missileDodge = Math.round(arm.missileDodge * factor);
-  arm.c_chargeDodge = Math.round(arm.chargeDodge * factor);
+  arm.c_armor = Math.round(arm.armor * factor);
+  arm.c_dodge = Math.round(arm.dodge * factor);
 }
 
 export function updateRealTimeProperties(arm, levelUpgraded) {
@@ -161,16 +132,12 @@ export function updateStaticProperties(arm) {
     arm.c_singleHP += inc;
   }
 
-  arm.meleeArmor = Math.round(arm.meleeArmor * (factor - 0.12));
-  arm.missileArmor = Math.round(arm.missileArmor * (factor - 0.12));
-  arm.chargeArmor = Math.round(arm.chargeArmor * (factor - 0.12));
-  arm.meleeDodge = Math.round(arm.meleeDodge * (factor - 0.12));
-  arm.missileDodge = Math.round(arm.missileDodge * (factor - 0.12));
-  arm.chargeDodge = Math.round(arm.chargeDodge * (factor - 0.12));
+  arm.armor = Math.round(arm.armor * (factor - 0.12));
+  arm.dodge = Math.round(arm.dodge * (factor - 0.12));
 
-  arm.meleeAttack = Math.round(arm.meleeAttack * factor);
-  arm.missileAttack = Math.round(arm.missileAttack * factor);
-  arm.chargeAttack = Math.round(arm.chargeAttack * factor);
+  arm.melee = Math.round(arm.melee * factor);
+  arm.missile_G = Math.round(arm.missile_G * factor);
+  arm.missile_A = Math.round(arm.missile_A * factor);
 
   if (arm.ammo !== -1) {
     arm.c_ammo += Math.floor(arm.ammo / 3);
