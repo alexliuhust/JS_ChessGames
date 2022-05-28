@@ -39,7 +39,7 @@ export class Marine extends ArmPrimary.Arm {
     this.name = "Marines";
     this.m_name = "陆战队";
 
-    this.shield = 1000;
+    // this.shield = 1000;
     this.scale = 40;
     this.singleHP = 50;
     this.speed = 3;
@@ -47,8 +47,9 @@ export class Marine extends ArmPrimary.Arm {
     this.type = [0, 0, 0, 0];
     this.defence_data = [10, 0];
     this.melee_data = [16, 0];
-    this.G_data = [24, 0, 4, 30];
-    this.GAtogether = true;
+    // this.G_data = [24, 0, 4, 30];
+    this.A_data = [30, 0, 4, 16];
+    this.GAtogether = false;
 
     // this.inspiring = 20;
     // this.inspireRange = 3;
@@ -74,7 +75,7 @@ export class BlackBat extends ArmPrimary.Arm {
     this.type = [0, 0, 1, 0];
     this.defence_data = [40, 0];
     this.melee_data = [20, 0];
-    this.G_data = [30, 30, 5, 20];
+    // this.G_data = [30, 30, 5, 20];
     // this.A_data = [0, 0, 0, -1];
     this.GAtogether = false;
 
@@ -88,20 +89,20 @@ export class Sniper extends ArmPrimary.Arm {
 
     this.name = "Sniper Squad";
     this.m_name = "狙击小队";
-    this.type = "archers";
-    this.description = "Archers[Anti-Armor  Anti-Large  Long-Range]";
-    this.m_description = "远程步兵[高破甲 反大型 长程]";
 
-    this.scale = 60;
-    this.singleHP = 50;
+    this.shield = 1300;
+    this.shield_armor = 80;
+    this.scale = 30;
+    this.singleHP = 100;
     this.speed = 3;
 
-    this.meleeAttack = 24;
-    this.missileAttack = 30;
-    this.missileAttack_bonus = 30;
-    this.missileRange = 8;
+    this.type = [1, 0, 1, 0];
+    this.defence_data = [40, 0];
+    this.melee_data = [20, 0];
+    // this.G_data = [30, 30, 5, 20];
+    // this.A_data = [0, 0, 0, -1];
+    this.GAtogether = false;
 
-    this.antiArmor = 50;
     this.loadRealtimeProps();
   }
 
@@ -128,6 +129,6 @@ export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
   if (i === 0) return new Marine(pos, player);
   if (i === 1) return new BlackBat(pos, player);
-  // if (i === 2) return new Sniper(pos, player);
+  if (i === 2) return new Sniper(pos, player);
   return null;
 }

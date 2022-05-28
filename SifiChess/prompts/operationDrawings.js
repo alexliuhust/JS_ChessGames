@@ -76,15 +76,18 @@ function getAvailableTagets(cxt, self, others) {
       self.positionY
     );
 
-    let meleeAvailable = self.c_melee > 0 && distance === 1;
+    let meleeAvailable =
+      self.c_melee > 0 && distance === 1 && others[i].G_A === 0;
     let missile_G_Available =
       self.c_missile_G > 0 &&
       self.c_ammo_G > 0 &&
+      others[i].G_A === 0 &&
       distance <= self.range_G &&
       distance > 1;
     let missile_A_Available =
       self.c_missile_A > 0 &&
       self.c_ammo_A > 0 &&
+      others[i].G_A === 1 &&
       distance <= self.range_A &&
       distance > 1;
     let missileAvailable = missile_G_Available || missile_A_Available;
@@ -108,11 +111,11 @@ function getAvailableTagets(cxt, self, others) {
   }
 
   let range = self.range_G * 50 + 15;
-  if (range === 15) range = 70;
-  Canvas.drawArc(cxt, self.x + 25, self.y + 25, range, color, 5);
+  if (range > 15)
+    Canvas.drawArc(cxt, self.x + 25, self.y + 25, range, color, 5);
   range = self.range_A * 50 + 15;
-  if (range === 15) range = 70;
-  Canvas.drawArc(cxt, self.x + 25, self.y + 25, range, color, 5);
+  if (range > 15)
+    Canvas.drawArc(cxt, self.x + 25, self.y + 25, range, color, 5);
 
   return availableTargets;
 }

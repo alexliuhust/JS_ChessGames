@@ -290,7 +290,7 @@ export class Arm {
     let damagePercentage = (100 - this.shield_armor) / 100;
     let realDamage = Math.ceil(rawTotalDamage * damagePercentage);
 
-    console.log(this.name, damagePercentage, realDamage);
+    // console.log(this.name, damagePercentage, realDamage);
 
     this.c_shield -= realDamage;
     if (this.c_shield < 0) this.c_shield = 0;

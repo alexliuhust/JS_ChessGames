@@ -2,36 +2,25 @@ import { armAttackArm } from "./attack.js";
 import { calculateDistance } from "./actionTools.js";
 
 export function triggerAutoAttack(attacker, defenders) {
-  if (canAutoMissileAttack(attacker)) aotuAttack(attacker, defenders, true);
-  if (canAutoMeleeAttack(attacker)) aotuAttack(attacker, defenders, false);
+  if (canAutoMissileAttack(attacker) || canAutoMeleeAttack(attacker)) {
+    aotuAttack(attacker, defenders);
+  }
 }
 
 function canAutoMissileAttack(attacker) {
-  return (
-    (attacker.type === "archers" ||
-      ((attacker.type === "infantry" ||
-        attacker.type === "cavalry" ||
-        attacker.type === "monster-infantry" ||
-        attacker.type === "monster") &&
-        attacker.c_missileAttack > 0)) &&
-    attacker.c_ammo >= attacker.ammo * 0.2 &&
-    !attacker.isBombing &&
-    !attacker.hasAttacked
-  );
+  let G_attack =
+    attacker.c_ammo_G > attacker.ammo_G * 0.2 && attacker.c_missile_G > 0;
+  let A_attack =
+    attacker.c_ammo_A > attacker.ammo_A * 0.2 && attacker.c_missile_A > 0;
+
+  return (G_attack || A_attack) && !attacker.hasAttacked;
 }
 
 function canAutoMeleeAttack(attacker) {
-  return (
-    (attacker.type === "infantry" ||
-      attacker.type === "monster-infantry" ||
-      (attacker.type === "monster" && attacker.c_meleeAttack > 0) ||
-      (attacker.type === "archers" && attacker.description.includes("melee")) ||
-      attacker.type === "cavalry") &&
-    !attacker.hasAttacked
-  );
+  return attacker.c_melee > 0 && !attacker.hasAttacked;
 }
 
-function getNearestEnemy(attacker, defenders, isMissile) {
+function getNearestEnemy(attacker, defenders) {
   let minDistance = 10000;
   let nearestEnemy = null;
   for (let i = 0; i < defenders.length; i++) {
@@ -43,39 +32,47 @@ function getNearestEnemy(attacker, defenders, isMissile) {
       defender.positionY
     );
 
-    // If the archers are caught in melee combat, the auto-attack won't be triggered.
-    if (
-      isMissile &&
-      (attacker.type === "archers" ||
-        attacker.type === "infantry" ||
-        attacker.type === "monster-infantry") &&
-      distance === 1
-    )
-      return null;
+    let M_attack = attacker.c_melee > 0 && defender.G_A === 0 && distance === 1;
 
-    // Update the min distance and the nearest defender
-    // If spotting closer distance, update.
-    if (minDistance > distance) {
-      minDistance = distance;
-      nearestEnemy = defender;
-    }
-    // If spotting identical distance, but current enemy has less HP, update.
-    else if (
-      minDistance === distance &&
-      nearestEnemy.getTotalHP() > defender.getTotalHP()
-    ) {
-      minDistance = distance;
-      nearestEnemy = defender;
+    let G_attack =
+      attacker.c_missile_G > 0 &&
+      attacker.c_ammo_G > 0 &&
+      defender.G_A === 0 &&
+      distance <= attacker.range_G;
+    let A_attack =
+      attacker.c_missile_A > 0 &&
+      attacker.c_ammo_A > 0 &&
+      defender.G_A === 1 &&
+      distance <= attacker.range_A;
+
+    if (M_attack || G_attack || A_attack) {
+      // Update the min distance and the nearest defender
+      // If spotting closer distance, update.
+      if (minDistance > distance) {
+        minDistance = distance;
+        nearestEnemy = defender;
+      }
+      // If spotting identical distance, but current enemy has less HP, update.
+      else if (
+        minDistance === distance &&
+        nearestEnemy.getTotalHP() > defender.getTotalHP()
+      ) {
+        minDistance = distance;
+        nearestEnemy = defender;
+      }
     }
   }
-  if (isMissile && minDistance <= attacker.c_missileRange) return nearestEnemy;
-  if (!isMissile && minDistance === 1) return nearestEnemy;
-  return null;
+
+  return [nearestEnemy, minDistance];
 }
 
-function aotuAttack(attacker, defenders, isMissile) {
-  let nearestEnemy = getNearestEnemy(attacker, defenders, isMissile);
+function aotuAttack(attacker, defenders) {
+  let result = getNearestEnemy(attacker, defenders);
+  let nearestEnemy = result[0];
+  let distance = result[1];
+
   if (nearestEnemy === null) return;
-  if (isMissile) armAttackArm(attacker, nearestEnemy, defenders, "missile");
-  else armAttackArm(attacker, nearestEnemy, defenders, "melee");
+  if (distance === 1 && nearestEnemy.G_A === 0)
+    armAttackArm(attacker, nearestEnemy, "melee");
+  else armAttackArm(attacker, nearestEnemy, "missile");
 }
