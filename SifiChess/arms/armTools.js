@@ -139,9 +139,13 @@ export function updateStaticProperties(arm) {
   arm.missile_G = Math.round(arm.missile_G * factor);
   arm.missile_A = Math.round(arm.missile_A * factor);
 
-  if (arm.ammo !== -1) {
-    arm.c_ammo += Math.floor(arm.ammo / 3);
-    arm.c_ammo = Math.min(arm.c_ammo, arm.ammo);
+  if (arm.ammo_G !== -1) {
+    arm.c_ammo_G += Math.floor(arm.ammo_G / 3);
+    arm.c_ammo_G = Math.min(arm.c_ammo_G, arm.ammo_G);
+  }
+  if (arm.ammo_A !== -1) {
+    arm.c_ammo_A += Math.floor(arm.ammo_A / 3);
+    arm.c_ammo_A = Math.min(arm.c_ammo_A, arm.ammo_A);
   }
 
   arm.cost = calculateCost(arm)[0];

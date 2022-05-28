@@ -72,6 +72,7 @@ function drawHPAndAmmoBars(cxt, piece, useMandarin, showCost) {
   let amY = ldY + 30;
 
   let sdText = `${piece.c_shield} / ${piece.shield}`;
+  if (piece.shield === 0) sdText = "N/A";
   let hpText = `${piece.c_scale} / ${piece.scale}`;
   if (piece.scale === 1) hpText = `${piece.c_singleHP} / ${piece.singleHP}`;
   let leadText = `${piece.c_leadership} / ${piece.leadership}`;
@@ -124,13 +125,15 @@ function drawHPAndAmmoBars(cxt, piece, useMandarin, showCost) {
   if (hpLen <= 194 / 8) hpcolor = "rgb(241, 76, 76)";
   Canvas.drawLine(cxt, bX + 3, hpY, bX + hpLen + 3, hpY, hpcolor, 12);
   Canvas.drawLine(cxt, bX + 123, hpY, bX + sdLen + 123, hpY, EC, 12);
+  Canvas.drawLine(cxt, bX + 119, hpY, bX + 121, hpY, "black", 18);
   Canvas.drawLine(cxt, bX + 3, ldY, bX + ldLen + 3, ldY, DC, 12);
   Canvas.drawLine(cxt, bX + 3, amY, bX + amGLen + 3, amY, AC, 12);
   Canvas.drawLine(cxt, bX + 123, amY, bX + amALen + 123, amY, AC, 12);
+  Canvas.drawLine(cxt, bX + 119, amY, bX + 121, amY, "black", 18);
 
   let midX = leftX + 285;
   let hpTxtX = midX - hpText.length * 5 - 60;
-  let sdTxtX = midX - sdText.length * 5 + 60;
+  let sdTxtX = sdText == "N/A" ? 325 : midX - sdText.length * 5 + 60;
   let leadTxtX = midX - leadText.length * 5;
   let ammoGTxtX = ammoGText == "N/A" ? 210 : midX - ammoGText.length * 5 - 60;
   let ammoATxtX = ammoAText == "N/A" ? 325 : midX - ammoAText.length * 5 + 60;

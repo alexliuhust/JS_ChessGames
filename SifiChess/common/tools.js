@@ -100,7 +100,7 @@ export const Canvas = {
       this.drawLine(cxt, x1, y1, x2, y2, LC, 4);
     }
     // Draw HP, ammo, and leaddership bars
-    let slen, hlen, alen, llen, elen;
+    let slen, hlen, aglen, aalen, llen, elen;
     if (arm.shield === 0) {
       hlen = (50 * arm.getTotalHP()) / arm.getOriginalHP();
     } else {
@@ -125,8 +125,44 @@ export const Canvas = {
       4
     );
     this.drawLine(cxt, arm.x, arm.y + 6, arm.x + llen, arm.y + 6, DC, 4);
+
+    if (arm.ammo_G > 0 && arm.ammo_A > 0) {
+      if (arm.GAtogether) {
+        aglen = (50 * arm.c_ammo_G) / arm.ammo_G;
+        this.drawLine(cxt, arm.x, arm.y + 48, arm.x + aglen, arm.y + 48, AC, 4);
+      } else {
+        aglen = (24 * arm.c_ammo_G) / arm.ammo_G;
+        aalen = (24 * arm.c_ammo_A) / arm.ammo_A;
+        this.drawLine(cxt, arm.x, arm.y + 48, arm.x + aglen, arm.y + 48, AC, 4);
+        this.drawLine(
+          cxt,
+          arm.x + 24,
+          arm.y + 48,
+          arm.x + 26,
+          arm.y + 48,
+          "rgb(100, 100, 100)",
+          4
+        );
+        this.drawLine(
+          cxt,
+          arm.x + 26,
+          arm.y + 48,
+          arm.x + 26 + aalen,
+          arm.y + 48,
+          AC,
+          4
+        );
+      }
+    } else if (arm.ammo_G > 0) {
+      aglen = (50 * arm.c_ammo_G) / arm.ammo_G;
+      this.drawLine(cxt, arm.x, arm.y + 48, arm.x + aglen, arm.y + 48, AC, 4);
+    } else if (arm.ammo_A > 0) {
+      aalen = (50 * arm.c_ammo_A) / arm.ammo_A;
+      this.drawLine(cxt, arm.x, arm.y + 48, arm.x + aalen, arm.y + 48, AC, 4);
+    }
+
     let ey = arm.y + 48;
-    if (alen != 0) ey -= 4;
+    if (aalen * aglen != 0) ey -= 4;
     this.drawLine(cxt, arm.x, ey, arm.x + elen, ey, EC, 4);
     // Draw operablility mark
     if (!arm.operable) {
