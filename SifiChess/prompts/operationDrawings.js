@@ -55,12 +55,12 @@ export function drawAvailableTargets(cxt, self, others) {
   let availableTargets = null;
   let availableCenters = null;
 
-  availableTargets = getAvailableTagetsForNonBombing(cxt, self, others);
+  availableTargets = getAvailableTagets(cxt, self, others);
 
   return [availableTargets, availableCenters];
 }
 
-function getAvailableTagetsForNonBombing(cxt, self, others) {
+function getAvailableTagets(cxt, self, others) {
   let availableTargets = [];
   let availablePositions = [];
   let availableType = [];
@@ -76,7 +76,7 @@ function getAvailableTagetsForNonBombing(cxt, self, others) {
       self.positionY
     );
 
-    let meleeAvailable = self.meleeAttack > 0 && distance === 1;
+    let meleeAvailable = self.c_melee > 0 && distance === 1;
     let missile_G_Available =
       self.c_missile_G > 0 &&
       self.c_ammo_G > 0 &&
@@ -115,18 +115,6 @@ function getAvailableTagetsForNonBombing(cxt, self, others) {
   Canvas.drawArc(cxt, self.x + 25, self.y + 25, range, color, 5);
 
   return availableTargets;
-}
-
-function isTargeBlocked(self, target, others) {
-  if (self.isParabola) return false;
-  for (let i = 0; i < others.length; i++) {
-    let blocker = others[i];
-    if (blocker === self || blocker === target) continue;
-
-    let line = [self.x + 25, self.y + 25, target.x + 25, target.y + 25];
-    if (Rect.lineThroughRect(line, blocker)) return true;
-  }
-  return false;
 }
 
 function hightlightMeleeTarget(cxt, self, posX, posY, color) {

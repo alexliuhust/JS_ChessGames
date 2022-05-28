@@ -47,21 +47,21 @@ export function calculateCost(arm) {
   cost = Math.pow(cost, 0.8) * 2.5;
   cost = Math.round(cost / 10) * 10;
 
-  console.log(arm.name);
-  console.log(
-    "\t\t  sldScore",
-    Math.round(sldScore),
-    "hpScore",
-    Math.round(hpScore),
-    "movingScore",
-    Math.round(movingScore),
-    "defendenceScore",
-    Math.round(defendenceScore),
-    "attackScore",
-    Math.round(attackScore),
-    "COST",
-    cost
-  );
+  // console.log(arm.name);
+  // console.log(
+  //   "\t\t  sldScore",
+  //   Math.round(sldScore),
+  //   "hpScore",
+  //   Math.round(hpScore),
+  //   "movingScore",
+  //   Math.round(movingScore),
+  //   "defendenceScore",
+  //   Math.round(defendenceScore),
+  //   "attackScore",
+  //   Math.round(attackScore),
+  //   "COST",
+  //   cost
+  // );
 
   return [cost, defendenceScore];
 }

@@ -100,19 +100,31 @@ export const Canvas = {
       this.drawLine(cxt, x1, y1, x2, y2, LC, 4);
     }
     // Draw HP, ammo, and leaddership bars
-    let hlen, alen, llen, elen;
-    hlen = (50 * arm.getTotalHP()) / arm.getOriginalHP();
-    if (arm.ammo === -1) alen = 0;
-    else alen = (50 * arm.c_ammo) / arm.ammo;
+    let slen, hlen, alen, llen, elen;
+    if (arm.shield === 0) {
+      hlen = (50 * arm.getTotalHP()) / arm.getOriginalHP();
+    } else {
+      slen = (25 * arm.c_shield) / arm.shield;
+      hlen = (25 * arm.getTotalHP()) / arm.getOriginalHP();
+    }
     llen = (50 * arm.c_leadership) / arm.leadership;
     elen = (50 * arm.c_totalHeal) / arm.totalHeal;
 
+    let sdcolor = "rgb(0, 122, 204)";
     let hpcolor = HC;
     if (hlen <= 50 / 4) hpcolor = "rgb(255, 180, 0)";
     if (hlen <= 50 / 8) hpcolor = "rgb(241, 76, 76)";
     this.drawLine(cxt, arm.x, arm.y + 2, arm.x + hlen, arm.y + 2, hpcolor, 4);
+    this.drawLine(
+      cxt,
+      arm.x + 25,
+      arm.y + 2,
+      arm.x + slen + 25,
+      arm.y + 2,
+      sdcolor,
+      4
+    );
     this.drawLine(cxt, arm.x, arm.y + 6, arm.x + llen, arm.y + 6, DC, 4);
-    this.drawLine(cxt, arm.x, arm.y + 48, arm.x + alen, arm.y + 48, AC, 4);
     let ey = arm.y + 48;
     if (alen != 0) ey -= 4;
     this.drawLine(cxt, arm.x, ey, arm.x + elen, ey, EC, 4);

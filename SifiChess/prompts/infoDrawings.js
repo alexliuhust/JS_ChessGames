@@ -132,8 +132,8 @@ function drawHPAndAmmoBars(cxt, piece, useMandarin, showCost) {
   let hpTxtX = midX - hpText.length * 5 - 60;
   let sdTxtX = midX - sdText.length * 5 + 60;
   let leadTxtX = midX - leadText.length * 5;
-  let ammoGTxtX = ammoGText == "N/A" ? 202 : midX - ammoGText.length * 5 - 60;
-  let ammoATxtX = ammoAText == "N/A" ? 302 : midX - ammoAText.length * 5 + 60;
+  let ammoGTxtX = ammoGText == "N/A" ? 210 : midX - ammoGText.length * 5 - 60;
+  let ammoATxtX = ammoAText == "N/A" ? 325 : midX - ammoAText.length * 5 + 60;
   Canvas.drawText(cxt, hpText, hpTxtX, hpY + 5, "black", 15);
   Canvas.drawText(cxt, sdText, sdTxtX, hpY + 5, "black", 15);
   Canvas.drawText(cxt, leadText, leadTxtX, ldY + 5, "black", 15);
@@ -157,8 +157,12 @@ function drawCombatData(cxt, piece, useMandarin, showCost) {
     `${piece.c_missile_G} (+${piece.missile_G_bonus})`,
     `${piece.c_missile_A} (+${piece.missile_A_bonus})`,
   ];
+  if (piece.c_missile_G === 0) attackDt[1] = "N/A";
+  if (piece.c_missile_A === 0) attackDt[2] = "N/A";
   let rangeText = `Range:`;
-  let rangeDt = ["1", `${piece.range_G}`, `${piece.range_A}`];
+  let rangeDt = ["N/A", `${piece.range_G}`, `${piece.range_A}`];
+  if (piece.range_G === 0) rangeDt[1] = "N/A";
+  if (piece.range_A === 0) rangeDt[2] = "N/A";
   let dataX = [105, 225, 382];
 
   let healText = `Healing: ${piece.c_totalHeal} / ${piece.totalHeal}`;

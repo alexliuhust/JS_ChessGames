@@ -39,32 +39,21 @@ export class Marine extends ArmPrimary.Arm {
     this.name = "Marines";
     this.m_name = "陆战队";
 
-    this.shield = 1500;
+    this.shield = 1000;
     this.scale = 40;
     this.singleHP = 50;
-    this.speed = 2;
+    this.speed = 3;
 
-    this.G_A = 0;
-    this.B_M = 0;
-    this.L_H = 1;
-    this.size = 1;
-
-    this.armor = 20;
-    this.dodge = 50;
-
-    this.melee = 16;
-
-    this.missile_G = 24;
-    this.missile_G_bonus = 10;
-    this.range_G = 4;
-    this.ammo_G = 25;
-
+    this.type = [0, 0, 0, 0];
+    this.defence_data = [10, 0];
+    this.melee_data = [16, 0];
+    this.G_data = [24, 0, 4, 30];
     this.GAtogether = true;
 
-    this.inspiring = 20;
-    this.inspireRange = 3;
-    this.armorEnhance = 20;
-    this.enhanceRange = 2;
+    // this.inspiring = 20;
+    // this.inspireRange = 3;
+    // this.armorEnhance = 20;
+    // this.enhanceRange = 2;
     this.loadRealtimeProps();
   }
 }
@@ -75,21 +64,20 @@ export class BlackBat extends ArmPrimary.Arm {
 
     this.name = "Black Bats";
     this.m_name = "黑蝠步兵";
-    this.type = "archers";
-    this.description = "Shield-Archers[Anti-Armor]";
-    this.m_description = "持盾-远程步兵[高破甲]";
 
-    this.scale = 80;
-    this.singleHP = 50;
+    this.shield = 1300;
+    this.shield_armor = 80;
+    this.scale = 30;
+    this.singleHP = 100;
     this.speed = 3;
 
-    this.missileArmor = 30;
+    this.type = [0, 0, 1, 0];
+    this.defence_data = [40, 0];
+    this.melee_data = [20, 0];
+    this.G_data = [30, 30, 5, 20];
+    // this.A_data = [0, 0, 0, -1];
+    this.GAtogether = false;
 
-    this.meleeAttack = 16;
-    this.missileAttack = 24;
-    this.missileRange = 6;
-
-    this.antiArmor = 40;
     this.loadRealtimeProps();
   }
 }
@@ -139,7 +127,7 @@ export class Sniper extends ArmPrimary.Arm {
 export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
   if (i === 0) return new Marine(pos, player);
-  // if (i === 1) return new BlackBat(pos, player);
+  if (i === 1) return new BlackBat(pos, player);
   // if (i === 2) return new Sniper(pos, player);
   return null;
 }

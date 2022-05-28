@@ -214,38 +214,13 @@ export class Player {
       for (c = 0; c < len; c++) {
         let target = this.curAvailableTargets[c];
         if (Rect.pointInRect({ x: x, y: y }, target)) {
-          AttackActions.armAttackArm(
-            this.nowSelectPiece,
-            target,
-            this.enemyList
-          );
+          AttackActions.armAttackArm(this.nowSelectPiece, target);
           this.operatedPieces.add(this.nowSelectPiece);
           this.clearForNoSelection();
           return true;
         }
       }
       if (c === len) this.clearForNoSelection();
-      return false;
-    };
-
-    this.letSelectedPieceBombArea = function (x, y) {
-      if (this.curAvailableCenters === null) return false;
-      let len = this.curAvailableCenters.length;
-      let c = 0;
-      for (c = 0; c < len; c++) {
-        let center = this.curAvailableCenters[c];
-        let rect = CreateRect(center[0], center[1], 50, 50);
-        let affected = this.pieceList.concat(this.enemyList);
-        if (Rect.pointInRect({ x: x, y: y }, rect)) {
-          AttackActions.armBombArea(this.nowSelectPiece, center, affected);
-          this.operatedPieces.add(this.nowSelectPiece);
-          this.clearForNoSelection();
-          return true;
-        }
-      }
-      if (c === len) {
-        this.letSelectedPieceAttackTarget(x, y);
-      }
       return false;
     };
 
@@ -278,9 +253,7 @@ export class Player {
         this.currentStatus === "ready to attack" &&
         !this.nowSelectPiece.hasAttacked
       ) {
-        if (!this.nowSelectPiece.isBombing)
-          if (this.letSelectedPieceAttackTarget(x, y)) return;
-        if (this.letSelectedPieceBombArea(x, y)) return;
+        if (this.letSelectedPieceAttackTarget(x, y)) return;
       }
     };
 

@@ -67,26 +67,11 @@ export class Arm {
     this.c_leadership = 0;
     this.speed = 0;
 
-    this.G_A = 0;
-    this.B_M = 0;
-    this.L_H = 0;
-    this.size = 0;
-
-    this.armor = 0;
-    this.dodge = 0;
-
-    this.melee = 0;
-    this.melee_bonus = 0;
-
-    this.missile_G = 0;
-    this.missile_G_bonus = 0;
-    this.range_G = 0;
-    this.ammo_G = -1;
-
-    this.missile_A = 0;
-    this.missile_A_bonus = 0;
-    this.range_A = 0;
-    this.ammo_A = -1;
+    this.type = [0, 0, 0, 0];
+    this.defence_data = [0, 0];
+    this.melee_data = [0, 0];
+    this.G_data = [0, 0, 0, -1];
+    this.A_data = [0, 0, 0, -1];
 
     this.GAtogether = false;
 
@@ -105,6 +90,11 @@ export class Arm {
     this.loadRealtimeProps = function () {
       this.img = document.getElementById(`${this.constructor.name}_img`);
 
+      this.G_A = this.type[0];
+      this.B_M = this.type[1];
+      this.L_H = this.type[2];
+      this.size = this.type[3];
+
       this.description = `${ground_air[this.G_A]}-${bio_mech[this.B_M]}-${
         light_heavy[this.L_H]
       }-${size[this.size]}`;
@@ -120,10 +110,26 @@ export class Arm {
       this.wound = this.singleHP;
       this.c_speed = this.speed;
 
+      this.armor = this.defence_data[0];
+      this.dodge = this.defence_data[1];
+
       this.c_armor = this.armor;
       this.c_dodge = this.dodge;
 
+      this.melee = this.melee_data[0];
+      this.melee_bonus = this.melee_data[1];
       this.c_melee = this.melee;
+
+      this.missile_G = this.G_data[0];
+      this.missile_G_bonus = this.G_data[1];
+      this.range_G = this.G_data[2];
+      this.ammo_G = this.G_data[3];
+
+      this.missile_A = this.A_data[0];
+      this.missile_A_bonus = this.A_data[1];
+      this.range_A = this.A_data[2];
+      this.ammo_A = this.A_data[3];
+
       this.c_missile_G = this.missile_G;
       this.c_ammo_G = this.ammo_G;
 
@@ -156,7 +162,7 @@ export class Arm {
 
     let singleDamage = 0;
     if (damageType === "melee") {
-      singleDamage = this.c_meleeAttack;
+      singleDamage = this.c_melee;
     } else if (damageType === "missile") {
       if (targetArm.G_A === 0 && this.c_ammo_G > 0) {
         this.c_ammo_G--;
@@ -268,11 +274,27 @@ export class Arm {
     return output;
   }
 
-  getCounterAttackTotalDamage(damageType, targetArm) {
+  getCounterAttack(damageType, targetArm) {
     if (damageType !== "melee" || this.c_leadership <= 0) return 0;
 
     let singleDamage = this._getSingleDamage("melee", targetArm);
     return Math.round(singleDamage * this.c_scale);
+  }
+
+  decrease(attacker, damageType, rawTotalDamage) {
+    if (this.c_shield > 0) return this.decreaseShield(rawTotalDamage);
+    return this.decreaseScale(attacker, damageType, rawTotalDamage);
+  }
+
+  decreaseShield(rawTotalDamage) {
+    let damagePercentage = (100 - this.shield_armor) / 100;
+    let realDamage = Math.ceil(rawTotalDamage * damagePercentage);
+
+    console.log(this.name, damagePercentage, realDamage);
+
+    this.c_shield -= realDamage;
+    if (this.c_shield < 0) this.c_shield = 0;
+    return [0, 0];
   }
 
   decreaseScale(attacker, damageType, rawTotalDamage) {
