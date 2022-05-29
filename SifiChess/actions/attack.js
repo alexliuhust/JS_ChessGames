@@ -27,6 +27,7 @@ export function armAttackArm(attacker, defender, _damageType) {
   setTimeout(() => {
     decreaseScalesForArms(attacker, damageType, defender);
     attacker.hasAttacked = true;
+    defender.isAttacked = true;
   }, sleepRound * 20);
 }
 

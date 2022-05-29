@@ -18,12 +18,12 @@ import {
 const ground_air = ["Ground", "Air"];
 const bio_mech = ["Bio", "Mech"];
 const light_heavy = ["Light", "Heavy"];
-const size = ["Small", "Medium", "Large"];
+const size_info = ["Small", "Medium", "Large"];
 
 const m_ground_air = ["地面", "空中"];
 const m_bio_mech = ["生物", "机械"];
 const m_light_heavy = ["轻甲", "重甲"];
-const m_size = ["小型", "中型", "大型"];
+const m_size_info = ["小型", "中型", "大型"];
 
 export class Arm {
   constructor(positionValue, _player) {
@@ -40,6 +40,7 @@ export class Arm {
 
     this.isAlive = true;
     this.hasAttacked = false;
+    this.isAttacked = false;
     this.operable = true;
     this.prepareToAuto = false;
     this.missileColor = null;
@@ -97,10 +98,10 @@ export class Arm {
 
       this.description = `${ground_air[this.G_A]}-${bio_mech[this.B_M]}-${
         light_heavy[this.L_H]
-      }-${size[this.size]}`;
+      }-${size_info[this.size]}`;
       this.m_description = `${m_ground_air[this.G_A]}-${m_bio_mech[this.B_M]}-${
         m_light_heavy[this.L_H]
-      }-${m_size[this.size]}`;
+      }-${m_size_info[this.size]}`;
 
       this.c_shield = this.shield;
       this.c_shield_armor = this.shield_armor;
@@ -228,6 +229,12 @@ export class Arm {
       triggerAutoAttack(this, this.player.enemyList);
       healed = triggerHealing(this, this.player.pieceList);
       triggerInspiring(this, this.player.pieceList);
+      if (!this.isAttacked) {
+        this.c_shield += Math.round(this.shield / 7.5);
+        this.c_shield = Math.min(this.c_shield, this.shield);
+      }
+    } else {
+      this.isAttacked = false;
     }
     if (!healed && this.healing > 0) {
       this.c_totalHeal += Math.round(this.healing / 3);
@@ -350,8 +357,9 @@ export class Arm {
 
   getCurrentCombatPower() {
     let percentage = 1;
-    if (this.scale === 1) percentage = this.c_singleHP / this.singleHP;
-    else percentage = this.c_scale / this.scale;
+    percentage =
+      (this.c_singleHP * this.c_scale + this.c_shield) /
+      (this.singleHP * this.scale + this.shield);
 
     let leadershipDrop =
       ((this.leadership - this.c_leadership) / this.leadership) * 0.5;

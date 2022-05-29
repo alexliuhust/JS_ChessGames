@@ -51,10 +51,6 @@ export class Marine extends ArmPrimary.Arm {
     this.A_data = [30, 0, 4, 16];
     this.GAtogether = false;
 
-    // this.inspiring = 20;
-    // this.inspireRange = 3;
-    // this.armorEnhance = 20;
-    // this.enhanceRange = 2;
     this.loadRealtimeProps();
   }
 }
@@ -75,7 +71,7 @@ export class BlackBat extends ArmPrimary.Arm {
     this.type = [0, 0, 1, 0];
     this.defence_data = [40, 0];
     this.melee_data = [20, 0];
-    this.G_data = [30, 30, 5, 20];
+    // this.G_data = [30, 30, 5, 20];
     // this.A_data = [20, 30, 5, 20];
     this.GAtogether = false;
 

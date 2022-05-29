@@ -77,7 +77,10 @@ function getAvailableTagets(cxt, self, others) {
     );
 
     let meleeAvailable =
-      self.c_melee > 0 && distance === 1 && others[i].G_A === 0;
+      self.c_melee > 0 &&
+      distance === 1 &&
+      self.G_A === 0 &&
+      others[i].G_A === 0;
     let missile_G_Available =
       self.c_missile_G > 0 &&
       self.c_ammo_G > 0 &&

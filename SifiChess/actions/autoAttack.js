@@ -32,7 +32,11 @@ function getNearestEnemy(attacker, defenders) {
       defender.positionY
     );
 
-    let M_attack = attacker.c_melee > 0 && defender.G_A === 0 && distance === 1;
+    let M_attack =
+      attacker.c_melee > 0 &&
+      attacker.G_A === 0 &&
+      defender.G_A === 0 &&
+      distance === 1;
 
     let G_attack =
       attacker.c_missile_G > 0 &&
@@ -72,7 +76,7 @@ function aotuAttack(attacker, defenders) {
   let distance = result[1];
 
   if (nearestEnemy === null) return;
-  if (distance === 1 && nearestEnemy.G_A === 0)
+  if (distance === 1 && nearestEnemy.G_A === 0 && attacker.G_A === 0)
     armAttackArm(attacker, nearestEnemy, "melee");
   else armAttackArm(attacker, nearestEnemy, "missile");
 }
