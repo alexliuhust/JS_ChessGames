@@ -160,14 +160,14 @@ export class Sniper extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Sniper Squad";
-    this.m_name = "狙击小队";
+    this.name = "Test 1";
+    this.m_name = "测试1";
 
     this.scale = 40;
     this.singleHP = 60;
     this.speed = 3;
 
-    this.type = [0, 0, 0, 0];
+    this.type = [1, 0, 0, 0];
     this.defence_data = [40, 0];
     this.melee_data = [20, 0];
     this.GAtogether = false;
@@ -180,8 +180,8 @@ export class Test extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Sniper Test";
-    this.m_name = "狙击测试";
+    this.name = "Test 2";
+    this.m_name = "测试2";
 
     this.scale = 40;
     this.singleHP = 60;

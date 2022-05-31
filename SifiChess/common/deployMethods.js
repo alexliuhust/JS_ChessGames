@@ -87,7 +87,18 @@ export class Deploy {
         let drawX = Math.floor(x / 50) * 50;
         let drawY = Math.floor(y / 50) * 50;
         let image = this.elems[this.imageIndex];
-        Canvas.drawImg(this.canvasList.piece, image, drawX, drawY);
+        Canvas.drawImg(
+          this.canvasList.piece,
+          image,
+          0,
+          0,
+          100,
+          100,
+          drawX,
+          drawY,
+          50,
+          50
+        );
 
         let piece = {
           index: this.imageIndex,

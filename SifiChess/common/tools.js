@@ -86,35 +86,49 @@ export const Canvas = {
   // Draw a piece
   drawPiece: function (cxt, arm, gc) {
     // Draw arm flag
-    this.drawImg(cxt, arm.img, 0, 0, 50, 50, arm.x, arm.y, 50, 50);
+    this.drawImg(cxt, arm.img, 0, 0, 100, 100, arm.x, arm.y, 50, 50);
     // Draw stripe color
-    this.drawLine(cxt, arm.x + 2, arm.y + 8, arm.x + 2, arm.y + 46, gc, 5);
-    this.drawLine(cxt, arm.x + 48, arm.y + 8, arm.x + 48, arm.y + 46, gc, 5);
+    this.drawLine(cxt, arm.x + 1, arm.y + 5, arm.x + 1, arm.y + 46, gc, 3);
+    if (arm.G_A === 0) {
+      this.drawLine(cxt, arm.x + 49, arm.y + 5, arm.x + 49, arm.y + 46, gc, 3);
+    } else {
+      for (let i = 0; i < 6; i++) {
+        let x1 = arm.x + 45,
+          x2 = arm.x + 50;
+        let y1 = arm.y + 11 + i * 7,
+          y2 = arm.y + 6 + i * 7;
+        this.drawLine(cxt, x1, y1, x2, y2, gc, 3);
+      }
+    }
+
     // Draw level
     let number = arm.level >= 2 ? arm.level : 0;
     for (let i = 0; i < number; i++) {
-      let x1 = arm.x,
-        x2 = arm.x + 5;
-      let y1 = arm.y + 39 - i * 5,
-        y2 = arm.y + 39 - i * 5;
+      let x1 = arm.x - 2,
+        x2 = arm.x + 3;
+      let y1 = arm.y + 39 - i * 6,
+        y2 = arm.y + 39 - i * 6;
       this.drawLine(cxt, x1, y1, x2, y2, LC, 4);
     }
     // Draw HP, ammo, and leaddership bars
+    let maxLen = 0;
     let slen, hlen, aglen, aalen, llen, elen;
     if (arm.shield === 0) {
       hlen = (50 * arm.getTotalHP()) / arm.getOriginalHP();
+      maxLen = 50;
     } else {
       slen = (25 * arm.c_shield) / arm.shield;
       hlen = (25 * arm.getTotalHP()) / arm.getOriginalHP();
+      maxLen = 25;
     }
     llen = (50 * arm.c_leadership) / arm.leadership;
     elen = (50 * arm.c_totalHeal) / arm.totalHeal;
 
     let sdcolor = "rgb(0, 122, 204)";
     let hpcolor = HC;
-    if (hlen <= 50 / 4) hpcolor = "rgb(255, 180, 0)";
-    if (hlen <= 50 / 8) hpcolor = "rgb(241, 76, 76)";
-    this.drawLine(cxt, arm.x, arm.y + 2, arm.x + hlen, arm.y + 2, hpcolor, 4);
+    if (hlen <= maxLen / 4) hpcolor = "rgb(255, 180, 0)";
+    if (hlen <= maxLen / 8) hpcolor = "rgb(241, 76, 76)";
+    this.drawLine(cxt, arm.x, arm.y + 2, arm.x + hlen, arm.y + 2, hpcolor, 5);
     this.drawLine(
       cxt,
       arm.x + 25,
@@ -122,9 +136,9 @@ export const Canvas = {
       arm.x + slen + 25,
       arm.y + 2,
       sdcolor,
-      4
+      5
     );
-    this.drawLine(cxt, arm.x, arm.y + 6, arm.x + llen, arm.y + 6, DC, 4);
+    // this.drawLine(cxt, arm.x, arm.y + 4, arm.x + llen, arm.y + 4, DC, 3);
 
     if (arm.ammo_G > 0 && arm.ammo_A > 0) {
       if (arm.GAtogether) {
