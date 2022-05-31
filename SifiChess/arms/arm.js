@@ -88,7 +88,7 @@ export class Arm {
     this.enhanceRange = 0;
 
     // Load real-time properties for battle
-    this.loadRealtimeProps = function () {
+    this.loadRealtimeProps = function (showCostDetails = false) {
       this.img = document.getElementById(`${this.constructor.name}_img`);
 
       this.G_A = this.type[0];
@@ -147,7 +147,7 @@ export class Arm {
       // this.c_totalHeal = this.totalHeal;
 
       // Calculate the cost according to the battle properties
-      let costResults = calculateCost(this);
+      let costResults = calculateCost(this, showCostDetails);
       this.cost = costResults[0];
 
       // Calculate the leadership according to the battle properties

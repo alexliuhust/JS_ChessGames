@@ -10,6 +10,7 @@ import {
 } from "./const.js";
 import { Canvas, Rect } from "./tools.js";
 import { drawInfoForSelectedPiece } from "../prompts/infoDrawings.js";
+import { calculateCost } from "../arms/armTools.js";
 
 const maxX = Math.floor(DW / 50);
 const maxY = Math.floor(DH / 50);
@@ -48,6 +49,10 @@ export class Deploy {
 
       this.bindArmImagesMouseDown(this.elems, this.arms);
       this.drawMap();
+
+      // Print the arm cost on the console
+      for (let i = 0; i < this.arms.length; i++)
+        calculateCost(this.arms[i], true);
     };
 
     // Actions for mouse clicking on canvas

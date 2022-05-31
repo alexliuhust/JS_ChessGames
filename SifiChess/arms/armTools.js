@@ -1,26 +1,35 @@
-export function calculateCost(arm) {
+export function calculateCost(arm, showCostDetails) {
   // Shield score
   let sldScore = arm.shield;
-  sldScore /= 80;
+  sldScore /= 60;
 
   // HP score
   let hpScore = arm.scale * arm.singleHP;
-  hpScore /= 100;
+  hpScore /= 75;
 
   // Moving score
   let movingScore = arm.speed * 10;
 
   // Armor and dodge score
-  let defendenceScore = (arm.shield_armor * 1.2 + arm.armor + arm.dodge) * 0.6;
+  let defendenceScore =
+    (arm.shield_armor * 1.2 + arm.armor + arm.dodge * 1.1) * 2;
 
   // Attack and other combat score
-  let meleeAttack = arm.melee + arm.melee_bonus / 2;
-  let missileAttack_G = arm.missile_G + arm.missile_G_bonus / 2;
-  let missileAttack_A = arm.missile_A + arm.missile_A_bonus / 2;
-  let missileAttack = missileAttack_G + missileAttack_A;
-  let ammo_range = arm.ammo_G + arm.ammo_A + arm.range_G + arm.range_A;
+  let meleeAttack = (arm.melee + arm.melee_bonus) * arm.scale * 0.5;
+  let missileAttack_G = arm.missile_G + arm.missile_G_bonus;
+  let missileAttack_A = (arm.missile_A + arm.missile_A_bonus) * 0.65;
+  let missileAttack = (missileAttack_G + missileAttack_A) * arm.scale;
+  let ammo_range = arm.ammo_G + arm.range_G * 10;
+  if (!arm.GAtogether) ammo_range += arm.ammo_A + arm.range_A * 10;
   let shock = arm.shock / 2;
-  let attackScore = meleeAttack + missileAttack + ammo_range + shock;
+  let attackScore =
+    (meleeAttack + missileAttack + ammo_range * 10 + shock) / 30;
+
+  // Type score
+  let airScore = arm.G_A === 1 ? 10 : 0;
+  let mechScore = arm.B_M === 1 ? 10 : 0;
+  let sizeScore = arm.size * 7;
+  let typeScore = airScore + sizeScore + mechScore;
 
   // Healing score
   let healingScore = (arm.healing * arm.c_scale) / 10;
@@ -41,27 +50,32 @@ export function calculateCost(arm) {
     movingScore +
     defendenceScore +
     attackScore +
+    typeScore +
     healingScore +
     inspiringScore +
     enhanceScore;
-  cost = Math.pow(cost, 0.8) * 2.5;
-  cost = Math.round(cost / 10) * 10;
+  // cost = Math.pow(cost, 0.8) * 2.5;
+  cost = Math.round(cost / 5) * 5;
 
-  // console.log(arm.name);
-  // console.log(
-  //   "\t\t  sldScore",
-  //   Math.round(sldScore),
-  //   "hpScore",
-  //   Math.round(hpScore),
-  //   "movingScore",
-  //   Math.round(movingScore),
-  //   "defendenceScore",
-  //   Math.round(defendenceScore),
-  //   "attackScore",
-  //   Math.round(attackScore),
-  //   "COST",
-  //   cost
-  // );
+  if (showCostDetails) {
+    console.log(arm.name);
+    console.log(
+      "\t\tsldScore",
+      Math.round(sldScore),
+      "hpScore",
+      Math.round(hpScore),
+      "movingScore",
+      Math.round(movingScore),
+      "defendenceScore",
+      Math.round(defendenceScore),
+      "attackScore",
+      Math.round(attackScore),
+      "typeScore",
+      Math.round(typeScore),
+      "COST",
+      cost
+    );
+  }
 
   return [cost, defendenceScore];
 }
@@ -74,8 +88,11 @@ export function calculateLeaderShip(arm, costResults) {
 
 export function realTimeAttackUpdate(arm, factor) {
   arm.c_melee = Math.round(arm.melee * factor);
+  arm.melee_bonus = Math.round(arm.melee_bonus * factor);
   arm.c_missile_G = Math.round(arm.missile_G * factor);
+  arm.missile_G_bonus = Math.round(arm.missile_G_bonus * factor);
   arm.c_missile_A = Math.round(arm.missile_A * factor);
+  arm.missile_A_bonus = Math.round(arm.missile_A_bonus * factor);
 }
 
 export function realTimeArmorUpdate(arm, factor) {
@@ -112,6 +129,7 @@ export function upgradeLevel(arm) {
 export function updateStaticProperties(arm) {
   if (arm.pre_level === arm.level) return;
 
+  // Set data increment factors
   arm.pre_level = arm.level;
   let factor = 1.1;
   if (arm.level === 2) {
@@ -124,6 +142,7 @@ export function updateStaticProperties(arm) {
     arm.c_leadership = arm.leadership;
   }
 
+  // Increase the HP
   if (arm.scale !== 1) {
     arm.singleHP = Math.round(arm.singleHP * factor);
   } else {
@@ -132,12 +151,17 @@ export function updateStaticProperties(arm) {
     arm.c_singleHP += inc;
   }
 
+  // Increase the defensive power
   arm.armor = Math.round(arm.armor * (factor - 0.12));
   arm.dodge = Math.round(arm.dodge * (factor - 0.12));
 
+  // Increase the attack power
   arm.melee = Math.round(arm.melee * factor);
+  arm.melee_bonus = Math.round(arm.melee_bonus * (factor - 0.1));
   arm.missile_G = Math.round(arm.missile_G * factor);
+  arm.missile_G_bonus = Math.round(arm.missile_G_bonus * (factor - 0.1));
   arm.missile_A = Math.round(arm.missile_A * factor);
+  arm.missile_A_bonus = Math.round(arm.missile_A_bonus * (factor - 0.1));
 
   if (arm.ammo_G !== -1) {
     arm.c_ammo_G += Math.floor(arm.ammo_G / 3);
@@ -148,7 +172,7 @@ export function updateStaticProperties(arm) {
     arm.c_ammo_A = Math.min(arm.c_ammo_A, arm.ammo_A);
   }
 
-  arm.cost = calculateCost(arm)[0];
+  arm.cost = calculateCost(arm, false)[0];
 }
 
 export function updateEliteData(arm) {
