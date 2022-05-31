@@ -163,6 +163,12 @@ function drawCombatData(cxt, piece, useMandarin, showCost) {
   let dodgeText = `Dodge: ${piece.c_dodge}%`;
 
   let dataTitle = ["Melee", "Missile-Ground", "Missile-Air"];
+  if (piece.GAtogether || (piece.c_missile_G == 0 && piece.c_missile_A == 0)) {
+    if (piece.c_missile_G * piece.c_missile_A > 0)
+      dataTitle = ["Melee", "Missile-Ground & Air", ""];
+    else dataTitle = ["Melee", "Missile", ""];
+  }
+
   let attackText = `Damage:`;
   let attackDt = [
     `${piece.c_melee} (+${piece.melee_bonus})`,
@@ -171,11 +177,19 @@ function drawCombatData(cxt, piece, useMandarin, showCost) {
   ];
   if (piece.c_missile_G === 0) attackDt[1] = "N/A";
   if (piece.c_missile_A === 0) attackDt[2] = "N/A";
+  if (piece.GAtogether || (piece.c_missile_G == 0 && piece.c_missile_A == 0))
+    attackDt[2] = "";
+
   let rangeText = `Range:`;
   let rangeDt = ["N/A", `${piece.range_G}`, `${piece.range_A}`];
   if (piece.range_G === 0) rangeDt[1] = "N/A";
   if (piece.range_A === 0) rangeDt[2] = "N/A";
+  if (piece.GAtogether || (piece.c_missile_G == 0 && piece.c_missile_A == 0))
+    rangeDt[2] = "";
+
   let dataX = [105, 225, 382];
+  if (piece.GAtogether || (piece.c_missile_G == 0 && piece.c_missile_A == 0))
+    dataX[1] = 260;
 
   let healText = `Healing: ${piece.c_totalHeal} / ${piece.totalHeal}`;
   let inspText = `Inspiring: ${piece.inspiring}`;
@@ -187,6 +201,14 @@ function drawCombatData(cxt, piece, useMandarin, showCost) {
     armorText = `护甲: ${piece.c_armor}%`;
     dodgeText = `闪避: ${piece.c_dodge}%`;
     dataTitle = ["近战", "远程-对地", "远程-对空"];
+    if (
+      piece.GAtogether ||
+      (piece.c_missile_G == 0 && piece.c_missile_A == 0)
+    ) {
+      if (piece.c_missile_G * piece.c_missile_A > 0)
+        dataTitle = ["近战", "远程-对地 & 对空", ""];
+      else dataTitle = ["近战", "远程", ""];
+    }
     attackText = `伤害:`;
     rangeText = `射程:`;
     healText = `治疗量: ${piece.c_totalHeal} / ${piece.totalHeal}`;
