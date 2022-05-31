@@ -53,17 +53,40 @@ function drawHPAndAmmoBars(cxt, piece, useMandarin, showCost) {
   let ldY = hpY + 30;
   let amY = ldY + 30;
 
+  // draw the bar titles
+  let scaleOrHp = piece.scale === 1 ? "HP & Shield:" : "Scale & Shield:";
+  if (piece.shield === 0) scaleOrHp = scaleOrHp.replace(" & Shield", "");
+  if (useMandarin) {
+    scaleOrHp = piece.scale === 1 ? "生命值 & 护盾:" : "部队数量 & 护盾:";
+    if (piece.shield === 0) scaleOrHp = scaleOrHp.replace(" & 护盾", "");
+  }
+  let leaderTitle = useMandarin ? "士气:" : "Morale:";
+  let ammoTitle = useMandarin ? "单位弹药剩余:" : "Ammo per-unit:";
+  let color = "white";
+  Canvas.drawText(cxt, scaleOrHp, leftX, hpY, color, 18);
+  color = piece.c_leadership <= piece.leadership * 0.1 ? "red" : "white";
+  Canvas.drawText(cxt, leaderTitle, leftX, ldY, color, 18);
+  color = "white";
+  if (piece.ammo !== -1 && piece.c_ammo <= piece.ammo * 0.1) color = "red";
+  Canvas.drawText(cxt, ammoTitle, leftX, amY, color, 18);
+
+  // set the on-bar info
   let sdText = `${piece.c_shield} / ${piece.shield}`;
-  if (piece.shield === 0) sdText = "N/A";
+  if (piece.shield === 0) sdText = "";
   let hpText = `${piece.c_scale} / ${piece.scale}`;
   if (piece.scale === 1) hpText = `${piece.c_singleHP} / ${piece.singleHP}`;
   let leadText = `${piece.c_leadership} / ${piece.leadership}`;
   let ammoGText = `G: ${piece.c_ammo_G} / ${piece.ammo_G}`;
   let ammoAText = `A: ${piece.c_ammo_A} / ${piece.ammo_A}`;
+  let ammoGAText = `G & A: ${piece.c_ammo_G} / ${piece.ammo_G}`;
 
-  let sdLen, hpLen, ldLen, amGLen, amALen;
+  // Calculate the length of the bars
+  let sdLen, hpLen, ldLen, amGLen, amALen, amGALen;
   sdLen = (144 * piece.c_shield) / piece.shield;
   hpLen = (144 * piece.getTotalHP()) / piece.getOriginalHP();
+  ldLen = (294 * piece.c_leadership) / piece.leadership;
+  if (piece.shield === 0)
+    hpLen = (294 * piece.getTotalHP()) / piece.getOriginalHP();
   if (piece.ammo_G === -1) {
     amGLen = 0;
     ammoGText = "N/A";
@@ -76,54 +99,58 @@ function drawHPAndAmmoBars(cxt, piece, useMandarin, showCost) {
   } else {
     amALen = (144 * piece.c_ammo_A) / piece.ammo_A;
   }
-  ldLen = (294 * piece.c_leadership) / piece.leadership;
+  if (piece.ammo_G === -1 && piece.ammo_A === -1) {
+    amGALen = 0;
+    ammoGAText = "N/A";
+  } else {
+    amGALen = (294 * piece.c_ammo_G) / piece.ammo_G;
+  }
 
-  let scaleOrHp = piece.scale === 1 ? "HP & Shield:" : "Scale & Shield:";
-  if (useMandarin)
-    scaleOrHp = piece.scale === 1 ? "生命值 & 护盾:" : "部队数量 & 护盾:";
-  let leaderTitle = useMandarin ? "士气:" : "Morale:";
-  let ammoTitle = useMandarin ? "单位弹药剩余:" : "Ammo per-unit:";
-
-  let color = "white";
-  if (hpLen <= 144 / 8) color = "red";
-  Canvas.drawText(cxt, scaleOrHp, leftX, hpY, color, 18);
-  color = piece.c_leadership <= piece.leadership * 0.1 ? "red" : "white";
-  Canvas.drawText(cxt, leaderTitle, leftX, ldY, color, 18);
-  color = "white";
-  if (piece.ammo !== -1 && piece.c_ammo <= piece.ammo * 0.1) color = "red";
-  Canvas.drawText(cxt, ammoTitle, leftX, amY, color, 18);
-
+  // draw bar background
   let bX = 160;
   hpY -= 6;
   ldY -= 6;
   amY -= 6;
-
   Canvas.drawLine(cxt, bX, hpY, bX + 300, hpY, BGC, 18);
   Canvas.drawLine(cxt, bX, ldY, bX + 300, ldY, BGC, 18);
   Canvas.drawLine(cxt, bX, amY, bX + 300, amY, BGC, 18);
 
+  // draw the bars
   let hpcolor = HC;
   if (hpLen <= 144 / 4) hpcolor = "rgb(255, 180, 0)";
   if (hpLen <= 144 / 8) hpcolor = "rgb(241, 76, 76)";
   Canvas.drawLine(cxt, bX + 3, hpY, bX + hpLen + 3, hpY, hpcolor, 12);
   Canvas.drawLine(cxt, bX + 153, hpY, bX + sdLen + 153, hpY, EC, 12);
-  Canvas.drawLine(cxt, bX + 149, hpY, bX + 151, hpY, "black", 18);
+  if (piece.shield !== 0)
+    Canvas.drawLine(cxt, bX + 149, hpY, bX + 151, hpY, "black", 18);
   Canvas.drawLine(cxt, bX + 3, ldY, bX + ldLen + 3, ldY, DC, 12);
-  Canvas.drawLine(cxt, bX + 3, amY, bX + amGLen + 3, amY, AC, 12);
-  Canvas.drawLine(cxt, bX + 153, amY, bX + amALen + 153, amY, AC, 12);
-  Canvas.drawLine(cxt, bX + 149, amY, bX + 151, amY, "black", 18);
 
+  if (!piece.GAtogether) {
+    Canvas.drawLine(cxt, bX + 3, amY, bX + amGLen + 3, amY, AC, 12);
+    Canvas.drawLine(cxt, bX + 153, amY, bX + amALen + 153, amY, AC, 12);
+    Canvas.drawLine(cxt, bX + 149, amY, bX + 151, amY, "black", 18);
+  } else {
+    Canvas.drawLine(cxt, bX + 3, amY, bX + amGALen + 3, amY, AC, 12);
+  }
+
+  // write the on-bar info
   let midX = leftX + 315;
-  let hpTxtX = midX - hpText.length * 5 - 75;
-  let sdTxtX = sdText == "N/A" ? 370 : midX - sdText.length * 5 + 75;
+  let hpTxtX = midX - hpText.length * 5;
+  if (piece.shield !== 0) hpTxtX -= 75;
+  let sdTxtX = midX - sdText.length * 5 + 75;
   let leadTxtX = midX - leadText.length * 5;
   let ammoGTxtX = ammoGText == "N/A" ? 225 : midX - ammoGText.length * 5 - 75;
   let ammoATxtX = ammoAText == "N/A" ? 370 : midX - ammoAText.length * 5 + 75;
+  let ammoGATxtX = midX - ammoGAText.length * 5;
   Canvas.drawText(cxt, hpText, hpTxtX, hpY + 5, "black", 15);
   Canvas.drawText(cxt, sdText, sdTxtX, hpY + 5, "black", 15);
   Canvas.drawText(cxt, leadText, leadTxtX, ldY + 5, "black", 15);
-  Canvas.drawText(cxt, ammoGText, ammoGTxtX, amY + 5, "black", 15);
-  Canvas.drawText(cxt, ammoAText, ammoATxtX, amY + 5, "black", 15);
+  if (!piece.GAtogether) {
+    Canvas.drawText(cxt, ammoGText, ammoGTxtX, amY + 5, "black", 15);
+    Canvas.drawText(cxt, ammoAText, ammoATxtX, amY + 5, "black", 15);
+  } else {
+    Canvas.drawText(cxt, ammoGAText, ammoGATxtX, amY + 5, "black", 15);
+  }
 }
 
 function drawCombatData(cxt, piece, useMandarin, showCost) {

@@ -87,16 +87,22 @@ export const Canvas = {
   drawPiece: function (cxt, arm, gc) {
     // Draw arm flag
     this.drawImg(cxt, arm.img, 0, 0, 100, 100, arm.x, arm.y, 50, 50);
+
     // Draw stripe color
-    this.drawLine(cxt, arm.x + 1, arm.y + 5, arm.x + 1, arm.y + 46, gc, 3);
     if (arm.G_A === 0) {
+      this.drawLine(cxt, arm.x + 1, arm.y + 5, arm.x + 1, arm.y + 46, gc, 3);
       this.drawLine(cxt, arm.x + 49, arm.y + 5, arm.x + 49, arm.y + 46, gc, 3);
     } else {
       for (let i = 0; i < 6; i++) {
-        let x1 = arm.x + 45,
-          x2 = arm.x + 50;
-        let y1 = arm.y + 11 + i * 7,
-          y2 = arm.y + 6 + i * 7;
+        let x1 = arm.x + 45;
+        let x2 = arm.x + 50;
+        let y1 = arm.y + 11 + i * 7;
+        let y2 = arm.y + 6 + i * 7;
+        this.drawLine(cxt, x1, y1, x2, y2, gc, 3);
+        x1 = arm.x;
+        x2 = arm.x + 5;
+        y1 = arm.y + 6 + i * 7;
+        y2 = arm.y + 11 + i * 7;
         this.drawLine(cxt, x1, y1, x2, y2, gc, 3);
       }
     }
@@ -129,8 +135,6 @@ export const Canvas = {
       sdcolor,
       5
     );
-    // this.drawLine(cxt, arm.x, arm.y + 4, arm.x + llen, arm.y + 4, DC, 3);
-
     if (arm.ammo_G > 0 && arm.ammo_A > 0) {
       if (arm.GAtogether) {
         aglen = (50 * arm.c_ammo_G) / arm.ammo_G;
@@ -169,6 +173,7 @@ export const Canvas = {
     let ey = arm.y + 48;
     if (aalen * aglen != 0) ey -= 4;
     this.drawLine(cxt, arm.x, ey, arm.x + elen, ey, EC, 4);
+
     // Draw operablility mark
     if (!arm.operable) {
       let x_s = arm.x + 33;
