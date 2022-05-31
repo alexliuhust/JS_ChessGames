@@ -1,36 +1,6 @@
 import * as ArmPrimary from "../arm.js";
 import { MissileColor as MC } from "../../common/const.js";
-import { updateEliteData, updateRealTimeProperties } from "../armTools.js";
-
-export class SwordInfantry extends ArmPrimary.Arm {
-  constructor(value, player) {
-    super(value, player);
-
-    this.name = "Empire Infantry";
-    this.m_name = "帝国步兵";
-    this.type = "infantry";
-    this.description = "Infantry[Anti-Infantry]";
-    this.m_description = "近战步兵[反步兵]";
-
-    this.scale = 100;
-    this.singleHP = 50;
-    this.speed = 2;
-
-    this.meleeAttack = 24;
-    this.meleeAttack_bonus = 24;
-    this.loadRealtimeProps();
-  }
-
-  _getSingleDamage(damageType, targetArm) {
-    let singleDamage = 0;
-    if (damageType === "melee") {
-      singleDamage = this.c_meleeAttack;
-      if (targetArm.isInfn()) singleDamage += this.meleeAttack_bonus;
-    }
-
-    return singleDamage;
-  }
-}
+import { updateRealTimeProperties } from "../armTools.js";
 
 export class Marine extends ArmPrimary.Arm {
   constructor(value, player) {

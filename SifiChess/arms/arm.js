@@ -3,8 +3,6 @@ import {
   calculateCost,
   calculateLeaderShip,
   updateRealTimeProperties,
-  upgradeLevel,
-  updateStaticProperties,
 } from "./armTools.js";
 import { triggerAutoAttack } from "../actions/autoAttack.js";
 import { triggerHealing } from "../actions/heal.js";
@@ -53,10 +51,6 @@ export class Arm {
     this.m_name = "";
     this.description = "";
     this.cost = 0;
-
-    this.exp = 0;
-    this.level = 1;
-    this.pre_level = 1;
 
     this.shield = 0;
     this.shield_armor = 0;
@@ -251,11 +245,8 @@ export class Arm {
 
     if (this.c_leadership < 0) this.c_leadership = 0;
 
-    // Update static battle properties
-    let upgraded = upgradeLevel(this);
-    updateStaticProperties(this);
     // Update real-time battle properties
-    updateRealTimeProperties(this, upgraded);
+    updateRealTimeProperties(this);
     if (this.c_leadership <= 0) {
       this.hasAttacked = true;
       this.optOut();
@@ -274,6 +265,7 @@ export class Arm {
   getRawTotalDamage(damageType, targetArm) {
     let singleDamage = this._getSingleDamage(damageType, targetArm);
     let output = singleDamage * this.c_scale;
+    if (damageType === "melee") output /= 3;
     let enh = 0;
     // enh = afterAttackEnhancement(this, this.player.pieceList);
     output = Math.round((output * (100 + enh)) / 100);
@@ -365,9 +357,6 @@ export class Arm {
       ((this.leadership - this.c_leadership) / this.leadership) * 0.5;
     percentage -= leadershipDrop;
 
-    for (let i = 1; i <= this.level - 1; i++) {
-      percentage *= 1.2;
-    }
     return this.cost * percentage;
   }
 }

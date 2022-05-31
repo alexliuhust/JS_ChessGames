@@ -101,16 +101,7 @@ export const Canvas = {
       }
     }
 
-    // Draw level
-    let number = arm.level >= 2 ? arm.level : 0;
-    for (let i = 0; i < number; i++) {
-      let x1 = arm.x - 2,
-        x2 = arm.x + 3;
-      let y1 = arm.y + 39 - i * 6,
-        y2 = arm.y + 39 - i * 6;
-      this.drawLine(cxt, x1, y1, x2, y2, LC, 4);
-    }
-    // Draw HP, ammo, and leaddership bars
+    // Draw HP, ammo, and leadership bars
     let maxLen = 0;
     let slen, hlen, aglen, aalen, llen, elen;
     if (arm.shield === 0) {

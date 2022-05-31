@@ -46,24 +46,6 @@ function drawTitle(cxt, piece, useMandarin, showCost) {
       : `[cost: ${piece.cost}G]`;
     Canvas.drawText(cxt, costText, leftX, yBs, "yellow", 16);
   }
-
-  let lX = 425;
-  let yExb = yBs + 16;
-  let expL = (75 * Math.min(piece.exp, piece.cost)) / piece.cost;
-  Canvas.drawLine(cxt, 450, yExb, 450, yExb + 80, BGC, 70);
-  Canvas.drawLine(cxt, 450, yExb + 77, 450, yExb + 77 - expL, EC, 64);
-
-  let levelInfo = useMandarin
-    ? `等级: ${piece.level}`
-    : `Level: ${piece.level}`;
-  let expTxt = useMandarin ? `经验` : `exp`;
-  let expInfo = `${piece.exp}`;
-  let xEx = lX + 22;
-  if (piece.exp >= 10) xEx -= 4;
-  if (piece.exp >= 100) xEx -= 4;
-  Canvas.drawText(cxt, levelInfo, lX, yBs + 10, "white", 16);
-  Canvas.drawText(cxt, expTxt, lX + 10, yExb + 30, "black", 16);
-  Canvas.drawText(cxt, expInfo, xEx, yExb + 50, "black", 14);
 }
 
 function drawHPAndAmmoBars(cxt, piece, useMandarin, showCost) {
@@ -80,21 +62,21 @@ function drawHPAndAmmoBars(cxt, piece, useMandarin, showCost) {
   let ammoAText = `A: ${piece.c_ammo_A} / ${piece.ammo_A}`;
 
   let sdLen, hpLen, ldLen, amGLen, amALen;
-  sdLen = (114 * piece.c_shield) / piece.shield;
-  hpLen = (114 * piece.getTotalHP()) / piece.getOriginalHP();
+  sdLen = (144 * piece.c_shield) / piece.shield;
+  hpLen = (144 * piece.getTotalHP()) / piece.getOriginalHP();
   if (piece.ammo_G === -1) {
     amGLen = 0;
     ammoGText = "N/A";
   } else {
-    amGLen = (114 * piece.c_ammo_G) / piece.ammo_G;
+    amGLen = (144 * piece.c_ammo_G) / piece.ammo_G;
   }
   if (piece.ammo_A === -1) {
     amALen = 0;
     ammoAText = "N/A";
   } else {
-    amALen = (114 * piece.c_ammo_A) / piece.ammo_A;
+    amALen = (144 * piece.c_ammo_A) / piece.ammo_A;
   }
-  ldLen = (234 * piece.c_leadership) / piece.leadership;
+  ldLen = (294 * piece.c_leadership) / piece.leadership;
 
   let scaleOrHp = piece.scale === 1 ? "HP & Shield:" : "Scale & Shield:";
   if (useMandarin)
@@ -103,7 +85,7 @@ function drawHPAndAmmoBars(cxt, piece, useMandarin, showCost) {
   let ammoTitle = useMandarin ? "单位弹药剩余:" : "Ammo per-unit:";
 
   let color = "white";
-  if (hpLen <= 114 / 8) color = "red";
+  if (hpLen <= 144 / 8) color = "red";
   Canvas.drawText(cxt, scaleOrHp, leftX, hpY, color, 18);
   color = piece.c_leadership <= piece.leadership * 0.1 ? "red" : "white";
   Canvas.drawText(cxt, leaderTitle, leftX, ldY, color, 18);
@@ -116,27 +98,27 @@ function drawHPAndAmmoBars(cxt, piece, useMandarin, showCost) {
   ldY -= 6;
   amY -= 6;
 
-  Canvas.drawLine(cxt, bX, hpY, bX + 240, hpY, BGC, 18);
-  Canvas.drawLine(cxt, bX, ldY, bX + 240, ldY, BGC, 18);
-  Canvas.drawLine(cxt, bX, amY, bX + 240, amY, BGC, 18);
+  Canvas.drawLine(cxt, bX, hpY, bX + 300, hpY, BGC, 18);
+  Canvas.drawLine(cxt, bX, ldY, bX + 300, ldY, BGC, 18);
+  Canvas.drawLine(cxt, bX, amY, bX + 300, amY, BGC, 18);
 
   let hpcolor = HC;
-  if (hpLen <= 194 / 4) hpcolor = "rgb(255, 180, 0)";
-  if (hpLen <= 194 / 8) hpcolor = "rgb(241, 76, 76)";
+  if (hpLen <= 144 / 4) hpcolor = "rgb(255, 180, 0)";
+  if (hpLen <= 144 / 8) hpcolor = "rgb(241, 76, 76)";
   Canvas.drawLine(cxt, bX + 3, hpY, bX + hpLen + 3, hpY, hpcolor, 12);
-  Canvas.drawLine(cxt, bX + 123, hpY, bX + sdLen + 123, hpY, EC, 12);
-  Canvas.drawLine(cxt, bX + 119, hpY, bX + 121, hpY, "black", 18);
+  Canvas.drawLine(cxt, bX + 153, hpY, bX + sdLen + 153, hpY, EC, 12);
+  Canvas.drawLine(cxt, bX + 149, hpY, bX + 151, hpY, "black", 18);
   Canvas.drawLine(cxt, bX + 3, ldY, bX + ldLen + 3, ldY, DC, 12);
   Canvas.drawLine(cxt, bX + 3, amY, bX + amGLen + 3, amY, AC, 12);
-  Canvas.drawLine(cxt, bX + 123, amY, bX + amALen + 123, amY, AC, 12);
-  Canvas.drawLine(cxt, bX + 119, amY, bX + 121, amY, "black", 18);
+  Canvas.drawLine(cxt, bX + 153, amY, bX + amALen + 153, amY, AC, 12);
+  Canvas.drawLine(cxt, bX + 149, amY, bX + 151, amY, "black", 18);
 
-  let midX = leftX + 285;
-  let hpTxtX = midX - hpText.length * 5 - 60;
-  let sdTxtX = sdText == "N/A" ? 325 : midX - sdText.length * 5 + 60;
+  let midX = leftX + 315;
+  let hpTxtX = midX - hpText.length * 5 - 75;
+  let sdTxtX = sdText == "N/A" ? 370 : midX - sdText.length * 5 + 75;
   let leadTxtX = midX - leadText.length * 5;
-  let ammoGTxtX = ammoGText == "N/A" ? 210 : midX - ammoGText.length * 5 - 60;
-  let ammoATxtX = ammoAText == "N/A" ? 325 : midX - ammoAText.length * 5 + 60;
+  let ammoGTxtX = ammoGText == "N/A" ? 225 : midX - ammoGText.length * 5 - 75;
+  let ammoATxtX = ammoAText == "N/A" ? 370 : midX - ammoAText.length * 5 + 75;
   Canvas.drawText(cxt, hpText, hpTxtX, hpY + 5, "black", 15);
   Canvas.drawText(cxt, sdText, sdTxtX, hpY + 5, "black", 15);
   Canvas.drawText(cxt, leadText, leadTxtX, ldY + 5, "black", 15);

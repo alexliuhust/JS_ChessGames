@@ -15,7 +15,7 @@ export function calculateCost(arm, showCostDetails) {
     (arm.shield_armor * 1.2 + arm.armor + arm.dodge * 1.1) * 2;
 
   // Attack and other combat score
-  let meleeAttack = (arm.melee + arm.melee_bonus) * arm.scale * 0.5;
+  let meleeAttack = (((arm.melee + arm.melee_bonus) * arm.scale) / 3) * 0.5;
   let missileAttack_G = arm.missile_G + arm.missile_G_bonus;
   let missileAttack_A = (arm.missile_A + arm.missile_A_bonus) * 0.65;
   let missileAttack = (missileAttack_G + missileAttack_A) * arm.scale;
@@ -100,13 +100,8 @@ export function realTimeArmorUpdate(arm, factor) {
   arm.c_dodge = Math.round(arm.dodge * factor);
 }
 
-export function updateRealTimeProperties(arm, levelUpgraded) {
+export function updateRealTimeProperties(arm) {
   let factor = 1;
-
-  if (levelUpgraded) {
-    if (arm.scale != 1) arm.c_singleHP = arm.singleHP;
-    arm.wound = arm.c_singleHP;
-  }
 
   let oneThird = Math.floor(arm.leadership / 3);
   let twoThirds = oneThird * 2;
@@ -116,73 +111,4 @@ export function updateRealTimeProperties(arm, levelUpgraded) {
 
   realTimeAttackUpdate(arm, factor);
   realTimeArmorUpdate(arm, factor);
-}
-
-export function upgradeLevel(arm) {
-  if (arm.exp < arm.cost || arm.level === 3) return false;
-
-  arm.exp -= arm.cost;
-  arm.level++;
-  return true;
-}
-
-export function updateStaticProperties(arm) {
-  if (arm.pre_level === arm.level) return;
-
-  // Set data increment factors
-  arm.pre_level = arm.level;
-  let factor = 1.1;
-  if (arm.level === 2) {
-    factor = 1.2;
-    arm.leadership += 50;
-    arm.c_leadership = arm.leadership;
-  } else if (arm.level === 3) {
-    factor = 1.35;
-    arm.leadership += 50;
-    arm.c_leadership = arm.leadership;
-  }
-
-  // Increase the HP
-  if (arm.scale !== 1) {
-    arm.singleHP = Math.round(arm.singleHP * factor);
-  } else {
-    let inc = arm.singleHP * 0.1;
-    arm.singleHP += inc;
-    arm.c_singleHP += inc;
-  }
-
-  // Increase the defensive power
-  arm.armor = Math.round(arm.armor * (factor - 0.12));
-  arm.dodge = Math.round(arm.dodge * (factor - 0.12));
-
-  // Increase the attack power
-  arm.melee = Math.round(arm.melee * factor);
-  arm.melee_bonus = Math.round(arm.melee_bonus * (factor - 0.1));
-  arm.missile_G = Math.round(arm.missile_G * factor);
-  arm.missile_G_bonus = Math.round(arm.missile_G_bonus * (factor - 0.1));
-  arm.missile_A = Math.round(arm.missile_A * factor);
-  arm.missile_A_bonus = Math.round(arm.missile_A_bonus * (factor - 0.1));
-
-  if (arm.ammo_G !== -1) {
-    arm.c_ammo_G += Math.floor(arm.ammo_G / 3);
-    arm.c_ammo_G = Math.min(arm.c_ammo_G, arm.ammo_G);
-  }
-  if (arm.ammo_A !== -1) {
-    arm.c_ammo_A += Math.floor(arm.ammo_A / 3);
-    arm.c_ammo_A = Math.min(arm.c_ammo_A, arm.ammo_A);
-  }
-
-  arm.cost = calculateCost(arm, false)[0];
-}
-
-export function updateEliteData(arm) {
-  arm.pre_level = 1;
-  arm.level = 2;
-  updateStaticProperties(arm);
-  updateRealTimeProperties(arm, true);
-  arm.level = 3;
-  updateStaticProperties(arm);
-  updateRealTimeProperties(arm, true);
-  arm.c_leadership += 200;
-  arm.leadership += 200;
 }
