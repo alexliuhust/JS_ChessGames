@@ -197,9 +197,9 @@ export class Test extends ArmPrimary.Arm {
 
     this.scale = 40;
     this.singleHP = 60;
-    this.speed = 3;
+    this.speed = 8;
 
-    this.type = [0, 1, 0, 0];
+    this.type = [1, 1, 0, 0];
     this.defence_data = [40, 0];
     this.melee_data = [20, 0];
     this.GAtogether = false;

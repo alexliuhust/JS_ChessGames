@@ -6,8 +6,11 @@ export function moveToPosition(mover, toPosition, blockers) {
   let aligned =
     mover.positionX === toPosition[0] || mover.positionY === toPosition[1];
 
-  if (aligned && distance <= mover.c_speed) {
-    if (blockers !== null) {
+  if (
+    ((aligned && mover.G_A === 0) || mover.G_A === 1) &&
+    distance <= mover.c_speed
+  ) {
+    if (blockers !== null && mover.G_A === 0) {
       toPosition = getRealDestination(mover, toPosition, blockers)[0];
     }
 

@@ -30,14 +30,38 @@ export function drawAvailableDestinations(cxt, self, others) {
   let availablePositions = [];
 
   // Collect all available moving destinations
-  for (let d = 0; d < 4; d++) {
-    for (let i = 1; i <= self.c_speed; i++) {
-      let nx = self.positionX + i * dir[d][0];
-      let ny = self.positionY + i * dir[d][1];
-      if (!checkAvailablePosition(nx, ny, seenOthers)) {
-        break;
+  // for ground arms
+  if (self.G_A === 0) {
+    for (let d = 0; d < 4; d++) {
+      for (let i = 1; i <= self.c_speed; i++) {
+        let nx = self.positionX + i * dir[d][0];
+        let ny = self.positionY + i * dir[d][1];
+        if (!checkAvailablePosition(nx, ny, seenOthers)) break;
+        availablePositions.push([nx, ny]);
       }
-      availablePositions.push([nx, ny]);
+    }
+  }
+  // for air arms
+  else {
+    for (let x = 0; x <= self.c_speed; x++) {
+      for (let y = 0; y <= self.c_speed - x; y++) {
+        let nx = self.positionX + x;
+        let ny = self.positionY + y;
+        if (checkAvailablePosition(nx, ny, seenOthers))
+          availablePositions.push([nx, ny]);
+        nx = self.positionX + x;
+        ny = self.positionY - y;
+        if (checkAvailablePosition(nx, ny, seenOthers))
+          availablePositions.push([nx, ny]);
+        nx = self.positionX - x;
+        ny = self.positionY + y;
+        if (checkAvailablePosition(nx, ny, seenOthers))
+          availablePositions.push([nx, ny]);
+        nx = self.positionX - x;
+        ny = self.positionY - y;
+        if (checkAvailablePosition(nx, ny, seenOthers))
+          availablePositions.push([nx, ny]);
+      }
     }
   }
 
