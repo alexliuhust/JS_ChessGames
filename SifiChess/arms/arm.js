@@ -186,7 +186,7 @@ export class Arm {
     let enh = 0;
     let armor = this.armor;
     let dodge = this.dodge;
-    if (this.speed >= 4) dodge += (this.speed - 3) * 6;
+    if (this.speed >= 4) dodge += (this.speed - 3) * 10;
     // enh = afterArmorEnhancement(this, this.player.pieceList);
     let percentage = (100 - (armor + dodge + enh)) / 100;
     if (percentage < 0.12) percentage = 0.12;
@@ -197,7 +197,6 @@ export class Arm {
   _beginSwitch() {
     this.hasAttacked = true;
     this.operable = false;
-    this.c_speed = 0;
     this.alignMoved = true;
   }
 
@@ -209,13 +208,20 @@ export class Arm {
 
       this.loadRealtimeProps();
       this.img = this.img2;
-      this.c_ammo_G = this.ammo_record[1][0];
-      this.c_ammo_A = this.ammo_record[1][1];
+      if (this.GAtogether) {
+        this.c_ammo_G = this.ammo_record[0][0];
+        this.c_ammo_A = this.ammo_record[0][1];
+      } else {
+        this.c_ammo_G = this.ammo_record[1][0];
+        this.c_ammo_A = this.ammo_record[1][1];
+      }
     } else {
-      this.ammo_record[1] = [this.c_ammo_G, this.c_ammo_A];
+      if (this.GAtogether) this.ammo_record[0] = [this.c_ammo_G, this.c_ammo_A];
+      else this.ammo_record[1] = [this.c_ammo_G, this.c_ammo_A];
 
       this.loadRealtimeProps();
       this.img = this.img1;
+
       this.c_ammo_G = this.ammo_record[0][0];
       this.c_ammo_A = this.ammo_record[0][1];
     }
@@ -225,6 +231,7 @@ export class Arm {
     this.leadership = ld_record[0];
     this.c_leadership = ld_record[1];
     updateRealTimeProperties(this);
+    this.c_speed = 0;
   }
 
   // =============== Drawing APIs ===============
