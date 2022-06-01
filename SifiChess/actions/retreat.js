@@ -19,6 +19,7 @@ export function tryRetreat(playerNumber, pieces, enemies) {
     blockers.add(`${enemies[i].positionX}-${enemies[i].positionY}`);
 
   for (let i = 0; i < pieces.length; i++) {
+    if (pieces[i].speed <= 0) continue;
     if (pieces[i].c_leadership <= 0) {
       if (pieces[i].positionX === 0 || pieces[i].positionX === maxX - 1)
         pieces[i].isAlive = false;
