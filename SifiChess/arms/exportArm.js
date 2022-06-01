@@ -13,7 +13,12 @@ export function getArmsAndImages(powerCodeName) {
     let arm = POWER.newAnArm(i, 0, 0, null);
     if (arm === null) break;
     arms.push(arm);
-    images.push(`../images/${powerCodeName}/${arm.constructor.name}.png`);
+
+    let imgs = [`../images/${powerCodeName}/${arm.constructor.name}.png`];
+    if (arm.switchable)
+      imgs.push(`../images/${powerCodeName}/${arm.constructor.name}_1.png`);
+
+    images.push(imgs);
     i++;
   }
   return [arms, images];

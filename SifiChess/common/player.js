@@ -260,7 +260,7 @@ export class Player {
     // =================================================================================
     // ================================== Key Events ===================================
     // =================================================================================
-    this.keyDownEvents = function (e) {
+    this.triggerKeyDownEvents = function (e) {
       if (this.isMyRound && e.code.includes("Control")) {
         for (let i = 0; i < this.pieceList.length; i++) {
           this.pieceList[i].showSpeed = !this.pieceList[i].showSpeed;
@@ -273,7 +273,8 @@ export class Player {
         let direction = DirectMap.get(e.code);
         moveAligned(this.pieceList, this.enemyList, direction);
       } else if (
-        (e.code == "KeyA" || e.code == "KeyL" || e.code.includes("Shift")) &&
+        this.isMyRound &&
+        (e.code == "KeyA" || e.code == "KeyL") &&
         this.nowSelectPiece != null &&
         this.nowSelectPiece.operable &&
         !this.nowSelectPiece.hasAttacked
@@ -300,11 +301,20 @@ export class Player {
           );
           this.currentStatus = "ready to move";
         }
+      } else if (
+        this.isMyRound &&
+        e.code.includes("Shift") &&
+        this.nowSelectPiece != null &&
+        this.nowSelectPiece.operable &&
+        !this.nowSelectPiece.hasAttacked
+      ) {
+        this.nowSelectPiece.switch();
+        this.clearForNoSelection();
       }
     };
 
     document.addEventListener("keydown", (e) => {
-      this.keyDownEvents(e);
+      this.triggerKeyDownEvents(e);
     });
 
     // =================================================================================

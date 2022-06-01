@@ -72,6 +72,9 @@ export class Arm {
 
     this.shock = 0;
 
+    this.status = 0;
+    this.switchable = false;
+
     this.healing = 0;
     this.healRange = 0;
     this.totalHeal = 0;
@@ -84,6 +87,10 @@ export class Arm {
     // Load real-time properties for battle
     this.loadRealtimeProps = function (showCostDetails = false) {
       this.img = document.getElementById(`${this.constructor.name}_img`);
+      this.img1 = document.getElementById(`${this.constructor.name}_img`);
+      this.img2 = null;
+      if (this.switchable)
+        this.img2 = document.getElementById(`${this.constructor.name}_1_img`);
 
       this.G_A = this.type[0];
       this.B_M = this.type[1];
@@ -187,6 +194,39 @@ export class Arm {
     return percentage;
   }
 
+  _beginSwitch() {
+    this.hasAttacked = true;
+    this.operable = false;
+    this.c_speed = 0;
+    this.alignMoved = true;
+  }
+
+  _endSwitch() {
+    let hp_record = [this.c_singleHP, this.c_scale, this.wound];
+    let ld_record = [this.leadership, this.c_leadership];
+    if (this.status === 1) {
+      this.ammo_record[0] = [this.c_ammo_G, this.c_ammo_A];
+
+      this.loadRealtimeProps();
+      this.img = this.img2;
+      this.c_ammo_G = this.ammo_record[1][0];
+      this.c_ammo_A = this.ammo_record[1][1];
+    } else {
+      this.ammo_record[1] = [this.c_ammo_G, this.c_ammo_A];
+
+      this.loadRealtimeProps();
+      this.img = this.img1;
+      this.c_ammo_G = this.ammo_record[0][0];
+      this.c_ammo_A = this.ammo_record[0][1];
+    }
+    this.c_singleHP = hp_record[0];
+    this.c_scale = hp_record[1];
+    this.wound = hp_record[2];
+    this.leadership = ld_record[0];
+    this.c_leadership = ld_record[1];
+    updateRealTimeProperties(this);
+  }
+
   // =============== Drawing APIs ===============
 
   set_x_y() {
@@ -261,6 +301,8 @@ export class Arm {
   getOriginalHP() {
     return this.singleHP * this.scale;
   }
+
+  switch() {}
 
   getRawTotalDamage(damageType, targetArm) {
     let singleDamage = this._getSingleDamage(damageType, targetArm);
@@ -344,7 +386,7 @@ export class Arm {
   }
 
   getShockingAbility() {
-    return Math.round((this.shock * this.c_scale * 0.5) / this.scale);
+    return Math.round((this.shock * this.c_scale) / this.scale);
   }
 
   getCurrentCombatPower() {

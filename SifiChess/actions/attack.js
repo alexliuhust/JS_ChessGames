@@ -8,7 +8,6 @@ export function armAttackArm(attacker, defender, _damageType) {
   let damageType = _damageType;
   if (typeof _damageType === "undefined") {
     damageType = determineDamageType(attacker, defender);
-    console.log("damageType", damageType);
     if (damageType == null) return;
   }
 
@@ -94,7 +93,7 @@ function decreaseScalesForArms(attacker, damageType, defender) {
   if (damageType === "melee" && defender.size === 2 && attacker.size === 0)
     attacker.c_leadership -= 30;
   attacker.c_leadership -= regularLeadershipDrop(attacker, results[0]);
-  if (damageType === "melee" && attacker.size <= 1)
+  if (attacker.size <= 1)
     attacker.c_leadership -= defender.getShockingAbility();
   if (attacker.c_leadership < 0) attacker.c_leadership = 0;
   // if attacker dies
@@ -114,7 +113,7 @@ function decreaseScalesForArms(attacker, damageType, defender) {
   if (damageType === "melee" && attacker.size === 2 && defender.size === 0)
     defender.c_leadership -= 30;
   defender.c_leadership -= regularLeadershipDrop(defender, results[0]);
-  if (damageType === "melee" && defender.size <= 1)
+  if (defender.size <= 1)
     defender.c_leadership -= attacker.getShockingAbility();
   if (defender.c_leadership < 0) defender.c_leadership = 0;
   // if defender dies

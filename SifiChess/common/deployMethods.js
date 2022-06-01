@@ -154,12 +154,11 @@ export class Deploy {
       for (let i = 0; i < this.images.length; i++) {
         let div = document.getElementById(i);
         let elem = document.createElement("img");
-        elem.src = this.images[i];
+        elem.src = this.images[i][0];
         div.appendChild(elem);
         elem.height = "60";
         elem.width = elem.height;
         elem.style.border = "5px solid white";
-
         this.elems.push(elem);
       }
     };

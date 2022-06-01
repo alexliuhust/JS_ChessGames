@@ -76,7 +76,7 @@ function aotuAttack(attacker, defenders) {
   let distance = result[1];
 
   if (nearestEnemy === null) return;
-  if (distance === 1 && nearestEnemy.G_A === 0 && attacker.G_A === 0)
-    armAttackArm(attacker, nearestEnemy, "melee");
-  else armAttackArm(attacker, nearestEnemy, "missile");
+  if (distance === 1 && nearestEnemy.G_A === 0 && attacker.G_A === 0) {
+    if (attacker.c_melee > 0) armAttackArm(attacker, nearestEnemy, "melee");
+  } else armAttackArm(attacker, nearestEnemy, "missile");
 }

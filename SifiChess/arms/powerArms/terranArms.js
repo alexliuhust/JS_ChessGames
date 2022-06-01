@@ -70,6 +70,7 @@ export class BlackBat extends ArmPrimary.Arm {
     this.G_data = [16, 18, 4, 20];
     this.GAtogether = false;
 
+    this.shock = 100;
     this.loadRealtimeProps();
   }
   _getSingleDamage(damageType, targetArm) {
@@ -151,23 +152,57 @@ export class FireBat extends BlackBat {
   }
 }
 
-export class Sniper extends ArmPrimary.Arm {
+export class StormChariot extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Test 1";
-    this.m_name = "测试1";
+    this.name = "Storm Chariots";
+    this.m_name = "风暴战车";
 
-    this.scale = 10;
-    this.singleHP = 1000;
-    this.speed = 3;
+    this.scale = 15;
+    this.singleHP = 200;
+    this.speed = 5;
 
-    this.type = [0, 1, 1, 1];
-    this.defence_data = [40, 0];
-    this.melee_data = [20, 0];
-    this.GAtogether = false;
+    this.type = [0, 1, 0, 1];
+    this.defence_data = [15, 0];
+    this.melee_data = [0, 0];
+    this.GAtogether = true;
+    this.G_data = [32, 0, 4, 30];
+
+    this.switchable = true;
 
     this.loadRealtimeProps();
+    this.ammo_record = [
+      [30, 20],
+      [30, 20],
+    ];
+  }
+  switch() {
+    if (!this.switchable || this.hasAttacked) return;
+    this._beginSwitch();
+
+    if (this.status === 0) {
+      this.status = 1;
+
+      this.name = "Storm Bunkers";
+      this.m_name = "风暴碉堡";
+      this.speed = 0;
+      this.defence_data = [45, 0];
+      this.GAtogether = false;
+      this.G_data = [0, 0, 0, -1];
+      this.A_data = [50, 0, 7, 20];
+    } else {
+      this.status = 0;
+
+      this.name = "Storm Chariots";
+      this.m_name = "风暴战车";
+      this.speed = 5;
+      this.defence_data = [15, 0];
+      this.GAtogether = true;
+      this.G_data = [32, 0, 4, 30];
+    }
+
+    this._endSwitch();
   }
 }
 
@@ -199,7 +234,7 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 3) return new BlackBat(pos, player);
   if (i === 4) return new BlackBatAH(pos, player);
   if (i === 5) return new FireBat(pos, player);
-  if (i === 6) return new Sniper(pos, player);
+  if (i === 6) return new StormChariot(pos, player);
   if (i === 7) return new Test(pos, player);
   return null;
 }

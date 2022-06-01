@@ -33,11 +33,20 @@ function addImage(srcList) {
   for (let i = 0; i < srcList.length; i++) {
     let div = document.getElementById("allArmImages");
     let elem = document.createElement("img");
-    elem.src = srcList[i];
+    elem.src = srcList[i][0];
     let start = elem.src.lastIndexOf("/") + 1;
     let end = elem.src.lastIndexOf(".");
     elem.id = elem.src.substring(start, end) + "_img";
     div.appendChild(elem);
+
+    if (srcList[i][1]) {
+      let elem2 = document.createElement("img");
+      elem2.src = srcList[i][1];
+      start = elem2.src.lastIndexOf("/") + 1;
+      end = elem2.src.lastIndexOf(".");
+      elem2.id = elem2.src.substring(start, end) + "_img";
+      div.appendChild(elem2);
+    }
   }
 }
 addImage(srcList1);
