@@ -190,7 +190,7 @@ export class StormChariot extends ArmPrimary.Arm {
       this.defence_data = [45, 0];
       this.GAtogether = false;
       this.G_data = [0, 0, 0, -1];
-      this.A_data = [50, 0, 7, 20];
+      this.A_data = [68, 0, 7, 20];
     } else {
       this.status = 0;
 

@@ -335,7 +335,7 @@ export class Arm {
 
     this.c_shield -= realDamage;
     if (this.c_shield < 0) this.c_shield = 0;
-    return [0, 0];
+    return 0;
   }
 
   decreaseScale(attacker, damageType, rawTotalDamage) {
@@ -343,7 +343,6 @@ export class Arm {
 
     let damagePercentage = this._getDamagePercentage(attacker, damageType);
     let realDamage = Math.ceil(rawTotalDamage * damagePercentage);
-    let decreaseScore = 0;
 
     // console.log(this.name, "realDamage", realDamage);
 
@@ -358,8 +357,7 @@ export class Arm {
       this.c_singleHP -= realDamage;
       if (this.c_singleHP <= 0) this.isAlive = false;
 
-      decreaseScore = Math.round(realDamage / 30);
-      return [realDamage, decreaseScore];
+      return realDamage;
     }
 
     // If this arm is a phalanx
@@ -380,8 +378,7 @@ export class Arm {
       this.c_scale -= totalDecrease;
       if (this.c_scale <= 0) this.isAlive = false;
 
-      decreaseScore = Math.round(realDamage / 30);
-      return [totalDecrease, decreaseScore];
+      return totalDecrease;
     }
   }
 
