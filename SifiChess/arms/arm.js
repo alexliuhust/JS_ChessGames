@@ -192,7 +192,7 @@ export class Arm {
     let realDodge = 0;
     for (let i = 0; i < 5; i++) {
       let rand = Math.floor(Math.random() * 100) + 1;
-      if (rand <= dodge) realDodge += 20;
+      if (rand <= dodge) realDodge += 12;
     }
 
     // enh = afterArmorEnhancement(this, this.player.pieceList);

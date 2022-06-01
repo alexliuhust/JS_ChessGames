@@ -155,11 +155,21 @@ export class Deploy {
         let div = document.getElementById(i);
         let elem = document.createElement("img");
         elem.src = this.images[i][0];
-        div.appendChild(elem);
         elem.height = "60";
         elem.width = elem.height;
         elem.style.border = "5px solid white";
+        div.appendChild(elem);
         this.elems.push(elem);
+        this.arms[i].img = elem;
+        this.arms[i].img1 = elem;
+
+        if (this.arms[i].switchable) {
+          let div_h = document.getElementById("hiddenImages");
+          let elem_h = document.createElement("img");
+          elem_h.src = this.images[i][1];
+          div_h.appendChild(elem_h);
+          this.arms[i].img2 = elem_h;
+        }
       }
     };
 

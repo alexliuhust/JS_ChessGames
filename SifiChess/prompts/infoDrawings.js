@@ -27,7 +27,7 @@ export function drawInfoForSelectedPiece(cxt, piece, useMandarin, showCost) {
   drawCombatData(cxt, piece, useMandarin, showCost);
 
   // Draw status
-  drawStatus(cxt, piece, useMandarin);
+  drawSwitchInfo(cxt, piece, useMandarin, showCost);
 }
 
 function drawTitle(cxt, piece, useMandarin, showCost) {
@@ -240,7 +240,7 @@ function drawCombatData(cxt, piece, useMandarin, showCost) {
   Canvas.drawText(cxt, rangeDt[1], dataX[1], textY, RDC, fontSize);
   Canvas.drawText(cxt, rangeDt[2], dataX[2], textY, RDC, fontSize);
 
-  textY += 20;
+  textY += 10;
   if (piece.healing > 0) {
     textY += 20;
     Canvas.drawText(cxt, healText, leftX, textY, HC, fontSize);
@@ -259,14 +259,11 @@ function drawCombatData(cxt, piece, useMandarin, showCost) {
   }
 }
 
-function drawStatus(cxt, piece, useMandarin) {
-  let textY = 510;
+function drawSwitchInfo(cxt, piece, useMandarin, showCost) {
+  let textY = showCost ? 460 : 430;
   Canvas.drawLine(cxt, leftX, textY - 45, leftX + 485, textY - 45, "white", 7);
 
-  if (piece.c_leadership <= 0) {
-    let shockText = useMandarin ? "*士气低迷" : "*Low Morale";
-    let color = "red";
-    let fontSize = 17;
-    Canvas.drawText(cxt, shockText, leftX, textY, color, fontSize);
+  if (piece.switchable) {
+    Canvas.drawImg(cxt, piece.img2, 0, 0, 100, 100, 10, textY - 35, 60, 60);
   }
 }

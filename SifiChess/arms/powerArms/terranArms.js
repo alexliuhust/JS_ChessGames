@@ -29,20 +29,20 @@ export class ShieldMarine extends Marine {
     this.name = "Shield Marines";
     this.m_name = "持盾陆战队";
 
-    this.singleHP = 75;
+    this.singleHP = 70;
     this.speed = 3;
     this.defence_data = [5, 10];
     this.melee_data = [11, 0];
     this.G_data = [14, 0, 3, 25];
 
     this.switchable = true;
-
+    this.cost_bias = 15;
     this.loadRealtimeProps();
     this.ammo_record = [[25, 25]];
   }
   switch() {
     if (!this.switchable || this.hasAttacked) return;
-    this._beginSwitch(false);
+    this._beginSwitch(true);
 
     if (this.status === 0) {
       this.status = 1;
@@ -50,7 +50,7 @@ export class ShieldMarine extends Marine {
       this.name = "Shield Marines (Hold)";
       this.m_name = "持盾陆战队-举盾";
       this.speed = 1;
-      this.defence_data = [30, 0];
+      this.defence_data = [35, 0];
       this.melee_data = [12, 0];
       this.G_data = [14, 0, 4, 25];
     } else {
@@ -180,7 +180,7 @@ export class StormChariot extends ArmPrimary.Arm {
     this.speed = 5;
 
     this.type = [0, 1, 0, 1];
-    this.defence_data = [15, 0];
+    this.defence_data = [15, 20];
     this.melee_data = [0, 0];
     this.GAtogether = true;
     this.G_data = [32, 0, 4, 30];
@@ -203,7 +203,7 @@ export class StormChariot extends ArmPrimary.Arm {
       this.name = "Storm Bunkers";
       this.m_name = "风暴碉堡";
       this.speed = 0;
-      this.defence_data = [40, 0];
+      this.defence_data = [30, 0];
       this.GAtogether = false;
       this.G_data = [0, 0, 0, -1];
       this.A_data = [62, 0, 7, 20];
@@ -213,9 +213,94 @@ export class StormChariot extends ArmPrimary.Arm {
       this.name = "Storm Chariots";
       this.m_name = "风暴战车";
       this.speed = 5;
-      this.defence_data = [15, 0];
+      this.defence_data = [15, 20];
       this.GAtogether = true;
       this.G_data = [32, 0, 4, 30];
+    }
+
+    this._endSwitch(true);
+  }
+}
+
+export class Paladin extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Paladin MBTs";
+    this.m_name = "圣骑士主战坦克";
+    this.missileColor = MC.ATColor;
+    this.missileWeight = 3;
+
+    this.scale = 10;
+    this.singleHP = 300;
+    this.speed = 3;
+
+    this.type = [0, 1, 1, 1];
+    this.defence_data = [40, 0];
+    this.G_data = [55, 45, 4, 20];
+    this.GAtogether = false;
+
+    this.shock = 0;
+    this.switchable = true;
+    this.cost_bias = 59;
+
+    this.healing = 10;
+    this.totalHeal = 200;
+    this.healRange = 3;
+    this.c_totalHeal = 200;
+    this.loadRealtimeProps();
+    this.ammo_record = [
+      [20, 0],
+      [35, 0],
+    ];
+  }
+  _getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (this.status === 0) {
+      if (damageType === "missile") {
+        if (targetArm.G_A === 0 && this.c_ammo_G > 0) {
+          this.c_ammo_G--;
+          singleDamage = this.c_missile_G;
+          if (targetArm.B_M === 1) singleDamage += this.missile_G_bonus;
+        }
+      }
+    } else {
+      if (damageType === "missile") {
+        if (targetArm.G_A === 0 && this.c_ammo_G > 0) {
+          this.c_ammo_G--;
+          singleDamage = this.c_missile_G;
+          if (targetArm.c_scale >= 5) singleDamage += this.missile_G_bonus;
+          if (targetArm.c_scale >= 10) singleDamage += this.missile_G_bonus;
+          if (targetArm.c_scale >= 15) singleDamage += this.missile_G_bonus;
+        }
+      }
+    }
+    return singleDamage;
+  }
+  switch() {
+    if (!this.switchable || this.hasAttacked) return;
+    this._beginSwitch(false);
+
+    if (this.status === 0) {
+      this.status = 1;
+
+      this.name = "Paladin Howitzers";
+      this.m_name = "圣骑士榴弹炮";
+      this.missileColor = MC.BombColor;
+      this.missileWeight = 5;
+      this.speed = 0;
+      this.G_data = [100, 30, 8, 35];
+      this.shock = 30;
+    } else {
+      this.status = 0;
+
+      this.name = "Paladin MBTs";
+      this.m_name = "圣骑士主战坦克";
+      this.missileColor = MC.ATColor;
+      this.missileWeight = 3;
+      this.speed = 3;
+      this.G_data = [55, 45, 4, 20];
+      this.shock = 0;
     }
 
     this._endSwitch(true);
@@ -311,6 +396,8 @@ export class Cruiser extends ArmPrimary.Arm {
 
     this.name = "Cruiser";
     this.m_name = "巡洋舰";
+    this.missileColor = "white";
+    this.missileWeight = 2;
 
     this.scale = 1;
     this.singleHP = 4000;
@@ -320,7 +407,7 @@ export class Cruiser extends ArmPrimary.Arm {
     this.defence_data = [65, 0];
     this.melee_data = [0, 0];
     this.GAtogether = true;
-    this.G_data = [600, 0, 6, 40];
+    this.G_data = [400, 300, 6, 40];
 
     this.switchable = true;
     this.cost_bias = 50;
@@ -329,6 +416,25 @@ export class Cruiser extends ArmPrimary.Arm {
       [40, 40],
       [20, 20],
     ];
+  }
+  _getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (this.status === 0) {
+      if (damageType === "missile" && this.c_ammo_G * this.c_ammo_A > 0) {
+        this.c_ammo_G--;
+        this.c_ammo_A--;
+        singleDamage = this.c_missile_G;
+        if (targetArm.L_H === 0) singleDamage += this.missile_G_bonus;
+      }
+    } else {
+      if (damageType === "missile" && this.c_ammo_G * this.c_ammo_A > 0) {
+        this.c_ammo_G--;
+        this.c_ammo_A--;
+        singleDamage = this.c_missile_G;
+        if (targetArm.L_H === 1) singleDamage += this.missile_G_bonus;
+      }
+    }
+    return singleDamage;
   }
   switch() {
     if (!this.switchable || this.hasAttacked) return;
@@ -339,15 +445,19 @@ export class Cruiser extends ArmPrimary.Arm {
 
       this.name = "Cruiser (Main Gun Salvo)";
       this.m_name = "巡洋舰-主炮齐射";
+      this.missileColor = MC.FireColor;
+      this.missileWeight = 7;
       this.speed = 1;
-      this.G_data = [1000, 0, 8, 20];
+      this.G_data = [1000, 200, 7, 20];
     } else {
       this.status = 0;
 
       this.name = "Cruiser";
       this.m_name = "巡洋舰";
+      this.missileColor = "white";
+      this.missileWeight = 2;
       this.speed = 3;
-      this.G_data = [600, 0, 6, 40];
+      this.G_data = [400, 300, 5, 40];
     }
 
     this._endSwitch(true);
@@ -362,7 +472,8 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 3) return new BlackBat(pos, player);
   if (i === 4) return new BlackBatAP(pos, player);
   if (i === 5) return new StormChariot(pos, player);
-  if (i === 6) return new DeckDropper(pos, player);
-  if (i === 7) return new Cruiser(pos, player);
+  if (i === 6) return new Paladin(pos, player);
+  if (i === 7) return new DeckDropper(pos, player);
+  if (i === 8) return new Cruiser(pos, player);
   return null;
 }
