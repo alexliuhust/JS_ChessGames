@@ -28,7 +28,7 @@ export function calculateCost(arm, showCostDetails) {
   // Type score
   let airScore = arm.G_A === 1 ? 10 : 0;
   let mechScore = arm.B_M === 1 ? 10 : 0;
-  let sizeScore = arm.size * 7;
+  let sizeScore = arm.size * 10;
   let typeScore = airScore + sizeScore + mechScore;
 
   // Healing score
@@ -51,10 +51,11 @@ export function calculateCost(arm, showCostDetails) {
     defendenceScore +
     attackScore +
     typeScore +
+    arm.cost_bias +
     healingScore +
     inspiringScore +
     enhanceScore;
-  // cost = Math.pow(cost, 0.8) * 2.5;
+  cost = Math.pow(cost, 2) / 200;
   cost = Math.round(cost / 5) * 5;
 
   if (showCostDetails) {
@@ -72,6 +73,8 @@ export function calculateCost(arm, showCostDetails) {
       Math.round(attackScore),
       "typeScore",
       Math.round(typeScore),
+      "costBias",
+      Math.round(arm.cost_bias),
       "COST",
       cost
     );

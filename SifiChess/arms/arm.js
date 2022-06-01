@@ -84,6 +84,8 @@ export class Arm {
     this.attackEnhance = 0;
     this.enhanceRange = 0;
 
+    this.cost_bias = 0;
+
     // Load real-time properties for battle
     this.loadRealtimeProps = function (showCostDetails = false) {
       this.img = document.getElementById(`${this.constructor.name}_img`);
@@ -187,20 +189,25 @@ export class Arm {
     let armor = this.armor;
     let dodge = this.dodge;
     if (this.speed >= 4) dodge += (this.speed - 3) * 10;
-    // enh = afterArmorEnhancement(this, this.player.pieceList);
-    let percentage = (100 - (armor + dodge + enh)) / 100;
-    if (percentage < 0.12) percentage = 0.12;
+    let realDodge = 0;
+    for (let i = 0; i < 5; i++) {
+      let rand = Math.floor(Math.random() * 100) + 1;
+      if (rand <= dodge) realDodge += 20;
+    }
 
+    // enh = afterArmorEnhancement(this, this.player.pieceList);
+    let percentage = (100 - (armor + realDodge + enh)) / 100;
+    if (percentage < 0.12) percentage = 0.12;
     return percentage;
   }
 
-  _beginSwitch() {
-    this.hasAttacked = true;
-    this.operable = false;
+  _beginSwitch(canAttackAfterSwitching) {
+    this.hasAttacked = !canAttackAfterSwitching;
+    if (!canAttackAfterSwitching) this.operable = false;
     this.alignMoved = true;
   }
 
-  _endSwitch() {
+  _endSwitch(switchWeapon) {
     let hp_record = [this.c_singleHP, this.c_scale, this.wound];
     let ld_record = [this.leadership, this.c_leadership];
     if (this.status === 1) {
@@ -208,7 +215,7 @@ export class Arm {
 
       this.loadRealtimeProps();
       this.img = this.img2;
-      if (this.GAtogether) {
+      if (!switchWeapon) {
         this.c_ammo_G = this.ammo_record[0][0];
         this.c_ammo_A = this.ammo_record[0][1];
       } else {
@@ -216,7 +223,7 @@ export class Arm {
         this.c_ammo_A = this.ammo_record[1][1];
       }
     } else {
-      if (this.GAtogether) this.ammo_record[0] = [this.c_ammo_G, this.c_ammo_A];
+      if (!switchWeapon) this.ammo_record[0] = [this.c_ammo_G, this.c_ammo_A];
       else this.ammo_record[1] = [this.c_ammo_G, this.c_ammo_A];
 
       this.loadRealtimeProps();

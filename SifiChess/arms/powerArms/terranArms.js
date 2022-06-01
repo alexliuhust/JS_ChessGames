@@ -1,6 +1,5 @@
 import * as ArmPrimary from "../arm.js";
 import { MissileColor as MC } from "../../common/const.js";
-import { updateRealTimeProperties } from "../armTools.js";
 
 export class Marine extends ArmPrimary.Arm {
   constructor(value, player) {
@@ -43,7 +42,7 @@ export class ShieldMarine extends Marine {
   }
   switch() {
     if (!this.switchable || this.hasAttacked) return;
-    this._beginSwitch();
+    this._beginSwitch(false);
 
     if (this.status === 0) {
       this.status = 1;
@@ -65,7 +64,7 @@ export class ShieldMarine extends Marine {
       this.G_data = [14, 0, 3, 25];
     }
 
-    this._endSwitch();
+    this._endSwitch(false);
   }
 }
 
@@ -196,7 +195,7 @@ export class StormChariot extends ArmPrimary.Arm {
   }
   switch() {
     if (!this.switchable || this.hasAttacked) return;
-    this._beginSwitch();
+    this._beginSwitch(false);
 
     if (this.status === 0) {
       this.status = 1;
@@ -219,7 +218,7 @@ export class StormChariot extends ArmPrimary.Arm {
       this.G_data = [32, 0, 4, 30];
     }
 
-    this._endSwitch();
+    this._endSwitch(true);
   }
 }
 
@@ -276,7 +275,7 @@ export class DeckDropper extends ArmPrimary.Arm {
   }
   switch() {
     if (!this.switchable || this.hasAttacked) return;
-    this._beginSwitch();
+    this._beginSwitch(false);
 
     if (this.status === 0) {
       this.status = 1;
@@ -302,7 +301,56 @@ export class DeckDropper extends ArmPrimary.Arm {
       this.A_data = [50, 40, 6, 20];
     }
 
-    this._endSwitch();
+    this._endSwitch(true);
+  }
+}
+
+export class Cruiser extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Cruiser";
+    this.m_name = "巡洋舰";
+
+    this.scale = 1;
+    this.singleHP = 4000;
+    this.speed = 3;
+
+    this.type = [1, 1, 1, 2];
+    this.defence_data = [65, 0];
+    this.melee_data = [0, 0];
+    this.GAtogether = true;
+    this.G_data = [600, 0, 6, 40];
+
+    this.switchable = true;
+    this.cost_bias = 50;
+    this.loadRealtimeProps();
+    this.ammo_record = [
+      [40, 40],
+      [20, 20],
+    ];
+  }
+  switch() {
+    if (!this.switchable || this.hasAttacked) return;
+    this._beginSwitch(true);
+
+    if (this.status === 0) {
+      this.status = 1;
+
+      this.name = "Cruiser (Main Gun Salvo)";
+      this.m_name = "巡洋舰-主炮齐射";
+      this.speed = 1;
+      this.G_data = [1000, 0, 8, 20];
+    } else {
+      this.status = 0;
+
+      this.name = "Cruiser";
+      this.m_name = "巡洋舰";
+      this.speed = 3;
+      this.G_data = [600, 0, 6, 40];
+    }
+
+    this._endSwitch(true);
   }
 }
 
@@ -315,5 +363,6 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 4) return new BlackBatAP(pos, player);
   if (i === 5) return new StormChariot(pos, player);
   if (i === 6) return new DeckDropper(pos, player);
+  if (i === 7) return new Cruiser(pos, player);
   return null;
 }
