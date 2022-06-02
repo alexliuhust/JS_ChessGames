@@ -171,7 +171,7 @@ export const Canvas = {
     }
 
     let ey = arm.y + 48;
-    if (aalen * aglen != 0) ey -= 4;
+    if (arm.ammo_G > 0 || arm.ammo_A > 0) ey -= 4;
     this.drawLine(cxt, arm.x, ey, arm.x + elen, ey, EC, 4);
 
     // Draw operablility mark

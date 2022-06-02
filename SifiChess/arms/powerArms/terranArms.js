@@ -69,6 +69,29 @@ export class ShieldMarine extends Marine {
   }
 }
 
+export class MedicalSquad extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Medical Squad";
+    this.m_name = "医疗队";
+
+    this.scale = 30;
+    this.singleHP = 70;
+    this.speed = 3;
+
+    this.type = [0, 0, 0, 0];
+    this.defence_data = [25, 0];
+    this.melee_data = [10, 0];
+
+    this.healing = 9;
+    this.totalHeal = 150;
+    this.healRange = 2;
+    this.c_totalHeal = 150;
+    this.loadRealtimeProps();
+  }
+}
+
 export class BlackBat extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
@@ -194,7 +217,7 @@ export class StormChariot extends ArmPrimary.Arm {
     if (this.status === 0) {
       this.status = 1;
 
-      this.missileWeight = 3;
+      this.missileWeight = 4;
       this.speed = 0;
       this.defence_data = [30, 0];
       this.GAtogether = false;
@@ -240,10 +263,6 @@ export class Paladin extends ArmPrimary.Arm {
     this.switchable = true;
     this.cost_bias = 59;
 
-    this.healing = 10;
-    this.totalHeal = 200;
-    this.healRange = 3;
-    this.c_totalHeal = 200;
     this.loadRealtimeProps();
     this.ammo_record = [
       [20, 0],
@@ -310,7 +329,7 @@ export class DeckDropper extends ArmPrimary.Arm {
     this.m_name2 = "跳帮陆行机甲";
     this.name = this.name1;
     this.m_name = this.m_name1;
-    this.missileWeight = 3;
+    this.missileWeight = 4;
 
     this.scale = 15;
     this.singleHP = 165;
@@ -374,7 +393,7 @@ export class DeckDropper extends ArmPrimary.Arm {
     } else {
       this.status = 0;
 
-      this.missileWeight = 3;
+      this.missileWeight = 4;
       this.speed = 5;
       this.defence_data = [10, 30];
       this.melee_data = [0, 0];
@@ -469,12 +488,13 @@ export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
   if (i === 0) return new Marine(pos, player);
   if (i === 1) return new ShieldMarine(pos, player);
-  if (i === 2) return new FireBat(pos, player);
-  if (i === 3) return new BlackBat(pos, player);
-  if (i === 4) return new BlackBatShock(pos, player);
-  if (i === 5) return new StormChariot(pos, player);
-  if (i === 6) return new Paladin(pos, player);
-  if (i === 7) return new DeckDropper(pos, player);
-  if (i === 8) return new Cruiser(pos, player);
+  if (i === 2) return new MedicalSquad(pos, player);
+  if (i === 3) return new FireBat(pos, player);
+  if (i === 4) return new BlackBat(pos, player);
+  if (i === 5) return new BlackBatShock(pos, player);
+  if (i === 6) return new StormChariot(pos, player);
+  if (i === 7) return new Paladin(pos, player);
+  if (i === 8) return new DeckDropper(pos, player);
+  if (i === 9) return new Cruiser(pos, player);
   return null;
 }
