@@ -63,6 +63,11 @@ export class MissileEffect {
       let num = maxNum;
       if (attacker.scale > 1) num = Math.min(maxNum, attacker.c_scale);
       if (attacker.missileNumber) num = attacker.missileNumber;
+      if (defender.G_A === 1) {
+        if (attacker.missileColor_A) color = attacker.missileColor_A;
+        if (attacker.missileWeight_A) weight = attacker.missileWeight_A;
+        if (attacker.missileNumber_A) num = attacker.missileNumber_A;
+      }
 
       if (num > 1) {
         for (let i = 0; i < num; i++) {

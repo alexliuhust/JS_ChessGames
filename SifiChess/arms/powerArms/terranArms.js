@@ -329,6 +329,57 @@ export class Paladin extends ArmPrimary.Arm {
   }
 }
 
+export class Annihilator extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Annihilator";
+    this.m_name = "毁灭者";
+    this.extra = "Anti-Large";
+    this.m_extra = "反大型";
+
+    this.missileColor = MC.BombColor;
+    this.missileWeight = 6;
+    this.missileNumber = 2;
+
+    this.missileColor_A = "white";
+    this.missileWeight_A = 4;
+    this.missileNumber_A = 6;
+
+    this.scale = 1;
+    this.singleHP = 3000;
+    this.speed = 3;
+
+    this.type = [0, 1, 1, 2];
+    this.defence_data = [60, 0];
+    this.melee_data = [600, 0];
+    this.G_data = [600, 400, 5, 25];
+    this.A_data = [800, 0, 7, 20];
+    this.GAtogether = false;
+
+    this.cost_bias = 18;
+    this.loadRealtimeProps();
+  }
+  _getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_melee;
+    } else if (damageType === "missile") {
+      if (targetArm.G_A === 0 && this.c_ammo_G > 0) {
+        this.c_ammo_G--;
+        singleDamage = this.c_missile_G;
+        if (targetArm.size >= 1) singleDamage += this.missile_G_bonus;
+      } else if (targetArm.G_A === 1 && this.c_ammo_A > 0) {
+        this.c_ammo_A--;
+        singleDamage = this.c_missile_A;
+      }
+    }
+    return singleDamage;
+  }
+}
+
+// VultureGunship
+
 export class DeckDropper extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
@@ -508,7 +559,8 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 5) return new BlackBatShock(pos, player);
   if (i === 6) return new StormChariot(pos, player);
   if (i === 7) return new Paladin(pos, player);
-  if (i === 8) return new DeckDropper(pos, player);
-  if (i === 9) return new Cruiser(pos, player);
+  if (i === 8) return new Annihilator(pos, player);
+  if (i === 9) return new DeckDropper(pos, player);
+  if (i === 10) return new Cruiser(pos, player);
   return null;
 }
