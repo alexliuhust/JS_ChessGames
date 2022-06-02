@@ -23,6 +23,11 @@ export function armAttackArm(attacker, defender, _damageType) {
   // let enh = afterAttackEnhancement(attacker, attacker.player.pieceList);
   // if (enh > 0) addAttackEnhanceEffect(attacker);
 
+  // Impose slowdown effect
+  if (damageType === "missile" && attacker.slowdown && defender.size != 3) {
+    defender.slowdown_countdown = attacker.slowdown_time + 1;
+  }
+
   setTimeout(() => {
     decreaseScalesForArms(attacker, damageType, defender);
     attacker.hasAttacked = true;

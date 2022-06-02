@@ -68,19 +68,29 @@ player2.addPieces(pieces2, pieces1);
 // ===============================================================
 let endRoundForBlue = document.getElementById("endRoundForBlue");
 let endRoundForRed = document.getElementById("endRoundForRed");
-function refreshRound() {
+function refreshRoundBlue() {
   player1.operatedPieces.clear();
   player1.refresh();
   let endMyRound = player1.currentRound !== 1 && !player1.isMyRound;
   for (let i = 0; i < player1.pieceList.length; i++) {
     player1.pieceList[i].roundRefresh(player1.currentRound, endMyRound);
   }
-
+}
+function refreshRoundRed() {
   player2.operatedPieces.clear();
   player2.refresh();
-  endMyRound = player2.currentRound !== 1 && !player2.isMyRound;
+  let endMyRound = player2.currentRound !== 1 && !player2.isMyRound;
   for (let i = 0; i < player2.pieceList.length; i++) {
     player2.pieceList[i].roundRefresh(player2.currentRound, endMyRound);
+  }
+}
+function refreshRound(color) {
+  if (color === "blue") {
+    refreshRoundBlue();
+    refreshRoundRed();
+  } else {
+    refreshRoundRed();
+    refreshRoundBlue();
   }
 }
 function endBlue() {
@@ -91,7 +101,7 @@ function endBlue() {
   player1.clearForNoSelection();
 
   player2.currentRound++;
-  refreshRound();
+  refreshRound("blue");
 }
 function endRed() {
   endRoundForBlue.style.backgroundColor = "blue";
@@ -101,7 +111,7 @@ function endRed() {
   player2.clearForNoSelection();
 
   player1.currentRound++;
-  refreshRound();
+  refreshRound("red");
 }
 endRoundForBlue.onclick = (e) => {
   endBlue();

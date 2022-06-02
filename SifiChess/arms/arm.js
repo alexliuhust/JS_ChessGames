@@ -71,6 +71,9 @@ export class Arm {
     this.GAtogether = false;
 
     this.shock = 0;
+    this.slowdown = false;
+    this.slowdown_time = 0;
+    this.slowdown_countdown = 0;
 
     this.status = 0;
     this.switchable = false;
@@ -290,7 +293,6 @@ export class Arm {
     }
 
     this.operable = true;
-    this.c_speed = this.speed;
     this.alignMoved = false;
     this.hasAttacked = false;
     this.showSpeed = false;
@@ -304,6 +306,15 @@ export class Arm {
     if (this.c_leadership <= 0) {
       this.hasAttacked = true;
       this.optOut();
+    }
+
+    if (!endMyRound) {
+      if (this.slowdown_countdown > 0) this.slowdown_countdown--;
+      if (this.slowdown_countdown > 0) {
+        this.c_speed = Math.floor(this.speed / 2);
+      } else {
+        this.c_speed = this.speed;
+      }
     }
   }
 

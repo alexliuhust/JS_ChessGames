@@ -160,6 +160,7 @@ function drawCombatData(cxt, piece, useMandarin, showCost) {
   textY = showCost ? 285 : 255;
 
   let speedText = `Speed: ${piece.c_speed}`;
+  if (piece.slowdown_countdown > 0) speedText += " (Slowed Down)";
   let armorText = `Armor: ${piece.c_armor}%`;
   let dodgeText = `Dodge: ${piece.c_dodge}%`;
 
@@ -199,6 +200,7 @@ function drawCombatData(cxt, piece, useMandarin, showCost) {
 
   if (useMandarin) {
     speedText = `速度: ${piece.c_speed}`;
+    if (piece.slowdown_countdown > 0) speedText += " (减速)";
     armorText = `护甲: ${piece.c_armor}%`;
     dodgeText = `闪避: ${piece.c_dodge}%`;
     dataTitle = ["近战", "远程-对地", "远程-对空"];
@@ -217,12 +219,13 @@ function drawCombatData(cxt, piece, useMandarin, showCost) {
     arEnhText = `抗性增强: ${piece.armorEnhance}%`;
     atEnhText = `伤害增强: ${piece.attackEnhance}%`;
   }
-
-  let color = piece.c_speed === 0 ? "red" : "white";
+  let color = "white";
+  if (piece.slowdown_countdown > 0) color = RDC;
+  if (piece.c_speed === 0) color = "red";
   let fontSize = 17;
   Canvas.drawText(cxt, speedText, leftX, textY, color, fontSize);
-  Canvas.drawText(cxt, armorText, leftX + 150, textY, ADC, fontSize);
-  Canvas.drawText(cxt, dodgeText, leftX + 330, textY, GDC, fontSize);
+  Canvas.drawText(cxt, armorText, leftX + 250, textY, ADC, fontSize);
+  Canvas.drawText(cxt, dodgeText, leftX + 380, textY, GDC, fontSize);
 
   textY += 40;
   color = "white";

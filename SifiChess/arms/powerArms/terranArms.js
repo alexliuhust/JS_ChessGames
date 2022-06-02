@@ -41,7 +41,8 @@ export class ShieldMarine extends Marine {
     this.ammo_record = [[25, 25]];
   }
   switch() {
-    if (!this.switchable || this.hasAttacked) return;
+    if (!this.switchable || this.hasAttacked || this.slowdown_countdown > 0)
+      return;
     this._beginSwitch(true);
 
     if (this.status === 0) {
@@ -84,35 +85,6 @@ export class BlackBat extends ArmPrimary.Arm {
     this.type = [0, 0, 1, 0];
     this.defence_data = [35, 0];
     this.melee_data = [17, 0];
-    this.G_data = [16, 18, 4, 20];
-    this.GAtogether = false;
-
-    this.loadRealtimeProps();
-  }
-  _getSingleDamage(damageType, targetArm) {
-    let singleDamage = 0;
-    if (damageType === "melee") {
-      singleDamage = this.c_melee;
-    } else if (damageType === "missile") {
-      if (targetArm.G_A === 0 && this.c_ammo_G > 0) {
-        this.c_ammo_G--;
-        singleDamage = this.c_missile_G;
-        if (targetArm.size === 3) singleDamage += this.missile_G_bonus;
-      }
-    }
-    return singleDamage;
-  }
-}
-
-export class BlackBatAP extends BlackBat {
-  constructor(value, player) {
-    super(value, player);
-    this.missileColor = MC.GhostColor;
-    this.missileWeight = 4;
-
-    this.name = "Black Bats (Armor-Piercing)";
-    this.m_name = "黑蝠步兵-穿甲弹";
-
     this.G_data = [16, 28, 4, 20];
     this.bonus_1 = 18;
     this.bonus_2 = this.G_data[1] - this.bonus_1;
@@ -133,6 +105,22 @@ export class BlackBatAP extends BlackBat {
       }
     }
     return singleDamage;
+  }
+}
+
+export class BlackBatShock extends BlackBat {
+  constructor(value, player) {
+    super(value, player);
+    this.missileColor = MC.GhostColor;
+    this.missileWeight = 4;
+
+    this.name = "Black Bats (Shocking)";
+    this.m_name = "黑蝠步兵-震撼弹";
+
+    this.shock = 10;
+    this.slowdown = true;
+    this.slowdown_time = 2;
+    this.loadRealtimeProps();
   }
 }
 
@@ -194,7 +182,8 @@ export class StormChariot extends ArmPrimary.Arm {
     ];
   }
   switch() {
-    if (!this.switchable || this.hasAttacked) return;
+    if (!this.switchable || this.hasAttacked || this.slowdown_countdown > 0)
+      return;
     this._beginSwitch(false);
 
     if (this.status === 0) {
@@ -278,7 +267,8 @@ export class Paladin extends ArmPrimary.Arm {
     return singleDamage;
   }
   switch() {
-    if (!this.switchable || this.hasAttacked) return;
+    if (!this.switchable || this.hasAttacked || this.slowdown_countdown > 0)
+      return;
     this._beginSwitch(false);
 
     if (this.status === 0) {
@@ -359,7 +349,8 @@ export class DeckDropper extends ArmPrimary.Arm {
     return singleDamage;
   }
   switch() {
-    if (!this.switchable || this.hasAttacked) return;
+    if (!this.switchable || this.hasAttacked || this.slowdown_countdown > 0)
+      return;
     this._beginSwitch(false);
 
     if (this.status === 0) {
@@ -437,7 +428,8 @@ export class Cruiser extends ArmPrimary.Arm {
     return singleDamage;
   }
   switch() {
-    if (!this.switchable || this.hasAttacked) return;
+    if (!this.switchable || this.hasAttacked || this.slowdown_countdown > 0)
+      return;
     this._beginSwitch(true);
 
     if (this.status === 0) {
@@ -470,7 +462,7 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 1) return new ShieldMarine(pos, player);
   if (i === 2) return new FireBat(pos, player);
   if (i === 3) return new BlackBat(pos, player);
-  if (i === 4) return new BlackBatAP(pos, player);
+  if (i === 4) return new BlackBatShock(pos, player);
   if (i === 5) return new StormChariot(pos, player);
   if (i === 6) return new Paladin(pos, player);
   if (i === 7) return new DeckDropper(pos, player);
