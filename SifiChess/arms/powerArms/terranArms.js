@@ -348,7 +348,7 @@ export class Annihilator extends ArmPrimary.Arm {
 
     this.scale = 1;
     this.singleHP = 3000;
-    this.speed = 3;
+    this.speed = 2;
 
     this.type = [0, 1, 1, 2];
     this.defence_data = [60, 0];
@@ -377,8 +377,6 @@ export class Annihilator extends ArmPrimary.Arm {
     return singleDamage;
   }
 }
-
-// VultureGunship
 
 export class DeckDropper extends ArmPrimary.Arm {
   constructor(value, player) {
@@ -466,6 +464,39 @@ export class DeckDropper extends ArmPrimary.Arm {
     }
 
     this._endSwitch(true);
+  }
+}
+
+export class VultureGunship extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Vulture Gunships";
+    this.m_name = "秃鹫武装直升机";
+    this.extra = "Anti-Light";
+    this.m_extra = "反轻甲";
+    this.missileWeight = 3;
+
+    this.scale = 12;
+    this.singleHP = 170;
+    this.speed = 4;
+
+    this.type = [1, 1, 0, 1];
+    this.defence_data = [15, 25];
+    this.melee_data = [0, 0];
+    this.GAtogether = false;
+    this.G_data = [50, 50, 4, 30];
+
+    this.loadRealtimeProps();
+  }
+  _getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (damageType === "missile" && targetArm.G_A === 0 && this.c_ammo_G > 0) {
+      this.c_ammo_G--;
+      singleDamage = this.c_missile_G;
+      if (targetArm.L_H === 0) singleDamage += this.missile_G_bonus;
+    }
+    return singleDamage;
   }
 }
 
@@ -561,6 +592,7 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 7) return new Paladin(pos, player);
   if (i === 8) return new Annihilator(pos, player);
   if (i === 9) return new DeckDropper(pos, player);
-  if (i === 10) return new Cruiser(pos, player);
+  if (i === 10) return new VultureGunship(pos, player);
+  if (i === 11) return new Cruiser(pos, player);
   return null;
 }
