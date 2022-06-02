@@ -266,7 +266,20 @@ function drawSwitchInfo(cxt, piece, useMandarin, showCost) {
   let textY = showCost ? 460 : 430;
   Canvas.drawLine(cxt, leftX, textY - 45, leftX + 485, textY - 45, "white", 7);
 
+  textY -= 20;
   if (piece.switchable) {
-    Canvas.drawImg(cxt, piece.img2, 0, 0, 100, 100, 10, textY - 35, 60, 60);
+    let name = null;
+    // let info = "info goes here";
+    if (piece.status === 0) {
+      Canvas.drawImg(cxt, piece.img2, 0, 0, 100, 100, 10, textY - 15, 60, 60);
+      name = useMandarin ? piece.m_name2 : piece.name2;
+    } else {
+      Canvas.drawImg(cxt, piece.img1, 0, 0, 100, 100, 10, textY - 15, 60, 60);
+      name = useMandarin ? piece.m_name1 : piece.name1;
+    }
+    let title = useMandarin ? "可切换至 " : "Can switch to ";
+    title += `[ ${name} ]`;
+    Canvas.drawText(cxt, title, 80, textY, "white", 18);
+    // Canvas.drawText(cxt, info, 80, textY + 18, "white", 16);
   }
 }

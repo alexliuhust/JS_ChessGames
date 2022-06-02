@@ -26,8 +26,12 @@ export class ShieldMarine extends Marine {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Shield Marines";
-    this.m_name = "持盾陆战队";
+    this.name1 = "Shield Marines";
+    this.m_name1 = "持盾陆战队";
+    this.name2 = "Shield Marines (Hold)";
+    this.m_name2 = "持盾陆战队-举盾";
+    this.name = this.name1;
+    this.m_name = this.m_name1;
 
     this.singleHP = 70;
     this.speed = 3;
@@ -48,8 +52,6 @@ export class ShieldMarine extends Marine {
     if (this.status === 0) {
       this.status = 1;
 
-      this.name = "Shield Marines (Hold)";
-      this.m_name = "持盾陆战队-举盾";
       this.speed = 1;
       this.defence_data = [35, 0];
       this.melee_data = [12, 0];
@@ -57,8 +59,6 @@ export class ShieldMarine extends Marine {
     } else {
       this.status = 0;
 
-      this.name = "Shield Marines";
-      this.m_name = "持盾陆战队";
       this.speed = 3;
       this.defence_data = [5, 10];
       this.melee_data = [11, 0];
@@ -160,8 +160,12 @@ export class StormChariot extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Storm Chariots";
-    this.m_name = "风暴战车";
+    this.name1 = "Storm Chariots";
+    this.m_name1 = "风暴战车";
+    this.name2 = "Storm Bunkers";
+    this.m_name2 = "风暴碉堡";
+    this.name = this.name1;
+    this.m_name = this.m_name1;
 
     this.scale = 15;
     this.singleHP = 200;
@@ -189,8 +193,6 @@ export class StormChariot extends ArmPrimary.Arm {
     if (this.status === 0) {
       this.status = 1;
 
-      this.name = "Storm Bunkers";
-      this.m_name = "风暴碉堡";
       this.speed = 0;
       this.defence_data = [30, 0];
       this.GAtogether = false;
@@ -199,8 +201,6 @@ export class StormChariot extends ArmPrimary.Arm {
     } else {
       this.status = 0;
 
-      this.name = "Storm Chariots";
-      this.m_name = "风暴战车";
       this.speed = 5;
       this.defence_data = [15, 20];
       this.GAtogether = true;
@@ -215,8 +215,12 @@ export class Paladin extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Paladin MBTs";
-    this.m_name = "圣骑士主战坦克";
+    this.name1 = "Paladin MBTs";
+    this.m_name1 = "圣骑士主战坦克";
+    this.name2 = "Paladin Howitzers";
+    this.m_name2 = "圣骑士榴弹炮";
+    this.name = this.name1;
+    this.m_name = this.m_name1;
     this.missileColor = MC.ATColor;
     this.missileWeight = 3;
 
@@ -274,8 +278,6 @@ export class Paladin extends ArmPrimary.Arm {
     if (this.status === 0) {
       this.status = 1;
 
-      this.name = "Paladin Howitzers";
-      this.m_name = "圣骑士榴弹炮";
       this.missileColor = MC.BombColor;
       this.missileWeight = 5;
       this.speed = 0;
@@ -284,8 +286,6 @@ export class Paladin extends ArmPrimary.Arm {
     } else {
       this.status = 0;
 
-      this.name = "Paladin MBTs";
-      this.m_name = "圣骑士主战坦克";
       this.missileColor = MC.ATColor;
       this.missileWeight = 3;
       this.speed = 3;
@@ -301,8 +301,12 @@ export class DeckDropper extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Deck Droppers";
-    this.m_name = "跳帮队";
+    this.name1 = "Deck Dropper Fighters";
+    this.m_name1 = "跳帮战机";
+    this.name2 = "Deck Dropper Mechas";
+    this.m_name2 = "跳帮陆行机甲";
+    this.name = this.name1;
+    this.m_name = this.m_name1;
 
     this.scale = 15;
     this.singleHP = 165;
@@ -356,8 +360,6 @@ export class DeckDropper extends ArmPrimary.Arm {
     if (this.status === 0) {
       this.status = 1;
 
-      this.name = "Deck Droppers (Landed)";
-      this.m_name = "跳帮队-着陆";
       this.speed = 3;
       this.defence_data = [30, 0];
       this.melee_data = [30, 0];
@@ -367,8 +369,6 @@ export class DeckDropper extends ArmPrimary.Arm {
     } else {
       this.status = 0;
 
-      this.name = "Deck Droppers";
-      this.m_name = "跳帮队";
       this.speed = 5;
       this.defence_data = [10, 30];
       this.melee_data = [0, 0];
@@ -385,8 +385,12 @@ export class Cruiser extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Cruiser";
-    this.m_name = "巡洋舰";
+    this.name1 = "Cruiser";
+    this.m_name1 = "巡洋舰";
+    this.name2 = "Cruiser (Main Gun Salvo)";
+    this.m_name2 = "巡洋舰-主炮齐射";
+    this.name = this.name1;
+    this.m_name = this.m_name1;
     this.missileColor = "white";
     this.missileWeight = 2;
 
@@ -435,8 +439,6 @@ export class Cruiser extends ArmPrimary.Arm {
     if (this.status === 0) {
       this.status = 1;
 
-      this.name = "Cruiser (Main Gun Salvo)";
-      this.m_name = "巡洋舰-主炮齐射";
       this.missileColor = MC.FireColor;
       this.missileWeight = 7;
       this.speed = 1;
@@ -444,8 +446,6 @@ export class Cruiser extends ArmPrimary.Arm {
     } else {
       this.status = 0;
 
-      this.name = "Cruiser";
-      this.m_name = "巡洋舰";
       this.missileColor = "white";
       this.missileWeight = 2;
       this.speed = 3;

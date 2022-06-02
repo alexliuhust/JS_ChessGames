@@ -47,6 +47,10 @@ export class Arm {
     this.alignMoved = false;
 
     // Static properties
+    this.name1 = "";
+    this.m_name1 = "";
+    this.name2 = "";
+    this.m_name2 = "";
     this.name = "";
     this.m_name = "";
     this.description = "";
@@ -214,6 +218,8 @@ export class Arm {
     let hp_record = [this.c_singleHP, this.c_scale, this.wound];
     let ld_record = [this.leadership, this.c_leadership];
     if (this.status === 1) {
+      this.name = this.name2;
+      this.m_name = this.m_name2;
       this.ammo_record[0] = [this.c_ammo_G, this.c_ammo_A];
 
       this.loadRealtimeProps();
@@ -226,6 +232,8 @@ export class Arm {
         this.c_ammo_A = this.ammo_record[1][1];
       }
     } else {
+      this.name = this.name1;
+      this.m_name = this.m_name1;
       if (!switchWeapon) this.ammo_record[0] = [this.c_ammo_G, this.c_ammo_A];
       else this.ammo_record[1] = [this.c_ammo_G, this.c_ammo_A];
 
