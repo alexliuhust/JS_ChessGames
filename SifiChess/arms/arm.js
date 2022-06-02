@@ -54,6 +54,9 @@ export class Arm {
     this.name = "";
     this.m_name = "";
     this.description = "";
+    this.m_description = "";
+    this.extra = "";
+    this.m_extra = "";
     this.cost = 0;
 
     this.shield = 0;
@@ -109,9 +112,11 @@ export class Arm {
       this.description = `${ground_air[this.G_A]}-${bio_mech[this.B_M]}-${
         light_heavy[this.L_H]
       }-${size_info[this.size]}`;
+      if (this.extra.length > 0) this.description += `|${this.extra}`;
       this.m_description = `${m_ground_air[this.G_A]}-${m_bio_mech[this.B_M]}-${
         m_light_heavy[this.L_H]
       }-${m_size_info[this.size]}`;
+      if (this.m_extra.length > 0) this.m_description += `|${this.m_extra}`;
 
       this.c_shield = this.shield;
       this.c_shield_armor = this.shield_armor;

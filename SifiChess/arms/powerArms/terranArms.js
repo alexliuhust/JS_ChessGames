@@ -75,6 +75,8 @@ export class MedicalSquad extends ArmPrimary.Arm {
 
     this.name = "Medical Squad";
     this.m_name = "医疗队";
+    this.extra = "Healer";
+    this.m_extra = "治疗者";
 
     this.scale = 30;
     this.singleHP = 70;
@@ -100,6 +102,8 @@ export class BlackBat extends ArmPrimary.Arm {
 
     this.name = "Black Bats";
     this.m_name = "黑蝠步兵";
+    this.extra = "Anti-Large, Anti-Heavy";
+    this.m_extra = "反大型，反重甲";
 
     this.scale = 30;
     this.singleHP = 135;
@@ -139,6 +143,8 @@ export class BlackBatShock extends BlackBat {
 
     this.name = "Black Bats (Shocking)";
     this.m_name = "黑蝠步兵-震撼弹";
+    this.extra = "Anti-Large, Anti-Heavy, Shocker";
+    this.m_extra = "反大型，反重甲，震撼者";
 
     this.shock = 10;
     this.slowdown = true;
@@ -155,6 +161,8 @@ export class FireBat extends BlackBat {
 
     this.name = "Fire Bats";
     this.m_name = "火蝠步兵";
+    this.extra = "Anti-Bio";
+    this.m_extra = "反生物";
 
     this.G_data = [15, 27, 2, 15];
     this.GAtogether = false;
@@ -247,6 +255,8 @@ export class Paladin extends ArmPrimary.Arm {
     this.m_name2 = "圣骑士榴弹炮";
     this.name = this.name1;
     this.m_name = this.m_name1;
+    this.extra = "Anti-Mech / Anti-Aggregation";
+    this.m_extra = "反机械 / 反聚集";
     this.missileColor = MC.ATColor;
     this.missileWeight = 3;
 
@@ -329,6 +339,8 @@ export class DeckDropper extends ArmPrimary.Arm {
     this.m_name2 = "跳帮陆行机甲";
     this.name = this.name1;
     this.m_name = this.m_name1;
+    this.extra = "Anti-Heavy";
+    this.m_extra = "反重甲";
     this.missileWeight = 4;
 
     this.scale = 15;
@@ -416,6 +428,8 @@ export class Cruiser extends ArmPrimary.Arm {
     this.m_name2 = "巡洋舰-主炮齐射";
     this.name = this.name1;
     this.m_name = this.m_name1;
+    this.extra = "Anti-Light / Anti-Heavy";
+    this.m_extra = "反轻甲 / 反重甲";
     this.missileColor = "white";
     this.missileWeight = 2;
     this.missileNumber = 7;

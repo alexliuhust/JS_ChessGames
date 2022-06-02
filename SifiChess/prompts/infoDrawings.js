@@ -31,14 +31,19 @@ export function drawInfoForSelectedPiece(cxt, piece, useMandarin, showCost) {
 }
 
 function drawTitle(cxt, piece, useMandarin, showCost) {
-  if (piece.img !== null) {
-    Canvas.drawImg(cxt, piece.img, 0, 0, 100, 100, 10, 10, 85, 85);
-  }
+  Canvas.drawImg(cxt, piece.img, 0, 0, 100, 100, 10, 10, 85, 85);
 
   let name = useMandarin ? piece.m_name : piece.name;
   let desc = useMandarin ? piece.m_description : piece.description;
+  let extra = "";
+  let index = desc.indexOf("|");
+  if (index != -1) {
+    extra = desc.substring(index + 1);
+    desc = desc.substring(0, index);
+  }
   Canvas.drawText(cxt, name, 105, 30, "white", 24);
-  Canvas.drawText(cxt, desc, 105, 60, DRC, 16);
+  Canvas.drawText(cxt, desc, 105, 60, "white", 16);
+  Canvas.drawText(cxt, extra, 105, 90, DRC, 16);
 
   let yBs = showCost ? 125 : 95;
   if (showCost) {
