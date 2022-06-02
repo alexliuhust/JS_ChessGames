@@ -19,6 +19,9 @@ export class MissileEffect {
     this.dx = this.speed * this.cos;
     this.dy = this.speed * this.sin;
     this.maxTime = this.totalDistance / this.speed;
+    this.flyingTime = this.maxTime;
+    this.bombingTime = 33;
+    this.radius = 25;
 
     this.bias = [];
     for (let i = 0; i < 20; i++) {
@@ -40,10 +43,13 @@ export class MissileEffect {
     this.drawLine = function (x1, y1, x2, y2) {
       Canvas.drawLine(this.cxt, x1, y1, x2, y2, color, weight);
     };
+    this.drawCircle = function (x, y, r) {
+      Canvas.drawArc(this.cxt, x, y, r, color, weight - 1);
+    };
 
     this.draw = function () {
       this.time++;
-      if (this.time > this.maxTime) {
+      if (this.time > this.flyingTime + this.bombingTime) {
         this.isAlive = false;
         return;
       }
@@ -59,15 +65,33 @@ export class MissileEffect {
       if (attacker.missileNumber) num = attacker.missileNumber;
 
       if (num > 1) {
-        for (let i = 0; i < num; i++)
-          this.drawLine(
-            x + this.bias[i],
-            y + this.bias[i + num],
-            x + this.bias[i] + Dx,
-            y + this.bias[i + num] + Dy
-          );
+        for (let i = 0; i < num; i++) {
+          if (this.time <= this.flyingTime) {
+            this.drawLine(
+              x + this.bias[i],
+              y + this.bias[i + num],
+              x + this.bias[i] + Dx,
+              y + this.bias[i + num] + Dy
+            );
+          } else if (weight >= 3) {
+            let x0 = this.x1 + 25 + this.bias[i] + this.flyingTime * this.dx;
+            let y0 =
+              this.y1 + 25 + this.bias[i + num] + this.flyingTime * this.dy;
+            let r =
+              ((this.time - this.flyingTime) * this.radius) / this.bombingTime;
+            this.drawCircle(x0, y0, r);
+          }
+        }
       } else {
-        this.drawLine(x, y, x + Dx, y + Dy);
+        if (this.time <= this.flyingTime) {
+          this.drawLine(x, y, x + Dx, y + Dy);
+        } else if (weight >= 3) {
+          let x0 = this.x1 + 25 + this.flyingTime * this.dx;
+          let y0 = this.y1 + 25 + this.flyingTime * this.dy;
+          let r =
+            ((this.time - this.flyingTime) * this.radius) / this.bombingTime;
+          this.drawCircle(x0, y0, r);
+        }
       }
     };
   }

@@ -73,7 +73,7 @@ export class BlackBat extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
     this.missileColor = MC.ATColor;
-    this.missileWeight = 3;
+    this.missileWeight = 2;
 
     this.name = "Black Bats";
     this.m_name = "黑蝠步兵";
@@ -166,6 +166,7 @@ export class StormChariot extends ArmPrimary.Arm {
     this.m_name2 = "风暴碉堡";
     this.name = this.name1;
     this.m_name = this.m_name1;
+    this.missileWeight = 2;
 
     this.scale = 15;
     this.singleHP = 200;
@@ -193,6 +194,7 @@ export class StormChariot extends ArmPrimary.Arm {
     if (this.status === 0) {
       this.status = 1;
 
+      this.missileWeight = 3;
       this.speed = 0;
       this.defence_data = [30, 0];
       this.GAtogether = false;
@@ -201,6 +203,7 @@ export class StormChariot extends ArmPrimary.Arm {
     } else {
       this.status = 0;
 
+      this.missileWeight = 2;
       this.speed = 5;
       this.defence_data = [15, 20];
       this.GAtogether = true;
@@ -307,6 +310,7 @@ export class DeckDropper extends ArmPrimary.Arm {
     this.m_name2 = "跳帮陆行机甲";
     this.name = this.name1;
     this.m_name = this.m_name1;
+    this.missileWeight = 3;
 
     this.scale = 15;
     this.singleHP = 165;
@@ -360,6 +364,7 @@ export class DeckDropper extends ArmPrimary.Arm {
     if (this.status === 0) {
       this.status = 1;
 
+      this.missileWeight = 2;
       this.speed = 3;
       this.defence_data = [30, 0];
       this.melee_data = [30, 0];
@@ -369,6 +374,7 @@ export class DeckDropper extends ArmPrimary.Arm {
     } else {
       this.status = 0;
 
+      this.missileWeight = 3;
       this.speed = 5;
       this.defence_data = [10, 30];
       this.melee_data = [0, 0];
@@ -393,6 +399,7 @@ export class Cruiser extends ArmPrimary.Arm {
     this.m_name = this.m_name1;
     this.missileColor = "white";
     this.missileWeight = 2;
+    this.missileNumber = 7;
 
     this.scale = 1;
     this.singleHP = 4000;
@@ -441,6 +448,7 @@ export class Cruiser extends ArmPrimary.Arm {
 
       this.missileColor = MC.FireColor;
       this.missileWeight = 7;
+      this.missileNumber = 3;
       this.speed = 1;
       this.G_data = [1000, 200, 7, 20];
     } else {
@@ -448,6 +456,7 @@ export class Cruiser extends ArmPrimary.Arm {
 
       this.missileColor = "white";
       this.missileWeight = 2;
+      this.missileNumber = 7;
       this.speed = 3;
       this.G_data = [400, 300, 5, 40];
     }
