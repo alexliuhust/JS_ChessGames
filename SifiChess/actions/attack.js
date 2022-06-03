@@ -27,10 +27,10 @@ export function armAttackArm(attacker, defender, _damageType) {
   if (damageType === "missile" && attacker.slowdown && defender.size != 3) {
     defender.slowdown_countdown = attacker.slowdown_time + 1;
   }
+  attacker.hasAttacked = true;
 
   setTimeout(() => {
     decreaseScalesForArms(attacker, damageType, defender);
-    attacker.hasAttacked = true;
     defender.isAttacked = true;
   }, sleepRound * 20);
 }

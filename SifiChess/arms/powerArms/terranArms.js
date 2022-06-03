@@ -688,6 +688,31 @@ export class Cruiser extends ArmPrimary.Arm {
   }
 }
 
+export class AircraftCarrier extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Aircraft Carrier";
+    this.m_name = "航空母舰";
+    this.name2 = "Swarm Fighters";
+    this.m_name2 = "蜂群战机";
+    this.missileWeight = 4;
+
+    this.scale = 1;
+    this.singleHP = 5000;
+    this.speed = 2;
+
+    this.type = [1, 1, 1, 2];
+    this.defence_data = [65, 0];
+    this.GAtogether = true;
+    this.G_data = [1000, 0, 9, 50];
+
+    this.cost_bias = 0;
+    this.attached = true;
+    this.loadRealtimeProps();
+  }
+}
+
 export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
   if (i === 0) return new Marine(pos, player);
@@ -704,6 +729,7 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 11) return new DeckDropper(pos, player);
   if (i === 12) return new VultureGunship(pos, player);
   if (i === 13) return new Cruiser(pos, player);
+  if (i === 14) return new AircraftCarrier(pos, player);
 
   return null;
 }

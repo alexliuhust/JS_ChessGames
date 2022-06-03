@@ -84,6 +84,7 @@ export class Arm {
 
     this.status = 0;
     this.switchable = false;
+    this.attached = false;
 
     this.healing = 0;
     this.healRange = 0;
@@ -101,7 +102,7 @@ export class Arm {
       this.img = document.getElementById(`${this.constructor.name}_img`);
       this.img1 = document.getElementById(`${this.constructor.name}_img`);
       this.img2 = null;
-      if (this.switchable)
+      if (this.switchable || this.attached)
         this.img2 = document.getElementById(`${this.constructor.name}_1_img`);
 
       this.G_A = this.type[0];
@@ -233,7 +234,6 @@ export class Arm {
         this.c_ammo_G = this.ammo_record[0][0];
         this.c_ammo_A = this.ammo_record[0][1];
       } else {
-        console.log(this.ammo_record[1][0], this.ammo_record[1][1]);
         this.c_ammo_G = this.ammo_record[1][0];
         this.c_ammo_A = this.ammo_record[1][1];
       }
@@ -311,7 +311,7 @@ export class Arm {
     this.hasAttacked = false;
     this.showSpeed = false;
 
-    if (currentRound > 10) this.c_leadership -= Math.ceil(currentRound / 3);
+    if (this.getTotalHP() < this.getOriginalHP() / 10) this.c_leadership -= 20;
 
     if (this.c_leadership < 0) this.c_leadership = 0;
 

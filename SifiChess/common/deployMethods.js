@@ -163,7 +163,7 @@ export class Deploy {
         this.arms[i].img = elem;
         this.arms[i].img1 = elem;
 
-        if (this.arms[i].switchable) {
+        if (this.arms[i].switchable || this.arms[i].attached) {
           let div_h = document.getElementById("hiddenImages");
           let elem_h = document.createElement("img");
           elem_h.src = this.images[i][1];

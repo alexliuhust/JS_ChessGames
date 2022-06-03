@@ -15,7 +15,7 @@ export function getArmsAndImages(powerCodeName) {
     arms.push(arm);
 
     let imgs = [`../images/${powerCodeName}/${arm.constructor.name}.png`];
-    if (arm.switchable)
+    if (arm.switchable || arm.attached)
       imgs.push(`../images/${powerCodeName}/${arm.constructor.name}_1.png`);
 
     images.push(imgs);

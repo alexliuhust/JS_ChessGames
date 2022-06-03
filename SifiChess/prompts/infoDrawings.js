@@ -287,4 +287,11 @@ function drawSwitchInfo(cxt, piece, useMandarin, showCost) {
     Canvas.drawText(cxt, title, 80, textY, "white", 18);
     // Canvas.drawText(cxt, info, 80, textY + 18, "white", 16);
   }
+  if (piece.attached) {
+    Canvas.drawImg(cxt, piece.img2, 0, 0, 100, 100, 10, textY - 15, 60, 60);
+    let name = useMandarin ? piece.m_name2 : piece.name2;
+    let title = useMandarin ? "可释放 " : "Can release ";
+    title += `[ ${name} ]`;
+    Canvas.drawText(cxt, title, 80, textY, "white", 18);
+  }
 }
