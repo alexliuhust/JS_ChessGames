@@ -97,7 +97,7 @@ function decreaseScalesForArms(attacker, damageType, defender) {
   if (damageType === "melee" && defender.size === 2 && attacker.size === 0)
     attacker.c_leadership -= 30;
   attacker.c_leadership -= regularLeadershipDrop(attacker, results);
-  if (attacker.size <= 1)
+  if (results > 0 && attacker.size <= 1)
     attacker.c_leadership -= defender.getShockingAbility();
   if (attacker.c_leadership < 0) attacker.c_leadership = 0;
   // if attacker dies
@@ -106,6 +106,16 @@ function decreaseScalesForArms(attacker, damageType, defender) {
     defender.c_leadership += Math.round(attacker.cost * 0.5);
     if (defender.c_leadership >= defender.leadership)
       defender.c_leadership = defender.leadership;
+    if (defender.ammo_G > 0 && defender.c_ammo_G < defender.ammo_G / 5) {
+      defender.c_ammo_G += Math.round(defender.ammo_G / 4);
+      if (defender.c_ammo_G > defender.ammo_G)
+        defender.c_ammo_G = defender.ammo_G;
+    }
+    if (defender.ammo_A > 0 && defender.c_ammo_A < defender.ammo_A / 5) {
+      defender.c_ammo_A += Math.round(defender.ammo_A / 4);
+      if (defender.c_ammo_A > defender.ammo_A)
+        defender.c_ammo_A = defender.ammo_A;
+    }
   }
 
   // ============== Attacker attacks ==============
@@ -115,7 +125,7 @@ function decreaseScalesForArms(attacker, damageType, defender) {
   if (damageType === "melee" && attacker.size === 2 && defender.size === 0)
     defender.c_leadership -= 30;
   defender.c_leadership -= regularLeadershipDrop(defender, results);
-  if (defender.size <= 1)
+  if (results > 0 && defender.size <= 1)
     defender.c_leadership -= attacker.getShockingAbility();
   if (defender.c_leadership < 0) defender.c_leadership = 0;
   // if defender dies
@@ -124,5 +134,15 @@ function decreaseScalesForArms(attacker, damageType, defender) {
     attacker.c_leadership += Math.round(attacker.cost * 0.5);
     if (attacker.c_leadership >= attacker.leadership)
       attacker.c_leadership = attacker.leadership;
+    if (attacker.ammo_G > 0 && attacker.c_ammo_G < attacker.ammo_G / 5) {
+      attacker.c_ammo_G += Math.round(attacker.ammo_G / 4);
+      if (attacker.c_ammo_G > attacker.ammo_G)
+        attacker.c_ammo_G = attacker.ammo_G;
+    }
+    if (attacker.ammo_A > 0 && attacker.c_ammo_A < attacker.ammo_A / 5) {
+      attacker.c_ammo_A += Math.round(attacker.ammo_A / 4);
+      if (attacker.c_ammo_A > attacker.ammo_A)
+        attacker.c_ammo_A = attacker.ammo_A;
+    }
   }
 }

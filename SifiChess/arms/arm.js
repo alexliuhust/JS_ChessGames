@@ -233,6 +233,7 @@ export class Arm {
         this.c_ammo_G = this.ammo_record[0][0];
         this.c_ammo_A = this.ammo_record[0][1];
       } else {
+        console.log(this.ammo_record[1][0], this.ammo_record[1][1]);
         this.c_ammo_G = this.ammo_record[1][0];
         this.c_ammo_A = this.ammo_record[1][1];
       }

@@ -143,8 +143,8 @@ export class BlackBatShock extends BlackBat {
 
     this.name = "Black Bats (Shocking)";
     this.m_name = "黑蝠步兵-震撼弹";
-    this.extra = "Anti-Large, Anti-Heavy, Shocker";
-    this.m_extra = "反大型，反重甲，震撼者";
+    this.extra = "Anti-Large, Anti-Heavy, Reducer";
+    this.m_extra = "反大型，反重甲，减速者";
 
     this.shock = 10;
     this.slowdown = true;
@@ -184,6 +184,78 @@ export class FireBat extends BlackBat {
       }
     }
     return singleDamage;
+  }
+}
+
+export class Sniper extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name1 = "Sniper Squad";
+    this.m_name1 = "狙击手小队";
+    this.name2 = "Sniper Squad (Sniping Mode)";
+    this.m_name2 = "狙击手小队-狙击模式";
+    this.name = this.name1;
+    this.m_name = this.m_name1;
+    this.extra = "Anti-Bio";
+    this.m_extra = "反生物";
+
+    this.scale = 20;
+    this.singleHP = 100;
+    this.speed = 4;
+    this.defence_data = [0, 50];
+    this.melee_data = [50, 0];
+    this.GAtogether = false;
+
+    this.switchable = true;
+    this.cost_bias = 40;
+    this.loadRealtimeProps();
+    this.ammo_record = [
+      [0, 0],
+      [20, 20],
+    ];
+  }
+  _getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (this.status === 0) {
+      if (damageType === "melee") singleDamage = this.c_melee;
+    } else {
+      if (damageType === "melee") singleDamage = this.c_melee;
+      else if (damageType === "missile") {
+        if (this.c_ammo_G > 0) {
+          this.c_ammo_G--;
+          this.c_ammo_A--;
+          singleDamage = this.c_missile_G;
+          if (targetArm.B_M === 0) singleDamage += this.missile_G_bonus;
+        }
+      }
+    }
+    return singleDamage;
+  }
+  switch() {
+    if (!this.switchable || this.hasAttacked || this.slowdown_countdown > 0)
+      return;
+    this._beginSwitch(true);
+
+    if (this.status === 0) {
+      this.status = 1;
+
+      this.speed = 0;
+      this.defence_data = [0, 20];
+      this.melee_data = [30, 0];
+      this.GAtogether = true;
+      this.G_data = [20, 50, 6, 20];
+    } else {
+      this.status = 0;
+
+      this.speed = 4;
+      this.defence_data = [0, 50];
+      this.melee_data = [50, 0];
+      this.GAtogether = false;
+      this.G_data = [0, 0, 0, -1];
+    }
+
+    this._endSwitch(true);
   }
 }
 
@@ -378,6 +450,42 @@ export class Annihilator extends ArmPrimary.Arm {
   }
 }
 
+export class SupportDrone extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Support Drones";
+    this.m_name = "支援无人机";
+    this.extra = "Healer, Reducer";
+    this.m_extra = "治疗者，减速者";
+    this.missileColor = MC.GhostColor;
+    this.missileWeight = 8;
+    this.missileNumber = 1;
+
+    this.scale = 5;
+    this.singleHP = 120;
+    this.speed = 4;
+
+    this.type = [1, 1, 0, 0];
+    this.defence_data = [0, 80];
+    this.melee_data = [0, 0];
+    this.GAtogether = true;
+    this.G_data = [30, 0, 5, 30];
+
+    this.shock = 20;
+    this.slowdown = true;
+    this.slowdown_time = 2;
+
+    this.healing = 60;
+    this.totalHeal = 200;
+    this.healRange = 2;
+    this.c_totalHeal = 200;
+
+    this.cost_bias = -125;
+    this.loadRealtimeProps();
+  }
+}
+
 export class DeckDropper extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
@@ -478,14 +586,14 @@ export class VultureGunship extends ArmPrimary.Arm {
     this.missileWeight = 3;
 
     this.scale = 12;
-    this.singleHP = 170;
+    this.singleHP = 160;
     this.speed = 4;
 
     this.type = [1, 1, 0, 1];
-    this.defence_data = [15, 25];
+    this.defence_data = [20, 20];
     this.melee_data = [0, 0];
     this.GAtogether = false;
-    this.G_data = [50, 50, 4, 30];
+    this.G_data = [50, 60, 4, 30];
 
     this.loadRealtimeProps();
   }
@@ -588,11 +696,14 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 3) return new FireBat(pos, player);
   if (i === 4) return new BlackBat(pos, player);
   if (i === 5) return new BlackBatShock(pos, player);
-  if (i === 6) return new StormChariot(pos, player);
-  if (i === 7) return new Paladin(pos, player);
-  if (i === 8) return new Annihilator(pos, player);
-  if (i === 9) return new DeckDropper(pos, player);
-  if (i === 10) return new VultureGunship(pos, player);
-  if (i === 11) return new Cruiser(pos, player);
+  if (i === 6) return new Sniper(pos, player);
+  if (i === 7) return new StormChariot(pos, player);
+  if (i === 8) return new Paladin(pos, player);
+  if (i === 9) return new Annihilator(pos, player);
+  if (i === 10) return new SupportDrone(pos, player);
+  if (i === 11) return new DeckDropper(pos, player);
+  if (i === 12) return new VultureGunship(pos, player);
+  if (i === 13) return new Cruiser(pos, player);
+
   return null;
 }
