@@ -96,6 +96,7 @@ export class Arm {
     this.enhanceRange = 0;
 
     this.cost_bias = 0;
+    this.leadership_bias = 0;
 
     // Load real-time properties for battle
     this.loadRealtimeProps = function (showCostDetails = false) {
@@ -167,7 +168,8 @@ export class Arm {
       this.cost = costResults[0];
 
       // Calculate the leadership according to the battle properties
-      this.leadership = calculateLeaderShip(this, costResults);
+      this.leadership =
+        calculateLeaderShip(this, costResults) + this.leadership_bias;
       this.c_leadership = this.leadership;
     };
   }
@@ -223,6 +225,7 @@ export class Arm {
   _endSwitch(switchWeapon) {
     let hp_record = [this.c_singleHP, this.c_scale, this.wound];
     let ld_record = [this.leadership, this.c_leadership];
+    let sd_record = [this.shield, this.c_shield];
     if (this.status === 1) {
       this.name = this.name2;
       this.m_name = this.m_name2;
@@ -254,6 +257,8 @@ export class Arm {
     this.wound = hp_record[2];
     this.leadership = ld_record[0];
     this.c_leadership = ld_record[1];
+    this.shield = sd_record[0];
+    this.c_shield = sd_record[1];
     updateRealTimeProperties(this);
     this.c_speed = 0;
   }
@@ -367,7 +372,15 @@ export class Arm {
   }
 
   decreaseShield(rawTotalDamage) {
-    let damagePercentage = (100 - this.shield_armor) / 100;
+    let dodge = this.dodge;
+    if (this.speed >= 4) dodge += (this.speed - 3) * 10;
+    let realDodge = 0;
+    for (let i = 0; i < 5; i++) {
+      let rand = Math.floor(Math.random() * 100) + 1;
+      if (rand <= dodge) realDodge += 10;
+    }
+    let damagePercentage = (100 - this.shield_armor - dodge) / 100;
+    if (damagePercentage < 0.1) damagePercentage = 0.1;
     let realDamage = Math.ceil(rawTotalDamage * damagePercentage);
 
     // console.log(this.name, damagePercentage, realDamage);

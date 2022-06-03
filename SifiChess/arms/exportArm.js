@@ -1,7 +1,9 @@
 import * as TerranArms from "./powerArms/terranArms.js";
+import * as ParagardeArms from "./powerArms/paragardeArms.js";
 
 export function exportPower(powerCodeName) {
   if (powerCodeName === "terran") return TerranArms;
+  if (powerCodeName === "paragarde") return ParagardeArms;
 }
 
 export function getArmsAndImages(powerCodeName) {

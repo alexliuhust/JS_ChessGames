@@ -1,7 +1,7 @@
 export function calculateCost(arm, showCostDetails) {
   // Shield score
   let sldScore = arm.shield;
-  sldScore /= 60;
+  sldScore /= 100;
 
   // HP score
   let hpScore = arm.scale * arm.singleHP;
@@ -12,7 +12,7 @@ export function calculateCost(arm, showCostDetails) {
 
   // Armor and dodge score
   let defendenceScore =
-    (arm.shield_armor * 1.2 + arm.armor + arm.dodge * 1.1) * 2;
+    (arm.shield_armor * 0.5 + arm.armor + arm.dodge * 1.1) * 2;
 
   // Attack and other combat score
   let meleeAttack = (((arm.melee + arm.melee_bonus) * arm.scale) / 3) * 0.5;
@@ -22,8 +22,9 @@ export function calculateCost(arm, showCostDetails) {
   let ammo_range = arm.ammo_G + arm.range_G * 10;
   if (!arm.GAtogether) ammo_range += arm.ammo_A + arm.range_A * 10;
   let shock = arm.shock + (arm.slowdown ? 100 : 0);
+  let attached = arm.attached ? 200 : 0;
   let attackScore =
-    (meleeAttack + missileAttack + ammo_range * 10 + shock) / 30;
+    (meleeAttack + missileAttack + ammo_range * 10 + shock + attached) / 30;
 
   // Type score
   let airScore = arm.G_A === 1 ? 10 : 0;
