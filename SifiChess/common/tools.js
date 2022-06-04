@@ -1,8 +1,7 @@
 import {
   HpColor as HC,
   AmmoColor as AC,
-  LeadColor as DC,
-  LevelColor as LC,
+  ExpColor as CC,
   HealColor as EC,
 } from "./const.js";
 
@@ -107,9 +106,9 @@ export const Canvas = {
       }
     }
 
-    // Draw HP, ammo, and leadership bars
+    // Draw HP, ammo bars
     let maxLen = 0;
-    let slen, hlen, aglen, aalen, llen, elen;
+    let slen, hlen, aglen, aalen, llen, elen, clen;
     if (arm.shield === 0) {
       hlen = (50 * arm.getTotalHP()) / arm.getOriginalHP();
       maxLen = 50;
@@ -120,6 +119,7 @@ export const Canvas = {
     }
     llen = (50 * arm.c_leadership) / arm.leadership;
     elen = (50 * arm.c_totalHeal) / arm.totalHeal;
+    clen = (50 * arm.c_totalCharge) / arm.totalCharge;
 
     let sdcolor = "rgb(0, 122, 204)";
     let hpcolor = HC;
@@ -171,8 +171,13 @@ export const Canvas = {
     }
 
     let ey = arm.y + 48;
-    if (arm.ammo_G > 0 || arm.ammo_A > 0) ey -= 4;
+    let cy = arm.y + 48;
+    if (arm.ammo_G > 0 || arm.ammo_A > 0) {
+      ey -= 4;
+      cy -= 4;
+    }
     this.drawLine(cxt, arm.x, ey, arm.x + elen, ey, EC, 4);
+    this.drawLine(cxt, arm.x, cy, arm.x + clen, cy, CC, 4);
 
     // Draw operablility mark
     if (!arm.operable) {

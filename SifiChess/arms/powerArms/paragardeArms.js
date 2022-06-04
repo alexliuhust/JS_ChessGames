@@ -101,6 +101,38 @@ export class BlinkHunter extends ArmPrimary.Arm {
   }
 }
 
+export class ParagardeShield extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Paragarde's Shields";
+    this.m_name = "帕拉加德之盾";
+    this.extra = "Charger, Protector";
+    this.m_extra = "充能者，护卫者";
+
+    this.shield = 400;
+    this.shield_armor = 50;
+    this.scale = 5;
+    this.singleHP = 100;
+    this.speed = 4;
+
+    this.type = [0, 1, 0, 0];
+    this.defence_data = [0, 30];
+    this.GAtogether = true;
+    this.G_data = [20, 0, 4, 20];
+
+    this.charging = 30;
+    this.chargeRange = 2;
+    this.totalCharge = 240;
+    this.c_totalCharge = this.totalCharge;
+    this.armorEnhance = 15;
+    this.enhanceRange = 2;
+
+    this.cost_bias -= 40;
+    this.loadRealtimeProps();
+  }
+}
+
 export class GoldenKnight extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
@@ -184,7 +216,8 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 0) return new PalaceGuard(pos, player);
   if (i === 1) return new BlinkHunter(pos, player);
   if (i === 2) return new GoldenKnight(pos, player);
-  if (i === 3) return new AircraftCarrier(pos, player);
+  if (i === 3) return new ParagardeShield(pos, player);
+  if (i === 4) return new AircraftCarrier(pos, player);
 
   return null;
 }

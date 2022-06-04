@@ -175,6 +175,11 @@ function hightlightExtrabilityRange(cxt, self) {
     range = self.healRange * 50 + 17;
     Canvas.drawArc(cxt, self.x + 25, self.y + 25, range, color, 1);
   }
+  if (self.chargeRange > 0) {
+    color = "rgb(156, 220, 254)";
+    range = self.chargeRange * 50 + 17;
+    Canvas.drawArc(cxt, self.x + 25, self.y + 25, range, color, 1);
+  }
   if (self.inspireRange > 0) {
     color = "rgb(160, 160, 250)";
     range = self.inspireRange * 50 + 21;

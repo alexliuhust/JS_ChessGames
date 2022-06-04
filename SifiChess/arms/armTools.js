@@ -36,6 +36,11 @@ export function calculateCost(arm, showCostDetails) {
   let healingScore = (arm.healing * arm.c_scale) / 10;
   healingScore += (arm.healRange * 10 + arm.totalHeal / 2) / 3;
 
+  // Charging score
+  let chargingScore = (arm.charging * arm.c_scale) / 10;
+  chargingScore += (arm.chargeRange * 10 + arm.totalCharge / 2) / 3;
+  chargingScore *= 0.75;
+
   // Inspiring score
   let inspiringScore = (arm.inspiring * arm.c_scale) / 2 / 10;
   inspiringScore += (arm.inspireRange * 10) / 2;
@@ -54,6 +59,7 @@ export function calculateCost(arm, showCostDetails) {
     typeScore +
     arm.cost_bias +
     healingScore +
+    chargingScore +
     inspiringScore +
     enhanceScore;
   cost = Math.pow(cost, 2) / 200;

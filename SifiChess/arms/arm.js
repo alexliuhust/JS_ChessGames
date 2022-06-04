@@ -6,6 +6,7 @@ import {
 } from "./armTools.js";
 import { triggerAutoAttack } from "../actions/autoAttack.js";
 import { triggerHealing } from "../actions/heal.js";
+import { triggerCharging } from "../actions/charge.js";
 import { triggerInspiring } from "../actions/inspire.js";
 import {
   afterArmorEnhancement,
@@ -89,6 +90,11 @@ export class Arm {
     this.healing = 0;
     this.healRange = 0;
     this.totalHeal = 0;
+    this.c_totalHeal = 0;
+    this.charging = 0;
+    this.chargeRange = 0;
+    this.totalCharge = 0;
+    this.c_totalCharge = 0;
     this.inspiring = 0;
     this.inspireRange = 0;
     this.armorEnhance = 0;
@@ -210,7 +216,7 @@ export class Arm {
       if (rand <= dodge) realDodge += 12;
     }
 
-    // enh = afterArmorEnhancement(this, this.player.pieceList);
+    enh = afterArmorEnhancement(this, this.player.pieceList);
     let percentage = (100 - (armor + realDodge + enh)) / 100;
     if (percentage < 0.12) percentage = 0.12;
     return percentage;
@@ -295,9 +301,11 @@ export class Arm {
 
   roundRefresh(currentRound, endMyRound) {
     let healed = false;
+    let charged = false;
     if (endMyRound) {
       triggerAutoAttack(this, this.player.enemyList);
       healed = triggerHealing(this, this.player.pieceList);
+      charged = triggerCharging(this, this.player.pieceList);
       triggerInspiring(this, this.player.pieceList);
       if (!this.isAttacked) {
         this.c_shield += Math.round(this.shield / 7.5);
@@ -309,6 +317,11 @@ export class Arm {
     if (!healed && this.healing > 0) {
       this.c_totalHeal += Math.round(this.healing / 3);
       if (this.c_totalHeal > this.totalHeal) this.c_totalHeal = this.totalHeal;
+    }
+    if (!charged && this.charging > 0) {
+      this.c_totalCharge += Math.round(this.charging / 3);
+      if (this.c_totalCharge > this.totalCharge)
+        this.c_totalCharge = this.totalCharge;
     }
 
     this.operable = true;
@@ -379,7 +392,9 @@ export class Arm {
       let rand = Math.floor(Math.random() * 100) + 1;
       if (rand <= dodge) realDodge += 10;
     }
-    let damagePercentage = (100 - this.shield_armor - dodge) / 100;
+    let enh = afterArmorEnhancement(this, this.player.pieceList);
+    if (enh > 0 && rawTotalDamage > 0) addArmorEnhanceEffect(this);
+    let damagePercentage = (100 - (this.shield_armor + realDodge + enh)) / 100;
     if (damagePercentage < 0.1) damagePercentage = 0.1;
     let realDamage = Math.ceil(rawTotalDamage * damagePercentage);
 
@@ -402,8 +417,8 @@ export class Arm {
     if (this.scale === 1) {
       if (realDamage > 0) {
         realDamage = Math.max(realDamage, 1);
-        // let enh = afterArmorEnhancement(this, this.player.pieceList);
-        // if (enh > 0) addArmorEnhanceEffect(this);
+        let enh = afterArmorEnhancement(this, this.player.pieceList);
+        if (enh > 0) addArmorEnhanceEffect(this);
       }
 
       this.c_singleHP -= realDamage;
@@ -421,8 +436,8 @@ export class Arm {
         this.wound =
           this.singleHP - (realDamage - totalDecrease * this.singleHP);
         totalDecrease++;
-        // let enh = afterArmorEnhancement(this, this.player.pieceList);
-        // if (enh > 0) addArmorEnhanceEffect(this);
+        let enh = afterArmorEnhancement(this, this.player.pieceList);
+        if (enh > 0) addArmorEnhanceEffect(this);
       } else if (realDamage > 0) {
         this.wound -= realDamage;
       }

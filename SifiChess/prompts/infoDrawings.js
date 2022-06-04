@@ -199,6 +199,7 @@ function drawCombatData(cxt, piece, useMandarin, showCost) {
     dataX[1] = 260;
 
   let healText = `Healing: ${piece.c_totalHeal} / ${piece.totalHeal}`;
+  let chargeText = `Charging: ${piece.c_totalCharge} / ${piece.totalCharge}`;
   let inspText = `Inspiring: ${piece.inspiring}`;
   let arEnhText = `Armor Enhance: ${piece.armorEnhance}%`;
   let atEnhText = `Attack Enhance: ${piece.attackEnhance}%`;
@@ -220,6 +221,7 @@ function drawCombatData(cxt, piece, useMandarin, showCost) {
     attackText = `伤害:`;
     rangeText = `射程:`;
     healText = `治疗量: ${piece.c_totalHeal} / ${piece.totalHeal}`;
+    chargeText = `充能量: ${piece.c_totalCharge} / ${piece.totalCharge}`;
     inspText = `鼓舞: ${piece.inspiring}`;
     arEnhText = `抗性增强: ${piece.armorEnhance}%`;
     atEnhText = `伤害增强: ${piece.attackEnhance}%`;
@@ -248,22 +250,30 @@ function drawCombatData(cxt, piece, useMandarin, showCost) {
   Canvas.drawText(cxt, rangeDt[1], dataX[1], textY, RDC, fontSize);
   Canvas.drawText(cxt, rangeDt[2], dataX[2], textY, RDC, fontSize);
 
-  textY += 10;
+  let pos = [
+    [leftX, textY + 30],
+    [leftX + 250, textY + 30],
+  ];
+  let cur = 0;
   if (piece.healing > 0) {
-    textY += 20;
-    Canvas.drawText(cxt, healText, leftX, textY, HC, fontSize);
+    Canvas.drawText(cxt, healText, pos[cur][0], pos[cur][1], HC, fontSize);
+    cur++;
+  }
+  if (piece.charging > 0) {
+    Canvas.drawText(cxt, chargeText, pos[cur][0], pos[cur][1], EC, fontSize);
+    cur++;
   }
   if (piece.inspiring > 0) {
-    textY += 20;
-    Canvas.drawText(cxt, inspText, leftX, textY, DC, fontSize);
+    Canvas.drawText(cxt, inspText, pos[cur][0], pos[cur][1], DC, fontSize);
+    cur++;
   }
   if (piece.armorEnhance > 0) {
-    textY += 20;
-    Canvas.drawText(cxt, arEnhText, leftX, textY, ArEC, fontSize);
+    Canvas.drawText(cxt, arEnhText, pos[cur][0], pos[cur][1], ArEC, fontSize);
+    cur++;
   }
   if (piece.attackEnhance > 0) {
-    textY += 20;
-    Canvas.drawText(cxt, atEnhText, leftX, textY, AtEC, fontSize);
+    Canvas.drawText(cxt, atEnhText, pos[cur][0], pos[cur][1], AtEC, fontSize);
+    cur++;
   }
 }
 

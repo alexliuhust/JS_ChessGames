@@ -2,6 +2,7 @@ import { MeleeEffect } from "./meleeEffect.js";
 import { MissileEffect } from "./missileEffect.js";
 import { AttachEffect } from "./attachEffect.js";
 import { HealEffect } from "./healEffect.js";
+import { ChargeEffect } from "./chargeEffect.js";
 import { InspireEffect } from "./inspireEffect.js";
 import { EnhanceEffect } from "./enhanceEffect.js";
 
@@ -18,6 +19,10 @@ export function addEffect(list, effectType, attacker, defender, cxt) {
     return effect.maxTime;
   } else if (effectType === "healing") {
     let effect = new HealEffect(defender.x, defender.y, cxt);
+    list.push(effect);
+    return 0;
+  } else if (effectType === "charging") {
+    let effect = new ChargeEffect(defender.x, defender.y, cxt);
     list.push(effect);
     return 0;
   } else if (effectType === "inspiring") {

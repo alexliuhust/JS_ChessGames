@@ -23,14 +23,14 @@ export class AttachEffect {
     this.dy = this.speed * this.sin;
     this.maxTime = this.totalDistance / this.speed;
     this.flyingTime = this.maxTime;
-    this.midTime = Math.round((this.flyingTime * 2) / 3);
+    this.midTime = Math.round((this.flyingTime * 3) / 5);
     // this.midTime = this.flyingTime - 30;
     this.x_a = this.x1;
     this.y_a = this.y1;
 
     this.bias = [];
     for (let i = 0; i < 20; i++) {
-      let bias = Math.floor(Math.random() * 30 - 15);
+      let bias = Math.floor(Math.random() * 40 - 20);
       if (Math.abs(bias - 0) < 5) {
         i--;
         continue;
@@ -48,8 +48,8 @@ export class AttachEffect {
     this.drawCircle = function (x, y, r) {
       Canvas.drawArc(this.cxt, x, y, r, color, weight - 1);
     };
-    this.drawAttach = function (x, y, gc) {
-      Canvas.drawImg(this.cxt, attacker.img2, 0, 0, 100, 100, x, y, 30, 30);
+    this.drawAttach = function (x, y) {
+      Canvas.drawImg(this.cxt, attacker.img2, 0, 0, 100, 100, x, y, 40, 40);
     };
 
     this.draw = function () {
@@ -91,8 +91,7 @@ export class AttachEffect {
         x = this.x_a + 25 + (this.time - this.midTime) * this.dx_a;
         y = this.y_a + 25 + (this.time - this.midTime) * this.dy_a;
       }
-      let gc = attacker.player.playerColor;
-      this.drawAttach(x - 15, y - 15, gc);
+      this.drawAttach(x - 20, y - 20);
     };
   }
 }
