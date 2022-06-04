@@ -222,7 +222,7 @@ export class Arm {
     this.alignMoved = true;
   }
 
-  _endSwitch(switchWeapon) {
+  _endSwitch(switchWeapon, movable) {
     let hp_record = [this.c_singleHP, this.c_scale, this.wound];
     let ld_record = [this.leadership, this.c_leadership];
     let sd_record = [this.shield, this.c_shield];
@@ -260,7 +260,7 @@ export class Arm {
     this.shield = sd_record[0];
     this.c_shield = sd_record[1];
     updateRealTimeProperties(this);
-    this.c_speed = 0;
+    if (!movable) this.c_speed = 0;
   }
 
   // =============== Drawing APIs ===============

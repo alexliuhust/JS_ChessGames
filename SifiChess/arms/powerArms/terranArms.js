@@ -146,7 +146,7 @@ export class BlackBatShock extends BlackBat {
     this.extra = "Anti-Large, Anti-Heavy, Reducer";
     this.m_extra = "反大型，反重甲，减速者";
 
-    this.shock = 10;
+    this.shock = 40;
     this.slowdown = true;
     this.slowdown_time = 2;
     this.loadRealtimeProps();
@@ -255,7 +255,7 @@ export class Sniper extends ArmPrimary.Arm {
       this.G_data = [0, 0, 0, -1];
     }
 
-    this._endSwitch(true);
+    this._endSwitch(true, true);
   }
 }
 

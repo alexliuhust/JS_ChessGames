@@ -125,8 +125,9 @@ function decreaseScalesForArms(attacker, damageType, defender) {
   if (damageType === "melee" && attacker.size === 2 && defender.size === 0)
     defender.c_leadership -= 30;
   defender.c_leadership -= regularLeadershipDrop(defender, results);
-  if (results > 0 && defender.size <= 1)
+  if (results > 0 && defender.size <= 1) {
     defender.c_leadership -= attacker.getShockingAbility();
+  }
   if (defender.c_leadership < 0) defender.c_leadership = 0;
   // if defender dies
   if (!defender.isAlive) {

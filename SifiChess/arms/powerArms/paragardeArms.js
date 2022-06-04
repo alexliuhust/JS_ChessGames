@@ -7,6 +7,8 @@ export class PalaceGuard extends ArmPrimary.Arm {
 
     this.name = "Palace Guards";
     this.m_name = "宫廷卫队";
+    this.extra = "Anti-Light";
+    this.m_extra = "反轻甲";
 
     this.shield = 1200;
     this.shield_armor = 0;
@@ -16,10 +18,18 @@ export class PalaceGuard extends ArmPrimary.Arm {
 
     this.type = [0, 0, 0, 0];
     this.defence_data = [0, 50];
-    this.melee_data = [50, 0];
+    this.melee_data = [50, 50];
 
     this.leadership_bias = 100;
     this.loadRealtimeProps();
+  }
+  _getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_melee;
+      if (targetArm.L_H === 0) singleDamage += this.melee_bonus;
+    }
+    return singleDamage;
   }
 }
 
@@ -31,6 +41,8 @@ export class BlinkHunter extends ArmPrimary.Arm {
     this.m_name1 = "闪烁猎人";
     this.name2 = "Blink Hunters (Blinking Mode)";
     this.m_name2 = "闪烁猎人-闪烁模式";
+    this.extra = "Agile";
+    this.m_extra = "迅捷";
     this.name = this.name1;
     this.m_name = this.m_name1;
     this.missileColor = MC.GhostColor;
@@ -95,30 +107,44 @@ export class GoldenKnight extends ArmPrimary.Arm {
 
     this.name = "Golden Knights";
     this.m_name = "黄金骑士";
+    this.extra = "Anti-Heavy";
+    this.m_extra = "反重甲";
+    this.missileColor = MC.ATColor;
+    this.missileWeight = 5;
 
     this.shield = 800;
     this.shield_armor = 80;
     this.scale = 15;
-    this.singleHP = 150;
+    this.singleHP = 120;
     this.speed = 2;
 
     this.type = [0, 1, 1, 1];
     this.defence_data = [40, 0];
     this.GAtogether = false;
-    this.G_data = [75, 0, 4, 30];
+    this.G_data = [25, 55, 4, 30];
 
     this.loadRealtimeProps();
   }
+  _getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (damageType === "missile") {
+      if (targetArm.G_A === 0 && this.c_ammo_G > 0) {
+        this.c_ammo_G--;
+        singleDamage = this.c_missile_G;
+        if (targetArm.L_H === 1) singleDamage += this.missile_G_bonus;
+      }
+    }
+    return singleDamage;
+  }
   decreaseShield(rawTotalDamage) {
     let armor = 0;
-    let factor = Math.round((rawTotalDamage - 400) / 100);
+    let factor = Math.round((rawTotalDamage - 300) / 100);
+    factor = Math.max(factor, 2);
     armor = (this.shield_armor / 5) * factor;
     let damagePercentage = (100 - armor) / 100;
 
     if (damagePercentage < 0.1) damagePercentage = 0.1;
     let realDamage = Math.ceil(rawTotalDamage * damagePercentage);
-
-    // console.log(this.name, rawTotalDamage, armor);
 
     this.c_shield -= realDamage;
     if (this.c_shield < 0) this.c_shield = 0;
