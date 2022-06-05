@@ -7,8 +7,8 @@ export class PalaceGuard extends ArmPrimary.Arm {
 
     this.name = "Palace Guards";
     this.m_name = "宫廷卫队";
-    this.extra = "Anti-Light";
-    this.m_extra = "反轻甲";
+    this.extra = "Anti-Small";
+    this.m_extra = "反小型";
 
     this.shield = 1200;
     this.shield_armor = 0;
@@ -27,7 +27,7 @@ export class PalaceGuard extends ArmPrimary.Arm {
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_melee;
-      if (targetArm.L_H === 0) singleDamage += this.melee_bonus;
+      if (targetArm.size === 0) singleDamage += this.melee_bonus;
     }
     return singleDamage;
   }
@@ -144,7 +144,7 @@ export class GoldenKnight extends ArmPrimary.Arm {
     this.missileColor = MC.ATColor;
     this.missileWeight = 5;
 
-    this.shield = 800;
+    this.shield = 1000;
     this.shield_armor = 80;
     this.scale = 15;
     this.singleHP = 120;
@@ -170,17 +170,89 @@ export class GoldenKnight extends ArmPrimary.Arm {
   }
   decreaseShield(rawTotalDamage) {
     let armor = 0;
-    let factor = Math.round((rawTotalDamage - 300) / 100);
-    factor = Math.max(factor, 2);
-    armor = (this.shield_armor / 5) * factor;
-    let damagePercentage = (100 - armor) / 100;
 
+    let factor = Math.round(rawTotalDamage / 200);
+    factor = Math.max(factor, 1);
+    armor = (this.shield_armor / 5) * factor;
+
+    let damagePercentage = (100 - armor) / 100;
     if (damagePercentage < 0.1) damagePercentage = 0.1;
-    let realDamage = Math.ceil(rawTotalDamage * damagePercentage);
+    let realDamage = Math.round(rawTotalDamage * damagePercentage);
+
+    if (realDamage > 300) realDamage = 300;
 
     this.c_shield -= realDamage;
     if (this.c_shield < 0) this.c_shield = 0;
     return 0;
+  }
+}
+
+export class GoldenTitan extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Golden Titans";
+    this.m_name = "黄金泰坦";
+    this.extra = "Anti-Bio";
+    this.m_extra = "反生物";
+    this.missileColor = MC.ATColor;
+    this.missileWeight = 2;
+    this.missileNumber = 10;
+
+    this.shield = 1500;
+    this.shield_armor = 20;
+    this.scale = 3;
+    this.singleHP = 1200;
+    this.speed = 2;
+
+    this.type = [0, 1, 1, 2];
+    this.defence_data = [40, 0];
+    this.GAtogether = false;
+    this.G_data = [150, 350, 6, 25];
+
+    this.loadRealtimeProps();
+  }
+  _getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (damageType === "missile") {
+      if (targetArm.G_A === 0 && this.c_ammo_G > 0) {
+        this.c_ammo_G--;
+        singleDamage = this.c_missile_G;
+        if (targetArm.B_M === 0) singleDamage += this.missile_G_bonus;
+      }
+    }
+    return singleDamage;
+  }
+}
+
+export class CurseTitan extends GoldenTitan {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Curse Titans";
+    this.m_name = "诅咒泰坦";
+    this.extra = "Anti-Mech";
+    this.m_extra = "反机械";
+    this.missileColor = MC.MagicColor;
+    this.missileWeight = 7;
+    this.missileNumber = null;
+
+    this.G_data = [300, 200, 6, 25];
+
+    this.cost_bias = 10;
+    this.loadRealtimeProps();
+  }
+  _getSingleDamage(damageType, targetArm) {
+    this.missileNumber = this.c_scale;
+    let singleDamage = 0;
+    if (damageType === "missile") {
+      if (targetArm.G_A === 0 && this.c_ammo_G > 0) {
+        this.c_ammo_G--;
+        singleDamage = this.c_missile_G;
+        if (targetArm.B_M === 1) singleDamage += this.missile_G_bonus;
+      }
+    }
+    return singleDamage;
   }
 }
 
@@ -215,9 +287,11 @@ export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
   if (i === 0) return new PalaceGuard(pos, player);
   if (i === 1) return new BlinkHunter(pos, player);
-  if (i === 2) return new GoldenKnight(pos, player);
-  if (i === 3) return new ParagardeShield(pos, player);
-  if (i === 4) return new AircraftCarrier(pos, player);
+  if (i === 2) return new ParagardeShield(pos, player);
+  if (i === 3) return new GoldenKnight(pos, player);
+  if (i === 4) return new GoldenTitan(pos, player);
+  if (i === 5) return new CurseTitan(pos, player);
+  if (i === 6) return new AircraftCarrier(pos, player);
 
   return null;
 }

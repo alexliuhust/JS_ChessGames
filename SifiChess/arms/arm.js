@@ -61,6 +61,7 @@ export class Arm {
     this.cost = 0;
 
     this.shield = 0;
+    this.max_shield = 0;
     this.shield_armor = 0;
 
     this.scale = 0;
@@ -127,6 +128,7 @@ export class Arm {
       if (this.m_extra.length > 0) this.m_description += `|${this.m_extra}`;
 
       this.c_shield = this.shield;
+      this.max_shield = this.shield;
       this.c_shield_armor = this.shield_armor;
 
       this.c_scale = this.scale;
@@ -444,6 +446,9 @@ export class Arm {
 
       this.c_scale -= totalDecrease;
       if (this.c_scale <= 0) this.isAlive = false;
+
+      let perc = this.c_scale / this.scale;
+      this.shield = Math.round(this.max_shield * perc);
 
       return totalDecrease;
     }

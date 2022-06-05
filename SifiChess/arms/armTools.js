@@ -62,7 +62,9 @@ export function calculateCost(arm, showCostDetails) {
     chargingScore +
     inspiringScore +
     enhanceScore;
-  cost = Math.pow(cost, 2) / 200;
+  // cost = Math.pow(cost, 2) / 200;
+  cost -= 100;
+  cost *= 2.2;
   cost = Math.round(cost / 5) * 5;
 
   if (showCostDetails) {
