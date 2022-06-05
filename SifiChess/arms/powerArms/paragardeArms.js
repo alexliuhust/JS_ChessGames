@@ -165,7 +165,7 @@ export class GoldenKnight extends ArmPrimary.Arm {
     this.missileColor = MC.ATColor;
     this.missileWeight = 5;
 
-    this.shield = 1000;
+    this.shield = 1100;
     this.shield_armor = 80;
     this.scale = 15;
     this.singleHP = 120;
@@ -203,8 +203,12 @@ export class GoldenKnight extends ArmPrimary.Arm {
     if (realDamage > 300) realDamage = 300;
 
     this.c_shield -= realDamage;
-    if (this.c_shield < 0) this.c_shield = 0;
-    return 0;
+    let result = 0;
+    if (this.c_shield < 0) {
+      result = this.c_shield;
+      this.c_shield = 0;
+    }
+    return result;
   }
 }
 
@@ -309,7 +313,7 @@ export class AircraftCarrier extends ArmPrimary.Arm {
     super(value, player);
 
     this.name = "Aircraft Carrier";
-    this.m_name = "航空母舰";
+    this.m_name = "母舰";
     this.name2 = "Swarm Fighters";
     this.m_name2 = "蜂群战机";
     this.missileWeight = 4;

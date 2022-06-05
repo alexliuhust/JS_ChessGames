@@ -39,7 +39,7 @@ export class Arm {
 
     this.isAlive = true;
     this.hasAttacked = false;
-    this.isAttacked = false;
+    this.isAttacked = 0;
     this.operable = true;
     this.prepareToAuto = false;
     this.missileColor = null;
@@ -304,17 +304,19 @@ export class Arm {
   roundRefresh(currentRound, endMyRound) {
     let healed = false;
     let charged = false;
+    if (this.name === "Golden Titans") console.log(this.name, this.isAttacked);
     if (endMyRound) {
       triggerAutoAttack(this, this.player.enemyList);
       healed = triggerHealing(this, this.player.pieceList);
       charged = triggerCharging(this, this.player.pieceList);
       triggerInspiring(this, this.player.pieceList);
-      if (!this.isAttacked) {
+      if (this.isAttacked >= 2) {
         this.c_shield += Math.round(this.shield / 7.5);
         this.c_shield = Math.min(this.c_shield, this.shield);
       }
     } else {
-      this.isAttacked = false;
+      this.isAttacked++;
+      this.isAttacked = Math.min(this.isAttacked, 2);
     }
     if (!healed && this.healing > 0) {
       this.c_totalHeal += Math.round(this.healing / 3);
@@ -382,7 +384,13 @@ export class Arm {
   }
 
   decrease(attacker, damageType, rawTotalDamage) {
-    if (this.c_shield > 0) return this.decreaseShield(rawTotalDamage);
+    let result = 0;
+    if (this.c_shield > 0) {
+      result = this.decreaseShield(rawTotalDamage);
+      // console.log(this.name, "result:", result);
+      if (result < 0) return this.decreaseScale(attacker, damageType, -result);
+      else return 0;
+    }
     return this.decreaseScale(attacker, damageType, rawTotalDamage);
   }
 
@@ -403,8 +411,12 @@ export class Arm {
     // console.log(this.name, damagePercentage, realDamage);
 
     this.c_shield -= realDamage;
-    if (this.c_shield < 0) this.c_shield = 0;
-    return 0;
+    let result = 0;
+    if (this.c_shield < 0) {
+      result = this.c_shield;
+      this.c_shield = 0;
+    }
+    return result;
   }
 
   decreaseScale(attacker, damageType, rawTotalDamage) {
