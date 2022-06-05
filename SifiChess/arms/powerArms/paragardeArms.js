@@ -33,6 +33,38 @@ export class PalaceGuard extends ArmPrimary.Arm {
   }
 }
 
+export class ParagardeShield extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Paragarde's Shields";
+    this.m_name = "帕拉加德之盾";
+    this.extra = "Charger, Protector";
+    this.m_extra = "充能者，护卫者";
+
+    this.shield = 400;
+    this.shield_armor = 50;
+    this.scale = 5;
+    this.singleHP = 100;
+    this.speed = 4;
+
+    this.type = [0, 1, 0, 0];
+    this.defence_data = [0, 30];
+    this.GAtogether = true;
+    this.G_data = [20, 0, 4, 20];
+
+    this.charging = 30;
+    this.chargeRange = 2;
+    this.totalCharge = 240;
+    this.c_totalCharge = this.totalCharge;
+    this.armorEnhance = 15;
+    this.enhanceRange = 2;
+
+    this.cost_bias -= 40;
+    this.loadRealtimeProps();
+  }
+}
+
 export class BlinkHunter extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
@@ -101,34 +133,23 @@ export class BlinkHunter extends ArmPrimary.Arm {
   }
 }
 
-export class ParagardeShield extends ArmPrimary.Arm {
+export class SoulReaper extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Paragarde's Shields";
-    this.m_name = "帕拉加德之盾";
-    this.extra = "Charger, Protector";
-    this.m_extra = "充能者，护卫者";
+    this.name = "Soul Reapers";
+    this.m_name = "灵魂收割者";
 
-    this.shield = 400;
-    this.shield_armor = 50;
-    this.scale = 5;
-    this.singleHP = 100;
+    this.shield = 1200;
+    this.shield_armor = 0;
+    this.scale = 24;
+    this.singleHP = 130;
     this.speed = 4;
 
-    this.type = [0, 1, 0, 0];
-    this.defence_data = [0, 30];
-    this.GAtogether = true;
-    this.G_data = [20, 0, 4, 20];
+    this.type = [0, 0, 0, 0];
+    this.defence_data = [0, 70];
+    this.melee_data = [150, 0];
 
-    this.charging = 30;
-    this.chargeRange = 2;
-    this.totalCharge = 240;
-    this.c_totalCharge = this.totalCharge;
-    this.armorEnhance = 15;
-    this.enhanceRange = 2;
-
-    this.cost_bias -= 40;
     this.loadRealtimeProps();
   }
 }
@@ -256,6 +277,33 @@ export class CurseTitan extends GoldenTitan {
   }
 }
 
+export class ThunderGuard extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Thunder Guard";
+    this.m_name = "雷霆卫";
+    this.missileColor = MC.GhostColor;
+    this.missileWeight = 9;
+    this.missileNumber = 1;
+
+    this.shield = 2500;
+    this.shield_armor = 50;
+    this.scale = 1;
+    this.singleHP = 500;
+    this.speed = 2;
+
+    this.type = [0, 1, 1, 1];
+    this.defence_data = [0, 20];
+    this.melee_data = [2000, 0];
+    this.GAtogether = true;
+    this.G_data = [1000, 0, 2, 40];
+
+    this.cost_bias = 50;
+    this.loadRealtimeProps();
+  }
+}
+
 export class AircraftCarrier extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
@@ -286,12 +334,14 @@ export class AircraftCarrier extends ArmPrimary.Arm {
 export function newAnArm(i, posX, posY, player) {
   let pos = [posX, posY];
   if (i === 0) return new PalaceGuard(pos, player);
-  if (i === 1) return new BlinkHunter(pos, player);
-  if (i === 2) return new ParagardeShield(pos, player);
-  if (i === 3) return new GoldenKnight(pos, player);
-  if (i === 4) return new GoldenTitan(pos, player);
-  if (i === 5) return new CurseTitan(pos, player);
-  if (i === 6) return new AircraftCarrier(pos, player);
+  if (i === 1) return new ParagardeShield(pos, player);
+  if (i === 2) return new BlinkHunter(pos, player);
+  if (i === 3) return new SoulReaper(pos, player);
+  if (i === 4) return new GoldenKnight(pos, player);
+  if (i === 5) return new GoldenTitan(pos, player);
+  if (i === 6) return new CurseTitan(pos, player);
+  if (i === 7) return new ThunderGuard(pos, player);
+  if (i === 8) return new AircraftCarrier(pos, player);
 
   return null;
 }
