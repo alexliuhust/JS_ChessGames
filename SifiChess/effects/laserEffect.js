@@ -16,7 +16,7 @@ export class LaserEffect {
     this.bias = [];
     for (let i = 0; i < 20; i++) {
       let bias = Math.floor(Math.random() * 50 - 25);
-      if (Math.abs(bias - 0) < 5) {
+      if (Math.abs(bias - 0) < 8) {
         i--;
         continue;
       } else this.bias.push(bias);
@@ -51,13 +51,22 @@ export class LaserEffect {
       let weight = (this.maxTime - Math.abs(this.time - this.maxTime)) / 3;
       if (num > 1) {
         for (let i = 0; i < num; i++) {
-          this.drawLaser(
-            this.x1 + 25 + this.bias[i],
-            this.y1 + 25 + this.bias[i + num],
-            this.x2 + 25 + this.bias[i],
-            this.y2 + 25 + this.bias[i + num],
-            weight
-          );
+          if (attacker.scale === 1)
+            this.drawLaser(
+              this.x1 + 25,
+              this.y1 + 25,
+              this.x2 + 25 + this.bias[i],
+              this.y2 + 25 + this.bias[i + num],
+              weight
+            );
+          else
+            this.drawLaser(
+              this.x1 + 25 + this.bias[i],
+              this.y1 + 25 + this.bias[i + num],
+              this.x2 + 25 + this.bias[i],
+              this.y2 + 25 + this.bias[i + num],
+              weight
+            );
         }
       } else {
         this.drawLaser(

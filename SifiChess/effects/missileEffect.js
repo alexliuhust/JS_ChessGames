@@ -84,7 +84,8 @@ export class MissileEffect {
             let x0 = this.x1 + 25 + this.bias[i] + this.flyingTime * this.dx;
             let y0 =
               this.y1 + 25 + this.bias[i + num] + this.flyingTime * this.dy;
-            let r =
+            let r = 0;
+            r +=
               ((this.time - this.flyingTime) * this.radius) / this.bombingTime;
             this.drawExplosion(x0, y0, r);
           }
@@ -95,8 +96,9 @@ export class MissileEffect {
         } else if (weight >= 3) {
           let x0 = this.x1 + 25 + this.flyingTime * this.dx;
           let y0 = this.y1 + 25 + this.flyingTime * this.dy;
-          let r =
-            ((this.time - this.flyingTime) * this.radius) / this.bombingTime;
+          let r = 0;
+          if (attacker.scale === 1 && weight > 5) r = weight + 10;
+          r += ((this.time - this.flyingTime) * this.radius) / this.bombingTime;
           this.drawExplosion(x0, y0, r);
         }
       }

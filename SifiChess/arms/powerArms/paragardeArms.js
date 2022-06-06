@@ -218,9 +218,12 @@ export class ThunderGuard extends ArmPrimary.Arm {
 
     this.name = "Thunder Guard";
     this.m_name = "雷霆卫";
+    this.extra = "Anti-Aggregation";
+    this.m_extra = "反聚集";
     this.missileColor = MC.GhostColor;
     this.missileWeight = 9;
     this.missileNumber = 1;
+    this.missileLaser = true;
 
     this.shield = 2500;
     this.shield_armor = 50;
@@ -244,8 +247,7 @@ export class ThunderGuard extends ArmPrimary.Arm {
       if (targetArm.c_scale >= 3) singleDamage += this.melee_bonus;
       if (targetArm.c_scale >= 6) singleDamage += this.melee_bonus;
       if (targetArm.c_scale >= 9) singleDamage += this.melee_bonus;
-    }
-    if (damageType === "missile") {
+    } else if (damageType === "missile" && this.c_ammo_G > 0) {
       this.c_ammo_G--;
       this.c_ammo_A--;
       singleDamage = this.c_missile_G;
@@ -324,12 +326,133 @@ export class CurseTitan extends FlameTitan {
   }
 }
 
+export class StarLight extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Star Lights";
+    this.m_name = "星光";
+    this.extra = "Anti-Light";
+    this.m_extra = "反轻甲";
+    this.missileWeight = 2;
+    this.missileColor = MC.GhostColor;
+    this.missileWeight_A = 4;
+    this.missileColor_A = MC.GhostColor;
+
+    this.shield = 1000;
+    this.scale = 15;
+    this.singleHP = 100;
+    this.speed = 7;
+
+    this.type = [1, 1, 0, 1];
+    this.defence_data = [0, 56];
+    this.GAtogether = false;
+    this.G_data = [20, 20, 4, 25];
+    this.A_data = [25, 20, 5, 30];
+
+    this.slowdown = true;
+    this.slowdown_time = 2;
+    this.cost_bias = -80;
+    this.loadRealtimeProps();
+  }
+  _getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (damageType === "missile") {
+      if (targetArm.G_A === 0 && this.c_ammo_G > 0) {
+        singleDamage = this.c_missile_G;
+        if (targetArm.L_H === 0) singleDamage += this.missile_G_bonus;
+        this.c_ammo_G--;
+      } else if (targetArm.G_A === 1 && this.c_ammo_A > 0) {
+        singleDamage = this.c_missile_A;
+        if (targetArm.L_H === 0) singleDamage += this.missile_A_bonus;
+        this.c_ammo_A--;
+      }
+    }
+    return singleDamage;
+  }
+}
+
+export class HeliosFrigate extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Helios Frigates";
+    this.m_name = "太阳神护卫舰";
+    this.missileColor = MC.ATColor;
+    this.missileLaser = true;
+    this.missileNumber = 2;
+    this.missileWeight = 10;
+
+    this.shield = 1500;
+    this.shield_armor = 30;
+    this.scale = 2;
+    this.singleHP = 1000;
+    this.speed = 2;
+
+    this.type = [1, 1, 1, 2];
+    this.defence_data = [50, 0];
+    this.GAtogether = true;
+    this.G_data = [600, 0, 6, 40];
+
+    this.loadRealtimeProps();
+  }
+}
+
+export class HurricaneBattleship extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Hurricane Battleship";
+    this.m_name = "飓风战列舰";
+    this.extra = "Anti-Aggregation";
+    this.m_extra = "反聚集";
+    this.missileShape = "circle";
+    this.missileRadius = 12;
+    this.missileNumber = 1;
+    this.missileColor = MC.GhostColor;
+    this.missileWeight = 10;
+
+    this.shield = 2000;
+    this.shield_armor = 40;
+    this.scale = 1;
+    this.singleHP = 2500;
+    this.speed = 2;
+
+    this.type = [1, 1, 1, 2];
+    this.defence_data = [60, 0];
+    this.GAtogether = false;
+    this.G_data = [800, 200, 8, 40];
+    this.A_data = [800, 200, 5, 30];
+
+    this.loadRealtimeProps();
+  }
+  _getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (damageType === "missile") {
+      if (targetArm.G_A === 0 && this.c_ammo_G > 0) {
+        this.c_ammo_G--;
+        singleDamage = this.c_missile_G;
+        if (targetArm.c_scale >= 7) singleDamage += this.missile_G_bonus;
+        if (targetArm.c_scale >= 14) singleDamage += this.missile_G_bonus;
+        if (targetArm.c_scale >= 20) singleDamage += this.missile_G_bonus;
+      } else if (targetArm.G_A === 1 && this.c_ammo_A > 0) {
+        this.c_ammo_A--;
+        singleDamage = this.c_missile_A;
+        if (targetArm.c_scale >= 3) singleDamage += this.missile_A_bonus;
+        if (targetArm.c_scale >= 9) singleDamage += this.missile_A_bonus;
+        if (targetArm.c_scale >= 12) singleDamage += this.missile_A_bonus;
+      }
+    }
+    return singleDamage;
+  }
+}
+
 export class AircraftCarrier extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
     this.name = "Aircraft Carrier";
-    this.m_name = "母舰";
+    this.m_name = "航天母舰";
     this.name2 = "Swarm Fighters";
     this.m_name2 = "蜂群战机";
     this.missileWeight = 4;
@@ -345,7 +468,7 @@ export class AircraftCarrier extends ArmPrimary.Arm {
     this.GAtogether = true;
     this.G_data = [800, 0, 9, 50];
 
-    this.cost_bias = 0;
+    this.cost_bias = 20;
     this.attached = true;
     this.loadRealtimeProps();
   }
@@ -361,7 +484,10 @@ export function newAnArm(i, posX, posY, player) {
     new ThunderGuard([posX, posY], player),
     new FlameTitan([posX, posY], player),
     new CurseTitan([posX, posY], player),
+    new StarLight([posX, posY], player),
+    new HeliosFrigate([posX, posY], player),
     new AircraftCarrier([posX, posY], player),
+    new HurricaneBattleship([posX, posY], player),
   ];
 
   if (i >= 0 && i < armList.length) return armList[i];

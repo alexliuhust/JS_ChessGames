@@ -215,7 +215,7 @@ export class Arm {
     let realDodge = 0;
     for (let i = 0; i < 5; i++) {
       let rand = Math.floor(Math.random() * 100) + 1;
-      if (rand <= dodge) realDodge += 12;
+      if (rand <= dodge) realDodge += 15;
     }
 
     enh = afterArmorEnhancement(this, this.player.pieceList);
@@ -400,7 +400,7 @@ export class Arm {
     let realDodge = 0;
     for (let i = 0; i < 5; i++) {
       let rand = Math.floor(Math.random() * 100) + 1;
-      if (rand <= dodge) realDodge += 10;
+      if (rand <= dodge) realDodge += 15;
     }
     let enh = afterArmorEnhancement(this, this.player.pieceList);
     if (enh > 0 && rawTotalDamage > 0) addArmorEnhanceEffect(this);
@@ -408,7 +408,7 @@ export class Arm {
     if (damagePercentage < 0.1) damagePercentage = 0.1;
     let realDamage = Math.ceil(rawTotalDamage * damagePercentage);
 
-    // console.log(this.name, damagePercentage, realDamage);
+    // console.log(this.name, realDodge, damagePercentage, realDamage);
 
     this.c_shield -= realDamage;
     let result = 0;
