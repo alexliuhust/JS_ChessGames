@@ -331,6 +331,7 @@ export class Paladin extends ArmPrimary.Arm {
     this.m_extra = "反机械 / 反聚集";
     this.missileColor = MC.ATColor;
     this.missileWeight = 3;
+    this.missileShape = null;
 
     this.scale = 10;
     this.singleHP = 300;
@@ -384,6 +385,8 @@ export class Paladin extends ArmPrimary.Arm {
 
       this.missileColor = MC.BombColor;
       this.missileWeight = 5;
+      this.missileShape = "circle";
+      this.missileRadius = 7;
       this.speed = 0;
       this.G_data = [100, 30, 8, 35];
       this.shock = 30;
@@ -392,6 +395,7 @@ export class Paladin extends ArmPrimary.Arm {
 
       this.missileColor = MC.ATColor;
       this.missileWeight = 3;
+      this.missileShape = null;
       this.speed = 3;
       this.G_data = [55, 45, 4, 20];
       this.shock = 0;

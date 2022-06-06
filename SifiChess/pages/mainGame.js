@@ -12,9 +12,27 @@ import * as BannerDraw from "../prompts/bannerDrawings.js";
 import { decodeArmPositionInfo } from "../common/deployMethods.js";
 import { getArmsAndImages } from "../arms/exportArm.js";
 
+// function getReal(rawTotalDamage) {
+//   let armor = 0;
+//   let factor = Math.round(rawTotalDamage / 200);
+//   factor = Math.max(factor, 1);
+//   armor = (80 / 5) * factor;
+//   let damagePercentage = (100 - armor) / 100;
+//   if (damagePercentage < 0.1) damagePercentage = 0.1;
+//   let realDamage = Math.round(rawTotalDamage * damagePercentage);
+//   if (realDamage > 300) realDamage = 300;
+//   return realDamage;
+// }
+// for (let i = 100; i <= 600; i += 10) {
+//   console.log(
+//     `${i}: ${getReal(i)}, ${Math.round(((getReal(i) - i) * 100) / i)}%`
+//   );
+// }
+
 // ===============================================================
 // ====================== Load All Canvases ======================
 // ===============================================================
+
 const canvasList = {
   map: document.getElementById("map").getContext("2d"),
   main: document.getElementById("main").getContext("2d"),
