@@ -116,6 +116,15 @@ export const Canvas = {
       slen = (25 * arm.c_shield) / arm.shield;
       hlen = (25 * arm.getTotalHP()) / arm.getOriginalHP();
       maxLen = 25;
+      this.drawLine(
+        cxt,
+        arm.x + 24,
+        arm.y + 3,
+        arm.x + 26,
+        arm.y + 3,
+        "rgb(100, 100, 100)",
+        5
+      );
     }
     llen = (50 * arm.c_leadership) / arm.leadership;
     elen = (50 * arm.c_totalHeal) / arm.totalHeal;

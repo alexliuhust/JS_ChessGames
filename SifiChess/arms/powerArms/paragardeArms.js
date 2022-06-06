@@ -212,17 +212,62 @@ export class GoldenKnight extends ArmPrimary.Arm {
   }
 }
 
-export class GoldenTitan extends ArmPrimary.Arm {
+export class ThunderGuard extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Golden Titans";
-    this.m_name = "黄金泰坦";
+    this.name = "Thunder Guard";
+    this.m_name = "雷霆卫";
+    this.missileColor = MC.GhostColor;
+    this.missileWeight = 9;
+    this.missileNumber = 1;
+
+    this.shield = 2500;
+    this.shield_armor = 50;
+    this.scale = 1;
+    this.singleHP = 500;
+    this.speed = 2;
+
+    this.type = [0, 1, 1, 1];
+    this.defence_data = [0, 20];
+    this.melee_data = [1200, 600];
+    this.GAtogether = true;
+    this.G_data = [500, 250, 2, 40];
+
+    this.cost_bias = 70;
+    this.loadRealtimeProps();
+  }
+  _getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_melee;
+      if (targetArm.c_scale >= 3) singleDamage += this.melee_bonus;
+      if (targetArm.c_scale >= 6) singleDamage += this.melee_bonus;
+      if (targetArm.c_scale >= 9) singleDamage += this.melee_bonus;
+    }
+    if (damageType === "missile") {
+      this.c_ammo_G--;
+      this.c_ammo_A--;
+      singleDamage = this.c_missile_G;
+      if (targetArm.c_scale >= 7) singleDamage += this.missile_G_bonus;
+      if (targetArm.c_scale >= 14) singleDamage += this.missile_G_bonus;
+      if (targetArm.c_scale >= 20) singleDamage += this.missile_G_bonus;
+    }
+    return singleDamage;
+  }
+}
+
+export class FlameTitan extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Flame Titans";
+    this.m_name = "烈焰泰坦";
     this.extra = "Anti-Bio";
     this.m_extra = "反生物";
     this.missileColor = MC.ATColor;
-    this.missileWeight = 2;
-    this.missileNumber = 10;
+    this.missileWeight = 7;
+    this.missileNumber = null;
 
     this.shield = 1500;
     this.shield_armor = 20;
@@ -250,7 +295,7 @@ export class GoldenTitan extends ArmPrimary.Arm {
   }
 }
 
-export class CurseTitan extends GoldenTitan {
+export class CurseTitan extends FlameTitan {
   constructor(value, player) {
     super(value, player);
 
@@ -258,9 +303,10 @@ export class CurseTitan extends GoldenTitan {
     this.m_name = "诅咒泰坦";
     this.extra = "Anti-Mech";
     this.m_extra = "反机械";
-    this.missileColor = MC.MagicColor;
-    this.missileWeight = 7;
-    this.missileNumber = null;
+    this.missileColor = "red";
+    this.missileShape = "circle";
+    this.missileWeight = 6;
+    this.missileRadius = 6;
 
     this.G_data = [300, 200, 6, 25];
 
@@ -278,33 +324,6 @@ export class CurseTitan extends GoldenTitan {
       }
     }
     return singleDamage;
-  }
-}
-
-export class ThunderGuard extends ArmPrimary.Arm {
-  constructor(value, player) {
-    super(value, player);
-
-    this.name = "Thunder Guard";
-    this.m_name = "雷霆卫";
-    this.missileColor = MC.GhostColor;
-    this.missileWeight = 9;
-    this.missileNumber = 1;
-
-    this.shield = 2500;
-    this.shield_armor = 50;
-    this.scale = 1;
-    this.singleHP = 500;
-    this.speed = 2;
-
-    this.type = [0, 1, 1, 1];
-    this.defence_data = [0, 20];
-    this.melee_data = [2000, 0];
-    this.GAtogether = true;
-    this.G_data = [1000, 0, 2, 40];
-
-    this.cost_bias = 50;
-    this.loadRealtimeProps();
   }
 }
 
@@ -342,9 +361,9 @@ export function newAnArm(i, posX, posY, player) {
   if (i === 2) return new BlinkHunter(pos, player);
   if (i === 3) return new SoulReaper(pos, player);
   if (i === 4) return new GoldenKnight(pos, player);
-  if (i === 5) return new GoldenTitan(pos, player);
-  if (i === 6) return new CurseTitan(pos, player);
-  if (i === 7) return new ThunderGuard(pos, player);
+  if (i === 5) return new ThunderGuard(pos, player);
+  if (i === 6) return new FlameTitan(pos, player);
+  if (i === 7) return new CurseTitan(pos, player);
   if (i === 8) return new AircraftCarrier(pos, player);
 
   return null;

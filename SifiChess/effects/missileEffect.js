@@ -40,10 +40,12 @@ export class MissileEffect {
     if (attacker.missileColor) color = attacker.missileColor;
     weight = attacker.missileWeight;
 
-    this.drawLine = function (x1, y1, x2, y2) {
-      Canvas.drawLine(this.cxt, x1, y1, x2, y2, color, weight);
+    this.drawMissileShell = function (x1, y1, x2, y2) {
+      if (attacker.missileShape === "circle")
+        Canvas.fillArc(this.cxt, x1, y1, attacker.missileRadius, color);
+      else Canvas.drawLine(this.cxt, x1, y1, x2, y2, color, weight);
     };
-    this.drawCircle = function (x, y, r) {
+    this.drawExplosion = function (x, y, r) {
       Canvas.drawArc(this.cxt, x, y, r, color, weight - 1);
     };
 
@@ -72,7 +74,7 @@ export class MissileEffect {
       if (num > 1) {
         for (let i = 0; i < num; i++) {
           if (this.time <= this.flyingTime) {
-            this.drawLine(
+            this.drawMissileShell(
               x + this.bias[i],
               y + this.bias[i + num],
               x + this.bias[i] + Dx,
@@ -84,18 +86,18 @@ export class MissileEffect {
               this.y1 + 25 + this.bias[i + num] + this.flyingTime * this.dy;
             let r =
               ((this.time - this.flyingTime) * this.radius) / this.bombingTime;
-            this.drawCircle(x0, y0, r);
+            this.drawExplosion(x0, y0, r);
           }
         }
       } else {
         if (this.time <= this.flyingTime) {
-          this.drawLine(x, y, x + Dx, y + Dy);
+          this.drawMissileShell(x, y, x + Dx, y + Dy);
         } else if (weight >= 3) {
           let x0 = this.x1 + 25 + this.flyingTime * this.dx;
           let y0 = this.y1 + 25 + this.flyingTime * this.dy;
           let r =
             ((this.time - this.flyingTime) * this.radius) / this.bombingTime;
-          this.drawCircle(x0, y0, r);
+          this.drawExplosion(x0, y0, r);
         }
       }
     };
