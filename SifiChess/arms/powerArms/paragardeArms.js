@@ -267,18 +267,17 @@ export class FlameTitan extends ArmPrimary.Arm {
     this.m_extra = "反生物";
     this.missileColor = MC.ATColor;
     this.missileWeight = 7;
-    this.missileNumber = null;
 
     this.shield = 1500;
     this.shield_armor = 20;
-    this.scale = 3;
-    this.singleHP = 1200;
+    this.scale = 1;
+    this.singleHP = 2000;
     this.speed = 2;
 
     this.type = [0, 1, 1, 2];
-    this.defence_data = [40, 0];
+    this.defence_data = [50, 0];
     this.GAtogether = false;
-    this.G_data = [150, 350, 6, 25];
+    this.G_data = [450, 1050, 6, 25];
 
     this.loadRealtimeProps();
   }
@@ -304,17 +303,15 @@ export class CurseTitan extends FlameTitan {
     this.extra = "Anti-Mech";
     this.m_extra = "反机械";
     this.missileColor = "red";
-    this.missileShape = "circle";
-    this.missileWeight = 6;
-    this.missileRadius = 6;
+    this.missileLaser = true;
+    this.missileNumber = 1;
 
-    this.G_data = [300, 200, 6, 25];
+    this.G_data = [900, 600, 6, 25];
 
     this.cost_bias = 10;
     this.loadRealtimeProps();
   }
   _getSingleDamage(damageType, targetArm) {
-    this.missileNumber = this.c_scale;
     let singleDamage = 0;
     if (damageType === "missile") {
       if (targetArm.G_A === 0 && this.c_ammo_G > 0) {
@@ -355,16 +352,18 @@ export class AircraftCarrier extends ArmPrimary.Arm {
 }
 
 export function newAnArm(i, posX, posY, player) {
-  let pos = [posX, posY];
-  if (i === 0) return new PalaceGuard(pos, player);
-  if (i === 1) return new ParagardeShield(pos, player);
-  if (i === 2) return new BlinkHunter(pos, player);
-  if (i === 3) return new SoulReaper(pos, player);
-  if (i === 4) return new GoldenKnight(pos, player);
-  if (i === 5) return new ThunderGuard(pos, player);
-  if (i === 6) return new FlameTitan(pos, player);
-  if (i === 7) return new CurseTitan(pos, player);
-  if (i === 8) return new AircraftCarrier(pos, player);
+  let armList = [
+    new PalaceGuard([posX, posY], player),
+    new ParagardeShield([posX, posY], player),
+    new BlinkHunter([posX, posY], player),
+    new SoulReaper([posX, posY], player),
+    new GoldenKnight([posX, posY], player),
+    new ThunderGuard([posX, posY], player),
+    new FlameTitan([posX, posY], player),
+    new CurseTitan([posX, posY], player),
+    new AircraftCarrier([posX, posY], player),
+  ];
 
+  if (i >= 0 && i < armList.length) return armList[i];
   return null;
 }

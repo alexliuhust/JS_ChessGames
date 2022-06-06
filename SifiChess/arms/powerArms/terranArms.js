@@ -693,21 +693,22 @@ export class Cruiser extends ArmPrimary.Arm {
 }
 
 export function newAnArm(i, posX, posY, player) {
-  let pos = [posX, posY];
-  if (i === 0) return new Marine(pos, player);
-  if (i === 1) return new ShieldMarine(pos, player);
-  if (i === 2) return new MedicalSquad(pos, player);
-  if (i === 3) return new FireBat(pos, player);
-  if (i === 4) return new BlackBat(pos, player);
-  if (i === 5) return new BlackBatShock(pos, player);
-  if (i === 6) return new Sniper(pos, player);
-  if (i === 7) return new StormChariot(pos, player);
-  if (i === 8) return new Paladin(pos, player);
-  if (i === 9) return new Annihilator(pos, player);
-  if (i === 10) return new SupportDrone(pos, player);
-  if (i === 11) return new DeckDropper(pos, player);
-  if (i === 12) return new VultureGunship(pos, player);
-  if (i === 13) return new Cruiser(pos, player);
-
+  let armList = [
+    new Marine([posX, posY], player),
+    new ShieldMarine([posX, posY], player),
+    new MedicalSquad([posX, posY], player),
+    new FireBat([posX, posY], player),
+    new BlackBat([posX, posY], player),
+    new BlackBatShock([posX, posY], player),
+    new Sniper([posX, posY], player),
+    new StormChariot([posX, posY], player),
+    new Paladin([posX, posY], player),
+    new Annihilator([posX, posY], player),
+    new SupportDrone([posX, posY], player),
+    new VultureGunship([posX, posY], player),
+    new DeckDropper([posX, posY], player),
+    new Cruiser([posX, posY], player),
+  ];
+  if (i >= 0 && i < armList.length) return armList[i];
   return null;
 }
