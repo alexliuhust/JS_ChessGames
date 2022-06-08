@@ -24,7 +24,7 @@ export function armAttackArm(attacker, defender, _damageType) {
   // if (enh > 0) addAttackEnhanceEffect(attacker);
 
   // Impose slowdown effect
-  if (damageType === "missile" && attacker.slowdown && defender.size != 3) {
+  if (attacker.slowdown && defender.size != 3) {
     defender.slowdown_countdown = attacker.slowdown_time + 1;
   }
   attacker.hasAttacked = true;

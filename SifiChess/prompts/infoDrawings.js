@@ -31,7 +31,7 @@ export function drawInfoForSelectedPiece(cxt, piece, useMandarin, showCost) {
 }
 
 function drawTitle(cxt, piece, useMandarin, showCost) {
-  Canvas.drawImg(cxt, piece.img, 0, 0, 100, 100, 10, 10, 85, 85);
+  Canvas.drawImg(cxt, piece.img, 5, 10, 90, 90, 10, 10, 85, 85);
 
   let name = useMandarin ? piece.m_name : piece.name;
   let desc = useMandarin ? piece.m_description : piece.description;
@@ -286,10 +286,10 @@ function drawSwitchInfo(cxt, piece, useMandarin, showCost) {
     let name = null;
     // let info = "info goes here";
     if (piece.status === 0) {
-      Canvas.drawImg(cxt, piece.img2, 0, 0, 100, 100, 10, textY - 15, 60, 60);
+      Canvas.drawImg(cxt, piece.img2, 5, 10, 90, 90, 10, textY - 15, 60, 60);
       name = useMandarin ? piece.m_name2 : piece.name2;
     } else {
-      Canvas.drawImg(cxt, piece.img1, 0, 0, 100, 100, 10, textY - 15, 60, 60);
+      Canvas.drawImg(cxt, piece.img1, 5, 10, 90, 90, 10, textY - 15, 60, 60);
       name = useMandarin ? piece.m_name1 : piece.name1;
     }
     let title = useMandarin ? "可切换至 " : "Can switch to ";

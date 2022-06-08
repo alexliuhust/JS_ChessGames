@@ -205,13 +205,14 @@ export class Sniper extends ArmPrimary.Arm {
     this.speed = 4;
     this.defence_data = [0, 50];
     this.melee_data = [50, 0];
-    this.GAtogether = false;
+    this.GAtogether = true;
+    this.G_data = [30, 0, 4, 25];
 
     this.switchable = true;
-    this.cost_bias = 40;
+    this.cost_bias = 0;
     this.loadRealtimeProps();
     this.ammo_record = [
-      [0, 0],
+      [25, 25],
       [20, 20],
     ];
   }
@@ -219,15 +220,18 @@ export class Sniper extends ArmPrimary.Arm {
     let singleDamage = 0;
     if (this.status === 0) {
       if (damageType === "melee") singleDamage = this.c_melee;
+      else if (damageType === "missile" && this.c_ammo_G > 0) {
+        this.c_ammo_G--;
+        this.c_ammo_A--;
+        singleDamage = this.c_missile_G;
+      }
     } else {
       if (damageType === "melee") singleDamage = this.c_melee;
-      else if (damageType === "missile") {
-        if (this.c_ammo_G > 0) {
-          this.c_ammo_G--;
-          this.c_ammo_A--;
-          singleDamage = this.c_missile_G;
-          if (targetArm.B_M === 0) singleDamage += this.missile_G_bonus;
-        }
+      else if (damageType === "missile" && this.c_ammo_G > 0) {
+        this.c_ammo_G--;
+        this.c_ammo_A--;
+        singleDamage = this.c_missile_G;
+        if (targetArm.B_M === 0) singleDamage += this.missile_G_bonus;
       }
     }
     return singleDamage;
@@ -244,15 +248,15 @@ export class Sniper extends ArmPrimary.Arm {
       this.defence_data = [0, 20];
       this.melee_data = [30, 0];
       this.GAtogether = true;
-      this.G_data = [20, 50, 6, 20];
+      this.G_data = [30, 50, 6, 20];
     } else {
       this.status = 0;
 
       this.speed = 4;
       this.defence_data = [0, 50];
       this.melee_data = [50, 0];
-      this.GAtogether = false;
-      this.G_data = [0, 0, 0, -1];
+      this.GAtogether = true;
+      this.G_data = [30, 0, 4, 25];
     }
 
     this._endSwitch(true, true);

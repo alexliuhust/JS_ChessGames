@@ -5,10 +5,14 @@ export class PalaceGuard extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Palace Guards";
-    this.m_name = "宫廷卫队";
-    this.extra = "Anti-Small";
-    this.m_extra = "反小型";
+    this.name1 = "Palace Guards";
+    this.m_name1 = "宫廷卫队";
+    this.name2 = "Palace Guards (Giant Hammer)";
+    this.m_name2 = "宫廷卫队-巨锤";
+    this.name = this.name1;
+    this.m_name = this.m_name1;
+    this.extra = "Anti-Small / Anti-Heavy";
+    this.m_extra = "反小型 / 反重甲";
 
     this.shield = 1200;
     this.shield_armor = 0;
@@ -21,15 +25,53 @@ export class PalaceGuard extends ArmPrimary.Arm {
     this.melee_data = [50, 50];
 
     this.leadership_bias = 100;
+    this.cost_bias = 10;
+    this.switchable = true;
+    this.slowdown = false;
+    this.slowdown_time = 0;
     this.loadRealtimeProps();
+    this.ammo_record = [
+      [-1, -1],
+      [-1, -1],
+    ];
   }
   _getSingleDamage(damageType, targetArm) {
     let singleDamage = 0;
     if (damageType === "melee") {
-      singleDamage = this.c_melee;
-      if (targetArm.size === 0) singleDamage += this.melee_bonus;
+      if (this.status === 0) {
+        singleDamage = this.c_melee;
+        if (targetArm.size === 0) singleDamage += this.melee_bonus;
+      } else {
+        singleDamage = this.c_melee;
+        if (targetArm.L_H === 1) singleDamage += this.melee_bonus;
+      }
     }
     return singleDamage;
+  }
+  switch() {
+    if (!this.switchable || this.hasAttacked || this.slowdown_countdown > 0)
+      return;
+    this._beginSwitch(true);
+
+    if (this.status === 0) {
+      this.status = 1;
+
+      this.speed = 3;
+      this.defence_data = [35, 20];
+      this.melee_data = [40, 70];
+      this.slowdown = true;
+      this.slowdown_time = 1;
+    } else {
+      this.status = 0;
+
+      this.speed = 4;
+      this.defence_data = [0, 50];
+      this.melee_data = [50, 50];
+      this.slowdown = false;
+      this.slowdown_time = 0;
+    }
+
+    this._endSwitch(true);
   }
 }
 
@@ -164,6 +206,8 @@ export class GoldenKnight extends ArmPrimary.Arm {
     this.m_extra = "反重甲";
     this.missileColor = MC.ATColor;
     this.missileWeight = 5;
+    this.missileShape = "circle";
+    this.missileRadius = 7;
 
     this.shield = 1100;
     this.shield_armor = 80;
@@ -231,7 +275,7 @@ export class ThunderGuard extends ArmPrimary.Arm {
     this.singleHP = 500;
     this.speed = 2;
 
-    this.type = [0, 1, 1, 1];
+    this.type = [0, 0, 1, 1];
     this.defence_data = [0, 20];
     this.melee_data = [1200, 600];
     this.GAtogether = true;
@@ -263,7 +307,7 @@ export class FlameTitan extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Flame Titans";
+    this.name = "Flame Titan";
     this.m_name = "烈焰泰坦";
     this.extra = "Anti-Bio";
     this.m_extra = "反生物";
@@ -300,7 +344,7 @@ export class CurseTitan extends FlameTitan {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Curse Titans";
+    this.name = "Curse Titan";
     this.m_name = "诅咒泰坦";
     this.extra = "Anti-Mech";
     this.m_extra = "反机械";
