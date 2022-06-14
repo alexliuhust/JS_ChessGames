@@ -198,6 +198,13 @@ export const Canvas = {
       this.drawLine(cxt, x_s, y_1, x_e, y_2, "red", thick);
       this.drawLine(cxt, x_s, y_2, x_e, y_1, "red", thick);
     }
+
+    // Draw Broodable mark
+    if (arm.brooder && arm.brood_time >= arm.brood_max) {
+      let x = arm.x + 25;
+      let y = arm.y + 13;
+      this.drawArc(cxt, x, y, 5, "green", 3);
+    }
   },
 };
 
