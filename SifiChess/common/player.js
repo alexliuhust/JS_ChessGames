@@ -310,6 +310,8 @@ export class Player {
       ) {
         if (this.nowSelectPiece.switchable) this.nowSelectPiece.switch();
         if (this.nowSelectPiece.brooder) this.nowSelectPiece.brood();
+        if (this.nowSelectPiece.self_deto > 0)
+          this.nowSelectPiece.triggerSelfDeto();
         this.clearForNoSelection();
       }
     };

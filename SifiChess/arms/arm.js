@@ -5,6 +5,7 @@ import {
   updateRealTimeProperties,
 } from "./armTools.js";
 import { triggerAutoAttack } from "../actions/autoAttack.js";
+import { sef_detonation } from "../actions/selfDeto.js";
 import { broodAnArm } from "../actions/brood.js";
 import { triggerHealing } from "../actions/heal.js";
 import { triggerCharging } from "../actions/charge.js";
@@ -81,6 +82,10 @@ export class Arm {
     this.A_data = [0, 0, 0, -1];
 
     this.GAtogether = false;
+
+    this.deto_target = 0;
+    this.self_deto = 0;
+    this.self_deto_bonus = 0;
 
     this.shock = 0;
     this.slowdown = false;
@@ -282,6 +287,16 @@ export class Arm {
     return null;
   }
 
+  _getSingleDeto(targetArm) {
+    let singleDamage = this.self_deto;
+    return singleDamage;
+  }
+
+  _checkSelfDeto(totalDecrease) {
+    if (this.self_deto <= 0) return;
+    sef_detonation(this, totalDecrease);
+  }
+
   // =============== Drawing APIs ===============
 
   set_x_y() {
@@ -480,14 +495,22 @@ export class Arm {
         this.wound -= realDamage;
       }
 
+      if (totalDecrease > this.c_scale) totalDecrease = this.c_scale;
       this.c_scale -= totalDecrease;
       if (this.c_scale <= 0) this.isAlive = false;
 
       let perc = this.c_scale / this.scale;
       this.shield = Math.round(this.max_shield * perc);
 
+      this._checkSelfDeto(totalDecrease);
       return totalDecrease;
     }
+  }
+
+  triggerSelfDeto() {
+    if (this.self_deto <= 0) return;
+    this._checkSelfDeto(this.c_scale);
+    this.isAlive = false;
   }
 
   getShockingAbility() {

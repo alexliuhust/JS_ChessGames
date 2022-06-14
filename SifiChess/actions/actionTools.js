@@ -7,6 +7,14 @@ export function calculateDistance(x1, y1, x2, y2) {
   return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
 }
 
+export function calculateDistance2arms(arm1, arm2) {
+  let x1 = arm1.positionX;
+  let y1 = arm1.positionY;
+  let x2 = arm2.positionX;
+  let y2 = arm2.positionY;
+  return calculateDistance(x1, y1, x2, y2);
+}
+
 export function areAligned(x1, y1, x2, y2) {
   return x1 === x2 || y1 === y2;
 }

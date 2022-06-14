@@ -1,4 +1,5 @@
 import { MeleeEffect } from "./meleeEffect.js";
+import { SelfDetoEffect } from "./selfDetoEffect.js";
 import { MissileEffect } from "./missileEffect.js";
 import { LaserEffect } from "./laserEffect.js";
 import { AttachEffect } from "./attachEffect.js";
@@ -12,6 +13,10 @@ export function addEffect(list, effectType, attacker, defender, cxt) {
     let effect = new MeleeEffect(defender.x, defender.y, cxt);
     list.push(effect);
     return effect.maxTime / 2 + 1;
+  } else if (effectType === "selfDeto") {
+    let effect = new SelfDetoEffect(attacker, cxt);
+    list.push(effect);
+    return 0;
   } else if (effectType === "missile") {
     let effect = null;
     if (attacker.attached) effect = new AttachEffect(attacker, defender, cxt);

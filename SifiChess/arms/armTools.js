@@ -14,7 +14,13 @@ export function calculateCost(arm, showCostDetails) {
   let defendenceScore = (arm.shield_armor * 0.5 + arm.armor + arm.dodge) * 2;
 
   // Attack and other combat score
-  let meleeAttack = (((arm.melee + arm.melee_bonus) * arm.scale) / 3) * 0.5;
+  let meleeAttack =
+    (((arm.melee +
+      arm.melee_bonus +
+      (arm.self_deto + arm.self_deto_bonus) * 4) *
+      arm.scale) /
+      3) *
+    0.5;
   let missileAttack_G = arm.missile_G + arm.missile_G_bonus;
   let missileAttack_A = (arm.missile_A + arm.missile_A_bonus) * 0.65;
   let missileAttack = (missileAttack_G + missileAttack_A) * arm.scale;
