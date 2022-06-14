@@ -308,7 +308,8 @@ export class Player {
         this.nowSelectPiece.operable &&
         !this.nowSelectPiece.hasAttacked
       ) {
-        this.nowSelectPiece.switch();
+        if (this.nowSelectPiece.switchable) this.nowSelectPiece.switch();
+        if (this.nowSelectPiece.brooder) this.nowSelectPiece.brood();
         this.clearForNoSelection();
       }
     };

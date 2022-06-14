@@ -5,6 +5,7 @@ import {
   updateRealTimeProperties,
 } from "./armTools.js";
 import { triggerAutoAttack } from "../actions/autoAttack.js";
+import { broodAnArm } from "../actions/brood.js";
 import { triggerHealing } from "../actions/heal.js";
 import { triggerCharging } from "../actions/charge.js";
 import { triggerInspiring } from "../actions/inspire.js";
@@ -38,6 +39,8 @@ export class Arm {
     this.showSpeed = false;
 
     this.isAlive = true;
+    this.live_max = -1;
+    this.live_time = 0;
     this.hasAttacked = false;
     this.isAttacked = 0;
     this.operable = true;
@@ -87,7 +90,10 @@ export class Arm {
     this.status = 0;
     this.switchable = false;
     this.attached = false;
+    this.hasBroodVersion = false;
     this.brooder = false;
+    this.brood_time = 0;
+    this.brood_max = 0;
 
     this.healing = 0;
     this.healRange = 0;
@@ -272,6 +278,10 @@ export class Arm {
     if (!movable) this.c_speed = 0;
   }
 
+  _prepareBrooding() {
+    return null;
+  }
+
   // =============== Drawing APIs ===============
 
   set_x_y() {
@@ -315,9 +325,13 @@ export class Arm {
         this.c_shield += Math.round(this.shield / 7.5);
         this.c_shield = Math.min(this.c_shield, this.shield);
       }
+      this.brood_time++;
     } else {
       this.isAttacked++;
       this.isAttacked = Math.min(this.isAttacked, 2);
+      this.live_time++;
+      if (this.live_max != -1 && this.live_time >= this.live_max)
+        this.isAlive = false;
     }
     if (!healed && this.healing > 0) {
       this.c_totalHeal += Math.round(this.healing / 3);
@@ -365,6 +379,15 @@ export class Arm {
   }
 
   switch() {}
+
+  brood() {
+    if (this.brood_time < this.brood_max) return;
+    let brooded = this._prepareBrooding();
+    if (!brooded) return;
+    let result = broodAnArm(this, brooded);
+    if (result) this.brood_time = 0;
+    // console.log(this.brood_time);
+  }
 
   getRawTotalDamage(damageType, targetArm) {
     let singleDamage = this._getSingleDamage(damageType, targetArm);

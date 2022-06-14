@@ -10,6 +10,8 @@ export class Arlmantises extends ArmPrimary.Arm {
     this.extra = "Agile";
     this.m_extra = "迅捷";
 
+    this.hasBroodVersion = true;
+
     this.scale = 90;
     this.singleHP = 25;
     this.speed = 5;
@@ -28,14 +30,15 @@ export class Arlmantises_B extends Arlmantises {
   constructor(value, player) {
     super(value, player);
 
+    this.live_max = 6;
+    this.live_time = 0;
+
     this.name = "Arlmantises (Brooded)";
     this.m_name = "阿尔螳-孵化";
     this.extra = "Agile";
     this.m_extra = "迅捷";
 
     this.scale = 40;
-    this.singleHP = 25;
-    this.speed = 5;
 
     this.loadRealtimeProps();
   }
@@ -60,14 +63,25 @@ export class Mothermantis extends ArmPrimary.Arm {
     this.GAtogether = true;
     this.G_data = [500, 0, 4, 30];
 
+    this.brooder = true;
+    this.brood_time = 3;
+    this.brood_max = 3;
+
+    this.healing = 6;
+    this.totalHeal = 200;
+    this.c_totalHeal = 200;
+    this.healRange = 2;
     this.loadRealtimeProps();
+  }
+  _prepareBrooding() {
+    let brooded = new Arlmantises_B([0, 0], this.player);
+    return brooded;
   }
 }
 
 export function newAnArm(i, posX, posY, player) {
   let armList = [
     new Arlmantises([posX, posY], player),
-    new Arlmantises_B([posX, posY], player),
     new Mothermantis([posX, posY], player),
   ];
   if (i >= 0 && i < armList.length) return armList[i];

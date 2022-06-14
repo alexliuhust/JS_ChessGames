@@ -29,7 +29,8 @@ export function calculateCost(arm, showCostDetails) {
   let airScore = arm.G_A === 1 ? 10 : 0;
   let mechScore = arm.B_M === 1 ? 10 : 0;
   let sizeScore = arm.size * 10;
-  let typeScore = airScore + sizeScore + mechScore;
+  let broodScore = arm.brooder ? 20 : 0;
+  let typeScore = airScore + sizeScore + mechScore + broodScore;
 
   // Healing score
   let healingScore = (arm.healing * arm.c_scale) / 10;
