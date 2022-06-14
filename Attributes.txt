@@ -1,35 +1,22 @@
-infantry (160*20, 120*40, 100*50, 80*80)
-singleHP 20, 40, 50, 80
+Arlmantises阿尔螳         Arlmantises (Brooded)阿尔螳-孵化
+Estavulgs爆炸虫
 
-meleeAttack ~24
+Rockscarabs岩甲虫
+Fuegoscarabs火甲虫      Fuegoscarabs (air-defense)火甲虫-对空
 
-archers (120*20, 90*40, 80*50, 60*80)
-singleHP 20, 40, 50, 80
+Flechacondas箭刺虫     Picospines剑脊
+Furiacondas狂暴虫       Heraldspines虫锋
 
-missileAttack ~24
+Gigascarab巨甲虫
 
-cavalry (50)
-singleHP 100, 120, 140
+Mothermantis螳后
 
-monster-infantry (30)
-singleHP 200, 240, 250, 270, 300, 350
+Mutawasps异蜂              Mutawasps (Brooded)异蜂-孵化
 
-monster
-singleHP 6000 ~ 10000
+Bladehornets利刃巨蜂
+Firewings Megahornets炽翼巨蜂
 
-artillery
-singleHP 800 ~ 1000
-
-
-
-
-
-
-
-
-
-
-
+Queen蜂后
 
 
 

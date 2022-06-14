@@ -38,14 +38,16 @@ export const MissileColor = {
   BombColor: "rgb(210, 121, 121)",
 };
 
-export const PowerList = ["terran", "paragarde"];
+export const PowerList = ["terran", "paragarde", "muta"];
 export const PowerMap = new Map([
   ["terran", "Terran Union"],
   ["paragarde", "Paragarde"],
+  ["muta", "Mutaterra"],
 ]);
 export const M_PowerMap = new Map([
   ["terran", "人类联盟"],
   ["paragarde", "帕拉加德"],
+  ["muta", "异变之地"],
 ]);
 
 export const DirectMap = new Map([

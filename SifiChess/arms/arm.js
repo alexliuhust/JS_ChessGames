@@ -87,6 +87,7 @@ export class Arm {
     this.status = 0;
     this.switchable = false;
     this.attached = false;
+    this.brooder = false;
 
     this.healing = 0;
     this.healRange = 0;

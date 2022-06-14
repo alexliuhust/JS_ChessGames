@@ -11,8 +11,7 @@ export function calculateCost(arm, showCostDetails) {
   let movingScore = arm.speed * 10;
 
   // Armor and dodge score
-  let defendenceScore =
-    (arm.shield_armor * 0.5 + arm.armor + arm.dodge * 1.1) * 2;
+  let defendenceScore = (arm.shield_armor * 0.5 + arm.armor + arm.dodge) * 2;
 
   // Attack and other combat score
   let meleeAttack = (((arm.melee + arm.melee_bonus) * arm.scale) / 3) * 0.5;
