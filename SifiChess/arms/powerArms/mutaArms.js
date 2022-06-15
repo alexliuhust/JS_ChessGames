@@ -1,6 +1,5 @@
 import * as ArmPrimary from "../arm.js";
 import { MissileColor as MC } from "../../common/const.js";
-import { sef_detonation } from "../../actions/selfDeto.js";
 
 export class Arlmantises extends ArmPrimary.Arm {
   constructor(value, player) {
@@ -77,6 +76,84 @@ export class Estavulgs extends ArmPrimary.Arm {
   }
 }
 
+export class Rockscarabs extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Rockscarabs";
+    this.m_name = "岩甲虫";
+    this.extra = "Durable";
+    this.m_extra = "结实";
+
+    this.scale = 30;
+    this.singleHP = 220;
+    this.speed = 2;
+
+    this.type = [0, 0, 1, 1];
+    this.defence_data = [40, 0];
+    this.melee_data = [45, 0];
+    this.GAtogether = false;
+    this.G_data = [15, 0, 3, 25];
+
+    this.cost_bias -= 10;
+    this.loadRealtimeProps();
+  }
+}
+
+export class Fuegoscarabs extends Rockscarabs {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name1 = "Fuegoscarabs";
+    this.m_name1 = "火甲虫";
+    this.name2 = "Fuegoscarabs (air-defense)";
+    this.m_name2 = "火甲虫-对空";
+    this.name = this.name1;
+    this.m_name = this.m_name1;
+    this.extra = "";
+    this.m_extra = "";
+
+    this.singleHP = 180;
+    this.defence_data = [30, 0];
+
+    this.melee_data = [66, 0];
+    this.GAtogether = false;
+    this.G_data = [22, 0, 3, 30];
+    this.A_data = [0, 0, 0, -1];
+
+    this.cost_bias += 20;
+    this.switchable = true;
+    this.loadRealtimeProps();
+    this.ammo_record = [
+      [30, 0],
+      [0, 30],
+    ];
+  }
+  switch() {
+    if (!this.switchable || this.hasAttacked || this.slowdown_countdown > 0)
+      return;
+    this._beginSwitch(true);
+
+    if (this.status === 0) {
+      this.status = 1;
+
+      this.melee_data = [0, 0];
+      this.GAtogether = false;
+      this.G_data = [0, 0, 0, -1];
+      this.A_data = [35, 0, 5, 30];
+    } else {
+      this.status = 0;
+
+      this.melee_data = [66, 0];
+      this.GAtogether = false;
+      this.G_data = [22, 0, 3, 30];
+      this.A_data = [0, 0, 0, -1];
+    }
+
+    this._endSwitch(true);
+  }
+}
+
 export class Mothermantis extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
@@ -90,7 +167,7 @@ export class Mothermantis extends ArmPrimary.Arm {
     this.singleHP = 2500;
     this.speed = 2;
 
-    this.type = [0, 0, 1, 1];
+    this.type = [0, 0, 1, 2];
     this.defence_data = [50, 0];
     this.melee_data = [1200, 0];
     this.GAtogether = true;
@@ -111,6 +188,40 @@ export class Mothermantis extends ArmPrimary.Arm {
   _prepareBrooding() {
     let brooded = new Arlmantises_B([0, 0], this.player);
     return brooded;
+  }
+}
+
+export class Gigascarab extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Gigascarab";
+    this.m_name = "巨甲虫";
+    this.extra = "Anti-Aggregation";
+    this.m_extra = "反聚集";
+
+    this.scale = 1;
+    this.singleHP = 3000;
+    this.speed = 4;
+
+    this.type = [0, 0, 1, 2];
+    this.defence_data = [75, 0];
+    this.melee_data = [2000, 300];
+    this.GAtogether = false;
+    this.shock = 100;
+
+    this.cost_bias += 40;
+    this.loadRealtimeProps();
+  }
+  _getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_melee;
+      if (targetArm.c_scale >= 5) singleDamage += this.melee_bonus;
+      if (targetArm.c_scale >= 10) singleDamage += this.melee_bonus;
+      if (targetArm.c_scale >= 15) singleDamage += this.melee_bonus;
+    }
+    return singleDamage;
   }
 }
 
@@ -208,7 +319,10 @@ export function newAnArm(i, posX, posY, player) {
   let armList = [
     new Arlmantises([posX, posY], player),
     new Estavulgs([posX, posY], player),
+    new Rockscarabs([posX, posY], player),
+    new Fuegoscarabs([posX, posY], player),
     new Mothermantis([posX, posY], player),
+    new Gigascarab([posX, posY], player),
     new Mutawasps([posX, posY], player),
     new Queen([posX, posY], player),
   ];

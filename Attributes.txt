@@ -13,8 +13,9 @@ Mothermantis螳后
 
 Mutawasps异蜂              Mutawasps (Brooded)异蜂-孵化
 
-Bladehornets利刃巨蜂
-Firewings Megahornets炽翼巨蜂
+Bladehornets利刃蜂
+
+Firewings Megabats炽翼巨蝠
 
 Queen蜂后
 
