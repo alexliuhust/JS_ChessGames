@@ -8,7 +8,10 @@ import { ChargeEffect } from "./chargeEffect.js";
 import { InspireEffect } from "./inspireEffect.js";
 import { EnhanceEffect } from "./enhanceEffect.js";
 
+const CXT = document.getElementById("piece").getContext("2d");
+
 export function addEffect(list, effectType, attacker, defender, cxt) {
+  cxt = CXT;
   if (effectType === "melee") {
     let effect = new MeleeEffect(defender.x, defender.y, cxt);
     list.push(effect);

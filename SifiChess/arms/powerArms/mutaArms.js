@@ -80,8 +80,12 @@ export class Rockscarabs extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Rockscarabs";
-    this.m_name = "岩甲虫";
+    this.name1 = "Rockscarabs";
+    this.m_name1 = "岩甲虫";
+    this.name2 = "Rockscarabs (Hardening)";
+    this.m_name2 = "岩甲虫-甲质硬化";
+    this.name = this.name1;
+    this.m_name = this.m_name1;
     this.extra = "Durable";
     this.m_extra = "结实";
 
@@ -95,8 +99,36 @@ export class Rockscarabs extends ArmPrimary.Arm {
     this.GAtogether = false;
     this.G_data = [15, 0, 3, 25];
 
-    this.cost_bias -= 10;
+    this.cost_bias = 5;
+    this.switchable = true;
     this.loadRealtimeProps();
+    this.ammo_record = [
+      [25, 0],
+      [0, 0],
+    ];
+  }
+  switch() {
+    if (!this.switchable || this.hasAttacked || this.slowdown_countdown > 0)
+      return;
+    this._beginSwitch(true);
+
+    if (this.status === 0) {
+      this.status = 1;
+
+      this.mend = 80;
+      this.speed = 0;
+      this.defence_data = [60, 0];
+      this.G_data = [0, 0, 0, -1];
+    } else {
+      this.status = 0;
+
+      this.mend = 0;
+      this.speed = 2;
+      this.defence_data = [40, 0];
+      this.G_data = [15, 0, 3, 25];
+    }
+
+    this._endSwitch(true);
   }
 }
 
@@ -121,7 +153,7 @@ export class Fuegoscarabs extends Rockscarabs {
     this.G_data = [22, 0, 3, 30];
     this.A_data = [0, 0, 0, -1];
 
-    this.cost_bias += 20;
+    this.cost_bias = 40;
     this.switchable = true;
     this.loadRealtimeProps();
     this.ammo_record = [
@@ -232,7 +264,7 @@ export class Mutawasps extends ArmPrimary.Arm {
     this.name = "Mutawasps";
     this.m_name = "异蜂";
     this.extra = "Agile, Anti-Aggregation";
-    this.m_extra = "迅捷, 反聚集";
+    this.m_extra = "迅捷，反聚集";
 
     this.hasBroodVersion = true;
 
@@ -242,11 +274,9 @@ export class Mutawasps extends ArmPrimary.Arm {
 
     this.type = [1, 0, 0, 0];
     this.defence_data = [0, 40];
-    this.melee_data = [30, 0];
     this.GAtogether = true;
     this.G_data = [15, 5, 3, 30];
 
-    this.cost_bias -= 0;
     this.loadRealtimeProps();
   }
   _getSingleDamage(damageType, targetArm) {
@@ -277,6 +307,111 @@ export class Mutawasps_B extends Mutawasps {
 
     this.scale = 20;
     this.loadRealtimeProps();
+  }
+}
+
+export class MutawaspsMend extends Mutawasps {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Mutawasps (Mending)";
+    this.m_name = "异蜂-自我修复";
+
+    this.singleHP = 110;
+    this.mend = 30;
+    this.cost_bias = 10;
+    this.loadRealtimeProps();
+  }
+}
+
+export class Estahornets extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Estahornets";
+    this.m_name = "爆炸蜂";
+    this.extra = "Self-detonation";
+    this.m_extra = "自爆";
+    this.detoColor = MC.PoisonColor;
+
+    this.scale = 20;
+    this.singleHP = 100;
+    this.speed = 4;
+
+    this.type = [1, 0, 0, 0];
+    this.defence_data = [0, 40];
+    this.GAtogether = false;
+
+    this.deto_target = 2;
+    this.self_deto = 150;
+    this.self_deto_bonus = 40;
+
+    this.cost_bias -= 10;
+    this.loadRealtimeProps();
+  }
+  _getSingleDeto(targetArm) {
+    let singleDamage = this.self_deto;
+    if (targetArm.B_M === 0) singleDamage += this.self_deto_bonus;
+    return singleDamage;
+  }
+}
+
+export class Blade extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Blade Megabats";
+    this.m_name = "利刃巨蝠";
+    this.extra = "Anti-Mech";
+    this.m_extra = "反机械";
+
+    this.scale = 15;
+    this.singleHP = 300;
+    this.speed = 2;
+
+    this.type = [1, 0, 1, 1];
+    this.defence_data = [40, 10];
+    this.GAtogether = false;
+    this.A_data = [40, 30, 5, 30];
+
+    this.cost_bias += 30;
+    this.loadRealtimeProps();
+  }
+  _getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (damageType === "missile" && targetArm.G_A === 1 && this.c_ammo_A > 0) {
+      this.c_ammo_A--;
+      singleDamage = this.c_missile_A;
+      if (targetArm.B_M === 1) singleDamage += this.missile_A_bonus;
+    }
+    return singleDamage;
+  }
+}
+
+export class Firewings extends Blade {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Firewings Megabats";
+    this.m_name = "炽翼巨蝠";
+    this.extra = "Anti-Bio, Anti-Aggregation";
+    this.m_extra = "反生物，反聚集";
+
+    this.A_data = [40, 15, 5, 30];
+
+    this.cost_bias += 10;
+    this.loadRealtimeProps();
+  }
+  _getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (damageType === "missile" && targetArm.G_A === 1 && this.c_ammo_A > 0) {
+      this.c_ammo_A--;
+      singleDamage = this.c_missile_A;
+      if (targetArm.c_scale >= 4) singleDamage += this.missile_A_bonus;
+      if (targetArm.c_scale >= 7) singleDamage += this.missile_A_bonus;
+      if (targetArm.c_scale >= 10) singleDamage += this.missile_A_bonus;
+    }
+    return singleDamage;
   }
 }
 
@@ -324,6 +459,10 @@ export function newAnArm(i, posX, posY, player) {
     new Mothermantis([posX, posY], player),
     new Gigascarab([posX, posY], player),
     new Mutawasps([posX, posY], player),
+    new MutawaspsMend([posX, posY], player),
+    new Estahornets([posX, posY], player),
+    new Blade([posX, posY], player),
+    new Firewings([posX, posY], player),
     new Queen([posX, posY], player),
   ];
   if (i >= 0 && i < armList.length) return armList[i];

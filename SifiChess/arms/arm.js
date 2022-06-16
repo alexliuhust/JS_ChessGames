@@ -4,6 +4,7 @@ import {
   calculateLeaderShip,
   updateRealTimeProperties,
 } from "./armTools.js";
+import { addEffect } from "../effects/effect.js";
 import { triggerAutoAttack } from "../actions/autoAttack.js";
 import { sef_detonation } from "../actions/selfDeto.js";
 import { broodAnArm } from "../actions/brood.js";
@@ -63,6 +64,8 @@ export class Arm {
     this.extra = "";
     this.m_extra = "";
     this.cost = 0;
+
+    this.mend = 0;
 
     this.shield = 0;
     this.max_shield = 0;
@@ -357,6 +360,7 @@ export class Arm {
       if (this.c_totalCharge > this.totalCharge)
         this.c_totalCharge = this.totalCharge;
     }
+    this.triggerMend();
 
     this.operable = true;
     this.alignMoved = false;
@@ -511,6 +515,31 @@ export class Arm {
     if (this.self_deto <= 0) return;
     this._checkSelfDeto(this.c_scale);
     this.isAlive = false;
+  }
+
+  triggerMend() {
+    if (this.mend <= 0) return;
+    if (this.getTotalHP() >= this.getOriginalHP()) return;
+
+    let list = this.player.effectList;
+    addEffect(list, "healing", null, this, null);
+    if (this.scale === 1) {
+      this.c_singleHP += this.mend;
+      this.c_singleHP = Math.min(this.c_singleHP, this.singleHP);
+    } else {
+      let recovered = Math.floor(this.mend / this.c_singleHP);
+      let remainder = this.mend - recovered * this.c_singleHP;
+      let toMendWound = this.c_singleHP - this.wound;
+      console.log(recovered, remainder, toMendWound);
+      if (remainder < toMendWound) {
+        this.wound += remainder;
+      } else {
+        this.wound = 0;
+        recovered++;
+      }
+      this.c_scale += recovered;
+      this.c_scale = Math.min(this.c_scale, this.scale);
+    }
   }
 
   getShockingAbility() {
