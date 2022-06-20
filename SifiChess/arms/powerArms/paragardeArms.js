@@ -179,8 +179,12 @@ export class SoulReaper extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Soul Reapers";
-    this.m_name = "灵魂收割者";
+    this.name1 = "Soul Reapers";
+    this.m_name1 = "灵魂收割者";
+    this.name2 = "Soul Reapers (Whirlwind)";
+    this.m_name2 = "宫廷卫队-旋风斩";
+    this.name = this.name1;
+    this.m_name = this.m_name1;
 
     this.shield = 1200;
     this.shield_armor = 0;
@@ -192,7 +196,33 @@ export class SoulReaper extends ArmPrimary.Arm {
     this.defence_data = [0, 70];
     this.melee_data = [150, 0];
 
+    this.switchable = true;
     this.loadRealtimeProps();
+    this.ammo_record = [
+      [-1, -1],
+      [-1, -1],
+    ];
+  }
+  switch() {
+    if (!this.switchable || this.hasAttacked || this.slowdown_countdown > 0)
+      return;
+    this._beginSwitch(true);
+
+    if (this.status === 0) {
+      this.status = 1;
+
+      this.speed = 1;
+      this.defence_data = [0, 70];
+      this.melee_data = [200, 0];
+    } else {
+      this.status = 0;
+
+      this.speed = 4;
+      this.defence_data = [0, 50];
+      this.melee_data = [150, 0];
+    }
+
+    this._endSwitch(true);
   }
 }
 
