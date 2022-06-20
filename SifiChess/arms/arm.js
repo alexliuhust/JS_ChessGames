@@ -360,7 +360,7 @@ export class Arm {
       if (this.c_totalHeal > this.totalHeal) this.c_totalHeal = this.totalHeal;
     }
     if (!charged && this.charging > 0) {
-      this.c_totalCharge += Math.round(this.charging / 3);
+      this.c_totalCharge += Math.round(this.charging / 4);
       if (this.c_totalCharge > this.totalCharge)
         this.c_totalCharge = this.totalCharge;
     }

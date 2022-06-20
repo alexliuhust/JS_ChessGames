@@ -346,10 +346,10 @@ export class ThunderGuard extends ArmPrimary.Arm {
     this.missileNumber = 1;
     this.missileLaser = true;
 
-    this.shield = 2500;
+    this.shield = 3000;
     this.shield_armor = 50;
     this.scale = 1;
-    this.singleHP = 500;
+    this.singleHP = 100;
     this.speed = 2;
 
     this.type = [0, 0, 1, 1];
@@ -372,9 +372,9 @@ export class ThunderGuard extends ArmPrimary.Arm {
       this.c_ammo_G--;
       this.c_ammo_A--;
       singleDamage = this.c_missile_G;
-      if (targetArm.c_scale >= 7) singleDamage += this.missile_G_bonus;
-      if (targetArm.c_scale >= 14) singleDamage += this.missile_G_bonus;
-      if (targetArm.c_scale >= 20) singleDamage += this.missile_G_bonus;
+      if (targetArm.c_scale >= 5) singleDamage += this.missile_G_bonus;
+      if (targetArm.c_scale >= 10) singleDamage += this.missile_G_bonus;
+      if (targetArm.c_scale >= 15) singleDamage += this.missile_G_bonus;
     }
     return singleDamage;
   }
@@ -499,6 +499,8 @@ export class HeliosFrigate extends ArmPrimary.Arm {
 
     this.name = "Helios Frigates";
     this.m_name = "太阳神护卫舰";
+    this.extra = "Anti-Individual, Anti-Large";
+    this.m_extra = "反单体，反大型";
     this.missileColor = MC.ATColor;
     this.missileLaser = true;
     this.missileNumber = 2;
@@ -513,9 +515,61 @@ export class HeliosFrigate extends ArmPrimary.Arm {
     this.type = [1, 1, 1, 2];
     this.defence_data = [50, 0];
     this.GAtogether = true;
-    this.G_data = [600, 0, 6, 40];
+    this.G_data = [400, 150, 6, 40];
 
     this.loadRealtimeProps();
+  }
+  _getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (damageType === "missile" && this.c_ammo_G > 0) {
+      this.c_ammo_G--;
+      this.c_ammo_A--;
+      singleDamage = this.c_missile_G;
+      if (targetArm.scale === 1) singleDamage += this.missile_G_bonus;
+      if (targetArm.size === 2) singleDamage += this.missile_G_bonus;
+    }
+    return singleDamage;
+  }
+}
+
+export class ReaperFrigate extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Reaper Frigates";
+    this.m_name = "死神护卫舰";
+    this.extra = "Anti-Aggregation";
+    this.m_extra = "反聚集";
+    this.missileColor = "red";
+    this.missileNumber = 2;
+    this.missileWeight = 10;
+    this.missileShape = "circle";
+    this.missileRadius = 10;
+
+    this.shield = 1500;
+    this.shield_armor = 30;
+    this.scale = 2;
+    this.singleHP = 1000;
+    this.speed = 2;
+
+    this.type = [1, 1, 1, 2];
+    this.defence_data = [50, 0];
+    this.GAtogether = true;
+    this.G_data = [400, 100, 6, 40];
+
+    this.loadRealtimeProps();
+  }
+  _getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (damageType === "missile" && this.c_ammo_G > 0) {
+      this.c_ammo_G--;
+      this.c_ammo_A--;
+      singleDamage = this.c_missile_G;
+      if (targetArm.c_scale >= 5) singleDamage += this.missile_G_bonus;
+      if (targetArm.c_scale >= 10) singleDamage += this.missile_G_bonus;
+      if (targetArm.c_scale >= 15) singleDamage += this.missile_G_bonus;
+    }
+    return singleDamage;
   }
 }
 
@@ -642,6 +696,7 @@ export function newAnArm(i, posX, posY, player) {
     new FlameTitan([posX, posY], player),
     new CurseTitan([posX, posY], player),
     new StarLight([posX, posY], player),
+    new ReaperFrigate([posX, posY], player),
     new HeliosFrigate([posX, posY], player),
     new AircraftCarrier([posX, posY], player),
     new HurricaneBattleship([posX, posY], player),
