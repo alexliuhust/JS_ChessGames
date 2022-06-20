@@ -172,7 +172,7 @@ export class Deploy {
           let div_h = document.getElementById("hiddenImages");
           let elem_h = document.createElement("img");
           elem_h.src = this.images[i][1];
-          console.log(this.images[i][1]);
+          // console.log(this.images[i][1]);
           div_h.appendChild(elem_h);
           this.arms[i].img2 = elem_h;
         }

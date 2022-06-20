@@ -53,6 +53,7 @@ export class Arm {
     this.alignMoved = false;
 
     // Static properties
+    this.codeName = this.constructor.name;
     this.name1 = "";
     this.m_name1 = "";
     this.name2 = "";
@@ -123,11 +124,11 @@ export class Arm {
 
     // Load real-time properties for battle
     this.loadRealtimeProps = function (showCostDetails = false) {
-      this.img = document.getElementById(`${this.constructor.name}_img`);
-      this.img1 = document.getElementById(`${this.constructor.name}_img`);
+      this.img = document.getElementById(`${this.codeName}_img`);
+      this.img1 = document.getElementById(`${this.codeName}_img`);
       this.img2 = null;
       if (this.switchable || this.attached || this.brooder || this.canRelease)
-        this.img2 = document.getElementById(`${this.constructor.name}_1_img`);
+        this.img2 = document.getElementById(`${this.codeName}_1_img`);
 
       this.G_A = this.type[0];
       this.B_M = this.type[1];
@@ -313,6 +314,14 @@ export class Arm {
     this.positionX = Math.floor(_x / 50);
     this.positionY = Math.floor(_y / 50);
     return [this.positionX, this.positionY];
+  }
+
+  bindImgElement() {
+    this.img = document.getElementById(`${this.codeName}_img`);
+    this.img1 = document.getElementById(`${this.codeName}_img`);
+    this.img2 = null;
+    if (this.switchable || this.attached || this.brooder || this.canRelease)
+      this.img2 = document.getElementById(`${this.codeName}_1_img`);
   }
 
   draw(cxt, groupColor) {

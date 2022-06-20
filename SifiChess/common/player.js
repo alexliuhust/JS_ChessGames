@@ -42,6 +42,9 @@ export class Player {
     this.addPieces = function (pc1, pc2) {
       this.pieceList = pc1;
       this.enemyList = pc2;
+      for (let i = 0; i < this.pieceList.length; i++) {
+        this.pieceList[i].bindImgElement();
+      }
     };
 
     this.refresh = function () {

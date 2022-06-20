@@ -471,6 +471,8 @@ export function newAnArm(i, posX, posY, player) {
     new Firewings([posX, posY], player),
     new Queen([posX, posY], player),
   ];
-  if (i >= 0 && i < armList.length) return armList[i];
+  if (i >= 0 && i < armList.length) {
+    return armList[i];
+  }
   return null;
 }

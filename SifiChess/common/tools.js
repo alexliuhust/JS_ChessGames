@@ -106,6 +106,20 @@ export const Canvas = {
       }
     }
 
+    // Draw live time
+    if (arm.live_max >= 1) {
+      let livelen = (50 * (arm.live_max - arm.live_time)) / (arm.live_max - 1);
+      this.drawLine(
+        cxt,
+        arm.x,
+        arm.y + 7,
+        arm.x + livelen,
+        arm.y + 7,
+        "grey",
+        4
+      );
+    }
+
     // Draw HP, ammo bars
     let maxLen = 0;
     let slen, hlen, aglen, aalen, llen, elen, clen;

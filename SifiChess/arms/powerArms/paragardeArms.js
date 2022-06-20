@@ -701,7 +701,8 @@ export function newAnArm(i, posX, posY, player) {
     new AircraftCarrier([posX, posY], player),
     new HurricaneBattleship([posX, posY], player),
   ];
-
-  if (i >= 0 && i < armList.length) return armList[i];
+  if (i >= 0 && i < armList.length) {
+    return armList[i];
+  }
   return null;
 }
