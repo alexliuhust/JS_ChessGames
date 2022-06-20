@@ -1,5 +1,6 @@
 import * as ArmPrimary from "../arm.js";
 import { MissileColor as MC } from "../../common/const.js";
+import { addEffect } from "../../effects/effect.js";
 
 export class PalaceGuard extends ArmPrimary.Arm {
   constructor(value, player) {
@@ -276,6 +277,10 @@ export class GoldenKnight extends ArmPrimary.Arm {
 
     if (realDamage > 300) realDamage = 300;
 
+    if (rawTotalDamage >= 1) {
+      addEffect(this.player.effectList, "armorEnhancing", null, this, null);
+    }
+
     this.c_shield -= realDamage;
     let result = 0;
     if (this.c_shield < 0) {
@@ -283,6 +288,48 @@ export class GoldenKnight extends ArmPrimary.Arm {
       this.c_shield = 0;
     }
     return result;
+  }
+}
+
+export class AbyssKnight extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Abyss Knights";
+    this.m_name = "深渊骑士";
+    this.extra = "Anti-Aggregation";
+    this.m_extra = "反聚集";
+    this.missileColor = MC.MagicColor;
+    this.missileWeight = 4;
+    this.missileShape = "circle";
+    this.missileRadius = 4;
+
+    this.shield = 1000;
+    this.shield_armor = 60;
+    this.scale = 15;
+    this.singleHP = 120;
+    this.speed = 2;
+
+    this.type = [0, 1, 1, 1];
+    this.defence_data = [40, 0];
+    this.GAtogether = false;
+    this.G_data = [50, 20, 4, 30];
+
+    this.cost_bias = 28;
+    this.loadRealtimeProps();
+  }
+  _getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (damageType === "missile") {
+      if (targetArm.G_A === 0 && this.c_ammo_G > 0) {
+        this.c_ammo_G--;
+        singleDamage = this.c_missile_G;
+        if (targetArm.c_scale >= 5) singleDamage += this.missile_G_bonus;
+        if (targetArm.c_scale >= 10) singleDamage += this.missile_G_bonus;
+        if (targetArm.c_scale >= 15) singleDamage += this.missile_G_bonus;
+      }
+    }
+    return singleDamage;
   }
 }
 
@@ -590,6 +637,7 @@ export function newAnArm(i, posX, posY, player) {
     new BlinkHunter([posX, posY], player),
     new SoulReaper([posX, posY], player),
     new GoldenKnight([posX, posY], player),
+    new AbyssKnight([posX, posY], player),
     new ThunderGuard([posX, posY], player),
     new FlameTitan([posX, posY], player),
     new CurseTitan([posX, posY], player),
