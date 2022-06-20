@@ -98,6 +98,7 @@ export class Arm {
     this.status = 0;
     this.switchable = false;
     this.attached = false;
+    this.canRelease = false;
     this.hasBroodVersion = false;
     this.brooder = false;
     this.brood_time = 0;
@@ -125,7 +126,7 @@ export class Arm {
       this.img = document.getElementById(`${this.constructor.name}_img`);
       this.img1 = document.getElementById(`${this.constructor.name}_img`);
       this.img2 = null;
-      if (this.switchable || this.attached)
+      if (this.switchable || this.attached || this.brooder || this.canRelease)
         this.img2 = document.getElementById(`${this.constructor.name}_1_img`);
 
       this.G_A = this.type[0];
@@ -323,6 +324,8 @@ export class Arm {
     }
   }
 
+  getAttachedName() {}
+
   // =============== Battle APIs ===============
 
   optOut() {
@@ -350,6 +353,7 @@ export class Arm {
       this.live_time++;
       if (this.live_max != -1 && this.live_time >= this.live_max)
         this.isAlive = false;
+      this.brood();
     }
     if (!healed && this.healing > 0) {
       this.c_totalHeal += Math.round(this.healing / 3);

@@ -10,8 +10,6 @@ export class Arlmantises extends ArmPrimary.Arm {
     this.extra = "Agile";
     this.m_extra = "迅捷";
 
-    this.hasBroodVersion = true;
-
     this.scale = 90;
     this.singleHP = 25;
     this.speed = 5;
@@ -22,24 +20,6 @@ export class Arlmantises extends ArmPrimary.Arm {
     this.GAtogether = false;
 
     this.cost_bias -= 10;
-    this.loadRealtimeProps();
-  }
-}
-
-export class Arlmantises_B extends Arlmantises {
-  constructor(value, player) {
-    super(value, player);
-
-    this.live_max = 6;
-    this.live_time = 0;
-
-    this.name = "Arlmantises (Brooded)";
-    this.m_name = "阿尔螳-孵化";
-    this.extra = "Agile";
-    this.m_extra = "迅捷";
-
-    this.scale = 40;
-
     this.loadRealtimeProps();
   }
 }
@@ -209,7 +189,7 @@ export class Mothermantis extends ArmPrimary.Arm {
     this.brood_time = 3;
     this.brood_max = 3;
 
-    this.healing = 6;
+    this.healing = 5;
     this.totalHeal = 200;
     this.c_totalHeal = 200;
     this.healRange = 2;
@@ -218,8 +198,29 @@ export class Mothermantis extends ArmPrimary.Arm {
     this.loadRealtimeProps();
   }
   _prepareBrooding() {
-    let brooded = new Arlmantises_B([0, 0], this.player);
+    let brooded = new Mothermantis_1([0, 0], this.player);
     return brooded;
+  }
+  getAttachedName() {
+    return ["Arlmantises (Brooded)", "阿尔螳-孵化"];
+  }
+}
+
+export class Mothermantis_1 extends Arlmantises {
+  constructor(value, player) {
+    super(value, player);
+
+    this.live_max = 6;
+    this.live_time = 0;
+
+    this.name = "Arlmantises (Brooded)";
+    this.m_name = "阿尔螳-孵化";
+    this.extra = "Agile";
+    this.m_extra = "迅捷";
+
+    this.scale = 40;
+
+    this.loadRealtimeProps();
   }
 }
 
@@ -266,8 +267,6 @@ export class Mutawasps extends ArmPrimary.Arm {
     this.extra = "Agile, Anti-Aggregation";
     this.m_extra = "迅捷，反聚集";
 
-    this.hasBroodVersion = true;
-
     this.scale = 30;
     this.singleHP = 100;
     this.speed = 5;
@@ -295,27 +294,14 @@ export class Mutawasps extends ArmPrimary.Arm {
   }
 }
 
-export class Mutawasps_B extends Mutawasps {
-  constructor(value, player) {
-    super(value, player);
-
-    this.live_max = 8;
-    this.live_time = 0;
-
-    this.name = "Mutawasps (Brooded)";
-    this.m_name = "异蜂-孵化";
-
-    this.scale = 20;
-    this.loadRealtimeProps();
-  }
-}
-
 export class MutawaspsMend extends Mutawasps {
   constructor(value, player) {
     super(value, player);
 
     this.name = "Mutawasps (Mending)";
     this.m_name = "异蜂-自我修复";
+
+    this.hasBroodVersion = false;
 
     this.singleHP = 110;
     this.mend = 30;
@@ -445,8 +431,28 @@ export class Queen extends ArmPrimary.Arm {
     this.loadRealtimeProps();
   }
   _prepareBrooding() {
-    let brooded = new Mutawasps_B([0, 0], this.player);
+    let brooded = new Queen_1([0, 0], this.player);
     return brooded;
+  }
+  getAttachedName() {
+    return ["Mutawasps (Brooded)", "异蜂-孵化"];
+  }
+}
+
+export class Queen_1 extends Mutawasps {
+  constructor(value, player) {
+    super(value, player);
+
+    this.live_max = 8;
+    this.live_time = 0;
+
+    this.name = "Mutawasps (Brooded)";
+    this.m_name = "异蜂-孵化";
+
+    this.G_data = [15, 5, 3, 10];
+
+    this.scale = 20;
+    this.loadRealtimeProps();
   }
 }
 

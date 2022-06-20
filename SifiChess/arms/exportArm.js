@@ -19,10 +19,8 @@ export function getArmsAndImages(powerCodeName) {
     arms.push(arm);
 
     let imgs = [`../images/${powerCodeName}/${arm.constructor.name}.png`];
-    if (arm.switchable || arm.attached)
+    if (arm.switchable || arm.attached || arm.brooder || arm.canRelease)
       imgs.push(`../images/${powerCodeName}/${arm.constructor.name}_1.png`);
-    if (arm.hasBroodVersion)
-      imgs.push(`../images/${powerCodeName}/${arm.constructor.name}_B.png`);
 
     images.push(imgs);
     i++;

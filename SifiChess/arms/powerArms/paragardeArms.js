@@ -497,8 +497,6 @@ export class AircraftCarrier extends ArmPrimary.Arm {
 
     this.name = "Aircraft Carrier";
     this.m_name = "航天母舰";
-    this.name2 = "Swarm Fighters";
-    this.m_name2 = "蜂群战机";
     this.missileWeight = 4;
 
     this.shield = 2000;
@@ -509,11 +507,48 @@ export class AircraftCarrier extends ArmPrimary.Arm {
 
     this.type = [1, 1, 1, 2];
     this.defence_data = [60, 0];
-    this.GAtogether = true;
-    this.G_data = [800, 0, 9, 50];
+    this.GAtogether = false;
 
-    this.cost_bias = 20;
-    this.attached = true;
+    this.brooder = true;
+    this.brood_time = 5;
+    this.brood_max = 5;
+
+    this.canRelease = true;
+    this.cost_bias = 100;
+    this.loadRealtimeProps();
+  }
+  _prepareBrooding() {
+    let brooded = new AircraftCarrier_1([0, 0], this.player);
+    return brooded;
+  }
+  getAttachedName() {
+    return ["Swarm Fighters", "蜂群战机"];
+  }
+}
+
+export class AircraftCarrier_1 extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.live_max = 6;
+    this.live_time = 0;
+
+    this.name = "Swarm Fighters";
+    this.m_name = "蜂群战机";
+    this.extra = "Agile";
+    this.m_extra = "迅捷";
+
+    this.scale = 20;
+    this.singleHP = 50;
+    this.speed = 5;
+    this.live_max = 8;
+    this.live_time = 0;
+
+    this.type = [1, 0, 0, 0];
+    this.defence_data = [0, 80];
+    this.GAtogether = true;
+    this.G_data = [40, 0, 4, 10];
+
     this.loadRealtimeProps();
   }
 }

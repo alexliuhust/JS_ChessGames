@@ -284,7 +284,6 @@ function drawSwitchInfo(cxt, piece, useMandarin, showCost) {
   textY -= 20;
   if (piece.switchable) {
     let name = null;
-    // let info = "info goes here";
     if (piece.status === 0) {
       Canvas.drawImg(cxt, piece.img2, 5, 10, 90, 90, 10, textY - 15, 60, 60);
       name = useMandarin ? piece.m_name2 : piece.name2;
@@ -293,14 +292,17 @@ function drawSwitchInfo(cxt, piece, useMandarin, showCost) {
       name = useMandarin ? piece.m_name1 : piece.name1;
     }
     let title = useMandarin ? "可切换至 " : "Can switch to ";
+    if (piece.status === 1)
+      title = useMandarin ? "可切换回 " : "Can switch back to ";
     title += `[ ${name} ]`;
     Canvas.drawText(cxt, title, 80, textY, "white", 18);
-    // Canvas.drawText(cxt, info, 80, textY + 18, "white", 16);
   }
-  if (piece.attached) {
+  if (piece.attached || piece.brooder || piece.canRelease) {
     Canvas.drawImg(cxt, piece.img2, 0, 0, 100, 100, 10, textY - 15, 60, 60);
-    let name = useMandarin ? piece.m_name2 : piece.name2;
-    let title = useMandarin ? "可释放 " : "Can release ";
+    let names = piece.getAttachedName();
+    let name = useMandarin ? names[1] : names[0];
+    let title = useMandarin ? "可孵化 " : "Can brood ";
+    if (piece.canRelease) title = useMandarin ? "可释放 " : "Can release ";
     title += `[ ${name} ]`;
     Canvas.drawText(cxt, title, 80, textY, "white", 18);
   }
