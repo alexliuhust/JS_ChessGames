@@ -69,6 +69,15 @@ export class Rockscarabs extends ArmPrimary.Arm {
     this.extra = "Durable";
     this.m_extra = "结实";
 
+    this.switchInfo = [
+      "Recover capacities of movement and attack",
+      "Lose capacities of attack and movement,\nbut gain increased armor and health mending",
+    ];
+    this.m_switchInfo = [
+      "可恢复移动力和攻击力",
+      "失去攻击和移动能力，但获得更高护甲和生命回复能力",
+    ];
+
     this.scale = 30;
     this.singleHP = 220;
     this.speed = 2;
@@ -125,6 +134,12 @@ export class Fuegoscarabs extends Rockscarabs {
     this.extra = "";
     this.m_extra = "";
 
+    this.switchInfo = [
+      "Anti-ground specialization",
+      "Air-defense specialization",
+    ];
+    this.m_switchInfo = ["对地专精", "防空专精"];
+
     this.singleHP = 180;
     this.defence_data = [30, 0];
 
@@ -174,6 +189,9 @@ export class Mothermantis extends ArmPrimary.Arm {
     this.m_name = "螳后";
     this.extra = "Brooder, Healer";
     this.m_extra = "孵化者，治疗者";
+
+    this.attachInfo = "Broods a small amount of agile Arlmantises";
+    this.m_attachInfo = "孵化少量而迅捷的阿尔螳";
 
     this.scale = 1;
     this.singleHP = 2500;
@@ -409,6 +427,10 @@ export class Queen extends ArmPrimary.Arm {
     this.m_name = "蜂后";
     this.extra = "Brooder, Healer";
     this.m_extra = "孵化者，治疗者";
+
+    this.attachInfo =
+      "Broods a small amount of Mutawasps that fight\nboth ground and air units";
+    this.m_attachInfo = "孵化少量的可对地对空的异蜂";
 
     this.scale = 1;
     this.singleHP = 3000;

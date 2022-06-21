@@ -65,6 +65,12 @@ export class Arm {
     this.extra = "";
     this.m_extra = "";
     this.cost = 0;
+    this.switchInfo = null;
+    this.m_switchInfo = null;
+    this.attachInfo = null;
+    this.m_attachInfo = null;
+    this.addInfo = null;
+    this.m_addInfo = null;
 
     this.mend = 0;
 

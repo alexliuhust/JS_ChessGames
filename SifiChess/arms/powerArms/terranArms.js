@@ -32,6 +32,14 @@ export class ShieldMarine extends Marine {
     this.m_name2 = "持盾陆战队-举盾";
     this.name = this.name1;
     this.m_name = this.m_name1;
+    this.switchInfo = [
+      "Movement speed restored, but attack range reduced",
+      "Movement speed hugely decreased,\nbut gain increased armor and longer attack range",
+    ];
+    this.m_switchInfo = [
+      "恢复移动力，但攻击距离缩短",
+      "大幅降低移速，但获得更高护甲和更远的射程",
+    ];
 
     this.singleHP = 70;
     this.speed = 3;
@@ -199,6 +207,14 @@ export class Sniper extends ArmPrimary.Arm {
     this.m_name = this.m_name1;
     this.extra = "Anti-Bio";
     this.m_extra = "反生物";
+    this.switchInfo = [
+      "Movement speed restored, but attack range reduced",
+      "Immobile, dodge weakened, but gain longer range\nand bonus damage to bio units",
+    ];
+    this.m_switchInfo = [
+      "恢复移动力，但攻击距离缩短",
+      "不可移动，闪避削弱，但获得更远的射程和对生物单位的伤害加成",
+    ];
 
     this.scale = 20;
     this.singleHP = 100;
@@ -274,6 +290,11 @@ export class StormChariot extends ArmPrimary.Arm {
     this.name = this.name1;
     this.m_name = this.m_name1;
     this.missileWeight = 2;
+    this.switchInfo = [
+      "Movement speed restored; can fight both ground\nand air units",
+      "Fixed turrets for the anti-aircraft specialization",
+    ];
+    this.m_switchInfo = ["恢复移动力，可对地对空", "防空专精的固定炮台"];
 
     this.scale = 15;
     this.singleHP = 200;
@@ -336,6 +357,14 @@ export class Paladin extends ArmPrimary.Arm {
     this.missileColor = MC.ATColor;
     this.missileWeight = 3;
     this.missileShape = null;
+    this.switchInfo = [
+      "Return to tank mode, regain mobility",
+      "Long-range and high-damage fixed howitzer turrets",
+    ];
+    this.m_switchInfo = [
+      "返回坦克模式，恢复移动力",
+      "高射程、高伤害的固定榴弹炮台",
+    ];
 
     this.scale = 10;
     this.singleHP = 300;
@@ -507,6 +536,14 @@ export class DeckDropper extends ArmPrimary.Arm {
     this.extra = "Anti-Heavy";
     this.m_extra = "反重甲";
     this.missileWeight = 4;
+    this.switchInfo = [
+      "Return to airplane mode; anti-air specialization",
+      "Landed as a ground mech; anti-ground specialization",
+    ];
+    this.m_switchInfo = [
+      "返回飞行模式，对空专精",
+      "降落成为陆行机甲，对地专精",
+    ];
 
     this.scale = 15;
     this.singleHP = 165;
@@ -631,6 +668,14 @@ export class Cruiser extends ArmPrimary.Arm {
     this.missileColor = "white";
     this.missileWeight = 2;
     this.missileNumber = 7;
+    this.switchInfo = [
+      "Short-range, anti-light, and small-caliber secondary guns",
+      "Long-range, high-damage, and large-caliber main guns",
+    ];
+    this.m_switchInfo = [
+      "使用短射程、反轻甲的小口径副炮",
+      "使用长射程、高伤害的大口径主炮",
+    ];
 
     this.scale = 1;
     this.singleHP = 4000;

@@ -15,6 +15,15 @@ export class PalaceGuard extends ArmPrimary.Arm {
     this.extra = "Anti-Small / Anti-Heavy";
     this.m_extra = "反小型 / 反重甲";
 
+    this.switchInfo = [
+      `With sharp swords in hand\nand bonus damage against small units`,
+      "Two-handed hammer,\ndamage bonus against heavily armored units",
+    ];
+    this.m_switchInfo = [
+      "手持利剑，对抗小型单位有伤害加成",
+      "双手持巨锤，对抗重甲单位有伤害加成",
+    ];
+
     this.shield = 1200;
     this.shield_armor = 0;
     this.scale = 24;
@@ -124,6 +133,15 @@ export class BlinkHunter extends ArmPrimary.Arm {
     this.missileWeight = 2;
     this.missileNumber = 10;
 
+    this.switchInfo = [
+      `Ground units, can attach both air and ground units`,
+      "Air units, lose attack ability but gain high evasion",
+    ];
+    this.m_switchInfo = [
+      "地面单位，可对空对地",
+      "空中单位，失去攻击能力但获得高闪避",
+    ];
+
     this.shield = 1000;
     this.shield_armor = 0;
     this.scale = 20;
@@ -186,6 +204,14 @@ export class SoulReaper extends ArmPrimary.Arm {
     this.m_name2 = "宫廷卫队-旋风斩";
     this.name = this.name1;
     this.m_name = this.m_name1;
+    this.switchInfo = [
+      `Gain faster movement speed`,
+      "Movement speed greatly slowed,\nbut gain increased damage and dodge",
+    ];
+    this.m_switchInfo = [
+      "获得更快的移动速度",
+      "移动速度大幅减缓，但获得更高的伤害和闪避",
+    ];
 
     this.shield = 1200;
     this.shield_armor = 0;
@@ -239,6 +265,9 @@ export class GoldenKnight extends ArmPrimary.Arm {
     this.missileWeight = 5;
     this.missileShape = "circle";
     this.missileRadius = 7;
+    this.addInfo =
+      "Golden Knights' Hardened Shield can greatly reduce incoming\nhigh damage";
+    this.m_addInfo = "黄金骑士的硬化护盾可以大大削弱来袭的高伤害";
 
     this.shield = 1100;
     this.shield_armor = 80;
@@ -388,6 +417,9 @@ export class DeathEnvoy extends ArmPrimary.Arm {
     this.m_name = "死神特使";
     this.extra = "Anti-Aggregation";
     this.m_extra = "反聚集";
+    this.attachInfo =
+      "Unleashes a swarm of self-detonating Death Spirits\nthat can attack air and ground units";
+    this.m_attachInfo = "释放一群可以攻击空中和地面单位且可自爆的死灵";
 
     this.shield = 3000;
     this.shield_armor = 50;
@@ -705,6 +737,8 @@ export class AircraftCarrier extends ArmPrimary.Arm {
     this.name = "Aircraft Carrier";
     this.m_name = "航天母舰";
     this.missileWeight = 4;
+    this.attachInfo = "Swarm Fighters can fight air and ground units";
+    this.m_attachInfo = "蜂群战机可以攻击空中和地面单位";
 
     this.shield = 2000;
     this.shield_armor = 40;

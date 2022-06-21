@@ -27,7 +27,7 @@ export function drawInfoForSelectedPiece(cxt, piece, useMandarin, showCost) {
   drawCombatData(cxt, piece, useMandarin, showCost);
 
   // Draw status
-  drawSwitchInfo(cxt, piece, useMandarin, showCost);
+  drawAdditionalInfo(cxt, piece, useMandarin, showCost);
 }
 
 function drawTitle(cxt, piece, useMandarin, showCost) {
@@ -277,7 +277,7 @@ function drawCombatData(cxt, piece, useMandarin, showCost) {
   }
 }
 
-function drawSwitchInfo(cxt, piece, useMandarin, showCost) {
+function drawAdditionalInfo(cxt, piece, useMandarin, showCost) {
   let textY = showCost ? 460 : 430;
   Canvas.drawLine(cxt, leftX, textY - 45, leftX + 485, textY - 45, "white", 7);
 
@@ -296,7 +296,17 @@ function drawSwitchInfo(cxt, piece, useMandarin, showCost) {
       title = useMandarin ? "可切换回 " : "Can switch back to ";
     title += `[ ${name} ]`;
     Canvas.drawText(cxt, title, 80, textY, "white", 18);
+
+    if (piece.switchInfo) {
+      let info = useMandarin
+        ? piece.m_switchInfo[1 - piece.status]
+        : piece.switchInfo[1 - piece.status];
+      let switchInfo = breakInfoLines(info);
+      Canvas.drawText(cxt, switchInfo[0], 80, textY + 19, DRC, 15);
+      Canvas.drawText(cxt, switchInfo[1], 80, textY + 35, DRC, 15);
+    }
   }
+
   if (piece.attached || piece.brooder || piece.canRelease) {
     Canvas.drawImg(cxt, piece.img2, 0, 0, 100, 100, 10, textY - 15, 60, 60);
     let names = piece.getAttachedName();
@@ -305,5 +315,32 @@ function drawSwitchInfo(cxt, piece, useMandarin, showCost) {
     if (piece.canRelease) title = useMandarin ? "可释放 " : "Can release ";
     title += `[ ${name} ]`;
     Canvas.drawText(cxt, title, 80, textY, "white", 18);
+
+    if (piece.attachInfo) {
+      let info = useMandarin ? piece.m_attachInfo : piece.attachInfo;
+      let attachInfo = breakInfoLines(info);
+      Canvas.drawText(cxt, attachInfo[0], 80, textY + 19, DRC, 15);
+      Canvas.drawText(cxt, attachInfo[1], 80, textY + 35, DRC, 15);
+    }
   }
+
+  if (piece.addInfo) {
+    let info = useMandarin ? piece.m_addInfo : piece.addInfo;
+    let addInfo = breakInfoLines(info);
+    Canvas.drawText(cxt, addInfo[0], 10, textY, DRC, 16);
+    Canvas.drawText(cxt, addInfo[1], 10, textY + 17, DRC, 16);
+  }
+}
+
+function breakInfoLines(info) {
+  let index = info.indexOf("\n");
+  let infoArray = [];
+  if (index === -1) {
+    infoArray.push(info);
+    infoArray.push("");
+  } else {
+    infoArray.push(info.substring(0, index));
+    infoArray.push(info.substring(index + 1));
+  }
+  return infoArray;
 }
