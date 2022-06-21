@@ -234,7 +234,7 @@ export class Gigascarab extends ArmPrimary.Arm {
     this.m_extra = "反聚集";
 
     this.scale = 1;
-    this.singleHP = 3000;
+    this.singleHP = 2400;
     this.speed = 4;
 
     this.type = [0, 0, 1, 2];
@@ -243,7 +243,7 @@ export class Gigascarab extends ArmPrimary.Arm {
     this.GAtogether = false;
     this.shock = 100;
 
-    this.cost_bias += 40;
+    this.cost_bias += 60;
     this.loadRealtimeProps();
   }
   _getSingleDamage(damageType, targetArm) {
@@ -443,13 +443,13 @@ export class Queen_1 extends Mutawasps {
   constructor(value, player) {
     super(value, player);
 
-    this.live_max = 8;
+    this.live_max = 6;
     this.live_time = 0;
 
     this.name = "Mutawasps (Brooded)";
     this.m_name = "异蜂-孵化";
 
-    this.G_data = [15, 5, 3, 10];
+    this.G_data = [15, 5, 3, 7];
 
     this.scale = 20;
     this.loadRealtimeProps();

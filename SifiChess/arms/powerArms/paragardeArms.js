@@ -315,7 +315,7 @@ export class AbyssKnight extends ArmPrimary.Arm {
     this.GAtogether = false;
     this.G_data = [50, 20, 4, 30];
 
-    this.cost_bias = 28;
+    this.cost_bias = 15;
     this.loadRealtimeProps();
   }
   _getSingleDamage(damageType, targetArm) {
@@ -376,6 +376,82 @@ export class ThunderGuard extends ArmPrimary.Arm {
       if (targetArm.c_scale >= 10) singleDamage += this.missile_G_bonus;
       if (targetArm.c_scale >= 15) singleDamage += this.missile_G_bonus;
     }
+    return singleDamage;
+  }
+}
+
+export class DeathEnvoy extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Death Envoy";
+    this.m_name = "死神特使";
+    this.extra = "Anti-Aggregation";
+    this.m_extra = "反聚集";
+
+    this.shield = 3000;
+    this.shield_armor = 50;
+    this.scale = 1;
+    this.singleHP = 100;
+    this.speed = 2;
+
+    this.type = [0, 0, 1, 1];
+    this.defence_data = [0, 20];
+    this.melee_data = [1200, 0];
+
+    this.brooder = true;
+    this.canRelease = true;
+    this.brood_time = 4;
+    this.brood_max = 6;
+
+    this.cost_bias = 120;
+    this.loadRealtimeProps();
+  }
+  _prepareBrooding() {
+    let brooded = new DeathEnvoy_1([0, 0], this.player);
+    return brooded;
+  }
+  getAttachedName() {
+    return ["Death Spirits", "死灵"];
+  }
+}
+
+export class DeathEnvoy_1 extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Death Spirits";
+    this.m_name = "死灵";
+    this.extra = "Self-detonation";
+    this.m_extra = "自爆";
+    this.detoColor = "red";
+    this.missileColor = "red";
+    this.missileWeight = 4;
+    this.missileLaser = true;
+
+    this.live_max = 4;
+    this.live_time = 0;
+
+    this.scale = 10;
+    this.singleHP = 100;
+    this.speed = 3;
+
+    this.type = [1, 0, 0, 0];
+    this.defence_data = [0, 70];
+    this.GAtogether = true;
+    this.G_data = [100, 0, 3, 4];
+
+    this.deto_target = 2;
+    this.self_deto = 330;
+    this.self_deto_bonus = 200;
+
+    this.loadRealtimeProps();
+  }
+  _getSingleDeto(targetArm) {
+    let singleDamage = this.self_deto;
+    if (targetArm.c_scale >= 5) singleDamage += this.self_deto_bonus;
+    if (targetArm.c_scale >= 10) singleDamage += this.self_deto_bonus;
+    if (targetArm.c_scale >= 15) singleDamage += this.self_deto_bonus;
     return singleDamage;
   }
 }
@@ -669,8 +745,9 @@ export class AircraftCarrier_1 extends ArmPrimary.Arm {
     this.extra = "Agile";
     this.m_extra = "迅捷";
 
+    this.shield = 800;
     this.scale = 20;
-    this.singleHP = 50;
+    this.singleHP = 10;
     this.speed = 5;
     this.live_max = 8;
     this.live_time = 0;
@@ -678,7 +755,7 @@ export class AircraftCarrier_1 extends ArmPrimary.Arm {
     this.type = [1, 0, 0, 0];
     this.defence_data = [0, 80];
     this.GAtogether = true;
-    this.G_data = [40, 0, 4, 10];
+    this.G_data = [40, 0, 4, 7];
 
     this.loadRealtimeProps();
   }
@@ -690,9 +767,10 @@ export function newAnArm(i, posX, posY, player) {
     new ParagardeShield([posX, posY], player),
     new BlinkHunter([posX, posY], player),
     new SoulReaper([posX, posY], player),
-    new GoldenKnight([posX, posY], player),
     new AbyssKnight([posX, posY], player),
+    new GoldenKnight([posX, posY], player),
     new ThunderGuard([posX, posY], player),
+    new DeathEnvoy([posX, posY], player),
     new FlameTitan([posX, posY], player),
     new CurseTitan([posX, posY], player),
     new StarLight([posX, posY], player),

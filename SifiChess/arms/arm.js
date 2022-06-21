@@ -232,8 +232,9 @@ export class Arm {
     let realDodge = 0;
     for (let i = 0; i < 5; i++) {
       let rand = Math.floor(Math.random() * 100) + 1;
-      if (rand <= dodge) realDodge += 15;
+      if (rand <= dodge) realDodge += 17;
     }
+    // console.log(`dodge:${dodge}, realDodge:${realDodge}`);
 
     enh = afterArmorEnhancement(this, this.player.pieceList);
     let percentage = (100 - (armor + realDodge + enh)) / 100;
@@ -298,7 +299,7 @@ export class Arm {
   }
 
   _checkSelfDeto(totalDecrease) {
-    if (this.self_deto <= 0) return;
+    if (this.self_deto <= 0 || totalDecrease <= 0) return;
     sef_detonation(this, totalDecrease);
   }
 
