@@ -23,8 +23,10 @@ export function drawSelectionRect(cxt, piece, color) {
 
 export function drawAvailableDestinations(cxt, self, others) {
   let seenOthers = new Set();
+  let seenG_A = {};
   for (let i = 0; i < others.length; i++) {
     seenOthers.add(`${others[i].positionX},${others[i].positionY}`);
+    seenG_A[`${others[i].positionX},${others[i].positionY}`] = others[i].G_A;
   }
 
   let availablePositions = [];
@@ -36,7 +38,10 @@ export function drawAvailableDestinations(cxt, self, others) {
       for (let i = 1; i <= self.c_speed; i++) {
         let nx = self.positionX + i * dir[d][0];
         let ny = self.positionY + i * dir[d][1];
-        if (!checkAvailablePosition(nx, ny, seenOthers)) break;
+        if (!checkAvailablePosition(nx, ny, seenOthers)) {
+          if (seenG_A[`${nx},${ny}`] === 0) break;
+          else if (seenG_A[`${nx},${ny}`] === 1) continue;
+        }
         availablePositions.push([nx, ny]);
       }
     }
@@ -198,10 +203,10 @@ function hightlightExtrabilityRange(cxt, self) {
 }
 
 function checkAvailablePosition(nx, ny, seenOthers) {
-  let str = `${nx},${ny}`;
   if (nx < 0 || nx >= maxX || ny < 0 || ny >= maxY) {
     return false;
   }
+  let str = `${nx},${ny}`;
   if (seenOthers != null && seenOthers.has(str)) {
     return false;
   }
