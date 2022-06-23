@@ -287,14 +287,17 @@ function drawAdditionalInfo(cxt, piece, useMandarin, showCost) {
     if (piece.status === 0) {
       Canvas.drawImg(cxt, piece.img2, 5, 10, 90, 90, 10, textY - 15, 60, 60);
       name = useMandarin ? piece.m_name2 : piece.name2;
-    } else {
+    } else if (piece.status === 1 && !piece.evolable) {
       Canvas.drawImg(cxt, piece.img1, 5, 10, 90, 90, 10, textY - 15, 60, 60);
       name = useMandarin ? piece.m_name1 : piece.name1;
     }
     let title = useMandarin ? "可切换至 " : "Can switch to ";
-    if (piece.status === 1)
+    if (piece.status === 0 && piece.evolable)
+      title = useMandarin ? "可进化成 " : "Can evolve to ";
+    if (piece.status === 1 && !piece.evolable)
       title = useMandarin ? "可切换回 " : "Can switch back to ";
     title += `[ ${name} ]`;
+    if (piece.status === 1 && piece.evolable) title = "";
     Canvas.drawText(cxt, title, 80, textY, "white", 18);
 
     if (piece.switchInfo) {

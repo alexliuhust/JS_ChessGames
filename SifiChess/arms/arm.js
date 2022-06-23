@@ -104,6 +104,7 @@ export class Arm {
 
     this.status = 0;
     this.switchable = false;
+    this.evolable = false;
     this.attached = false;
     this.canRelease = false;
     this.hasBroodVersion = false;
@@ -550,12 +551,13 @@ export class Arm {
       let recovered = Math.floor(this.mend / this.c_singleHP);
       let remainder = this.mend - recovered * this.c_singleHP;
       let toMendWound = this.c_singleHP - this.wound;
-      console.log(recovered, remainder, toMendWound);
+      // console.log(recovered, remainder, toMendWound);
       if (remainder < toMendWound) {
         this.wound += remainder;
       } else {
         this.wound = 0;
         recovered++;
+        if (this.c_scale === this.scale) this.wound = this.c_singleHP;
       }
       this.c_scale += recovered;
       this.c_scale = Math.min(this.c_scale, this.scale);

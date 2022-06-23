@@ -242,6 +242,162 @@ export class Mothermantis_1 extends Arlmantises {
   }
 }
 
+export class Flechacondas extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name1 = "Flechacondas";
+    this.m_name1 = "箭刺虫";
+    this.name2 = "Picospines";
+    this.m_name2 = "剑脊";
+    this.name = this.name1;
+    this.m_name = this.m_name1;
+    this.extra = "High-Damage / Anti-Aggregation";
+    this.m_extra = "高伤害 / 反聚集";
+
+    this.switchInfo = [
+      "",
+      "Anti-ground specialization, anti-aggregation,\nand gain self-mending ability",
+    ];
+    this.m_switchInfo = ["", "对地专精，反聚集，并获得自我修复能力"];
+
+    this.scale = 24;
+    this.singleHP = 150;
+    this.speed = 3;
+
+    this.type = [0, 0, 0, 1];
+    this.defence_data = [0, 20];
+    this.melee_data = [110, 0];
+    this.GAtogether = true;
+    this.G_data = [45, 0, 5, 30];
+
+    this.cost_bias = 30;
+    this.switchable = true;
+    this.evolable = true;
+    this.loadRealtimeProps();
+    this.ammo_record = [
+      [30, 30],
+      [30, 0],
+    ];
+  }
+  _getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (this.status === 0) {
+      if (damageType === "melee") {
+        singleDamage = this.c_melee;
+      } else if (damageType === "missile" && this.c_ammo_G > 0) {
+        this.c_ammo_G--;
+        this.c_ammo_A--;
+        singleDamage = this.c_missile_G;
+      }
+    } else {
+      if (damageType === "melee") {
+        singleDamage = this.c_melee;
+      } else if (damageType === "missile") {
+        if (targetArm.G_A === 0 && this.c_ammo_G > 0) {
+          this.c_ammo_G--;
+          singleDamage = this.c_missile_G;
+          if (targetArm.c_scale >= 5) singleDamage += this.missile_G_bonus;
+          if (targetArm.c_scale >= 10) singleDamage += this.missile_G_bonus;
+          if (targetArm.c_scale >= 15) singleDamage += this.missile_G_bonus;
+        }
+      }
+    }
+    return singleDamage;
+  }
+  switch() {
+    if (
+      this.status === 1 ||
+      !this.switchable ||
+      this.hasAttacked ||
+      this.slowdown_countdown > 0
+    )
+      return;
+    this._beginSwitch(false);
+    this.status = 1;
+    this.speed = 2;
+    this.mend = 70;
+    this.melee_data = [0, 0];
+    this.GAtogether = false;
+    this.G_data = [40, 40, 5, 30];
+    this.A_data = [0, 0, 0, -1];
+    this._endSwitch(true);
+  }
+}
+
+export class Furiacondas extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name1 = "Furiacondas";
+    this.m_name1 = "狂暴虫";
+    this.name2 = "Heraldspines";
+    this.m_name2 = "虫锋";
+    this.name = this.name1;
+    this.m_name = this.m_name1;
+    this.extra = "High-Damage / Anti-Large";
+    this.m_extra = "高伤害 / 反大型";
+
+    this.switchInfo = [
+      "",
+      "Anti-ground specialization, anti-large,\nand gain self-mending ability",
+    ];
+    this.m_switchInfo = ["", "对地专精，反大型，并获得自我修复能力"];
+
+    this.scale = 24;
+    this.singleHP = 200;
+    this.speed = 3;
+
+    this.type = [0, 0, 0, 1];
+    this.defence_data = [30, 0];
+    this.melee_data = [155, 0];
+
+    this.cost_bias = 80;
+    this.switchable = true;
+    this.evolable = true;
+    this.loadRealtimeProps();
+    this.ammo_record = [
+      [0, 0],
+      [30, 0],
+    ];
+  }
+  _getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (this.status === 0) {
+      if (damageType === "melee") singleDamage = this.c_melee;
+    } else {
+      if (damageType === "melee") {
+        singleDamage = this.c_melee;
+      } else if (damageType === "missile") {
+        if (targetArm.G_A === 0 && this.c_ammo_G > 0) {
+          this.c_ammo_G--;
+          singleDamage = this.c_missile_G;
+          if (targetArm.size === 1)
+            singleDamage += Math.round(this.missile_G_bonus / 2);
+          else if (targetArm.size === 2) singleDamage += this.missile_G_bonus;
+        }
+      }
+    }
+    return singleDamage;
+  }
+  switch() {
+    if (
+      this.status === 1 ||
+      !this.switchable ||
+      this.hasAttacked ||
+      this.slowdown_countdown > 0
+    )
+      return;
+    this._beginSwitch(false);
+    this.status = 1;
+    this.speed = 2;
+    this.mend = 70;
+    this.G_data = [20, 90, 7, 30];
+    this.A_data = [0, 0, 0, -1];
+    this._endSwitch(true);
+  }
+}
+
 export class Gigascarab extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
@@ -485,6 +641,8 @@ export function newAnArm(i, posX, posY, player) {
     new Rockscarabs([posX, posY], player),
     new Fuegoscarabs([posX, posY], player),
     new Mothermantis([posX, posY], player),
+    new Flechacondas([posX, posY], player),
+    new Furiacondas([posX, posY], player),
     new Gigascarab([posX, posY], player),
     new Mutawasps([posX, posY], player),
     new MutawaspsMend([posX, posY], player),
