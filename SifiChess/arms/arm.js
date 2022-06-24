@@ -112,6 +112,7 @@ export class Arm {
     this.brood_time = 0;
     this.brood_max = 0;
 
+    this.healTarget = 0;
     this.healing = 0;
     this.healRange = 0;
     this.totalHeal = 0;

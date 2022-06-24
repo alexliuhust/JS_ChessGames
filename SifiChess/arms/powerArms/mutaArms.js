@@ -66,8 +66,6 @@ export class Rockscarabs extends ArmPrimary.Arm {
     this.m_name2 = "岩甲虫-甲质硬化";
     this.name = this.name1;
     this.m_name = this.m_name1;
-    this.extra = "Durable";
-    this.m_extra = "结实";
     this.missileColor = MC.PoisonColor;
     this.missileWeight = 5;
 
@@ -105,14 +103,16 @@ export class Rockscarabs extends ArmPrimary.Arm {
 
     if (this.status === 0) {
       this.status = 1;
-
+      this.extra = "Durable";
+      this.m_extra = "结实";
       this.mend = 80;
       this.speed = 0;
       this.defence_data = [60, 0];
       this.G_data = [0, 0, 0, -1];
     } else {
       this.status = 0;
-
+      this.extra = "";
+      this.m_extra = "";
       this.mend = 0;
       this.speed = 2;
       this.defence_data = [40, 0];
@@ -193,8 +193,8 @@ export class Mothermantis extends ArmPrimary.Arm {
 
     this.name = "Mothermantis";
     this.m_name = "螳后";
-    this.extra = "Brooder, Healer";
-    this.m_extra = "孵化者，治疗者";
+    this.extra = "Brooder, Bio-Healer";
+    this.m_extra = "孵化者，生物治疗者";
 
     this.attachInfo = "Broods a small amount of agile Arlmantises";
     this.m_attachInfo = "孵化少量而迅捷的阿尔螳";
@@ -213,6 +213,7 @@ export class Mothermantis extends ArmPrimary.Arm {
     this.brood_time = 3;
     this.brood_max = 3;
 
+    this.healTarget = 0;
     this.healing = 5;
     this.totalHeal = 200;
     this.c_totalHeal = 200;
@@ -258,8 +259,8 @@ export class Flechacondas extends ArmPrimary.Arm {
     this.m_name2 = "剑脊";
     this.name = this.name1;
     this.m_name = this.m_name1;
-    this.extra = "High-Damage / Anti-Aggregation";
-    this.m_extra = "高伤害 / 反聚集";
+    this.extra = "High-Damage";
+    this.m_extra = "高伤害";
     this.missileColor = MC.FireColor;
     this.missileWeight = 2;
 
@@ -322,6 +323,8 @@ export class Flechacondas extends ArmPrimary.Arm {
     )
       return;
     this._beginSwitch(false);
+    this.extra = "High-Damage, Anti-Aggregation";
+    this.m_extra = "高伤害，反聚集";
     this.status = 1;
     this.speed = 2;
     this.mend = 70;
@@ -343,8 +346,8 @@ export class Furiacondas extends ArmPrimary.Arm {
     this.m_name2 = "虫锋";
     this.name = this.name1;
     this.m_name = this.m_name1;
-    this.extra = "High-Damage / Anti-Large";
-    this.m_extra = "高伤害 / 反大型";
+    this.extra = "High-Damage";
+    this.m_extra = "高伤害";
 
     this.switchInfo = [
       "",
@@ -398,6 +401,8 @@ export class Furiacondas extends ArmPrimary.Arm {
       return;
     this._beginSwitch(false);
     this.status = 1;
+    this.extra = "High-Damage, Anti-Large";
+    this.m_extra = "高伤害，反大型";
     this.speed = 2;
     this.mend = 70;
     this.G_data = [20, 90, 7, 30];
@@ -595,8 +600,8 @@ export class Queen extends ArmPrimary.Arm {
 
     this.name = "Queen";
     this.m_name = "蜂后";
-    this.extra = "Brooder, Healer";
-    this.m_extra = "孵化者，治疗者";
+    this.extra = "Brooder, Bio-Healer";
+    this.m_extra = "孵化者，生物治疗者";
 
     this.attachInfo =
       "Broods a small amount of Mutawasps that fight\nboth ground and air units";
@@ -614,6 +619,7 @@ export class Queen extends ArmPrimary.Arm {
     this.brood_time = 4;
     this.brood_max = 4;
 
+    this.healTarget = 0;
     this.healing = 7;
     this.totalHeal = 300;
     this.c_totalHeal = 300;

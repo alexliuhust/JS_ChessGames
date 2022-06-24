@@ -199,6 +199,8 @@ function drawCombatData(cxt, piece, useMandarin, showCost) {
     dataX[1] = 260;
 
   let healText = `Healing: ${piece.c_totalHeal} / ${piece.totalHeal}`;
+  if (piece.healTarget === 0) healText += " (To Bio)";
+  else healText += " (To Mech)";
   let chargeText = `Charging: ${piece.c_totalCharge} / ${piece.totalCharge}`;
   let inspText = `Inspiring: ${piece.inspiring}`;
   let arEnhText = `Armor Enhance: ${piece.armorEnhance}%`;
@@ -221,6 +223,8 @@ function drawCombatData(cxt, piece, useMandarin, showCost) {
     attackText = `伤害:`;
     rangeText = `射程:`;
     healText = `治疗量: ${piece.c_totalHeal} / ${piece.totalHeal}`;
+    if (piece.healTarget === 0) healText += " (对生物)";
+    else healText += " (对机械)";
     chargeText = `充能量: ${piece.c_totalCharge} / ${piece.totalCharge}`;
     inspText = `鼓舞: ${piece.inspiring}`;
     arEnhText = `抗性增强: ${piece.armorEnhance}%`;
@@ -230,7 +234,7 @@ function drawCombatData(cxt, piece, useMandarin, showCost) {
   if (piece.slowdown_countdown > 0) color = RDC;
   if (piece.c_speed === 0) color = "red";
   let fontSize = 17;
-  Canvas.drawText(cxt, speedText, leftX, textY, color, fontSize);
+  Canvas.drawText(cxt, speedText, leftX, textY, DRC, fontSize);
   Canvas.drawText(cxt, armorText, leftX + 250, textY, ADC, fontSize);
   Canvas.drawText(cxt, dodgeText, leftX + 380, textY, GDC, fontSize);
 

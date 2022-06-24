@@ -83,8 +83,8 @@ export class MedicalSquad extends ArmPrimary.Arm {
 
     this.name = "Medical Squad";
     this.m_name = "医疗队";
-    this.extra = "Healer";
-    this.m_extra = "治疗者";
+    this.extra = "Bio-Healer";
+    this.m_extra = "生物治疗者";
 
     this.scale = 30;
     this.singleHP = 70;
@@ -94,6 +94,7 @@ export class MedicalSquad extends ArmPrimary.Arm {
     this.defence_data = [25, 0];
     this.melee_data = [10, 0];
 
+    this.healTarget = 0;
     this.healing = 9;
     this.totalHeal = 150;
     this.healRange = 2;
@@ -205,15 +206,13 @@ export class Sniper extends ArmPrimary.Arm {
     this.m_name2 = "狙击手小队-狙击模式";
     this.name = this.name1;
     this.m_name = this.m_name1;
-    this.extra = "Anti-Bio";
-    this.m_extra = "反生物";
     this.switchInfo = [
       "Movement speed restored, but attack range reduced",
       "Immobile, dodge weakened, but gain longer range\nand bonus damage to bio units",
     ];
     this.m_switchInfo = [
       "恢复移动力，但攻击距离缩短",
-      "不可移动，闪避削弱，但获得更远的射程和对生物单位的伤害加成",
+      "不可移动，闪避削弱，但获得更远的射程和\n对生物单位的伤害加成",
     ];
 
     this.scale = 20;
@@ -259,7 +258,8 @@ export class Sniper extends ArmPrimary.Arm {
 
     if (this.status === 0) {
       this.status = 1;
-
+      this.extra = "Anti-Bio";
+      this.m_extra = "反生物";
       this.speed = 0;
       this.defence_data = [0, 20];
       this.melee_data = [30, 0];
@@ -267,7 +267,8 @@ export class Sniper extends ArmPrimary.Arm {
       this.G_data = [30, 50, 6, 20];
     } else {
       this.status = 0;
-
+      this.extra = "";
+      this.m_extra = "";
       this.speed = 4;
       this.defence_data = [0, 50];
       this.melee_data = [50, 0];
@@ -352,8 +353,8 @@ export class Paladin extends ArmPrimary.Arm {
     this.m_name2 = "圣骑士榴弹炮";
     this.name = this.name1;
     this.m_name = this.m_name1;
-    this.extra = "Anti-Mech / Anti-Aggregation";
-    this.m_extra = "反机械 / 反聚集";
+    this.extra = "Anti-Mech";
+    this.m_extra = "反机械";
     this.missileColor = MC.ATColor;
     this.missileWeight = 3;
     this.missileShape = null;
@@ -415,7 +416,8 @@ export class Paladin extends ArmPrimary.Arm {
 
     if (this.status === 0) {
       this.status = 1;
-
+      this.extra = "Anti-Aggregation";
+      this.m_extra = "反聚集";
       this.missileColor = MC.BombColor;
       this.missileWeight = 5;
       this.missileShape = "circle";
@@ -425,7 +427,8 @@ export class Paladin extends ArmPrimary.Arm {
       this.shock = 30;
     } else {
       this.status = 0;
-
+      this.extra = "Anti-Mech";
+      this.m_extra = "反机械";
       this.missileColor = MC.ATColor;
       this.missileWeight = 3;
       this.missileShape = null;
@@ -493,8 +496,8 @@ export class SupportDrone extends ArmPrimary.Arm {
 
     this.name = "Support Drones";
     this.m_name = "支援无人机";
-    this.extra = "Healer, Reducer";
-    this.m_extra = "治疗者，减速者";
+    this.extra = "Mech-Mender, Reducer";
+    this.m_extra = "机械修复者，减速者";
     this.missileColor = MC.GhostColor;
     this.missileWeight = 8;
     this.missileNumber = 1;
@@ -513,6 +516,7 @@ export class SupportDrone extends ArmPrimary.Arm {
     this.slowdown = true;
     this.slowdown_time = 2;
 
+    this.healTarget = 1;
     this.healing = 60;
     this.totalHeal = 200;
     this.healRange = 2;
@@ -596,7 +600,8 @@ export class DeckDropper extends ArmPrimary.Arm {
 
     if (this.status === 0) {
       this.status = 1;
-
+      this.extra = "";
+      this.m_extra = "";
       this.missileWeight = 2;
       this.speed = 3;
       this.defence_data = [30, 0];
@@ -606,7 +611,8 @@ export class DeckDropper extends ArmPrimary.Arm {
       this.A_data = [0, 0, 0, -1];
     } else {
       this.status = 0;
-
+      this.extra = "Anti-Heavy";
+      this.m_extra = "反重甲";
       this.missileWeight = 4;
       this.speed = 5;
       this.defence_data = [10, 30];
@@ -663,8 +669,8 @@ export class Cruiser extends ArmPrimary.Arm {
     this.m_name2 = "巡洋舰-主炮齐射";
     this.name = this.name1;
     this.m_name = this.m_name1;
-    this.extra = "Anti-Light / Anti-Heavy";
-    this.m_extra = "反轻甲 / 反重甲";
+    this.extra = "Anti-Light";
+    this.m_extra = "反轻甲";
     this.missileColor = "white";
     this.missileWeight = 2;
     this.missileNumber = 7;
@@ -721,7 +727,8 @@ export class Cruiser extends ArmPrimary.Arm {
 
     if (this.status === 0) {
       this.status = 1;
-
+      this.extra = "Anti-Heavy";
+      this.m_extra = "反重甲";
       this.missileColor = MC.FireColor;
       this.missileWeight = 7;
       this.missileNumber = 3;
@@ -729,7 +736,8 @@ export class Cruiser extends ArmPrimary.Arm {
       this.G_data = [1000, 200, 7, 20];
     } else {
       this.status = 0;
-
+      this.extra = "Anti-Light";
+      this.m_extra = "反轻甲";
       this.missileColor = "white";
       this.missileWeight = 2;
       this.missileNumber = 7;

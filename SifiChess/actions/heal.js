@@ -23,6 +23,7 @@ function getLowestPiece(healer, pieces) {
   for (let i = 0; i < pieces.length; i++) {
     let piece = pieces[i];
     if (piece === healer) continue;
+    if (healer.healTarget != piece.B_M) continue;
 
     let distance = calculateDistance(
       healer.positionX,

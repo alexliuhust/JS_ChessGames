@@ -12,8 +12,8 @@ export class PalaceGuard extends ArmPrimary.Arm {
     this.m_name2 = "宫廷卫队-巨锤";
     this.name = this.name1;
     this.m_name = this.m_name1;
-    this.extra = "Anti-Small / Anti-Heavy";
-    this.m_extra = "反小型 / 反重甲";
+    this.extra = "Anti-Small";
+    this.m_extra = "反小型";
 
     this.switchInfo = [
       `With sharp swords in hand\nand bonus damage against small units`,
@@ -65,7 +65,8 @@ export class PalaceGuard extends ArmPrimary.Arm {
 
     if (this.status === 0) {
       this.status = 1;
-
+      this.extra = "Anti-Heavy";
+      this.m_extra = "反重甲";
       this.speed = 3;
       this.defence_data = [35, 20];
       this.melee_data = [40, 70];
@@ -73,7 +74,8 @@ export class PalaceGuard extends ArmPrimary.Arm {
       this.slowdown_time = 1;
     } else {
       this.status = 0;
-
+      this.extra = "Anti-Small";
+      this.m_extra = "反小型";
       this.speed = 4;
       this.defence_data = [0, 50];
       this.melee_data = [50, 50];
@@ -418,8 +420,6 @@ export class DeathEnvoy extends ArmPrimary.Arm {
 
     this.name = "Death Envoy";
     this.m_name = "死神特使";
-    this.extra = "Anti-Aggregation";
-    this.m_extra = "反聚集";
     this.attachInfo =
       "Unleashes a swarm of self-detonating Death Spirits\nthat can attack air and ground units";
     this.m_attachInfo = "释放一群可以攻击空中和地面单位且可自爆的死灵";
@@ -465,6 +465,8 @@ export class DeathEnvoy_1 extends ArmPrimary.Arm {
     this.missileColor = "red";
     this.missileWeight = 4;
     this.missileLaser = true;
+    this.extra = "Anti-Aggregation";
+    this.m_extra = "反聚集";
 
     this.live_max = 4;
     this.live_time = 0;
