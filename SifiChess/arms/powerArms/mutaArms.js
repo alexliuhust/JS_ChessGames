@@ -68,6 +68,8 @@ export class Rockscarabs extends ArmPrimary.Arm {
     this.m_name = this.m_name1;
     this.extra = "Durable";
     this.m_extra = "结实";
+    this.missileColor = MC.PoisonColor;
+    this.missileWeight = 5;
 
     this.switchInfo = [
       "Recover capacities of movement and attack",
@@ -133,6 +135,8 @@ export class Fuegoscarabs extends Rockscarabs {
     this.m_name = this.m_name1;
     this.extra = "";
     this.m_extra = "";
+    this.missileColor = MC.FireColor;
+    this.missileWeight = 4;
 
     this.switchInfo = [
       "Anti-ground specialization",
@@ -164,6 +168,7 @@ export class Fuegoscarabs extends Rockscarabs {
     if (this.status === 0) {
       this.status = 1;
 
+      this.missileWeight = 6;
       this.melee_data = [0, 0];
       this.GAtogether = false;
       this.G_data = [0, 0, 0, -1];
@@ -171,6 +176,7 @@ export class Fuegoscarabs extends Rockscarabs {
     } else {
       this.status = 0;
 
+      this.missileWeight = 4;
       this.melee_data = [66, 0];
       this.GAtogether = false;
       this.G_data = [22, 0, 3, 30];
@@ -254,6 +260,8 @@ export class Flechacondas extends ArmPrimary.Arm {
     this.m_name = this.m_name1;
     this.extra = "High-Damage / Anti-Aggregation";
     this.m_extra = "高伤害 / 反聚集";
+    this.missileColor = MC.FireColor;
+    this.missileWeight = 2;
 
     this.switchInfo = [
       "",
@@ -440,6 +448,8 @@ export class Mutawasps extends ArmPrimary.Arm {
     this.m_name = "异蜂";
     this.extra = "Agile, Anti-Aggregation";
     this.m_extra = "迅捷，反聚集";
+    this.missileColor = MC.PoisonColor;
+    this.missileWeight = 2;
 
     this.scale = 30;
     this.singleHP = 100;
@@ -524,6 +534,7 @@ export class Blade extends ArmPrimary.Arm {
     this.m_name = "利刃巨蝠";
     this.extra = "Anti-Mech";
     this.m_extra = "反机械";
+    this.missileWeight = 5;
 
     this.scale = 15;
     this.singleHP = 300;
@@ -556,6 +567,9 @@ export class Firewings extends Blade {
     this.m_name = "炽翼巨蝠";
     this.extra = "Anti-Bio, Anti-Aggregation";
     this.m_extra = "反生物，反聚集";
+    this.missileColor = MC.FireColor;
+    this.missileShape = "circle";
+    this.missileRadius = 7;
 
     this.A_data = [40, 15, 5, 30];
 

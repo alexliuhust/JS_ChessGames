@@ -93,6 +93,9 @@ export class ParagardeShield extends ArmPrimary.Arm {
     this.m_name = "帕拉加德之盾";
     this.extra = "Charger, Protector";
     this.m_extra = "充能者，护卫者";
+    this.missileWeight = 3;
+    this.missileLaser = true;
+    this.missileColor = MC.GhostColor;
 
     this.shield = 400;
     this.shield_armor = 50;
@@ -103,7 +106,7 @@ export class ParagardeShield extends ArmPrimary.Arm {
     this.type = [0, 1, 0, 0];
     this.defence_data = [0, 30];
     this.GAtogether = true;
-    this.G_data = [20, 0, 4, 20];
+    this.G_data = [50, 0, 5, 20];
 
     this.charging = 30;
     this.chargeRange = 2;
@@ -194,14 +197,14 @@ export class BlinkHunter extends ArmPrimary.Arm {
   }
 }
 
-export class SoulReaper extends ArmPrimary.Arm {
+export class ShadowWarrior extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name1 = "Soul Reapers";
-    this.m_name1 = "灵魂收割者";
-    this.name2 = "Soul Reapers (Whirlwind)";
-    this.m_name2 = "宫廷卫队-旋风斩";
+    this.name1 = "Shadow Warriors";
+    this.m_name1 = "暗影战士";
+    this.name2 = "Shadow Warriors (Whirlwind)";
+    this.m_name2 = "暗影战士-旋风斩";
     this.name = this.name1;
     this.m_name = this.m_name1;
     this.switchInfo = [
@@ -430,13 +433,15 @@ export class DeathEnvoy extends ArmPrimary.Arm {
     this.type = [0, 0, 1, 1];
     this.defence_data = [0, 20];
     this.melee_data = [1200, 0];
+    this.GAtogether = true;
+    this.G_data = [500, 0, 2, 20];
 
     this.brooder = true;
     this.canRelease = true;
-    this.brood_time = 4;
+    this.brood_time = 6;
     this.brood_max = 6;
 
-    this.cost_bias = 120;
+    this.cost_bias = 100;
     this.loadRealtimeProps();
   }
   _prepareBrooding() {
@@ -468,7 +473,7 @@ export class DeathEnvoy_1 extends ArmPrimary.Arm {
     this.singleHP = 100;
     this.speed = 3;
 
-    this.type = [1, 0, 0, 0];
+    this.type = [0, 0, 0, 0];
     this.defence_data = [0, 70];
     this.GAtogether = true;
     this.G_data = [100, 0, 3, 4];
@@ -496,8 +501,10 @@ export class FlameTitan extends ArmPrimary.Arm {
     this.m_name = "烈焰泰坦";
     this.extra = "Anti-Bio";
     this.m_extra = "反生物";
-    this.missileColor = MC.ATColor;
-    this.missileWeight = 7;
+    this.missileColor = "yellow";
+    this.missileWeight = 8;
+    this.missileLaser = true;
+    this.missileNumber = 1;
 
     this.shield = 1500;
     this.shield_armor = 20;
@@ -533,9 +540,11 @@ export class CurseTitan extends FlameTitan {
     this.m_name = "诅咒泰坦";
     this.extra = "Anti-Mech";
     this.m_extra = "反机械";
+    this.missileLaser = false;
     this.missileColor = "red";
-    this.missileLaser = true;
-    this.missileNumber = 1;
+    this.missileWeight = 13;
+    this.missileShape = "circle";
+    this.missileRadius = 10;
 
     this.G_data = [900, 600, 6, 25];
 
@@ -561,8 +570,8 @@ export class StarLight extends ArmPrimary.Arm {
 
     this.name = "Star Lights";
     this.m_name = "星光";
-    this.extra = "Anti-Light";
-    this.m_extra = "反轻甲";
+    this.extra = "Anti-Light, Reducer";
+    this.m_extra = "反轻甲，减速者";
     this.missileWeight = 2;
     this.missileColor = MC.GhostColor;
     this.missileWeight_A = 4;
@@ -800,7 +809,7 @@ export function newAnArm(i, posX, posY, player) {
     new PalaceGuard([posX, posY], player),
     new ParagardeShield([posX, posY], player),
     new BlinkHunter([posX, posY], player),
-    new SoulReaper([posX, posY], player),
+    new ShadowWarrior([posX, posY], player),
     new AbyssKnight([posX, posY], player),
     new GoldenKnight([posX, posY], player),
     new ThunderGuard([posX, posY], player),
