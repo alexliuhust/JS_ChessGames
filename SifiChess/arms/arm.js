@@ -90,6 +90,7 @@ export class Arm {
     this.melee_data = [0, 0];
     this.G_data = [0, 0, 0, -1];
     this.A_data = [0, 0, 0, -1];
+    this.autoAttack = true;
 
     this.GAtogether = false;
 
@@ -108,6 +109,7 @@ export class Arm {
     this.attached = false;
     this.canRelease = false;
     this.hasBroodVersion = false;
+    this.autoBrood = true;
     this.brooder = false;
     this.brood_time = 0;
     this.brood_max = 0;
@@ -356,7 +358,7 @@ export class Arm {
     let charged = false;
     if (this.name === "Golden Titans") console.log(this.name, this.isAttacked);
     if (endMyRound) {
-      triggerAutoAttack(this, this.player.enemyList);
+      if (this.autoAttack) triggerAutoAttack(this, this.player.enemyList);
       healed = triggerHealing(this, this.player.pieceList);
       charged = triggerCharging(this, this.player.pieceList);
       triggerInspiring(this, this.player.pieceList);
@@ -371,7 +373,7 @@ export class Arm {
       this.live_time++;
       if (this.live_max != -1 && this.live_time >= this.live_max)
         this.isAlive = false;
-      this.brood();
+      if (this.autoBrood) this.brood();
     }
     if (!healed && this.healing > 0) {
       this.c_totalHeal += Math.round(this.healing / 3);

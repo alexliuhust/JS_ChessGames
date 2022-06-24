@@ -325,6 +325,8 @@ export class Flechacondas extends ArmPrimary.Arm {
     this._beginSwitch(false);
     this.extra = "High-Damage, Anti-Aggregation";
     this.m_extra = "高伤害，反聚集";
+    this.missileColor = "red";
+    this.missileWeight = 2;
     this.status = 1;
     this.speed = 2;
     this.mend = 70;
@@ -400,6 +402,8 @@ export class Furiacondas extends ArmPrimary.Arm {
     )
       return;
     this._beginSwitch(false);
+    this.missileColor = "red";
+    this.missileWeight = 6;
     this.status = 1;
     this.extra = "High-Damage, Anti-Large";
     this.m_extra = "高伤害，反大型";
@@ -540,6 +544,7 @@ export class Blade extends ArmPrimary.Arm {
     this.extra = "Anti-Mech";
     this.m_extra = "反机械";
     this.missileWeight = 5;
+    this.missileColor = "grey";
 
     this.scale = 15;
     this.singleHP = 300;

@@ -500,7 +500,7 @@ export class SupportDrone extends ArmPrimary.Arm {
     this.m_extra = "机械修复者，减速者";
     this.missileColor = MC.GhostColor;
     this.missileWeight = 8;
-    this.missileNumber = 1;
+    // this.missileNumber = 1;
 
     this.scale = 5;
     this.singleHP = 120;
@@ -523,6 +523,84 @@ export class SupportDrone extends ArmPrimary.Arm {
     this.c_totalHeal = 200;
 
     this.cost_bias = -125;
+    this.loadRealtimeProps();
+  }
+}
+
+export class BattleDrone extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Battle Drone";
+    this.m_name = "战斗无人机";
+    this.extra = "Anti-Light";
+    this.m_extra = "反轻甲";
+    this.missileColor = MC.FireColor;
+    this.missileWeight = 8;
+    this.missileNumber = 1;
+    this.attachInfo = "Light fixed auto-turret, can fight air and ground units";
+    this.m_attachInfo = "轻装固定自动炮塔，可对地对空";
+
+    this.scale = 1;
+    this.singleHP = 1000;
+    this.speed = 4;
+
+    this.type = [1, 1, 0, 0];
+    this.defence_data = [0, 80];
+    this.melee_data = [0, 0];
+    this.GAtogether = true;
+    this.G_data = [1100, 500, 8, 10];
+    this.autoAttack = false;
+    this.autoBrood = false;
+
+    this.brooder = true;
+    this.brood_time = 4;
+    this.brood_max = 4;
+
+    this.canRelease = true;
+
+    this.cost_bias = -125;
+    this.loadRealtimeProps();
+  }
+  _getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (damageType === "missile" && this.c_ammo_G > 0) {
+      this.c_ammo_G--;
+      this.c_ammo_A--;
+      singleDamage = this.c_missile_G;
+      if (targetArm.L_H === 0) singleDamage += this.missile_G_bonus;
+    }
+    return singleDamage;
+  }
+  _prepareBrooding() {
+    let brooded = new BattleDrone_1([0, 0], this.player);
+    return brooded;
+  }
+  getAttachedName() {
+    return ["Auto Turret", "自动炮塔"];
+  }
+}
+
+export class BattleDrone_1 extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+    this.live_max = 8;
+    this.live_time = 0;
+
+    this.name = "Auto Turret";
+    this.m_name = "自动炮塔";
+    this.missileNumber = 10;
+
+    this.scale = 1;
+    this.singleHP = 1000;
+    this.speed = 0;
+
+    this.type = [0, 1, 0, 0];
+    this.defence_data = [40, 0];
+    this.melee_data = [0, 0];
+    this.GAtogether = true;
+    this.G_data = [800, 0, 5, 10];
+
     this.loadRealtimeProps();
   }
 }
@@ -762,6 +840,7 @@ export function newAnArm(i, posX, posY, player) {
     new Paladin([posX, posY], player),
     new Annihilator([posX, posY], player),
     new SupportDrone([posX, posY], player),
+    new BattleDrone([posX, posY], player),
     new VultureGunship([posX, posY], player),
     new DeckDropper([posX, posY], player),
     new Cruiser([posX, posY], player),

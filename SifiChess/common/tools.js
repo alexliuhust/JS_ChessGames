@@ -109,6 +109,7 @@ export const Canvas = {
     // Draw live time
     if (arm.live_max >= 1) {
       let livelen = (50 * (arm.live_max - arm.live_time)) / (arm.live_max - 1);
+      livelen = Math.min(50, livelen);
       this.drawLine(
         cxt,
         arm.x,
