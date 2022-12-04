@@ -1,5 +1,6 @@
 import { Canvas } from "../common/tools.js";
 import {
+  dodgePercent,
   calculateCost,
   calculateLeaderShip,
   updateRealTimeProperties,
@@ -245,7 +246,8 @@ export class Arm {
     }
     armor = Math.max(armor, -3);
     dodge = Math.max(dodge, -2);
-    // console.log("armor", armor, "dodge", dodge);
+    dodge = dodgePercent(dodge);
+    //console.log(this.name + "\n" + "armor", armor, "dodge", dodge);
     let enh = afterArmorEnhancement(this, this.player.pieceList);
     let percentage = (100 - (armor + dodge + enh)) / 100;
     if (percentage < 0.12) percentage = 0.12;

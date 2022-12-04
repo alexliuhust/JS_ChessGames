@@ -1,4 +1,5 @@
 import { PowerMap, M_PowerMap, PowerList } from "./common/const.js";
+import { dodgePercent } from "./arms/armTools.js";
 
 let powersForPlayer1 = document.getElementById("powersForPlayer1");
 let powersForPlayer2 = document.getElementById("powersForPlayer2");
@@ -77,3 +78,28 @@ language.addEventListener("input", (e) => {
   updatePowerName(powersForPlayer2, 2);
   updateLocalStorage();
 });
+
+// TEST
+while (false) {
+  let input = prompt("Input the dodge value: ");
+  if (input == "" || input == null) break;
+
+  let dodge = parseInt(input);
+  console.log(`The dodge value = ${dodge}`);
+  let num = 1000;
+  let sum = 0;
+  let arr = [];
+  let min = 100000;
+  let max = -100000;
+  for (let i = 0; i < num; i++) {
+    let per = dodgePercent(dodge);
+    arr.push(per);
+    sum += per;
+    min = Math.min(min, per);
+    max = Math.max(max, per);
+  }
+  sum /= num;
+  console.log(`Minimum: ${min}`);
+  console.log(`Maximun: ${max}`);
+  console.log(`Average: ${sum}`);
+}

@@ -1,3 +1,17 @@
+export function dodgePercent(dodge) {
+  let numSteps = 5;
+  let step = (dodge * 2) / numSteps;
+  let percent = 0;
+  for (let i = 0; i < numSteps; i++) {
+    let rand = Math.random();
+    if (rand >= 0.475) {
+      percent += step;
+    }
+  }
+  percent = Math.round(percent);
+  return percent;
+}
+
 export function calculateCost(arm) {
   // HP score
   let hpScore = arm.scale * arm.singleHP;
