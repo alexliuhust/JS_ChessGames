@@ -356,7 +356,6 @@ export class Arm {
   roundRefresh(currentRound, endMyRound) {
     let healed = false;
     let charged = false;
-    if (this.name === "Golden Titans") console.log(this.name, this.isAttacked);
     if (endMyRound) {
       if (this.autoAttack) triggerAutoAttack(this, this.player.enemyList);
       healed = triggerHealing(this, this.player.pieceList);
@@ -371,8 +370,10 @@ export class Arm {
       this.isAttacked++;
       this.isAttacked = Math.min(this.isAttacked, 2);
       this.live_time++;
-      if (this.live_max != -1 && this.live_time >= this.live_max)
+      if (this.live_max != -1 && this.live_time >= this.live_max) {
+        if (this.self_deto > 0) this.triggerSelfDeto();
         this.isAlive = false;
+      }
       if (this.autoBrood) this.brood();
     }
     if (!healed && this.healing > 0) {

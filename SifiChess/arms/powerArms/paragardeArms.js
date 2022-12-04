@@ -423,6 +423,10 @@ export class DeathEnvoy extends ArmPrimary.Arm {
     this.attachInfo =
       "Unleashes a swarm of self-detonating Death Spirits\nthat can attack air and ground units";
     this.m_attachInfo = "释放一群可以攻击空中和地面单位且可自爆的死灵";
+    this.missileColor = "red";
+    this.missileWeight = 9;
+    this.missileNumber = 1;
+    this.missileLaser = true;
 
     this.shield = 3000;
     this.shield_armor = 50;
@@ -440,6 +444,7 @@ export class DeathEnvoy extends ArmPrimary.Arm {
     this.canRelease = true;
     this.brood_time = 6;
     this.brood_max = 6;
+    this.autoBrood = false;
 
     this.cost_bias = 100;
     this.loadRealtimeProps();

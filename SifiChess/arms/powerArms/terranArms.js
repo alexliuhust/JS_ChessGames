@@ -166,7 +166,9 @@ export class FireBat extends BlackBat {
   constructor(value, player) {
     super(value, player);
     this.missileColor = MC.FireColor;
-    this.missileWeight = 5;
+    this.missileWeight = 10;
+    this.missileNumber = 4;
+    this.missileLaser = true;
 
     this.name = "Fire Bats";
     this.m_name = "火蝠步兵";
