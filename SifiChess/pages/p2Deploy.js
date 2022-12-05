@@ -17,6 +17,8 @@ select.onclick = (e) => {
   deploy.mouseClickingActions(e);
 };
 
+localStorage.setItem("showArmInfoFor", 2);
+
 window.addEventListener("beforeunload", (e) => {
   deploy.storeArmInfo();
 });

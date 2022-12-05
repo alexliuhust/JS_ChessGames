@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>My JS Game</title>
+    </head>
+    <body>
+
+        <div style="margin-left: 160px; margin-top: 0px;">
+            <h1 style="font-size: 60px;">
+                Arm Info
+                <a id="backButton" href="../index.html" style="text-decoration: none;">
+                    <button style="font-size: 40px; width: 200px;">
+                        Back
+                    </button>
+                </a>
+            </h1>
+
+            <h1>Available Troops for <span id="power"></span></h1>
+            <div style="margin-left: 160px;">
+                <canvas id="info" width="520" height="510"
+                    style="position:absolute; z-index: 100; background: black;"></canvas>
+            </div>
+
+            <canvas id="map" width="0" height="0" style="position:absolute; z-index: 100;"></canvas>
+            <canvas id="piece" width="0" height="0" style="position:absolute; z-index: 101;"></canvas>
+            <canvas id="main" width="0" height="0" style="position:absolute; z-index: 102;"></canvas>
+            <canvas id="select" width="0" height="0" style="position:absolute; z-index: 103;"></canvas>
+            
+        </div>
+        <script type="module" src="./pieceInfo.js"></script>
+    </body>
+</html>
