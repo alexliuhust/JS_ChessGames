@@ -31,8 +31,7 @@ export function drawInfoForSelectedPiece(cxt, piece, useMandarin, showCost) {
 }
 
 function drawTitle(cxt, piece, useMandarin, showCost) {
-  console.log(piece.img1);
-  Canvas.drawImg(cxt, piece.img1, 5, 10, 90, 90, 10, 10, 85, 85);
+  Canvas.drawImg(cxt, piece.img, 5, 10, 90, 90, 10, 10, 85, 85);
 
   let name = useMandarin ? piece.m_name : piece.name;
   let desc = useMandarin ? piece.m_description : piece.description;
@@ -283,11 +282,14 @@ function drawCombatData(cxt, piece, useMandarin, showCost) {
 }
 
 function drawAdditionalInfo(cxt, piece, useMandarin, showCost) {
+  if (piece.img1 == null) return;
+
   let textY = showCost ? 460 : 430;
   Canvas.drawLine(cxt, leftX, textY - 45, leftX + 485, textY - 45, "white", 7);
 
   textY -= 20;
   if (piece.switchable) {
+    // console.log(piece.img2);
     let name = null;
     if (piece.status === 0) {
       Canvas.drawImg(cxt, piece.img2, 5, 10, 90, 90, 10, textY - 15, 60, 60);

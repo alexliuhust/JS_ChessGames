@@ -2,11 +2,17 @@ import { exportPower, getArmsAndImages } from "../arms/exportArm.js";
 import { PowerMap, M_PowerMap } from "../common/const.js";
 import { drawInfoForSelectedPiece } from "../prompts/infoDrawings.js";
 
+const leftLength = 160;
 const canvasWidth = 520;
 const canvasHeight = 510;
-const marginLeft = "160px";
+const borderWidth = 20;
+const blankHeight = 120;
+const marginLeft1 = `${leftLength}px`;
+const marginLeft2 = `${leftLength + canvasWidth + borderWidth}px`;
+const marginTop2 = `-${canvasHeight + borderWidth * 2}px`;
+const divBorder = `${borderWidth}px white solid`;
 
-let useMandarin = localStorage.getItem("useMandarin");
+let useMandarin = localStorage.getItem("useMandarin") == "true";
 let playerNumber = localStorage.getItem("showArmInfoFor");
 let powerCodeName = localStorage.getItem(`power${playerNumber}`);
 let POWER = exportPower(powerCodeName);
@@ -21,50 +27,103 @@ let results = getArmsAndImages(powerCodeName);
 let arms = results[0];
 let images = results[1];
 let numArms = arms.length;
-let canvasList = document.getElementById("canvasList");
+// let numArms = 1;
+let canvasListDiv = document.getElementById("canvasList");
+
 for (let i = 0; i < numArms; i++) {
-  let canvas = document.createElement("canvas");
-  canvas.id = `info${i}`;
-  canvas.width = canvasWidth;
-  canvas.height = canvasHeight;
-  canvas.style.position = "absolute";
-  canvas.style.zIndex = 100;
-  canvas.style.background = "black";
+  let canvasGroup = addCanvasBlock(i);
+  let imgGroup = loadImages(i, arms, images);
+  let arm = arms[i];
 
-  let outsideDiv = document.createElement("div");
-  outsideDiv.style.marginLeft = marginLeft;
-  outsideDiv.style.width = `${canvasWidth}px`;
-  outsideDiv.style.height = `${canvasHeight}px`;
-  outsideDiv.style.border = "5px bisque dashed";
+  if (imgGroup[0] != null) {
+    imgGroup[0].onload = function () {
+      let cxt = canvasGroup[0].getContext("2d");
+      drawInfoForSelectedPiece(cxt, arm, useMandarin, true);
 
-  outsideDiv.appendChild(canvas);
-  canvasList.appendChild(outsideDiv);
+      if (canvasGroup[1] != null) {
+        if (arm.switchable) {
+          arm.switch();
+          arm.loadRealtimeProps();
+          arm.img = imgGroup[1];
+          arm.img2 = imgGroup[0];
+          let cxt = canvasGroup[1].getContext("2d");
+          drawInfoForSelectedPiece(cxt, arm, useMandarin, false);
+        }
+      }
+    };
+  }
+}
 
-  let div = document.getElementById(i);
-  let elem = document.createElement("img");
-  elem.src = images[i][0];
-  elem.height = "60";
-  elem.width = elem.height;
-  div.appendChild(elem);
-  arms[i].img = elem;
-  arms[i].img1 = elem;
+function addCanvasBlock(i) {
+  let canvas1 = document.createElement("canvas");
+  canvas1.id = `info${i}`;
+  canvas1.width = canvasWidth;
+  canvas1.height = canvasHeight;
+  canvas1.style.position = "absolute";
+  canvas1.style.zIndex = 100;
+  canvas1.style.background = "black";
+
+  let outsideDiv1 = document.createElement("div");
+  outsideDiv1.style.marginLeft = marginLeft1;
+  outsideDiv1.style.width = `${canvasWidth}px`;
+  outsideDiv1.style.height = `${canvasHeight}px`;
+  outsideDiv1.style.border = divBorder;
+
+  outsideDiv1.appendChild(canvas1);
+  canvasListDiv.appendChild(outsideDiv1);
+
+  if (
+    !(
+      arms[i].switchable ||
+      arms[i].attached ||
+      arms[i].brooder ||
+      arms[i].canRelease
+    )
+  ) {
+    return [canvas1, null];
+  }
+
+  let canvas2 = document.createElement("canvas");
+  canvas2.id = `info${i}_`;
+  canvas2.width = canvasWidth;
+  canvas2.height = canvasHeight - blankHeight;
+  canvas2.style.position = "absolute";
+  canvas2.style.zIndex = 100;
+  canvas2.style.background = "black";
+
+  let outsideDiv2 = document.createElement("div");
+  outsideDiv2.style.marginLeft = marginLeft2;
+  outsideDiv2.style.marginTop = marginTop2;
+  outsideDiv2.style.width = `${canvasWidth}px`;
+  outsideDiv2.style.height = `${canvasHeight}px`;
+  outsideDiv2.style.border = divBorder;
+
+  outsideDiv2.appendChild(canvas2);
+  canvasListDiv.appendChild(outsideDiv2);
+
+  return [canvas1, canvas2];
+}
+
+function loadImages(i, arms, images) {
+  let elem = null;
+  let elem_h = null;
+
   if (
     arms[i].switchable ||
     arms[i].attached ||
     arms[i].brooder ||
     arms[i].canRelease
   ) {
-    let div_h = document.getElementById("hiddenImages");
-    let elem_h = document.createElement("img");
+    elem_h = document.createElement("img");
     elem_h.src = images[i][1];
-    div_h.appendChild(elem_h);
     arms[i].img2 = elem_h;
   }
+  elem = document.createElement("img");
+  elem.src = images[i][0];
+  elem.height = "100";
+  elem.width = elem.height;
+  arms[i].img = elem;
+  arms[i].img1 = elem;
 
-  //   console.log(arms[i].img1);
-  //   console.log(arms[i].img2);
-  //   console.log("===================");
-
-  let cxt = canvas.getContext("2d");
-  drawInfoForSelectedPiece(cxt, arms[i], useMandarin, true);
+  return [elem, elem_h];
 }
