@@ -31,7 +31,8 @@ export function drawInfoForSelectedPiece(cxt, piece, useMandarin, showCost) {
 }
 
 function drawTitle(cxt, piece, useMandarin, showCost) {
-  Canvas.drawImg(cxt, piece.img, 5, 10, 90, 90, 10, 10, 85, 85);
+  console.log(piece.img1);
+  Canvas.drawImg(cxt, piece.img1, 5, 10, 90, 90, 10, 10, 85, 85);
 
   let name = useMandarin ? piece.m_name : piece.name;
   let desc = useMandarin ? piece.m_description : piece.description;
