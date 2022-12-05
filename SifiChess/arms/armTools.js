@@ -1,3 +1,16 @@
+export function dodgePercent(dodge, numSteps = 3) {
+  let step = (dodge * 2) / numSteps;
+  let percent = 0;
+  for (let i = 0; i < numSteps; i++) {
+    let rand = Math.random();
+    if (rand >= 0.475) {
+      percent += step;
+    }
+  }
+  percent = Math.round(percent);
+  return percent;
+}
+
 export function calculateCost(arm, showCostDetails) {
   // Shield score
   let sldScore = arm.shield;

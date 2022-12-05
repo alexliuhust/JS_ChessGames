@@ -1,5 +1,6 @@
 import { Canvas } from "../common/tools.js";
 import {
+  dodgePercent,
   calculateCost,
   calculateLeaderShip,
   updateRealTimeProperties,
@@ -239,11 +240,7 @@ export class Arm {
     let armor = this.armor;
     let dodge = this.dodge;
     if (this.speed >= 4) dodge += (this.speed - 3) * 10;
-    let realDodge = 0;
-    for (let i = 0; i < 5; i++) {
-      let rand = Math.floor(Math.random() * 100) + 1;
-      if (rand <= dodge) realDodge += 17;
-    }
+    let realDodge = dodgePercent(dodge);
     // console.log(`dodge:${dodge}, realDodge:${realDodge}`);
 
     enh = afterArmorEnhancement(this, this.player.pieceList);
@@ -465,11 +462,7 @@ export class Arm {
   decreaseShield(rawTotalDamage) {
     let dodge = this.dodge;
     if (this.speed >= 4) dodge += (this.speed - 3) * 10;
-    let realDodge = 0;
-    for (let i = 0; i < 5; i++) {
-      let rand = Math.floor(Math.random() * 100) + 1;
-      if (rand <= dodge) realDodge += 15;
-    }
+    let realDodge = dodgePercent(dodge * 0.9);
     let enh = afterArmorEnhancement(this, this.player.pieceList);
     if (enh > 0 && rawTotalDamage > 0) addArmorEnhanceEffect(this);
     let damagePercentage = (100 - (this.shield_armor + realDodge + enh)) / 100;
