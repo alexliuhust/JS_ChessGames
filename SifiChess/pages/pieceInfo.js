@@ -41,13 +41,17 @@ for (let i = 0; i < numArms; i++) {
       drawInfoForSelectedPiece(cxt, arm, useMandarin, true);
 
       if (canvasGroup[1] != null) {
+        let cxt = canvasGroup[1].getContext("2d");
         if (arm.switchable) {
           arm.switch();
           arm.loadRealtimeProps();
           arm.img = imgGroup[1];
           arm.img2 = imgGroup[0];
-          let cxt = canvasGroup[1].getContext("2d");
           drawInfoForSelectedPiece(cxt, arm, useMandarin, false);
+        } else if (arm.brooder) {
+          let brooded = arm._prepareBrooding();
+          brooded.img = imgGroup[1];
+          drawInfoForSelectedPiece(cxt, brooded, useMandarin, false);
         }
       }
     };

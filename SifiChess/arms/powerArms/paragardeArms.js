@@ -464,14 +464,12 @@ export class DeathEnvoy_1 extends ArmPrimary.Arm {
 
     this.name = "Death Spirits";
     this.m_name = "死灵";
-    this.extra = "Self-detonation";
-    this.m_extra = "自爆";
+    this.extra = "Self-detonation, Anti-Aggregation";
+    this.m_extra = "自爆，反聚集";
     this.detoColor = "red";
     this.missileColor = "red";
     this.missileWeight = 4;
     this.missileLaser = true;
-    this.extra = "Anti-Aggregation";
-    this.m_extra = "反聚集";
 
     this.live_max = 4;
     this.live_time = 0;
