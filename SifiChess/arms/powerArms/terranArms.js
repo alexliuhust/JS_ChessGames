@@ -175,7 +175,7 @@ export class FireBat extends BlackBat {
     this.extra = "Anti-Bio";
     this.m_extra = "反生物";
 
-    this.G_data = [15, 27, 2, 15];
+    this.G_data = [15, 35, 2, 15];
     this.GAtogether = false;
 
     this.loadRealtimeProps();
@@ -266,7 +266,7 @@ export class Sniper extends ArmPrimary.Arm {
       this.defence_data = [0, 20];
       this.melee_data = [30, 0];
       this.GAtogether = true;
-      this.G_data = [30, 50, 6, 20];
+      this.G_data = [30, 70, 6, 20];
     } else {
       this.status = 0;
       this.extra = "";
@@ -706,36 +706,103 @@ export class DeckDropper extends ArmPrimary.Arm {
   }
 }
 
-export class VultureGunship extends ArmPrimary.Arm {
+export class Vulture extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Vulture Gunships";
-    this.m_name = "秃鹫武装直升机";
-    this.extra = "Anti-Light";
-    this.m_extra = "反轻甲";
+    this.name1 = "Vulture";
+    this.m_name1 = "秃鹫";
+    this.name2 = "Vulture (Destroying Platfrom)";
+    this.m_name2 = "秃鹫-歼灭平台";
+    this.name = this.name1;
+    this.m_name = this.m_name1;
+    this.extra = "Anti-Light, Anti-Aggregation";
+    this.m_extra = "反轻甲，反聚集";
     this.missileWeight = 3;
+    this.missileColor = "white";
+    this.switchInfo = [
+      "Return to mobile mode; anti-air specialization;\nrecover capacities of movement",
+      "Switch to destroying platfrom; anti-ground\nspecialization; lose capacities of attack and movement",
+    ];
+    this.m_switchInfo = [
+      "返回移动模式，对空专精，恢复移动能力",
+      "切换至歼灭平台，对地专精，失去移动能力",
+    ];
 
     this.scale = 12;
     this.singleHP = 160;
     this.speed = 4;
 
-    this.type = [1, 1, 0, 1];
-    this.defence_data = [20, 20];
+    this.type = [1, 1, 1, 1];
+    this.defence_data = [30, 40];
     this.melee_data = [0, 0];
     this.GAtogether = false;
-    this.G_data = [50, 60, 4, 30];
+
+    this.G_data = [0, 0, 0, -1];
+    this.A_data = [30, 30, 4, 35];
+
+    this.switchable = true;
 
     this.loadRealtimeProps();
+    this.ammo_record = [
+      [0, 35],
+      [20, 0],
+    ];
   }
   _getSingleDamage(damageType, targetArm) {
     let singleDamage = 0;
-    if (damageType === "missile" && targetArm.G_A === 0 && this.c_ammo_G > 0) {
-      this.c_ammo_G--;
-      singleDamage = this.c_missile_G;
-      if (targetArm.L_H === 0) singleDamage += this.missile_G_bonus;
+    if (this.status === 0) {
+      if (damageType === "missile") {
+        if (targetArm.G_A === 1 && this.c_ammo_A > 0) {
+          singleDamage = this.c_missile_A;
+          if (targetArm.L_H === 0) singleDamage += this.missile_A_bonus / 2;
+          if (targetArm.c_scale >= 5) singleDamage += this.missile_A_bonus / 2;
+          if (targetArm.c_scale >= 10) singleDamage += this.missile_A_bonus / 2;
+          if (targetArm.c_scale >= 15) singleDamage += this.missile_A_bonus / 2;
+          this.c_ammo_A--;
+        }
+      }
+    } else {
+      if (damageType === "melee") singleDamage += this.c_melee;
+      else if (damageType === "missile") {
+        if (targetArm.G_A === 0 && this.c_ammo_G > 0) {
+          singleDamage = this.c_missile_G;
+          if (targetArm.size >= 1) singleDamage += this.missile_G_bonus / 2;
+          if (targetArm.size === 2) singleDamage += this.missile_G_bonus / 2;
+          this.c_ammo_G--;
+        }
+      }
     }
     return singleDamage;
+  }
+  switch() {
+    if (!this.switchable || this.hasAttacked || this.slowdown_countdown > 0)
+      return;
+    this._beginSwitch(false);
+
+    if (this.status === 0) {
+      this.status = 1;
+      this.extra = "Anti-Large";
+      this.m_extra = "反大型";
+      this.missileWeight = 6;
+      this.missileColor = MC.GhostColor;
+      this.speed = 0;
+      this.defence_data = [30, 0];
+      this.G_data = [40, 120, 7, 20];
+      this.A_data = [0, 0, 0, -1];
+    } else {
+      this.status = 0;
+      this.extra = "Anti-Light, Anti-Aggregation";
+      this.m_extra = "反轻甲，反聚集";
+      this.missileWeight = 3;
+      this.missileColor = "white";
+      this.speed = 4;
+      this.defence_data = [30, 40];
+      this.G_data = [0, 0, 0, -1];
+      this.A_data = [20, 40, 4, 35];
+    }
+
+    this._endSwitch(true);
   }
 }
 
@@ -843,8 +910,8 @@ export function newAnArm(i, posX, posY, player) {
     new Annihilator([posX, posY], player),
     new SupportDrone([posX, posY], player),
     new BattleDrone([posX, posY], player),
-    new VultureGunship([posX, posY], player),
     new DeckDropper([posX, posY], player),
+    new Vulture([posX, posY], player),
     new Cruiser([posX, posY], player),
   ];
   if (i >= 0 && i < armList.length) return armList[i];
