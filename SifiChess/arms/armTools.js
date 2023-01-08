@@ -37,8 +37,8 @@ export function calculateCost(arm, showCostDetails) {
   let missileAttack_G = arm.missile_G + arm.missile_G_bonus;
   let missileAttack_A = (arm.missile_A + arm.missile_A_bonus) * 0.65;
   let missileAttack = (missileAttack_G + missileAttack_A) * arm.scale;
-  let ammo_range = arm.ammo_G + arm.range_G * 10;
-  if (!arm.GAtogether) ammo_range += arm.ammo_A + arm.range_A * 10;
+  let ammo_range = arm.ammo_G / 3 + arm.range_G * 10;
+  if (!arm.GAtogether) ammo_range += arm.ammo_A / 3 + arm.range_A * 10;
   let shock = arm.shock + (arm.slowdown ? 100 : 0);
   let attached = arm.attached ? 200 : 0;
   let attackScore =

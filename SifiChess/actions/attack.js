@@ -91,7 +91,6 @@ function decreaseScalesForArms(attacker, damageType, defender) {
   let dfd_ctrAttack = defender.getCounterAttack(damageType, attacker);
 
   // ============== Defender counter attacks ==============
-  // Defender gains experience
   let results = attacker.decrease(defender, "melee", dfd_ctrAttack);
   // Attacker decrease leadership
   if (damageType === "melee" && defender.size === 2 && attacker.size === 0)

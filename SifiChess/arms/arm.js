@@ -497,7 +497,10 @@ export class Arm {
       }
 
       this.c_singleHP -= realDamage;
-      if (this.c_singleHP <= 0) this.isAlive = false;
+      if (this.c_singleHP <= 0) {
+        this.isAlive = false;
+        this._checkSelfDeto(1);
+      }
 
       return realDamage;
     }

@@ -430,7 +430,7 @@ export class Gigascarab extends ArmPrimary.Arm {
 
     this.type = [0, 0, 1, 2];
     this.defence_data = [75, 0];
-    this.melee_data = [2000, 300];
+    this.melee_data = [1500, 800];
     this.GAtogether = false;
     this.shock = 100;
 
@@ -441,9 +441,8 @@ export class Gigascarab extends ArmPrimary.Arm {
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_melee;
-      if (targetArm.c_scale >= 5) singleDamage += this.melee_bonus;
-      if (targetArm.c_scale >= 10) singleDamage += this.melee_bonus;
-      if (targetArm.c_scale >= 15) singleDamage += this.melee_bonus;
+      if (targetArm.c_scale >= 8) singleDamage += this.melee_bonus;
+      if (targetArm.c_scale >= 16) singleDamage += this.melee_bonus;
     }
     return singleDamage;
   }

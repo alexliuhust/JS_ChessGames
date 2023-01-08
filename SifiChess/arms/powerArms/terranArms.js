@@ -313,8 +313,8 @@ export class StormChariot extends ArmPrimary.Arm {
 
     this.loadRealtimeProps();
     this.ammo_record = [
-      [30, 20],
-      [30, 20],
+      [30, 30],
+      [0, 20],
     ];
   }
   switch() {
@@ -339,6 +339,78 @@ export class StormChariot extends ArmPrimary.Arm {
       this.defence_data = [15, 20];
       this.GAtogether = true;
       this.G_data = [32, 0, 4, 30];
+    }
+
+    this._endSwitch(true);
+  }
+}
+
+export class HellfireChariot extends StormChariot {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name1 = "Hell Fire Chariots";
+    this.m_name1 = "地狱火战车";
+    this.name2 = "Hell Fire Bunkers";
+    this.m_name2 = "地狱火碉堡";
+    this.extra = "Anti-Bio";
+    this.m_extra = "反生物";
+    this.name = this.name1;
+    this.m_name = this.m_name1;
+    this.missileColor = MC.FireColor;
+    this.missileWeight = 10;
+    this.missileNumber = 4;
+    this.missileLaser = true;
+
+    this.switchInfo = [
+      "Movement speed restored",
+      "Fixed turrets; longer fire range and higher damage",
+    ];
+    this.m_switchInfo = ["恢复移动力", "射程更长，伤害更高的固定炮台"];
+
+    this.GAtogether = false;
+    this.G_data = [60, 30, 3, 60];
+
+    this.switchable = true;
+    this.cost_bias = -10;
+    this.loadRealtimeProps();
+    this.ammo_record = [
+      [60, 0],
+      [50, 0],
+    ];
+  }
+  _getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (damageType === "missile") {
+      if (targetArm.G_A === 0 && this.c_ammo_G > 0) {
+        this.c_ammo_G--;
+        singleDamage = this.c_missile_G;
+        if (targetArm.B_M === 0)
+          singleDamage += Math.round(this.missile_G_bonus * 0.8);
+        if (targetArm.L_H === 0)
+          singleDamage += Math.round(this.missile_G_bonus * 0.2);
+      }
+    }
+    return singleDamage;
+  }
+  switch() {
+    if (!this.switchable || this.hasAttacked || this.slowdown_countdown > 0)
+      return;
+    this._beginSwitch(false);
+
+    if (this.status === 0) {
+      this.status = 1;
+
+      this.speed = 0;
+      this.defence_data = [30, 0];
+      this.G_data = [60, 60, 4, 50];
+    } else {
+      this.status = 0;
+
+      this.missileWeight = 2;
+      this.speed = 5;
+      this.defence_data = [15, 20];
+      this.G_data = [60, 30, 3, 60];
     }
 
     this._endSwitch(true);
@@ -561,7 +633,7 @@ export class BattleDrone extends ArmPrimary.Arm {
 
     this.canRelease = true;
 
-    this.cost_bias = -125;
+    this.cost_bias = -140;
     this.loadRealtimeProps();
   }
   _getSingleDamage(damageType, targetArm) {
@@ -604,6 +676,68 @@ export class BattleDrone_1 extends ArmPrimary.Arm {
     this.G_data = [800, 0, 5, 10];
 
     this.loadRealtimeProps();
+  }
+}
+
+export class KillDrone extends BattleDrone {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Killer Drone";
+    this.m_name = "猎杀无人机";
+    this.attachInfo = "Fire anti-large cruise missile";
+    this.m_attachInfo = "发射反大型的巡航导弹";
+
+    this.autoBrood = true;
+    this.brooder = true;
+    this.brood_time = 4;
+    this.brood_max = 4;
+
+    this.cost_bias = -135;
+    this.loadRealtimeProps();
+  }
+  _prepareBrooding() {
+    let brooded = new KillDrone_1([0, 0], this.player);
+    return brooded;
+  }
+  getAttachedName() {
+    return ["Cruise Missile", "巡航导弹"];
+  }
+}
+
+export class KillDrone_1 extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+    this.live_max = 6;
+    this.live_time = 0;
+
+    this.name = "Cruise Missile";
+    this.m_name = "巡航导弹";
+    this.extra = "Self-detonation, Anti-Large";
+    this.m_extra = "自爆，反大型";
+    this.detoColor = "white";
+
+    this.scale = 1;
+    this.singleHP = 500;
+    this.speed = 7;
+
+    this.type = [1, 1, 0, 0];
+    this.defence_data = [0, 90];
+    this.melee_data = [0, 0];
+    this.GAtogether = false;
+    this.G_data = [0, 0, 0, -1];
+
+    this.deto_target = 2;
+    this.self_deto = 1500;
+    this.self_deto_bonus = 1500;
+
+    this.loadRealtimeProps();
+  }
+  _getSingleDeto(targetArm) {
+    let singleDamage = this.self_deto;
+    if (targetArm.size >= 1) singleDamage += this.self_deto_bonus / 2;
+    if (targetArm.size == 2) singleDamage += this.self_deto_bonus / 2;
+    return singleDamage;
   }
 }
 
@@ -906,10 +1040,12 @@ export function newAnArm(i, posX, posY, player) {
     new BlackBatShock([posX, posY], player),
     new Sniper([posX, posY], player),
     new StormChariot([posX, posY], player),
+    new HellfireChariot([posX, posY], player),
     new Paladin([posX, posY], player),
     new Annihilator([posX, posY], player),
     new SupportDrone([posX, posY], player),
     new BattleDrone([posX, posY], player),
+    new KillDrone([posX, posY], player),
     new DeckDropper([posX, posY], player),
     new Vulture([posX, posY], player),
     new Cruiser([posX, posY], player),
