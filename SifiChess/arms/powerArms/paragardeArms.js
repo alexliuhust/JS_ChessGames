@@ -108,7 +108,7 @@ export class ParagardeShield extends ArmPrimary.Arm {
     this.type = [0, 1, 0, 0];
     this.defence_data = [0, 30];
     this.GAtogether = true;
-    this.G_data = [50, 0, 5, 20];
+    this.G_data = [50, 0, 5, 40];
 
     this.charging = 30;
     this.chargeRange = 2;
@@ -157,7 +157,7 @@ export class BlinkHunter extends ArmPrimary.Arm {
     this.defence_data = [10, 40];
     this.melee_data = [30, 0];
     this.GAtogether = true;
-    this.G_data = [25, 0, 4, 30];
+    this.G_data = [25, 0, 4, 60];
 
     this.slowdown = true;
     this.slowdown_time = 2;
@@ -165,7 +165,7 @@ export class BlinkHunter extends ArmPrimary.Arm {
     this.switchable = true;
     this.loadRealtimeProps();
     this.ammo_record = [
-      [30, 30],
+      [60, 60],
       [0, 0],
     ];
   }
@@ -192,7 +192,7 @@ export class BlinkHunter extends ArmPrimary.Arm {
       this.defence_data = [10, 40];
       this.melee_data = [30, 0];
       this.GAtogether = true;
-      this.G_data = [25, 0, 4, 30];
+      this.G_data = [25, 0, 4, 60];
     }
 
     this._endSwitch(true);
@@ -222,12 +222,13 @@ export class ShadowWarrior extends ArmPrimary.Arm {
     this.shield_armor = 0;
     this.scale = 24;
     this.singleHP = 130;
-    this.speed = 4;
+    this.speed = 5;
 
     this.type = [0, 0, 0, 0];
-    this.defence_data = [0, 70];
+    this.defence_data = [0, 50];
     this.melee_data = [150, 0];
 
+    this.cost_bias = 10;
     this.switchable = true;
     this.loadRealtimeProps();
     this.ammo_record = [
@@ -243,13 +244,13 @@ export class ShadowWarrior extends ArmPrimary.Arm {
     if (this.status === 0) {
       this.status = 1;
 
-      this.speed = 1;
+      this.speed = 2;
       this.defence_data = [0, 70];
       this.melee_data = [200, 0];
     } else {
       this.status = 0;
 
-      this.speed = 4;
+      this.speed = 5;
       this.defence_data = [0, 50];
       this.melee_data = [150, 0];
     }
@@ -283,7 +284,7 @@ export class GoldenKnight extends ArmPrimary.Arm {
     this.type = [0, 1, 1, 1];
     this.defence_data = [40, 0];
     this.GAtogether = false;
-    this.G_data = [25, 55, 4, 30];
+    this.G_data = [25, 55, 4, 50];
 
     this.loadRealtimeProps();
   }
@@ -347,7 +348,7 @@ export class AbyssKnight extends ArmPrimary.Arm {
     this.type = [0, 1, 1, 1];
     this.defence_data = [40, 0];
     this.GAtogether = false;
-    this.G_data = [50, 20, 4, 30];
+    this.G_data = [50, 20, 4, 60];
 
     this.cost_bias = 15;
     this.loadRealtimeProps();
@@ -390,7 +391,7 @@ export class ThunderGuard extends ArmPrimary.Arm {
     this.defence_data = [0, 20];
     this.melee_data = [1200, 600];
     this.GAtogether = true;
-    this.G_data = [500, 250, 2, 40];
+    this.G_data = [500, 250, 2, 100];
 
     this.cost_bias = 70;
     this.loadRealtimeProps();
@@ -438,7 +439,7 @@ export class DeathEnvoy extends ArmPrimary.Arm {
     this.defence_data = [0, 20];
     this.melee_data = [1200, 0];
     this.GAtogether = true;
-    this.G_data = [500, 0, 2, 20];
+    this.G_data = [500, 0, 2, 100];
 
     this.brooder = true;
     this.canRelease = true;
@@ -520,7 +521,7 @@ export class FlameTitan extends ArmPrimary.Arm {
     this.type = [0, 1, 1, 2];
     this.defence_data = [50, 0];
     this.GAtogether = false;
-    this.G_data = [450, 1050, 6, 25];
+    this.G_data = [450, 1050, 6, 60];
 
     this.loadRealtimeProps();
   }
@@ -551,7 +552,7 @@ export class CurseTitan extends FlameTitan {
     this.missileShape = "circle";
     this.missileRadius = 10;
 
-    this.G_data = [900, 600, 6, 25];
+    this.G_data = [900, 600, 6, 60];
 
     this.cost_bias = 10;
     this.loadRealtimeProps();
@@ -590,8 +591,8 @@ export class StarLight extends ArmPrimary.Arm {
     this.type = [1, 1, 0, 1];
     this.defence_data = [0, 56];
     this.GAtogether = false;
-    this.G_data = [20, 20, 4, 25];
-    this.A_data = [25, 20, 5, 30];
+    this.G_data = [20, 20, 4, 40];
+    this.A_data = [25, 20, 5, 60];
 
     this.slowdown = true;
     this.slowdown_time = 2;
@@ -637,7 +638,7 @@ export class HeliosFrigate extends ArmPrimary.Arm {
     this.type = [1, 1, 1, 2];
     this.defence_data = [50, 0];
     this.GAtogether = true;
-    this.G_data = [400, 150, 6, 40];
+    this.G_data = [400, 150, 6, 70];
 
     this.loadRealtimeProps();
   }
@@ -677,7 +678,7 @@ export class ReaperFrigate extends ArmPrimary.Arm {
     this.type = [1, 1, 1, 2];
     this.defence_data = [50, 0];
     this.GAtogether = true;
-    this.G_data = [400, 100, 6, 40];
+    this.G_data = [400, 100, 6, 70];
 
     this.loadRealtimeProps();
   }
@@ -718,8 +719,8 @@ export class HurricaneBattleship extends ArmPrimary.Arm {
     this.type = [1, 1, 1, 2];
     this.defence_data = [60, 0];
     this.GAtogether = false;
-    this.G_data = [800, 200, 8, 40];
-    this.A_data = [800, 200, 5, 30];
+    this.G_data = [800, 200, 8, 60];
+    this.A_data = [800, 200, 5, 80];
 
     this.loadRealtimeProps();
   }

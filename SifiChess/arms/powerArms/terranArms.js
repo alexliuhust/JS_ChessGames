@@ -15,7 +15,7 @@ export class Marine extends ArmPrimary.Arm {
     this.type = [0, 0, 0, 0];
     this.defence_data = [5, 10];
     this.melee_data = [11, 0];
-    this.G_data = [14, 0, 3, 25];
+    this.G_data = [14, 0, 3, 50];
     this.GAtogether = true;
 
     this.loadRealtimeProps();
@@ -45,12 +45,12 @@ export class ShieldMarine extends Marine {
     this.speed = 3;
     this.defence_data = [5, 10];
     this.melee_data = [11, 0];
-    this.G_data = [14, 0, 3, 25];
+    this.G_data = [14, 0, 3, 50];
 
     this.switchable = true;
     this.cost_bias = 15;
     this.loadRealtimeProps();
-    this.ammo_record = [[25, 25]];
+    this.ammo_record = [[50, 50]];
   }
   switch() {
     if (!this.switchable || this.hasAttacked || this.slowdown_countdown > 0)
@@ -63,14 +63,14 @@ export class ShieldMarine extends Marine {
       this.speed = 1;
       this.defence_data = [35, 0];
       this.melee_data = [12, 0];
-      this.G_data = [14, 0, 4, 25];
+      this.G_data = [14, 0, 4, 50];
     } else {
       this.status = 0;
 
       this.speed = 3;
       this.defence_data = [5, 10];
       this.melee_data = [11, 0];
-      this.G_data = [14, 0, 3, 25];
+      this.G_data = [14, 0, 3, 50];
     }
 
     this._endSwitch(false);
@@ -121,7 +121,7 @@ export class BlackBat extends ArmPrimary.Arm {
     this.type = [0, 0, 1, 0];
     this.defence_data = [35, 0];
     this.melee_data = [17, 0];
-    this.G_data = [16, 28, 4, 20];
+    this.G_data = [16, 28, 4, 40];
     this.bonus_1 = 18;
     this.bonus_2 = this.G_data[1] - this.bonus_1;
     this.GAtogether = false;
@@ -175,7 +175,7 @@ export class FireBat extends BlackBat {
     this.extra = "Anti-Bio";
     this.m_extra = "反生物";
 
-    this.G_data = [15, 35, 2, 15];
+    this.G_data = [15, 35, 2, 30];
     this.GAtogether = false;
 
     this.loadRealtimeProps();
@@ -223,14 +223,14 @@ export class Sniper extends ArmPrimary.Arm {
     this.defence_data = [0, 50];
     this.melee_data = [50, 0];
     this.GAtogether = true;
-    this.G_data = [30, 0, 4, 25];
+    this.G_data = [30, 0, 4, 50];
 
     this.switchable = true;
     this.cost_bias = 0;
     this.loadRealtimeProps();
     this.ammo_record = [
-      [25, 25],
-      [20, 20],
+      [50, 50],
+      [40, 40],
     ];
   }
   _getSingleDamage(damageType, targetArm) {
@@ -266,7 +266,7 @@ export class Sniper extends ArmPrimary.Arm {
       this.defence_data = [0, 20];
       this.melee_data = [30, 0];
       this.GAtogether = true;
-      this.G_data = [30, 70, 6, 20];
+      this.G_data = [30, 70, 6, 40];
     } else {
       this.status = 0;
       this.extra = "";
@@ -275,7 +275,7 @@ export class Sniper extends ArmPrimary.Arm {
       this.defence_data = [0, 50];
       this.melee_data = [50, 0];
       this.GAtogether = true;
-      this.G_data = [30, 0, 4, 25];
+      this.G_data = [30, 0, 4, 50];
     }
 
     this._endSwitch(true, true);
@@ -307,14 +307,14 @@ export class StormChariot extends ArmPrimary.Arm {
     this.defence_data = [15, 20];
     this.melee_data = [0, 0];
     this.GAtogether = true;
-    this.G_data = [32, 0, 4, 30];
+    this.G_data = [32, 0, 4, 60];
 
     this.switchable = true;
 
     this.loadRealtimeProps();
     this.ammo_record = [
-      [30, 30],
-      [0, 20],
+      [60, 60],
+      [0, 40],
     ];
   }
   switch() {
@@ -330,7 +330,7 @@ export class StormChariot extends ArmPrimary.Arm {
       this.defence_data = [30, 0];
       this.GAtogether = false;
       this.G_data = [0, 0, 0, -1];
-      this.A_data = [62, 0, 7, 20];
+      this.A_data = [62, 0, 7, 40];
     } else {
       this.status = 0;
 
@@ -338,7 +338,7 @@ export class StormChariot extends ArmPrimary.Arm {
       this.speed = 5;
       this.defence_data = [15, 20];
       this.GAtogether = true;
-      this.G_data = [32, 0, 4, 30];
+      this.G_data = [32, 0, 4, 60];
     }
 
     this._endSwitch(true);
@@ -447,7 +447,7 @@ export class Paladin extends ArmPrimary.Arm {
 
     this.type = [0, 1, 1, 1];
     this.defence_data = [40, 0];
-    this.G_data = [55, 45, 4, 20];
+    this.G_data = [55, 45, 4, 40];
     this.GAtogether = false;
 
     this.shock = 0;
@@ -456,8 +456,8 @@ export class Paladin extends ArmPrimary.Arm {
 
     this.loadRealtimeProps();
     this.ammo_record = [
-      [20, 0],
-      [35, 0],
+      [40, 0],
+      [60, 0],
     ];
   }
   _getSingleDamage(damageType, targetArm) {
@@ -497,7 +497,7 @@ export class Paladin extends ArmPrimary.Arm {
       this.missileShape = "circle";
       this.missileRadius = 7;
       this.speed = 0;
-      this.G_data = [100, 30, 8, 35];
+      this.G_data = [100, 30, 8, 60];
       this.shock = 30;
     } else {
       this.status = 0;
@@ -507,7 +507,7 @@ export class Paladin extends ArmPrimary.Arm {
       this.missileWeight = 3;
       this.missileShape = null;
       this.speed = 3;
-      this.G_data = [55, 45, 4, 20];
+      this.G_data = [55, 45, 4, 40];
       this.shock = 0;
     }
 
@@ -539,8 +539,8 @@ export class Annihilator extends ArmPrimary.Arm {
     this.type = [0, 1, 1, 2];
     this.defence_data = [60, 0];
     this.melee_data = [600, 0];
-    this.G_data = [600, 400, 5, 25];
-    this.A_data = [800, 0, 7, 20];
+    this.G_data = [600, 400, 5, 50];
+    this.A_data = [800, 0, 7, 40];
     this.GAtogether = false;
 
     this.cost_bias = 18;
@@ -772,14 +772,14 @@ export class DeckDropper extends ArmPrimary.Arm {
     this.melee_data = [0, 0];
     this.GAtogether = false;
     this.G_data = [0, 0, 0, -1];
-    this.A_data = [50, 40, 6, 20];
+    this.A_data = [50, 40, 6, 40];
 
     this.switchable = true;
 
     this.loadRealtimeProps();
     this.ammo_record = [
-      [0, 20],
-      [35, 0],
+      [0, 40],
+      [60, 0],
     ];
   }
   _getSingleDamage(damageType, targetArm) {
@@ -821,7 +821,7 @@ export class DeckDropper extends ArmPrimary.Arm {
       this.defence_data = [30, 0];
       this.melee_data = [30, 0];
       this.type = [0, 1, 0, 1];
-      this.G_data = [45, 0, 4, 35];
+      this.G_data = [45, 0, 4, 60];
       this.A_data = [0, 0, 0, -1];
     } else {
       this.status = 0;
@@ -833,7 +833,7 @@ export class DeckDropper extends ArmPrimary.Arm {
       this.melee_data = [0, 0];
       this.type = [1, 1, 0, 1];
       this.G_data = [0, 0, 0, -1];
-      this.A_data = [50, 40, 6, 20];
+      this.A_data = [50, 40, 6, 40];
     }
 
     this._endSwitch(true);
@@ -873,14 +873,14 @@ export class Vulture extends ArmPrimary.Arm {
     this.GAtogether = false;
 
     this.G_data = [0, 0, 0, -1];
-    this.A_data = [30, 30, 4, 35];
+    this.A_data = [30, 30, 4, 40];
 
     this.switchable = true;
 
     this.loadRealtimeProps();
     this.ammo_record = [
-      [0, 35],
-      [20, 0],
+      [0, 40],
+      [50, 0],
     ];
   }
   _getSingleDamage(damageType, targetArm) {
@@ -922,7 +922,7 @@ export class Vulture extends ArmPrimary.Arm {
       this.missileColor = MC.GhostColor;
       this.speed = 0;
       this.defence_data = [30, 0];
-      this.G_data = [40, 120, 7, 20];
+      this.G_data = [40, 120, 7, 50];
       this.A_data = [0, 0, 0, -1];
     } else {
       this.status = 0;
@@ -933,7 +933,7 @@ export class Vulture extends ArmPrimary.Arm {
       this.speed = 4;
       this.defence_data = [30, 40];
       this.G_data = [0, 0, 0, -1];
-      this.A_data = [20, 40, 4, 35];
+      this.A_data = [20, 40, 4, 40];
     }
 
     this._endSwitch(true);
@@ -972,14 +972,14 @@ export class Cruiser extends ArmPrimary.Arm {
     this.defence_data = [65, 0];
     this.melee_data = [0, 0];
     this.GAtogether = true;
-    this.G_data = [400, 300, 6, 40];
+    this.G_data = [400, 300, 6, 60];
 
     this.switchable = true;
     this.cost_bias = 50;
     this.loadRealtimeProps();
     this.ammo_record = [
-      [40, 40],
-      [20, 20],
+      [60, 60],
+      [30, 30],
     ];
   }
   _getSingleDamage(damageType, targetArm) {
@@ -1014,7 +1014,7 @@ export class Cruiser extends ArmPrimary.Arm {
       this.missileWeight = 7;
       this.missileNumber = 3;
       this.speed = 1;
-      this.G_data = [1000, 200, 7, 20];
+      this.G_data = [1000, 200, 7, 30];
     } else {
       this.status = 0;
       this.extra = "Anti-Light";
@@ -1023,7 +1023,7 @@ export class Cruiser extends ArmPrimary.Arm {
       this.missileWeight = 2;
       this.missileNumber = 7;
       this.speed = 3;
-      this.G_data = [400, 300, 5, 40];
+      this.G_data = [400, 300, 5, 60];
     }
 
     this._endSwitch(true);

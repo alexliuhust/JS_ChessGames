@@ -86,13 +86,13 @@ export class Rockscarabs extends ArmPrimary.Arm {
     this.defence_data = [40, 0];
     this.melee_data = [45, 0];
     this.GAtogether = false;
-    this.G_data = [15, 0, 3, 25];
+    this.G_data = [15, 0, 3, 40];
 
     this.cost_bias = 5;
     this.switchable = true;
     this.loadRealtimeProps();
     this.ammo_record = [
-      [25, 0],
+      [40, 0],
       [0, 0],
     ];
   }
@@ -107,7 +107,7 @@ export class Rockscarabs extends ArmPrimary.Arm {
       this.m_extra = "结实";
       this.mend = 80;
       this.speed = 0;
-      this.defence_data = [60, 0];
+      this.defence_data = [70, 0];
       this.G_data = [0, 0, 0, -1];
     } else {
       this.status = 0;
@@ -116,7 +116,7 @@ export class Rockscarabs extends ArmPrimary.Arm {
       this.mend = 0;
       this.speed = 2;
       this.defence_data = [40, 0];
-      this.G_data = [15, 0, 3, 25];
+      this.G_data = [15, 0, 3, 40];
     }
 
     this._endSwitch(true);
@@ -149,15 +149,15 @@ export class Fuegoscarabs extends Rockscarabs {
 
     this.melee_data = [66, 0];
     this.GAtogether = false;
-    this.G_data = [22, 0, 3, 30];
+    this.G_data = [22, 0, 3, 50];
     this.A_data = [0, 0, 0, -1];
 
     this.cost_bias = 40;
     this.switchable = true;
     this.loadRealtimeProps();
     this.ammo_record = [
-      [30, 0],
-      [0, 30],
+      [50, 0],
+      [0, 50],
     ];
   }
   switch() {
@@ -172,14 +172,14 @@ export class Fuegoscarabs extends Rockscarabs {
       this.melee_data = [0, 0];
       this.GAtogether = false;
       this.G_data = [0, 0, 0, -1];
-      this.A_data = [35, 0, 5, 30];
+      this.A_data = [35, 0, 5, 50];
     } else {
       this.status = 0;
 
       this.missileWeight = 4;
       this.melee_data = [66, 0];
       this.GAtogether = false;
-      this.G_data = [22, 0, 3, 30];
+      this.G_data = [22, 0, 3, 50];
       this.A_data = [0, 0, 0, -1];
     }
 
@@ -207,7 +207,7 @@ export class Mothermantis extends ArmPrimary.Arm {
     this.defence_data = [50, 0];
     this.melee_data = [1200, 0];
     this.GAtogether = true;
-    this.G_data = [500, 0, 4, 30];
+    this.G_data = [500, 0, 4, 60];
 
     this.brooder = true;
     this.brood_time = 3;
@@ -278,15 +278,15 @@ export class Flechacondas extends ArmPrimary.Arm {
     this.defence_data = [0, 20];
     this.melee_data = [110, 0];
     this.GAtogether = true;
-    this.G_data = [45, 0, 5, 30];
+    this.G_data = [45, 0, 5, 50];
 
     this.cost_bias = 30;
     this.switchable = true;
     this.evolable = true;
     this.loadRealtimeProps();
     this.ammo_record = [
-      [30, 30],
-      [30, 0],
+      [50, 50],
+      [100, 0],
     ];
   }
   _getSingleDamage(damageType, targetArm) {
@@ -332,7 +332,7 @@ export class Flechacondas extends ArmPrimary.Arm {
     this.mend = 70;
     this.melee_data = [0, 0];
     this.GAtogether = false;
-    this.G_data = [40, 40, 5, 30];
+    this.G_data = [40, 40, 5, 100];
     this.A_data = [0, 0, 0, -1];
     this._endSwitch(true);
   }
@@ -359,7 +359,7 @@ export class Furiacondas extends ArmPrimary.Arm {
 
     this.scale = 24;
     this.singleHP = 200;
-    this.speed = 3;
+    this.speed = 4;
 
     this.type = [0, 0, 0, 1];
     this.defence_data = [30, 0];
@@ -371,7 +371,7 @@ export class Furiacondas extends ArmPrimary.Arm {
     this.loadRealtimeProps();
     this.ammo_record = [
       [0, 0],
-      [30, 0],
+      [60, 0],
     ];
   }
   _getSingleDamage(damageType, targetArm) {
@@ -409,7 +409,7 @@ export class Furiacondas extends ArmPrimary.Arm {
     this.m_extra = "高伤害，反大型";
     this.speed = 2;
     this.mend = 70;
-    this.G_data = [20, 90, 7, 30];
+    this.G_data = [20, 90, 7, 60];
     this.A_data = [0, 0, 0, -1];
     this._endSwitch(true);
   }
@@ -466,7 +466,7 @@ export class Mutawasps extends ArmPrimary.Arm {
     this.type = [1, 0, 0, 0];
     this.defence_data = [0, 40];
     this.GAtogether = true;
-    this.G_data = [15, 5, 3, 30];
+    this.G_data = [15, 5, 3, 60];
 
     this.loadRealtimeProps();
   }
@@ -552,7 +552,7 @@ export class Blade extends ArmPrimary.Arm {
     this.type = [1, 0, 1, 1];
     this.defence_data = [40, 10];
     this.GAtogether = false;
-    this.A_data = [40, 30, 5, 30];
+    this.A_data = [40, 30, 5, 45];
 
     this.cost_bias += 30;
     this.loadRealtimeProps();
@@ -580,7 +580,7 @@ export class Firewings extends Blade {
     this.missileShape = "circle";
     this.missileRadius = 7;
 
-    this.A_data = [40, 15, 5, 30];
+    this.A_data = [40, 15, 5, 45];
 
     this.cost_bias += 10;
     this.loadRealtimeProps();
