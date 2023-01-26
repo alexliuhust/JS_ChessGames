@@ -24,6 +24,26 @@ export class Arlmantises extends ArmPrimary.Arm {
   }
 }
 
+export class ArlmantisesMuted extends Arlmantises {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Arlmantises (Muted)";
+    this.m_name = "异化阿尔螳";
+    this.extra = "Agile";
+    this.m_extra = "迅捷";
+
+    this.singleHP = 30;
+    this.speed = 6;
+
+    this.defence_data = [0, 35];
+    this.melee_data = [19, 0];
+
+    this.cost_bias -= 5;
+    this.loadRealtimeProps();
+  }
+}
+
 export class Estavulgs extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
@@ -52,6 +72,7 @@ export class Estavulgs extends ArmPrimary.Arm {
   _getSingleDeto(targetArm) {
     let singleDamage = this.self_deto;
     if (targetArm.B_M === 0) singleDamage += this.self_deto_bonus;
+    if (targetArm.L_H === 0) singleDamage += this.self_deto_bonus / 2;
     return singleDamage;
   }
 }
@@ -105,7 +126,7 @@ export class Rockscarabs extends ArmPrimary.Arm {
       this.status = 1;
       this.extra = "Durable";
       this.m_extra = "结实";
-      this.mend = 80;
+      this.mend = 130;
       this.speed = 0;
       this.defence_data = [70, 0];
       this.G_data = [0, 0, 0, -1];
@@ -329,7 +350,7 @@ export class Flechacondas extends ArmPrimary.Arm {
     this.missileWeight = 2;
     this.status = 1;
     this.speed = 2;
-    this.mend = 70;
+    this.mend = 120;
     this.melee_data = [0, 0];
     this.GAtogether = false;
     this.G_data = [40, 40, 5, 100];
@@ -408,7 +429,7 @@ export class Furiacondas extends ArmPrimary.Arm {
     this.extra = "High-Damage, Anti-Large";
     this.m_extra = "高伤害，反大型";
     this.speed = 2;
-    this.mend = 70;
+    this.mend = 120;
     this.G_data = [20, 90, 7, 60];
     this.A_data = [0, 0, 0, -1];
     this._endSwitch(true);
@@ -432,7 +453,7 @@ export class Gigascarab extends ArmPrimary.Arm {
     this.defence_data = [75, 0];
     this.melee_data = [1500, 800];
     this.GAtogether = false;
-    this.shock = 100;
+    this.shock = 35;
 
     this.cost_bias += 60;
     this.loadRealtimeProps();
@@ -490,7 +511,7 @@ export class MutawaspsMend extends Mutawasps {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Mutawasps (Mending)";
+    this.name = "Mutawasps (Self-mending)";
     this.m_name = "异蜂-自我修复";
 
     this.hasBroodVersion = false;
@@ -552,7 +573,7 @@ export class Blade extends ArmPrimary.Arm {
     this.type = [1, 0, 1, 1];
     this.defence_data = [40, 10];
     this.GAtogether = false;
-    this.A_data = [40, 30, 5, 45];
+    this.A_data = [40, 60, 5, 45];
 
     this.cost_bias += 30;
     this.loadRealtimeProps();
@@ -580,7 +601,7 @@ export class Firewings extends Blade {
     this.missileShape = "circle";
     this.missileRadius = 7;
 
-    this.A_data = [40, 15, 5, 45];
+    this.A_data = [40, 30, 5, 45];
 
     this.cost_bias += 10;
     this.loadRealtimeProps();
@@ -661,6 +682,7 @@ export class Queen_1 extends Mutawasps {
 export function newAnArm(i, posX, posY, player) {
   let armList = [
     new Arlmantises([posX, posY], player),
+    new ArlmantisesMuted([posX, posY], player),
     new Estavulgs([posX, posY], player),
     new Rockscarabs([posX, posY], player),
     new Fuegoscarabs([posX, posY], player),
