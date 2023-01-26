@@ -139,7 +139,7 @@ export class BlinkHunter extends ArmPrimary.Arm {
     this.missileNumber = 10;
 
     this.switchInfo = [
-      `Ground units, can attach both air and ground units`,
+      `Ground units, can attack both air and ground units`,
       "Air units, lose attack ability but gain high evasion",
     ];
     this.m_switchInfo = [
@@ -253,6 +253,100 @@ export class ShadowWarrior extends ArmPrimary.Arm {
       this.speed = 5;
       this.defence_data = [0, 50];
       this.melee_data = [150, 0];
+    }
+
+    this._endSwitch(true);
+  }
+}
+
+export class Caelumanians extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name1 = "Caelumanians";
+    this.m_name1 = "天羽卫";
+    this.name2 = "Caelumanians (Flying)";
+    this.m_name2 = "天羽卫-飞行";
+    this.name = this.name1;
+    this.m_name = this.m_name1;
+    this.extra = "Anti-Bio";
+    this.m_extra = "反生物";
+    this.missileShape = "circle";
+    this.missileRadius = 12;
+    this.missileNumber = 1;
+    this.missileColor = MC.GhostColor;
+    this.missileWeight = 10;
+
+    this.switchInfo = [
+      "Ground units, can attack ground units and cause high damage",
+      "Air units, lose attack ability but gain high evasion",
+    ];
+    this.m_switchInfo = [
+      "地面单位，可对地并造成高伤害",
+      "空中单位，失去攻击能力但获得高闪避",
+    ];
+
+    this.shield = 1000;
+    this.shield_armor = 10;
+    this.scale = 16;
+    this.singleHP = 130;
+    this.speed = 4;
+
+    this.type = [0, 0, 0, 0];
+    this.defence_data = [30, 30];
+    this.melee_data = [100, 0];
+    this.GAtogether = false;
+    this.G_data = [10, 125, 5, 10];
+
+    this.leadership_bias = 50;
+    this.cost_bias = 0;
+    this.switchable = true;
+    this.loadRealtimeProps();
+    this.ammo_record = [
+      [10, 0],
+      [0, 0],
+    ];
+  }
+  _getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (this.status === 0) {
+      if (damageType === "melee") {
+        singleDamage = this.c_melee;
+      } else if (damageType === "missile") {
+        if (targetArm.G_A === 0 && this.c_ammo_G > 0) {
+          this.c_ammo_G--;
+          singleDamage = this.c_missile_G;
+          if (targetArm.B_M == 0) singleDamage += this.missile_G_bonus;
+        }
+      }
+    }
+    return singleDamage;
+  }
+  switch() {
+    if (!this.switchable || this.hasAttacked || this.slowdown_countdown > 0)
+      return;
+    this._beginSwitch(true);
+
+    if (this.status === 0) {
+      this.status = 1;
+      this.extra = "";
+      this.m_extra = "";
+      this.speed = 6;
+      this.type = [1, 0, 0, 0];
+      this.defence_data = [30, 50];
+      this.melee_data = [0, 0];
+      this.GAtogether = false;
+      this.G_data = [0, 0, 0, -1];
+    } else {
+      this.status = 0;
+      this.extra = "Anti-Bio";
+      this.m_extra = "反生物";
+      this.speed = 4;
+      this.type = [0, 0, 0, 0];
+      this.defence_data = [30, 30];
+      this.melee_data = [100, 0];
+      this.GAtogether = false;
+      this.G_data = [10, 125, 5, 10];
     }
 
     this._endSwitch(true);
@@ -813,13 +907,14 @@ export class AircraftCarrier_1 extends ArmPrimary.Arm {
 export function newAnArm(i, posX, posY, player) {
   let armList = [
     new PalaceGuard([posX, posY], player),
-    new ParagardeShield([posX, posY], player),
-    new BlinkHunter([posX, posY], player),
     new ShadowWarrior([posX, posY], player),
-    new AbyssKnight([posX, posY], player),
-    new GoldenKnight([posX, posY], player),
+    new Caelumanians([posX, posY], player),
     new ThunderGuard([posX, posY], player),
     new DeathEnvoy([posX, posY], player),
+    new ParagardeShield([posX, posY], player),
+    new BlinkHunter([posX, posY], player),
+    new AbyssKnight([posX, posY], player),
+    new GoldenKnight([posX, posY], player),
     new FlameTitan([posX, posY], player),
     new CurseTitan([posX, posY], player),
     new StarLight([posX, posY], player),

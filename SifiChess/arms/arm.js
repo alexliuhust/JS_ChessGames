@@ -359,7 +359,7 @@ export class Arm {
       charged = triggerCharging(this, this.player.pieceList);
       triggerInspiring(this, this.player.pieceList);
       if (this.isAttacked >= 2) {
-        this.c_shield += Math.round(this.shield / 7.5);
+        this.c_shield += Math.round(this.shield * 0.1);
         this.c_shield = Math.min(this.c_shield, this.shield);
       }
       this.brood_time++;
