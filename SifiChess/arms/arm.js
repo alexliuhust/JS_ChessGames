@@ -51,6 +51,7 @@ export class Arm {
     this.missileColor = null;
     this.missileWeight = 2;
     this.missileNumber = null;
+    this.scanLaser = true;
     this.alignMoved = false;
 
     // Static properties

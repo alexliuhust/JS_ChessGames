@@ -98,6 +98,7 @@ export class ParagardeShield extends ArmPrimary.Arm {
     this.missileWeight = 3;
     this.missileLaser = true;
     this.missileColor = MC.GhostColor;
+    this.scanLaser = false;
 
     this.shield = 400;
     this.shield_armor = 50;
@@ -606,7 +607,7 @@ export class FlameTitan extends ArmPrimary.Arm {
     this.missileColor = "yellow";
     this.missileWeight = 8;
     this.missileLaser = true;
-    this.missileNumber = 1;
+    this.missileNumber = 2;
 
     this.shield = 1500;
     this.shield_armor = 20;
@@ -724,6 +725,7 @@ export class HeliosFrigate extends ArmPrimary.Arm {
     this.missileLaser = true;
     this.missileNumber = 2;
     this.missileWeight = 10;
+    this.scanLaser = false;
 
     this.shield = 1500;
     this.shield_armor = 30;
