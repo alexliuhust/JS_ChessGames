@@ -168,7 +168,7 @@ export class FireBat extends BlackBat {
     this.missileColor = MC.FireColor;
     this.missileWeight = 10;
     this.missileNumber = 4;
-    this.missileLaser = true;
+    this.missileFlame = true;
 
     this.name = "Fire Bats";
     this.m_name = "火蝠步兵";
@@ -362,7 +362,7 @@ export class HellfireChariot extends StormChariot {
     this.missileColor = MC.FireColor;
     this.missileWeight = 10;
     this.missileNumber = 4;
-    this.missileLaser = true;
+    this.missileFlame = true;
 
     this.switchInfo = [
       "Movement speed restored",

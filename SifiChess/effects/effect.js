@@ -2,6 +2,7 @@ import { MeleeEffect } from "./meleeEffect.js";
 import { SelfDetoEffect } from "./selfDetoEffect.js";
 import { MissileEffect } from "./missileEffect.js";
 import { LaserEffect } from "./laserEffect.js";
+import { FlameEffect } from "./flameEffect.js";
 import { AttachEffect } from "./attachEffect.js";
 import { HealEffect } from "./healEffect.js";
 import { ChargeEffect } from "./chargeEffect.js";
@@ -25,6 +26,8 @@ export function addEffect(list, effectType, attacker, defender, cxt) {
     if (attacker.attached) effect = new AttachEffect(attacker, defender, cxt);
     else if (attacker.missileLaser)
       effect = new LaserEffect(attacker, defender, cxt);
+    else if (attacker.missileFlame)
+      effect = new FlameEffect(attacker, defender, cxt);
     else effect = new MissileEffect(attacker, defender, cxt);
     list.push(effect);
     return effect.maxTime;
