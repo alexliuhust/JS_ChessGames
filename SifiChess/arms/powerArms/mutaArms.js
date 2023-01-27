@@ -406,9 +406,10 @@ export class Furiacondas extends ArmPrimary.Arm {
         if (targetArm.G_A === 0 && this.c_ammo_G > 0) {
           this.c_ammo_G--;
           singleDamage = this.c_missile_G;
-          if (targetArm.size === 1)
-            singleDamage += Math.round(this.missile_G_bonus / 2);
-          else if (targetArm.size === 2) singleDamage += this.missile_G_bonus;
+          if (targetArm.size >= 1) singleDamage += this.missile_G_bonus;
+          if (targetArm.size === 2) singleDamage += this.missile_G_bonus;
+
+          singleDamage = Math.min(singleDamage, targetArm.c_singleHP);
         }
       }
     }
@@ -430,7 +431,7 @@ export class Furiacondas extends ArmPrimary.Arm {
     this.m_extra = "高伤害，反大型";
     this.speed = 2;
     this.mend = 120;
-    this.G_data = [20, 90, 7, 60];
+    this.G_data = [20, 70, 7, 60];
     this.A_data = [0, 0, 0, -1];
     this._endSwitch(true);
   }

@@ -249,6 +249,8 @@ export class Sniper extends ArmPrimary.Arm {
         this.c_ammo_A--;
         singleDamage = this.c_missile_G;
         if (targetArm.B_M === 0) singleDamage += this.missile_G_bonus;
+
+        singleDamage = Math.min(singleDamage, targetArm.c_singleHP);
       }
     }
     return singleDamage;
@@ -555,6 +557,11 @@ export class Annihilator extends ArmPrimary.Arm {
         this.c_ammo_G--;
         singleDamage = this.c_missile_G;
         if (targetArm.size >= 1) singleDamage += this.missile_G_bonus;
+
+        let freq = 8;
+        singleDamage = Math.round(
+          Math.min(singleDamage / freq, targetArm.c_singleHP) * freq
+        );
       } else if (targetArm.G_A === 1 && this.c_ammo_A > 0) {
         this.c_ammo_A--;
         singleDamage = this.c_missile_A;
@@ -902,8 +909,10 @@ export class Vulture extends ArmPrimary.Arm {
         if (targetArm.G_A === 0 && this.c_ammo_G > 0) {
           singleDamage = this.c_missile_G;
           if (targetArm.size >= 1) singleDamage += this.missile_G_bonus / 2;
-          if (targetArm.size === 2) singleDamage += this.missile_G_bonus / 2;
+          if (targetArm.size === 2) singleDamage += this.missile_G_bonus * 2;
           this.c_ammo_G--;
+
+          singleDamage = Math.min(singleDamage, targetArm.c_singleHP);
         }
       }
     }

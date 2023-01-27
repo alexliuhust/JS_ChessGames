@@ -389,6 +389,8 @@ export class GoldenKnight extends ArmPrimary.Arm {
         this.c_ammo_G--;
         singleDamage = this.c_missile_G;
         if (targetArm.L_H === 1) singleDamage += this.missile_G_bonus;
+
+        singleDamage = Math.min(singleDamage, targetArm.c_singleHP);
       }
     }
     return singleDamage;
@@ -732,7 +734,7 @@ export class HeliosFrigate extends ArmPrimary.Arm {
     this.type = [1, 1, 1, 2];
     this.defence_data = [50, 0];
     this.GAtogether = true;
-    this.G_data = [400, 150, 6, 70];
+    this.G_data = [400, 200, 6, 70];
 
     this.loadRealtimeProps();
   }
@@ -743,7 +745,9 @@ export class HeliosFrigate extends ArmPrimary.Arm {
       this.c_ammo_A--;
       singleDamage = this.c_missile_G;
       if (targetArm.scale === 1) singleDamage += this.missile_G_bonus;
-      if (targetArm.size === 2) singleDamage += this.missile_G_bonus;
+      if (targetArm.size >= 1) singleDamage += this.missile_G_bonus;
+
+      singleDamage = Math.min(singleDamage, targetArm.c_singleHP);
     }
     return singleDamage;
   }
