@@ -166,7 +166,7 @@ export class FireBat extends BlackBat {
   constructor(value, player) {
     super(value, player);
     this.missileColor = MC.FireColor;
-    this.missileWeight = 10;
+    this.missileWeight = 6;
     this.missileNumber = 4;
     this.missileFlame = true;
 
@@ -360,7 +360,7 @@ export class HellfireChariot extends StormChariot {
     this.name = this.name1;
     this.m_name = this.m_name1;
     this.missileColor = MC.FireColor;
-    this.missileWeight = 10;
+    this.missileWeight = 6;
     this.missileNumber = 4;
     this.missileFlame = true;
 
@@ -402,13 +402,13 @@ export class HellfireChariot extends StormChariot {
 
     if (this.status === 0) {
       this.status = 1;
-
+      this.missileWeight = 14;
       this.speed = 0;
       this.defence_data = [30, 0];
       this.G_data = [60, 60, 4, 50];
     } else {
       this.status = 0;
-
+      this.missileWeight = 6;
       this.missileWeight = 2;
       this.speed = 5;
       this.defence_data = [15, 20];

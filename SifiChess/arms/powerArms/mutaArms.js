@@ -158,6 +158,7 @@ export class Fuegoscarabs extends Rockscarabs {
     this.m_extra = "";
     this.missileColor = MC.FireColor;
     this.missileWeight = 4;
+    this.missileFlame = true;
 
     this.switchInfo = [
       "Anti-ground specialization",
