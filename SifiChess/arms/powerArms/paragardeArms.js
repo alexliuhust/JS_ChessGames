@@ -99,6 +99,9 @@ export class ParagardeShield extends ArmPrimary.Arm {
     this.missileLaser = true;
     this.missileColor = MC.GhostColor;
     this.scanLaser = false;
+    this.attachInfo =
+      "Unleash a single doppelgänger that can charge shield for\nother units. It has larger protecting range";
+    this.m_attachInfo = "释放单个可以为护盾充能的分身, 其拥有更大的保护范围";
 
     this.shield = 400;
     this.shield_armor = 50;
@@ -118,7 +121,55 @@ export class ParagardeShield extends ArmPrimary.Arm {
     this.armorEnhance = 15;
     this.enhanceRange = 2;
 
+    this.brooder = true;
+    this.canRelease = true;
+    this.brood_time = 8;
+    this.brood_max = 8;
+    this.broodRange = 2;
+    this.autoBrood = false;
+
     this.cost_bias -= 40;
+    this.loadRealtimeProps();
+  }
+  _prepareBrooding() {
+    let brooded = new ParagardeShield_1([0, 0], this.player);
+    return brooded;
+  }
+  getAttachedName() {
+    return ["Doppelgänger", "分身"];
+  }
+}
+
+export class ParagardeShield_1 extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Doppelgänger";
+    this.m_name = "分身";
+    this.extra = "Charger, Protector";
+    this.m_extra = "充能者，护卫者";
+
+    this.live_max = 4;
+    this.live_time = 0;
+
+    this.shield = 800;
+    this.shield_armor = 50;
+    this.scale = 1;
+    this.singleHP = 200;
+    this.speed = 2;
+
+    this.type = [0, 1, 0, 0];
+    this.defence_data = [0, 0];
+    this.GAtogether = false;
+    this.G_data = [0, 0, 0, -1];
+
+    this.charging = 100;
+    this.chargeRange = 3;
+    this.totalCharge = 400;
+    this.c_totalCharge = this.totalCharge;
+    this.armorEnhance = 15;
+    this.enhanceRange = 3;
+
     this.loadRealtimeProps();
   }
 }
