@@ -442,23 +442,40 @@ export class Gigascarab extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Gigascarab";
-    this.m_name = "巨甲虫";
+    this.name1 = "Gigascarab";
+    this.m_name1 = "巨甲虫";
+    this.name2 = "Furia Gigascarab";
+    this.m_name2 = "狂暴巨甲虫";
+    this.name = this.name1;
+    this.m_name = this.m_name1;
     this.extra = "Anti-Aggregation";
     this.m_extra = "反聚集";
 
+    this.switchInfo = [
+      "",
+      "Defense decreased, but gain higher movement speed\nand attack power",
+    ];
+    this.m_switchInfo = ["", "防御力降低，但获得更高的移速和攻击力"];
+
     this.scale = 1;
     this.singleHP = 2400;
-    this.speed = 4;
+    this.speed = 3;
 
     this.type = [0, 0, 1, 2];
     this.defence_data = [75, 0];
-    this.melee_data = [1500, 800];
+    this.melee_data = [1300, 800];
     this.GAtogether = false;
-    this.shock = 35;
+    this.shock = 30;
 
     this.cost_bias += 60;
+    this.switchable = true;
+    this.evolable = true;
     this.loadRealtimeProps();
+
+    this.ammo_record = [
+      [-1, -1],
+      [-1, -1],
+    ];
   }
   _getSingleDamage(damageType, targetArm) {
     let singleDamage = 0;
@@ -468,6 +485,23 @@ export class Gigascarab extends ArmPrimary.Arm {
       if (targetArm.c_scale >= 16) singleDamage += this.melee_bonus;
     }
     return singleDamage;
+  }
+  switch() {
+    if (
+      this.status === 1 ||
+      !this.switchable ||
+      this.hasAttacked ||
+      this.slowdown_countdown > 0
+    )
+      return;
+    this._beginSwitch(false);
+    this.status = 1;
+    this.speed = 5;
+    this.defence_data = [40, 0];
+    this.melee_data = [1600, 1000];
+    this.GAtogether = false;
+    this.shock = 40;
+    this._endSwitch(true);
   }
 }
 
