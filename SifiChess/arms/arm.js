@@ -115,6 +115,7 @@ export class Arm {
     this.hasBroodVersion = false;
     this.autoBrood = true;
     this.brooder = false;
+    this.broodRange = 1;
     this.brood_time = 0;
     this.brood_max = 0;
 

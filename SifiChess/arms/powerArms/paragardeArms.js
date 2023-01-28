@@ -868,6 +868,7 @@ export class AircraftCarrier extends ArmPrimary.Arm {
     this.brooder = true;
     this.brood_time = 5;
     this.brood_max = 5;
+    this.broodRange = 3;
 
     this.canRelease = true;
     this.cost_bias = 100;

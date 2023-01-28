@@ -637,6 +637,7 @@ export class BattleDrone extends ArmPrimary.Arm {
     this.brooder = true;
     this.brood_time = 4;
     this.brood_max = 4;
+    this.broodRange = 2;
 
     this.canRelease = true;
 

@@ -645,6 +645,7 @@ export class Queen extends ArmPrimary.Arm {
     this.brooder = true;
     this.brood_time = 4;
     this.brood_max = 4;
+    this.broodRange = 2;
 
     this.healTarget = 0;
     this.healing = 7;
