@@ -236,12 +236,12 @@ export class Mothermantis extends ArmPrimary.Arm {
     this.brood_max = 3;
 
     this.healTarget = 0;
-    this.healing = 5;
-    this.totalHeal = 200;
-    this.c_totalHeal = 200;
+    this.healing = 200;
+    this.totalHeal = 1200;
+    this.c_totalHeal = 1200;
     this.healRange = 2;
 
-    this.cost_bias += 15;
+    this.cost_bias -= 180;
     this.loadRealtimeProps();
   }
   _prepareBrooding() {
@@ -648,12 +648,12 @@ export class Queen extends ArmPrimary.Arm {
     this.broodRange = 2;
 
     this.healTarget = 0;
-    this.healing = 7;
-    this.totalHeal = 300;
-    this.c_totalHeal = 300;
+    this.healing = 200;
+    this.totalHeal = 1500;
+    this.c_totalHeal = 1500;
     this.healRange = 3;
 
-    this.cost_bias += 25;
+    this.cost_bias -= 180;
     this.loadRealtimeProps();
   }
   _prepareBrooding() {

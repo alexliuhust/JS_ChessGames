@@ -579,31 +579,25 @@ export class SupportDrone extends ArmPrimary.Arm {
     this.m_name = "支援无人机";
     this.extra = "Mech-Mender, Reducer";
     this.m_extra = "机械修复者，减速者";
-    this.missileColor = MC.GhostColor;
-    this.missileWeight = 8;
-    // this.missileNumber = 1;
 
-    this.scale = 5;
-    this.singleHP = 120;
+    this.scale = 1;
+    this.singleHP = 1000;
     this.speed = 4;
 
     this.type = [1, 1, 0, 0];
     this.defence_data = [0, 80];
     this.melee_data = [0, 0];
-    this.GAtogether = true;
-    this.G_data = [30, 0, 5, 30];
 
-    this.shock = 20;
     this.slowdown = true;
     this.slowdown_time = 2;
 
     this.healTarget = 1;
-    this.healing = 60;
-    this.totalHeal = 200;
-    this.healRange = 2;
-    this.c_totalHeal = 200;
+    this.healing = 200;
+    this.totalHeal = 1000;
+    this.c_totalHeal = 1000;
+    this.healRange = 3;
 
-    this.cost_bias = -125;
+    this.cost_bias = -207;
     this.loadRealtimeProps();
   }
 }
@@ -700,6 +694,7 @@ export class KillDrone extends BattleDrone {
     this.brooder = true;
     this.brood_time = 4;
     this.brood_max = 4;
+    this.broodRange = 3;
 
     this.cost_bias = -135;
     this.loadRealtimeProps();
@@ -727,7 +722,7 @@ export class KillDrone_1 extends ArmPrimary.Arm {
 
     this.scale = 1;
     this.singleHP = 500;
-    this.speed = 7;
+    this.speed = 4;
 
     this.type = [1, 1, 0, 0];
     this.defence_data = [0, 90];

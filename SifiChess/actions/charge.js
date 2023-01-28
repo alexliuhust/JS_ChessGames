@@ -48,9 +48,6 @@ function charge(charger, pieces) {
   let list = charger.player.effectList;
   addEffect(list, "charging", charger, lowestPiece, cxt);
   let totalCharging = charger.charging * charger.c_scale;
-  if (charger.scale == 1) {
-    totalCharging = charger.charging * 50;
-  }
 
   lowestPiece.c_shield += totalCharging;
   if (lowestPiece.c_shield > lowestPiece.shield)
