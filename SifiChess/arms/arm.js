@@ -547,7 +547,7 @@ export class Arm {
     if (this.getTotalHP() >= this.getOriginalHP()) return;
 
     let list = this.player.effectList;
-    addEffect(list, "healing", null, this, null);
+    addEffect(list, "healing", this, this, null);
     if (this.scale === 1) {
       this.c_singleHP += this.mend;
       this.c_singleHP = Math.min(this.c_singleHP, this.singleHP);

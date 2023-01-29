@@ -98,7 +98,7 @@ export class ParagardeShield extends ArmPrimary.Arm {
     this.missileWeight = 3;
     this.missileLaser = true;
     this.missileColor = MC.GhostColor;
-    this.scanLaser = false;
+    this.scanLaser = true;
     this.attachInfo =
       "Unleash a single doppelgänger that can charge shield for\nother units. It has larger protecting range";
     this.m_attachInfo = "释放单个可以为护盾充能的分身, 其拥有更大的保护范围";
@@ -112,7 +112,7 @@ export class ParagardeShield extends ArmPrimary.Arm {
     this.type = [0, 1, 0, 0];
     this.defence_data = [0, 30];
     this.GAtogether = true;
-    this.G_data = [50, 0, 5, 40];
+    this.G_data = [100, 0, 5, 40];
 
     this.charging = 30;
     this.chargeRange = 2;
@@ -128,7 +128,7 @@ export class ParagardeShield extends ArmPrimary.Arm {
     this.broodRange = 2;
     this.autoBrood = false;
 
-    this.cost_bias -= 40;
+    this.cost_bias -= 30;
     this.loadRealtimeProps();
   }
   _prepareBrooding() {
@@ -969,8 +969,8 @@ export function newAnArm(i, posX, posY, player) {
     new Caelumanians([posX, posY], player),
     new ThunderGuard([posX, posY], player),
     new DeathEnvoy([posX, posY], player),
-    new ParagardeShield([posX, posY], player),
     new BlinkHunter([posX, posY], player),
+    new ParagardeShield([posX, posY], player),
     new AbyssKnight([posX, posY], player),
     new GoldenKnight([posX, posY], player),
     new FlameTitan([posX, posY], player),
