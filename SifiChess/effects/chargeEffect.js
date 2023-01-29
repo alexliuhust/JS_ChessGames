@@ -2,10 +2,10 @@ import { Canvas } from "../common/tools.js";
 import { ExpColor as SLDC } from "../common/const.js";
 
 export class ChargeEffect {
-  constructor(_x, _y, _cxt) {
+  constructor(attacker, defender, _cxt) {
     this.cxt = _cxt;
-    this.x = _x;
-    this.y = _y;
+    this.x = defender.x;
+    this.y = defender.y;
     this.time = 0;
     this.maxTime = 20;
     this.isAlive = true;
@@ -25,6 +25,19 @@ export class ChargeEffect {
       Canvas.drawLine(this.cxt, x3, y3, x4, y4, SLDC, weight);
     };
 
+    this.drawLine = function () {
+      let weight = 6;
+      Canvas.drawLine(
+        this.cxt,
+        attacker.x + 25,
+        attacker.y + 25,
+        this.x + 25,
+        this.y + 25,
+        SLDC,
+        weight
+      );
+    };
+
     this.draw = function () {
       this.time++;
       if (this.time > this.maxTime) {
@@ -39,6 +52,7 @@ export class ChargeEffect {
 
       this.drawCross(x1, y1);
       this.drawCross(x2, y2);
+      this.drawLine();
     };
   }
 }

@@ -32,11 +32,11 @@ export function addEffect(list, effectType, attacker, defender, cxt) {
     list.push(effect);
     return effect.maxTime;
   } else if (effectType === "healing") {
-    let effect = new HealEffect(defender.x, defender.y, cxt);
+    let effect = new HealEffect(attacker, defender, cxt);
     list.push(effect);
     return 0;
   } else if (effectType === "charging") {
-    let effect = new ChargeEffect(defender.x, defender.y, cxt);
+    let effect = new ChargeEffect(attacker, defender, cxt);
     list.push(effect);
     return 0;
   } else if (effectType === "inspiring") {

@@ -1,11 +1,11 @@
 import { Canvas } from "../common/tools.js";
-import { HpColor as SPC } from "../common/const.js";
+import { HpColor as HPC } from "../common/const.js";
 
 export class HealEffect {
-  constructor(_x, _y, _cxt) {
+  constructor(attacker, defender, _cxt) {
     this.cxt = _cxt;
-    this.x = _x;
-    this.y = _y;
+    this.x = defender.x;
+    this.y = defender.y;
     this.time = 0;
     this.maxTime = 20;
     this.isAlive = true;
@@ -21,8 +21,21 @@ export class HealEffect {
       let y3 = y0 - len;
       let x4 = x0;
       let y4 = y0 + len;
-      Canvas.drawLine(this.cxt, x1, y1, x2, y2, SPC, weight);
-      Canvas.drawLine(this.cxt, x3, y3, x4, y4, SPC, weight);
+      Canvas.drawLine(this.cxt, x1, y1, x2, y2, HPC, weight);
+      Canvas.drawLine(this.cxt, x3, y3, x4, y4, HPC, weight);
+    };
+
+    this.drawLine = function () {
+      let weight = 6;
+      Canvas.drawLine(
+        this.cxt,
+        attacker.x + 25,
+        attacker.y + 25,
+        this.x + 25,
+        this.y + 25,
+        HPC,
+        weight
+      );
     };
 
     this.draw = function () {
@@ -39,6 +52,7 @@ export class HealEffect {
 
       this.drawCross(x1, y1);
       this.drawCross(x2, y2);
+      this.drawLine();
     };
   }
 }

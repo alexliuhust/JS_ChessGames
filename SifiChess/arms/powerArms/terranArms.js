@@ -577,8 +577,8 @@ export class SupportDrone extends ArmPrimary.Arm {
 
     this.name = "Support Drones";
     this.m_name = "支援无人机";
-    this.extra = "Mech-Mender, Reducer";
-    this.m_extra = "机械修复者，减速者";
+    this.extra = "Mech-Mender";
+    this.m_extra = "机械修复者";
 
     this.scale = 1;
     this.singleHP = 1000;
@@ -587,9 +587,6 @@ export class SupportDrone extends ArmPrimary.Arm {
     this.type = [1, 1, 0, 0];
     this.defence_data = [0, 80];
     this.melee_data = [0, 0];
-
-    this.slowdown = true;
-    this.slowdown_time = 2;
 
     this.healTarget = 1;
     this.healing = 200;
@@ -859,7 +856,7 @@ export class Vulture extends ArmPrimary.Arm {
     this.missileColor = "white";
     this.switchInfo = [
       "Return to mobile mode; anti-air specialization;\nrecover capacities of movement",
-      "Switch to destroying platfrom; anti-ground\nspecialization; lose capacities of attack and movement",
+      "Switch to destroying platfrom; anti-ground\nspecialization; lose capacities of movement",
     ];
     this.m_switchInfo = [
       "返回移动模式，对空专精，恢复移动能力",
