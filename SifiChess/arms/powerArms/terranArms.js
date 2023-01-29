@@ -585,7 +585,7 @@ export class SupportDrone extends ArmPrimary.Arm {
     this.speed = 4;
 
     this.type = [1, 1, 0, 0];
-    this.defence_data = [0, 80];
+    this.defence_data = [0, 40];
     this.melee_data = [0, 0];
 
     this.healTarget = 1;
@@ -594,7 +594,7 @@ export class SupportDrone extends ArmPrimary.Arm {
     this.c_totalHeal = 1000;
     this.healRange = 3;
 
-    this.cost_bias = -207;
+    this.cost_bias = -160;
     this.loadRealtimeProps();
   }
 }
@@ -618,7 +618,7 @@ export class BattleDrone extends ArmPrimary.Arm {
     this.speed = 4;
 
     this.type = [1, 1, 0, 0];
-    this.defence_data = [0, 80];
+    this.defence_data = [0, 40];
     this.melee_data = [0, 0];
     this.GAtogether = true;
     this.G_data = [1100, 500, 8, 10];
@@ -632,7 +632,7 @@ export class BattleDrone extends ArmPrimary.Arm {
 
     this.canRelease = true;
 
-    this.cost_bias = -140;
+    this.cost_bias = -100;
     this.loadRealtimeProps();
   }
   _getSingleDamage(damageType, targetArm) {
@@ -687,13 +687,13 @@ export class KillDrone extends BattleDrone {
     this.attachInfo = "Fire anti-large cruise missile";
     this.m_attachInfo = "发射反大型的巡航导弹";
 
-    this.autoBrood = true;
+    this.autoBrood = false;
     this.brooder = true;
     this.brood_time = 4;
     this.brood_max = 4;
     this.broodRange = 3;
 
-    this.cost_bias = -135;
+    this.cost_bias = -100;
     this.loadRealtimeProps();
   }
   _prepareBrooding() {
