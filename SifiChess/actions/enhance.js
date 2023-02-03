@@ -40,9 +40,11 @@ function accumulateEnhancement(self, pieces, isArmor) {
     let range = piece.enhanceRange;
 
     if (distance <= range) {
-      if (isArmor) enhancement += piece.armorEnhance;
-      else enhancement += piece.attackEnhance;
+      if (isArmor) enhancement = Math.max(enhancement, piece.armorEnhance);
+      else enhancement = Math.max(enhancement, piece.attackEnhance);
     }
   }
+
+  console.log(self.name, "enhancement =", enhancement);
   return enhancement;
 }
