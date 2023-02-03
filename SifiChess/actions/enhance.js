@@ -45,6 +45,5 @@ function accumulateEnhancement(self, pieces, isArmor) {
     }
   }
 
-  console.log(self.name, "enhancement =", enhancement);
   return enhancement;
 }

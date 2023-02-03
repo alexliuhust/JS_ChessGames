@@ -16,12 +16,11 @@ export function armAttackArm(attacker, defender, _damageType) {
   let sleepRound = addEffect(list1, damageType, attacker, defender, cxt);
   if (
     damageType === "melee" &&
+    !attacker.meleeUseMissileEffect &&
     defender.c_melee > 0 &&
     defender.c_leadership > 0
   )
     addEffect(list2, "melee", defender, attacker, cxt);
-  // let enh = afterAttackEnhancement(attacker, attacker.player.pieceList);
-  // if (enh > 0) addAttackEnhanceEffect(attacker);
 
   // Impose slowdown effect
   if (attacker.slowdown && defender.size != 3) {

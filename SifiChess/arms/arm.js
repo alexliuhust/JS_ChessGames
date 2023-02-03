@@ -48,6 +48,7 @@ export class Arm {
     this.isAttacked = 0;
     this.operable = true;
     this.prepareToAuto = false;
+    this.meleeUseMissileEffect = false;
     this.missileColor = null;
     this.missileWeight = 2;
     this.missileNumber = null;
@@ -446,7 +447,13 @@ export class Arm {
   }
 
   getCounterAttack(damageType, targetArm) {
-    if (damageType !== "melee" || this.c_leadership <= 0) return 0;
+    if (
+      damageType !== "melee" ||
+      this.c_leadership <= 0 ||
+      this.meleeUseMissileEffect ||
+      targetArm.meleeUseMissileEffect
+    )
+      return 0;
 
     let singleDamage = this._getSingleDamage("melee", targetArm);
     return Math.round(singleDamage * this.c_scale);

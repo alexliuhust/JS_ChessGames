@@ -17,7 +17,10 @@ function canAutoMissileAttack(attacker) {
 }
 
 function canAutoMeleeAttack(attacker) {
-  return attacker.c_melee > 0 && !attacker.hasAttacked;
+  return (
+    (attacker.c_melee > 0 || attacker.meleeUseMissileEffect) &&
+    !attacker.hasAttacked
+  );
 }
 
 function getNearestEnemy(attacker, defenders) {
@@ -78,5 +81,7 @@ function aotuAttack(attacker, defenders) {
   if (nearestEnemy === null) return;
   if (distance === 1 && nearestEnemy.G_A === 0 && attacker.G_A === 0) {
     if (attacker.c_melee > 0) armAttackArm(attacker, nearestEnemy, "melee");
+    else if (attacker.meleeUseMissileEffect)
+      armAttackArm(attacker, nearestEnemy, "missile");
   } else armAttackArm(attacker, nearestEnemy, "missile");
 }

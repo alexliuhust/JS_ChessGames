@@ -13,7 +13,7 @@ const CXT = document.getElementById("piece").getContext("2d");
 
 export function addEffect(list, effectType, attacker, defender, cxt) {
   cxt = CXT;
-  if (effectType === "melee") {
+  if (effectType === "melee" && !attacker.meleeUseMissileEffect) {
     let effect = new MeleeEffect(defender.x, defender.y, cxt);
     list.push(effect);
     return effect.maxTime / 2 + 1;
@@ -21,7 +21,10 @@ export function addEffect(list, effectType, attacker, defender, cxt) {
     let effect = new SelfDetoEffect(attacker, cxt);
     list.push(effect);
     return 0;
-  } else if (effectType === "missile") {
+  } else if (
+    effectType === "missile" ||
+    (effectType === "melee" && attacker.meleeUseMissileEffect)
+  ) {
     let effect = null;
     if (attacker.attached) effect = new AttachEffect(attacker, defender, cxt);
     else if (attacker.missileLaser)

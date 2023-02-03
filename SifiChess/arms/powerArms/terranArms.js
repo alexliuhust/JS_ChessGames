@@ -169,12 +169,14 @@ export class FireBat extends BlackBat {
     this.missileWeight = 6;
     this.missileNumber = 4;
     this.missileFlame = true;
+    this.meleeUseMissileEffect = true;
 
     this.name = "Fire Bats";
     this.m_name = "火蝠步兵";
     this.extra = "Anti-Bio";
     this.m_extra = "反生物";
 
+    this.melee_data = [0, 0];
     this.G_data = [15, 35, 2, 30];
     this.GAtogether = false;
 
@@ -182,9 +184,7 @@ export class FireBat extends BlackBat {
   }
   _getSingleDamage(damageType, targetArm) {
     let singleDamage = 0;
-    if (damageType === "melee") {
-      singleDamage = this.c_melee;
-    } else if (damageType === "missile") {
+    if (damageType === "melee" || damageType === "missile") {
       if (targetArm.G_A === 0 && this.c_ammo_G > 0) {
         this.c_ammo_G--;
         singleDamage = this.c_missile_G;
@@ -192,6 +192,8 @@ export class FireBat extends BlackBat {
           singleDamage += Math.round(this.missile_G_bonus * 0.8);
         if (targetArm.L_H === 0)
           singleDamage += Math.round(this.missile_G_bonus * 0.2);
+
+        if (damageType === "melee") singleDamage *= 3;
       }
     }
     return singleDamage;
@@ -363,6 +365,7 @@ export class HellfireChariot extends StormChariot {
     this.missileWeight = 6;
     this.missileNumber = 4;
     this.missileFlame = true;
+    this.meleeUseMissileEffect = true;
 
     this.switchInfo = [
       "Movement speed restored",
@@ -371,10 +374,10 @@ export class HellfireChariot extends StormChariot {
     this.m_switchInfo = ["恢复移动力", "射程更长，伤害更高的固定炮台"];
 
     this.GAtogether = false;
-    this.G_data = [60, 30, 3, 60];
+    this.G_data = [10, 35, 3, 60];
 
+    this.cost_bias += 10;
     this.switchable = true;
-    this.cost_bias = -10;
     this.loadRealtimeProps();
     this.ammo_record = [
       [60, 0],
@@ -383,7 +386,7 @@ export class HellfireChariot extends StormChariot {
   }
   _getSingleDamage(damageType, targetArm) {
     let singleDamage = 0;
-    if (damageType === "missile") {
+    if (damageType === "melee" || damageType === "missile") {
       if (targetArm.G_A === 0 && this.c_ammo_G > 0) {
         this.c_ammo_G--;
         singleDamage = this.c_missile_G;
@@ -391,6 +394,8 @@ export class HellfireChariot extends StormChariot {
           singleDamage += Math.round(this.missile_G_bonus * 0.8);
         if (targetArm.L_H === 0)
           singleDamage += Math.round(this.missile_G_bonus * 0.2);
+
+        if (damageType === "missile") singleDamage *= 3;
       }
     }
     return singleDamage;
@@ -405,14 +410,14 @@ export class HellfireChariot extends StormChariot {
       this.missileWeight = 14;
       this.speed = 0;
       this.defence_data = [30, 0];
-      this.G_data = [60, 60, 4, 50];
+      this.G_data = [20, 40, 4, 50];
     } else {
       this.status = 0;
       this.missileWeight = 6;
       this.missileWeight = 2;
       this.speed = 5;
       this.defence_data = [15, 20];
-      this.G_data = [60, 30, 3, 60];
+      this.G_data = [10, 35, 3, 60];
     }
 
     this._endSwitch(true);
@@ -999,6 +1004,11 @@ export class Cruiser extends ArmPrimary.Arm {
         this.c_ammo_A--;
         singleDamage = this.c_missile_G;
         if (targetArm.L_H === 1) singleDamage += this.missile_G_bonus;
+
+        let freq = 6;
+        singleDamage = Math.round(
+          Math.min(singleDamage / freq, targetArm.c_singleHP) * freq
+        );
       }
     }
     return singleDamage;

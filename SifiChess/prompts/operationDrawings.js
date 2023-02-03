@@ -115,7 +115,7 @@ function getAvailableTagets(cxt, self, others) {
       self.c_ammo_G > 0 &&
       others[i].G_A === 0 &&
       distance <= self.range_G &&
-      distance > 1;
+      (distance > 1 || (distance == 1 && self.meleeUseMissileEffect));
     let missile_A_Available =
       self.c_missile_A > 0 &&
       self.c_ammo_A > 0 &&
