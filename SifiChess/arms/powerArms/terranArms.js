@@ -14,7 +14,7 @@ export class Marine extends ArmPrimary.Arm {
 
     this.type = [0, 0, 0, 0];
     this.defence_data = [5, 10];
-    this.melee_data = [11, 0];
+    this.melee_data = [22, 0];
     this.G_data = [14, 0, 3, 50];
     this.GAtogether = true;
 
@@ -42,9 +42,8 @@ export class ShieldMarine extends Marine {
     ];
 
     this.singleHP = 70;
-    this.speed = 3;
-    this.defence_data = [5, 10];
-    this.melee_data = [11, 0];
+
+    this.melee_data = [22, 0];
     this.G_data = [14, 0, 3, 50];
 
     this.switchable = true;
@@ -59,17 +58,17 @@ export class ShieldMarine extends Marine {
 
     if (this.status === 0) {
       this.status = 1;
-
+      this.meleeUseMissileEffect = true;
       this.speed = 1;
       this.defence_data = [35, 0];
-      this.melee_data = [12, 0];
-      this.G_data = [14, 0, 4, 50];
+      this.melee_data = [0, 0];
+      this.G_data = [15, 0, 4, 50];
     } else {
       this.status = 0;
-
+      this.meleeUseMissileEffect = false;
       this.speed = 3;
       this.defence_data = [5, 10];
-      this.melee_data = [11, 0];
+      this.melee_data = [22, 0];
       this.G_data = [14, 0, 3, 50];
     }
 

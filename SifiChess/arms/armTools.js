@@ -1,9 +1,9 @@
-export function dodgePercent(dodge, numSteps = 3) {
-  let step = (dodge * 2) / numSteps;
+export function dodgePercent(dodge, numSteps = 5) {
+  let step = (dodge * 1.5) / numSteps;
   let percent = 0;
   for (let i = 0; i < numSteps; i++) {
     let rand = Math.random();
-    if (rand >= 0.475) {
+    if (rand >= 0.5) {
       percent += step;
     }
   }

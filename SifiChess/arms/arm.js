@@ -443,6 +443,7 @@ export class Arm {
     // enh = afterAttackEnhancement(this, this.player.pieceList);
     output = Math.round((output * (100 + enh)) / 100);
 
+    console.log(this.name, output);
     return output;
   }
 
