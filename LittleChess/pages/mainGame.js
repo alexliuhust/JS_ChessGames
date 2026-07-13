@@ -7,10 +7,11 @@ import {
   InfoHeight as IH,
   BannerWidth as BW,
   BannerHeight as BH,
+  ColorGradient as CG,
 } from "../common/const.js";
+import { getAllIconImages } from "../common/icon.js";
 import * as BannerDraw from "../prompts/bannerDrawings.js";
-import { decodeArmPositionInfo } from "../common/deployMethods.js";
-import { getArmsAndImages } from "../arms/exportArm.js";
+import { exportPower, getArmsAndImages, getOneArm } from "../arms/exportArm.js";
 
 // ===============================================================
 // ====================== Load All Canvases ======================
@@ -42,10 +43,33 @@ function addImage(srcList) {
 }
 addImage(srcList1);
 addImage(srcList2);
+let list = getAllIconImages();
+for (let [src, id] of list) {
+  let div = document.getElementById("allIconImages");
+  let elem = document.createElement("img");
+  elem.src = src;
+  elem.id = id;
+  div.appendChild(elem);
+}
 
 // ===============================================================
 // ====================== Load Players Info ======================
 // ===============================================================
+function decodeArmPositionInfo(playerNum, player) {
+  let armlistNumber = "a" + playerNum;
+  let outputList = window.localStorage.getItem(armlistNumber);
+  let info = JSON.parse(outputList);
+
+  let powerNumber = "power" + playerNum;
+  let Power = exportPower(window.localStorage.getItem(powerNumber));
+
+  let arms = [];
+  for (let i = 0; i < info.length; i++) {
+    arms.push(getOneArm(Power, info[i][0], info[i][1], info[i][2], player));
+  }
+
+  return arms;
+}
 let useMandarin = window.localStorage.getItem("useMandarin") === "true";
 let player1 = new Player("blue", canvasList, useMandarin);
 let player2 = new Player("red", canvasList, useMandarin);
@@ -59,70 +83,126 @@ player2.addPieces(pieces2, pieces1);
 // ===============================================================
 let endRoundForBlue = document.getElementById("endRoundForBlue");
 let endRoundForRed = document.getElementById("endRoundForRed");
-function refreshRound() {
-  player1.operatedPieces.clear();
-  player1.refresh();
-  let endMyRound = player1.currentRound !== 1 && !player1.isMyRound;
-  for (let i = 0; i < player1.pieceList.length; i++) {
-    player1.pieceList[i].roundRefresh(player1.currentRound, endMyRound);
-  }
 
-  player2.operatedPieces.clear();
-  player2.refresh();
-  endMyRound = player2.currentRound !== 1 && !player2.isMyRound;
-  for (let i = 0; i < player2.pieceList.length; i++) {
-    player2.pieceList[i].roundRefresh(player2.currentRound, endMyRound);
+function playerRefreshRound(player) {
+  player.operatedPieces.clear();
+  player.refresh();
+  let endMyRound = player.currentRound !== 1 && !player.isMyRound;
+  for (let i = 0; i < player.pieceList.length; i++) {
+    player.pieceList[i].roundRefresh(player.currentRound, endMyRound);
   }
 }
+
+function waitForCondition(conditionFn, callback, interval = 100) {
+  const timer = setInterval(() => {
+    if (conditionFn()) {
+      clearInterval(timer);
+      callback(); // Execute your code here
+    }
+  }, interval);
+}
+
 function endBlue() {
   endRoundForBlue.style.backgroundColor = "";
-  endRoundForRed.style.backgroundColor = "red";
-  player1.isMyRound = false;
-  player2.isMyRound = true;
   player1.clearForNoSelection();
+  player1.isMyRound = false;
+  playerRefreshRound(player1);
 
-  player2.currentRound++;
-  refreshRound();
+  waitForCondition(
+    () => player1.allEffectsFinished(),
+    () => {
+      endRoundForRed.style.backgroundColor = "red";
+      player2.isMyRound = true;
+      player2.currentRound++;
+      playerRefreshRound(player2);
+    },
+  );
 }
+
 function endRed() {
-  endRoundForBlue.style.backgroundColor = "blue";
   endRoundForRed.style.backgroundColor = "";
-  player1.isMyRound = true;
-  player2.isMyRound = false;
   player2.clearForNoSelection();
+  player2.isMyRound = false;
+  playerRefreshRound(player2);
 
-  player1.currentRound++;
-  refreshRound();
+  waitForCondition(
+    () => player2.allEffectsFinished(),
+    () => {
+      endRoundForBlue.style.backgroundColor = "blue";
+      player1.isMyRound = true;
+      player1.currentRound++;
+      playerRefreshRound(player1);
+    },
+  );
 }
-endRoundForBlue.onclick = (e) => {
+
+endRoundForBlue.addEventListener("click", () => {
+  if (!player1.allEffectsFinished() || !player2.allEffectsFinished()) return;
+
   endBlue();
-};
-endRoundForRed.onclick = (e) => {
+});
+
+endRoundForRed.addEventListener("click", () => {
+  if (!player1.allEffectsFinished() || !player2.allEffectsFinished()) return;
+
   endRed();
-};
+});
+
 document.addEventListener("keydown", (e) => {
   if (e.code == "Enter" || e.code == "Space") {
     e.preventDefault();
+    if (!player1.allEffectsFinished() || !player2.allEffectsFinished()) return;
+
     if (player1.isMyRound) endBlue();
     else endRed();
   } else if (e.code == "KeyQ") {
-    endBlue();
+    endRoundForBlue.click();
   } else if (e.code == "KeyP") {
-    endRed();
+    endRoundForRed.click();
+  }
+});
+
+const backButton = document.getElementById("back");
+document.addEventListener("keydown", (e) => {
+  if (e.ctrlKey && e.shiftKey) {
+    // Press ctrl + shift + L to switch language
+    if (e.key === "L" || e.key === "l") {
+      e.preventDefault();
+      let useMandarin = window.localStorage.getItem("useMandarin") == "true";
+      window.localStorage.setItem("useMandarin", !useMandarin);
+      location.reload();
+    }
+    // Press ctrl + shift + B to save and go back
+    else if (e.key === "B" || e.key === "b") {
+      e.preventDefault();
+      backButton.click();
+    }
   }
 });
 
 // ===============================================================
 // ==================== Mouse Clicking Events ====================
 // ===============================================================
-let select = document.getElementById("select");
-select.onclick = (e) => {
+const select = document.getElementById("select");
+select.addEventListener("click", (e) => {
   if (player1.isMyRound && !player2.isMyRound) {
     player1.mouseClickingEvents(e);
   } else {
     player2.mouseClickingEvents(e);
   }
-};
+});
+
+// ===============================================================
+// ==================== Mouse Hovering Events ====================
+// ===============================================================
+const info = document.getElementById("info");
+info.addEventListener("mousemove", (e) => {
+  const rect = info.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  if (player1.isMyRound && !player2.isMyRound) player1.infoPanel.updateTraitInfo(x, y);
+  else player2.infoPanel.updateTraitInfo(x, y);
+});
 
 // ===============================================================
 // =================== Game Starting Function ====================
@@ -159,3 +239,7 @@ function start() {
 }
 
 start();
+
+// ===============================================================
+// ============================ Test =============================
+// ===============================================================

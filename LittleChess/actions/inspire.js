@@ -16,24 +16,25 @@ function inspire(inspirator, pieces) {
   for (let i = 0; i < pieces.length; i++) {
     let piece = pieces[i];
 
-    let distance = calculateDistance(
-      inspirator.positionX,
-      inspirator.positionY,
-      piece.positionX,
-      piece.positionY
-    );
+    let distance = calculateDistance(inspirator.positionX, inspirator.positionY, piece.positionX, piece.positionY);
     if (distance > inspirator.inspireRange) continue;
 
     let totalInspiring = 0;
-    if (inspirator.scale === 1)
-      totalInspiring = Math.round((inspirator.inspiring * 30) / 5);
-    else
-      totalInspiring = Math.round(
-        (inspirator.inspiring * inspirator._getValidScale()) / 5
-      );
+    if (inspirator.scale === 1) totalInspiring = Math.round((inspirator.inspiring * 40) / 5);
+    else totalInspiring = Math.round((inspirator.inspiring * inspirator.getValidScale()) / 5);
+    if (inspirator.canDoNecromancy(piece)) {
+      totalInspiring = Math.round(totalInspiring * 1.5);
+    }
 
-    if (piece.c_leadership < piece.leadership)
+    if (piece.c_leadership < piece.leadership) {
       addEffect(list, "inspiring", inspirator, piece, cxt);
+      if (inspirator.canDoNecromancy(piece)) {
+        setTimeout(() => {
+          addEffect(list, "inspiring", inspirator, piece, cxt);
+        }, 250);
+      }
+    }
+
     piece.c_leadership += totalInspiring;
     piece.c_leadership = Math.min(piece.c_leadership, piece.leadership);
   }

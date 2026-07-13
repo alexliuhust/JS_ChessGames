@@ -11,65 +11,92 @@ function canHeal(healer) {
   return healer.healing > 0;
 }
 
-function isWounded(piece) {
-  let single = piece.scale === 1 && piece.c_singleHP < piece.singleHP;
-  let phalanx = piece.scale > 1 && piece.c_scale < piece.scale;
-  return single || phalanx;
+function countWounded(piece) {
+  if (piece.scale === 1) {
+    return piece.c_singleHP < piece.singleHP ? 1 : 0;
+  }
+  let result = 0;
+  for (let i = 0; i < piece.formation.length; i++) {
+    for (let j = 0; j < piece.formation[i].length; j++) {
+      if (piece.formation[i][j] > 0 && piece.formation[i][j] < piece.c_singleHP) {
+        result++;
+      }
+    }
+  }
+  return result;
 }
 
 function getLowestPiece(healer, pieces) {
   let minHP = 1000000;
   let lowestPiece = null;
+  let woundedNum = 0;
   for (let i = 0; i < pieces.length; i++) {
     let piece = pieces[i];
     if (piece === healer) continue;
 
-    let distance = calculateDistance(
-      healer.positionX,
-      healer.positionY,
-      piece.positionX,
-      piece.positionY
-    );
+    let distance = calculateDistance(healer.positionX, healer.positionY, piece.positionX, piece.positionY);
     if (distance > healer.healRange) continue;
 
-    if (isWounded(piece) && piece.getTotalHP() < minHP) {
+    woundedNum = countWounded(piece);
+    if (woundedNum > 0 && piece.getTotalHP() < minHP) {
       minHP = piece.getTotalHP();
       lowestPiece = piece;
     }
   }
-  return lowestPiece;
+  return [lowestPiece, woundedNum];
 }
 
 function heal(healer, pieces) {
-  let lowestPiece = getLowestPiece(healer, pieces);
-  if (lowestPiece == null) return false;
+  let [target, woundedNum] = getLowestPiece(healer, pieces);
+  if (target == null) return false;
 
   if (healer.c_totalHeal < healer.healing) return false;
 
   healer.c_totalHeal -= healer.healing;
   let list = healer.player.effectList;
-  addEffect(list, "healing", healer, lowestPiece, cxt);
-  let totalHealing = healer.healing * healer._getValidScale();
-  if (healer._getValidScale() == 1) {
+
+  let totalHealing = healer.healing * healer.getValidScale();
+  if (healer.scale == 1) {
     totalHealing = healer.healing * 50;
   }
-
-  if (lowestPiece.scale === 1) {
-    lowestPiece.c_singleHP += totalHealing;
-    lowestPiece.c_singleHP = Math.min(
-      lowestPiece.c_singleHP,
-      lowestPiece.singleHP
-    );
-  } else {
-    let recovered = Math.round(totalHealing / lowestPiece.c_singleHP);
-    lowestPiece.c_scale += recovered;
-    lowestPiece.c_scale = Math.min(lowestPiece.c_scale, lowestPiece.scale);
+  if (healer.canDoNecromancy(target)) {
+    totalHealing = Math.round(totalHealing * 1.5);
   }
-  lowestPiece.c_leadership += Math.round(totalHealing / 10);
-  lowestPiece.c_leadership = Math.min(
-    lowestPiece.c_leadership,
-    lowestPiece.leadership
-  );
+
+  let formation = target.formation;
+
+  // Healing for single unit
+  if (target.scale === 1) {
+    target.c_singleHP += totalHealing;
+    target.c_singleHP = Math.min(target.c_singleHP, target.singleHP);
+    for (let i = 0; i < formation.length; i++) {
+      for (let j = 0; j < formation[i].length; j++) {
+        if (formation[i][j] > 0) {
+          formation[i][j] = target.c_singleHP;
+        }
+      }
+    }
+  }
+
+  // Healing for phalanx
+  else {
+    let singleHeal = Math.round(totalHealing / woundedNum);
+    for (let i = 0; i < formation.length; i++) {
+      for (let j = 0; j < formation[i].length; j++) {
+        if (formation[i][j] > 0 && formation[i][j] < target.c_singleHP) {
+          formation[i][j] += singleHeal;
+          formation[i][j] = Math.min(formation[i][j], target.c_singleHP);
+        }
+      }
+    }
+  }
+
+  addEffect(list, "healing", healer, target, cxt);
+  if (healer.canDoNecromancy(target)) {
+    setTimeout(() => {
+      addEffect(list, "healing", healer, target, cxt);
+    }, 250);
+  }
 
   return true;
 }

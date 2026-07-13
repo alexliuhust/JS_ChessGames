@@ -1,6 +1,6 @@
 import * as ArmPrimary from "../arm.js";
-import { MissileColor as MC } from "../../common/const.js";
-import { updateEliteData } from "../armTools.js";
+import { MissileColor as MC, getDescription } from "../../common/const.js";
+import * as ArmTool from "../armTools.js";
 
 export class WoodsGuard extends ArmPrimary.Arm {
   constructor(value, player) {
@@ -9,18 +9,17 @@ export class WoodsGuard extends ArmPrimary.Arm {
     this.name = "Woods Guards";
     this.m_name = "林地守卫";
     this.type = "infantry";
-    this.description = "Infantry[Resist-Charging]";
-    this.m_description = "近战步兵[抵御冲锋]";
+    [this.description, this.m_description] = getDescription(this, "IF", "RC");
 
     this.scale = 100;
     this.singleHP = 50;
     this.speed = 3;
 
-    this.chargeArmor = 40;
+    ArmTool.loadDefenceBenchmark(this, "inf", "long-rs");
 
-    this.meleeAttack = 24;
+    this.meleeAttack = 17;
 
-    this.antiArmor = 20;
+    this.antiArmor = 12;
     this.loadRealtimeProps();
   }
 
@@ -37,10 +36,11 @@ export class WoodsGuardShield extends WoodsGuard {
     this.name = "Woods Guards (Shield)";
     this.m_name = "林地守卫-持盾";
     this.type = "infantry";
-    this.description = "Shield-Infantry[Resist-Charging]";
-    this.m_description = "持盾-近战步兵[抵御冲锋]";
+    [this.description, this.m_description] = getDescription(this, "S_IF", "HS,RC");
 
-    this.missileArmor = 30;
+    ArmTool.loadDefenceBenchmark(this, "inf", "long-rs,shield");
+
+    this.meleeAttack = 15;
 
     this.loadRealtimeProps();
   }
@@ -53,30 +53,31 @@ export class WildKiller extends ArmPrimary.Arm {
     this.name = "Wild Killers";
     this.m_name = "狂野杀手";
     this.type = "infantry";
-    this.description = "Infantry[Melee-Master Shocking]";
-    this.m_description = "近战步兵[近战大师 惊骇敌军]";
+    [this.description, this.m_description] = getDescription(this, "CGIF", "SF,MM,SH,HD,FD");
 
-    this.scale = 120;
+    this.scale = 100;
     this.singleHP = 40;
     this.speed = 4;
 
-    this.meleeDodge = 40;
+    ArmTool.loadDefenceBenchmark(this, "inf", "mm,sparse");
 
     this.meleeAttack = 30;
-    this.meleeAttack_bonus = 35;
-    this.chargeAttack = 30;
+    this.meleeAttack_bonus = 10;
+    this.chargeAttack = 20;
+    this.chargeAttack_bonus = 10;
 
-    this.shock = 30;
+    this.shock = 20;
     this.loadRealtimeProps();
   }
 
-  _getSingleDamage(damageType, targetArm) {
+  getSingleDamage(damageType, targetArm) {
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
-      if (targetArm.isInfn()) singleDamage += this.meleeAttack_bonus;
+      if (targetArm.isInfn()) singleDamage += this.c_meleeAttack_bonus;
     } else if (damageType === "charge") {
       singleDamage = this.c_chargeAttack;
+      if (targetArm.isInfn()) singleDamage += this.c_chargeAttack_bonus;
     }
 
     return singleDamage;
@@ -90,34 +91,9 @@ export class WildKillerPS extends WildKiller {
     this.name = "Wild Killers (Poison)";
     this.m_name = "狂野杀手-淬毒";
     this.type = "infantry";
-    this.description = "Infantry[Melee-Master Shocking  Anti-Non-Armor]";
-    this.m_description = "近战步兵[近战大师 惊骇敌军 反无甲]";
-
-    this.meleeAttack_bonus = 70;
-    this.chargeAttack_bonus = 70;
+    [this.description, this.m_description] = getDescription(this, "CGIF", "SF,MM,SH,HD,PW,FD");
 
     this.loadRealtimeProps();
-  }
-
-  _getSingleDamage(damageType, targetArm) {
-    let singleDamage = 0;
-    if (damageType === "melee") {
-      singleDamage = this.c_meleeAttack;
-      if (targetArm.isInfn()) {
-        singleDamage += this.meleeAttack_bonus / 2;
-        if (targetArm.c_meleeArmor === 0)
-          singleDamage += this.meleeAttack_bonus / 2;
-      }
-    } else if (damageType === "charge") {
-      singleDamage = this.c_chargeAttack;
-      if (targetArm.isInfn()) {
-        singleDamage += this.meleeAttack_bonus / 2;
-        if (targetArm.c_meleeArmor === 0)
-          singleDamage += this.meleeAttack_bonus / 2;
-      }
-    }
-
-    return singleDamage;
   }
 }
 
@@ -128,20 +104,40 @@ export class TwilightWarrior extends ArmPrimary.Arm {
     this.name = "Twilight Warriors";
     this.m_name = "暮光战士";
     this.type = "infantry";
-    this.description = "Shield-Infantry[High-Damage]";
-    this.m_description = "持盾-近战步兵[高伤害]";
+    [this.description, this.m_description] = getDescription(this, "S_IF", "HS,HD");
 
-    this.scale = 100;
-    this.singleHP = 70;
+    this.scale = 90;
+    this.singleHP = 80;
     this.speed = 3;
 
-    this.missileArmor = 40;
-    this.meleeDodge = 20;
-    this.missileDodge = 20;
-    this.chargeDodge = 20;
+    ArmTool.loadDefenceBenchmark(this, "inf", "short,shield");
+    this.chargeDodge += 15;
 
-    this.meleeAttack = 50;
+    this.meleeAttack = 33;
     this.loadRealtimeProps();
+  }
+}
+
+export class TwilightWarriorSpear extends TwilightWarrior {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Twilight Warriors (Spear)";
+    this.m_name = "暮光战士-持矛";
+    [this.description, this.m_description] = getDescription(this, "S_IF", "HS,RC");
+
+    ArmTool.loadDefenceBenchmark(this, "inf", "long-rs,shield");
+    this.chargeDodge += 15;
+
+    this.meleeAttack = 22;
+
+    this.antiArmor = 12;
+    this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee") return this.antiArmor;
+    return 0;
   }
 }
 
@@ -152,14 +148,15 @@ export class TwilightWarriorE extends TwilightWarrior {
     this.name = "Twilight Shadow";
     this.m_name = "暮光之影";
     this.type = "infantry";
-    this.description = "Shield-Infantry  Protector[Elite  High-Damage]";
-    this.m_description = "持盾-近战步兵 护卫者[精英 高伤害]";
+    [this.description, this.m_description] = getDescription(this, "S_IF", "EL,HS,ST,HD,HM");
 
-    this.armorEnhance = 30;
-    this.enhanceRange = 2;
+    ArmTool.loadDefenceBenchmark(this, "inf", "short,shield,stealth");
+    this.missileDodge -= 20;
+    this.chargeDodge += 15;
+
     this.loadRealtimeProps();
 
-    updateEliteData(this);
+    ArmTool.updateEliteData(this);
   }
 }
 
@@ -172,22 +169,36 @@ export class ShadowArcherFL extends ArmPrimary.Arm {
     this.name = "Shadow Archers (Flame)";
     this.m_name = "暗影弓手-火焰箭";
     this.type = "archers";
-    this.description = "Melee-Archers[High-Damage]";
-    this.m_description = "近战-远程步兵[高伤害]";
+    [this.description, this.m_description] = getDescription(this, "MAC", "SF,HD");
 
-    this.scale = 90;
-    this.singleHP = 40;
+    this.scale = 75;
+    this.singleHP = 55;
     this.speed = 4;
 
-    this.meleeDodge = 30;
-    this.missileDodge = 30;
+    ArmTool.loadDefenceBenchmark(this, "inf", "short,sparse");
 
     this.meleeAttack = 30;
-    this.missileAttack = 60;
+    this.missileAttack = 34;
     this.missileRange = 6;
     this.isParabola = true;
+    this.explosionRadius = 1;
 
-    this.ammo = 30;
+    this.missileParameters = {
+      shape: "line",
+      weight: 2,
+      color: "rgb(253, 126, 21)",
+      tailShape: "smoke",
+      afterHitParameters: {
+        shape: "smoke",
+        color: "rgb(253, 126, 21)",
+        radius: 5,
+        numPellets: 2 * 3,
+        expendTime: 20,
+        expendSpeed: 1,
+      },
+    };
+
+    this.ammo = 22;
     this.loadRealtimeProps();
   }
 }
@@ -201,29 +212,25 @@ export class ShadowArcherPS extends ShadowArcherFL {
     this.name = "Shadow Archers (Poison)";
     this.m_name = "暗影弓手-淬毒箭";
     this.type = "archers";
-    this.description = "Melee-Archers[Anti-Non-Armor]";
-    this.m_description = "近战-远程步兵[反无甲]";
+    [this.description, this.m_description] = getDescription(this, "MAC", "SF,PW");
 
-    this.meleeAttack_bonus = 15;
-    this.missileAttack = 36;
-    this.missileAttack_bonus = 15;
+    this.missileAttack = 22;
+    this.explosionRadius = null;
+
+    this.missileParameters = {
+      shape: "line",
+      weight: 1.5,
+      color: "rgb(62, 247, 105)",
+      afterHitParameters: {
+        shape: "circle",
+        color: "rgb(62, 247, 105)",
+        maxWeight: 4,
+        expendTime: 20,
+        expendSpeed: 1,
+      },
+    };
 
     this.loadRealtimeProps();
-  }
-
-  _getSingleDamage(damageType, targetArm) {
-    let singleDamage = 0;
-    if (damageType === "melee") {
-      singleDamage = this.c_meleeAttack;
-      if (targetArm.c_meleeArmor === 0) singleDamage += this.meleeAttack_bonus;
-    } else if (damageType === "missile" && this.c_ammo > 0) {
-      singleDamage = this.c_missileAttack;
-      if (targetArm.c_missileArmor === 0)
-        singleDamage += this.missileAttack_bonus;
-      this.c_ammo--;
-    }
-
-    return singleDamage;
   }
 }
 
@@ -236,12 +243,26 @@ export class ShadowArcherAP extends ShadowArcherFL {
     this.name = "Shadow Archers (Armor-Piercing)";
     this.m_name = "暗影弓手-穿甲箭";
     this.type = "archers";
-    this.description = "Melee-Archers[Anti-Armor]";
-    this.m_description = "近战-远程步兵[高破甲]";
+    [this.description, this.m_description] = getDescription(this, "MAC", "SF,AAM");
 
-    this.missileAttack = 36;
+    this.missileAttack = 22;
+    this.explosionRadius = null;
 
-    this.antiArmor = 30;
+    this.missileParameters = {
+      shape: "line",
+      weight: 2,
+      color: "rgb(245, 204, 0)",
+      afterHitParameters: {
+        shape: "pellets",
+        color: "rgb(245, 204, 0)",
+        weight: 1.5,
+        numPellets: 8,
+        expendTime: 10,
+        expendSpeed: 1,
+      },
+    };
+
+    this.antiArmor = 10;
     this.loadRealtimeProps();
   }
 
@@ -258,28 +279,168 @@ export class LongbowRanger extends ArmPrimary.Arm {
     this.name = "Longbow Rangers";
     this.m_name = "长弓游侠";
     this.type = "archers";
-    this.description = "Archers[Anti-Armor  Long-Range]";
-    this.m_description = "远程步兵[高破甲 长程]";
+    [this.description, this.m_description] = getDescription(this, "AC", "SF,ST,AAM,LR,MK");
 
-    this.scale = 90;
-    this.singleHP = 40;
+    this.scale = 48;
+    this.singleHP = 55;
     this.speed = 3;
 
-    this.meleeDodge = 30;
-    this.missileDodge = 30;
+    ArmTool.loadDefenceBenchmark(this, "inf", "sparse,stealth");
 
     this.meleeAttack = 30;
-    this.missileAttack = 60;
-    this.missileRange = 11;
+    this.missileAttack = 45;
+    this.missileRange = 9;
     this.isParabola = true;
+    this.missileFocusGroupSize = 5;
+    this.marksmanSkill = true;
 
-    this.antiArmor = 30;
+    this.missileParameters = {
+      shape: "line",
+      weight: 2,
+      len: 17,
+      color: "rgb(236, 62, 32)",
+      afterHitParameters: {
+        shape: "pellets",
+        color: "rgb(255, 251, 0)",
+        weight: 2.5,
+        numPellets: 6,
+        expendTime: 14,
+        expendSpeed: 1,
+      },
+    };
+
+    this.antiArmor = 12;
     this.loadRealtimeProps();
   }
 
   getAntiArmor(damageType, targetArm) {
     if (damageType === "missile") return this.antiArmor;
     return 0;
+  }
+}
+
+export class LongbowRangerDouble extends LongbowRanger {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Longbow Rangers (Double-Tips)";
+    this.m_name = "长弓游侠-双发箭头";
+    this.type = "archers";
+    [this.description, this.m_description] = getDescription(this, "AC", "SF,ST,HD");
+
+    this.missileAttack = 78;
+    this.multiShots = 2;
+    this.missileRange -= 2;
+    this.marksmanSkill = false;
+
+    this.antiArmor = 8;
+    this.loadRealtimeProps();
+  }
+}
+
+export class StagRider extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Stag Riders";
+    this.m_name = "牡鹿骑兵";
+    this.type = "cavalry";
+    [this.description, this.m_description] = getDescription(this, "MLC", "ST,FD");
+
+    this.scale = 49;
+    this.singleHP = 125;
+    this.speed = 6;
+
+    ArmTool.loadDefenceBenchmark(this, "cal", "stealth,short");
+
+    this.meleeAttack = 40;
+    this.chargeAttack = 45;
+
+    this.loadRealtimeProps();
+  }
+}
+
+export class StagLancer extends StagRider {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Stag Lancers";
+    this.m_name = "牡鹿枪骑兵";
+    [this.description, this.m_description] = getDescription(this, "CGC", "ST,FD");
+
+    ArmTool.loadDefenceBenchmark(this, "cal", "stealth,charge,long-rs");
+
+    this.meleeAttack = 28;
+    this.chargeAttack = 56;
+
+    this.loadRealtimeProps();
+  }
+}
+
+export class GladeLord extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Glade Lord";
+    this.m_name = "林地领主";
+    this.type = "cavalry";
+    [this.description, this.m_description] = getDescription(this, "HERO,MSCGC", "HG,ST,ALG,MG,FD");
+
+    this.scale = 1;
+    this.singleHP = 5000;
+    this.speed = 6;
+
+    ArmTool.loadDefenceBenchmark(this, "cal", "stealth,charge,long-rs");
+    this.meleeDodge += 30;
+
+    this.meleeAttack = 800;
+    this.meleeAttack_bonus = 900;
+    this.chargeAttack = 900;
+    this.chargeAttack_bonus = 900;
+
+    this.missileAttack = 2400;
+    this.multiShots = 6;
+    this.missileRange = 9;
+    this.marksmanSkill = true;
+    this.isParabola = true;
+    this.missilePenetrate = 2;
+
+    this.missileParameters = {
+      shape: "line",
+      weight: 3,
+      color: "rgb(62, 247, 105)",
+      len: 15,
+      afterHitParameters: {
+        shape: "circle",
+        color: "rgb(62, 247, 105)",
+        maxWeight: 4,
+        expendTime: 20,
+        expendSpeed: 1,
+      },
+    };
+
+    this.loadRealtimeProps();
+  }
+
+  isDamageMagic(damageType) {
+    if (damageType === "missile") return true;
+    return false;
+  }
+
+  getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+      if (targetArm.isLarge()) singleDamage += this.c_meleeAttack_bonus;
+    } else if (damageType === "charge") {
+      singleDamage = this.c_chargeAttack;
+      if (targetArm.isLarge()) singleDamage += this.c_chargeAttack_bonus;
+    } else if (damageType === "missile") {
+      singleDamage = this.c_missileAttack;
+      this.c_ammo--;
+    }
+
+    return singleDamage;
   }
 }
 
@@ -290,18 +451,18 @@ export class WarBear extends ArmPrimary.Arm {
     this.name = "War Bears";
     this.m_name = "战熊";
     this.type = "monster-infantry";
-    this.description = "Monster-Cavalry[Agile]";
-    this.m_description = "怪兽骑兵[迅捷如风]";
+    [this.description, this.m_description] = getDescription(this, "MC", null);
 
     this.scale = 30;
     this.singleHP = 240;
-    this.speed = 6;
+    this.speed = 7;
 
-    this.missileDodge = 30;
+    ArmTool.loadDefenceBenchmark(this, "monInf", "agile");
 
-    this.meleeAttack = 50;
-    this.chargeAttack = 70;
+    this.meleeAttack = 68;
+    this.chargeAttack = 76;
 
+    this.tall = 5;
     this.loadRealtimeProps();
   }
 }
@@ -313,12 +474,14 @@ export class WarBearRider extends WarBear {
     this.name = "War Bear Riders";
     this.m_name = "战熊骑兵";
     this.type = "monster-infantry";
-    this.description = "Monster-Cavalry[Agile  High-Damage]";
-    this.m_description = "怪兽骑兵[迅捷如风 高伤害]";
+    [this.description, this.m_description] = getDescription(this, "MC", "HD");
 
-    this.meleeDodge = 10;
+    this.speed = 6;
 
-    this.meleeAttack = 64;
+    ArmTool.loadDefenceBenchmark(this, "monInf", "short,agile");
+
+    this.meleeAttack = 82;
+    this.tall = 6;
     this.loadRealtimeProps();
   }
 }
@@ -330,14 +493,14 @@ export class WarBearRiderE extends WarBearRider {
     this.name = "Roaring Guards";
     this.m_name = "咆哮守卫";
     this.type = "monster-infantry";
-    this.description = "Monster-Cavalry  Inspirator[Elite  Agile  High-Damage]";
-    this.m_description = "怪兽骑兵 鼓舞者[精英 迅捷如风 高伤害]";
+    [this.description, this.m_description] = getDescription(this, "MC,IPR", "EL,HD,HM");
 
-    this.inspiring = 15;
+    this.inspiring = 25;
     this.inspireRange = 3;
+    this.tall = 6;
     this.loadRealtimeProps();
 
-    updateEliteData(this);
+    ArmTool.updateEliteData(this);
   }
 }
 
@@ -348,18 +511,17 @@ export class Dryad extends ArmPrimary.Arm {
     this.name = "Dryads";
     this.m_name = "树精";
     this.type = "monster-infantry";
-    this.description = "Armor-Monster-Infantry";
-    this.m_description = "装甲-怪兽步兵";
+    [this.description, this.m_description] = getDescription(this, "A_MI", "AM");
 
     this.scale = 30;
-    this.singleHP = 300;
+    this.singleHP = 360;
     this.speed = 2;
 
     this.meleeArmor = 40;
     this.missileArmor = 60;
     this.chargeArmor = 40;
 
-    this.meleeAttack = 30;
+    this.meleeAttack = 64;
 
     this.loadRealtimeProps();
   }
@@ -369,11 +531,10 @@ export class DryadHeal extends Dryad {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Dryad (Healing)";
+    this.name = "Dryads (Healing)";
     this.m_name = "树精-治疗";
     this.type = "monster-infantry";
-    this.description = "Armor-Monster-Infantry  Healer";
-    this.m_description = "装甲-怪兽步兵 治疗者";
+    [this.description, this.m_description] = getDescription(this, "A_MI,HLR", "AM");
 
     this.healing = 10;
     this.healRange = 3;
@@ -389,14 +550,30 @@ export class DryadRangerRide extends Dryad {
     this.name = "Dryads (Ranger-Ride)";
     this.m_name = "树精-游侠搭乘";
     this.type = "monster-infantry";
-    this.description = "Armor-Monster-Infantry[Missile-Attack]";
-    this.m_description = "装甲-怪兽步兵[远程攻击]";
+    [this.description, this.m_description] = getDescription(this, "A_MI", "AM,MA,AAM,LR,MK");
 
-    this.missileAttack = 60;
-    this.missileRange = 11;
+    this.missileAttack = 45;
+    this.missileRange = 9;
     this.isParabola = true;
+    this.missileFocusGroupSize = 5;
+    this.marksmanSkill = true;
 
-    this.antiArmor = 30;
+    this.missileParameters = {
+      shape: "line",
+      weight: 2,
+      len: 12,
+      color: "rgb(236, 62, 32)",
+      afterHitParameters: {
+        shape: "pellets",
+        color: "rgb(255, 251, 0)",
+        weight: 2.5,
+        numPellets: 6,
+        expendTime: 14,
+        expendSpeed: 1,
+      },
+    };
+
+    this.antiArmor = 12;
 
     this.ammo = 18;
     this.loadRealtimeProps();
@@ -415,13 +592,28 @@ export class DryadStone extends Dryad {
     this.name = "Dryads (Stone)";
     this.m_name = "树精-投石";
     this.type = "monster-infantry";
-    this.description = "Armor-Monster-Infantry[Missile-Attack  Bombing]";
-    this.m_description = "装甲-怪兽步兵[远程攻击 轰炸]";
+    [this.description, this.m_description] = getDescription(this, "A_MI", "AM,MA,BB,SA");
 
-    this.missileAttack = 60;
+    this.missileAttack = 62;
     this.missileRange = 10;
-    this.missileRadius = 1;
+    this.explosionRadius = 2;
     this.isBombing = true;
+
+    this.missileParameters = {
+      shape: "ball",
+      radius: 5,
+      color: "rgb(53, 41, 41)",
+      speed: 4,
+      maxHeightRatio: 0.5,
+      afterHitParameters: {
+        shape: "smoke",
+        color: "rgb(112, 89, 89)",
+        radius: 7,
+        numPellets: 2 * 4,
+        expendTime: 20,
+        expendSpeed: 1,
+      },
+    };
 
     this.ammo = 15;
     this.loadRealtimeProps();
@@ -435,8 +627,7 @@ export class GiantTreeman extends ArmPrimary.Arm {
     this.name = "Giant Treeman";
     this.m_name = "巨树人";
     this.type = "monster";
-    this.description = "Armor-Giant  Healer";
-    this.m_description = "装甲巨兽 治疗者";
+    [this.description, this.m_description] = getDescription(this, "A_G,HLR", "AM");
 
     this.scale = 1;
     this.singleHP = 8000;
@@ -446,7 +637,7 @@ export class GiantTreeman extends ArmPrimary.Arm {
     this.missileArmor = 60;
     this.chargeArmor = 60;
 
-    this.meleeAttack = 800;
+    this.meleeAttack = 1800;
 
     this.healing = 8;
     this.healRange = 4;
@@ -455,26 +646,73 @@ export class GiantTreeman extends ArmPrimary.Arm {
   }
 }
 
-export function newAnArm(i, posX, posY, player) {
-  let pos = [posX, posY];
-  if (i === 0) return new WoodsGuard(pos, player);
-  if (i === 1) return new WoodsGuardShield(pos, player);
-  if (i === 2) return new WildKiller(pos, player);
-  if (i === 3) return new WildKillerPS(pos, player);
-  if (i === 4) return new TwilightWarrior(pos, player);
-  if (i === 5) return new TwilightWarriorE(pos, player);
-  if (i === 6) return new ShadowArcherAP(pos, player);
-  if (i === 7) return new ShadowArcherPS(pos, player);
-  if (i === 8) return new ShadowArcherFL(pos, player);
-  if (i === 9) return new LongbowRanger(pos, player);
-  if (i === 10) return new WarBear(pos, player);
-  if (i === 11) return new WarBearRider(pos, player);
-  if (i === 12) return new WarBearRiderE(pos, player);
-  if (i === 13) return new Dryad(pos, player);
-  if (i === 14) return new DryadHeal(pos, player);
-  if (i === 15) return new DryadRangerRide(pos, player);
-  if (i === 16) return new DryadStone(pos, player);
-  if (i === 17) return new GiantTreeman(pos, player);
+export class GiantTreemanMalice extends GiantTreeman {
+  constructor(value, player) {
+    super(value, player);
 
-  return null;
+    this.name = "Malice Treeman";
+    this.m_name = "恶怨树人";
+    [this.description, this.m_description] = getDescription(this, "A_G", "AM,MA,MH,MG");
+
+    this.missileAttack = 2500;
+    this.multiShots = 5;
+    this.missilePenetrate = 4;
+    this.missileRange = 10;
+
+    this.missileParameters = {
+      shape: "fire",
+      weight: 10,
+      color: "rgb(9, 144, 41)",
+      color2: "rgb(60, 255, 1)",
+      tailFadeTime: 20,
+      speed: 7,
+      afterHitParameters: {
+        shape: "smoke",
+        color: "rgb(11, 109, 26)",
+        radius: 10,
+        numPellets: 2 * 4,
+        expendTime: 30,
+        expendSpeed: 1,
+      },
+    };
+
+    this.healing = 0;
+    this.healRange = 0;
+    this.totalHeal = 0;
+
+    this.ammo = 12;
+    this.loadRealtimeProps();
+  }
+
+  isDamageMagic(damageType) {
+    if (damageType === "missile") return true;
+    return false;
+  }
 }
+
+export const ARM_CLASSES = [
+  WoodsGuard,
+  WoodsGuardShield,
+  TwilightWarrior,
+  TwilightWarriorSpear,
+  TwilightWarriorE,
+  WildKiller,
+  WildKillerPS,
+  ShadowArcherPS,
+  ShadowArcherAP,
+  ShadowArcherFL,
+  LongbowRanger,
+  LongbowRangerDouble,
+  StagRider,
+  StagLancer,
+  GladeLord,
+  WarBear,
+  WarBearRider,
+  WarBearRiderE,
+  Dryad,
+  DryadHeal,
+  DryadRangerRide,
+  DryadStone,
+  GiantTreeman,
+  GiantTreemanMalice,
+];

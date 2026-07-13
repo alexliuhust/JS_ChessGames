@@ -2,6 +2,7 @@ import cv2
 import os
 
 import numpy as np
+from ExtractIconsFromGrid import extract_icons_from_grid
 
 
 def get_file_list(dir, file_list, ext=None):
@@ -32,6 +33,12 @@ def risize_images(from_dir, to_dir, size):
         cv2.imwrite(to_dir + img_name + ".png", img)
 
 
+def risize_image(original_path, target_path, size):
+    img = cv2.imread(original_path, cv2.IMREAD_COLOR)
+    img = cv2.resize(img, (size, size), interpolation=cv2.INTER_AREA)
+    cv2.imwrite(target_path, img)
+
+
 def binarize_image(img_path, name):
     img = cv2.imread(img_path, cv2.IMREAD_COLOR)
     height = img.shape[0]
@@ -54,5 +61,41 @@ def binarize_image(img_path, name):
     cv2.imwrite(name + ".png", newImg)
 
 
-# risize_images('./raw_images/stormreef', './images/stormreef/', 50)
-risize_images('./raw_images', './raw_images/', 100)
+if __name__ == "__main__":
+    # from_dir = r'./raw/'
+    # to_dir = r'./new/'
+    # risize_images(from_dir, to_dir, 50)
+
+    image_path = r'./raw/grids.png'
+    output_dir = r'./new/'
+    extract_icons_from_grid(image_path, output_dir)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

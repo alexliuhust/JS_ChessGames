@@ -44,18 +44,9 @@ function drawBars(cxt, player1, player2) {
 
   let resultP1 = getAggregateDataOfPlayer(player1);
   let resultP2 = getAggregateDataOfPlayer(player2);
-  let scaleLen1 = Math.max(
-    Math.round((resultP1[0] * 450) / (resultP1[0] + resultP2[0])),
-    2
-  );
-  let powerLen1 = Math.max(
-    Math.round((resultP1[1] * 450) / (resultP1[1] + resultP2[1])),
-    2
-  );
-  let leadLen1 = Math.max(
-    Math.round((resultP1[2] * 450) / (resultP1[2] + resultP2[2])),
-    2
-  );
+  let scaleLen1 = Math.max(Math.round((resultP1[0] * 450) / (resultP1[0] + resultP2[0])), 2);
+  let powerLen1 = Math.max(Math.round((resultP1[1] * 450) / (resultP1[1] + resultP2[1])), 2);
+  let leadLen1 = Math.max(Math.round((resultP1[2] * 450) / (resultP1[2] + resultP2[2])), 2);
   scaleLen1 = Math.min(scaleLen1, 448);
   powerLen1 = Math.min(powerLen1, 448);
   leadLen1 = Math.min(leadLen1, 448);
@@ -79,13 +70,10 @@ function getAggregateDataOfPlayer(player) {
   for (let i = 0; i < player.pieceList.length; i++) {
     if (!player.pieceList[i].isAlive) continue;
     let scale = player.pieceList[i].scale;
-    let c_scale =
-      scale === 1
-        ? Math.round(player.pieceList[i].c_singleHP / 100)
-        : player.pieceList[i].c_scale;
+    let c_scale = scale === 1 ? Math.round(player.pieceList[i].c_singleHP / 100) : player.pieceList[i].c_scale;
 
     totalScale += c_scale;
-    totalPower += player.pieceList[i].getCurrentCombatPower();
+    totalPower += player.pieceList[i].currentCombatPower;
     totalLead += player.pieceList[i].c_leadership;
   }
   return [totalScale, totalPower, totalLead];

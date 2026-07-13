@@ -1,62 +1,64 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>My JS Game</title>
-    </head>
-    <body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My JS Game</title>
+  </head>
+  <body>
+    <div style="margin-left: 0px; margin-top: 100px; text-align: center">
+      <h1 style="font-size: 70px">Little Chess</h1>
+      <br /><br />
 
-        <div style="margin-left: 0px; margin-top: 100px; text-align: center;">
-            <h1 style="font-size: 70px;">Little Chess</h1><br /><br />
-            
-            <div style="font-size: 50px;"><b>Choose Powers And Max Cost</b></div><br /><br /><br />
+      <div style="font-size: 50px"><b>Choose Powers And Max Cost</b></div>
+      <br /><br /><br />
 
-            <div style="font-size: 40px;">
-                <label for="useMandarin">Language:</label>
-                <select name="useMandarin" id="useMandarin" style="font-size: 40px">
-                    <option value="false">English</option>
-                    <option value="true">中文</option>
-                </select>
-            </div>
-            <br /><br /><br />
+      <div style="font-size: 40px">
+        <label for="useMandarin">Language:</label>
+        <select name="useMandarin" id="useMandarin" style="font-size: 40px">
+          <option value="false">English</option>
+          <option value="true">中文</option>
+        </select>
+      </div>
+      <br /><br /><br />
 
-            <div style="font-size: 40px;">
-                <label for="maxCost">Max Cost:</label>
-                <select name="maxCost" id="maxCost" style="font-size: 40px">
-                    <option value="1000">1000 G</option>
-                    <option value="1500">1500 G</option>
-                    <option value="2000">2000 G</option>
-                    <option value="2500">2500 G</option>
-                    <option value="3000">3000 G</option>
-                    <option value="3500">3500 G</option>
-                    <option value="4000">4000 G</option>
-                </select>
-            </div>
-            <br /><br /><br />
-            
-            <div style="text-align: center;">
-                <div style="font-size: 40px; display: inline-block; vertical-align: top;">
-                    <label for="powersForPlayer1">Player 1:</label>
-                    <select name="powersForPlayer1" id="powersForPlayer1" style="font-size: 40px"></select>
-                </div>
-                <div style="font-size: 40px; display: inline-block; vertical-align: top; width: 100px;"></div>
-                <div style="font-size: 40px; display: inline-block; vertical-align: top;">
-                    <label for="powersForPlayer2">Player 2:</label>
-                    <select name="powersForPlayer2" id="powersForPlayer2" style="font-size: 40px"></select>
-                </div>
-            </div>
-            <br /><br /><br />
+      <div style="font-size: 40px">
+        <label for="maxCost">Max Cost:</label>
+        <select name="maxCost" id="maxCost" style="font-size: 40px">
+          <option value="1000">1000 G</option>
+          <option value="1500">1500 G</option>
+          <option value="2000">2000 G</option>
+          <option value="2500">2500 G</option>
+          <option value="3000">3000 G</option>
+          <option value="3500">3500 G</option>
+          <option value="4000">4000 G</option>
+          <option value="4500">4500 G</option>
+          <option value="5000">5000 G</option>
+          <option value="5500">5500 G</option>
+          <option value="6000">6000 G</option>
+        </select>
+      </div>
+      <br /><br /><br />
 
-            
-            <a href="./pages/p1Deploy.html">
-                <button style="font-size: 40px;">
-                    Go to Deployment
-                </button>
-            </a>
+      <div style="text-align: center">
+        <div style="font-size: 40px; display: inline-block; vertical-align: top">
+          <label for="powersForPlayer1">Player 1:</label>
+          <select name="powersForPlayer1" id="powersForPlayer1" style="font-size: 40px"></select>
         </div>
-        
-        <script type="module" src="index.js"></script>
-    </body>
+        <div style="font-size: 40px; display: inline-block; vertical-align: top; width: 100px"></div>
+        <div style="font-size: 40px; display: inline-block; vertical-align: top">
+          <label for="powersForPlayer2">Player 2:</label>
+          <select name="powersForPlayer2" id="powersForPlayer2" style="font-size: 40px"></select>
+        </div>
+      </div>
+      <br /><br /><br />
+
+      <a href="./pages/p1Deploy.html">
+        <button id="saveAndContinue" style="font-size: 40px">Go to Deployment</button>
+      </a>
+    </div>
+
+    <script type="module" src="index.js"></script>
+  </body>
 </html>

@@ -4,7 +4,9 @@ import {
   LeadColor as DC,
   LevelColor as LC,
   HealColor as EC,
+  ColorGradient as CG,
 } from "./const.js";
+import { calculateDistance } from "../actions/actionTools.js";
 
 // ======================================================================
 // ============================ Canvas Class ============================
@@ -20,9 +22,9 @@ export const Canvas = {
   },
 
   // Draw an image
-  drawImg: function (cxt, img, x, y, sw, sh, dx, dy, dw, dh) {
-    if (!sw) cxt.drawImage(img, x, y);
-    else cxt.drawImage(img, x, y, sw, sh, dx, dy, dw, dh);
+  drawImg: function (cxt, img, sx, sy, sw, sh, dx, dy, dw, dh) {
+    if (!sw) cxt.drawImage(img, sx, sy);
+    else cxt.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh);
   },
 
   // Draw text
@@ -41,7 +43,7 @@ export const Canvas = {
   // Draw the borderline of a rect
   drawRect: function (cxt, x, y, width, height, color, weight) {
     cxt.strokeStyle = color;
-    cxt.lineWidth = 1;
+    cxt.lineWidth = 1.2;
     if (weight != null) {
       cxt.lineWidth = weight;
     }
@@ -49,7 +51,7 @@ export const Canvas = {
   },
 
   // Draw a filled circle
-  // ctx:context2d, (x, y): center pos
+  // (x, y): center pos
   fillArc: function (cxt, x, y, radius, color) {
     cxt.fillStyle = color;
     cxt.beginPath();
@@ -83,40 +85,116 @@ export const Canvas = {
     cxt.stroke();
   },
 
+  // Draw the borderline of a discrete circle
+  drawDiscreteArc: function (cxt, posX, posY, range, bias, color, weight) {
+    let cands = [];
+    for (let x = -range; x <= range; x++) {
+      for (let y = -range; y <= range; y++) {
+        let nx = posX + x;
+        let ny = posY + y;
+        let distance = calculateDistance(0, 0, x, y);
+        if (distance <= range) {
+          cands.push([nx, ny]);
+        }
+      }
+    }
+
+    for (let i = 0; i < cands.length; i++) {
+      let posX = cands[i][0];
+      let posY = cands[i][1];
+      let x = posX * 50;
+      let y = posY * 50;
+      if (!cands.some((pair) => pair[0] == posX - 1 && pair[1] == posY)) {
+        this.drawLine(cxt, x - bias, y - bias, x - bias, y + 50 + bias, color, weight);
+      }
+      if (!cands.some((pair) => pair[0] == posX + 1 && pair[1] == posY)) {
+        this.drawLine(cxt, x + 50 + bias, y - bias, x + 50 + bias, y + 50 + bias, color, weight);
+      }
+      if (!cands.some((pair) => pair[0] == posX && pair[1] == posY - 1)) {
+        this.drawLine(cxt, x - bias, y - bias, x + 50 + bias, y - bias, color, weight);
+      }
+      if (!cands.some((pair) => pair[0] == posX && pair[1] == posY + 1)) {
+        this.drawLine(cxt, x - bias, y + 50 + bias, x + 50 + bias, y + 50 + bias, color, weight);
+      }
+    }
+  },
+
+  // Draw a white flag
+  drawWhiteFlag: function (cxt, arm, dx, dy) {
+    this.fillRect(cxt, arm.x, arm.y + 8, 50, 38, "rgba(200, 200, 200, 0.7)");
+    this.drawLine(cxt, arm.x + dx, arm.y + dy, arm.x + dx, arm.y + dy + 25, "black", 4);
+    this.drawRect(cxt, arm.x + dx - 1, arm.y + dy - 1, 22, 15, "black", 2);
+    this.fillRect(cxt, arm.x + dx + 2, arm.y + dy + 1, 17, 11, "rgba(255, 255, 255, 0.7)");
+  },
+
   // Draw a piece
   drawPiece: function (cxt, arm, gc) {
     // Draw arm flag
-    this.drawImg(cxt, arm.img, 0, 0, 50, 50, arm.x, arm.y, 50, 50);
+    this.drawImg(cxt, arm.img, 0, 0, 50, 50, arm.x + 1, arm.y + 1, 48, 48);
+
     // Draw stripe color
-    this.drawLine(cxt, arm.x + 2, arm.y + 8, arm.x + 2, arm.y + 46, gc, 5);
-    this.drawLine(cxt, arm.x + 48, arm.y + 8, arm.x + 48, arm.y + 46, gc, 5);
+    this.drawLine(cxt, arm.x + 3, arm.y + 10, arm.x + 3, arm.y + 45, gc, 4);
+    this.drawLine(cxt, arm.x + 47, arm.y + 10, arm.x + 47, arm.y + 45, gc, 4);
+
     // Draw level
     let number = arm.level >= 2 ? arm.level : 0;
     for (let i = 0; i < number; i++) {
-      let x1 = arm.x,
+      let x1 = arm.x + 1,
         x2 = arm.x + 5;
       let y1 = arm.y + 39 - i * 5,
         y2 = arm.y + 39 - i * 5;
       this.drawLine(cxt, x1, y1, x2, y2, LC, 4);
     }
-    // Draw HP, ammo, and leaddership bars
-    let hlen, alen, llen, elen;
-    hlen = (50 * arm.getTotalHP()) / arm.getOriginalHP();
-    if (arm.ammo === -1) alen = 0;
-    else alen = (50 * arm.c_ammo) / arm.ammo;
-    llen = (50 * arm.c_leadership) / arm.leadership;
-    elen = (50 * arm.c_totalHeal) / arm.totalHeal;
 
-    let hpcolor = HC;
-    if (hlen <= 50 / 4) hpcolor = "rgb(255, 180, 0)";
-    if (hlen <= 50 / 8) hpcolor = "rgb(241, 76, 76)";
-    this.drawLine(cxt, arm.x, arm.y + 2, arm.x + hlen, arm.y + 2, hpcolor, 4);
-    this.drawLine(cxt, arm.x, arm.y + 6, arm.x + llen, arm.y + 6, DC, 4);
-    this.drawLine(cxt, arm.x, arm.y + 48, arm.x + alen, arm.y + 48, AC, 4);
-    let ey = arm.y + 48;
-    if (alen != 0) ey -= 4;
-    this.drawLine(cxt, arm.x, ey, arm.x + elen, ey, EC, 4);
-    // Draw operablility mark
+    // Draw fatigue mark
+    let fx = arm.x + 10;
+    let fy = arm.y + 40;
+    let fr = 4;
+    let fatiguePercent = 100 - Math.round((100 * arm.currentFatigue) / arm.totalStamina);
+    this.fillArc(cxt, fx, fy, fr + 1, "black");
+    let color = CG[fatiguePercent == 0 ? 1 : fatiguePercent];
+    this.fillArc(cxt, fx, fy, fr, color);
+
+    // Draw HP, ammo, and leaddership bars
+    let hlen, sclen, alen, llen, elen;
+    hlen = (48 * arm.getTotalHP()) / arm.getOriginalHP();
+    sclen = (48 * arm.getCurrentScale()) / arm.getOriginalScale();
+    let hperc = Math.round((100 * arm.getTotalHP()) / arm.getOriginalHP());
+    let hpcolor = CG[hperc == 0 ? 1 : hperc];
+    if (arm.ammo === -1) alen = 0;
+    else alen = (48 * arm.c_ammo) / arm.ammo;
+    llen = (48 * Math.max(arm.c_leadership, 0)) / arm.leadership;
+    elen = (48 * arm.c_totalHeal) / arm.totalHeal;
+
+    this.drawLine(cxt, arm.x + 1, arm.y + 3, arm.x + 1 + sclen, arm.y + 3, "rgb(180,180,180)", 4);
+    this.drawLine(cxt, arm.x + 1, arm.y + 3, arm.x + 1 + hlen, arm.y + 3, hpcolor, 4);
+    this.drawLine(cxt, arm.x + 1, arm.y + 5, arm.x + 49, arm.y + 5, "black", 1);
+    this.drawLine(cxt, arm.x + 1, arm.y + 7, arm.x + 1 + llen, arm.y + 7, DC, 4);
+    this.drawLine(cxt, arm.x + 1, arm.y + 9, arm.x + 49, arm.y + 9, "black", 1);
+    if (arm.ammo > 0) {
+      this.drawLine(cxt, arm.x + 1, arm.y + 45, arm.x + 49, arm.y + 45, "black", 1);
+      this.drawLine(cxt, arm.x + 1, arm.y + 47, arm.x + 1 + alen, arm.y + 47, AC, 4);
+    }
+    let ey = arm.y + 47;
+    if (arm.ammo > 0) ey -= 4;
+    this.drawLine(cxt, arm.x + 1, ey, arm.x + 1 + elen, ey, EC, 4);
+
+    // Draw speed and autofire indicator
+    if (arm.showSpeed) {
+      let color = arm.c_speed !== arm.speed ? "red" : "green";
+      this.drawText(cxt, arm.c_speed, arm.x + 5, arm.y + 24, color, 20);
+
+      if (arm.missileAttack > 0 && arm.autofireEnable) {
+        this.drawText(cxt, "A", arm.x + 32, arm.y + 45, "green", 20);
+      }
+    }
+
+    // Draw white flag
+    if (arm.c_leadership <= 0 && !arm.hasInstability()) {
+      this.drawWhiteFlag(cxt, arm, 9, 20);
+    }
+
+    // Draw unoperability mark
     if (!arm.operable) {
       let x_s = arm.x + 33;
       let x_e = arm.x + 43;
@@ -127,6 +205,105 @@ export const Canvas = {
       this.drawLine(cxt, x_s, y_2, x_e, y_1, "red", thick);
     }
   },
+
+  drawSwapSign: function (cxt, xs, ys, xd, yd, color, weight) {
+    let x1, x2, x3, x4, x5, x6, y1, y2, y3, y4, y5, y6;
+
+    let axsBias = 10;
+    let dptBias = 6;
+    let arrBias = 14;
+    let weightBias = 5;
+
+    // Horizontal
+    if (ys == yd) {
+      // Upper arrow
+      x1 = Math.min(xs, xd) + axsBias;
+      x2 = Math.max(xs, xd) - axsBias;
+      x3 = x2 - arrBias;
+      y1 = ys - dptBias;
+      y2 = ys - dptBias;
+      y3 = ys - arrBias;
+      // Lower arrow
+      x4 = x1;
+      x5 = x2;
+      x6 = x1 + arrBias;
+      y4 = ys + dptBias;
+      y5 = ys + dptBias;
+      y6 = ys + arrBias;
+    }
+    // Vertical
+    else {
+      // Left arrow
+      y1 = Math.max(ys, yd) - axsBias;
+      y2 = Math.min(ys, yd) + axsBias;
+      y3 = y2 + arrBias;
+      x1 = xs - dptBias;
+      x2 = xs - dptBias;
+      x3 = xs - arrBias;
+      // Right arrow
+      y4 = y1;
+      y5 = y2;
+      y6 = y1 - arrBias;
+      x4 = xs + dptBias;
+      x5 = xs + dptBias;
+      x6 = xs + arrBias;
+    }
+
+    this.drawLine(cxt, x1, y1, x2, y2, "black", weight + weightBias);
+    this.drawLine(cxt, x3, y3, x2, y2, "black", weight + weightBias);
+    this.drawLine(cxt, x4, y4, x5, y5, "black", weight + weightBias);
+    this.drawLine(cxt, x6, y6, x4, y4, "black", weight + weightBias);
+
+    this.drawLine(cxt, x1, y1, x2, y2, color, weight);
+    this.drawLine(cxt, x3, y3, x2, y2, color, weight);
+    this.drawLine(cxt, x4, y4, x5, y5, color, weight);
+    this.drawLine(cxt, x6, y6, x4, y4, color, weight);
+  },
+
+  drawArrow_Point: function (cxt, xs, ys, xd, yd, color, weightLine, weightArrow, arrowStartPerc = 0.6, bg = false) {
+    let length = Math.round(Math.sqrt((xs - xd) ** 2 + (ys - yd) ** 2));
+    let sin = (yd - ys) / length;
+    let cos = (xd - xs) / length;
+    let step = 1;
+    let arrowStart = Math.round(length * arrowStartPerc);
+
+    let x2 = xs + arrowStart * cos;
+    let y2 = ys + arrowStart * sin;
+    if (bg) {
+      this.drawLine(cxt, xs, ys, x2, y2, "black", weightLine + 4);
+    }
+    this.drawLine(cxt, xs, ys, x2, y2, color, weightLine);
+
+    for (let i = arrowStart; i < length; i += step) {
+      let x1 = xs + i * cos;
+      let y1 = ys + i * sin;
+      let x2 = xs + (i + 1) * cos;
+      let y2 = ys + (i + 1) * sin;
+      let w = ((length - i) * weightArrow) / (length - arrowStart);
+      if (bg) {
+        this.drawLine(cxt, x1, y1, x2, y2, "black", w + 4);
+      }
+      this.drawLine(cxt, x1, y1, x2, y2, color, w);
+    }
+  },
+
+  drawArrow_Angle: function (
+    cxt,
+    xs,
+    ys,
+    sin,
+    cos,
+    length,
+    color,
+    weightLine,
+    weightArrow,
+    arrowStartPerc = 0.6,
+    bg = false,
+  ) {
+    let xd = xs + length * cos;
+    let yd = ys + length * sin;
+    this.drawArrow_Point(cxt, xs, ys, xd, yd, color, weightLine, weightArrow, arrowStartPerc, bg);
+  },
 };
 
 // ======================================================================
@@ -136,23 +313,14 @@ export const Canvas = {
 export const Rect = {
   // Whether a point is located inside a rect
   pointInRect: function (point, rect) {
-    if (
-      point.x >= rect.x &&
-      point.x <= rect.x + rect.width &&
-      point.y >= rect.y &&
-      point.y <= rect.y + rect.height
-    )
+    if (point.x >= rect.x && point.x <= rect.x + rect.width && point.y >= rect.y && point.y <= rect.y + rect.height)
       return true;
 
     return false;
   },
   // Whether two circles intersect
   circleInCircle: function (cir1, cir2) {
-    if (
-      Math.sqrt(Math.pow(cir1.x - cir2.x, 2) + Math.pow(cir1.y - cir2.y, 2)) <
-      cir1.radius + cir2.radius
-    )
-      return true;
+    if (Math.sqrt(Math.pow(cir1.x - cir2.x, 2) + Math.pow(cir1.y - cir2.y, 2)) < cir1.radius + cir2.radius) return true;
 
     return false;
   },
@@ -164,12 +332,9 @@ export const Rect = {
       y2 = rect.y + rect.height;
 
     if (
-      Math.sqrt(Math.pow(x1 - cir.x, 2) + Math.pow(y1 - cir.y, 2)) <
-        cir.radius ||
-      Math.sqrt(Math.pow(x1 - cir.x, 2) + Math.pow(y2 - cir.y, 2)) <
-        cir.radius ||
-      Math.sqrt(Math.pow(x2 - cir.x, 2) + Math.pow(y2 - cir.y, 2)) <
-        cir.radius ||
+      Math.sqrt(Math.pow(x1 - cir.x, 2) + Math.pow(y1 - cir.y, 2)) < cir.radius ||
+      Math.sqrt(Math.pow(x1 - cir.x, 2) + Math.pow(y2 - cir.y, 2)) < cir.radius ||
+      Math.sqrt(Math.pow(x2 - cir.x, 2) + Math.pow(y2 - cir.y, 2)) < cir.radius ||
       Math.sqrt(Math.pow(x2 - cir.x, 2) + Math.pow(y1 - cir.y, 2)) < cir.radius
     )
       return true;
@@ -193,11 +358,7 @@ export const Rect = {
     let y_l = ((x_l - x0) * (y1 - y0)) / (x1 - x0) + y0;
 
     if (y_u + offset < y_l && y_l < y_d - offset) return 2;
-    if (
-      (y_u <= y_l && y_l <= y_u + offset) ||
-      (y_d - offset <= y_l && y_l <= y_d)
-    )
-      return 1;
+    if ((y_u <= y_l && y_l <= y_u + offset) || (y_d - offset <= y_l && y_l <= y_d)) return 1;
     return 0;
   },
   // Whether a line crosses a horizontal line
@@ -217,11 +378,7 @@ export const Rect = {
     let x_l = ((y_l - y0) * (x1 - x0)) / (y1 - y0) + x0;
 
     if (x_f + offset < x_l && x_l < x_r - offset) return 2;
-    if (
-      (x_f <= x_l && x_l <= x_f + offset) ||
-      (x_r - offset <= x_l && x_l <= x_r)
-    )
-      return 1;
+    if ((x_f <= x_l && x_l <= x_f + offset) || (x_r - offset <= x_l && x_l <= x_r)) return 1;
     return 0;
   },
 
@@ -257,10 +414,8 @@ export const Rect = {
     let throughR = this.lineCrossVerticalLine(line, lineR);
     let throughU = this.lineCrossHorizontalLine(line, lineU);
     let throughD = this.lineCrossHorizontalLine(line, lineD);
-    let vertical =
-      throughL === 2 || throughR === 2 || (throughL !== 0 && throughR !== 0);
-    let horizontal =
-      throughU === 2 || throughD === 2 || (throughU !== 0 && throughD !== 0);
+    let vertical = throughL === 2 || throughR === 2 || (throughL !== 0 && throughR !== 0);
+    let horizontal = throughU === 2 || throughD === 2 || (throughU !== 0 && throughD !== 0);
     // console.log(rect.name);
     // console.log(
     //   `throughL:${throughL}, throughR:${throughR}, throughU:${throughU}, throughD:${throughD}`

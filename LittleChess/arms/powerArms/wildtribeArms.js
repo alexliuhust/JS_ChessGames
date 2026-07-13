@@ -1,6 +1,75 @@
 import * as ArmPrimary from "../arm.js";
-import { MissileColor as MC } from "../../common/const.js";
-import { updateEliteData } from "../armTools.js";
+import { MissileColor as MC, getDescription } from "../../common/const.js";
+import * as ArmTool from "../armTools.js";
+
+export class Goblin extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Goblins";
+    this.m_name = "哥布林";
+    this.type = "infantry";
+    [this.description, this.m_description] = getDescription(this, "IF", "SF");
+
+    this.scale = 120;
+    this.singleHP = 30;
+    this.speed = 3;
+
+    ArmTool.loadDefenceBenchmark(this, "inf", "short");
+    this.meleeDodge = 0;
+
+    this.meleeAttack = 10;
+
+    this.tall = 2;
+    this.loadRealtimeProps();
+  }
+}
+
+export class GoblinSpear extends Goblin {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Goblins (Spear)";
+    this.m_name = "哥布林-持矛";
+    this.type = "infantry";
+    [this.description, this.m_description] = getDescription(this, "IF", "SF,RC");
+
+    ArmTool.loadDefenceBenchmark(this, "inf", "long-rs");
+    this.meleeDodge = 0;
+    this.chargeArmor -= 10;
+    this.chargeDodge -= 15;
+
+    this.meleeAttack = 8;
+
+    this.loadRealtimeProps();
+  }
+}
+
+export class GoblinArcher extends Goblin {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Goblin Archers";
+    this.m_name = "哥布林弓手";
+    this.type = "archers";
+    [this.description, this.m_description] = getDescription(this, "AC", "SF");
+
+    this.meleeAttack = 5;
+
+    this.missileAttack = 12;
+    this.missileRange = 5;
+    this.isParabola = true;
+
+    this.missileParameters = {
+      shape: "line",
+      weight: 1.5,
+      len: 7,
+      color: "rgb(206, 203, 202)",
+    };
+
+    this.loadRealtimeProps();
+  }
+}
 
 export class OrcWarrior extends ArmPrimary.Arm {
   constructor(value, player) {
@@ -9,24 +78,25 @@ export class OrcWarrior extends ArmPrimary.Arm {
     this.name = "Orc Warriors";
     this.m_name = "兽人勇士";
     this.type = "infantry";
-    this.description = "Infantry[Anti-Infantry]";
-    this.m_description = "近战步兵[反步兵]";
+    [this.description, this.m_description] = getDescription(this, "IF", "AIF");
 
-    this.scale = 80;
+    this.scale = 81;
     this.singleHP = 80;
     this.speed = 3;
 
-    this.meleeAttack = 34;
-    this.meleeAttack_bonus = 24;
+    ArmTool.loadDefenceBenchmark(this, "inf", "short");
+
+    this.meleeAttack = 22;
+    this.meleeAttack_bonus = 22;
 
     this.loadRealtimeProps();
   }
 
-  _getSingleDamage(damageType, targetArm) {
+  getSingleDamage(damageType, targetArm) {
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
-      if (targetArm.isInfn()) singleDamage += this.meleeAttack_bonus;
+      if (targetArm.isInfn()) singleDamage += this.c_meleeAttack_bonus;
     }
 
     return singleDamage;
@@ -40,12 +110,11 @@ export class OrcWarriorSpear extends OrcWarrior {
     this.name = "Orc Warriors (Spear)";
     this.m_name = "兽人勇士-持矛";
     this.type = "infantry";
-    this.description = "Infantry[Resist-Charging]";
-    this.m_description = "近战步兵[抵御冲锋]";
+    [this.description, this.m_description] = getDescription(this, "IF", "RC");
 
-    this.chargeArmor = 30;
+    ArmTool.loadDefenceBenchmark(this, "inf", "long");
 
-    this.meleeAttack = 34;
+    this.meleeAttack = 26;
     this.meleeAttack_bonus = 0;
 
     this.loadRealtimeProps();
@@ -59,22 +128,28 @@ export class OrcWarriorTS extends OrcWarrior {
     this.name = "Orc Warriors (Javelin)";
     this.m_name = "兽人勇士-标枪";
     this.type = "infantry";
-    this.description = "Hurling-Infantry[Resist-Charging]";
-    this.m_description = "投掷-近战步兵[抵御冲锋]";
+    [this.description, this.m_description] = getDescription(this, "IF", "RC,MA");
 
-    this.chargeArmor = 30;
+    ArmTool.loadDefenceBenchmark(this, "inf", "long");
 
-    this.meleeAttack = 34;
+    this.meleeAttack = 26;
     this.meleeAttack_bonus = 0;
-    this.missileAttack = 52;
-    this.missileRange = 6;
+    this.missileAttack = 32;
+    this.missileRange = 5;
     this.isParabola = true;
 
-    this.ammo = 4;
+    this.missileParameters = {
+      shape: "line",
+      weight: 2,
+      len: 12,
+      color: "white",
+    };
+
+    this.ammo = 3;
     this.loadRealtimeProps();
   }
 
-  _getSingleDamage(damageType, targetArm) {
+  getSingleDamage(damageType, targetArm) {
     let singleDamage = 0;
     if (damageType === "melee") singleDamage = this.c_meleeAttack;
     else if (damageType === "missile" && this.c_ammo > 0) {
@@ -93,27 +168,25 @@ export class OrcWarriorTSP extends OrcWarriorTS {
     this.name = "Orc Warriors (Poisoned Javelin)";
     this.m_name = "兽人勇士-淬毒标枪";
     this.type = "infantry";
-    this.description = "Hurling-Infantry[Resist-Charging  Anti-Non-Armor]";
-    this.m_description = "投掷-近战步兵[抵御冲锋 反无甲]";
+    [this.description, this.m_description] = getDescription(this, "IF", "RC,MA,PW");
 
-    this.meleeAttack_bonus = 20;
-    this.missileAttack_bonus = 25;
+    this.meleeAttack = 30;
+    this.missileAttack = 40;
+    this.missileParameters = {
+      shape: "line",
+      weight: 2,
+      len: 12,
+      color: "rgb(62, 247, 105)",
+      afterHitParameters: {
+        shape: "circle",
+        color: "rgb(62, 247, 105)",
+        maxWeight: 4,
+        expendTime: 20,
+        expendSpeed: 1,
+      },
+    };
+
     this.loadRealtimeProps();
-  }
-
-  _getSingleDamage(damageType, targetArm) {
-    let singleDamage = 0;
-    if (damageType === "melee") {
-      singleDamage = this.c_meleeAttack;
-      if (targetArm.c_meleeArmor === 0) singleDamage += this.meleeAttack_bonus;
-    } else if (damageType === "missile" && this.c_ammo > 0) {
-      singleDamage = this.c_missileAttack;
-      if (targetArm.c_missileArmor === 0)
-        singleDamage += this.missileAttack_bonus;
-      this.c_ammo--;
-    }
-
-    return singleDamage;
   }
 }
 
@@ -125,24 +198,30 @@ export class OrcWarriorTA extends OrcWarrior {
     this.name = "Orc Warriors (Throw Axe)";
     this.m_name = "兽人勇士-投斧";
     this.type = "infantry";
-    this.description = "Hurling-Infantry[Anti-Infantry]";
-    this.m_description = "投掷-近战步兵[反步兵]";
+    [this.description, this.m_description] = getDescription(this, "IF", "AIF,MA,AAM");
 
-    this.meleeAttack = 38;
-    this.meleeAttack_bonus = 24;
-    this.missileAttack = 60;
+    this.missileAttack = 42;
     this.missileRange = 4;
     this.isParabola = true;
 
-    this.ammo = 4;
+    this.missileParameters = {
+      shape: "line",
+      weight: 3,
+      len: 3,
+      color: "white",
+    };
+
+    this.ammo = 2;
+
+    this.antiArmor = 15;
     this.loadRealtimeProps();
   }
 
-  _getSingleDamage(damageType, targetArm) {
+  getSingleDamage(damageType, targetArm) {
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
-      if (targetArm.isInfn()) singleDamage += this.meleeAttack_bonus;
+      if (targetArm.isInfn()) singleDamage += this.c_meleeAttack_bonus;
     } else if (damageType === "missile" && this.c_ammo > 0) {
       singleDamage = this.c_missileAttack;
       this.c_ammo--;
@@ -160,13 +239,94 @@ export class ChampionWarrior extends OrcWarriorTA {
     this.name = "Champion Warriors";
     this.m_name = "冠军勇士";
     this.type = "infantry";
-    this.description = "Hurling-Infantry[Elite  Anti-Infantry]";
-    this.m_description = "投掷-近战步兵[精英 反步兵]";
+    [this.description, this.m_description] = getDescription(this, "IF", "EL,AIF,MA,HM,AAM");
 
-    this.ammo = 5;
+    this.missileRange = 5;
+    this.ammo = 2;
+
+    this.antiArmor = 20;
     this.loadRealtimeProps();
 
-    updateEliteData(this);
+    ArmTool.updateEliteData(this);
+  }
+}
+
+export class TrollClub extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Trolls (Spiked Club)";
+    this.m_name = "巨魔-狼牙棒";
+    this.type = "monster-infantry";
+    [this.description, this.m_description] = getDescription(this, "MI", "AM");
+
+    this.scale = 30;
+    this.singleHP = 300;
+    this.speed = 3;
+
+    this.meleeArmor = 30;
+    this.missileArmor = 30;
+    this.chargeArmor = 30;
+
+    this.meleeAttack = 65;
+    this.chargeAttack = 40;
+
+    this.loadRealtimeProps();
+  }
+}
+
+export class TrollShield extends TrollClub {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Trolls (Slat Shield)";
+    this.m_name = "巨魔-格栅盾";
+    this.type = "monster-infantry";
+    [this.description, this.m_description] = getDescription(this, "S_MI", "AM,HS");
+
+    this.missileArmor = 60;
+    this.missileDodge = 30;
+
+    this.chargeArmor = 40;
+    this.chargeDodge = 20;
+
+    this.meleeAttack = 40;
+
+    this.loadRealtimeProps();
+  }
+}
+
+export class TrollTS extends TrollClub {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Trolls (Javelin)";
+    this.m_name = "巨魔-标枪";
+    this.type = "monster-infantry";
+    [this.description, this.m_description] = getDescription(this, "MI", "AM,MA,ALG");
+
+    this.meleeAttack = 40;
+
+    this.missileAttack = 60;
+    this.missileRange = 7;
+    this.isParabola = true;
+    this.missilePenetrate = 2;
+
+    this.missileParameters = {
+      shape: "line",
+      weight: 3,
+      len: 18,
+      color: "rgb(200,200,200)",
+    };
+
+    this.ammo = 12;
+    this.antiArmor = 12;
+    this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "missile") return this.antiArmor;
+    return 0;
   }
 }
 
@@ -177,16 +337,16 @@ export class Tauren extends ArmPrimary.Arm {
     this.name = "Tauren";
     this.m_name = "牛头人";
     this.type = "monster-infantry";
-    this.description = "Monster-Infantry";
-    this.m_description = "怪兽步兵";
+    [this.description, this.m_description] = getDescription(this, "MI", null);
 
     this.scale = 30;
     this.singleHP = 300;
-    this.speed = 4;
+    this.speed = 5;
 
-    this.chargeArmor = 30;
+    ArmTool.loadDefenceBenchmark(this, "monInf", "charge");
 
     this.meleeAttack = 40;
+    this.chargeAttack = 80;
 
     this.loadRealtimeProps();
   }
@@ -199,19 +359,29 @@ export class TaurenLog extends Tauren {
     this.name = "Tauren (Log)";
     this.m_name = "牛头人-圆木";
     this.type = "monster-infantry";
-    this.description = "Monster-Infantry[Anti-Infantry]";
-    this.m_description = "怪兽步兵[反步兵]";
+    [this.description, this.m_description] = getDescription(this, "MI", "AIF");
 
-    this.meleeAttack_bonus = 40;
+    this.speed = 4;
+
+    ArmTool.loadDefenceBenchmark(this, "monInf", "heavy,charge");
+
+    this.meleeAttack = 40;
+    this.chargeAttack = 70;
+
+    this.meleeAttack_bonus = 30;
+    this.chargeAttack_bonus = 30;
 
     this.loadRealtimeProps();
   }
 
-  _getSingleDamage(damageType, targetArm) {
+  getSingleDamage(damageType, targetArm) {
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
-      if (targetArm.isInfn()) singleDamage += this.meleeAttack_bonus;
+      if (targetArm.isInfn()) singleDamage += this.c_meleeAttack_bonus;
+    } else if (damageType == "charge") {
+      singleDamage = this.c_chargeAttack;
+      if (targetArm.isInfn()) singleDamage += this.c_chargeAttack_bonus;
     }
 
     return singleDamage;
@@ -225,20 +395,28 @@ export class TaurenGA extends Tauren {
     this.name = "Tauren (Great Axe)";
     this.m_name = "牛头人-巨斧";
     this.type = "monster-infantry";
-    this.description = "Monster-Infantry[Anti-Large  Anti-Armor]";
-    this.m_description = "怪兽步兵[反大型 高破甲]";
+    [this.description, this.m_description] = getDescription(this, "A_MI", "AM,ALG,AAM");
+    this.speed = 4;
 
+    ArmTool.loadDefenceBenchmark(this, "monInf", "long,heavy,armor");
+
+    this.meleeAttack = 50;
     this.meleeAttack_bonus = 40;
+    this.chargeAttack = 50;
+    this.chargeAttack_bonus = 40;
 
-    this.antiArmor = 30;
+    this.antiArmor = 20;
     this.loadRealtimeProps();
   }
 
-  _getSingleDamage(damageType, targetArm) {
+  getSingleDamage(damageType, targetArm) {
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
-      if (targetArm.isLarge()) singleDamage += this.meleeAttack_bonus;
+      if (targetArm.isLarge()) singleDamage += this.c_meleeAttack_bonus;
+    } else if (damageType === "charge") {
+      singleDamage = this.c_chargeAttack;
+      if (targetArm.isLarge()) singleDamage += this.c_chargeAttack_bonus;
     }
 
     return singleDamage;
@@ -257,15 +435,13 @@ export class TaurenGAE extends TaurenGA {
     this.name = "Tauren Berserkers";
     this.m_name = "牛头人狂战士";
     this.type = "monster-infantry";
-    this.description =
-      "Monster-Infantry  Inspirator[Elite  Anti-Large  Anti-Armor]";
-    this.m_description = "怪兽步兵 鼓舞者[精英 反大型 高破甲]";
+    [this.description, this.m_description] = getDescription(this, "A_MI,IPR", "EL,AM,ALG,AAM,HM");
 
     this.inspiring = 10;
     this.inspireRange = 3;
     this.loadRealtimeProps();
 
-    updateEliteData(this);
+    ArmTool.updateEliteData(this);
   }
 }
 
@@ -276,17 +452,17 @@ export class WolfCavalry extends ArmPrimary.Arm {
     this.name = "Wolf Cavalry";
     this.m_name = "狼骑兵";
     this.type = "cavalry";
-    this.description = "Melee-Cavalry[Agile]";
-    this.m_description = "近战骑兵[迅捷如风]";
+    [this.description, this.m_description] = getDescription(this, "MLC", "SF,AG,FD");
 
     this.scale = 60;
     this.singleHP = 100;
     this.speed = 8;
 
-    this.meleeDodge = 40;
-    this.missileDodge = 40;
+    ArmTool.loadDefenceBenchmark(this, "cal", "short,agile");
+    this.missileDodge += 15;
 
     this.meleeAttack = 30;
+    this.chargeAttack = 25;
 
     this.loadRealtimeProps();
   }
@@ -299,14 +475,20 @@ export class WolfCavalryTS extends WolfCavalry {
     this.name = "Wolf Cavalry (Javelin)";
     this.m_name = "狼骑兵-标枪";
     this.type = "cavalry";
-    this.description = "Missile-Cavalry[Agile]";
-    this.m_description = "远程骑兵[迅捷如风]";
+    [this.description, this.m_description] = getDescription(this, "MLC", "SF,AG,MA,FD");
 
-    this.missileAttack = 40;
+    this.missileAttack = 32;
     this.missileRange = 6;
     this.isParabola = true;
 
-    this.ammo = 5;
+    this.missileParameters = {
+      shape: "line",
+      weight: 2,
+      len: 12,
+      color: "white",
+    };
+
+    this.ammo = 6;
     this.loadRealtimeProps();
   }
 }
@@ -318,29 +500,25 @@ export class WolfCavalryTSP extends WolfCavalryTS {
     this.name = "Wolf Cavalry (Poisoned Javelin)";
     this.m_name = "狼骑兵-淬毒标枪";
     this.type = "cavalry";
-    this.description = "Missile-Cavalry[Agile  Anti-Non-Armor]";
-    this.m_description = "远程骑兵[迅捷如风 反无甲]";
+    [this.description, this.m_description] = getDescription(this, "MLC", "SF,AG,MA,PW,FD");
 
-    this.meleeAttack_bonus = 22;
-    this.missileAttack_bonus = 26;
+    this.missileAttack = 40;
+    this.missileParameters = {
+      shape: "line",
+      weight: 2,
+      len: 12,
+      color: "rgb(62, 247, 105)",
+      afterHitParameters: {
+        shape: "circle",
+        color: "rgb(62, 247, 105)",
+        maxWeight: 4,
+        expendTime: 20,
+        expendSpeed: 1,
+      },
+    };
 
-    this.ammo = 5;
+    this.ammo = 6;
     this.loadRealtimeProps();
-  }
-
-  _getSingleDamage(damageType, targetArm) {
-    let singleDamage = 0;
-    if (damageType === "melee") {
-      singleDamage = this.c_meleeAttack;
-      if (targetArm.c_meleeArmor === 0) singleDamage += this.meleeAttack_bonus;
-    } else if (damageType === "missile" && this.c_ammo > 0) {
-      singleDamage = this.c_missileAttack;
-      if (targetArm.c_missileArmor === 0)
-        singleDamage += this.missileAttack_bonus;
-      this.c_ammo--;
-    }
-
-    return singleDamage;
   }
 }
 
@@ -351,20 +529,20 @@ export class RhinoTrooper extends ArmPrimary.Arm {
     this.name = "Rhino Troopers";
     this.m_name = "犀牛骑兵";
     this.type = "cavalry";
-    this.description = "Charging-Cavalry[Anti-Armor]";
-    this.m_description = "冲击骑兵[高破甲]";
+    [this.description, this.m_description] = getDescription(this, "A_CGC", "AM,AAM");
 
-    this.scale = 50;
-    this.singleHP = 160;
-    this.speed = 5;
+    this.scale = 42;
+    this.singleHP = 200;
+    this.speed = 4;
 
-    this.meleeArmor = 50;
-    this.missileArmor = 50;
+    ArmTool.loadDefenceBenchmark(this, "cal", "armor,charge-am");
+    this.meleeArmor += 20;
 
-    this.meleeAttack = 34;
-    this.chargeAttack = 80;
+    this.meleeAttack = 28;
+    this.chargeAttack = 74;
 
-    this.antiArmor = 30;
+    this.antiArmor = 24;
+    this.tall = 7;
     this.loadRealtimeProps();
   }
 
@@ -381,15 +559,14 @@ export class RhinoShaman extends RhinoTrooper {
     this.name = "Rhino Shaman";
     this.m_name = "犀牛骑兵-萨满";
     this.type = "cavalry";
-    this.description = "Charging-Cavalry  Healer  Rouser[Anti-Armor]";
-    this.m_description = "冲击骑兵 治疗者 激励者[高破甲]";
+    [this.description, this.m_description] = getDescription(this, "A_CGC,HLR,RSR", "AM,AAM");
 
     this.healing = 20;
     this.healRange = 3;
     this.totalHeal = 160;
 
-    this.attackEnhance = 50;
-    this.enhanceRange = 3;
+    this.attackEnhance = 15;
+    this.enhanceRange = 2;
     this.loadRealtimeProps();
   }
 }
@@ -403,19 +580,34 @@ export class RhinoTrooperBallista extends RhinoTrooper {
     this.name = "Rhino Troopers (Ballista)";
     this.m_name = "犀牛骑兵-弩炮";
     this.type = "cavalry";
-    this.description = "Charging-Cavalry[Anti-Armor  Missile-Attack]";
-    this.m_description = "冲击骑兵[高破甲 远程攻击]";
+    [this.description, this.m_description] = getDescription(this, "A_CGC", "AM,AAM,MA,ALG");
 
-    this.missileAttack = 50;
+    this.missileAttack = 43;
     this.missileRange = 7;
-    this.ammo = 15;
+    this.ammo = 18;
+    this.missilePenetrate = 3;
+
+    this.missileParameters = {
+      shape: "line",
+      weight: 3,
+      len: 20,
+      color: "rgb(209, 181, 22)",
+      maxHeightRatio: 0.1,
+      afterHitParameters: {
+        shape: "pellets",
+        color: "rgb(209, 181, 22)",
+        weight: 1.5,
+        numPellets: 5,
+        expendTime: 14,
+        expendSpeed: 1,
+      },
+    };
 
     this.loadRealtimeProps();
   }
 
   getAntiArmor(damageType, targetArm) {
-    if (damageType === "charge" || damageType === "missile")
-      return this.antiArmor;
+    if (damageType === "charge" || damageType === "missile") return this.antiArmor;
     return 0;
   }
 }
@@ -427,14 +619,14 @@ export class Minotaur extends ArmPrimary.Arm {
     this.name = "Minotaur";
     this.m_name = "米诺陶";
     this.type = "monster";
-    this.description = "Giant";
-    this.m_description = "巨兽";
+    [this.description, this.m_description] = getDescription(this, "G", null);
 
     this.scale = 1;
     this.singleHP = 8000;
     this.speed = 3;
 
-    this.meleeAttack = 800;
+    this.meleeAttack = 2200;
+    this.chargeAttack = 2000;
     this.loadRealtimeProps();
   }
 }
@@ -446,39 +638,58 @@ export class MinotaurStone extends Minotaur {
     this.name = "Minotaur (Stone)";
     this.m_name = "米诺陶-投石";
     this.type = "monster";
-    this.description = "Giant[Bombing]";
-    this.m_description = "巨兽[轰炸]";
+    [this.description, this.m_description] = getDescription(this, "G", "BB,MA,SA");
 
-    this.missileAttack = 1200;
+    this.missileAttack = 1100;
     this.missileRange = 10;
-    this.missileRadius = 1;
+    this.explosionRadius = 2;
     this.isBombing = true;
+    this.multiShots = 5;
 
-    this.ammo = 14;
+    this.missileParameters = {
+      shape: "ball",
+      radius: 5,
+      color: "rgb(53, 41, 41)",
+      speed: 4,
+      maxHeightRatio: 0.5,
+      afterHitParameters: {
+        shape: "smoke",
+        color: "rgb(112, 89, 89)",
+        radius: 7,
+        numPellets: 2 * 4,
+        expendTime: 20,
+        expendSpeed: 1,
+      },
+    };
+
+    this.ammo = 20;
     this.loadRealtimeProps();
   }
 }
 
-export function newAnArm(i, posX, posY, player) {
-  let pos = [posX, posY];
-  if (i === 0) return new OrcWarrior(pos, player);
-  if (i === 1) return new OrcWarriorSpear(pos, player);
-  if (i === 2) return new OrcWarriorTS(pos, player);
-  if (i === 3) return new OrcWarriorTSP(pos, player);
-  if (i === 4) return new OrcWarriorTA(pos, player);
-  if (i === 5) return new ChampionWarrior(pos, player);
-  if (i === 6) return new WolfCavalry(pos, player);
-  if (i === 7) return new WolfCavalryTS(pos, player);
-  if (i === 8) return new WolfCavalryTSP(pos, player);
-  if (i === 9) return new RhinoTrooper(pos, player);
-  if (i === 10) return new RhinoShaman(pos, player);
-  if (i === 11) return new RhinoTrooperBallista(pos, player);
-  if (i === 12) return new Tauren(pos, player);
-  if (i === 13) return new TaurenLog(pos, player);
-  if (i === 14) return new TaurenGA(pos, player);
-  if (i === 15) return new TaurenGAE(pos, player);
-  if (i === 16) return new Minotaur(pos, player);
-  if (i === 17) return new MinotaurStone(pos, player);
-
-  return null;
-}
+export const ARM_CLASSES = [
+  Goblin,
+  GoblinSpear,
+  GoblinArcher,
+  OrcWarrior,
+  OrcWarriorSpear,
+  OrcWarriorTS,
+  OrcWarriorTSP,
+  OrcWarriorTA,
+  ChampionWarrior,
+  WolfCavalry,
+  WolfCavalryTS,
+  WolfCavalryTSP,
+  RhinoTrooper,
+  RhinoTrooperBallista,
+  RhinoShaman,
+  Tauren,
+  TaurenLog,
+  TaurenGA,
+  TaurenGAE,
+  TrollClub,
+  TrollShield,
+  TrollTS,
+  Minotaur,
+  MinotaurStone,
+];

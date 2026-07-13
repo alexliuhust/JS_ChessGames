@@ -8,25 +8,34 @@ import * as StormreefArms from "./powerArms/stormreefArms.js";
 import * as OldcemeteryArms from "./powerArms/oldcemeteryArms.js";
 import * as WildtribeArms from "./powerArms/wildtribeArms.js";
 
+const POWER_ARMS_MAP = {
+  empire: EmpireArms,
+  nordfort: NordFortArms,
+  dimwoods: DimwoodsArms,
+  polluteland: PollutelandArms,
+  snowhaupt: SnowhauptArms,
+  burningterra: BurningterraArms,
+  stormreef: StormreefArms,
+  oldcemetery: OldcemeteryArms,
+  wildtribe: WildtribeArms,
+};
+
 export function exportPower(powerCodeName) {
-  if (powerCodeName === "empire") return EmpireArms;
-  if (powerCodeName === "nordfort") return NordFortArms;
-  if (powerCodeName === "dimwoods") return DimwoodsArms;
-  if (powerCodeName === "polluteland") return PollutelandArms;
-  if (powerCodeName === "snowhaupt") return SnowhauptArms;
-  if (powerCodeName === "burningterra") return BurningterraArms;
-  if (powerCodeName === "stormreef") return StormreefArms;
-  if (powerCodeName === "oldcemetery") return OldcemeteryArms;
-  if (powerCodeName === "wildtribe") return WildtribeArms;
+  return POWER_ARMS_MAP[powerCodeName];
+}
+
+export function getOneArm(power, i, posX, posY, player) {
+  const ArmClass = power.ARM_CLASSES[i];
+  return ArmClass ? new ArmClass([posX, posY], player) : null;
 }
 
 export function getArmsAndImages(powerCodeName) {
-  let POWER = exportPower(powerCodeName);
+  let power = exportPower(powerCodeName);
   let arms = [];
   let images = [];
   let i = 0;
   while (true) {
-    let arm = POWER.newAnArm(i, 0, 0, null);
+    let arm = getOneArm(power, i, 0, 0, null);
     if (arm === null) break;
     arms.push(arm);
     images.push(`../images/${powerCodeName}/${arm.constructor.name}.png`);

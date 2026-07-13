@@ -1,6 +1,6 @@
 import * as ArmPrimary from "../arm.js";
-import { MissileColor as MC } from "../../common/const.js";
-import { updateEliteData } from "../armTools.js";
+import { MissileColor as MC, getDescription } from "../../common/const.js";
+import * as ArmTool from "../armTools.js";
 
 export class Seaman extends ArmPrimary.Arm {
   constructor(value, player) {
@@ -9,12 +9,12 @@ export class Seaman extends ArmPrimary.Arm {
     this.name = "Seamen";
     this.m_name = "水手";
     this.type = "infantry";
-    this.description = "Infantry[Weak]";
-    this.m_description = "近战步兵[孱弱]";
-
+    [this.description, this.m_description] = getDescription(this, "IF", "SF");
     this.scale = 100;
-    this.singleHP = 40;
+    this.singleHP = 32;
     this.speed = 3;
+
+    ArmTool.loadDefenceBenchmark(this, "inf", "weak,short,sparse");
 
     this.meleeAttack = 15;
 
@@ -28,14 +28,72 @@ export class SeamanPistol extends Seaman {
 
     this.name = "Seamen (Pistol)";
     this.m_name = "水手-手枪";
-    this.type = "archers";
-    this.description = "Archers";
-    this.m_description = "远程步兵";
+    [this.description, this.m_description] = getDescription(this, "MAC", "SF");
+
+    ArmTool.loadDefenceBenchmark(this, "inf", "weak,short,sparse");
 
     this.missileAttack = 12;
     this.missileRange = 4;
 
-    this.ammo = 30;
+    this.missileParameters = {
+      shape: "line",
+      weight: 1.2,
+      color: "white",
+    };
+
+    this.ammo = 24;
+    this.loadRealtimeProps();
+  }
+}
+
+export class SeamanGrenade extends Seaman {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Seamen (Grenade)";
+    this.m_name = "水手-手雷";
+    [this.description, this.m_description] = getDescription(this, "MAC", "SF");
+
+    this.scale = 100;
+
+    this.missileAttack = 20;
+    this.explosionRadius = 1;
+    this.missileRange = 4;
+    this.isParabola = true;
+
+    this.missileParameters = {
+      shape: "ball",
+      radius: 3,
+      color: "rgb(53, 37, 28)",
+      maxHeightRatio: 0.15,
+      afterHitParameters: {
+        shape: "smoke",
+        color: "rgb(235, 93, 4)",
+        radius: 5,
+        numPellets: 2 * 3,
+        expendTime: 22,
+        expendSpeed: 1,
+      },
+    };
+
+    this.ammo = 18;
+    this.loadRealtimeProps();
+  }
+}
+
+export class SeamanDoubleP extends SeamanPistol {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Seamen (Double-Pistol)";
+    this.m_name = "水手-双持手枪";
+    this.type = "archers";
+    [this.description, this.m_description] = getDescription(this, "AC", "SF");
+
+    this.meleeAttack = 12;
+    this.missileAttack = 20;
+    this.multiShots = 2;
+
     this.loadRealtimeProps();
   }
 }
@@ -47,15 +105,73 @@ export class SeamanMusket extends Seaman {
     this.name = "Seamen (Musket)";
     this.m_name = "水手-步枪";
     this.type = "archers";
-    this.description = "Archers";
-    this.m_description = "远程步兵";
+    [this.description, this.m_description] = getDescription(this, "AC", "SF,AAM");
 
+    this.meleeAttack = 12;
     this.missileAttack = 16;
     this.missileRange = 6;
 
+    this.missileParameters = {
+      shape: "line",
+      weight: 1.5,
+      color: "rgb(255, 237, 145)",
+      afterHitParameters: {
+        shape: "pellets",
+        color: "rgb(255, 237, 145)",
+        weight: 1,
+        numPellets: 8,
+        expendTime: 10,
+        expendSpeed: 1,
+      },
+    };
+
     this.antiArmor = 10;
 
-    this.ammo = 24;
+    this.ammo = 18;
+    this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "missile") return this.antiArmor;
+    return 0;
+  }
+}
+
+export class SeamanHandcannon extends Seaman {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Seamen (Handcannon)";
+    this.m_name = "水手-手炮";
+    this.type = "archers";
+    [this.description, this.m_description] = getDescription(this, "AC", "SF,AAM,ALG,SA");
+
+    this.scale = 50;
+    this.speed = 2;
+
+    this.meleeAttack = 12;
+    this.missileAttack = 34;
+    this.missilePenetrate = 2;
+    this.missileRange = 6;
+
+    this.missileParameters = {
+      shape: "line",
+      weight: 5.5,
+      len: 10,
+      speed: 9,
+      color: "rgb(255, 237, 145)",
+      afterHitParameters: {
+        shape: "pellets",
+        color: "rgb(255, 237, 145)",
+        weight: 3,
+        numPellets: 7,
+        expendTime: 15,
+        expendSpeed: 3,
+      },
+    };
+    this.antiArmor = 40;
+
+    this.ammo = 15;
     this.loadRealtimeProps();
   }
 
@@ -72,69 +188,87 @@ export class SeamanMusketE extends SeamanMusket {
     this.name = "Elite Shooters";
     this.m_name = "精英射手";
     this.type = "archers";
-    this.description = "Archers[Elite]";
-    this.m_description = "远程步兵[精英]";
+    [this.description, this.m_description] = getDescription(this, "AC", "EL,SF,AAM,HM");
 
-    this.antiArmor = 20;
+    ArmTool.loadDefenceBenchmark(this, "inf", "short,sparse");
+
+    this.antiArmor = 18;
     this.loadRealtimeProps();
 
-    updateEliteData(this);
+    ArmTool.updateEliteData(this);
   }
 }
 
-export class Pisciculi extends ArmPrimary.Arm {
+export class Pisciculus extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Pisciculis";
+    this.name = "Pisciculi";
     this.m_name = "侏儒鱼人";
     this.type = "infantry";
-    this.description = "Infantry[Dodge-Missile]";
-    this.m_description = "近战步兵[远程闪避]";
+    [this.description, this.m_description] = getDescription(this, "IF", "SF,AG");
 
     this.scale = 120;
     this.singleHP = 30;
     this.speed = 6;
 
-    this.missileDodge = 60;
+    ArmTool.loadDefenceBenchmark(this, "inf", "sparse,agile");
+    this.missileDodge += 15;
 
-    this.meleeAttack = 30;
+    this.meleeAttack = 25;
+
+    this.tall = 2;
+    this.loadRealtimeProps();
+  }
+}
+
+export class NoctPisciculus extends Pisciculus {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Noct Pisciculi";
+    this.m_name = "夜行侏儒鱼人";
+    [this.description, this.m_description] = getDescription(this, "IF", "SF,AG,ST,FD");
+
+    ArmTool.loadDefenceBenchmark(this, "inf", "stealth,sparse,agile");
 
     this.loadRealtimeProps();
   }
 }
 
-export class PisciculiDoubleBlades extends Pisciculi {
+export class PisciculusDoubleBlades extends Pisciculus {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Pisciculis (Double Blades)";
+    this.name = "Pisciculi (Double Blades)";
     this.m_name = "侏儒鱼人-双刀";
     this.type = "infantry";
-    this.description = "Infantry[Dodge-Missile  High-Damage]";
-    this.m_description = "近战步兵[远程闪避 高伤害]";
+    [this.description, this.m_description] = getDescription(this, "IF", "SF,AG,HD");
 
-    this.meleeAttack = 55;
+    ArmTool.loadDefenceBenchmark(this, "inf", "short,sparse,agile");
+    this.missileDodge += 15;
+
+    this.meleeAttack = 42;
 
     this.loadRealtimeProps();
   }
 }
 
-export class PisciculiE extends PisciculiDoubleBlades {
+export class PisciculusE extends PisciculusDoubleBlades {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Elite Pisciculis";
+    this.name = "Elite Pisciculi";
     this.m_name = "精英侏儒鱼人";
     this.type = "infantry";
-    this.description = "Infantry  Rouser[Elite  Dodge-Missile  High-Damage]";
-    this.m_description = "近战步兵 激励者[精英 远程闪避 高伤害]";
+    [this.description, this.m_description] = getDescription(this, "IF,RSR", "EL,SF,AG,HD,HM");
 
     this.attackEnhance = 20;
     this.enhanceRange = 2;
     this.loadRealtimeProps();
+    this.tall = 2;
 
-    updateEliteData(this);
+    ArmTool.updateEliteData(this);
   }
 }
 
@@ -145,26 +279,42 @@ export class MurlocWarrior extends ArmPrimary.Arm {
     this.name = "Murloc Warriors";
     this.m_name = "鱼人战士";
     this.type = "infantry";
-    this.description = "Infantry[Anti-Armor]";
-    this.m_description = "近战步兵[高破甲]";
+    [this.description, this.m_description] = getDescription(this, "IF", "RC,AAM");
 
-    this.scale = 50;
-    this.singleHP = 125;
+    this.scale = 56;
+    this.singleHP = 110;
     this.speed = 2;
 
-    this.meleeArmor = 50;
-    this.missileArmor = 0;
-    this.chargeArmor = 60;
+    ArmTool.loadDefenceBenchmark(this, "inf", "long-rs");
+    this.meleeArmor += 40;
 
-    this.meleeAttack = 70;
+    this.meleeAttack = 40;
 
-    this.antiArmor = 30;
+    this.antiArmor = 18;
     this.loadRealtimeProps();
   }
 
   getAntiArmor(damageType, targetArm) {
     if (damageType === "melee") return this.antiArmor;
     return 0;
+  }
+}
+
+export class MurlocDoubleBlades extends MurlocWarrior {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Murloc Warriors (Double Blades)";
+    this.m_name = "鱼人战士-双刀";
+    [this.description, this.m_description] = getDescription(this, "IF", "HD");
+
+    ArmTool.loadDefenceBenchmark(this, "inf", "short,short");
+    this.meleeArmor += 40;
+
+    this.meleeAttack = 60;
+
+    this.antiArmor = 8;
+    this.loadRealtimeProps();
   }
 }
 
@@ -177,14 +327,21 @@ export class MurlocWarriorHurling extends MurlocWarrior {
     this.name = "Murloc Hurlers";
     this.m_name = "鱼人投戟手";
     this.type = "infantry";
-    this.description = "Hurling-Infantry[Anti-Armor]";
-    this.m_description = "投掷-近战步兵[高破甲]";
+    [this.description, this.m_description] = getDescription(this, "IF", "RC,AAM,MA");
 
-    this.missileAttack = 200;
+    this.missileAttack = 40;
     this.missileRange = 4;
     this.isParabola = true;
 
+    this.missileParameters = {
+      shape: "line",
+      weight: 3,
+      len: 18,
+      color: "rgb(255, 237, 145)",
+    };
+
     this.ammo = 3;
+    this.tall = 4;
     this.loadRealtimeProps();
   }
 
@@ -200,14 +357,16 @@ export class MurlocE extends MurlocWarrior {
     this.name = "Deep-Sea Guards";
     this.m_name = "深海卫士";
     this.type = "infantry";
-    this.description = "Infantry  Protector[Elite  Anti-Armor]";
-    this.m_description = "近战步兵 护卫者[精英 高破甲]";
+    [this.description, this.m_description] = getDescription(this, "IF,PTR", "EL,RC,AAM,HM");
 
     this.armorEnhance = 30;
     this.enhanceRange = 2;
+
+    this.antiArmor = 25;
+    this.tall = 4;
     this.loadRealtimeProps();
 
-    updateEliteData(this);
+    ArmTool.updateEliteData(this);
   }
 }
 
@@ -218,20 +377,20 @@ export class Medusa extends ArmPrimary.Arm {
     this.name = "Medusas";
     this.m_name = "美杜莎";
     this.type = "monster-infantry";
-    this.description = "Monster-Infantry[Shocking]";
-    this.m_description = "怪兽步兵[惊骇敌军]";
+    [this.description, this.m_description] = getDescription(this, "MI", "SH");
 
     this.scale = 30;
     this.singleHP = 180;
     this.speed = 5;
 
-    this.meleeDodge = 40;
-    this.missileDodge = 30;
-    this.chargeDodge = 20;
+    ArmTool.loadDefenceBenchmark(this, "monInf");
+    this.meleeDodge += 40;
+    this.missileDodge += 10;
 
-    this.meleeAttack = 40;
+    this.meleeAttack = 50;
+    this.chargeAttack = 50;
 
-    this.shock = 70;
+    this.shock = 40;
     this.loadRealtimeProps();
   }
 }
@@ -243,20 +402,27 @@ export class MedusaTrident extends Medusa {
     this.name = "Medusas (Trident)";
     this.m_name = "美杜莎-三叉戟";
     this.type = "monster-infantry";
-    this.description = "Monster-Infantry[Anti-Large  Shocking]";
-    this.m_description = "怪兽步兵[反大型 惊骇敌军]";
+    [this.description, this.m_description] = getDescription(this, "MI", "SH,ALG,RC");
 
-    this.chargeArmor = 30;
+    this.missileDodge = 10;
+
+    ArmTool.loadDefenceBenchmark(this, "monInf", "long-rs");
+    this.meleeDodge += 40;
+    this.missileDodge += 10;
+
+    this.chargeAttack = 70;
     this.meleeAttack_bonus = 60;
 
     this.loadRealtimeProps();
   }
 
-  _getSingleDamage(damageType, targetArm) {
+  getSingleDamage(damageType, targetArm) {
     let singleDamage = 0;
     if (damageType === "melee") {
       singleDamage = this.c_meleeAttack;
-      if (targetArm.isLarge()) singleDamage += this.meleeAttack_bonus;
+      if (targetArm.isLarge()) singleDamage += this.c_meleeAttack_bonus;
+    } else if (damageType === "charge") {
+      singleDamage = this.c_chargeAttack;
     }
 
     return singleDamage;
@@ -272,15 +438,38 @@ export class MedusaMB extends Medusa {
     this.name = "Medusas (Magic Bow)";
     this.m_name = "美杜莎-魔弓";
     this.type = "monster-infantry";
-    this.description = "Monster-Infantry[Missile-Attack  Shocking]";
-    this.m_description = "怪兽步兵[远程攻击 惊骇敌军]";
+    [this.description, this.m_description] = getDescription(this, "MI", "SH,MA,MG");
 
-    this.missileAttack = 50;
-    this.missileRange = 8;
+    ArmTool.loadDefenceBenchmark(this, "monInf");
+    this.meleeDodge += 40;
+    this.missileDodge += 10;
+
+    this.missileAttack = 100;
+    this.missileRange = 7;
     this.isParabola = true;
+    this.multiShots = 2;
+    this.explosionRadius = 1;
 
-    this.ammo = 12;
+    this.missileParameters = {
+      shape: "line",
+      weight: 2,
+      color: "rgb(249, 74, 244)",
+      afterHitParameters: {
+        shape: "circle",
+        color: "rgb(204, 20, 246)",
+        maxWeight: 4,
+        expendTime: 20,
+        expendSpeed: 1,
+      },
+    };
+
+    this.ammo = 18;
     this.loadRealtimeProps();
+  }
+
+  isDamageMagic(damageType) {
+    if (damageType === "missile") return true;
+    return false;
   }
 }
 
@@ -291,20 +480,20 @@ export class Cancrimag extends ArmPrimary.Arm {
     this.name = "Cancrimagnus";
     this.m_name = "巨蟹";
     this.type = "monster";
-    this.description = "Armor-Giant[Shocking]";
-    this.m_description = "装甲巨兽[惊骇敌军]";
+    [this.description, this.m_description] = getDescription(this, "A_G", "SH");
 
     this.scale = 1;
-    this.singleHP = 9000;
+    this.singleHP = 8000;
     this.speed = 1;
 
     this.meleeArmor = 60;
-    this.missileArmor = 90;
+    this.missileArmor = 60;
     this.chargeArmor = 50;
 
-    this.meleeAttack = 600;
+    this.meleeAttack = 1800;
 
-    this.shock = 70;
+    this.shock = 20;
+    this.tall = 9;
     this.loadRealtimeProps();
   }
 }
@@ -316,11 +505,25 @@ export class CancrimagMusket extends Cancrimag {
     this.name = "Cancrimagnus (Musket)";
     this.m_name = "巨蟹-火枪";
     this.type = "monster";
-    this.description = "Armor-Giant[Shocking  Missile-Attack]";
-    this.m_description = "装甲巨兽[惊骇敌军 远程攻击]";
+    [this.description, this.m_description] = getDescription(this, "A_G", "SH,MA,AAM");
 
-    this.missileAttack = 720;
+    this.missileAttack = 2100;
     this.missileRange = 6;
+    this.multiShots = 70;
+
+    this.missileParameters = {
+      shape: "line",
+      weight: 1.5,
+      color: "rgb(255, 237, 145)",
+      afterHitParameters: {
+        shape: "pellets",
+        color: "rgb(255, 237, 145)",
+        weight: 1,
+        numPellets: 8,
+        expendTime: 10,
+        expendSpeed: 1,
+      },
+    };
 
     this.antiArmor = 10;
 
@@ -343,13 +546,30 @@ export class CancrimagPK extends Cancrimag {
     this.name = "Cancrimagnus (Powder Kegs)";
     this.m_name = "巨蟹-火药桶";
     this.type = "monster";
-    this.description = "Armor-Giant[Shocking  Missile-Attack  Short-Range]";
-    this.m_description = "装甲巨兽[惊骇敌军 远程攻击 短程]";
+    [this.description, this.m_description] = getDescription(this, "A_G", "SH,MA,LB");
 
-    this.missileAttack = 2000;
-    this.missileRange = 3;
+    this.missileAttack = 2500;
+    this.missileRange = 2;
+    this.isBombing = true;
+    this.explosionRadius = 3;
+    this.multiShots = 5;
 
-    this.ammo = 10;
+    this.missileParameters = {
+      shape: "ball",
+      radius: 5,
+      color: "rgb(150, 83, 41)",
+      maxHeightRatio: 0.15,
+      afterHitParameters: {
+        shape: "smoke",
+        color: "rgb(235, 93, 4)",
+        radius: 7,
+        numPellets: 2 * 4,
+        expendTime: 25,
+        expendSpeed: 1,
+      },
+    };
+
+    this.ammo = 4;
     this.loadRealtimeProps();
   }
 }
@@ -361,8 +581,7 @@ export class CancrimagFlag extends Cancrimag {
     this.name = "Cancrimagnus (Flag)";
     this.m_name = "巨蟹-军旗";
     this.type = "monster";
-    this.description = "Armor-Giant  Inspirator[Shocking]";
-    this.m_description = "装甲巨兽 鼓舞者[惊骇敌军]";
+    [this.description, this.m_description] = getDescription(this, "A_G,IPR", "SH,HM");
 
     this.inspiring = 15;
     this.inspireRange = 4;
@@ -377,40 +596,91 @@ export class DeckGun extends ArmPrimary.Arm {
     this.name = "Deck Guns";
     this.m_name = "甲板炮";
     this.type = "artillery";
-    this.description = "Artillery";
-    this.m_description = "炮兵";
+    [this.description, this.m_description] = getDescription(this, "AT", "ALG");
 
-    this.scale = 5;
-    this.singleHP = 800;
+    this.scale = 7;
+    this.singleHP = 32;
     this.speed = 1;
 
-    this.missileAttack = 230;
-    this.missileRange = 12;
+    this.missileAttack = 300;
+    this.missileRange = 11;
+    this.missilePenetrate = 4;
+
+    this.missileParameters = {
+      shape: "line",
+      weight: 7,
+      len: 12,
+      speed: 11,
+      color: "rgb(255, 237, 145)",
+      afterHitParameters: {
+        shape: "pellets",
+        color: "rgb(255, 237, 145)",
+        weight: 4,
+        numPellets: 7,
+        expendTime: 15,
+        expendSpeed: 3,
+      },
+    };
 
     this.loadRealtimeProps();
   }
 }
 
-export function newAnArm(i, posX, posY, player) {
-  let pos = [posX, posY];
-  if (i === 0) return new Seaman(pos, player);
-  if (i === 1) return new SeamanPistol(pos, player);
-  if (i === 2) return new SeamanMusket(pos, player);
-  if (i === 3) return new SeamanMusketE(pos, player);
-  if (i === 4) return new Pisciculi(pos, player);
-  if (i === 5) return new PisciculiDoubleBlades(pos, player);
-  if (i === 6) return new PisciculiE(pos, player);
-  if (i === 7) return new MurlocWarrior(pos, player);
-  if (i === 8) return new MurlocWarriorHurling(pos, player);
-  if (i === 9) return new MurlocE(pos, player);
-  if (i === 10) return new Medusa(pos, player);
-  if (i === 11) return new MedusaTrident(pos, player);
-  if (i === 12) return new MedusaMB(pos, player);
-  if (i === 13) return new Cancrimag(pos, player);
-  if (i === 14) return new CancrimagFlag(pos, player);
-  if (i === 15) return new CancrimagMusket(pos, player);
-  if (i === 16) return new CancrimagPK(pos, player);
-  if (i === 17) return new DeckGun(pos, player);
+export class DeckGunGrapeshot extends DeckGun {
+  constructor(value, player) {
+    super(value, player);
 
-  return null;
+    this.name = "Deck Guns (Grapeshot)";
+    this.m_name = "甲板炮-葡萄弹";
+    [this.description, this.m_description] = getDescription(this, "AT", "AIF,ALG,SA");
+
+    this.missileAttack = 450;
+    this.missilePenetrate = 3;
+    this.multiShots = 3;
+
+    this.missileParameters = {
+      shape: "line",
+      weight: 4,
+      len: 7,
+      speed: 11,
+      color: "rgb(255, 237, 145)",
+      afterHitParameters: {
+        shape: "pellets",
+        color: "rgb(255, 237, 145)",
+        weight: 2,
+        numPellets: 6,
+        expendTime: 12,
+        expendSpeed: 3,
+      },
+    };
+
+    this.loadRealtimeProps();
+  }
 }
+
+export const ARM_CLASSES = [
+  Seaman,
+  SeamanPistol,
+  SeamanGrenade,
+  SeamanDoubleP,
+  SeamanMusket,
+  SeamanHandcannon,
+  SeamanMusketE,
+  Pisciculus,
+  NoctPisciculus,
+  PisciculusDoubleBlades,
+  PisciculusE,
+  MurlocWarrior,
+  MurlocDoubleBlades,
+  MurlocWarriorHurling,
+  MurlocE,
+  Medusa,
+  MedusaTrident,
+  MedusaMB,
+  Cancrimag,
+  CancrimagFlag,
+  CancrimagPK,
+  CancrimagMusket,
+  DeckGun,
+  DeckGunGrapeshot,
+];

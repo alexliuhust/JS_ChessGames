@@ -1,69 +1,76 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-      <meta charset="UTF-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>My JS Game</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My JS Game</title>
   </head>
   <body>
-      <div style="display:none;" id="allArmImages"></div>
-      
-      <!-------------------------------------------------------------------------------->
-      <!--------------------------- Round Refreshing Buttons --------------------------->
-      <!-------------------------------------------------------------------------------->
-      <div style="margin-left:1px;">
-          <input style="height:70px; font-size: 20px;
-                        border-color: blue;" 
-            id="endRoundForBlue" type="button" value="End Round For Blue" />
-          <input style="height:70px; font-size: 20px; margin-left: 950px;
-                        border-color: red; width: 198px;" 
-            id="endRoundForRed" type="button" value="End Round For Red" />
-          <a href="./p2Deploy.html">
-            <input href="./p2Deploy.html" style="height:70px; font-size: 20px; width: 530px;" 
-              type="button" value="Back to Deployment" />
-          </a>
-      </div>
+    <div style="display: none" id="allArmImages"></div>
+    <div style="display: none" id="allIconImages"></div>
 
-      <!-------------------------------------------------------------------------------->
-      <!--------------------------------- Banner Canvas -------------------------------->
-      <!-------------------------------------------------------------------------------->
-      <div style="margin-top: -70px; margin-left: 200px; height: 70px">
-          <canvas id="banner" width="950" height="70" 
-            style="position:absolute; z-index: 100; background: black;"></canvas>
-      </div>
+    <!-------------------------------------------------------------------------------->
+    <!--------------------------- Round Refreshing Buttons --------------------------->
+    <!-------------------------------------------------------------------------------->
+    <div style="margin-left: 1px">
+      <input
+        style="height: 70px; font-size: 20px; border-color: blue"
+        id="endRoundForBlue"
+        type="button"
+        value="End Round For Blue" />
+      <input
+        style="height: 70px; font-size: 20px; margin-left: 950px; border-color: red; width: 198px"
+        id="endRoundForRed"
+        type="button"
+        value="End Round For Red" />
+      <a href="./p2Deploy.html">
+        <input
+          id="back"
+          href="./p2Deploy.html"
+          style="height: 70px; font-size: 20px; width: 530px"
+          type="button"
+          value="Back to Deployment" />
+      </a>
+    </div>
 
-      <!-------------------------------------------------------------------------------->
-      <!------------------------------ Game Area Canvases ------------------------------>
-      <!-------------------------------------------------------------------------------->
-      <div style="margin-top: 1px; margin-left: 1px; height: 900px">
-          <div id="game" style="width:1350px;height:850px;">
-              <!-- map canvas, on which we draw the backgroud -->
-              <canvas id="map" width="1350" height="850" 
-                style="position:absolute; z-index: 100; background:url(../images/map/bg.png) repeat;"></canvas>
-              <!-- piece canvas, on which we draw all the arm pieces -->
-              <canvas id="piece" width="1350" height="850" 
-                style="position:absolute; z-index: 101;"></canvas>
-              <!-- main canvas, on which we draw all the prompt effects -->
-              <canvas id="main" width="1350" height="850" 
-                style="position:absolute; z-index: 102;"></canvas>
-              <!-- select canvas, which accepts all mouse clicking events -->
-              <canvas id="select" width="1350" height="850" 
-                style="position:absolute; z-index: 103;"></canvas>
-          </div>
-      </div>
+    <!-------------------------------------------------------------------------------->
+    <!--------------------------------- Banner Canvas -------------------------------->
+    <!-------------------------------------------------------------------------------->
+    <div style="margin-top: -70px; margin-left: 200px; height: 70px">
+      <canvas id="banner" width="950" height="70" style="position: absolute; z-index: 100; background: black"></canvas>
+    </div>
 
-      <!-------------------------------------------------------------------------------->
-      <!------------------------------- Info Area Canvas ------------------------------->
-      <!-------------------------------------------------------------------------------->
-      <div style="margin-top: -900px; margin-left: 1355px; height: 850px">
-          <canvas id="info" width="530" height="850" 
-            style="position:absolute; z-index: 100; background: black;"></canvas>
+    <!-------------------------------------------------------------------------------->
+    <!------------------------------ Game Area Canvases ------------------------------>
+    <!-------------------------------------------------------------------------------->
+    <div style="margin-top: 1px; margin-left: 1px; height: 900px">
+      <div id="game" style="width: 1350px; height: 850px">
+        <!-- map canvas, on which we draw the backgroud -->
+        <canvas
+          id="map"
+          width="1350"
+          height="850"
+          style="position: absolute; z-index: 100; background: url(../images/map/bg.png) repeat"></canvas>
+        <!-- piece canvas, on which we draw all the arm pieces -->
+        <canvas id="piece" width="1350" height="850" style="position: absolute; z-index: 101"></canvas>
+        <!-- main canvas, on which we draw all the prompt effects -->
+        <canvas id="main" width="1350" height="850" style="position: absolute; z-index: 102"></canvas>
+        <!-- select canvas, which accepts all mouse clicking events -->
+        <canvas id="select" width="1350" height="850" style="position: absolute; z-index: 103"></canvas>
       </div>
+    </div>
 
-      <!-------------------------------------------------------------------------------->
-      <!------------------------ The Main Entrance of the Game ------------------------->
-      <!-------------------------------------------------------------------------------->
-      <script type="module" src="mainGame.js"></script>
+    <!-------------------------------------------------------------------------------->
+    <!------------------------------- Info Area Canvas ------------------------------->
+    <!-------------------------------------------------------------------------------->
+    <div style="margin-top: -900px; margin-left: 1355px; height: 850px">
+      <canvas id="info" width="530" height="850" style="position: absolute; z-index: 100; background: black"></canvas>
+    </div>
+
+    <!-------------------------------------------------------------------------------->
+    <!------------------------ The Main Entrance of the Game ------------------------->
+    <!-------------------------------------------------------------------------------->
+    <script type="module" src="mainGame.js"></script>
   </body>
 </html>

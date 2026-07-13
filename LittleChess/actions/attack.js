@@ -5,42 +5,13 @@ import { afterAttackEnhancement, addAttackEnhanceEffect } from "./enhance.js";
 
 const cxt = document.getElementById("piece").getContext("2d");
 
-export function armBombArea(attacker, centerPosition, defenders) {
-  if (!attacker.isBombing) throw new Error(`attacker should be able to bomb.`);
-
-  let bombDistance = calculateDistance(
-    centerPosition[0],
-    centerPosition[1],
-    attacker.positionX,
-    attacker.positionY
-  );
-  if (bombDistance > attacker.c_missileRange || attacker.c_ammo <= 0) return;
-
-  let damageType = "bombing";
-  let sleepRound = addEffect(
-    attacker.player.effectList,
-    damageType,
-    attacker,
-    centerPosition,
-    cxt
-  );
-  let enh = afterAttackEnhancement(attacker, attacker.player.pieceList);
-  if (enh > 0) addAttackEnhanceEffect(attacker);
-
-  setTimeout(() => {
-    decreaseBombingVictims(attacker, defenders, damageType, centerPosition);
-    attacker.c_ammo--;
-    attacker.hasAttacked = true;
-  }, sleepRound * 20);
-}
-
 export function armAttackArm(attacker, defender, defenders, _damageType) {
   let damageType = _damageType;
   if (typeof _damageType === "undefined") {
     damageType = determineDamageType(attacker, defender);
     if (damageType == null) return;
     if (damageType === "charge") {
-      let result = determineChargingTarget(attacker, defender, defenders);
+      let result = determineChargingTargetAndMoveThere(attacker, defender, defenders);
       damageType = result[0];
       defender = result[1];
     }
@@ -48,77 +19,210 @@ export function armAttackArm(attacker, defender, defenders, _damageType) {
 
   let list1 = attacker.player.effectList;
   let list2 = defender.player.effectList;
-  let sleepRound = addEffect(list1, damageType, attacker, defender, cxt);
-  if (
-    damageType === "melee" &&
-    defender.c_meleeAttack > 0 &&
-    defender.c_leadership > 0
-  )
-    addEffect(list2, "melee", defender, attacker, cxt);
-  let enh = afterAttackEnhancement(attacker, attacker.player.pieceList);
-  if (enh > 0) addAttackEnhanceEffect(attacker);
+  let att_sleepRound = 0;
 
-  setTimeout(() => {
-    decreaseScalesForArms(attacker, damageType, defender);
-    attacker.hasAttacked = true;
-  }, sleepRound * 20);
+  attacker.updateCurrentFatigue(damageType, 1);
+  let att_antiArmor = attacker.getAntiArmor(damageType, defender);
+  let attAttackInfoList = attacker.getAttackInfo(damageType, defender);
+  attacker.hasAttacked = true;
+  att_sleepRound = addEffect(list1, damageType, attacker, defender, cxt);
+
+  let dfd_antiArmor = 0;
+  let dfd_sleepRound = 0;
+  let [dfd_sgdmgs, dfd_hitpos] = [0, 0];
+  if (damageType === "melee" && defender.c_meleeAttack > 0 && defender.c_leadership > 0 && !defender.hasCountered) {
+    dfd_antiArmor = defender.getAntiArmor("melee", attacker);
+    [attacker, dfd_sgdmgs, dfd_hitpos] = defender.getAttackInfo("melee", attacker)[0];
+    defender.hasCountered = true;
+    dfd_sleepRound = addEffect(list2, "melee", defender, attacker, cxt);
+    defender.updateCurrentFatigue("melee", 1);
+  }
+
+  // Do not store preMissileTarget if the target is stealth
+  if (damageType === "missile" && !defender.isStealth()) {
+    attacker.preMissileTarget = defender;
+  }
+
+  // Update melee status
+  if (damageType === "melee" || damageType === "charge") {
+    attacker.inMeleeWith.add(defender);
+    defender.inMeleeWith.add(attacker);
+    if (!attacker.isAgile()) attacker.c_speed = 0;
+
+    if (!attacker.isMeleeMaster()) attacker.addStatus("IM");
+    if (!defender.isMeleeMaster()) defender.addStatus("IM");
+
+    if (damageType === "charge") {
+      attacker.c_leadership += 20;
+      attacker.c_leadership = Math.min(attacker.c_leadership, attacker.leadership);
+      setTimeout(() => {
+        addEffect(list1, "inspiring", null, attacker, cxt);
+      }, att_sleepRound * 20);
+
+      if (defender.isResistingCharge() && attacker.isCavalry()) {
+        attacker.addStatus("HP");
+      }
+    }
+
+    if (damageType === "melee" && attacker.isResistingCharge() && defender.isCavalry()) {
+      defender.addStatus("HP");
+    }
+  }
+
+  // Update poison status
+  if (attacker.canPoison() && defender[`c_${damageType}Armor`] < 10) {
+    if (!defender.beingPoisoned()) defender.bePoisoned();
+    else defender.poisonTime = 2;
+  }
+
+  setTimeout(
+    () => {
+      for (let i = 0; i < attAttackInfoList.length; i++) {
+        let [target, att_sgdmgs, att_hitpos] = attAttackInfoList[i];
+        // console.log(target.m_name);
+        decreaseScalesForArms(
+          attacker,
+          damageType,
+          target,
+          att_antiArmor,
+          dfd_antiArmor,
+          att_sgdmgs,
+          att_hitpos,
+          dfd_sgdmgs,
+          dfd_hitpos,
+        );
+      }
+    },
+    Math.max(att_sleepRound, dfd_sleepRound) * 20,
+  );
+}
+
+function decreaseScalesForArms(
+  attacker,
+  damageType,
+  defender,
+  att_antiArmor,
+  dfd_antiArmor,
+  att_sgdmgs,
+  att_hitpos,
+  dfd_sgdmgs,
+  dfd_hitpos,
+) {
+  let results = null;
+
+  if (dfd_sgdmgs != null && dfd_sgdmgs != []) {
+    // ============== Defender counter attacks ==============
+    // Defender gains experience
+    results = attacker.decreaseScale(defender, "melee", dfd_antiArmor, dfd_sgdmgs, dfd_hitpos);
+    defender.damageOutput += results[0];
+    defender.exp += results[1];
+    defender.killCount += results[2];
+    // Attacker decrease leadership
+    if (!attacker.isHighMorale() && damageType === "melee") {
+      if (defender.isMon() && attacker.isInfn() && !attacker.isResistingCharge()) {
+        attacker.c_leadership -= 20;
+      }
+      if (!attacker.isMon() && defender.canShock()) {
+        attacker.c_leadership -= defender.getShockingAbility();
+        attacker.addStatus("HR");
+      }
+    }
+
+    // if attacker dies
+    if (!attacker.isAlive) {
+      // Defender gains leadership and experience when eliminating the Attacker by counter attack.
+      defender.c_leadership += Math.round(attacker.cost * 0.5);
+      defender.exp += Math.round(attacker.cost * 0.6);
+      if (defender.c_leadership >= defender.leadership) defender.c_leadership = defender.leadership;
+    }
+  }
+
+  // ============== Attacker attacks ==============
+  // Attacker gains experience
+  results = defender.decreaseScale(attacker, damageType, att_antiArmor, att_sgdmgs, att_hitpos);
+  attacker.damageOutput += results[0];
+  attacker.exp += results[1];
+  attacker.killCount += results[2];
+  // Defender decrease leadership
+  if (!defender.isHighMorale()) {
+    defender.c_leadership -= regularLeadershipDrop(defender, results[2]);
+    // const isMeleeOrCharge = damageType === "melee" || damageType === "charge";
+    const defenderVulnerable = defender.isInfn() && !defender.isResistingCharge();
+    if (damageType === "melee" && attacker.isMon() && defenderVulnerable) defender.c_leadership -= 20;
+    if (damageType === "charge" && defenderVulnerable) defender.c_leadership -= 30;
+    if (!defender.isMon() || attacker.canArtilleryAttack()) {
+      let totalShock = 0;
+      if (attacker.canShock()) {
+        totalShock += attacker.getShockingAbility();
+        defender.addStatus("HR");
+      }
+      defender.c_leadership -= totalShock;
+    }
+  }
+  if (damageType === "missile") {
+    if (attacker.isBombing) {
+      defender.addStatus("UB");
+      defender.c_leadership -= 55;
+    } else if (attacker.canArtilleryAttack()) {
+      defender.addStatus("UC");
+      defender.c_leadership -= 30;
+    }
+  }
+
+  if (damageType === "charge" && !defender.isResistingCharge() && !defender.isMon()) {
+    defender.addStatus("FS");
+  }
+
+  // if defender dies
+  if (!defender.isAlive) {
+    // Attacker gains leadership and experience when eliminating the Defender.
+    attacker.c_leadership += Math.round(defender.cost * 0.5);
+    attacker.exp += Math.round(defender.cost * 0.6);
+    if (attacker.c_leadership >= attacker.leadership) attacker.c_leadership = attacker.leadership;
+    // Charger gains one speed bonus
+    if (damageType == "charge") {
+      attacker.positionX = defender.positionX;
+      attacker.positionY = defender.positionY;
+      attacker.c_speed = 1;
+      attacker.removeStatus("IM");
+      attacker.removeStatus("HP");
+    }
+  }
 }
 
 function determineDamageType(attacker, defender) {
-  let distance = calculateDistance(
-    attacker.positionX,
-    attacker.positionY,
-    defender.positionX,
-    defender.positionY
-  );
+  let distance = calculateDistance(attacker.positionX, attacker.positionY, defender.positionX, defender.positionY);
 
-  let aligned = areAligned(
-    attacker.positionX,
-    attacker.positionY,
-    defender.positionX,
-    defender.positionY
-  );
+  let aligned = areAligned(attacker.positionX, attacker.positionY, defender.positionX, defender.positionY);
 
   // Melee attack
   if (distance == 1) return "melee";
 
   // Charge attack
-  if (
-    aligned &&
-    distance <= attacker.c_speed + 1 &&
-    attacker.c_chargeAttack > 0
-  )
-    return "charge";
+  if (aligned && distance <= attacker.c_speed && attacker.c_chargeAttack > 0) return "charge";
 
   // missile Attack
-  if (
-    distance <= attacker.c_missileRange &&
-    attacker.c_missileAttack > 0 &&
-    attacker.c_ammo > 0
-  )
-    return "missile";
+  if (distance <= attacker.c_missileRange && attacker.c_missileAttack > 0 && attacker.c_ammo > 0) return "missile";
 
   return null;
 }
 
-function determineChargingTarget(attacker, defender, defenders) {
+function determineChargingTargetAndMoveThere(attacker, defender, defenders) {
+  let blockers = [...attacker.player.pieceList, ...defenders];
   let toPosition = [defender.positionX, defender.positionY];
-  let result = MoveActions.getRealDestination(attacker, toPosition, defenders);
+  let result = MoveActions.getRealDestination(attacker, toPosition, blockers);
   let realPosition = result[0];
   defender = result[1];
 
   let damageType = "charge";
-  let distance = calculateDistance(
-    attacker.positionX,
-    attacker.positionY,
-    realPosition[0],
-    realPosition[1]
-  );
-  if (distance === 0) damageType = "melee";
+  let distance = MoveActions.moveToPosition(attacker, realPosition, blockers);
+  if (distance === 0) {
+    damageType = "melee";
+  }
 
   attacker.positionX = realPosition[0];
   attacker.positionY = realPosition[1];
-  attacker.c_speed -= distance;
+  attacker.c_speed = 0;
 
   return [damageType, defender];
 }
@@ -144,129 +248,4 @@ function scaleDecreasingCauseLeadershipDecreasing(self, totalDecrease) {
   else if (totalDecrease >= self.scale * 0.3) decrease = 30;
 
   return decrease;
-}
-
-function decreaseBombingVictims(
-  attacker,
-  defenders,
-  damageType,
-  centerPosition
-) {
-  let decreaseScore = 0;
-
-  for (let i = 0; i < defenders.length; i++) {
-    let defender = defenders[i];
-    if (defender === attacker) continue;
-
-    let distance = calculateDistance(
-      centerPosition[0],
-      centerPosition[1],
-      defender.positionX,
-      defender.positionY
-    );
-
-    if (distance <= attacker.c_missileRadius) {
-      // Get the total raw damage for attacker
-      let att_totalRowDamage = attacker.getRawTotalDamage(damageType, null);
-      if (distance === 1) {
-        att_totalRowDamage = Math.ceil(att_totalRowDamage * 0.7);
-      } else if (distance > 1) {
-        att_totalRowDamage = Math.ceil(att_totalRowDamage * 0.3);
-      }
-
-      if (defender.isLarge())
-        att_totalRowDamage = Math.round(att_totalRowDamage * 0.7);
-      if (defender.scale === 1) {
-        att_totalRowDamage = Math.ceil(att_totalRowDamage * 0.8);
-      }
-
-      // This defender decrease scale
-      let results = defender.decreaseScale(
-        self,
-        damageType,
-        0,
-        att_totalRowDamage
-      );
-      decreaseScore += results[1];
-
-      // Defender decrease leadership
-      defender.c_leadership -= regularLeadershipDrop(defender, results[0]);
-      defender.c_leadership -= 75 + attacker.getShockingAbility();
-      if (defender.c_leadership < 0) defender.c_leadership = 0;
-
-      if (!defender.isAlive) {
-        // Attacker gains leadership and experience when eliminating an enemy.
-        attacker.c_leadership += Math.round(attacker.cost * 0.1);
-        attacker.exp += Math.round(attacker.cost * 0.1);
-        if (attacker.c_leadership >= attacker.leadership)
-          attacker.c_leadership = attacker.leadership;
-      }
-    }
-  }
-  attacker.exp += decreaseScore;
-}
-
-function decreaseScalesForArms(attacker, damageType, defender) {
-  // Get the total raw damage for attacker and counter attack damage for defender
-  let att_antiArmor = attacker.getAntiArmor(damageType, defender);
-  let dfd_antiArmor = defender.getAntiArmor("melee", attacker);
-  let att_totalRowDamage = attacker.getRawTotalDamage(damageType, defender);
-  let dfd_counterAttack = defender.getCounterAttackTotalDamage(
-    damageType,
-    attacker
-  );
-
-  // ============== Defender counter attacks ==============
-  // Defender gains experience
-  let results = attacker.decreaseScale(
-    defender,
-    "melee",
-    dfd_antiArmor,
-    dfd_counterAttack
-  );
-  defender.exp += results[1];
-  // Attacker decrease leadership
-  if (damageType === "melee" && defender.isMon() && !attacker.isMon())
-    attacker.c_leadership -= 30;
-  if (damageType === "melee" && !attacker.isMon())
-    attacker.c_leadership -= defender.getShockingAbility();
-  if (attacker.c_leadership < 0) attacker.c_leadership = 0;
-  // if attacker dies
-  if (!attacker.isAlive) {
-    // Defender gains leadership and experience when eliminating the Attacker by counter attack.
-    defender.c_leadership += Math.round(attacker.cost * 0.5);
-    defender.exp += Math.round(attacker.cost * 0.6);
-    if (defender.c_leadership >= defender.leadership)
-      defender.c_leadership = defender.leadership;
-  }
-
-  // ============== Attacker attacks ==============
-  // Attacker gains experience
-  results = defender.decreaseScale(
-    attacker,
-    damageType,
-    att_antiArmor,
-    att_totalRowDamage
-  );
-  attacker.exp += results[1];
-  // Defender decrease leadership
-  if (damageType === "melee" && attacker.isMon() && !defender.isMon())
-    defender.c_leadership -= 30;
-  if (damageType === "charge" && !defender.isMon()) defender.c_leadership -= 60;
-  defender.c_leadership -= regularLeadershipDrop(defender, results[0]);
-  if (
-    ((damageType === "melee" || damageType === "charge") &&
-      !defender.isMon()) ||
-    attacker.type === "artillery"
-  )
-    defender.c_leadership -= attacker.getShockingAbility();
-  if (defender.c_leadership < 0) defender.c_leadership = 0;
-  // if defender dies
-  if (!defender.isAlive) {
-    // Attacker gains leadership and experience when eliminating the Defender.
-    attacker.c_leadership += Math.round(attacker.cost * 0.5);
-    attacker.exp += Math.round(attacker.cost * 0.6);
-    if (attacker.c_leadership >= attacker.leadership)
-      attacker.c_leadership = attacker.leadership;
-  }
 }

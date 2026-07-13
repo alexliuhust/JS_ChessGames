@@ -1,80 +1,61 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>My JS Game</title>
-    </head>
-    <body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My JS Game</title>
+  </head>
+  <body>
+    <div style="margin-left: 160px; margin-top: 0px">
+      <h1 style="font-size: 60px">
+        Player 1 Deploy
+        <a href="../index.html" style="text-decoration: none">
+          <button id="back" style="font-size: 40px; width: 200px">Back</button>
+        </a>
 
-        <div style="margin-left: 160px; margin-top: 0px;">
-            <h1 style="font-size: 60px;">
-                Player 1 Deploy
-                <a href="../index.html" style="text-decoration: none;">
-                    <button style="font-size: 40px; width: 200px;">
-                        Back
-                    </button>
-                </a>
-    
-                <a href="./p2Deploy.html" style="text-decoration: none;">
-                    <button style="font-size: 40px;width: 200px;">
-                        Next
-                    </button>
-                </a>
-            </h1>
+        <a href="./p2Deploy.html" style="text-decoration: none">
+          <button id="saveAndContinue" style="font-size: 40px; width: 200px">Next</button>
+        </a>
+      </h1>
 
-            <h1>Available Troops for <span style="border: 5px solid blue;" id="power"></span></h1>
-            <h2>Money Left: <span id="moneyLeft"></span></h2>
+      <h1>
+        Available Troops for
+        <span>
+          <select id="powers" style="font-size: 40px; border: 5px solid blue"></select>
+        </span>
+        <button id="clear" style="font-size: 40px; width: 200px">Clear</button>
+      </h1>
+      <h2>Money Left: <span id="moneyLeft"></span></h2>
 
-            <div style="height: 400px;">
-                <div style="float: left;" id="0"></div>
-                <div style="float: left;" id="1"></div>
-                <div style="float: left;" id="2"></div>
-                <div style="float: left;" id="3"></div>
-                <div style="float: left;" id="4"></div>
-                <div style="float: left;" id="5"></div>
-                <div style="float: left;" id="6"></div>
-                <div style="float: left;" id="7"></div>
-                <div style="float: left;" id="8"></div>
-                <div style="float: left;" id="9"></div>
-                <div style="float: left;" id="10"></div>
-                <div style="float: left;" id="11"></div><br /><br /><br /><br /><br />
-                <div style="margin-top: -15px;"></div>
-                <div style="float: left;" id="12"></div>
-                <div style="float: left;" id="13"></div>
-                <div style="float: left;" id="14"></div>
-                <div style="float: left;" id="15"></div>
-                <div style="float: left;" id="16"></div>
-                <div style="float: left;" id="17"></div>
-                <div style="float: left;" id="18"></div>
-                <div style="float: left;" id="19"></div>
-                <div style="float: left;" id="20"></div>
-                <div style="float: left;" id="21"></div>
-                <div style="float: left;" id="22"></div>
-                <div style="float: left;" id="23"></div><br /><br /><br /><br /><br />
+      <div style="height: 400px">
+        <div style="display: none" id="allIconImages"></div>
+        <div id="armImages"></div>
 
-                <div style="margin-left: 160px;">
-                    <canvas id="info" width="520" height="495"
-                        style="position:absolute; ; z-index: 100; background: black;"></canvas>
-                </div>
-            </div>
-
-            <div style="margin-top: -600px; margin-left: 900px; height: 860px">
-                <div id="game" style="width:650px; height:850px; border: 5px blue dashed">
-                    <!-- map canvas, on which we draw the backgroud -->
-                    <canvas id="map" width="650" height="850" 
-                      style="position:absolute; z-index: 100; background:url(../images/map/bg.png) repeat;"></canvas>
-                    <!-- piece canvas, on which we draw all the arm pieces -->
-                    <canvas id="piece" width="650" height="850" 
-                      style="position:absolute; z-index: 101;"></canvas>
-                    <!-- select canvas, which accepts all mouse clicking events -->
-                    <canvas id="select" width="650" height="850" 
-                      style="position:absolute; z-index: 103;"></canvas>
-                </div>
-            </div>
-            
+        <div style="margin-left: 160px">
+          <canvas
+            id="info"
+            width="520"
+            height="495"
+            style="position: absolute; z-index: 100; background: black"></canvas>
         </div>
-        <script type="module" src="./p1Deploy.js"></script>
-    </body>
+      </div>
+
+      <div style="margin-top: -600px; margin-left: 900px; height: 860px">
+        <div id="game" style="width: 650px; height: 850px; border: 5px blue dashed">
+          <!-- map canvas, on which we draw the backgroud -->
+          <canvas
+            id="map"
+            width="650"
+            height="850"
+            style="position: absolute; z-index: 100; background: url(../images/map/bg.png) repeat"></canvas>
+          <!-- piece canvas, on which we draw all the arm pieces -->
+          <canvas id="piece" width="650" height="850" style="position: absolute; z-index: 101"></canvas>
+          <!-- select canvas, which accepts all mouse clicking events -->
+          <canvas id="select" width="650" height="850" style="position: absolute; z-index: 103"></canvas>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="./p1Deploy.js"></script>
+  </body>
 </html>

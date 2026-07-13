@@ -1,73 +1,83 @@
 import { Canvas } from "../common/tools.js";
 
 export class MeleeEffect {
-  constructor(_x, _y, _cxt) {
+  constructor(attacker, defender, _cxt) {
     this.cxt = _cxt;
-    this.x = _x;
-    this.y = _y;
     this.time = 0;
     this.maxTime = 32;
+    this.t1 = this.maxTime / 4;
+    this.t2 = this.maxTime / 2;
+    this.t3 = this.maxTime - this.t1;
+    this.moveTime = this.t2 - this.t1;
     this.isAlive = true;
 
-    this.drawLine = function (x1, y1, x2, y2) {
-      Canvas.drawLine(this.cxt, x1, y1, x2, y2, "red", 5);
-    };
+    this.shrt = 15;
+    this.long = 50;
+    this.length = Math.sqrt(this.shrt ** 2 + this.long ** 2);
+    this.xs = 0;
+    this.ys = 0;
+    this.sin = 0;
+    this.cos = 0;
+    if (attacker.positionX == defender.positionX - 1) {
+      this.xs = attacker.x;
+      this.ys = attacker.y + 50;
+      this.sin = -this.shrt / this.length;
+      this.cos = this.long / this.length;
+    } else if (attacker.positionX == defender.positionX + 1) {
+      this.xs = attacker.x + 50;
+      this.ys = attacker.y;
+      this.sin = this.shrt / this.length;
+      this.cos = -this.long / this.length;
+    } else if (attacker.positionY == defender.positionY - 1) {
+      this.xs = attacker.x;
+      this.ys = attacker.y;
+      this.sin = this.long / this.length;
+      this.cos = this.shrt / this.length;
+    } else if (attacker.positionY == defender.positionY + 1) {
+      this.xs = attacker.x + 50;
+      this.ys = attacker.y + 50;
+      this.sin = -this.long / this.length;
+      this.cos = -this.shrt / this.length;
+    }
+    this.moveStepX = (this.length * 0.75 * this.cos) / this.moveTime;
+    this.moveStepY = (this.length * 0.75 * this.sin) / this.moveTime;
 
-    this.draw = function () {
-      this.time++;
-      if (this.time > this.maxTime) {
-        this.isAlive = false;
-        return;
-      }
+    this.color = attacker.player.playerColor;
+    this.weightLine = 3;
+    this.weightArrow = 10;
+    this.arrowStartPerc = 0.65;
+  }
 
-      let timeItv = this.maxTime / 4;
-      let t1 = this.maxTime / 4;
-      let t2 = this.maxTime / 2;
-      let t3 = this.maxTime * 0.75;
-      let t4 = this.maxTime;
+  drawArrow(x, y) {
+    Canvas.drawArrow_Angle(
+      this.cxt,
+      x,
+      y,
+      this.sin,
+      this.cos,
+      this.length,
+      this.color,
+      this.weightLine,
+      this.weightArrow,
+      this.arrowStartPerc,
+      true,
+    );
+  }
 
-      let x = this.x + 5;
-      let y = this.y + 10;
+  draw() {
+    this.time++;
+    if (this.time > this.maxTime) {
+      this.isAlive = false;
+      return;
+    }
 
-      if (0 < this.time && this.time <= t1) {
-        let curLength = Math.round(((this.time - 0) * 40) / timeItv);
-        let x1 = x;
-        let y1 = y;
-        let x2 = x + curLength;
-        let y2 = y + curLength;
-        this.drawLine(x1, y1, x2, y2);
-      } else if (t1 < this.time && this.time <= t2) {
-        let x1 = x;
-        let y1 = y;
-        let x2 = x + 40;
-        let y2 = y + 40;
-        this.drawLine(x1, y1, x2, y2);
-      } else if (t2 < this.time && this.time <= t3) {
-        let x1 = x;
-        let y1 = y;
-        let x2 = x + 40;
-        let y2 = y + 40;
-        this.drawLine(x1, y1, x2, y2);
-
-        let curLength = Math.round(((this.time - t2) * 40) / timeItv);
-        x1 = x + 40;
-        y1 = y;
-        x2 = x + 40 - curLength;
-        y2 = y + curLength;
-        this.drawLine(x1, y1, x2, y2);
-      } else if (t3 < this.time && this.time <= t4) {
-        let x1 = x;
-        let y1 = y;
-        let x2 = x + 40;
-        let y2 = y + 40;
-        this.drawLine(x1, y1, x2, y2);
-
-        x1 = x + 40;
-        y1 = y;
-        x2 = x;
-        y2 = y + 40;
-        this.drawLine(x1, y1, x2, y2);
-      }
-    };
+    if (this.t1 <= this.time && this.time < this.t2) {
+      this.xs += this.moveStepX;
+      this.ys += this.moveStepY;
+    } else if (this.t2 <= this.time && this.time < this.t3) {
+      this.xs -= this.moveStepX;
+      this.ys -= this.moveStepY;
+    }
+    this.drawArrow(this.xs, this.ys);
   }
 }

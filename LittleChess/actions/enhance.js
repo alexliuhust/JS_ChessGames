@@ -31,12 +31,7 @@ function accumulateEnhancement(self, pieces, isArmor) {
     if (isArmor && piece.armorEnhance === 0) continue;
     if (!isArmor && piece.attackEnhance === 0) continue;
 
-    let distance = calculateDistance(
-      self.positionX,
-      self.positionY,
-      piece.positionX,
-      piece.positionY
-    );
+    let distance = calculateDistance(self.positionX, self.positionY, piece.positionX, piece.positionY);
     let range = piece.enhanceRange;
 
     if (distance <= range) {

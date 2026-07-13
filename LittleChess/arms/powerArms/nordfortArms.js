@@ -1,6 +1,6 @@
 import * as ArmPrimary from "../arm.js";
-import { MissileColor as MC } from "../../common/const.js";
-import { updateEliteData } from "../armTools.js";
+import { MissileColor as MC, getDescription } from "../../common/const.js";
+import * as ArmTool from "../armTools.js";
 
 export class HallwayGuard extends ArmPrimary.Arm {
   constructor(value, player) {
@@ -9,19 +9,17 @@ export class HallwayGuard extends ArmPrimary.Arm {
     this.name = "Hallway Guards";
     this.m_name = "门厅守卫";
     this.type = "infantry";
-    this.description = "Infantry[Resist-Charging]";
-    this.m_description = "近战步兵[抵御冲锋]";
+    [this.description, this.m_description] = getDescription(this, "IF", "RC");
 
     this.scale = 100;
     this.singleHP = 50;
     this.speed = 2;
 
-    this.meleeArmor = 20;
-    this.chargeArmor = 40;
+    ArmTool.loadDefenceBenchmark(this, "inf", "long-rs");
 
-    this.meleeAttack = 25;
+    this.meleeAttack = 18;
 
-    this.antiArmor = 20;
+    this.antiArmor = 8;
     this.loadRealtimeProps();
   }
 
@@ -38,10 +36,11 @@ export class HallwayGuardShield extends HallwayGuard {
     this.name = "Hallway Guards (Shield)";
     this.m_name = "门厅守卫-持盾";
     this.type = "infantry";
-    this.description = "Shield-Infantry[Resist-Charging]";
-    this.m_description = "持盾-近战步兵[抵御冲锋]";
+    [this.description, this.m_description] = getDescription(this, "S_IF", "HS,RC");
 
-    this.missileArmor = 30;
+    ArmTool.loadDefenceBenchmark(this, "inf", "long-rs,shield");
+
+    this.meleeAttack = 16;
 
     this.loadRealtimeProps();
   }
@@ -54,19 +53,17 @@ export class NordExecutioner extends ArmPrimary.Arm {
     this.name = "Nord Executioners";
     this.m_name = "诺德刽子手";
     this.type = "infantry";
-    this.description = "Armor-Infantry[Anti-Armor]";
-    this.m_description = "装甲-近战步兵[高破甲]";
+    [this.description, this.m_description] = getDescription(this, "A_IF", "AM,AAM,HD");
 
     this.scale = 100;
     this.singleHP = 50;
     this.speed = 2;
 
-    this.meleeArmor = 50;
-    this.chargeArmor = 20;
+    ArmTool.loadDefenceBenchmark(this, "inf", "heavy,armor");
 
-    this.meleeAttack = 34;
+    this.meleeAttack = 32;
 
-    this.antiArmor = 55;
+    this.antiArmor = 20;
     this.loadRealtimeProps();
   }
 
@@ -76,22 +73,53 @@ export class NordExecutioner extends ArmPrimary.Arm {
   }
 }
 
-export class NordHerald extends NordExecutioner {
+export class NordHerald extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
     this.name = "Nord Heralds";
     this.m_name = "诺德军锋";
     this.type = "infantry";
-    this.description = "Armor-Infantry[Resist-Charging]";
-    this.m_description = "装甲-近战步兵[抵御冲锋]";
+    [this.description, this.m_description] = getDescription(this, "A_IF", "AM,RC,AAM,HD");
 
-    this.chargeArmor = 40;
+    this.scale = 100;
+    this.singleHP = 50;
+    this.speed = 2;
 
-    this.meleeAttack = 40;
+    ArmTool.loadDefenceBenchmark(this, "inf", "long-rs,armor");
 
-    this.antiArmor = 0;
+    this.meleeAttack = 28;
+
+    this.antiArmor = 15;
     this.loadRealtimeProps();
+  }
+}
+
+export class NordIronblade extends NordExecutioner {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Nord Ironblades";
+    this.m_name = "诺德铁刃";
+    [this.description, this.m_description] = getDescription(this, "A_IF", "AM,AIF,MM");
+
+    ArmTool.loadDefenceBenchmark(this, "inf", "mm,armor");
+
+    this.meleeAttack = 20;
+    this.meleeAttack_bonus = 40;
+
+    this.antiArmor = 10;
+    this.loadRealtimeProps();
+  }
+
+  getSingleDamage(damageType, targetArm) {
+    let singleDamage = 0;
+    if (damageType === "melee") {
+      singleDamage = this.c_meleeAttack;
+      if (targetArm.isInfn()) singleDamage += this.c_meleeAttack_bonus;
+    }
+
+    return singleDamage;
   }
 }
 
@@ -102,14 +130,18 @@ export class NordHeraldE extends NordHerald {
     this.name = "Flame Heralds";
     this.m_name = "烈焰军锋";
     this.type = "infantry";
-    this.description = "Armor-Infantry  Inspirator[Elite  Resist-Charging]";
-    this.m_description = "装甲-近战步兵 鼓舞者[精英 抵御冲锋]";
+    [this.description, this.m_description] = getDescription(this, "A_IF,IPR", "EL,AM,RC,AAM,HD,HM");
 
-    this.inspiring = 12;
+    this.inspiring = 6;
     this.inspireRange = 3;
     this.loadRealtimeProps();
 
-    updateEliteData(this);
+    ArmTool.updateEliteData(this);
+  }
+
+  isDamageMagic(damageType) {
+    if (damageType === "melee") return true;
+    return false;
   }
 }
 
@@ -120,17 +152,23 @@ export class CoastDefender extends ArmPrimary.Arm {
     this.name = "Coast Defenders (Light)";
     this.m_name = "滨海守卫-轻装";
     this.type = "archers";
-    this.description = "Melee-Archers[Resist-Charging]";
-    this.m_description = "近战-远程步兵[抵御冲锋]";
+    [this.description, this.m_description] = getDescription(this, "MAC", "RC");
 
-    this.scale = 80;
+    this.scale = 81;
     this.singleHP = 50;
     this.speed = 3;
 
-    this.chargeArmor = 40;
+    this.missileParameters = {
+      shape: "line",
+      weight: 1.5,
+      len: 7,
+      color: "rgb(206, 203, 202)",
+    };
 
-    this.meleeAttack = 25;
-    this.missileAttack = 30;
+    ArmTool.loadDefenceBenchmark(this, "inf", "long-rs");
+
+    this.meleeAttack = 18;
+    this.missileAttack = 18;
     this.missileRange = 6;
     this.isParabola = true;
 
@@ -145,10 +183,11 @@ export class CoastDefenderShield extends CoastDefender {
     this.name = "Coast Defenders (Shield)";
     this.m_name = "滨海守卫-持盾";
     this.type = "archers";
-    this.description = "Melee-Shield-Archers[Resist-Charging]";
-    this.m_description = "近战-持盾-远程步兵[抵御冲锋]";
+    [this.description, this.m_description] = getDescription(this, "S_MAC", "HS,RC");
 
-    this.missileArmor = 30;
+    ArmTool.loadDefenceBenchmark(this, "inf", "long-rs,shield");
+
+    this.meleeAttack = 15;
 
     this.loadRealtimeProps();
   }
@@ -161,21 +200,37 @@ export class BallistaSquad extends ArmPrimary.Arm {
     this.name = "Ballista Squad";
     this.m_name = "重弩小队";
     this.type = "archers";
-    this.description = "Melee-Armor-Archers[Long-Range  Anti-Armor]";
-    this.m_description = "近战-装甲-远程步兵[长程 高破甲]";
+    [this.description, this.m_description] = getDescription(this, "A_MAC", "AM,AAM,LR");
 
-    this.scale = 80;
+    this.scale = 64;
     this.singleHP = 50;
     this.speed = 2;
 
-    this.meleeArmor = 50;
-    this.chargeArmor = 20;
+    ArmTool.loadDefenceBenchmark(this, "inf", "armor");
 
     this.meleeAttack = 25;
-    this.missileAttack = 50;
+    this.missileAttack = 35;
     this.missileRange = 8;
+    this.isParabola = true;
+    this.missilePenetrate = 2;
 
-    this.antiArmor = 30;
+    this.missileParameters = {
+      shape: "line",
+      weight: 2,
+      len: 10,
+      color: "rgb(206, 203, 202)",
+      maxHeightRatio: 0.15,
+      afterHitParameters: {
+        shape: "pellets",
+        color: "rgb(206, 203, 202)",
+        weight: 1.5,
+        numPellets: 7,
+        expendTime: 14,
+        expendSpeed: 1,
+      },
+    };
+
+    this.antiArmor = 10;
     this.loadRealtimeProps();
   }
 
@@ -185,19 +240,49 @@ export class BallistaSquad extends ArmPrimary.Arm {
   }
 }
 
-export class BallistaSquadE extends BallistaSquad {
+export class BallistaSquadShield extends BallistaSquad {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Nord Piercers";
-    this.m_name = "诺德穿刺者";
-    this.type = "archers";
-    this.description = "Melee-Armor-Archers[Elite  Long-Range  Anti-Armor]";
-    this.m_description = "近战-装甲-远程步兵[精英 长程 高破甲]";
+    this.name = "Ballista Squad (Shiled)";
+    this.m_name = "重弩小队-持盾";
+    [this.description, this.m_description] = getDescription(this, "A_MAC", "AM,HS,AAM,LR");
+
+    ArmTool.loadDefenceBenchmark(this, "inf", "armor,shield");
+    this.meleeAttack = 22;
 
     this.loadRealtimeProps();
+  }
+}
 
-    updateEliteData(this);
+export class BallistaSquadFlame extends BallistaSquad {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Ballista Squad (Fire Rain)";
+    this.m_name = "重弩小队-火雨";
+    [this.description, this.m_description] = getDescription(this, "A_MAC", "AM,LR,HD");
+
+    this.missileAttack = 50;
+    this.explosionRadius = 1;
+
+    this.missileParameters = {
+      shape: "line",
+      weight: 2,
+      color: "rgb(253, 156, 21)",
+      tailShape: "smoke",
+      afterHitParameters: {
+        shape: "smoke",
+        color: "rgb(253, 126, 21)",
+        radius: 5,
+        numPellets: 2 * 3,
+        expendTime: 20,
+        expendSpeed: 1,
+      },
+    };
+
+    this.antiArmor = 0;
+    this.loadRealtimeProps();
   }
 }
 
@@ -208,19 +293,27 @@ export class CoastRanger extends ArmPrimary.Arm {
     this.name = "Coast Rangers";
     this.m_name = "滨海游骑兵";
     this.type = "cavalry";
-    this.description = "Missile-Cavalry";
-    this.m_description = "远程骑兵";
+    [this.description, this.m_description] = getDescription(this, "MSC", "MA,FD");
 
-    this.scale = 50;
+    this.scale = 49;
     this.singleHP = 100;
     this.speed = 6;
 
-    this.missileDodge = 30;
+    ArmTool.loadDefenceBenchmark(this, "cal");
+    this.missileDodge += 20;
 
     this.meleeAttack = 28;
-    this.missileAttack = 30;
+    this.chargeAttack = 22;
+    this.missileAttack = 20;
     this.missileRange = 6;
     this.isParabola = true;
+
+    this.missileParameters = {
+      shape: "line",
+      weight: 1.5,
+      len: 7,
+      color: "rgb(206, 203, 202)",
+    };
 
     this.loadRealtimeProps();
   }
@@ -233,10 +326,13 @@ export class CoastRangerCharge extends CoastRanger {
     this.name = "Coast Rangers (Charge)";
     this.m_name = "滨海游骑兵-冲杀";
     this.type = "cavalry";
-    this.description = "Missile-Charging-Cavalry";
-    this.m_description = "远程-冲杀骑兵";
+    [this.description, this.m_description] = getDescription(this, "MSCGC", "MA,FD");
 
-    this.chargeAttack = 58;
+    ArmTool.loadDefenceBenchmark(this, "cal", "charge");
+    this.missileDodge += 20;
+
+    this.meleeAttack = 22;
+    this.chargeAttack = 50;
     this.loadRealtimeProps();
   }
 }
@@ -248,19 +344,18 @@ export class FlameKnight extends ArmPrimary.Arm {
     this.name = "Flame Knights";
     this.m_name = "炎骑士";
     this.type = "cavalry";
-    this.description = "Charging-Cavalry[Anti-Armor  Agile]";
-    this.m_description = "冲击骑兵[高破甲 迅捷如风]";
+    [this.description, this.m_description] = getDescription(this, "CGC", "AG,AAM,HD");
 
-    this.scale = 50;
+    this.scale = 49;
     this.singleHP = 120;
     this.speed = 7;
 
-    this.missileDodge = 50;
+    ArmTool.loadDefenceBenchmark(this, "cal", "charge,agile");
 
-    this.meleeAttack = 32;
-    this.chargeAttack = 72;
+    this.meleeAttack = 28;
+    this.chargeAttack = 60;
 
-    this.antiArmor = 40;
+    this.antiArmor = 24;
     this.loadRealtimeProps();
   }
 
@@ -277,10 +372,11 @@ export class FlameKnightShield extends FlameKnight {
     this.name = "Flame Knights (Shield)";
     this.m_name = "炎骑士-持盾";
     this.type = "cavalry";
-    this.description = "Shield-Charging-Cavalry[Anti-Armor  Agile]";
-    this.m_description = "持盾-冲击骑兵[高破甲 迅捷如风]";
+    [this.description, this.m_description] = getDescription(this, "S_CGC", "HS,AG,AAM,HD");
 
-    this.missileArmor = 30;
+    ArmTool.loadDefenceBenchmark(this, "cal", "charge,agile,shield");
+
+    this.meleeAttack = 24;
 
     this.loadRealtimeProps();
   }
@@ -293,78 +389,324 @@ export class CoralCavalry extends ArmPrimary.Arm {
     this.name = "Coral Cavalry";
     this.m_name = "珊瑚骑兵团";
     this.type = "cavalry";
-    this.description = "Armor-Charging-Cavalry[Anti-Armor]";
-    this.m_description = "装甲-冲击骑兵[高破甲]";
+    [this.description, this.m_description] = getDescription(this, "A_CGC", "AM,AAM");
 
-    this.scale = 50;
+    this.scale = 49;
     this.singleHP = 120;
     this.speed = 5;
 
-    this.meleeArmor = 50;
-    this.missileDodge = 30;
-    this.chargeArmor = 20;
+    ArmTool.loadDefenceBenchmark(this, "cal", "charge-am,armor");
+    this.meleeArmor += 15;
 
     this.meleeAttack = 32;
-    this.chargeAttack = 64;
+    this.chargeAttack = 52;
 
-    this.antiArmor = 40;
+    this.antiArmor = 16;
     this.loadRealtimeProps();
+  }
+}
+
+export class CoralCavalryFlame extends CoralCavalry {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Fire-Coral Cavalry";
+    this.m_name = "火珊瑚骑兵团";
+    [this.description, this.m_description] = getDescription(this, "A_CGC", "AM,AAM,HD");
+
+    this.meleeArmor -= 5;
+    this.missileArmor -= 5;
+    this.chargeArmor -= 5;
+
+    this.meleeAttack += 4;
+    this.chargeAttack += 6;
+
+    this.antiArmor = 20;
+
+    this.loadRealtimeProps();
+  }
+}
+
+class NordMage extends ArmPrimary.Arm {
+  constructor(value, player) {
+    super(value, player);
+
+    this.type = "cavalry";
+
+    this.scale = 1;
+    this.singleHP = 3000;
+    this.speed = 4;
+
+    ArmTool.loadDefenceBenchmark(this, "cal", "short");
+
+    this.meleeAttack = 800;
+    this.chargeAttack = 600;
+
+    this.missileAttack = 400;
+    this.multiShots = 5;
+    this.missileRange = 5;
+    this.marksmanSkill = true;
+
+    this.missileParameters = {
+      shape: "ball",
+      radius: 4,
+      color: "white",
+      afterHitParameters: {
+        shape: "circle",
+        color: "white",
+        maxWeight: 10,
+        expendTime: 30,
+        expendSpeed: 1,
+      },
+    };
+
+    this.ammo = 3;
+    this.totalMana = 12;
+    this.loadRealtimeProps();
+  }
+
+  isDamageMagic(damageType) {
+    if (damageType === "missile") return true;
+    return false;
+  }
+
+  // Recover the mana
+  roundRefresh(currentRound, endMyRound) {
+    super.roundRefresh(currentRound, endMyRound);
+
+    if (this.totalMana > 0 && !endMyRound) {
+      let rand = Math.random();
+      if (rand < 0.67) {
+        this.totalMana--;
+        this.c_ammo++;
+        this.c_ammo = Math.min(this.c_ammo, this.ammo);
+      }
+    }
+  }
+
+  fixCostAndLeaderShip(cost = 350) {
+    this.cost = cost;
+    this.leadership = 250;
+    this.c_leadership = 250;
+  }
+}
+
+export class DeathWarlock extends NordMage {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Death Warlock";
+    this.m_name = "死亡法师";
+    [this.description, this.m_description] = getDescription(this, "HERO,MSC", "MH,SH,MG");
+
+    this.missileAttack = 2500;
+    this.missileParameters.color = "rgb(68, 0, 91)";
+    this.missileParameters.afterHitParameters.color = "rgb(68, 0, 91)";
+
+    this.shock = 25;
+
+    this.loadRealtimeProps();
+    this.fixCostAndLeaderShip(320);
+  }
+}
+
+export class ShadeOccultist extends NordMage {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Shade Occultist";
+    this.m_name = "阴影法师";
+    [this.description, this.m_description] = getDescription(this, "HERO,MSC,PTR", "ST,SH,MG");
+
+    this.missileParameters.color = "rgb(79, 79, 79)";
+    this.missileParameters.afterHitParameters.color = "rgb(46, 45, 45)";
+
+    this.armorEnhance = 25;
+    this.enhanceRange = 3;
+
+    this.shock = 100;
+
+    this.loadRealtimeProps();
+    this.fixCostAndLeaderShip(350);
+  }
+}
+
+export class StalwartEnchanter extends NordMage {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Stalwart Enchanter";
+    this.m_name = "坚毅法师";
+    [this.description, this.m_description] = getDescription(this, "HERO,MSC,IPR,HLR", "HS,MG");
+
+    this.missileArmor = 20;
+    this.missileDodge = 25;
+
+    this.inspiring = 40;
+    this.inspireRange = 4;
+    this.healing = 12;
+    this.healRange = 4;
+    this.totalHeal = 120;
+
+    this.ammo = 10;
+    this.totalMana = 10;
+
+    this.loadRealtimeProps();
+    this.fixCostAndLeaderShip(360);
+  }
+}
+
+export class BlazePyromancer extends NordMage {
+  constructor(value, player) {
+    super(value, player);
+
+    this.name = "Blaze Pyromancer";
+    this.m_name = "烈焰法师";
+    [this.description, this.m_description] = getDescription(this, "HERO,MSC,RSR", "AIF,HD,MG");
+
+    this.attackEnhance = 25;
+    this.enhanceRange = 3;
+
+    this.loadRealtimeProps();
+    this.fixCostAndLeaderShip(370);
+    this._useLaser();
+  }
+
+  _useLaser() {
+    this.missileAttack = 2000;
+    this.c_missileAttack = this.missileAttack;
+    this.multiShots = 5;
+    this.explosionRadius = null;
+    this.missilePenetrate = 6;
+    this.missileParameters = {
+      shape: "fire",
+      weight: 6,
+      color: "rgb(253, 126, 21)",
+      color2: "rgb(255, 200, 1)",
+      tailFadeTime: 35,
+      speed: 7,
+      afterHitParameters: {
+        shape: "smoke",
+        color: "rgb(231, 73, 0)",
+        radius: 8,
+        numPellets: 2 * 3,
+        expendTime: 18,
+        expendSpeed: 1.3,
+      },
+    };
+  }
+
+  _useBall() {
+    this.missileAttack = 800;
+    this.c_missileAttack = this.missileAttack;
+    this.multiShots = 1;
+    this.explosionRadius = 5;
+    this.missilePenetrate = null;
+    this.missileParameters = {
+      shape: "ball",
+      radius: 6,
+      color: "rgb(253, 126, 21)",
+      speed: 5,
+      tailShape: "smoke",
+      afterHitParameters: {
+        shape: "smoke",
+        color: "rgb(231, 73, 0)",
+        radius: 20,
+        numPellets: 2 * 4,
+        expendTime: 30,
+        expendSpeed: 1.3,
+      },
+    };
+  }
+
+  // Randomly switch missile attack type
+  roundRefresh(currentRound, endMyRound) {
+    if (this.totalMana > 0 && !endMyRound) {
+      let rand = Math.random();
+      if (rand < 0.5) this._useLaser();
+      else this._useBall();
+    }
+
+    super.roundRefresh(currentRound, endMyRound);
   }
 }
 
 export class GiantBallista extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
-    this.missileColor = MC.ATColor;
-    this.missileWeight = 4;
 
     this.name = "Giant Ballistas";
     this.m_name = "巨型弩炮";
     this.type = "artillery";
-    this.description = "Artillery";
-    this.m_description = "炮兵";
+    [this.description, this.m_description] = getDescription(this, "AT", "ALG");
 
     this.scale = 7;
-    this.singleHP = 700;
+    this.singleHP = 50;
     this.speed = 1;
 
     this.missileAttack = 300;
     this.missileRange = 11;
+    this.isParabola = true;
+    this.missilePenetrate = 4;
+
+    this.missileParameters = {
+      shape: "line",
+      weight: 3,
+      len: 20,
+      color: "rgb(209, 181, 22)",
+      maxHeightRatio: 0.1,
+      afterHitParameters: {
+        shape: "pellets",
+        color: "rgb(209, 181, 22)",
+        weight: 1.5,
+        numPellets: 5,
+        expendTime: 14,
+        expendSpeed: 1,
+      },
+    };
 
     this.loadRealtimeProps();
-  }
-
-  getAntiArmor(damageType, targetArm) {
-    if (damageType === "missile") return this.antiArmor;
-    return 0;
   }
 }
 
 export class GiantBallistaShrapnel extends GiantBallista {
   constructor(value, player) {
     super(value, player);
-    this.missileColor = null;
-    this.missileWeight = 2;
 
     this.name = "Giant Ballistas (Shrapnel)";
     this.m_name = "巨型弩炮-霰弹";
     this.type = "artillery";
-    this.description = "Artillery[Anti-Infantry]";
-    this.m_description = "炮兵[反步兵]";
+    [this.description, this.m_description] = getDescription(this, "AT", "AIF");
 
-    this.missileAttack = 300;
-    this.missileAttack_bonus = 400;
-    this.missileRange = 9;
-    this.isParabola = true;
+    this.missileAttack = 190;
+    this.missileAttack_bonus = 230;
+    this.missilePenetrate = null;
+    this.explosionRadius = 2;
+
+    this.missileParameters = {
+      shape: "line",
+      weight: 3,
+      len: 20,
+      color: "rgb(209, 181, 22)",
+      maxHeightRatio: 0.1,
+      afterHitParameters: {
+        shape: "pellets",
+        color: "rgb(209, 181, 22)",
+        weight: 2,
+        numPellets: 7,
+        expendTime: 20,
+        expendSpeed: 2,
+      },
+    };
 
     this.loadRealtimeProps();
   }
 
-  _getSingleDamage(damageType, targetArm) {
+  getSingleDamage(damageType, targetArm) {
     let singleDamage = 0;
     if (damageType === "missile" && this.c_ammo > 0) {
       singleDamage = this.c_missileAttack;
-      if (targetArm.isInfn()) singleDamage += this.missileAttack_bonus;
+      if (targetArm.isInfn()) singleDamage += this.c_missileAttack_bonus;
       this.c_ammo--;
     }
 
@@ -372,79 +714,75 @@ export class GiantBallistaShrapnel extends GiantBallista {
   }
 }
 
-export class StoneGiant extends ArmPrimary.Arm {
+export class SunfireLensGroup extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Nord Stone Titan";
-    this.m_name = "诺德巨石人";
-    this.type = "monster";
-    this.description = "Giant[Anti-Infantry]";
-    this.m_description = "巨兽[反步兵]";
+    this.name = "Sunfire Lens Group";
+    this.m_name = "阳炎透镜组";
+    this.type = "artillery";
+    [this.description, this.m_description] = getDescription(this, "ST", "MH,MG,HM");
 
-    this.scale = 1;
-    this.singleHP = 9000;
-    this.speed = 3;
+    this.scale = 2;
+    this.singleHP = 50;
+    this.speed = 0;
 
-    this.meleeArmor = 50;
-    this.missileArmor = 50;
-    this.chargeArmor = 50;
+    this.missileAttack = 1720;
+    this.missileRange = 13;
+    this.missilePenetrate = 6;
 
-    this.meleeAttack = 600;
-    this.meleeAttack_bonus = 500;
+    this.missileParameters = {
+      shape: "fire",
+      weight: 6,
+      color: "rgb(253, 126, 21)",
+      color2: "rgb(255, 200, 1)",
+      tailFadeTime: 35,
+      speed: 12,
+      afterHitParameters: {
+        shape: "pellets",
+        color: "rgb(255, 237, 145)",
+        weight: 4,
+        numPellets: 7,
+        expendTime: 15,
+        expendSpeed: 3,
+      },
+    };
 
+    this.ammo = 20;
+
+    this.tall = 7;
     this.loadRealtimeProps();
   }
 
-  _getSingleDamage(damageType, targetArm) {
-    let singleDamage = 0;
-    if (damageType === "melee") {
-      singleDamage = this.c_meleeAttack;
-      if (targetArm.isInfn()) singleDamage += this.meleeAttack_bonus;
-    }
-
-    return singleDamage;
+  isDamageMagic(damageType) {
+    if (damageType === "missile") return true;
+    return false;
   }
 }
 
-export class StoneGiantFlame extends StoneGiant {
-  constructor(value, player) {
-    super(value, player);
-
-    this.name = "Nord Stone Titan (Flame)";
-    this.m_name = "诺德火焰巨石人";
-    this.type = "monster";
-    this.description = "Giant[Anti-Infantry  High-Damage  Rouser]";
-    this.m_description = "巨兽[反步兵 高伤害 激励者]";
-
-    this.meleeAttack = 700;
-    this.meleeAttack_bonus = 800;
-
-    this.attackEnhance = 60;
-    this.enhanceRange = 4;
-    this.loadRealtimeProps();
-  }
-}
-
-export function newAnArm(i, posX, posY, player) {
-  let pos = [posX, posY];
-  if (i === 0) return new HallwayGuard(pos, player);
-  if (i === 1) return new HallwayGuardShield(pos, player);
-  if (i === 2) return new NordExecutioner(pos, player);
-  if (i === 3) return new NordHerald(pos, player);
-  if (i === 4) return new NordHeraldE(pos, player);
-  if (i === 5) return new CoastDefender(pos, player);
-  if (i === 6) return new CoastDefenderShield(pos, player);
-  if (i === 7) return new BallistaSquad(pos, player);
-  if (i === 8) return new BallistaSquadE(pos, player);
-  if (i === 9) return new CoastRanger(pos, player);
-  if (i === 10) return new CoastRangerCharge(pos, player);
-  if (i === 11) return new FlameKnight(pos, player);
-  if (i === 12) return new FlameKnightShield(pos, player);
-  if (i === 13) return new CoralCavalry(pos, player);
-  if (i === 14) return new StoneGiant(pos, player);
-  if (i === 15) return new StoneGiantFlame(pos, player);
-  if (i === 16) return new GiantBallista(pos, player);
-  if (i === 17) return new GiantBallistaShrapnel(pos, player);
-  return null;
-}
+export const ARM_CLASSES = [
+  HallwayGuard,
+  HallwayGuardShield,
+  NordExecutioner,
+  NordHerald,
+  NordIronblade,
+  NordHeraldE,
+  CoastDefender,
+  CoastDefenderShield,
+  BallistaSquad,
+  BallistaSquadShield,
+  BallistaSquadFlame,
+  CoastRanger,
+  CoastRangerCharge,
+  CoralCavalry,
+  CoralCavalryFlame,
+  FlameKnight,
+  FlameKnightShield,
+  DeathWarlock,
+  ShadeOccultist,
+  StalwartEnchanter,
+  BlazePyromancer,
+  GiantBallista,
+  GiantBallistaShrapnel,
+  SunfireLensGroup,
+];
