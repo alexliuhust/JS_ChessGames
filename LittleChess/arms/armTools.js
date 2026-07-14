@@ -7,6 +7,7 @@ for (let i = 0; i < 8; i++) {
 }
 const types = ["melee", "missile", "charge"];
 const attAndDfd = ["Armor", "Dodge", "Attack", "Attack_bonus"];
+const strictDeploymentArea = window.localStorage.getItem("strictDeploymentArea") === "true";
 
 export function dodgePercent(dodge) {
   if (!dodge || dodge == 0) {
@@ -52,6 +53,7 @@ export function getCombatPower(arm, useCurrent) {
   if (arm.isSparse()) defendenceScore += 10;
   if (arm.isHighMorale()) defendenceScore += 8;
   if (arm.isStealth()) defendenceScore += 10;
+  if (strictDeploymentArea && arm.hasForwardDeployment()) defendenceScore += 14;
 
   // Attack and other combat score
   let meleeAttack = useCurrent ? arm.c_meleeAttack : arm.meleeAttack;
