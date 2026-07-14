@@ -20,6 +20,7 @@ const gX = Math.floor(GW / 50);
 const useMandarin = window.localStorage.getItem("useMandarin") === "true";
 const strictDeploymentArea = window.localStorage.getItem("strictDeploymentArea") === "true";
 const moneyLeftSpan = document.getElementById("moneyLeft");
+const eletesHeroesLeftSpan = document.getElementById("eletesHeroesLeft");
 const powerSelect = document.getElementById("powers");
 const clearButton = document.getElementById("clear");
 const backButton = document.getElementById("back");
@@ -47,6 +48,7 @@ export class Deploy {
     this.imageIndex = -1;
     this.pieceList = [];
     this.moneyLeft = window.localStorage.getItem("maxCost");
+    this.eletesHeroesLeft = window.localStorage.getItem("maxNumEliteAndHero");
 
     this.areaLimits = {};
 
@@ -64,6 +66,7 @@ export class Deploy {
     this.arms = a_i[0];
     this.images = a_i[1];
     this.updateMoneyLeftSpan();
+    this.updateNumElitesAndHeroesLeftSpan();
     this.addArmImagesToList();
 
     this.bindArmImagesMouseDown(this.elems, this.arms);
@@ -131,6 +134,7 @@ export class Deploy {
         let piece = this.pieceList[p];
         this.moneyLeft += piece.cost;
         this.updateMoneyLeftSpan();
+        this.updateNumElitesAndHeroesLeftSpan();
         this.pieceList.splice(p, 1);
         Canvas.clearRect(canvasList.piece, piece.x, piece.y, 50, 50);
 
@@ -171,6 +175,7 @@ export class Deploy {
 
       this.moneyLeft -= cost;
       this.updateMoneyLeftSpan();
+      this.updateNumElitesAndHeroesLeftSpan();
     }
   }
 
@@ -195,6 +200,10 @@ export class Deploy {
 
   updateMoneyLeftSpan() {
     moneyLeftSpan.textContent = this.moneyLeft + " G";
+  }
+
+  updateNumElitesAndHeroesLeftSpan() {
+    eletesHeroesLeftSpan.textContent = this.eletesHeroesLeft;
   }
 
   addArmImagesToList() {
