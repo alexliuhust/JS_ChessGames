@@ -4,6 +4,8 @@ const powersForPlayer1 = document.getElementById("powersForPlayer1");
 const powersForPlayer2 = document.getElementById("powersForPlayer2");
 const maxCost = document.getElementById("maxCost");
 const language = document.getElementById("useMandarin");
+const maxNumEliteAndHero = document.getElementById("maxNumEliteAndHero");
+const strictDeploymentArea = document.getElementById("strictDeploymentArea");
 
 const saveAndContinueButton = document.getElementById("saveAndContinue");
 
@@ -32,15 +34,29 @@ function updateMaxCost(selectElement) {
   if (window.localStorage.getItem("maxCost") != null) selectElement.value = window.localStorage.getItem("maxCost");
 }
 
+function updateMaxNumEliteAndHero(selectElement) {
+  if (window.localStorage.getItem("maxNumEliteAndHero") != null)
+    selectElement.value = window.localStorage.getItem("maxNumEliteAndHero");
+}
+
+function updateStrictDeploymentArea(selectElement) {
+  if (window.localStorage.getItem("strictDeploymentArea") != null)
+    selectElement.value = window.localStorage.getItem("strictDeploymentArea");
+}
+
 function updateLocalStorage() {
   let power1 = powersForPlayer1.value;
   let power2 = powersForPlayer2.value;
   let cost = parseInt(maxCost.value);
   let useMandarin = language.value;
+  let maxNumEliteAndHeroValue = parseInt(maxNumEliteAndHero.value);
+  let strictDeploymentAreaValue = strictDeploymentArea.value;
   window.localStorage.setItem("power1", power1);
   window.localStorage.setItem("power2", power2);
   window.localStorage.setItem("maxCost", cost);
   window.localStorage.setItem("useMandarin", useMandarin);
+  window.localStorage.setItem("maxNumEliteAndHero", maxNumEliteAndHeroValue);
+  window.localStorage.setItem("strictDeploymentArea", strictDeploymentAreaValue);
 }
 
 window.addEventListener("load", () => {
@@ -48,6 +64,8 @@ window.addEventListener("load", () => {
   updatePowerName(powersForPlayer1, 1);
   updatePowerName(powersForPlayer2, 2);
   updateMaxCost(maxCost);
+  updateMaxNumEliteAndHero(maxNumEliteAndHero);
+  updateStrictDeploymentArea(strictDeploymentArea);
   updateLocalStorage();
 });
 
@@ -70,6 +88,14 @@ language.addEventListener("input", () => {
   location.reload();
 });
 
+maxNumEliteAndHero.addEventListener("input", () => {
+  updateLocalStorage();
+});
+
+strictDeploymentArea.addEventListener("input", () => {
+  updateLocalStorage();
+});
+
 document.addEventListener("keydown", (e) => {
   if (e.ctrlKey && e.shiftKey) {
     // Press ctrl + shift + L to switch language
@@ -88,44 +114,3 @@ document.addEventListener("keydown", (e) => {
 });
 
 // TEST
-// function calculateStdDev(arr) {
-//   if (arr.length <= 1) return 0; // Standard deviation is 0 or undefined for arrays with 0 or 1 element
-
-//   const sum = arr.reduce((acc, val) => acc + val, 0);
-
-//   const mean = sum / arr.length;
-
-//   // Calculate the sum of squared differences from the mean
-//   const sumOfSquaredDifferences = arr.reduce((acc, val) => {
-//     return acc + Math.pow(val - mean, 2);
-//   }, 0);
-
-//   // Calculate variance (divide by n-1 for sample std dev)
-//   const variance = sumOfSquaredDifferences / (arr.length - 1);
-
-//   // Standard deviation is the square root of the variance
-//   return [mean, Math.sqrt(variance)];
-// }
-
-// let dodge = -10;
-
-// const probList = [0.47, 0.62, 0.72, 0.78, 0.84, 0.88, 0.91, 0.95, 0.97, 1.0];
-// console.log(probList);
-// let result = [];
-// let numExp = 50;
-// for (let k = 0; k < numExp; k++) {
-//   let rand = Math.random().toFixed(2);
-//   let idx = 0;
-//   for (let i = 9; i >= 0; i--) {
-//     if (rand >= probList[i]) {
-//       idx = i + 1;
-//       break;
-//     }
-//   }
-//   let realDodge = Math.round(dodge + (idx - 2) * 0.1962 * Math.abs(dodge) ** 0.75);
-//   result.push(realDodge);
-//   console.log(`rand = ${rand}, idx = ${idx}, realDodge = ${realDodge}`);
-// }
-// let mean, std;
-// [mean, std] = calculateStdDev(result);
-// console.log(`avg = ${mean.toFixed(2)}, std/dodge = ${(std / dodge).toFixed(4) * 100}%`);

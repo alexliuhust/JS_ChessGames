@@ -9,10 +9,10 @@
   <body>
     <div style="margin-left: 0px; margin-top: 100px; text-align: center">
       <h1 style="font-size: 70px">Little Chess</h1>
-      <br /><br />
+      <br />
 
       <div style="font-size: 50px"><b>Choose Powers And Max Cost</b></div>
-      <br /><br /><br />
+      <br />
 
       <div style="font-size: 40px">
         <label for="useMandarin">Language:</label>
@@ -21,7 +21,7 @@
           <option value="true">中文</option>
         </select>
       </div>
-      <br /><br /><br />
+      <br />
 
       <div style="font-size: 40px">
         <label for="maxCost">Max Cost:</label>
@@ -39,7 +39,33 @@
           <option value="6000">6000 G</option>
         </select>
       </div>
-      <br /><br /><br />
+      <br />
+
+      <div style="font-size: 40px">
+        <label for="maxNumEliteAndHero">Max Number of Elites & Heroes:</label>
+        <select name="maxNumEliteAndHero" id="maxNumEliteAndHero" style="font-size: 40px">
+          <option value="-1">Unlimited</option>
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+        </select>
+      </div>
+      <br />
+
+      <div style="font-size: 40px">
+        <label for="strictDeploymentArea">Strict Deployment Area:</label>
+        <select name="strictDeploymentArea" id="strictDeploymentArea" style="font-size: 40px">
+          <option value="false">No</option>
+          <option value="true">Yes</option>
+        </select>
+      </div>
+      <br />
 
       <div style="text-align: center">
         <div style="font-size: 40px; display: inline-block; vertical-align: top">
@@ -52,7 +78,7 @@
           <select name="powersForPlayer2" id="powersForPlayer2" style="font-size: 40px"></select>
         </div>
       </div>
-      <br /><br /><br />
+      <br />
 
       <a href="./pages/p1Deploy.html">
         <button id="saveAndContinue" style="font-size: 40px">Go to Deployment</button>
