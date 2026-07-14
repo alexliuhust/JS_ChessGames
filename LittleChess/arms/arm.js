@@ -1065,6 +1065,10 @@ export class Arm {
     return this.description.includes("Instability");
   }
 
+  hasForwardDeployment() {
+    return this.description.includes("Forward-deployment");
+  }
+
   canDoNecromancy(target) {
     return this.description.includes("Necromancy") && target.hasInstability();
   }

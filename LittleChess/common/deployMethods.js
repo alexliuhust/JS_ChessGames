@@ -146,11 +146,14 @@ export class Deploy {
       let cost = this.arms[this.imageIndex].cost;
       if (this.moneyLeft < cost) return;
 
+      let forwardDeployment = this.arms[this.imageIndex].hasForwardDeployment();
+
       let drawX = Math.floor(x / 50) * 50;
       let drawY = Math.floor(y / 50) * 50;
 
-      if (!this.isArmInStrictArea(drawX, drawY)) {
+      if (!forwardDeployment && !this.isArmInStrictArea(drawX, drawY)) {
         console.log("Outside!!!!");
+        return;
       }
 
       let image = this.elems[this.imageIndex];
