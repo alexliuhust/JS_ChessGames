@@ -20,7 +20,7 @@ const gX = Math.floor(GW / 50);
 const useMandarin = window.localStorage.getItem("useMandarin") === "true";
 const strictDeploymentArea = window.localStorage.getItem("strictDeploymentArea") === "true";
 const moneyLeftSpan = document.getElementById("moneyLeft");
-const eletesHeroesLeftSpan = document.getElementById("eletesHeroesLeft");
+const elitesHeroesLeftSpan = document.getElementById("elitesHeroesLeft");
 const powerSelect = document.getElementById("powers");
 const clearButton = document.getElementById("clear");
 const backButton = document.getElementById("back");
@@ -48,7 +48,7 @@ export class Deploy {
     this.imageIndex = -1;
     this.pieceList = [];
     this.moneyLeft = window.localStorage.getItem("maxCost");
-    this.eletesHeroesLeft = window.localStorage.getItem("maxNumEliteAndHero");
+    this.elitesHeroesLeft = window.localStorage.getItem("maxNumEliteAndHero");
 
     this.areaLimits = {};
 
@@ -133,6 +133,7 @@ export class Deploy {
       if (Rect.pointInRect({ x: x, y: y }, this.pieceList[p])) {
         let piece = this.pieceList[p];
         this.moneyLeft += piece.cost;
+        if (piece.isEliteOrHero) this.elitesHeroesLeft += 1;
         this.updateMoneyLeftSpan();
         this.updateNumElitesAndHeroesLeftSpan();
         this.pieceList.splice(p, 1);
@@ -159,6 +160,7 @@ export class Deploy {
         console.log("Outside!!!!");
         return;
       }
+      if (this.arms[this.imageIndex].isEliteOrHero() && this.elitesHeroesLeft <= 0) return;
 
       let image = this.elems[this.imageIndex];
       Canvas.drawImg(canvasList.piece, image, 0, 0, 50, 50, drawX + 1, drawY + 1, 48, 48);
@@ -170,10 +172,12 @@ export class Deploy {
         y: drawY,
         width: 50,
         height: 50,
+        isEliteOrHero: this.arms[this.imageIndex].isEliteOrHero(),
       };
       this.pieceList.push(piece);
 
       this.moneyLeft -= cost;
+      if (this.arms[this.imageIndex].isEliteOrHero()) this.elitesHeroesLeft -= 1;
       this.updateMoneyLeftSpan();
       this.updateNumElitesAndHeroesLeftSpan();
     }
@@ -203,7 +207,7 @@ export class Deploy {
   }
 
   updateNumElitesAndHeroesLeftSpan() {
-    eletesHeroesLeftSpan.textContent = this.eletesHeroesLeft;
+    elitesHeroesLeftSpan.textContent = this.elitesHeroesLeft;
   }
 
   addArmImagesToList() {
@@ -406,7 +410,9 @@ export class Deploy {
   clearAllSelection() {
     this.pieceList = [];
     this.moneyLeft = window.localStorage.getItem("maxCost");
+    this.elitesHeroesLeft = window.localStorage.getItem("maxNumEliteAndHero");
     this.updateMoneyLeftSpan();
+    this.updateNumElitesAndHeroesLeftSpan();
     Canvas.clear(canvasList.piece, DW, DH);
   }
 
