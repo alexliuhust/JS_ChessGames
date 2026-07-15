@@ -344,6 +344,7 @@ export class Deploy {
 
       this.imageIndex = index;
       this.deployAnArm(drawX, drawY);
+      this.findForward();
     }
   }
 
@@ -365,7 +366,15 @@ export class Deploy {
 
   bindKeyPressEvents() {
     document.addEventListener("keydown", (e) => {
-      if (e.ctrlKey && e.shiftKey) {
+      // Press alt + (1, 2, 3, 4) to set tech limit
+      if (e.altKey) {
+        if (/^Digit[1-4]$/.test(e.code)) {
+          window.localStorage.setItem("techLimit", e.code.slice(-1));
+          location.reload();
+        }
+      }
+      // Press ctrl + shift
+      else if (e.ctrlKey && e.shiftKey) {
         // Press ctrl + shift + L to switch language
         if (e.key === "L" || e.key === "l") {
           e.preventDefault();

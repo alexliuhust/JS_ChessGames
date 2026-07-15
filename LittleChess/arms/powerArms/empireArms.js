@@ -10,7 +10,7 @@ export class SwordInfantry extends ArmPrimary.Arm {
     this.m_name = "帝国步兵";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "AIF");
-    this.tech = 0;
+    this.tech = 1;
 
     this.scale = 100;
     this.singleHP = 50;
@@ -43,7 +43,7 @@ export class SwordInfantryShield extends SwordInfantry {
     this.m_name = "帝国步兵-持盾";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "S_IF", "HS,AIF");
-    this.tech = 1;
+    this.tech = 2;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "short,shield");
 
@@ -60,7 +60,7 @@ export class SwordInfantryE extends SwordInfantryShield {
     this.m_name = "帝国之刃";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "S_IF,RSR", "EL,HS,AIF,HM");
-    this.tech = 2;
+    this.tech = 3;
 
     this.attackEnhance = 20;
     this.enhanceRange = 3;
@@ -78,7 +78,7 @@ export class PalaceGuard extends ArmPrimary.Arm {
     this.m_name = "帝国守卫";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "RC,ALG");
-    this.tech = 0;
+    this.tech = 1;
 
     this.scale = 100;
     this.singleHP = 50;
@@ -111,7 +111,7 @@ export class PalaceGuardShield extends PalaceGuard {
     this.m_name = "帝国守卫-持盾";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "S_IF", "HS,RC,ALG");
-    this.tech = 1;
+    this.tech = 2;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "long-rs,shield");
 
@@ -129,7 +129,7 @@ export class Halberdier extends ArmPrimary.Arm {
     this.m_name = "长戟兵";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "RC,ALG");
-    this.tech = 2;
+    this.tech = 3;
 
     this.scale = 100;
     this.singleHP = 50;
@@ -171,7 +171,7 @@ export class Hunter extends ArmPrimary.Arm {
     this.m_name = "猎人";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "AC", "FD");
-    this.tech = 0;
+    this.tech = 1;
 
     this.scale = 100;
     this.singleHP = 50;
@@ -202,7 +202,7 @@ export class Crossbower extends Hunter {
     this.m_name = "弩手";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "AC", null);
-    this.tech = 1;
+    this.tech = 2;
 
     this.speed = 3;
 
@@ -237,7 +237,7 @@ export class Musketeer extends ArmPrimary.Arm {
     this.m_name = "火枪手";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "AC", "AAM");
-    this.tech = 1;
+    this.tech = 2;
 
     this.scale = 81;
     this.singleHP = 50;
@@ -281,7 +281,7 @@ export class MusketeerShield extends Musketeer {
     this.m_name = "火枪手-持盾";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "S_AC", "HS,AAM");
-    this.tech = 2;
+    this.tech = 3;
 
     ArmTool.loadDefenceBenchmark(this, null, "shield");
 
@@ -299,7 +299,7 @@ export class ShotgunnerShield extends Musketeer {
     this.m_name = "霰弹枪手-持盾";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "S_AC", "HS,AIF,SA");
-    this.tech = 2;
+    this.tech = 3;
 
     ArmTool.loadDefenceBenchmark(this, null, "shield");
 
@@ -351,7 +351,7 @@ export class EmpireSniper extends Musketeer {
     this.m_name = "帝国狙击手";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "AC", "SF,AAM,ALG,LR,MK");
-    this.tech = 2;
+    this.tech = 3;
 
     this.scale = 64;
 
@@ -411,7 +411,7 @@ export class EmpireSniperShield extends EmpireSniper {
     this.m_name = "帝国狙击手-持盾";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "S_AC", "SF,HS,AAM,ALG,LR,MK");
-    this.tech = 3;
+    this.tech = 4;
 
     ArmTool.loadDefenceBenchmark(this, null, "shield,sparse");
 
@@ -427,7 +427,7 @@ export class MusketeerE extends MusketeerShield {
     this.m_name = "精英火枪手";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "S_AC", "EL,HS,AAM,HM");
-    this.tech = 2;
+    this.tech = 3;
 
     this.loadRealtimeProps();
 
@@ -443,7 +443,7 @@ export class MusketRider extends ArmPrimary.Arm {
     this.m_name = "火枪骑兵";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "MSC", "MA,AAM");
-    this.tech = 1;
+    this.tech = 2;
 
     this.scale = 49;
     this.singleHP = 120;
@@ -489,7 +489,7 @@ export class Vanguard extends ArmPrimary.Arm {
     this.m_name = "先锋骑兵";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "CGC", "AAM,FD");
-    this.tech = 2;
+    this.tech = 3;
 
     this.scale = 49;
     this.singleHP = 120;
@@ -519,7 +519,7 @@ export class PalaceKnight extends ArmPrimary.Arm {
     this.m_name = "大殿骑士";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "A_MLC", "AM,AIF");
-    this.tech = 2;
+    this.tech = 3;
 
     this.scale = 49;
     this.singleHP = 120;
@@ -555,7 +555,7 @@ export class Paladin extends ArmPrimary.Arm {
     this.m_name = "圣骑士";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "HERO,A_MLC,PTR,HLR", "AM,MG");
-    this.tech = 3;
+    this.tech = 4;
 
     this.scale = 1;
     this.singleHP = 4000;
@@ -594,7 +594,7 @@ export class CannonGroup extends ArmPrimary.Arm {
     this.m_name = "加农炮组";
     this.type = "artillery";
     [this.description, this.m_description] = getDescription(this, "AT", "ALG");
-    this.tech = 2;
+    this.tech = 3;
 
     this.scale = 5;
     this.singleHP = 50;
@@ -637,7 +637,7 @@ export class EmpireMortar extends ArmPrimary.Arm {
     this.m_name = "帝国臼炮";
     this.type = "artillery";
     [this.description, this.m_description] = getDescription(this, "AT", "BB");
-    this.tech = 1;
+    this.tech = 2;
 
     this.scale = 5;
     this.singleHP = 50;
@@ -678,7 +678,7 @@ export class RocketUnit extends ArmPrimary.Arm {
     this.m_name = "火箭单元";
     this.type = "artillery";
     [this.description, this.m_description] = getDescription(this, "AT", "AIF,BB,SA");
-    this.tech = 2;
+    this.tech = 3;
 
     this.scale = 5;
     this.singleHP = 50;
@@ -732,7 +732,7 @@ export class SteamTank extends ArmPrimary.Arm {
     this.m_name = "蒸汽坦克";
     this.type = "monster";
     [this.description, this.m_description] = getDescription(this, "A_VC", "AM,ALG");
-    this.tech = 2;
+    this.tech = 3;
 
     this.scale = 1;
     this.singleHP = 7500;
@@ -786,7 +786,7 @@ export class SteamTankMortar extends SteamTank {
     this.name = "Steam Tank (Mortar)";
     this.m_name = "蒸汽坦克-臼炮";
     [this.description, this.m_description] = getDescription(this, "A_VC", "AM,BB");
-    this.tech = 2;
+    this.tech = 3;
 
     this.missileAttack = 1600;
     this.multiShots = 4;
@@ -828,7 +828,7 @@ export class SteamTankRocket extends SteamTank {
     this.name = "Steam Tank (Rocket)";
     this.m_name = "蒸汽坦克-火箭炮";
     [this.description, this.m_description] = getDescription(this, "A_VC", "AM,AIF,BB,SA");
-    this.tech = 3;
+    this.tech = 4;
 
     this.missileAttack = 1280;
     this.missileAttack_bonus = 1280;
