@@ -160,7 +160,7 @@ export class Deploy {
         console.log("Outside!!!!");
         return;
       }
-      if (this.arms[this.imageIndex].isEliteOrHero() && this.elitesHeroesLeft <= 0) return;
+      if (this.arms[this.imageIndex].isEliteOrHero() && this.elitesHeroesLeft == 0) return;
 
       let image = this.elems[this.imageIndex];
       Canvas.drawImg(canvasList.piece, image, 0, 0, 50, 50, drawX + 1, drawY + 1, 48, 48);
@@ -207,7 +207,7 @@ export class Deploy {
   }
 
   updateNumElitesAndHeroesLeftSpan() {
-    elitesHeroesLeftSpan.textContent = this.elitesHeroesLeft;
+    elitesHeroesLeftSpan.textContent = this.elitesHeroesLeft < 0 ? "Unlimited" : this.elitesHeroesLeft;
   }
 
   addArmImagesToList() {
