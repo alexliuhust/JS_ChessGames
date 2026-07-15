@@ -5,7 +5,9 @@ const powersForPlayer2 = document.getElementById("powersForPlayer2");
 const maxCost = document.getElementById("maxCost");
 const language = document.getElementById("useMandarin");
 const maxNumEliteAndHero = document.getElementById("maxNumEliteAndHero");
+const uniqueEliteAndHero = document.getElementById("uniqueEliteAndHero");
 const strictDeploymentArea = document.getElementById("strictDeploymentArea");
+const techLimit = document.getElementById("techLimit");
 
 const saveAndContinueButton = document.getElementById("saveAndContinue");
 
@@ -39,9 +41,18 @@ function updateMaxNumEliteAndHero(selectElement) {
     selectElement.value = window.localStorage.getItem("maxNumEliteAndHero");
 }
 
+function updateUniqueEliteAndHero(selectElement) {
+  if (window.localStorage.getItem("uniqueEliteAndHero") != null)
+    selectElement.value = window.localStorage.getItem("uniqueEliteAndHero");
+}
+
 function updateStrictDeploymentArea(selectElement) {
   if (window.localStorage.getItem("strictDeploymentArea") != null)
     selectElement.value = window.localStorage.getItem("strictDeploymentArea");
+}
+
+function updateTechLimit(selectElement) {
+  if (window.localStorage.getItem("techLimit") != null) selectElement.value = window.localStorage.getItem("techLimit");
 }
 
 function updateLocalStorage() {
@@ -50,13 +61,17 @@ function updateLocalStorage() {
   let cost = parseInt(maxCost.value);
   let useMandarin = language.value;
   let maxNumEliteAndHeroValue = parseInt(maxNumEliteAndHero.value);
+  let uniqueEliteAndHeroValue = uniqueEliteAndHero.value;
   let strictDeploymentAreaValue = strictDeploymentArea.value;
+  let techLimitValue = parseInt(techLimit.value);
   window.localStorage.setItem("power1", power1);
   window.localStorage.setItem("power2", power2);
   window.localStorage.setItem("maxCost", cost);
   window.localStorage.setItem("useMandarin", useMandarin);
   window.localStorage.setItem("maxNumEliteAndHero", maxNumEliteAndHeroValue);
+  window.localStorage.setItem("uniqueEliteAndHero", uniqueEliteAndHeroValue);
   window.localStorage.setItem("strictDeploymentArea", strictDeploymentAreaValue);
+  window.localStorage.setItem("techLimit", techLimitValue);
 }
 
 window.addEventListener("load", () => {
@@ -65,7 +80,9 @@ window.addEventListener("load", () => {
   updatePowerName(powersForPlayer2, 2);
   updateMaxCost(maxCost);
   updateMaxNumEliteAndHero(maxNumEliteAndHero);
+  updateUniqueEliteAndHero(uniqueEliteAndHero);
   updateStrictDeploymentArea(strictDeploymentArea);
+  updateTechLimit(techLimit);
   updateLocalStorage();
 });
 
@@ -92,7 +109,15 @@ maxNumEliteAndHero.addEventListener("input", () => {
   updateLocalStorage();
 });
 
+uniqueEliteAndHero.addEventListener("input", () => {
+  updateLocalStorage();
+});
+
 strictDeploymentArea.addEventListener("input", () => {
+  updateLocalStorage();
+});
+
+techLimit.addEventListener("input", () => {
   updateLocalStorage();
 });
 
