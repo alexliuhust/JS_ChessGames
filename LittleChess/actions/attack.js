@@ -120,7 +120,7 @@ function decreaseScalesForArms(
     // Attacker decrease leadership
     if (!attacker.isHighMorale() && damageType === "melee") {
       if (defender.isMon() && attacker.isInfn() && !attacker.isResistingCharge()) {
-        attacker.c_leadership -= 20;
+        attacker.c_leadership -= 25;
       }
       if (!attacker.isMon() && defender.canShock()) {
         attacker.c_leadership -= defender.getShockingAbility();
@@ -146,10 +146,9 @@ function decreaseScalesForArms(
   // Defender decrease leadership
   if (!defender.isHighMorale()) {
     defender.c_leadership -= regularLeadershipDrop(defender, results[2]);
-    // const isMeleeOrCharge = damageType === "melee" || damageType === "charge";
     const defenderVulnerable = defender.isInfn() && !defender.isResistingCharge();
-    if (damageType === "melee" && attacker.isMon() && defenderVulnerable) defender.c_leadership -= 20;
-    if (damageType === "charge" && defenderVulnerable) defender.c_leadership -= 30;
+    if (damageType === "melee" && attacker.isMon() && defenderVulnerable) defender.c_leadership -= 25;
+    if (damageType === "charge" && defenderVulnerable) defender.c_leadership -= 40;
     if (!defender.isMon() || attacker.canArtilleryAttack()) {
       let totalShock = 0;
       if (attacker.canShock()) {
@@ -158,14 +157,14 @@ function decreaseScalesForArms(
       }
       defender.c_leadership -= totalShock;
     }
-  }
-  if (damageType === "missile") {
-    if (attacker.isBombing) {
-      defender.addStatus("UB");
-      defender.c_leadership -= 55;
-    } else if (attacker.canArtilleryAttack()) {
-      defender.addStatus("UC");
-      defender.c_leadership -= 30;
+    if (damageType === "missile") {
+      if (attacker.isBombing) {
+        defender.addStatus("UB");
+        defender.c_leadership -= 40;
+      } else if (attacker.canArtilleryAttack()) {
+        defender.addStatus("UC");
+        defender.c_leadership -= 30;
+      }
     }
   }
 
@@ -234,18 +233,18 @@ function regularLeadershipDrop(self, dama_decr) {
 
 function damageCauseLeadershipDecreasing(self, realDamage) {
   let decrease = 0;
-  if (realDamage >= self.singleHP * 0.8) decrease = 150;
-  else if (realDamage >= self.singleHP * 0.5) decrease = 100;
-  else if (realDamage >= self.singleHP * 0.3) decrease = 30;
+  if (realDamage >= self.singleHP * 0.8) decrease = 50;
+  else if (realDamage >= self.singleHP * 0.5) decrease = 30;
+  else if (realDamage >= self.singleHP * 0.3) decrease = 15;
 
   return decrease;
 }
 
 function scaleDecreasingCauseLeadershipDecreasing(self, totalDecrease) {
   let decrease = 0;
-  if (totalDecrease >= self.scale * 0.8) decrease = 150;
-  else if (totalDecrease >= self.scale * 0.5) decrease = 100;
-  else if (totalDecrease >= self.scale * 0.3) decrease = 30;
+  if (totalDecrease >= self.scale * 0.8) decrease = 50;
+  else if (totalDecrease >= self.scale * 0.5) decrease = 30;
+  else if (totalDecrease >= self.scale * 0.3) decrease = 15;
 
   return decrease;
 }

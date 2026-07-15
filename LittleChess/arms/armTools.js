@@ -48,12 +48,9 @@ export function getCombatPower(arm, useCurrent) {
   let defendenceScore = hpScore * armAndDodgeScore * 0.015;
   if (arm.isResistingCharge()) defendenceScore += 8;
   if (arm.isHoldingShield()) defendenceScore += 8;
-  if (arm.isMeleeMaster()) defendenceScore += 5;
-  if (arm.isAgile()) defendenceScore += 8;
   if (arm.isSparse()) defendenceScore += 10;
   if (arm.isHighMorale()) defendenceScore += 8;
   if (arm.isStealth()) defendenceScore += 10;
-  if (strictDeploymentArea && arm.hasForwardDeployment()) defendenceScore += 14;
 
   // Attack and other combat score
   let meleeAttack = useCurrent ? arm.c_meleeAttack : arm.meleeAttack;
@@ -84,7 +81,10 @@ export function getCombatPower(arm, useCurrent) {
   let shockScore = arm.shock * arm.shock * 0.015;
 
   let attackScore = meleeAttackScore + missileAttackScore + chargeAttackScore + shockScore;
-  if (arm.canPoison()) attackScore += 10;
+  if (arm.canPoison()) attackScore += 7;
+  if (strictDeploymentArea && arm.hasForwardDeployment()) attackScore += 14;
+  if (arm.isMeleeMaster()) attackScore += 5;
+  if (arm.isAgile()) attackScore += 8;
 
   // Type score
   let typeScore = 0;
@@ -156,10 +156,12 @@ export function calculateCost(arm) {
 
 export function calculateLeaderShip(arm, costResults) {
   let leadership = arm.cost + costResults[1] * 3;
-  if (arm.type === "infantry" || arm.type === "cavalry") leadership += 25;
-  // else if (arm.type === "archers" || arm.type === "artillery") leadership -= 25;
+  leadership = Math.round(Math.pow(leadership, 0.5) * 0.52) * 25;
 
-  leadership = Math.round(Math.pow(leadership, 0.5) / 2) * 25;
+  if (arm.type === "infantry") leadership += 25;
+  if (arm.type === "archers" || arm.type === "artillery") leadership -= 25;
+  if (arm.isWeak()) leadership -= 25;
+
   return leadership;
 }
 

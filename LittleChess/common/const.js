@@ -298,7 +298,7 @@ export const Trait = {
 };
 
 export const TraitDescription = {
-  WK: "Low combat strength.",
+  WK: "Low combat strength and morale.",
   IS: "Undead, spirit, or demonic units\ndo not rout when morale is too\nlow; instead, they continuously\nlose health until they completely\nvanish.",
   AIF: "Higher damage to infantry units.",
   ALG: "Higher damage to large units.",
@@ -362,7 +362,7 @@ export const M_Trait = {
 };
 
 export const M_TraitDescription = {
-  WK: "战斗力较低。",
+  WK: "战斗力和士气较低。",
   IS: "亡灵、灵体或恶魔单位在士气过低\n时不会溃逃，但其生命值会不断损\n失，直至完全消逝。",
   AIF: "可对步兵单位造成更多伤害。",
   ALG: "可对大型单位造成更多伤害。",

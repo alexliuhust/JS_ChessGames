@@ -1030,6 +1030,10 @@ export class Arm {
     return this.preAct && this.preAct.startsWith("mov ");
   }
 
+  isWeak() {
+    return this.description.includes("Weak");
+  }
+
   isResistingCharge() {
     return this.description.includes("Resist charging");
   }
