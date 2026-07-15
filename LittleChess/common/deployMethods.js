@@ -19,6 +19,8 @@ const maxY = Math.floor(DH / 50);
 const gX = Math.floor(GW / 50);
 const useMandarin = window.localStorage.getItem("useMandarin") === "true";
 const strictDeploymentArea = window.localStorage.getItem("strictDeploymentArea") === "true";
+const uniqueEliteAndHero = window.localStorage.getItem("uniqueEliteAndHero") === "true";
+const techLimit = parseInt(window.localStorage.getItem("techLimit"));
 const moneyLeftSpan = document.getElementById("moneyLeft");
 const elitesHeroesLeftSpan = document.getElementById("elitesHeroesLeft");
 const powerSelect = document.getElementById("powers");
@@ -51,6 +53,7 @@ export class Deploy {
     this.elitesHeroesLeft = window.localStorage.getItem("maxNumEliteAndHero");
 
     this.areaLimits = {};
+    this.seenIndexes = new Set([]);
 
     this.infoPanel = new InfoPanel(canvasList.info, useMandarin, true, false);
   }
@@ -136,6 +139,7 @@ export class Deploy {
         if (piece.isEliteOrHero) this.elitesHeroesLeft += 1;
         this.updateMoneyLeftSpan();
         this.updateNumElitesAndHeroesLeftSpan();
+        this.seenIndexes.delete(piece.index);
         this.pieceList.splice(p, 1);
         Canvas.clearRect(canvasList.piece, piece.x, piece.y, 50, 50);
 
@@ -151,16 +155,18 @@ export class Deploy {
       let cost = this.arms[this.imageIndex].cost;
       if (this.moneyLeft < cost) return;
 
-      let forwardDeployment = this.arms[this.imageIndex].hasForwardDeployment();
+      if (this.arms[this.imageIndex].isEliteOrHero()) {
+        if (this.elitesHeroesLeft == 0) return;
+        if (uniqueEliteAndHero && this.seenIndexes.has(this.imageIndex)) return;
+      }
 
       let drawX = Math.floor(x / 50) * 50;
       let drawY = Math.floor(y / 50) * 50;
-
+      let forwardDeployment = this.arms[this.imageIndex].hasForwardDeployment();
       if (!forwardDeployment && !this.isArmInStrictArea(drawX, drawY)) {
         console.log("Outside!!!!");
         return;
       }
-      if (this.arms[this.imageIndex].isEliteOrHero() && this.elitesHeroesLeft == 0) return;
 
       let image = this.elems[this.imageIndex];
       Canvas.drawImg(canvasList.piece, image, 0, 0, 50, 50, drawX + 1, drawY + 1, 48, 48);
@@ -180,6 +186,7 @@ export class Deploy {
       if (this.arms[this.imageIndex].isEliteOrHero()) this.elitesHeroesLeft -= 1;
       this.updateMoneyLeftSpan();
       this.updateNumElitesAndHeroesLeftSpan();
+      this.seenIndexes.add(this.imageIndex);
     }
   }
 
@@ -413,6 +420,7 @@ export class Deploy {
     this.elitesHeroesLeft = window.localStorage.getItem("maxNumEliteAndHero");
     this.updateMoneyLeftSpan();
     this.updateNumElitesAndHeroesLeftSpan();
+    this.seenIndexes.clear();
     Canvas.clear(canvasList.piece, DW, DH);
   }
 
