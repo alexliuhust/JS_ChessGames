@@ -10,6 +10,7 @@ export class WoodsGuard extends ArmPrimary.Arm {
     this.m_name = "林地守卫";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "RC");
+    this.tech = 1;
 
     this.scale = 100;
     this.singleHP = 50;
@@ -37,6 +38,7 @@ export class WoodsGuardShield extends WoodsGuard {
     this.m_name = "林地守卫-持盾";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "S_IF", "HS,RC");
+    this.tech = 2;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "long-rs,shield");
 
@@ -54,6 +56,7 @@ export class WildKiller extends ArmPrimary.Arm {
     this.m_name = "狂野杀手";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "CGIF", "SF,MM,SH,HD,FD");
+    this.tech = 2;
 
     this.scale = 100;
     this.singleHP = 40;
@@ -92,6 +95,7 @@ export class WildKillerPS extends WildKiller {
     this.m_name = "狂野杀手-淬毒";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "CGIF", "SF,MM,SH,HD,PW,FD");
+    this.tech = 3;
 
     this.loadRealtimeProps();
   }
@@ -105,6 +109,7 @@ export class TwilightWarrior extends ArmPrimary.Arm {
     this.m_name = "暮光战士";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "S_IF", "HS,HD");
+    this.tech = 2;
 
     this.scale = 90;
     this.singleHP = 80;
@@ -125,6 +130,7 @@ export class TwilightWarriorSpear extends TwilightWarrior {
     this.name = "Twilight Warriors (Spear)";
     this.m_name = "暮光战士-持矛";
     [this.description, this.m_description] = getDescription(this, "S_IF", "HS,RC");
+    this.tech = 3;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "long-rs,shield");
     this.chargeDodge += 15;
@@ -149,6 +155,7 @@ export class TwilightWarriorE extends TwilightWarrior {
     this.m_name = "暮光之影";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "S_IF", "EL,HS,ST,HD,HM");
+    this.tech = 4;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "short,shield,stealth");
     this.missileDodge -= 20;
@@ -170,6 +177,7 @@ export class ShadowArcherFL extends ArmPrimary.Arm {
     this.m_name = "暗影弓手-火焰箭";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "MAC", "SF,HD");
+    this.tech = 3;
 
     this.scale = 75;
     this.singleHP = 55;
@@ -213,6 +221,7 @@ export class ShadowArcherPS extends ShadowArcherFL {
     this.m_name = "暗影弓手-淬毒箭";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "MAC", "SF,PW");
+    this.tech = 1;
 
     this.missileAttack = 22;
     this.explosionRadius = null;
@@ -244,6 +253,7 @@ export class ShadowArcherAP extends ShadowArcherFL {
     this.m_name = "暗影弓手-穿甲箭";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "MAC", "SF,AAM");
+    this.tech = 2;
 
     this.missileAttack = 22;
     this.explosionRadius = null;
@@ -280,6 +290,7 @@ export class LongbowRanger extends ArmPrimary.Arm {
     this.m_name = "长弓游侠";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "AC", "SF,ST,AAM,LR,MK");
+    this.tech = 3;
 
     this.scale = 48;
     this.singleHP = 55;
@@ -327,6 +338,7 @@ export class LongbowRangerDouble extends LongbowRanger {
     this.m_name = "长弓游侠-双发箭头";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "AC", "SF,ST,HD");
+    this.tech = 4;
 
     this.missileAttack = 78;
     this.multiShots = 2;
@@ -346,6 +358,7 @@ export class StagRider extends ArmPrimary.Arm {
     this.m_name = "牡鹿骑兵";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "MLC", "ST,FD");
+    this.tech = 2;
 
     this.scale = 49;
     this.singleHP = 125;
@@ -367,6 +380,7 @@ export class StagLancer extends StagRider {
     this.name = "Stag Lancers";
     this.m_name = "牡鹿枪骑兵";
     [this.description, this.m_description] = getDescription(this, "CGC", "ST,FD");
+    this.tech = 3;
 
     ArmTool.loadDefenceBenchmark(this, "cal", "stealth,charge,long-rs");
 
@@ -385,6 +399,7 @@ export class GladeLord extends ArmPrimary.Arm {
     this.m_name = "林地领主";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "HERO,MSCGC", "HG,ST,ALG,MG,FD");
+    this.tech = 3;
 
     this.scale = 1;
     this.singleHP = 5000;
@@ -452,6 +467,7 @@ export class WarBear extends ArmPrimary.Arm {
     this.m_name = "战熊";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "MC", null);
+    this.tech = 2;
 
     this.scale = 30;
     this.singleHP = 240;
@@ -475,6 +491,7 @@ export class WarBearRider extends WarBear {
     this.m_name = "战熊骑兵";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "MC", "HD");
+    this.tech = 3;
 
     this.speed = 6;
 
@@ -494,6 +511,7 @@ export class WarBearRiderE extends WarBearRider {
     this.m_name = "咆哮守卫";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "MC,IPR", "EL,HD,HM");
+    this.tech = 4;
 
     this.inspiring = 25;
     this.inspireRange = 3;
@@ -512,6 +530,7 @@ export class Dryad extends ArmPrimary.Arm {
     this.m_name = "树精";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "A_MI", "AM");
+    this.tech = 1;
 
     this.scale = 30;
     this.singleHP = 360;
@@ -535,6 +554,7 @@ export class DryadHeal extends Dryad {
     this.m_name = "树精-治疗";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "A_MI,HLR", "AM");
+    this.tech = 2;
 
     this.healing = 10;
     this.healRange = 3;
@@ -551,6 +571,7 @@ export class DryadRangerRide extends Dryad {
     this.m_name = "树精-游侠搭乘";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "A_MI", "AM,MA,AAM,LR,MK");
+    this.tech = 3;
 
     this.missileAttack = 45;
     this.missileRange = 9;
@@ -593,6 +614,7 @@ export class DryadStone extends Dryad {
     this.m_name = "树精-投石";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "A_MI", "AM,MA,BB,SA");
+    this.tech = 4;
 
     this.missileAttack = 62;
     this.missileRange = 10;
@@ -628,6 +650,7 @@ export class GiantTreeman extends ArmPrimary.Arm {
     this.m_name = "巨树人";
     this.type = "monster";
     [this.description, this.m_description] = getDescription(this, "A_G,HLR", "AM");
+    this.tech = 3;
 
     this.scale = 1;
     this.singleHP = 8000;
@@ -653,6 +676,7 @@ export class GiantTreemanMalice extends GiantTreeman {
     this.name = "Malice Treeman";
     this.m_name = "恶怨树人";
     [this.description, this.m_description] = getDescription(this, "A_G", "AM,MA,MH,MG");
+    this.tech = 4;
 
     this.missileAttack = 2500;
     this.multiShots = 5;

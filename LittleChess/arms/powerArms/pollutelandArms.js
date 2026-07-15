@@ -10,6 +10,7 @@ export class SlaveConscript extends ArmPrimary.Arm {
     this.m_name = "奴隶征召兵";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "WK");
+    this.tech = 1;
 
     this.scale = 169;
     this.singleHP = 15;
@@ -31,6 +32,7 @@ export class SlaveConscriptShield extends SlaveConscript {
     this.m_name = "奴隶征召兵-持盾";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "S_IF", "HS,WK");
+    this.tech = 1;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "weak,short,shield");
 
@@ -47,6 +49,7 @@ export class Unseen extends ArmPrimary.Arm {
     this.m_name = "匿踪者";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "ST,MM,FD");
+    this.tech = 2;
 
     this.scale = 100;
     this.singleHP = 40;
@@ -69,6 +72,7 @@ export class UnseenHandCrossbow extends Unseen {
     this.m_name = "匿踪者-手弩";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "ST,MM,MA,FD");
+    this.tech = 3;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "mm,stealth");
     this.meleeAttack = 18;
@@ -96,6 +100,7 @@ export class UnseenGas extends Unseen {
     this.m_name = "匿踪者-毒气弹";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "ST,MM,MA,FD");
+    this.tech = 3;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "mm,stealth");
     this.meleeAttack = 18;
@@ -140,6 +145,7 @@ export class HurlerHE extends ArmPrimary.Arm {
     this.m_name = "投掷小队-高爆弹";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "A_HUIF", "AM,HD");
+    this.tech = 2;
 
     this.scale = 90;
     this.singleHP = 40;
@@ -181,6 +187,7 @@ export class HurlerGas extends HurlerHE {
     this.m_name = "投掷小队-毒气弹";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "A_HUIF", "AM,AAM");
+    this.tech = 1;
 
     this.missileAttack = 16;
 
@@ -218,6 +225,7 @@ export class HurlerFrgm extends HurlerHE {
     this.m_name = "投掷小队-破片弹";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "A_HUIF", "AM,AIF");
+    this.tech = 1;
 
     this.missileAttack = 10;
     this.missileAttack_bonus = 16;
@@ -261,6 +269,7 @@ export class WeapSqdGingall extends ArmPrimary.Arm {
     this.m_name = "武器小队-火枪";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "AC", "ALG");
+    this.tech = 3;
 
     this.scale = 64;
     this.singleHP = 40;
@@ -310,6 +319,7 @@ export class WeapSqdGatlin extends ArmPrimary.Arm {
     this.m_name = "武器小队-加特林";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "AC", "AIF");
+    this.tech = 3;
 
     this.scale = 64;
     this.singleHP = 40;
@@ -369,6 +379,7 @@ export class WeapSqdFlthr extends ArmPrimary.Arm {
     this.m_name = "武器小队-火焰喷射器";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "AC", "HD");
+    this.tech = 2;
 
     this.scale = 64;
     this.singleHP = 40;
@@ -410,6 +421,7 @@ export class SupplySqd extends ArmPrimary.Arm {
     this.m_name = "补给小队";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "S_IF,HLR,RSR", "HS");
+    this.tech = 2;
 
     this.scale = 64;
     this.singleHP = 40;
@@ -436,6 +448,7 @@ export class WeapSqdGingallE extends WeapSqdGingall {
     this.m_name = "穿刺之钉";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "S_AC", "EL,ALG,HM");
+    this.tech = 4;
 
     ArmTool.loadDefenceBenchmark(this, null, "shield");
 
@@ -452,6 +465,7 @@ export class WeapSqdGatlinE extends WeapSqdGatlin {
     this.m_name = "金属风暴";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "S_AC", "EL,AIF,HM");
+    this.tech = 3;
 
     ArmTool.loadDefenceBenchmark(this, null, "shield");
 
@@ -470,6 +484,7 @@ export class WeapSqdFlthrE extends WeapSqdFlthr {
     this.m_name = "装甲焰炉";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "A_AC", "EL,AM,HD,HM");
+    this.tech = 4;
 
     ArmTool.loadDefenceBenchmark(this, null, "armor");
 
@@ -486,6 +501,7 @@ export class MechGears extends ArmPrimary.Arm {
     this.m_name = "机甲小队";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "MCI", "AM");
+    this.tech = 2;
 
     this.scale = 30;
     this.singleHP = 300;
@@ -509,6 +525,7 @@ export class MechGatlin extends MechGears {
     this.m_name = "机甲小队-加特林";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "MCI", "AM,MA,AIF");
+    this.tech = 3;
 
     this.meleeAttack = 55;
     this.chargeAttack = 50;
@@ -566,6 +583,7 @@ export class MechMissile extends MechGears {
     this.m_name = "机甲小队-飞弹";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "MCI", "AM,MA,ALG,MK,AAM");
+    this.tech = 4;
 
     this.meleeAttack = 55;
     this.chargeAttack = 50;
@@ -623,6 +641,7 @@ export class MutantSlave extends ArmPrimary.Arm {
     this.m_name = "变异奴隶";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "MI", "AG,SH,HD");
+    this.tech = 3;
 
     this.scale = 30;
     this.singleHP = 200;
@@ -648,6 +667,7 @@ export class MutantSlaveF extends MutantSlave {
     this.m_name = "变异奴隶-狂暴";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "MI", "AG,AAM,SH,HD");
+    this.tech = 3;
 
     this.singleHP -= 50;
     this.speed += 1;
@@ -677,6 +697,7 @@ export class MortarGas extends ArmPrimary.Arm {
     this.m_name = "臼炮-毒气弹";
     this.type = "artillery";
     [this.description, this.m_description] = getDescription(this, "AT", "BB,SA");
+    this.tech = 2;
 
     this.scale = 5;
     this.singleHP = 50;
@@ -717,6 +738,7 @@ export class MortarFrgm extends MortarGas {
     this.m_name = "臼炮-破片弹";
     this.type = "artillery";
     [this.description, this.m_description] = getDescription(this, "AT", "BB,SA,AIF,LB");
+    this.tech = 2;
 
     this.missileAttack = 120;
     this.missileAttack_bonus = 220;
@@ -762,6 +784,7 @@ export class Foulcannon extends ArmPrimary.Arm {
     this.m_name = "污秽加农炮";
     this.type = "artillery";
     [this.description, this.m_description] = getDescription(this, "AT", "ALG,HD");
+    this.tech = 3;
 
     this.scale = 5;
     this.singleHP = 50;
@@ -801,6 +824,7 @@ export class Vilecannon extends Foulcannon {
     this.m_name = "不洁加农炮";
     this.type = "artillery";
     [this.description, this.m_description] = getDescription(this, "AT", "MH,SH,HD");
+    this.tech = 4;
 
     this.scale = 5;
     this.singleHP = 50;

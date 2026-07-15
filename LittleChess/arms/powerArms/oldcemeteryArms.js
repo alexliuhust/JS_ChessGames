@@ -10,6 +10,7 @@ export class Skeleton extends ArmPrimary.Arm {
     this.m_name = "骷髅傀儡";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "WK,SF,IS");
+    this.tech = 1;
 
     this.scale = 160;
     this.singleHP = 30;
@@ -33,6 +34,7 @@ export class SkeletonShield extends Skeleton {
     this.m_name = "骷髅傀儡-持盾";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "S_IF", "WK,SF,HS,IS");
+    this.tech = 2;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "short,weak,sparse,shield");
     this.meleeDodge = 0;
@@ -52,6 +54,7 @@ export class SkeletonSpear extends Skeleton {
     this.m_name = "骷髅傀儡-持矛";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "S_IF", "WK,SF,RC,IS");
+    this.tech = 1;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "long-rs,sparse");
     this.meleeDodge = -5;
@@ -73,6 +76,7 @@ export class DarkSoldier extends ArmPrimary.Arm {
     this.m_name = "黑暗战士";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "RC");
+    this.tech = 2;
 
     this.scale = 100;
     this.singleHP = 40;
@@ -94,6 +98,7 @@ export class DarkSoldierShield extends DarkSoldier {
     this.m_name = "黑暗战士-持盾";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "S_IF", "HS,RC");
+    this.tech = 2;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "long-rs,shield");
 
@@ -110,6 +115,7 @@ export class DarkSoldierScythe extends DarkSoldier {
     this.m_name = "黑暗战士-巨镰";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "ALG");
+    this.tech = 3;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "long,heavy");
 
@@ -138,6 +144,7 @@ export class DarkSoldierSS extends DarkSoldierScythe {
     this.m_name = "黑暗战士-巨镰-持盾";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "S_IF", "HS,ALG");
+    this.tech = 3;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "long,heavy,shield");
 
@@ -156,6 +163,7 @@ export class DarkSoldierSSE extends DarkSoldierSS {
     this.m_name = "墓穴守望者";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "S_IF,PTR", "EL,HS,ALG,HM");
+    this.tech = 4;
 
     this.armorEnhance = 30;
     this.enhanceRange = 2;
@@ -173,6 +181,7 @@ export class Banshee extends ArmPrimary.Arm {
     this.m_name = "女妖";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "SF,SH,FD,IS");
+    this.tech = 1;
 
     this.scale = 75;
     this.singleHP = 40;
@@ -196,6 +205,7 @@ export class ScreamingBanshee extends Banshee {
     this.m_name = "尖啸女妖";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "CGIF", "SF,SH,FD,IS");
+    this.tech = 2;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "short,sparse,charge");
     this.missileDodge += 45;
@@ -218,6 +228,7 @@ export class BansheeGF extends Banshee {
     this.m_name = "女妖-鬼火";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "MAC", "SF,AIF,SH,MG,FD,IS");
+    this.tech = 3;
 
     this.missileAttack = 16;
     this.missileAttack_bonus = 16;
@@ -271,6 +282,7 @@ export class Necromancer extends ArmPrimary.Arm {
     this.m_name = "死灵术士";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "HERO,IPR,HLR", "LS,SH,MG,NC");
+    this.tech = 3;
 
     this.scale = 1;
     this.singleHP = 2000;
@@ -308,6 +320,7 @@ export class Necromancer extends ArmPrimary.Arm {
 
     this.tall = 3;
     this.loadRealtimeProps();
+    this.cost = 300;
   }
 
   isDamageMagic(damageType) {
@@ -324,6 +337,7 @@ export class SkeletonRider extends ArmPrimary.Arm {
     this.m_name = "骷髅骑手";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "MLC", "WK,SF,IS");
+    this.tech = 2;
 
     this.scale = 80;
     this.singleHP = 100;
@@ -348,6 +362,7 @@ export class DeathKnight extends ArmPrimary.Arm {
     this.m_name = "死亡骑士";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "A_MLC", "AM,ALG,IS");
+    this.tech = 3;
 
     this.scale = 49;
     this.singleHP = 140;
@@ -384,6 +399,7 @@ export class DeathKnightDS extends DeathKnight {
     this.m_name = "死亡骑士-双镰";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "A_MLC", "AM,MH,IS");
+    this.tech = 4;
 
     ArmTool.loadDefenceBenchmark(this, "cal", "heavy,heavy,armor");
     this.meleeArmor += 55;
@@ -404,6 +420,7 @@ export class DeathKnightCharge extends ArmPrimary.Arm {
     this.m_name = "死亡骑士-冲杀";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "A_CGC", "AM");
+    this.tech = 3;
 
     this.scale = 49;
     this.singleHP = 140;
@@ -427,6 +444,7 @@ export class BeetleRider extends ArmPrimary.Arm {
     this.m_name = "甲虫骑兵";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "A_MC", "AM,AIF,PW");
+    this.tech = 2;
 
     this.scale = 30;
     this.singleHP = 240;
@@ -465,6 +483,7 @@ export class FireBeetleRider extends BeetleRider {
     this.m_name = "火甲虫骑兵";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "A_MC", "AM,MA");
+    this.tech = 4;
 
     this.meleeAttack_bonus = 0;
     this.missileAttack = 60;
@@ -515,6 +534,7 @@ export class BeetleChargeRider extends BeetleRider {
     this.m_name = "甲虫冲击骑兵";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "A_MCGC", "AM");
+    this.tech = 3;
 
     this.speed = 4;
 
@@ -550,6 +570,7 @@ export class SpiritCoffinGF extends ArmPrimary.Arm {
     this.m_name = "灵棺-鬼火";
     this.type = "monster";
     [this.description, this.m_description] = getDescription(this, "VC", "LS,BB,MG,IS");
+    this.tech = 3;
 
     this.scale = 1;
     this.singleHP = 5000;
@@ -601,6 +622,7 @@ export class SpiritCoffinDG extends SpiritCoffinGF {
     this.m_name = "灵棺-死灵";
     this.type = "monster";
     [this.description, this.m_description] = getDescription(this, "VC,HLR", "LS,BB,MG,IS");
+    this.tech = 2;
 
     this.missileAttack = 1500;
     this.explosionRadius = 1;
@@ -645,6 +667,7 @@ export class SpiritCoffinBB extends SpiritCoffinGF {
     this.m_name = "灵棺-碎骨";
     this.type = "monster";
     [this.description, this.m_description] = getDescription(this, "VC", "LS,BB,SA,LB,IS");
+    this.tech = 4;
 
     this.missileAttack = 1800;
 
@@ -685,6 +708,7 @@ export class WraithSkeleton extends ArmPrimary.Arm {
     this.m_name = "缚灵骸骨";
     this.type = "monster";
     [this.description, this.m_description] = getDescription(this, "G", "AIF,SH,IS");
+    this.tech = 3;
 
     this.scale = 1;
     this.singleHP = 7000;
@@ -721,6 +745,7 @@ export class Werewolf extends ArmPrimary.Arm {
     this.m_name = "狼人";
     this.type = "monster";
     [this.description, this.m_description] = getDescription(this, "G", "HG,ALG,SH");
+    this.tech = 4;
 
     this.scale = 1;
     this.singleHP = 5000;

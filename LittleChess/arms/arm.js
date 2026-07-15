@@ -80,6 +80,7 @@ export class Arm {
     this.artilleryAttack = false;
     this.cost = 0;
     this.currentCombatPower = 0;
+    this.tech = 1;
 
     this.exp = 0;
     this.level = 1;

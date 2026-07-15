@@ -19,12 +19,20 @@ const maxY = Math.floor(DH / 50);
 const gX = Math.floor(GW / 50);
 const useMandarin = window.localStorage.getItem("useMandarin") === "true";
 const strictDeploymentArea = window.localStorage.getItem("strictDeploymentArea") === "true";
+const uniqueEliteAndHero = window.localStorage.getItem("uniqueEliteAndHero") === "true";
+const techLimit = parseInt(window.localStorage.getItem("techLimit"));
 const moneyLeftSpan = document.getElementById("moneyLeft");
 const elitesHeroesLeftSpan = document.getElementById("elitesHeroesLeft");
 const powerSelect = document.getElementById("powers");
 const clearButton = document.getElementById("clear");
 const backButton = document.getElementById("back");
 const saveAndContinueButton = document.getElementById("saveAndContinue");
+const techToColor = {
+  1: "rgba(114, 169, 5, 0.6)",
+  2: "rgba(0, 135, 203, 0.6)",
+  3: "rgba(85, 0, 196, 0.6)",
+  4: "rgba(255, 174, 0, 0.6)",
+};
 
 const selectCanvas = document.getElementById("select");
 const canvasList = {
@@ -51,6 +59,7 @@ export class Deploy {
     this.elitesHeroesLeft = window.localStorage.getItem("maxNumEliteAndHero");
 
     this.areaLimits = {};
+    this.seenIndexes = new Set([]);
 
     this.infoPanel = new InfoPanel(canvasList.info, useMandarin, true, false);
   }
@@ -136,6 +145,7 @@ export class Deploy {
         if (piece.isEliteOrHero) this.elitesHeroesLeft += 1;
         this.updateMoneyLeftSpan();
         this.updateNumElitesAndHeroesLeftSpan();
+        this.seenIndexes.delete(piece.index);
         this.pieceList.splice(p, 1);
         Canvas.clearRect(canvasList.piece, piece.x, piece.y, 50, 50);
 
@@ -150,17 +160,19 @@ export class Deploy {
     if (this.imageIndex >= 0) {
       let cost = this.arms[this.imageIndex].cost;
       if (this.moneyLeft < cost) return;
-
-      let forwardDeployment = this.arms[this.imageIndex].hasForwardDeployment();
+      if (this.arms[this.imageIndex].tech > techLimit) return;
+      if (this.arms[this.imageIndex].isEliteOrHero()) {
+        if (this.elitesHeroesLeft == 0) return;
+        if (uniqueEliteAndHero && this.seenIndexes.has(this.imageIndex)) return;
+      }
 
       let drawX = Math.floor(x / 50) * 50;
       let drawY = Math.floor(y / 50) * 50;
-
+      let forwardDeployment = this.arms[this.imageIndex].hasForwardDeployment();
       if (!forwardDeployment && !this.isArmInStrictArea(drawX, drawY)) {
         console.log("Outside!!!!");
         return;
       }
-      if (this.arms[this.imageIndex].isEliteOrHero() && this.elitesHeroesLeft == 0) return;
 
       let image = this.elems[this.imageIndex];
       Canvas.drawImg(canvasList.piece, image, 0, 0, 50, 50, drawX + 1, drawY + 1, 48, 48);
@@ -180,6 +192,7 @@ export class Deploy {
       if (this.arms[this.imageIndex].isEliteOrHero()) this.elitesHeroesLeft -= 1;
       this.updateMoneyLeftSpan();
       this.updateNumElitesAndHeroesLeftSpan();
+      this.seenIndexes.add(this.imageIndex);
     }
   }
 
@@ -187,6 +200,9 @@ export class Deploy {
   bindArmImagesMouseDown() {
     for (let i = 0; i < this.elems.length; i++) {
       let elem = this.elems[i];
+      // if (this.arms[i].tech > techLimit) {
+      //   continue;
+      // }
       elem.addEventListener("click", () => {
         for (let i = 0; i < this.elems.length; i++) this.elems[i].style.border = "5px solid white";
 
@@ -229,12 +245,33 @@ export class Deploy {
 
     for (let i = 0; i < this.images.length; i++) {
       let div = document.getElementById(i);
+      div.style.position = "relative"; // anchor for the corner label
+
       let elem = document.createElement("img");
       elem.src = this.images[i];
       div.appendChild(elem);
       elem.height = "60";
       elem.width = elem.height;
       elem.style.border = "5px solid white";
+
+      // tech number, bottom-right corner
+      let bgColor = techToColor[this.arms[i].tech];
+      if (this.arms[i].tech > techLimit) {
+        elem.style.filter = "grayscale(100%) brightness(0.5)";
+        bgColor = "rgba(0,0,0,0.6)";
+      }
+      const label = document.createElement("span");
+      label.textContent = this.arms[i].tech;
+      label.style.position = "absolute";
+      label.style.left = "5px";
+      label.style.top = "5px";
+      label.style.font = "13px sans-serif";
+      label.style.color = "white";
+      label.style.background = bgColor;
+      label.style.padding = "0 3px";
+      label.style.borderRadius = "3px";
+      label.style.pointerEvents = "none";
+      div.appendChild(label);
 
       this.elems.push(elem);
     }
@@ -331,12 +368,37 @@ export class Deploy {
 
       this.imageIndex = index;
       this.deployAnArm(drawX, drawY);
+      this.findForward();
+    }
+  }
+
+  findBackword() {
+    this.imageIndex = (this.imageIndex + this.arms.length) % this.arms.length;
+    while (this.arms[this.imageIndex].tech > techLimit) {
+      this.imageIndex -= 1;
+      this.imageIndex = (this.imageIndex + this.arms.length) % this.arms.length;
+    }
+  }
+
+  findForward() {
+    this.imageIndex = (this.imageIndex + this.arms.length) % this.arms.length;
+    while (this.arms[this.imageIndex].tech > techLimit) {
+      this.imageIndex += 1;
+      this.imageIndex = (this.imageIndex + this.arms.length) % this.arms.length;
     }
   }
 
   bindKeyPressEvents() {
     document.addEventListener("keydown", (e) => {
-      if (e.ctrlKey && e.shiftKey) {
+      // Press alt + (1, 2, 3, 4) to set tech limit
+      if (e.altKey) {
+        if (/^Digit[1-4]$/.test(e.code)) {
+          window.localStorage.setItem("techLimit", e.code.slice(-1));
+          location.reload();
+        }
+      }
+      // Press ctrl + shift
+      else if (e.ctrlKey && e.shiftKey) {
         // Press ctrl + shift + L to switch language
         if (e.key === "L" || e.key === "l") {
           e.preventDefault();
@@ -368,9 +430,13 @@ export class Deploy {
       // Press Tab to forward select, shift + Tab to backward select arms
       else if (e.key === "Tab") {
         e.preventDefault();
-        if (e.shiftKey) this.imageIndex -= 1;
-        else this.imageIndex += 1;
-        this.imageIndex = (this.imageIndex + this.arms.length) % this.arms.length;
+        if (e.shiftKey) {
+          this.imageIndex -= 1;
+          this.findBackword();
+        } else {
+          this.imageIndex += 1;
+          this.findForward();
+        }
         this.elems[this.imageIndex].click();
       }
       // Press arrow keys to select arms
@@ -383,21 +449,25 @@ export class Deploy {
             if (this.imageIndex >= this.rowSize) {
               this.imageIndex -= this.rowSize;
             }
+            this.findBackword();
             break;
           case "D":
             if (max - this.imageIndex > this.rowSize) {
               this.imageIndex += this.rowSize;
             }
+            this.findForward();
             break;
           case "L":
             if (this.imageIndex > 0) {
               this.imageIndex -= 1;
             }
+            this.findBackword();
             break;
           case "R":
             if (this.imageIndex < max - 1) {
               this.imageIndex += 1;
             }
+            this.findForward();
             break;
           default:
             break;
@@ -413,6 +483,7 @@ export class Deploy {
     this.elitesHeroesLeft = window.localStorage.getItem("maxNumEliteAndHero");
     this.updateMoneyLeftSpan();
     this.updateNumElitesAndHeroesLeftSpan();
+    this.seenIndexes.clear();
     Canvas.clear(canvasList.piece, DW, DH);
   }
 

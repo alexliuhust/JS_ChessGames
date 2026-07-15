@@ -10,6 +10,7 @@ export class DwarfWarrior extends ArmPrimary.Arm {
     this.m_name = "矮人勇士";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "S_IF", "HS");
+    this.tech = 1;
 
     this.scale = 100;
     this.singleHP = 60;
@@ -33,6 +34,7 @@ export class DwarfWarriorExpl extends DwarfWarrior {
     this.m_name = "矮人勇士-炸药";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "S_IF", "HS,MA");
+    this.tech = 2;
 
     this.missileAttack = 25;
     this.missileRange = 3;
@@ -67,6 +69,7 @@ export class BoneBreaker extends DwarfWarrior {
     this.m_name = "碎骨者";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "RC,ALG");
+    this.tech = 2;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "long,heavy");
     this.meleeArmor += 20;
@@ -99,6 +102,7 @@ export class Berserker extends DwarfWarrior {
     this.m_name = "狂战士";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "SF,HD");
+    this.tech = 3;
 
     this.speed = 3;
 
@@ -121,6 +125,7 @@ export class BerserkerE extends Berserker {
     this.m_name = "山岭屠夫";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF,RSR", "EL,SF,HD,HM");
+    this.tech = 4;
 
     this.attackEnhance = 30;
     this.enhanceRange = 3;
@@ -140,6 +145,7 @@ export class DwarfKingsGuard extends DwarfWarrior {
     this.m_name = "矮人王禁卫";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "A_IF", "AM,HS,ALG");
+    this.tech = 3;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "long,heavy,shield,armor");
     this.meleeDodge += 10;
@@ -172,6 +178,7 @@ export class MountainShocker extends ArmPrimary.Arm {
     this.m_name = "震山矿工";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "GS_IF", "HS,MA,HD");
+    this.tech = 2;
 
     this.scale = 81;
     this.singleHP = 60;
@@ -217,6 +224,7 @@ export class MineSupportTeam extends MountainShocker {
     this.m_name = "矿井支援队";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "GS_IF,HLR", "HS");
+    this.tech = 2;
 
     this.missileAttack = 0;
     this.missileRange = 0;
@@ -239,6 +247,7 @@ export class MountainShockerE extends MountainShocker {
     this.m_name = "矮人之盾";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "GS_IF,PTR", "EL,HS,MA,HD,HM");
+    this.tech = 3;
 
     this.ammo = 3;
     this.armorEnhance = 25;
@@ -258,6 +267,7 @@ export class CombatRunesmith extends ArmPrimary.Arm {
     this.m_name = "战斗符文工匠";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "HERO,S_AC,PTR,RSR", "AM,HS,LS,AAM,MA");
+    this.tech = 3;
 
     this.scale = 1;
     this.singleHP = 3000;
@@ -311,6 +321,7 @@ export class DwarfMusketeer extends ArmPrimary.Arm {
     this.m_name = "矮人火枪手";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "S_AC", "HS,AAM");
+    this.tech = 2;
 
     this.scale = 72;
     this.singleHP = 60;
@@ -356,6 +367,7 @@ export class MortarSquad extends ArmPrimary.Arm {
     this.m_name = "迫击炮小组";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "S_AC", "HS,LR,SA");
+    this.tech = 3;
 
     this.scale = 64;
     this.singleHP = 60;
@@ -402,6 +414,7 @@ export class FireDragonSquad extends ArmPrimary.Arm {
     this.m_name = "火龙小组";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "S_AC", "HS,AIF,HD");
+    this.tech = 3;
 
     this.scale = 64;
     this.singleHP = 60;
@@ -461,6 +474,7 @@ export class FireDragonSquadE extends FireDragonSquad {
     this.m_name = "疯狂焚烧者";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "S_AC,IPR", "EL,HS,AIF,HD,HM");
+    this.tech = 4;
 
     this.inspiring = 10;
     this.inspireRange = 3;
@@ -479,6 +493,7 @@ export class GoatCavalry extends ArmPrimary.Arm {
     this.m_name = "山羊骑兵";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "A_CGC", "AM");
+    this.tech = 2;
 
     this.scale = 49;
     this.singleHP = 130;
@@ -503,6 +518,7 @@ export class GoatCavalryTA extends GoatCavalry {
     this.m_name = "山羊骑兵-飞斧";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "A_CGC", "AM,MA");
+    this.tech = 3;
 
     ArmTool.loadDefenceBenchmark(this, "cal", "short,armor,charge-am");
     this.meleeArmor += 20;
@@ -532,6 +548,7 @@ export class GoatChariot extends ArmPrimary.Arm {
     this.m_name = "山羊战车";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "C_VC", "SF");
+    this.tech = 2;
 
     this.scale = 12;
     this.singleHP = 300;
@@ -561,6 +578,7 @@ export class GoatChariotMusket extends GoatChariot {
     this.m_name = "山羊战车-火枪";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "C_VC", "SF,MA");
+    this.tech = 3;
 
     this.chargeAttack = 200;
 
@@ -604,6 +622,7 @@ export class RevolvingCannon extends ArmPrimary.Arm {
     this.m_name = "转轮炮";
     this.type = "artillery";
     [this.description, this.m_description] = getDescription(this, "AT", "MH");
+    this.tech = 4;
 
     this.scale = 2;
     this.singleHP = 60;
@@ -662,6 +681,7 @@ export class FireDragonGun extends ArmPrimary.Arm {
     this.m_name = "火龙炮";
     this.type = "artillery";
     [this.description, this.m_description] = getDescription(this, "AT", "AIF");
+    this.tech = 2;
 
     this.scale = 9;
     this.singleHP = 60;
@@ -714,6 +734,7 @@ export class ERFireDragonGun extends FireDragonGun {
     this.m_name = "增程火龙炮";
     this.type = "artillery";
     [this.description, this.m_description] = getDescription(this, "AT", "AIF");
+    this.tech = 3;
 
     this.missileAttack = 190;
     this.missileAttack_bonus = 110;
@@ -750,6 +771,7 @@ export class TorsionCatapult extends ArmPrimary.Arm {
     this.m_name = "扭力投石机";
     this.type = "artillery";
     [this.description, this.m_description] = getDescription(this, "AT", "BB");
+    this.tech = 1;
 
     this.scale = 9;
     this.singleHP = 60;
@@ -788,6 +810,7 @@ export class DwarfMortar extends ArmPrimary.Arm {
     this.m_name = "矮人臼炮";
     this.type = "artillery";
     [this.description, this.m_description] = getDescription(this, "AT", "BB");
+    this.tech = 2;
 
     this.scale = 4;
     this.singleHP = 60;
@@ -828,6 +851,7 @@ export class GiantCannon extends ArmPrimary.Arm {
     this.m_name = "巨型臼炮";
     this.type = "artillery";
     [this.description, this.m_description] = getDescription(this, "AT", "BB,LB");
+    this.tech = 4;
 
     this.scale = 2;
     this.singleHP = 60;

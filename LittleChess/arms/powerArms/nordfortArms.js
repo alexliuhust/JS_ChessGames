@@ -10,6 +10,7 @@ export class HallwayGuard extends ArmPrimary.Arm {
     this.m_name = "门厅守卫";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "RC");
+    this.tech = 1;
 
     this.scale = 100;
     this.singleHP = 50;
@@ -37,6 +38,7 @@ export class HallwayGuardShield extends HallwayGuard {
     this.m_name = "门厅守卫-持盾";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "S_IF", "HS,RC");
+    this.tech = 2;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "long-rs,shield");
 
@@ -54,6 +56,7 @@ export class NordExecutioner extends ArmPrimary.Arm {
     this.m_name = "诺德刽子手";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "A_IF", "AM,AAM,HD");
+    this.tech = 2;
 
     this.scale = 100;
     this.singleHP = 50;
@@ -81,6 +84,7 @@ export class NordHerald extends ArmPrimary.Arm {
     this.m_name = "诺德军锋";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "A_IF", "AM,RC,AAM,HD");
+    this.tech = 3;
 
     this.scale = 100;
     this.singleHP = 50;
@@ -102,6 +106,7 @@ export class NordIronblade extends NordExecutioner {
     this.name = "Nord Ironblades";
     this.m_name = "诺德铁刃";
     [this.description, this.m_description] = getDescription(this, "A_IF", "AM,AIF,MM");
+    this.tech = 4;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "mm,armor");
 
@@ -131,6 +136,7 @@ export class NordHeraldE extends NordHerald {
     this.m_name = "烈焰军锋";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "A_IF,IPR", "EL,AM,RC,AAM,HD,HM");
+    this.tech = 4;
 
     this.inspiring = 6;
     this.inspireRange = 3;
@@ -153,6 +159,7 @@ export class CoastDefender extends ArmPrimary.Arm {
     this.m_name = "滨海守卫-轻装";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "MAC", "RC");
+    this.tech = 1;
 
     this.scale = 81;
     this.singleHP = 50;
@@ -184,6 +191,7 @@ export class CoastDefenderShield extends CoastDefender {
     this.m_name = "滨海守卫-持盾";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "S_MAC", "HS,RC");
+    this.tech = 2;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "long-rs,shield");
 
@@ -201,6 +209,7 @@ export class BallistaSquad extends ArmPrimary.Arm {
     this.m_name = "重弩小队";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "A_MAC", "AM,AAM,LR");
+    this.tech = 2;
 
     this.scale = 64;
     this.singleHP = 50;
@@ -247,6 +256,7 @@ export class BallistaSquadShield extends BallistaSquad {
     this.name = "Ballista Squad (Shiled)";
     this.m_name = "重弩小队-持盾";
     [this.description, this.m_description] = getDescription(this, "A_MAC", "AM,HS,AAM,LR");
+    this.tech = 3;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "armor,shield");
     this.meleeAttack = 22;
@@ -262,6 +272,7 @@ export class BallistaSquadFlame extends BallistaSquad {
     this.name = "Ballista Squad (Fire Rain)";
     this.m_name = "重弩小队-火雨";
     [this.description, this.m_description] = getDescription(this, "A_MAC", "AM,LR,HD");
+    this.tech = 4;
 
     this.missileAttack = 50;
     this.explosionRadius = 1;
@@ -294,6 +305,7 @@ export class CoastRanger extends ArmPrimary.Arm {
     this.m_name = "滨海游骑兵";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "MSC", "MA,FD");
+    this.tech = 1;
 
     this.scale = 49;
     this.singleHP = 100;
@@ -327,6 +339,7 @@ export class CoastRangerCharge extends CoastRanger {
     this.m_name = "滨海游骑兵-冲杀";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "MSCGC", "MA,FD");
+    this.tech = 2;
 
     ArmTool.loadDefenceBenchmark(this, "cal", "charge");
     this.missileDodge += 20;
@@ -345,6 +358,7 @@ export class FlameKnight extends ArmPrimary.Arm {
     this.m_name = "炎骑士";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "CGC", "AG,AAM,HD");
+    this.tech = 3;
 
     this.scale = 49;
     this.singleHP = 120;
@@ -373,6 +387,7 @@ export class FlameKnightShield extends FlameKnight {
     this.m_name = "炎骑士-持盾";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "S_CGC", "HS,AG,AAM,HD");
+    this.tech = 4;
 
     ArmTool.loadDefenceBenchmark(this, "cal", "charge,agile,shield");
 
@@ -390,6 +405,7 @@ export class CoralCavalry extends ArmPrimary.Arm {
     this.m_name = "珊瑚骑兵团";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "A_CGC", "AM,AAM");
+    this.tech = 2;
 
     this.scale = 49;
     this.singleHP = 120;
@@ -413,6 +429,7 @@ export class CoralCavalryFlame extends CoralCavalry {
     this.name = "Fire-Coral Cavalry";
     this.m_name = "火珊瑚骑兵团";
     [this.description, this.m_description] = getDescription(this, "A_CGC", "AM,AAM,HD");
+    this.tech = 3;
 
     this.meleeArmor -= 5;
     this.missileArmor -= 5;
@@ -498,6 +515,7 @@ export class DeathWarlock extends NordMage {
     this.name = "Death Warlock";
     this.m_name = "死亡法师";
     [this.description, this.m_description] = getDescription(this, "HERO,MSC", "MH,SH,MG");
+    this.tech = 2;
 
     this.missileAttack = 2500;
     this.missileParameters.color = "rgb(68, 0, 91)";
@@ -517,6 +535,7 @@ export class ShadeOccultist extends NordMage {
     this.name = "Shade Occultist";
     this.m_name = "阴影法师";
     [this.description, this.m_description] = getDescription(this, "HERO,MSC,PTR", "ST,SH,MG");
+    this.tech = 3;
 
     this.missileParameters.color = "rgb(79, 79, 79)";
     this.missileParameters.afterHitParameters.color = "rgb(46, 45, 45)";
@@ -538,6 +557,7 @@ export class StalwartEnchanter extends NordMage {
     this.name = "Stalwart Enchanter";
     this.m_name = "坚毅法师";
     [this.description, this.m_description] = getDescription(this, "HERO,MSC,IPR,HLR", "HS,MG");
+    this.tech = 3;
 
     this.missileArmor = 20;
     this.missileDodge = 25;
@@ -563,6 +583,7 @@ export class BlazePyromancer extends NordMage {
     this.name = "Blaze Pyromancer";
     this.m_name = "烈焰法师";
     [this.description, this.m_description] = getDescription(this, "HERO,MSC,RSR", "AIF,HD,MG");
+    this.tech = 4;
 
     this.attackEnhance = 25;
     this.enhanceRange = 3;
@@ -639,6 +660,7 @@ export class GiantBallista extends ArmPrimary.Arm {
     this.m_name = "巨型弩炮";
     this.type = "artillery";
     [this.description, this.m_description] = getDescription(this, "AT", "ALG");
+    this.tech = 2;
 
     this.scale = 7;
     this.singleHP = 50;
@@ -677,6 +699,7 @@ export class GiantBallistaShrapnel extends GiantBallista {
     this.m_name = "巨型弩炮-霰弹";
     this.type = "artillery";
     [this.description, this.m_description] = getDescription(this, "AT", "AIF");
+    this.tech = 3;
 
     this.missileAttack = 190;
     this.missileAttack_bonus = 230;
@@ -722,6 +745,7 @@ export class SunfireLensGroup extends ArmPrimary.Arm {
     this.m_name = "阳炎透镜组";
     this.type = "artillery";
     [this.description, this.m_description] = getDescription(this, "ST", "MH,MG,HM");
+    this.tech = 4;
 
     this.scale = 2;
     this.singleHP = 50;
