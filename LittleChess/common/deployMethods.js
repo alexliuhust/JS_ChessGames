@@ -27,6 +27,12 @@ const powerSelect = document.getElementById("powers");
 const clearButton = document.getElementById("clear");
 const backButton = document.getElementById("back");
 const saveAndContinueButton = document.getElementById("saveAndContinue");
+const techToColor = {
+  1: "rgba(114, 169, 5, 0.6)",
+  2: "rgba(0, 135, 203, 0.6)",
+  3: "rgba(85, 0, 196, 0.6)",
+  4: "rgba(255, 174, 0, 0.6)",
+};
 
 const selectCanvas = document.getElementById("select");
 const canvasList = {
@@ -247,11 +253,13 @@ export class Deploy {
       elem.height = "60";
       elem.width = elem.height;
       elem.style.border = "5px solid white";
-      if (this.arms[i].tech > techLimit) {
-        elem.style.filter = "grayscale(100%) brightness(0.5)";
-      }
 
       // tech number, bottom-right corner
+      let bgColor = techToColor[this.arms[i].tech];
+      if (this.arms[i].tech > techLimit) {
+        elem.style.filter = "grayscale(100%) brightness(0.5)";
+        bgColor = "rgba(0,0,0,0.6)";
+      }
       const label = document.createElement("span");
       label.textContent = this.arms[i].tech;
       label.style.position = "absolute";
@@ -259,7 +267,7 @@ export class Deploy {
       label.style.top = "5px";
       label.style.font = "13px sans-serif";
       label.style.color = "white";
-      label.style.background = "rgba(0, 0, 0, 0.6)";
+      label.style.background = bgColor;
       label.style.padding = "0 3px";
       label.style.borderRadius = "3px";
       label.style.pointerEvents = "none";
