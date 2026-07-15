@@ -242,6 +242,9 @@ export class Deploy {
       elem.height = "60";
       elem.width = elem.height;
       elem.style.border = "5px solid white";
+      if (this.arms[i].tech > techLimit) {
+        elem.style.filter = "grayscale(100%) brightness(0.5)";
+      }
 
       this.elems.push(elem);
     }
