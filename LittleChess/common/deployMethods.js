@@ -18,7 +18,9 @@ const maxX = Math.floor(DW / 50);
 const maxY = Math.floor(DH / 50);
 const gX = Math.floor(GW / 50);
 const useMandarin = window.localStorage.getItem("useMandarin") === "true";
+const strictDeploymentArea = window.localStorage.getItem("strictDeploymentArea") === "true";
 const moneyLeftSpan = document.getElementById("moneyLeft");
+const elitesHeroesLeftSpan = document.getElementById("elitesHeroesLeft");
 const powerSelect = document.getElementById("powers");
 const clearButton = document.getElementById("clear");
 const backButton = document.getElementById("back");
@@ -46,6 +48,9 @@ export class Deploy {
     this.imageIndex = -1;
     this.pieceList = [];
     this.moneyLeft = window.localStorage.getItem("maxCost");
+    this.elitesHeroesLeft = window.localStorage.getItem("maxNumEliteAndHero");
+
+    this.areaLimits = {};
 
     this.infoPanel = new InfoPanel(canvasList.info, useMandarin, true, false);
   }
@@ -61,6 +66,7 @@ export class Deploy {
     this.arms = a_i[0];
     this.images = a_i[1];
     this.updateMoneyLeftSpan();
+    this.updateNumElitesAndHeroesLeftSpan();
     this.addArmImagesToList();
 
     this.bindArmImagesMouseDown(this.elems, this.arms);
@@ -92,7 +98,6 @@ export class Deploy {
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
       this.infoPanel.updateTraitInfo(x, y);
-      // console.log(`${x.toFixed()}`, `${y.toFixed()}`);
       Canvas.clear(canvasList.info, DIW, DIH);
       this.infoPanel.drawInfoForSelectedPiece(this.arms[this.imageIndex]);
     });
@@ -128,7 +133,9 @@ export class Deploy {
       if (Rect.pointInRect({ x: x, y: y }, this.pieceList[p])) {
         let piece = this.pieceList[p];
         this.moneyLeft += piece.cost;
+        if (piece.isEliteOrHero) this.elitesHeroesLeft += 1;
         this.updateMoneyLeftSpan();
+        this.updateNumElitesAndHeroesLeftSpan();
         this.pieceList.splice(p, 1);
         Canvas.clearRect(canvasList.piece, piece.x, piece.y, 50, 50);
 
@@ -144,8 +151,17 @@ export class Deploy {
       let cost = this.arms[this.imageIndex].cost;
       if (this.moneyLeft < cost) return;
 
+      let forwardDeployment = this.arms[this.imageIndex].hasForwardDeployment();
+
       let drawX = Math.floor(x / 50) * 50;
       let drawY = Math.floor(y / 50) * 50;
+
+      if (!forwardDeployment && !this.isArmInStrictArea(drawX, drawY)) {
+        console.log("Outside!!!!");
+        return;
+      }
+      if (this.arms[this.imageIndex].isEliteOrHero() && this.elitesHeroesLeft == 0) return;
+
       let image = this.elems[this.imageIndex];
       Canvas.drawImg(canvasList.piece, image, 0, 0, 50, 50, drawX + 1, drawY + 1, 48, 48);
 
@@ -156,11 +172,14 @@ export class Deploy {
         y: drawY,
         width: 50,
         height: 50,
+        isEliteOrHero: this.arms[this.imageIndex].isEliteOrHero(),
       };
       this.pieceList.push(piece);
 
       this.moneyLeft -= cost;
+      if (this.arms[this.imageIndex].isEliteOrHero()) this.elitesHeroesLeft -= 1;
       this.updateMoneyLeftSpan();
+      this.updateNumElitesAndHeroesLeftSpan();
     }
   }
 
@@ -185,6 +204,10 @@ export class Deploy {
 
   updateMoneyLeftSpan() {
     moneyLeftSpan.textContent = this.moneyLeft + " G";
+  }
+
+  updateNumElitesAndHeroesLeftSpan() {
+    elitesHeroesLeftSpan.textContent = this.elitesHeroesLeft < 0 ? "Unlimited" : this.elitesHeroesLeft;
   }
 
   addArmImagesToList() {
@@ -229,25 +252,43 @@ export class Deploy {
         }
       }
     }
-    let y1 = 250;
+    let y1 = 200;
     let y2 = DH - y1;
     let xOffset = 300;
     let x1 = 0;
     let x2 = 0;
     let color = "";
     if (this.player === 1) {
-      x1 = DW - xOffset;
-      x2 = DW;
+      x1 = DW - xOffset - 100;
+      x2 = DW - 100;
       color = "blue";
     } else {
-      x1 = xOffset;
-      x2 = 0;
+      x1 = xOffset + 100;
+      x2 = 100;
       color = "red";
     }
+
+    this.areaLimits = { x1: x1, y1: y1, x2: x2, y2: y2 };
+
     let weight = 2;
     Canvas.drawLine(canvasList.map, x1, y1, x2, y1, color, weight);
     Canvas.drawLine(canvasList.map, x1, y2, x2, y2, color, weight);
     Canvas.drawLine(canvasList.map, x1, y1, x1, y2, color, weight);
+    Canvas.drawLine(canvasList.map, x2, y1, x2, y2, color, weight);
+  }
+
+  isArmInStrictArea(x, y) {
+    if (!strictDeploymentArea) return true;
+    let { x1, y1, x2, y2 } = this.areaLimits;
+    let xmin = Math.min(x1, x2);
+    let xmax = Math.max(x1, x2);
+    let ymin = Math.min(y1, y2);
+    let ymax = Math.max(y1, y2);
+    x1 = xmin;
+    x2 = xmax;
+    y1 = ymin;
+    y2 = ymax;
+    return x >= x1 && x < x2 && y >= y1 && y < y2;
   }
 
   storeArmInfo() {
@@ -290,7 +331,6 @@ export class Deploy {
 
       this.imageIndex = index;
       this.deployAnArm(drawX, drawY);
-      // this.imageIndex = -1; // Reset safety
     }
   }
 
@@ -370,7 +410,9 @@ export class Deploy {
   clearAllSelection() {
     this.pieceList = [];
     this.moneyLeft = window.localStorage.getItem("maxCost");
+    this.elitesHeroesLeft = window.localStorage.getItem("maxNumEliteAndHero");
     this.updateMoneyLeftSpan();
+    this.updateNumElitesAndHeroesLeftSpan();
     Canvas.clear(canvasList.piece, DW, DH);
   }
 

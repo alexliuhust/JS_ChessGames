@@ -1057,12 +1057,28 @@ export class Arm {
     return this.description.includes("Stealth");
   }
 
+  isElite() {
+    return this.description.includes("Elite");
+  }
+
+  isHero() {
+    return this.description.includes("Hero");
+  }
+
+  isEliteOrHero() {
+    return this.isElite() || this.isHero();
+  }
+
   hasSuboptimalAccuracy() {
     return this.description.includes("Suboptimal accuracy");
   }
 
   hasInstability() {
     return this.description.includes("Instability");
+  }
+
+  hasForwardDeployment() {
+    return this.description.includes("Forward-deployment");
   }
 
   canDoNecromancy(target) {
