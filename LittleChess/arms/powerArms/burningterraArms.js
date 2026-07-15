@@ -10,6 +10,7 @@ export class HenchWarrior extends ArmPrimary.Arm {
     this.m_name = "亲卫勇士";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "S_IF", "HS");
+    this.tech = 1;
 
     this.scale = 81;
     this.singleHP = 80;
@@ -32,6 +33,7 @@ export class HenchWarriorHalberd extends HenchWarrior {
     this.m_name = "亲卫勇士-长戟";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "S_IF", "HS,RC,ALG");
+    this.tech = 1;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "long-rs,shield");
     this.meleeArmor += 10;
@@ -61,6 +63,7 @@ export class HenchWarriorGiantaxe extends HenchWarrior {
     this.m_name = "亲卫勇士-巨斧";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "AAM,HD");
+    this.tech = 2;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "long,heavy");
     this.meleeArmor += 10;
@@ -85,6 +88,7 @@ export class BurningWarrior extends ArmPrimary.Arm {
     this.m_name = "燃烧战士";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "AS_IF", "AM,HS");
+    this.tech = 2;
 
     this.scale = 81;
     this.singleHP = 80;
@@ -107,6 +111,7 @@ export class BurningWarriorHalberd extends BurningWarrior {
     this.m_name = "燃烧战士-长戟";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "A_IF", "AM,RC,ALG");
+    this.tech = 3;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "long-rs,armor");
     this.meleeArmor += 20;
@@ -136,6 +141,7 @@ export class BurningWarriorGiantaxe extends BurningWarrior {
     this.m_name = "燃烧战士-巨斧";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "A_IF", "AM,AAM,HD");
+    this.tech = 3;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "long,heavy,armor");
     this.meleeArmor += 20;
@@ -160,6 +166,7 @@ export class BurningWarriorFlail extends BurningWarrior {
     this.m_name = "燃烧战士-链枷";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "AS_IF", "AM,HS,AAM");
+    this.tech = 3;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "short,armor,shield");
     this.meleeArmor += 15;
@@ -185,6 +192,7 @@ export class BurningWarriorE extends BurningWarriorFlail {
     this.m_name = "恶魔勇士";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "AS_IF", "EL,AM,HS,AAM,HM");
+    this.tech = 4;
 
     this.antiArmor = 30;
     this.loadRealtimeProps();
@@ -201,6 +209,7 @@ export class BurningKnight extends ArmPrimary.Arm {
     this.m_name = "燃烧骑士";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "A_MLC", "AM");
+    this.tech = 2;
 
     this.scale = 49;
     this.singleHP = 140;
@@ -224,6 +233,7 @@ export class BurningKnightHalberd extends BurningKnight {
     this.m_name = "燃烧骑士-长戟";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "A_MLC", "AM,ALG");
+    this.tech = 2;
 
     ArmTool.loadDefenceBenchmark(this, "cal", "long-rs,armor");
     this.meleeArmor += 25;
@@ -256,6 +266,7 @@ export class BurningKnightFlail extends BurningKnight {
     this.m_name = "燃烧骑士-链枷";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "AS_MLC", "AM,HS,AAM");
+    this.tech = 3;
 
     ArmTool.loadDefenceBenchmark(this, "cal", "short,armor,shield");
     this.meleeArmor += 20;
@@ -281,6 +292,7 @@ export class BurningKnightCharge extends BurningKnight {
     this.m_name = "燃烧骑士-冲杀";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "A_CGC", null);
+    this.tech = 3;
 
     this.speed = 6;
 
@@ -302,6 +314,7 @@ export class BurningKnightChargeE extends BurningKnightCharge {
     this.m_name = "烈风";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "A_CGC,IPR", "EL,HM");
+    this.tech = 4;
 
     this.inspiring = 15;
     this.inspireRange = 3;
@@ -319,6 +332,7 @@ export class Hellhound extends ArmPrimary.Arm {
     this.m_name = "地狱猎犬";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "MC", "SF,AG,FD,IS");
+    this.tech = 1;
 
     this.scale = 200;
     this.singleHP = 20;
@@ -350,6 +364,7 @@ export class HellhoundFS extends Hellhound {
     this.m_name = "地狱猎犬-火盾";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "MC", "SF,AG,MG,FD,IS");
+    this.tech = 2;
 
     ArmTool.loadDefenceBenchmark(this, "monInf", "agile,sparse");
     this.missileArmor += 15;
@@ -375,6 +390,7 @@ export class HellChariot extends ArmPrimary.Arm {
     this.m_name = "地狱战车";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "C_VC", null);
+    this.tech = 2;
 
     this.scale = 12;
     this.singleHP = 300;
@@ -404,6 +420,7 @@ export class HellChariotFlail extends HellChariot {
     this.m_name = "地狱战车-链枷";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "C_VC", "AAM");
+    this.tech = 3;
 
     this.meleeAttack = 250;
 
@@ -425,6 +442,7 @@ export class HellChariotIC extends HellChariot {
     this.m_name = "地狱战车-炼狱炮";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "C_VC", "MA,BB,MG");
+    this.tech = 4;
 
     this.missileAttack = 170;
     this.missileRange = 10;
@@ -466,6 +484,7 @@ export class DemonEnvoy extends ArmPrimary.Arm {
     this.m_name = "恶魔使者";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "MI", "AAM,SH,IS");
+    this.tech = 2;
 
     this.scale = 25;
     this.singleHP = 300;
@@ -495,6 +514,7 @@ export class DemonEnvoyWild extends DemonEnvoy {
     this.m_name = "恶魔使者-狂暴";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "MI", "AAM,SH,IS");
+    this.tech = 3;
 
     ArmTool.loadDefenceBenchmark(this, "monInf", "long,charge");
 
@@ -515,6 +535,7 @@ export class DemonEnvoyHellfire extends DemonEnvoy {
     this.m_name = "恶魔使者-地狱火";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "MI", "AAM,SH,MA,MG,IS");
+    this.tech = 4;
 
     this.missileAttack = 75;
     this.missileRange = 6;
@@ -556,6 +577,7 @@ export class Cerberus extends ArmPrimary.Arm {
     this.m_name = "地狱三头犬";
     this.type = "monster";
     [this.description, this.m_description] = getDescription(this, "HERO,M,RSR", "AG,LS,SH,FD,IS");
+    this.tech = 3;
 
     this.scale = 1;
     this.singleHP = 4000;
@@ -585,6 +607,7 @@ export class GreatDemon extends ArmPrimary.Arm {
     this.m_name = "混沌大魔";
     this.type = "monster";
     [this.description, this.m_description] = getDescription(this, "G", "AAM,SH,IS");
+    this.tech = 3;
 
     this.scale = 1;
     this.singleHP = 8000;
@@ -614,6 +637,7 @@ export class GreatDemonHellfire extends GreatDemon {
     this.m_name = "混沌大魔-地狱火";
     this.type = "monster";
     [this.description, this.m_description] = getDescription(this, "G", "AAM,SH,MA,MG,IS");
+    this.tech = 4;
 
     this.missileAttack = 2000;
     this.missileRange = 6;

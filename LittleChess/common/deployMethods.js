@@ -257,7 +257,7 @@ export class Deploy {
       label.style.position = "absolute";
       label.style.left = "5px";
       label.style.top = "5px";
-      label.style.font = "10px sans-serif";
+      label.style.font = "13px sans-serif";
       label.style.color = "white";
       label.style.background = "rgba(0, 0, 0, 0.6)";
       label.style.padding = "0 3px";

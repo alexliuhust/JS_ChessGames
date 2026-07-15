@@ -10,6 +10,8 @@ export class Seaman extends ArmPrimary.Arm {
     this.m_name = "水手";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "SF");
+    this.tech = 1;
+
     this.scale = 100;
     this.singleHP = 32;
     this.speed = 3;
@@ -29,6 +31,7 @@ export class SeamanPistol extends Seaman {
     this.name = "Seamen (Pistol)";
     this.m_name = "水手-手枪";
     [this.description, this.m_description] = getDescription(this, "MAC", "SF");
+    this.tech = 1;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "weak,short,sparse");
 
@@ -53,6 +56,7 @@ export class SeamanGrenade extends Seaman {
     this.name = "Seamen (Grenade)";
     this.m_name = "水手-手雷";
     [this.description, this.m_description] = getDescription(this, "MAC", "SF");
+    this.tech = 1;
 
     this.scale = 100;
 
@@ -89,6 +93,7 @@ export class SeamanDoubleP extends SeamanPistol {
     this.m_name = "水手-双持手枪";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "AC", "SF");
+    this.tech = 2;
 
     this.meleeAttack = 12;
     this.missileAttack = 20;
@@ -106,6 +111,7 @@ export class SeamanMusket extends Seaman {
     this.m_name = "水手-步枪";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "AC", "SF,AAM");
+    this.tech = 2;
 
     this.meleeAttack = 12;
     this.missileAttack = 16;
@@ -145,6 +151,7 @@ export class SeamanHandcannon extends Seaman {
     this.m_name = "水手-手炮";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "AC", "SF,AAM,ALG,SA");
+    this.tech = 3;
 
     this.scale = 50;
     this.speed = 2;
@@ -189,6 +196,7 @@ export class SeamanMusketE extends SeamanMusket {
     this.m_name = "精英射手";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "AC", "EL,SF,AAM,HM");
+    this.tech = 3;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "short,sparse");
 
@@ -207,6 +215,7 @@ export class Pisciculus extends ArmPrimary.Arm {
     this.m_name = "侏儒鱼人";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "SF,AG");
+    this.tech = 2;
 
     this.scale = 120;
     this.singleHP = 30;
@@ -229,6 +238,7 @@ export class NoctPisciculus extends Pisciculus {
     this.name = "Noct Pisciculi";
     this.m_name = "夜行侏儒鱼人";
     [this.description, this.m_description] = getDescription(this, "IF", "SF,AG,ST,FD");
+    this.tech = 3;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "stealth,sparse,agile");
 
@@ -244,6 +254,7 @@ export class PisciculusDoubleBlades extends Pisciculus {
     this.m_name = "侏儒鱼人-双刀";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "SF,AG,HD");
+    this.tech = 3;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "short,sparse,agile");
     this.missileDodge += 15;
@@ -262,6 +273,7 @@ export class PisciculusE extends PisciculusDoubleBlades {
     this.m_name = "精英侏儒鱼人";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF,RSR", "EL,SF,AG,HD,HM");
+    this.tech = 4;
 
     this.attackEnhance = 20;
     this.enhanceRange = 2;
@@ -280,6 +292,7 @@ export class MurlocWarrior extends ArmPrimary.Arm {
     this.m_name = "鱼人战士";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "RC,AAM");
+    this.tech = 2;
 
     this.scale = 56;
     this.singleHP = 110;
@@ -307,6 +320,7 @@ export class MurlocDoubleBlades extends MurlocWarrior {
     this.name = "Murloc Warriors (Double Blades)";
     this.m_name = "鱼人战士-双刀";
     [this.description, this.m_description] = getDescription(this, "IF", "HD");
+    this.tech = 3;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "short,short");
     this.meleeArmor += 40;
@@ -328,6 +342,7 @@ export class MurlocWarriorHurling extends MurlocWarrior {
     this.m_name = "鱼人投戟手";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "RC,AAM,MA");
+    this.tech = 3;
 
     this.missileAttack = 40;
     this.missileRange = 4;
@@ -358,6 +373,7 @@ export class MurlocE extends MurlocWarrior {
     this.m_name = "深海卫士";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF,PTR", "EL,RC,AAM,HM");
+    this.tech = 4;
 
     this.armorEnhance = 30;
     this.enhanceRange = 2;
@@ -378,6 +394,7 @@ export class Medusa extends ArmPrimary.Arm {
     this.m_name = "美杜莎";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "MI", "SH");
+    this.tech = 2;
 
     this.scale = 30;
     this.singleHP = 180;
@@ -403,6 +420,7 @@ export class MedusaTrident extends Medusa {
     this.m_name = "美杜莎-三叉戟";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "MI", "SH,ALG,RC");
+    this.tech = 3;
 
     this.missileDodge = 10;
 
@@ -439,6 +457,7 @@ export class MedusaMB extends Medusa {
     this.m_name = "美杜莎-魔弓";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "MI", "SH,MA,MG");
+    this.tech = 4;
 
     ArmTool.loadDefenceBenchmark(this, "monInf");
     this.meleeDodge += 40;
@@ -481,6 +500,7 @@ export class Cancrimag extends ArmPrimary.Arm {
     this.m_name = "巨蟹";
     this.type = "monster";
     [this.description, this.m_description] = getDescription(this, "A_G", "SH");
+    this.tech = 3;
 
     this.scale = 1;
     this.singleHP = 8000;
@@ -506,6 +526,7 @@ export class CancrimagMusket extends Cancrimag {
     this.m_name = "巨蟹-火枪";
     this.type = "monster";
     [this.description, this.m_description] = getDescription(this, "A_G", "SH,MA,AAM");
+    this.tech = 4;
 
     this.missileAttack = 2100;
     this.missileRange = 6;
@@ -547,6 +568,7 @@ export class CancrimagPK extends Cancrimag {
     this.m_name = "巨蟹-火药桶";
     this.type = "monster";
     [this.description, this.m_description] = getDescription(this, "A_G", "SH,MA,LB");
+    this.tech = 4;
 
     this.missileAttack = 2500;
     this.missileRange = 2;
@@ -582,6 +604,7 @@ export class CancrimagFlag extends Cancrimag {
     this.m_name = "巨蟹-军旗";
     this.type = "monster";
     [this.description, this.m_description] = getDescription(this, "A_G,IPR", "SH,HM");
+    this.tech = 3;
 
     this.inspiring = 15;
     this.inspireRange = 4;
@@ -597,6 +620,7 @@ export class DeckGun extends ArmPrimary.Arm {
     this.m_name = "甲板炮";
     this.type = "artillery";
     [this.description, this.m_description] = getDescription(this, "AT", "ALG");
+    this.tech = 2;
 
     this.scale = 7;
     this.singleHP = 32;
@@ -633,6 +657,7 @@ export class DeckGunGrapeshot extends DeckGun {
     this.name = "Deck Guns (Grapeshot)";
     this.m_name = "甲板炮-葡萄弹";
     [this.description, this.m_description] = getDescription(this, "AT", "AIF,ALG,SA");
+    this.tech = 3;
 
     this.missileAttack = 450;
     this.missilePenetrate = 3;

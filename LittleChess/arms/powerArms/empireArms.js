@@ -555,7 +555,7 @@ export class Paladin extends ArmPrimary.Arm {
     this.m_name = "圣骑士";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "HERO,A_MLC,PTR,HLR", "AM,MG");
-    this.tech = 4;
+    this.tech = 3;
 
     this.scale = 1;
     this.singleHP = 4000;
@@ -786,7 +786,7 @@ export class SteamTankMortar extends SteamTank {
     this.name = "Steam Tank (Mortar)";
     this.m_name = "蒸汽坦克-臼炮";
     [this.description, this.m_description] = getDescription(this, "A_VC", "AM,BB");
-    this.tech = 3;
+    this.tech = 4;
 
     this.missileAttack = 1600;
     this.multiShots = 4;
