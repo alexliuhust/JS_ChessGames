@@ -831,14 +831,14 @@ export class Arm {
             }
             singleDamage /= penetrate;
 
-            if (targetArm.isHoldingShield()) penetrate -= 1;
+            if (targetArm.isHoldingShield() && penetrate >= 4) penetrate -= 1;
             penetrate = Math.max(penetrate, 0);
           }
 
           // Explosive attacks
           else if (this.explosionRadius != null && this.explosionRadius > 0) {
             explosionRadius = this.explosionRadius;
-            if (targetArm.isHoldingShield()) explosionRadius -= 1;
+            if (targetArm.isHoldingShield() && explosionRadius > 2) explosionRadius = 2;
             singleDamage /= explosionRadius + 1;
             if (targetArm.isMid()) explosionRadius -= 1;
             if (targetArm.scale === 1) explosionRadius -= 2;

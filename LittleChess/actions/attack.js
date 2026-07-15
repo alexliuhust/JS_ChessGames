@@ -158,13 +158,16 @@ function decreaseScalesForArms(
       defender.c_leadership -= totalShock;
     }
     if (damageType === "missile") {
+      let md = 0;
       if (attacker.isBombing) {
         defender.addStatus("UB");
-        defender.c_leadership -= 40;
+        md += 40;
       } else if (attacker.canArtilleryAttack()) {
         defender.addStatus("UC");
-        defender.c_leadership -= 30;
+        md += 30;
       }
+      if (md >= 15 && defender.isHoldingShield()) md -= 15;
+      defender.c_leadership -= md;
     }
   }
 
