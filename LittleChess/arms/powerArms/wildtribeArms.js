@@ -350,7 +350,7 @@ export class Tauren extends ArmPrimary.Arm {
     this.m_name = "牛头人";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "MI", null);
-    this.tech = 3;
+    this.tech = 2;
 
     this.scale = 30;
     this.singleHP = 300;
@@ -494,7 +494,7 @@ export class WolfCavalryTS extends WolfCavalry {
     this.m_name = "狼骑兵-标枪";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "MLC", "SF,AG,MA,FD");
-    this.tech = 3;
+    this.tech = 2;
 
     this.missileAttack = 32;
     this.missileRange = 6;
@@ -603,7 +603,7 @@ export class RhinoTrooperBallista extends RhinoTrooper {
     this.m_name = "犀牛骑兵-弩炮";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "A_CGC", "AM,AAM,MA,ALG");
-    this.tech = 4;
+    this.tech = 3;
 
     this.missileAttack = 43;
     this.missileRange = 7;

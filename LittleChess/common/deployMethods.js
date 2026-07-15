@@ -194,9 +194,9 @@ export class Deploy {
   bindArmImagesMouseDown() {
     for (let i = 0; i < this.elems.length; i++) {
       let elem = this.elems[i];
-      if (this.arms[i].tech > techLimit) {
-        continue;
-      }
+      // if (this.arms[i].tech > techLimit) {
+      //   continue;
+      // }
       elem.addEventListener("click", () => {
         for (let i = 0; i < this.elems.length; i++) this.elems[i].style.border = "5px solid white";
 
@@ -239,6 +239,8 @@ export class Deploy {
 
     for (let i = 0; i < this.images.length; i++) {
       let div = document.getElementById(i);
+      div.style.position = "relative"; // anchor for the corner label
+
       let elem = document.createElement("img");
       elem.src = this.images[i];
       div.appendChild(elem);
@@ -248,6 +250,20 @@ export class Deploy {
       if (this.arms[i].tech > techLimit) {
         elem.style.filter = "grayscale(100%) brightness(0.5)";
       }
+
+      // tech number, bottom-right corner
+      const label = document.createElement("span");
+      label.textContent = this.arms[i].tech;
+      label.style.position = "absolute";
+      label.style.left = "5px";
+      label.style.top = "5px";
+      label.style.font = "10px sans-serif";
+      label.style.color = "white";
+      label.style.background = "rgba(0, 0, 0, 0.6)";
+      label.style.padding = "0 3px";
+      label.style.borderRadius = "3px";
+      label.style.pointerEvents = "none";
+      div.appendChild(label);
 
       this.elems.push(elem);
     }

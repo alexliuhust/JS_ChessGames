@@ -678,7 +678,7 @@ export class RocketUnit extends ArmPrimary.Arm {
     this.m_name = "火箭单元";
     this.type = "artillery";
     [this.description, this.m_description] = getDescription(this, "AT", "AIF,BB,SA");
-    this.tech = 3;
+    this.tech = 4;
 
     this.scale = 5;
     this.singleHP = 50;
