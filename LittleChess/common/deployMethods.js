@@ -154,7 +154,7 @@ export class Deploy {
     if (this.imageIndex >= 0) {
       let cost = this.arms[this.imageIndex].cost;
       if (this.moneyLeft < cost) return;
-
+      if (this.arms[this.imageIndex].tech > techLimit) return;
       if (this.arms[this.imageIndex].isEliteOrHero()) {
         if (this.elitesHeroesLeft == 0) return;
         if (uniqueEliteAndHero && this.seenIndexes.has(this.imageIndex)) return;
@@ -194,6 +194,9 @@ export class Deploy {
   bindArmImagesMouseDown() {
     for (let i = 0; i < this.elems.length; i++) {
       let elem = this.elems[i];
+      if (this.arms[i].tech > techLimit) {
+        continue;
+      }
       elem.addEventListener("click", () => {
         for (let i = 0; i < this.elems.length; i++) this.elems[i].style.border = "5px solid white";
 
@@ -344,6 +347,22 @@ export class Deploy {
     }
   }
 
+  findBackword() {
+    this.imageIndex = (this.imageIndex + this.arms.length) % this.arms.length;
+    while (this.arms[this.imageIndex].tech > techLimit) {
+      this.imageIndex -= 1;
+      this.imageIndex = (this.imageIndex + this.arms.length) % this.arms.length;
+    }
+  }
+
+  findForward() {
+    this.imageIndex = (this.imageIndex + this.arms.length) % this.arms.length;
+    while (this.arms[this.imageIndex].tech > techLimit) {
+      this.imageIndex += 1;
+      this.imageIndex = (this.imageIndex + this.arms.length) % this.arms.length;
+    }
+  }
+
   bindKeyPressEvents() {
     document.addEventListener("keydown", (e) => {
       if (e.ctrlKey && e.shiftKey) {
@@ -378,9 +397,13 @@ export class Deploy {
       // Press Tab to forward select, shift + Tab to backward select arms
       else if (e.key === "Tab") {
         e.preventDefault();
-        if (e.shiftKey) this.imageIndex -= 1;
-        else this.imageIndex += 1;
-        this.imageIndex = (this.imageIndex + this.arms.length) % this.arms.length;
+        if (e.shiftKey) {
+          this.imageIndex -= 1;
+          this.findBackword();
+        } else {
+          this.imageIndex += 1;
+          this.findForward();
+        }
         this.elems[this.imageIndex].click();
       }
       // Press arrow keys to select arms
@@ -393,21 +416,25 @@ export class Deploy {
             if (this.imageIndex >= this.rowSize) {
               this.imageIndex -= this.rowSize;
             }
+            this.findBackword();
             break;
           case "D":
             if (max - this.imageIndex > this.rowSize) {
               this.imageIndex += this.rowSize;
             }
+            this.findForward();
             break;
           case "L":
             if (this.imageIndex > 0) {
               this.imageIndex -= 1;
             }
+            this.findBackword();
             break;
           case "R":
             if (this.imageIndex < max - 1) {
               this.imageIndex += 1;
             }
+            this.findForward();
             break;
           default:
             break;

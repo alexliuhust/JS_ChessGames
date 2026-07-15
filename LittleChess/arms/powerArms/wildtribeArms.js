@@ -10,6 +10,7 @@ export class Goblin extends ArmPrimary.Arm {
     this.m_name = "哥布林";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "SF");
+    this.tech = 0;
 
     this.scale = 120;
     this.singleHP = 30;
@@ -33,6 +34,7 @@ export class GoblinSpear extends Goblin {
     this.m_name = "哥布林-持矛";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "SF,RC");
+    this.tech = 0;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "long-rs");
     this.meleeDodge = 0;
@@ -53,6 +55,7 @@ export class GoblinArcher extends Goblin {
     this.m_name = "哥布林弓手";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "AC", "SF");
+    this.tech = 0;
 
     this.meleeAttack = 5;
 
@@ -79,6 +82,7 @@ export class OrcWarrior extends ArmPrimary.Arm {
     this.m_name = "兽人勇士";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "AIF");
+    this.tech = 1;
 
     this.scale = 81;
     this.singleHP = 80;
@@ -111,6 +115,7 @@ export class OrcWarriorSpear extends OrcWarrior {
     this.m_name = "兽人勇士-持矛";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "RC");
+    this.tech = 1;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "long");
 
@@ -129,6 +134,7 @@ export class OrcWarriorTS extends OrcWarrior {
     this.m_name = "兽人勇士-标枪";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "RC,MA");
+    this.tech = 1;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "long");
 
@@ -169,6 +175,7 @@ export class OrcWarriorTSP extends OrcWarriorTS {
     this.m_name = "兽人勇士-淬毒标枪";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "RC,MA,PW");
+    this.tech = 2;
 
     this.meleeAttack = 30;
     this.missileAttack = 40;
@@ -199,6 +206,7 @@ export class OrcWarriorTA extends OrcWarrior {
     this.m_name = "兽人勇士-投斧";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "AIF,MA,AAM");
+    this.tech = 1;
 
     this.missileAttack = 42;
     this.missileRange = 4;
@@ -240,6 +248,7 @@ export class ChampionWarrior extends OrcWarriorTA {
     this.m_name = "冠军勇士";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "EL,AIF,MA,HM,AAM");
+    this.tech = 2;
 
     this.missileRange = 5;
     this.ammo = 2;
@@ -259,6 +268,7 @@ export class TrollClub extends ArmPrimary.Arm {
     this.m_name = "巨魔-狼牙棒";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "MI", "AM");
+    this.tech = 2;
 
     this.scale = 30;
     this.singleHP = 300;
@@ -283,6 +293,7 @@ export class TrollShield extends TrollClub {
     this.m_name = "巨魔-格栅盾";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "S_MI", "AM,HS");
+    this.tech = 3;
 
     this.missileArmor = 60;
     this.missileDodge = 30;
@@ -304,6 +315,7 @@ export class TrollTS extends TrollClub {
     this.m_name = "巨魔-标枪";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "MI", "AM,MA,ALG");
+    this.tech = 3;
 
     this.meleeAttack = 40;
 
@@ -338,6 +350,7 @@ export class Tauren extends ArmPrimary.Arm {
     this.m_name = "牛头人";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "MI", null);
+    this.tech = 2;
 
     this.scale = 30;
     this.singleHP = 300;
@@ -360,6 +373,7 @@ export class TaurenLog extends Tauren {
     this.m_name = "牛头人-圆木";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "MI", "AIF");
+    this.tech = 2;
 
     this.speed = 4;
 
@@ -396,6 +410,8 @@ export class TaurenGA extends Tauren {
     this.m_name = "牛头人-巨斧";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "A_MI", "AM,ALG,AAM");
+    this.tech = 3;
+
     this.speed = 4;
 
     ArmTool.loadDefenceBenchmark(this, "monInf", "long,heavy,armor");
@@ -436,6 +452,7 @@ export class TaurenGAE extends TaurenGA {
     this.m_name = "牛头人狂战士";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "A_MI,IPR", "EL,AM,ALG,AAM,HM");
+    this.tech = 3;
 
     this.inspiring = 10;
     this.inspireRange = 3;
@@ -453,6 +470,7 @@ export class WolfCavalry extends ArmPrimary.Arm {
     this.m_name = "狼骑兵";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "MLC", "SF,AG,FD");
+    this.tech = 1;
 
     this.scale = 60;
     this.singleHP = 100;
@@ -476,6 +494,7 @@ export class WolfCavalryTS extends WolfCavalry {
     this.m_name = "狼骑兵-标枪";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "MLC", "SF,AG,MA,FD");
+    this.tech = 2;
 
     this.missileAttack = 32;
     this.missileRange = 6;
@@ -501,6 +520,7 @@ export class WolfCavalryTSP extends WolfCavalryTS {
     this.m_name = "狼骑兵-淬毒标枪";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "MLC", "SF,AG,MA,PW,FD");
+    this.tech = 2;
 
     this.missileAttack = 40;
     this.missileParameters = {
@@ -530,6 +550,7 @@ export class RhinoTrooper extends ArmPrimary.Arm {
     this.m_name = "犀牛骑兵";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "A_CGC", "AM,AAM");
+    this.tech = 2;
 
     this.scale = 42;
     this.singleHP = 200;
@@ -560,6 +581,7 @@ export class RhinoShaman extends RhinoTrooper {
     this.m_name = "犀牛骑兵-萨满";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "A_CGC,HLR,RSR", "AM,AAM");
+    this.tech = 3;
 
     this.healing = 20;
     this.healRange = 3;
@@ -581,6 +603,7 @@ export class RhinoTrooperBallista extends RhinoTrooper {
     this.m_name = "犀牛骑兵-弩炮";
     this.type = "cavalry";
     [this.description, this.m_description] = getDescription(this, "A_CGC", "AM,AAM,MA,ALG");
+    this.tech = 3;
 
     this.missileAttack = 43;
     this.missileRange = 7;
@@ -620,6 +643,7 @@ export class Minotaur extends ArmPrimary.Arm {
     this.m_name = "米诺陶";
     this.type = "monster";
     [this.description, this.m_description] = getDescription(this, "G", null);
+    this.tech = 2;
 
     this.scale = 1;
     this.singleHP = 8000;
@@ -639,6 +663,7 @@ export class MinotaurStone extends Minotaur {
     this.m_name = "米诺陶-投石";
     this.type = "monster";
     [this.description, this.m_description] = getDescription(this, "G", "BB,MA,SA");
+    this.tech = 3;
 
     this.missileAttack = 1100;
     this.missileRange = 10;
