@@ -39,6 +39,9 @@ export class Player {
     this.operableNum = 0;
     this.maxOperations = 0;
 
+    this.reckoningDiv = document.getElementById(`reckoningDiv${this.playerNumber}`);
+    this.power = window.localStorage.getItem(`power${this.playerNumber}`);
+
     this.infoPanel = new InfoPanel(this.canvasList.info, this.useMandarin, false, true);
 
     document.addEventListener("keydown", (e) => {
@@ -69,10 +72,71 @@ export class Player {
     Canvas.clear(this.canvasList.main, W, H);
   }
 
+  addDeadPieceToReckoningList(piece) {
+    // item wrapper
+    const itemDiv = document.createElement("div");
+    itemDiv.className = "d-flex";
+
+    // image column
+    const imgCol = document.createElement("div");
+    imgCol.className = "p-2";
+
+    const img = document.createElement("img");
+
+    img.src = `../images/${this.power}/${piece.constructor.name}.png`;
+    img.style.width = "60px";
+    img.style.height = "60px";
+
+    imgCol.appendChild(img);
+
+    // text column
+    const textCol = document.createElement("div");
+    textCol.className = "p-2";
+
+    const nameSpan = document.createElement("span");
+    nameSpan.style.fontSize = "20px";
+    nameSpan.textContent = this.useMandarin ? piece.m_name : piece.name;
+
+    const br = document.createElement("br");
+
+    const statsRow = document.createElement("div");
+    statsRow.className = "d-flex";
+    statsRow.style.fontSize = "17px";
+
+    const killDiv = document.createElement("div");
+    killDiv.className = "p-2";
+    killDiv.style.width = "150px";
+    killDiv.textContent = `${this.useMandarin ? "杀敌数" : "Kill count"}: ${piece.killCount}`;
+
+    const damageDiv = document.createElement("div");
+    damageDiv.className = "p-2";
+    damageDiv.style.width = "210px";
+    damageDiv.textContent = `${this.useMandarin ? "伤害输出" : "Damage output"}: ${piece.damageOutput}`;
+
+    const valueDiv = document.createElement("div");
+    valueDiv.className = "p-2";
+    valueDiv.style.width = "210px";
+    valueDiv.textContent = `${this.useMandarin ? "贡献价值" : "Value created"}: ${0}G`;
+
+    statsRow.appendChild(killDiv);
+    statsRow.appendChild(damageDiv);
+    statsRow.appendChild(valueDiv);
+
+    textCol.appendChild(nameSpan);
+    textCol.appendChild(br);
+    textCol.appendChild(statsRow);
+
+    itemDiv.appendChild(imgCol);
+    itemDiv.appendChild(textCol);
+
+    this.reckoningDiv.appendChild(itemDiv);
+  }
+
   leadershipChangesAccordingToToll() {
     let leadershipChange = 0;
     for (let i = this.pieceList.length - 1; i >= 0; i--) {
       if (!this.pieceList[i].isAlive) {
+        this.addDeadPieceToReckoningList(this.pieceList[i]);
         leadershipChange += this.pieceList[i].cost / 10;
         this.pieceList.splice(i, 1);
       }
