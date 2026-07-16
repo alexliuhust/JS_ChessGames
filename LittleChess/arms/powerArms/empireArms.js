@@ -48,6 +48,8 @@ export class SwordInfantryShield extends SwordInfantry {
     ArmTool.loadDefenceBenchmark(this, "inf", "short,shield");
 
     this.meleeAttack = 18;
+    this.meleeAttack_bonus = 9;
+
     this.loadRealtimeProps();
   }
 }
@@ -89,7 +91,13 @@ export class PalaceGuard extends ArmPrimary.Arm {
     this.meleeAttack = 16;
     this.meleeAttack_bonus = 16;
 
+    this.antiArmor = 5;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee") return this.antiArmor;
+    return 0;
   }
 
   getSingleDamage(damageType, targetArm) {
@@ -116,6 +124,7 @@ export class PalaceGuardShield extends PalaceGuard {
     ArmTool.loadDefenceBenchmark(this, "inf", "long-rs,shield");
 
     this.meleeAttack = 13;
+    this.meleeAttack_bonus = 15;
 
     this.loadRealtimeProps();
   }
@@ -125,8 +134,8 @@ export class Halberdier extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Halberdiers";
-    this.m_name = "长戟兵";
+    this.name = "Palace Guards";
+    this.m_name = "大殿守卫";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "RC,ALG");
     this.tech = 3;
@@ -139,7 +148,7 @@ export class Halberdier extends ArmPrimary.Arm {
 
     this.chargeArmor = 35;
 
-    this.meleeAttack = 16;
+    this.meleeAttack = 17;
     this.meleeAttack_bonus = 20;
 
     this.antiArmor = 8;
@@ -218,7 +227,7 @@ export class Crossbower extends Hunter {
 
     this.missileAttack = 17;
 
-    this.antiArmor = 5;
+    this.antiArmor = 8;
 
     this.loadRealtimeProps();
   }
@@ -263,7 +272,7 @@ export class Musketeer extends ArmPrimary.Arm {
       },
     };
 
-    this.antiArmor = 24;
+    this.antiArmor = 36;
     this.loadRealtimeProps();
   }
 
@@ -299,7 +308,7 @@ export class ShotgunnerShield extends Musketeer {
     this.m_name = "霰弹枪手-持盾";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "S_AC", "HS,AIF,SA");
-    this.tech = 3;
+    this.tech = 2;
 
     ArmTool.loadDefenceBenchmark(this, null, "shield");
 
@@ -307,7 +316,7 @@ export class ShotgunnerShield extends Musketeer {
 
     this.missileAttack = 15;
     this.missileAttack_bonus = 30;
-    this.missileRange = 4;
+    this.missileRange = 5;
     this.explosionRadius = 1;
 
     this.missileParameters = {
@@ -380,7 +389,7 @@ export class EmpireSniper extends Musketeer {
       },
     };
 
-    this.antiArmor = 30;
+    this.antiArmor = 42;
     this.loadRealtimeProps();
   }
 
@@ -429,6 +438,7 @@ export class MusketeerE extends MusketeerShield {
     [this.description, this.m_description] = getDescription(this, "S_AC", "EL,HS,AAM,HM");
     this.tech = 3;
 
+    this.antiArmor = 42;
     this.loadRealtimeProps();
 
     ArmTool.updateEliteData(this);
@@ -471,7 +481,7 @@ export class MusketRider extends ArmPrimary.Arm {
       },
     };
 
-    this.antiArmor = 24;
+    this.antiArmor = 36;
     this.loadRealtimeProps();
   }
 
@@ -501,7 +511,7 @@ export class Vanguard extends ArmPrimary.Arm {
     this.meleeAttack = 24;
     this.chargeAttack = 58;
 
-    this.antiArmor = 18;
+    this.antiArmor = 20;
     this.loadRealtimeProps();
   }
 
@@ -531,7 +541,14 @@ export class PalaceKnight extends ArmPrimary.Arm {
     this.meleeAttack = 35;
     this.chargeAttack = 30;
     this.meleeAttack_bonus = 45;
+
+    this.antiArmor = 10;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee") return this.antiArmor;
+    return 0;
   }
 
   getSingleDamage(damageType, targetArm) {
@@ -772,11 +789,6 @@ export class SteamTank extends ArmPrimary.Arm {
     this.tall = 6;
     this.loadRealtimeProps();
   }
-
-  getAntiArmor(damageType, targetArm) {
-    if (damageType === "missile") return this.antiArmor;
-    return 0;
-  }
 }
 
 export class SteamTankMortar extends SteamTank {
@@ -813,7 +825,6 @@ export class SteamTankMortar extends SteamTank {
       },
     };
 
-    this.antiArmor = 0;
     this.ammo = 12;
     this.tall = 6;
     this.loadRealtimeProps();
@@ -856,7 +867,6 @@ export class SteamTankRocket extends SteamTank {
       },
     };
 
-    this.antiArmor = 0;
     this.ammo = 12;
     this.tall = 6;
     this.loadRealtimeProps();
@@ -898,16 +908,16 @@ export const ARM_CLASSES = [
   SwordInfantryE,
   Hunter,
   Crossbower,
+  ShotgunnerShield,
   Musketeer,
   MusketeerShield,
-  ShotgunnerShield,
   EmpireSniper,
   EmpireSniperShield,
   MusketeerE,
   MusketRider,
-  PalaceKnight,
-  Vanguard,
   Paladin,
+  Vanguard,
+  PalaceKnight,
   SteamTank,
   SteamTankMortar,
   SteamTankRocket,

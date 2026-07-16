@@ -48,12 +48,9 @@ export function getCombatPower(arm, useCurrent) {
   let defendenceScore = hpScore * armAndDodgeScore * 0.015;
   if (arm.isResistingCharge()) defendenceScore += 8;
   if (arm.isHoldingShield()) defendenceScore += 8;
-  if (arm.isMeleeMaster()) defendenceScore += 5;
-  if (arm.isAgile()) defendenceScore += 8;
   if (arm.isSparse()) defendenceScore += 10;
   if (arm.isHighMorale()) defendenceScore += 8;
   if (arm.isStealth()) defendenceScore += 10;
-  if (strictDeploymentArea && arm.hasForwardDeployment()) defendenceScore += 14;
 
   // Attack and other combat score
   let meleeAttack = useCurrent ? arm.c_meleeAttack : arm.meleeAttack;
@@ -63,7 +60,7 @@ export function getCombatPower(arm, useCurrent) {
   let chargeAttack = useCurrent ? arm.c_chargeAttack : arm.chargeAttack;
   chargeAttack += useCurrent ? arm.c_chargeAttack_bonus * 0.5 : arm.chargeAttack_bonus * 0.5;
 
-  let meleeAttackScore = meleeAttack * arm.getValidScale("melee") * (1 + arm.antiArmor / 45) * 0.05;
+  let meleeAttackScore = meleeAttack * arm.getValidScale("melee") * (1 + arm.antiArmor / 65) * 0.05;
   if (arm.isDamageMagic("melee")) meleeAttackScore += 10;
 
   let missileAttackScore =
@@ -71,20 +68,23 @@ export function getCombatPower(arm, useCurrent) {
     arm.getValidScale("missile") *
     Math.max(2, arm.missileRange - 2) *
     arm.ammo *
-    // (1 + arm.missilePenetrate / 15 + (arm.explosionRadius + 1) ** 2 / 20) *
-    (1 + arm.antiArmor / 45) *
+    (1 + arm.antiArmor / 65) *
     0.00042;
+  if (arm.canArtilleryAttack()) missileAttackScore *= 1.5;
   missileAttackScore += arm.isParabola ? 15 : 0;
   missileAttackScore += arm.marksmanSkill ? 10 : 0;
   if (arm.isDamageMagic("missile")) missileAttackScore += 10;
 
-  let chargeAttackScore = chargeAttack * arm.getValidScale("charge") * (1 + arm.antiArmor / 45) * 0.025;
+  let chargeAttackScore = chargeAttack * arm.getValidScale("charge") * (1 + arm.antiArmor / 65) * 0.025;
   if (arm.isDamageMagic("charge")) chargeAttackScore += 10;
 
   let shockScore = arm.shock * arm.shock * 0.015;
 
   let attackScore = meleeAttackScore + missileAttackScore + chargeAttackScore + shockScore;
-  if (arm.canPoison()) attackScore += 10;
+  if (arm.canPoison()) attackScore += 7;
+  if (strictDeploymentArea && arm.hasForwardDeployment()) attackScore += 14;
+  if (arm.isMeleeMaster()) attackScore += 5;
+  if (arm.isAgile()) attackScore += 8;
 
   // Type score
   let typeScore = 0;
@@ -156,10 +156,13 @@ export function calculateCost(arm) {
 
 export function calculateLeaderShip(arm, costResults) {
   let leadership = arm.cost + costResults[1] * 3;
-  if (arm.type === "infantry" || arm.type === "cavalry") leadership += 25;
-  // else if (arm.type === "archers" || arm.type === "artillery") leadership -= 25;
+  leadership = Math.round(Math.pow(leadership, 0.5) * 0.52) * 25;
 
-  leadership = Math.round(Math.pow(leadership, 0.5) / 2) * 25;
+  if (arm.type === "infantry") leadership += 25;
+  if (arm.type === "archers" || arm.type === "artillery") leadership -= 25;
+  if (arm.isArmored()) leadership += 50;
+  if (arm.isWeak()) leadership -= 25;
+
   return leadership;
 }
 

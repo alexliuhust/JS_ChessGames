@@ -422,7 +422,7 @@ export class Arm {
       case "melee":
         accumulated += amount * 20;
         accumulated -= this.c_meleeDodge / 8;
-        accumulated += (this.c_meleeArmor + this.c_missileArmor) / 8;
+        accumulated += (this.c_meleeArmor + this.c_missileArmor) / 9;
         break;
       case "missile":
         accumulated += amount * 5;
@@ -433,7 +433,7 @@ export class Arm {
         break;
       case "move":
         accumulated += Math.ceil((amount * 15) / this.speed);
-        accumulated += (this.c_meleeArmor + this.c_missileArmor + this.c_chargeArmor + this.c_missileDodge) / 8;
+        accumulated += (this.c_meleeArmor + this.c_missileArmor + this.c_chargeArmor + this.c_missileDodge) / 6;
         break;
     }
 
@@ -831,14 +831,14 @@ export class Arm {
             }
             singleDamage /= penetrate;
 
-            if (targetArm.isHoldingShield()) penetrate -= 1;
+            if (targetArm.isHoldingShield() && penetrate >= 4) penetrate -= 1;
             penetrate = Math.max(penetrate, 0);
           }
 
           // Explosive attacks
           else if (this.explosionRadius != null && this.explosionRadius > 0) {
             explosionRadius = this.explosionRadius;
-            if (targetArm.isHoldingShield()) explosionRadius -= 1;
+            if (targetArm.isHoldingShield() && explosionRadius > 2) explosionRadius = 2;
             singleDamage /= explosionRadius + 1;
             if (targetArm.isMid()) explosionRadius -= 1;
             if (targetArm.scale === 1) explosionRadius -= 2;
@@ -1030,12 +1030,20 @@ export class Arm {
     return this.preAct && this.preAct.startsWith("mov ");
   }
 
+  isWeak() {
+    return this.description.includes("Weak");
+  }
+
   isResistingCharge() {
     return this.description.includes("Resist charging");
   }
 
   isHoldingShield() {
     return this.description.includes("Holding shields");
+  }
+
+  isArmored() {
+    return this.description.includes("Armored");
   }
 
   isMeleeMaster() {

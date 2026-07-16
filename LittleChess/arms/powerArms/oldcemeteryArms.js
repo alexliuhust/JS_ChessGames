@@ -6,7 +6,7 @@ export class Skeleton extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Skeleton Puppet";
+    this.name = "Skeleton Puppets";
     this.m_name = "骷髅傀儡";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "WK,SF,IS");
@@ -30,7 +30,7 @@ export class SkeletonShield extends Skeleton {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Skeleton Puppet (Shield)";
+    this.name = "Skeleton Puppets (Shield)";
     this.m_name = "骷髅傀儡-持盾";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "S_IF", "WK,SF,HS,IS");
@@ -50,7 +50,7 @@ export class SkeletonSpear extends Skeleton {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Skeleton Puppet (Spear)";
+    this.name = "Skeleton Puppets (Spear)";
     this.m_name = "骷髅傀儡-持矛";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "S_IF", "WK,SF,RC,IS");
@@ -64,7 +64,13 @@ export class SkeletonSpear extends Skeleton {
 
     this.meleeAttack = 4;
 
+    this.antiArmor = 4;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee") return this.antiArmor;
+    return 0;
   }
 }
 
@@ -86,7 +92,13 @@ export class DarkSoldier extends ArmPrimary.Arm {
 
     this.meleeAttack = 20;
 
+    this.antiArmor = 5;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee") return this.antiArmor;
+    return 0;
   }
 }
 
@@ -102,7 +114,7 @@ export class DarkSoldierShield extends DarkSoldier {
 
     ArmTool.loadDefenceBenchmark(this, "inf", "long-rs,shield");
 
-    this.meleeAttack = 18;
+    this.meleeAttack = 17;
     this.loadRealtimeProps();
   }
 }
@@ -122,6 +134,7 @@ export class DarkSoldierScythe extends DarkSoldier {
     this.meleeAttack = 20;
     this.meleeAttack_bonus = 40;
 
+    this.antiArmor = 12;
     this.loadRealtimeProps();
   }
 
@@ -159,16 +172,17 @@ export class DarkSoldierSSE extends DarkSoldierSS {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Tomb Keeper";
+    this.name = "Tomb Keepers";
     this.m_name = "墓穴守望者";
     this.type = "infantry";
-    [this.description, this.m_description] = getDescription(this, "S_IF,PTR", "EL,HS,ALG,HM");
+    [this.description, this.m_description] = getDescription(this, "S_IF,PTR", "EL,HS,ALG,HM,AAM");
     this.tech = 4;
 
     this.armorEnhance = 30;
     this.enhanceRange = 2;
     this.loadRealtimeProps();
 
+    this.antiArmor = 18;
     ArmTool.updateEliteData(this);
   }
 }
@@ -375,7 +389,13 @@ export class DeathKnight extends ArmPrimary.Arm {
     this.chargeAttack = 20;
     this.meleeAttack_bonus = 50;
 
+    this.antiArmor = 12;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee") return this.antiArmor;
+    return 0;
   }
 
   getSingleDamage(damageType, targetArm) {
@@ -419,7 +439,7 @@ export class DeathKnightCharge extends ArmPrimary.Arm {
     this.name = "Death Knights (Charge)";
     this.m_name = "死亡骑士-冲杀";
     this.type = "cavalry";
-    [this.description, this.m_description] = getDescription(this, "A_CGC", "AM");
+    [this.description, this.m_description] = getDescription(this, "A_CGC", "AM,AAM");
     this.tech = 3;
 
     this.scale = 49;
@@ -432,7 +452,14 @@ export class DeathKnightCharge extends ArmPrimary.Arm {
     this.meleeAttack = 17;
     this.chargeAttack = 55;
 
+    this.antiArmor = 18;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee") return 12;
+    if (damageType === "charge") return this.antiArmor;
+    return 0;
   }
 }
 
@@ -489,6 +516,7 @@ export class FireBeetleRider extends BeetleRider {
     this.missileAttack = 60;
     this.missileRange = 3;
     this.explosionRadius = 1;
+    this.artilleryAttack = true;
 
     this.missileParameters = {
       shape: "fire",
@@ -744,11 +772,11 @@ export class Werewolf extends ArmPrimary.Arm {
     this.name = "Werewolf";
     this.m_name = "狼人";
     this.type = "monster";
-    [this.description, this.m_description] = getDescription(this, "G", "HG,ALG,SH");
+    [this.description, this.m_description] = getDescription(this, "G", "HG,ALG,SH,AAM");
     this.tech = 4;
 
     this.scale = 1;
-    this.singleHP = 5000;
+    this.singleHP = 6000;
     this.speed = 4;
 
     this.meleeDodge = 65;
@@ -759,9 +787,15 @@ export class Werewolf extends ArmPrimary.Arm {
     this.chargeAttack = 1800;
     this.meleeAttack_bonus = 800;
 
+    this.antiArmor = 36;
     this.shock = 50;
     this.tall = 5;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee") return this.antiArmor;
+    return 0;
   }
 
   getSingleDamage(damageType, targetArm) {

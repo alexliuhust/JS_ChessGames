@@ -41,7 +41,13 @@ export class HenchWarriorHalberd extends HenchWarrior {
     this.meleeAttack = 10;
     this.meleeAttack_bonus = 10;
 
+    this.antiArmor = 5;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee") return this.antiArmor;
+    return 0;
   }
 
   getSingleDamage(damageType, targetArm) {
@@ -70,7 +76,7 @@ export class HenchWarriorGiantaxe extends HenchWarrior {
 
     this.meleeAttack = 33;
 
-    this.antiArmor = 20;
+    this.antiArmor = 18;
     this.loadRealtimeProps();
   }
 
@@ -119,7 +125,13 @@ export class BurningWarriorHalberd extends BurningWarrior {
     this.meleeAttack = 20;
     this.meleeAttack_bonus = 15;
 
+    this.antiArmor = 8;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee") return this.antiArmor;
+    return 0;
   }
 
   getSingleDamage(damageType, targetArm) {
@@ -148,7 +160,7 @@ export class BurningWarriorGiantaxe extends BurningWarrior {
 
     this.meleeAttack = 40;
 
-    this.antiArmor = 20;
+    this.antiArmor = 22;
     this.loadRealtimeProps();
   }
 
@@ -165,7 +177,7 @@ export class BurningWarriorFlail extends BurningWarrior {
     this.name = "Burning Warriors (Flail)";
     this.m_name = "燃烧战士-链枷";
     this.type = "infantry";
-    [this.description, this.m_description] = getDescription(this, "AS_IF", "AM,HS,AAM");
+    [this.description, this.m_description] = getDescription(this, "AS_IF", "AM,HS");
     this.tech = 3;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "short,armor,shield");
@@ -174,7 +186,7 @@ export class BurningWarriorFlail extends BurningWarrior {
 
     this.meleeAttack = 35;
 
-    this.antiArmor = 18;
+    this.antiArmor = 15;
     this.loadRealtimeProps();
   }
 
@@ -194,7 +206,7 @@ export class BurningWarriorE extends BurningWarriorFlail {
     [this.description, this.m_description] = getDescription(this, "AS_IF", "EL,AM,HS,AAM,HM");
     this.tech = 4;
 
-    this.antiArmor = 30;
+    this.antiArmor = 20;
     this.loadRealtimeProps();
 
     ArmTool.updateEliteData(this);
@@ -242,7 +254,13 @@ export class BurningKnightHalberd extends BurningKnight {
     this.meleeAttack_bonus = 24;
     this.chargeAttack = 25;
 
+    this.antiArmor = 10;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee" || damageType === "charge") return this.antiArmor;
+    return 0;
   }
 
   getSingleDamage(damageType, targetArm) {
@@ -302,7 +320,13 @@ export class BurningKnightCharge extends BurningKnight {
     this.meleeAttack = 20;
     this.chargeAttack = 50;
 
+    this.antiArmor = 16;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "charge") return this.antiArmor;
+    return 0;
   }
 }
 
@@ -313,13 +337,14 @@ export class BurningKnightChargeE extends BurningKnightCharge {
     this.name = "Burning Gale";
     this.m_name = "烈风";
     this.type = "cavalry";
-    [this.description, this.m_description] = getDescription(this, "A_CGC,IPR", "EL,HM");
+    [this.description, this.m_description] = getDescription(this, "A_CGC,IPR", "EL,HM,AAM");
     this.tech = 4;
 
     this.inspiring = 15;
     this.inspireRange = 3;
     this.loadRealtimeProps();
 
+    this.antiArmor = 20;
     ArmTool.updateEliteData(this);
   }
 }
@@ -334,7 +359,7 @@ export class Hellhound extends ArmPrimary.Arm {
     [this.description, this.m_description] = getDescription(this, "MC", "SF,AG,FD,IS");
     this.tech = 1;
 
-    this.scale = 200;
+    this.scale = 144;
     this.singleHP = 20;
     this.speed = 7;
 
@@ -483,7 +508,7 @@ export class DemonEnvoy extends ArmPrimary.Arm {
     this.name = "Demon Envoys";
     this.m_name = "恶魔使者";
     this.type = "monster-infantry";
-    [this.description, this.m_description] = getDescription(this, "MI", "AAM,SH,IS");
+    [this.description, this.m_description] = getDescription(this, "MI", "SH,IS");
     this.tech = 2;
 
     this.scale = 25;
@@ -495,7 +520,7 @@ export class DemonEnvoy extends ArmPrimary.Arm {
     this.meleeAttack = 90;
     this.chargeAttack = 60;
 
-    this.antiArmor = 30;
+    this.antiArmor = 12;
     this.shock = 35;
     this.loadRealtimeProps();
   }
@@ -521,7 +546,13 @@ export class DemonEnvoyWild extends DemonEnvoy {
     this.meleeAttack = 75;
     this.chargeAttack = 100;
 
+    this.antiArmor = 36;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee" || damageType === "charge") return this.antiArmor;
+    return 0;
   }
 }
 
@@ -534,7 +565,7 @@ export class DemonEnvoyHellfire extends DemonEnvoy {
     this.name = "Demon Envoys (Hellfire)";
     this.m_name = "恶魔使者-地狱火";
     this.type = "monster-infantry";
-    [this.description, this.m_description] = getDescription(this, "MI", "AAM,SH,MA,MG,IS");
+    [this.description, this.m_description] = getDescription(this, "MI", "SH,MA,MG,IS");
     this.tech = 4;
 
     this.missileAttack = 75;
@@ -593,9 +624,15 @@ export class Cerberus extends ArmPrimary.Arm {
     this.attackEnhance = 40;
     this.enhanceRange = 4;
 
+    this.antiArmor = 15;
     this.shock = 40;
     this.tall = 3;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee" || damageType === "charge") return this.antiArmor;
+    return 0;
   }
 }
 

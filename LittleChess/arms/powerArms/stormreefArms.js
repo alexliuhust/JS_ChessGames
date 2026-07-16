@@ -45,7 +45,13 @@ export class SeamanPistol extends Seaman {
     };
 
     this.ammo = 24;
+    this.antiArmor = 12;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "missile") return this.antiArmor;
+    return 0;
   }
 }
 
@@ -131,7 +137,7 @@ export class SeamanMusket extends Seaman {
       },
     };
 
-    this.antiArmor = 10;
+    this.antiArmor = 30;
 
     this.ammo = 18;
     this.loadRealtimeProps();
@@ -160,6 +166,7 @@ export class SeamanHandcannon extends Seaman {
     this.missileAttack = 34;
     this.missilePenetrate = 2;
     this.missileRange = 6;
+    this.artilleryAttack = true;
 
     this.missileParameters = {
       shape: "line",
@@ -200,7 +207,7 @@ export class SeamanMusketE extends SeamanMusket {
 
     ArmTool.loadDefenceBenchmark(this, "inf", "short,sparse");
 
-    this.antiArmor = 18;
+    this.antiArmor = 36;
     this.loadRealtimeProps();
 
     ArmTool.updateEliteData(this);
@@ -320,7 +327,7 @@ export class MurlocDoubleBlades extends MurlocWarrior {
     this.name = "Murloc Warriors (Double Blades)";
     this.m_name = "鱼人战士-双刀";
     [this.description, this.m_description] = getDescription(this, "IF", "HD");
-    this.tech = 3;
+    this.tech = 2;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "short,short");
     this.meleeArmor += 40;
@@ -361,7 +368,8 @@ export class MurlocWarriorHurling extends MurlocWarrior {
   }
 
   getAntiArmor(damageType, targetArm) {
-    return this.antiArmor;
+    if (damageType === "melee" && damageType === "missile") return this.antiArmor;
+    return 0;
   }
 }
 
@@ -378,7 +386,7 @@ export class MurlocE extends MurlocWarrior {
     this.armorEnhance = 30;
     this.enhanceRange = 2;
 
-    this.antiArmor = 25;
+    this.antiArmor = 22;
     this.tall = 4;
     this.loadRealtimeProps();
 
@@ -408,7 +416,13 @@ export class Medusa extends ArmPrimary.Arm {
     this.chargeAttack = 50;
 
     this.shock = 40;
+    this.antiArmor = 12;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee") return this.antiArmor;
+    return 0;
   }
 }
 
@@ -419,7 +433,7 @@ export class MedusaTrident extends Medusa {
     this.name = "Medusas (Trident)";
     this.m_name = "美杜莎-三叉戟";
     this.type = "monster-infantry";
-    [this.description, this.m_description] = getDescription(this, "MI", "SH,ALG,RC");
+    [this.description, this.m_description] = getDescription(this, "MI", "SH,ALG,RC,AAM");
     this.tech = 3;
 
     this.missileDodge = 10;
@@ -431,7 +445,13 @@ export class MedusaTrident extends Medusa {
     this.chargeAttack = 70;
     this.meleeAttack_bonus = 60;
 
+    this.antiArmor = 20;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee" || damageType === "charge") return this.antiArmor;
+    return 0;
   }
 
   getSingleDamage(damageType, targetArm) {
@@ -528,9 +548,9 @@ export class CancrimagMusket extends Cancrimag {
     [this.description, this.m_description] = getDescription(this, "A_G", "SH,MA,AAM");
     this.tech = 4;
 
-    this.missileAttack = 2100;
+    this.missileAttack = 1000;
     this.missileRange = 6;
-    this.multiShots = 70;
+    this.multiShots = 50;
 
     this.missileParameters = {
       shape: "line",
@@ -546,7 +566,7 @@ export class CancrimagMusket extends Cancrimag {
       },
     };
 
-    this.antiArmor = 10;
+    this.antiArmor = 30;
 
     this.ammo = 18;
     this.loadRealtimeProps();
@@ -620,7 +640,7 @@ export class DeckGun extends ArmPrimary.Arm {
     this.m_name = "甲板炮";
     this.type = "artillery";
     [this.description, this.m_description] = getDescription(this, "AT", "ALG");
-    this.tech = 2;
+    this.tech = 3;
 
     this.scale = 7;
     this.singleHP = 32;
@@ -657,7 +677,7 @@ export class DeckGunGrapeshot extends DeckGun {
     this.name = "Deck Guns (Grapeshot)";
     this.m_name = "甲板炮-葡萄弹";
     [this.description, this.m_description] = getDescription(this, "AT", "AIF,ALG,SA");
-    this.tech = 3;
+    this.tech = 4;
 
     this.missileAttack = 450;
     this.missilePenetrate = 3;
