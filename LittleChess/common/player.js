@@ -116,7 +116,7 @@ export class Player {
     const valueDiv = document.createElement("div");
     valueDiv.className = "p-2";
     valueDiv.style.width = "210px";
-    valueDiv.textContent = `${this.useMandarin ? "贡献价值" : "Value created"}: ${0}G`;
+    valueDiv.textContent = `${this.useMandarin ? "贡献价值" : "Value created"}: ${Math.round(piece.valueCreated)}G`;
 
     statsRow.appendChild(killDiv);
     statsRow.appendChild(damageDiv);
