@@ -99,12 +99,12 @@ export class UnseenGas extends Unseen {
     this.name = "The Unseens (Gas Bomb)";
     this.m_name = "匿踪者-毒气弹";
     this.type = "infantry";
-    [this.description, this.m_description] = getDescription(this, "IF", "ST,MM,MA,FD");
+    [this.description, this.m_description] = getDescription(this, "IF", "ST,MM,MA,FD,AAM");
     this.tech = 3;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "mm,stealth");
     this.meleeAttack = 18;
-    this.missileAttack = 16;
+    this.missileAttack = 10;
     this.missileRange = 3;
     this.isParabola = true;
     this.explosionRadius = 1;
@@ -126,7 +126,7 @@ export class UnseenGas extends Unseen {
 
     this.ammo = 9;
 
-    this.antiArmor = 6;
+    this.antiArmor = 24;
     this.loadRealtimeProps();
   }
 
@@ -189,7 +189,7 @@ export class HurlerGas extends HurlerHE {
     [this.description, this.m_description] = getDescription(this, "A_HUIF", "AM,AAM");
     this.tech = 1;
 
-    this.missileAttack = 16;
+    this.missileAttack = 10;
 
     this.missileParameters = {
       shape: "ball",
@@ -206,7 +206,7 @@ export class HurlerGas extends HurlerHE {
       },
     };
 
-    this.antiArmor = 10;
+    this.antiArmor = 24;
     this.loadRealtimeProps();
   }
 
@@ -268,16 +268,16 @@ export class WeapSqdGingall extends ArmPrimary.Arm {
     this.name = "Weapon Squad (Gingall)";
     this.m_name = "武器小队-火枪";
     this.type = "archers";
-    [this.description, this.m_description] = getDescription(this, "AC", "ALG");
+    [this.description, this.m_description] = getDescription(this, "AC", "ALG,AAM");
     this.tech = 3;
 
     this.scale = 64;
     this.singleHP = 40;
-    this.speed = 3;
+    this.speed = 2;
 
     this.meleeAttack = 16;
-    this.missileAttack = 10;
-    this.missileAttack_bonus = 42;
+    this.missileAttack = 25;
+    this.missileAttack_bonus = 25;
     this.missileRange = 7;
 
     this.missileParameters = {
@@ -294,7 +294,13 @@ export class WeapSqdGingall extends ArmPrimary.Arm {
       },
     };
 
+    this.antiArmor = 30;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "missile") return this.antiArmor;
+    return 0;
   }
 
   getSingleDamage(damageType, targetArm) {
@@ -318,12 +324,12 @@ export class WeapSqdGatlin extends ArmPrimary.Arm {
     this.name = "Weapon Squad (Gatlin)";
     this.m_name = "武器小队-加特林";
     this.type = "archers";
-    [this.description, this.m_description] = getDescription(this, "AC", "AIF");
+    [this.description, this.m_description] = getDescription(this, "AC", "AIF,AAM");
     this.tech = 3;
 
     this.scale = 64;
     this.singleHP = 40;
-    this.speed = 3;
+    this.speed = 2;
 
     this.meleeAttack = 16;
     this.missileAttack = 26;
@@ -348,8 +354,14 @@ export class WeapSqdGatlin extends ArmPrimary.Arm {
       },
     };
 
+    this.antiArmor = 18;
     this.ammo = 16;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "missile") return this.antiArmor;
+    return 0;
   }
 
   getSingleDamage(damageType, targetArm) {
@@ -383,12 +395,13 @@ export class WeapSqdFlthr extends ArmPrimary.Arm {
 
     this.scale = 64;
     this.singleHP = 40;
-    this.speed = 3;
+    this.speed = 2;
 
     this.meleeAttack = 16;
     this.missileAttack = 60;
     this.missileRange = 3;
     this.missilePenetrate = 4;
+    this.artilleryAttack = true;
 
     this.missileParameters = {
       shape: "fire",
@@ -447,11 +460,12 @@ export class WeapSqdGingallE extends WeapSqdGingall {
     this.name = "Piercing Nail";
     this.m_name = "穿刺之钉";
     this.type = "archers";
-    [this.description, this.m_description] = getDescription(this, "S_AC", "EL,ALG,HM");
+    [this.description, this.m_description] = getDescription(this, "S_AC", "EL,ALG,HM,AAM");
     this.tech = 4;
 
     ArmTool.loadDefenceBenchmark(this, null, "shield");
 
+    this.antiArmor = 38;
     this.loadRealtimeProps();
     ArmTool.updateEliteData(this);
   }
@@ -464,11 +478,12 @@ export class WeapSqdGatlinE extends WeapSqdGatlin {
     this.name = "Metal Storm";
     this.m_name = "金属风暴";
     this.type = "archers";
-    [this.description, this.m_description] = getDescription(this, "S_AC", "EL,AIF,HM");
+    [this.description, this.m_description] = getDescription(this, "S_AC", "EL,AIF,HM,AAM");
     this.tech = 3;
 
     ArmTool.loadDefenceBenchmark(this, null, "shield");
 
+    this.antiArmor = 26;
     this.loadRealtimeProps();
     ArmTool.updateEliteData(this);
   }
@@ -513,7 +528,13 @@ export class MechGears extends ArmPrimary.Arm {
     this.meleeAttack = 66;
     this.chargeAttack = 60;
 
+    this.antiArmor = 15;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee" || damageType === "charge") return this.antiArmor;
+    return 0;
   }
 }
 
@@ -524,7 +545,7 @@ export class MechGatlin extends MechGears {
     this.name = "Mech Squad (Gatlin)";
     this.m_name = "机甲小队-加特林";
     this.type = "monster-infantry";
-    [this.description, this.m_description] = getDescription(this, "MCI", "AM,MA,AIF");
+    [this.description, this.m_description] = getDescription(this, "MCI", "AM,MA,AIF,AAM");
     this.tech = 3;
 
     this.meleeAttack = 55;
@@ -551,8 +572,15 @@ export class MechGatlin extends MechGears {
       },
     };
 
+    this.antiArmor = 20;
     this.ammo = 18;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee" || damageType === "charge") return 15;
+    else if (damageType === "missile") return this.antiArmor;
+    return 0;
   }
 
   getSingleDamage(damageType, targetArm) {
@@ -613,8 +641,14 @@ export class MechMissile extends MechGears {
     };
 
     this.ammo = 12;
-    this.antiArmor = 20;
+    this.antiArmor = 30;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee" || damageType === "charge") return 15;
+    else if (damageType === "missile") return this.antiArmor;
+    return 0;
   }
 
   getSingleDamage(damageType, targetArm) {
@@ -653,9 +687,15 @@ export class MutantSlave extends ArmPrimary.Arm {
     this.meleeAttack = 60;
     this.chargeAttack = 85;
 
+    this.antiArmor = 15;
     this.shock = 35;
     this.tall = 5;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee" || damageType === "charge") return this.antiArmor;
+    return 0;
   }
 }
 
@@ -677,15 +717,10 @@ export class MutantSlaveF extends MutantSlave {
 
     this.shock = 45;
 
-    this.antiArmor = 15;
+    this.antiArmor = 32;
     this.loadRealtimeProps();
-    this.leadership -= 100;
+    this.leadership -= 75;
     this.c_leadership = this.leadership;
-  }
-
-  getAntiArmor(damageType, targetArm) {
-    if (damageType === "melee" || damageType === "charge") return this.antiArmor;
-    return 0;
   }
 }
 
