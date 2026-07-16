@@ -20,7 +20,7 @@ export class WoodsGuard extends ArmPrimary.Arm {
 
     this.meleeAttack = 17;
 
-    this.antiArmor = 12;
+    this.antiArmor = 8;
     this.loadRealtimeProps();
   }
 
@@ -42,7 +42,7 @@ export class WoodsGuardShield extends WoodsGuard {
 
     ArmTool.loadDefenceBenchmark(this, "inf", "long-rs,shield");
 
-    this.meleeAttack = 15;
+    this.meleeAttack = 14;
 
     this.loadRealtimeProps();
   }
@@ -119,7 +119,14 @@ export class TwilightWarrior extends ArmPrimary.Arm {
     this.chargeDodge += 15;
 
     this.meleeAttack = 33;
+
+    this.antiArmor = 5;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee") return this.antiArmor;
+    return 0;
   }
 }
 
@@ -137,7 +144,7 @@ export class TwilightWarriorSpear extends TwilightWarrior {
 
     this.meleeAttack = 22;
 
-    this.antiArmor = 12;
+    this.antiArmor = 10;
     this.loadRealtimeProps();
   }
 
@@ -163,6 +170,7 @@ export class TwilightWarriorE extends TwilightWarrior {
 
     this.loadRealtimeProps();
 
+    this.antiArmor = 8;
     ArmTool.updateEliteData(this);
   }
 }
@@ -272,7 +280,7 @@ export class ShadowArcherAP extends ShadowArcherFL {
       },
     };
 
-    this.antiArmor = 10;
+    this.antiArmor = 18;
     this.loadRealtimeProps();
   }
 
@@ -289,7 +297,7 @@ export class LongbowRanger extends ArmPrimary.Arm {
     this.name = "Longbow Rangers";
     this.m_name = "长弓游侠";
     this.type = "archers";
-    [this.description, this.m_description] = getDescription(this, "AC", "SF,ST,AAM,LR,MK");
+    [this.description, this.m_description] = getDescription(this, "AC", "SF,ST,LR,MK");
     this.tech = 3;
 
     this.scale = 48;
@@ -320,7 +328,7 @@ export class LongbowRanger extends ArmPrimary.Arm {
       },
     };
 
-    this.antiArmor = 12;
+    this.antiArmor = 15;
     this.loadRealtimeProps();
   }
 
@@ -345,7 +353,7 @@ export class LongbowRangerDouble extends LongbowRanger {
     this.missileRange -= 2;
     this.marksmanSkill = false;
 
-    this.antiArmor = 8;
+    this.antiArmor = 6;
     this.loadRealtimeProps();
   }
 }
@@ -387,7 +395,13 @@ export class StagLancer extends StagRider {
     this.meleeAttack = 28;
     this.chargeAttack = 56;
 
+    this.antiArmor = 8;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee" || damageType === "charge") return this.antiArmor;
+    return 0;
   }
 }
 
@@ -434,7 +448,13 @@ export class GladeLord extends ArmPrimary.Arm {
       },
     };
 
+    this.antiArmor = 10;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee" || damageType === "charge") return this.antiArmor;
+    return 0;
   }
 
   isDamageMagic(damageType) {
@@ -478,8 +498,14 @@ export class WarBear extends ArmPrimary.Arm {
     this.meleeAttack = 68;
     this.chargeAttack = 76;
 
+    this.antiArmor = 12;
     this.tall = 5;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee") return this.antiArmor;
+    return 0;
   }
 }
 
@@ -570,7 +596,7 @@ export class DryadRangerRide extends Dryad {
     this.name = "Dryads (Ranger-Ride)";
     this.m_name = "树精-游侠搭乘";
     this.type = "monster-infantry";
-    [this.description, this.m_description] = getDescription(this, "A_MI", "AM,MA,AAM,LR,MK");
+    [this.description, this.m_description] = getDescription(this, "A_MI", "AM,MA,LR,MK");
     this.tech = 3;
 
     this.missileAttack = 45;
@@ -594,7 +620,7 @@ export class DryadRangerRide extends Dryad {
       },
     };
 
-    this.antiArmor = 12;
+    this.antiArmor = 15;
 
     this.ammo = 18;
     this.loadRealtimeProps();
