@@ -68,9 +68,9 @@ export function getCombatPower(arm, useCurrent) {
     arm.getValidScale("missile") *
     Math.max(2, arm.missileRange - 2) *
     arm.ammo *
-    // (1 + arm.missilePenetrate / 15 + (arm.explosionRadius + 1) ** 2 / 20) *
     (1 + arm.antiArmor / 65) *
     0.00042;
+  if (arm.canArtilleryAttack()) missileAttackScore *= 1.5;
   missileAttackScore += arm.isParabola ? 15 : 0;
   missileAttackScore += arm.marksmanSkill ? 10 : 0;
   if (arm.isDamageMagic("missile")) missileAttackScore += 10;
