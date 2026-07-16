@@ -134,8 +134,8 @@ export class Halberdier extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Halberdiers";
-    this.m_name = "长戟兵";
+    this.name = "Palace Guards";
+    this.m_name = "大殿守卫";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "RC,ALG");
     this.tech = 3;
