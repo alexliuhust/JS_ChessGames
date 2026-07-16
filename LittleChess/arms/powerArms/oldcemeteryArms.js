@@ -6,7 +6,7 @@ export class Skeleton extends ArmPrimary.Arm {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Skeleton Puppet";
+    this.name = "Skeleton Puppets";
     this.m_name = "骷髅傀儡";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "WK,SF,IS");
@@ -30,7 +30,7 @@ export class SkeletonShield extends Skeleton {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Skeleton Puppet (Shield)";
+    this.name = "Skeleton Puppets (Shield)";
     this.m_name = "骷髅傀儡-持盾";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "S_IF", "WK,SF,HS,IS");
@@ -50,7 +50,7 @@ export class SkeletonSpear extends Skeleton {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Skeleton Puppet (Spear)";
+    this.name = "Skeleton Puppets (Spear)";
     this.m_name = "骷髅傀儡-持矛";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "S_IF", "WK,SF,RC,IS");

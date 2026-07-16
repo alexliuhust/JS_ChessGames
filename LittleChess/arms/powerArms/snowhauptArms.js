@@ -69,7 +69,7 @@ export class BoneBreaker extends DwarfWarrior {
     this.m_name = "碎骨者";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "RC,ALG");
-    this.tech = 2;
+    this.tech = 3;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "long,heavy");
     this.meleeArmor += 20;
@@ -102,7 +102,7 @@ export class Berserker extends DwarfWarrior {
     this.m_name = "狂战士";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "IF", "SF,HD");
-    this.tech = 3;
+    this.tech = 2;
 
     this.speed = 3;
 
@@ -145,7 +145,7 @@ export class DwarfKingsGuard extends DwarfWarrior {
     this.m_name = "矮人王禁卫";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "A_IF", "AM,HS,ALG");
-    this.tech = 3;
+    this.tech = 4;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "long,heavy,shield,armor");
     this.meleeDodge += 10;

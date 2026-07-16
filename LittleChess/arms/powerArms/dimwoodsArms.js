@@ -38,7 +38,7 @@ export class WoodsGuardShield extends WoodsGuard {
     this.m_name = "林地守卫-持盾";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "S_IF", "HS,RC");
-    this.tech = 2;
+    this.tech = 1;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "long-rs,shield");
 
@@ -530,7 +530,7 @@ export class Dryad extends ArmPrimary.Arm {
     this.m_name = "树精";
     this.type = "monster-infantry";
     [this.description, this.m_description] = getDescription(this, "A_MI", "AM");
-    this.tech = 1;
+    this.tech = 2;
 
     this.scale = 30;
     this.singleHP = 360;

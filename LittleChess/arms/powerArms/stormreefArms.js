@@ -320,7 +320,7 @@ export class MurlocDoubleBlades extends MurlocWarrior {
     this.name = "Murloc Warriors (Double Blades)";
     this.m_name = "鱼人战士-双刀";
     [this.description, this.m_description] = getDescription(this, "IF", "HD");
-    this.tech = 3;
+    this.tech = 2;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "short,short");
     this.meleeArmor += 40;
@@ -620,7 +620,7 @@ export class DeckGun extends ArmPrimary.Arm {
     this.m_name = "甲板炮";
     this.type = "artillery";
     [this.description, this.m_description] = getDescription(this, "AT", "ALG");
-    this.tech = 2;
+    this.tech = 3;
 
     this.scale = 7;
     this.singleHP = 32;
@@ -657,7 +657,7 @@ export class DeckGunGrapeshot extends DeckGun {
     this.name = "Deck Guns (Grapeshot)";
     this.m_name = "甲板炮-葡萄弹";
     [this.description, this.m_description] = getDescription(this, "AT", "AIF,ALG,SA");
-    this.tech = 3;
+    this.tech = 4;
 
     this.missileAttack = 450;
     this.missilePenetrate = 3;

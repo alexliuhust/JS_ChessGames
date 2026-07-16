@@ -299,7 +299,7 @@ export class ShotgunnerShield extends Musketeer {
     this.m_name = "霰弹枪手-持盾";
     this.type = "archers";
     [this.description, this.m_description] = getDescription(this, "S_AC", "HS,AIF,SA");
-    this.tech = 3;
+    this.tech = 2;
 
     ArmTool.loadDefenceBenchmark(this, null, "shield");
 
@@ -307,7 +307,7 @@ export class ShotgunnerShield extends Musketeer {
 
     this.missileAttack = 15;
     this.missileAttack_bonus = 30;
-    this.missileRange = 4;
+    this.missileRange = 5;
     this.explosionRadius = 1;
 
     this.missileParameters = {
@@ -898,9 +898,9 @@ export const ARM_CLASSES = [
   SwordInfantryE,
   Hunter,
   Crossbower,
+  ShotgunnerShield,
   Musketeer,
   MusketeerShield,
-  ShotgunnerShield,
   EmpireSniper,
   EmpireSniperShield,
   MusketeerE,
