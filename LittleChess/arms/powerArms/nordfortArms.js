@@ -135,13 +135,14 @@ export class NordHeraldE extends NordHerald {
     this.name = "Flame Heralds";
     this.m_name = "烈焰军锋";
     this.type = "infantry";
-    [this.description, this.m_description] = getDescription(this, "A_IF,IPR", "EL,AM,RC,AAM,HD,HM");
+    [this.description, this.m_description] = getDescription(this, "A_IF,IPR", "EL,AM,RC,HD,HM,MG");
     this.tech = 4;
 
     this.inspiring = 6;
     this.inspireRange = 3;
     this.loadRealtimeProps();
 
+    this.antiArmor = 0;
     ArmTool.updateEliteData(this);
   }
 

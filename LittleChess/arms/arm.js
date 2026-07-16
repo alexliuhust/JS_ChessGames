@@ -422,7 +422,7 @@ export class Arm {
       case "melee":
         accumulated += amount * 20;
         accumulated -= this.c_meleeDodge / 8;
-        accumulated += (this.c_meleeArmor + this.c_missileArmor) / 8;
+        accumulated += (this.c_meleeArmor + this.c_missileArmor) / 9;
         break;
       case "missile":
         accumulated += amount * 5;
@@ -433,7 +433,7 @@ export class Arm {
         break;
       case "move":
         accumulated += Math.ceil((amount * 15) / this.speed);
-        accumulated += (this.c_meleeArmor + this.c_missileArmor + this.c_chargeArmor + this.c_missileDodge) / 8;
+        accumulated += (this.c_meleeArmor + this.c_missileArmor + this.c_chargeArmor + this.c_missileDodge) / 6;
         break;
     }
 
@@ -1040,6 +1040,10 @@ export class Arm {
 
   isHoldingShield() {
     return this.description.includes("Holding shields");
+  }
+
+  isArmored() {
+    return this.description.includes("Armored");
   }
 
   isMeleeMaster() {

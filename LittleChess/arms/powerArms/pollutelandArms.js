@@ -460,7 +460,7 @@ export class WeapSqdGingallE extends WeapSqdGingall {
     this.name = "Piercing Nail";
     this.m_name = "穿刺之钉";
     this.type = "archers";
-    [this.description, this.m_description] = getDescription(this, "S_AC", "EL,ALG,HM,AAM");
+    [this.description, this.m_description] = getDescription(this, "S_AC", "EL,ALG,HM,AAM,HS");
     this.tech = 4;
 
     ArmTool.loadDefenceBenchmark(this, null, "shield");
@@ -478,7 +478,7 @@ export class WeapSqdGatlinE extends WeapSqdGatlin {
     this.name = "Metal Storm";
     this.m_name = "金属风暴";
     this.type = "archers";
-    [this.description, this.m_description] = getDescription(this, "S_AC", "EL,AIF,HM,AAM");
+    [this.description, this.m_description] = getDescription(this, "S_AC", "EL,AIF,HM,AAM,HS");
     this.tech = 3;
 
     ArmTool.loadDefenceBenchmark(this, null, "shield");

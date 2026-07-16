@@ -160,6 +160,7 @@ export function calculateLeaderShip(arm, costResults) {
 
   if (arm.type === "infantry") leadership += 25;
   if (arm.type === "archers" || arm.type === "artillery") leadership -= 25;
+  if (arm.isArmored()) leadership += 50;
   if (arm.isWeak()) leadership -= 25;
 
   return leadership;

@@ -172,7 +172,7 @@ export class DarkSoldierSSE extends DarkSoldierSS {
   constructor(value, player) {
     super(value, player);
 
-    this.name = "Tomb Keeper";
+    this.name = "Tomb Keepers";
     this.m_name = "墓穴守望者";
     this.type = "infantry";
     [this.description, this.m_description] = getDescription(this, "S_IF,PTR", "EL,HS,ALG,HM,AAM");
