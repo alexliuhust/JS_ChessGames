@@ -43,7 +43,13 @@ export class GoblinSpear extends Goblin {
 
     this.meleeAttack = 8;
 
+    this.antiArmor = 4;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee") return this.antiArmor;
+    return 0;
   }
 }
 
@@ -122,7 +128,13 @@ export class OrcWarriorSpear extends OrcWarrior {
     this.meleeAttack = 26;
     this.meleeAttack_bonus = 0;
 
+    this.antiArmor = 8;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee") return this.antiArmor;
+    return 0;
   }
 }
 
@@ -151,8 +163,14 @@ export class OrcWarriorTS extends OrcWarrior {
       color: "white",
     };
 
+    this.antiArmor = 8;
     this.ammo = 3;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee" || damageType === "missile") return this.antiArmor;
+    return 0;
   }
 
   getSingleDamage(damageType, targetArm) {
@@ -205,7 +223,7 @@ export class OrcWarriorTA extends OrcWarrior {
     this.name = "Orc Warriors (Throw Axe)";
     this.m_name = "兽人勇士-投斧";
     this.type = "infantry";
-    [this.description, this.m_description] = getDescription(this, "IF", "AIF,MA,AAM");
+    [this.description, this.m_description] = getDescription(this, "IF", "AIF,MA");
     this.tech = 2;
 
     this.missileAttack = 42;
@@ -223,6 +241,11 @@ export class OrcWarriorTA extends OrcWarrior {
 
     this.antiArmor = 15;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee" || damageType === "missile") return this.antiArmor;
+    return 0;
   }
 
   getSingleDamage(damageType, targetArm) {
@@ -267,7 +290,7 @@ export class TrollClub extends ArmPrimary.Arm {
     this.name = "Trolls (Spiked Club)";
     this.m_name = "巨魔-狼牙棒";
     this.type = "monster-infantry";
-    [this.description, this.m_description] = getDescription(this, "MI", "AM");
+    [this.description, this.m_description] = getDescription(this, "MI", "AM,AAM");
     this.tech = 3;
 
     this.scale = 30;
@@ -281,7 +304,13 @@ export class TrollClub extends ArmPrimary.Arm {
     this.meleeAttack = 65;
     this.chargeAttack = 40;
 
+    this.antiArmor = 22;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee") return this.antiArmor;
+    return 0;
   }
 }
 
@@ -303,6 +332,7 @@ export class TrollShield extends TrollClub {
 
     this.meleeAttack = 40;
 
+    this.antiArmor = 0;
     this.loadRealtimeProps();
   }
 }
@@ -314,7 +344,7 @@ export class TrollTS extends TrollClub {
     this.name = "Trolls (Javelin)";
     this.m_name = "巨魔-标枪";
     this.type = "monster-infantry";
-    [this.description, this.m_description] = getDescription(this, "MI", "AM,MA,ALG");
+    [this.description, this.m_description] = getDescription(this, "MI", "AM,MA,ALG,AAM");
     this.tech = 4;
 
     this.meleeAttack = 40;
@@ -332,7 +362,7 @@ export class TrollTS extends TrollClub {
     };
 
     this.ammo = 12;
-    this.antiArmor = 12;
+    this.antiArmor = 18;
     this.loadRealtimeProps();
   }
 
@@ -421,7 +451,7 @@ export class TaurenGA extends Tauren {
     this.chargeAttack = 50;
     this.chargeAttack_bonus = 40;
 
-    this.antiArmor = 20;
+    this.antiArmor = 32;
     this.loadRealtimeProps();
   }
 
@@ -458,6 +488,7 @@ export class TaurenGAE extends TaurenGA {
     this.inspireRange = 3;
     this.loadRealtimeProps();
 
+    this.antiArmor = 42;
     ArmTool.updateEliteData(this);
   }
 }
@@ -507,8 +538,14 @@ export class WolfCavalryTS extends WolfCavalry {
       color: "white",
     };
 
+    this.antiArmor = 12;
     this.ammo = 6;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "missile") return this.antiArmor;
+    return 0;
   }
 }
 
