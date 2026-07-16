@@ -60,7 +60,7 @@ export function getCombatPower(arm, useCurrent) {
   let chargeAttack = useCurrent ? arm.c_chargeAttack : arm.chargeAttack;
   chargeAttack += useCurrent ? arm.c_chargeAttack_bonus * 0.5 : arm.chargeAttack_bonus * 0.5;
 
-  let meleeAttackScore = meleeAttack * arm.getValidScale("melee") * (1 + arm.antiArmor / 45) * 0.05;
+  let meleeAttackScore = meleeAttack * arm.getValidScale("melee") * (1 + arm.antiArmor / 65) * 0.05;
   if (arm.isDamageMagic("melee")) meleeAttackScore += 10;
 
   let missileAttackScore =
@@ -69,13 +69,13 @@ export function getCombatPower(arm, useCurrent) {
     Math.max(2, arm.missileRange - 2) *
     arm.ammo *
     // (1 + arm.missilePenetrate / 15 + (arm.explosionRadius + 1) ** 2 / 20) *
-    (1 + arm.antiArmor / 45) *
+    (1 + arm.antiArmor / 65) *
     0.00042;
   missileAttackScore += arm.isParabola ? 15 : 0;
   missileAttackScore += arm.marksmanSkill ? 10 : 0;
   if (arm.isDamageMagic("missile")) missileAttackScore += 10;
 
-  let chargeAttackScore = chargeAttack * arm.getValidScale("charge") * (1 + arm.antiArmor / 45) * 0.025;
+  let chargeAttackScore = chargeAttack * arm.getValidScale("charge") * (1 + arm.antiArmor / 65) * 0.025;
   if (arm.isDamageMagic("charge")) chargeAttackScore += 10;
 
   let shockScore = arm.shock * arm.shock * 0.015;
