@@ -81,8 +81,8 @@ player2.addPieces(pieces2, pieces1);
 // ===============================================================
 // =================== Refreshing Round Button ===================
 // ===============================================================
-let endRoundForBlue = document.getElementById("endRoundForBlue");
-let endRoundForRed = document.getElementById("endRoundForRed");
+const endRoundForBlue = document.getElementById("endRoundForBlue");
+const endRoundForRed = document.getElementById("endRoundForRed");
 
 function playerRefreshRound(player) {
   player.operatedPieces.clear();

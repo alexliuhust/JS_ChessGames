@@ -16,42 +16,46 @@
     <div style="display: none" id="allArmImages"></div>
     <div style="display: none" id="allIconImages"></div>
 
-    <!-------------------------------------------------------------------------------->
-    <!--------------------------- Round Refreshing Buttons --------------------------->
-    <!-------------------------------------------------------------------------------->
-    <div style="margin-left: 1px">
-      <input
-        style="height: 70px; font-size: 20px; border-color: blue"
-        id="endRoundForBlue"
-        type="button"
-        value="End Round For Blue" />
-      <input
-        style="height: 70px; font-size: 20px; margin-left: 950px; border-color: red; width: 198px"
-        id="endRoundForRed"
-        type="button"
-        value="End Round For Red" />
-      <a href="./p2Deploy.html">
-        <input
+    <div class="d-flex bd-highlight" style="margin-bottom: 10px">
+      <div class="p-2 bd-highlight" style="height: 70px; width: 190px">
+        <a
+          class="btn btn-outline-info"
+          id="endRoundForBlue"
+          style="font-size: 20px; border: blue solid 3px; width: inherit; height: inherit"
+          >End Round For Blue
+        </a>
+      </div>
+
+      <div class="p-2 bd-highlight" style="height: 70px; width: 950px; margin-left: 10px; margin-right: 10px">
+        <canvas
+          id="banner"
+          width="950"
+          height="70"
+          style="position: absolute; z-index: 100; background: black"></canvas>
+      </div>
+
+      <div class="p-2 bd-highlight" style="height: 70px; width: 190px">
+        <a
+          class="btn btn-outline-info"
+          id="endRoundForRed"
+          style="font-size: 20px; border: red solid 3px; width: inherit; height: inherit"
+          >End Round For Red
+        </a>
+      </div>
+
+      <div class="p-2 bd-highlight" style="height: 70px; width: 530px; margin-left: 10px">
+        <a
+          class="btn btn-outline-info"
           id="back"
           href="./p2Deploy.html"
-          style="height: 70px; font-size: 20px; width: 530px"
-          type="button"
-          value="Back to Deployment" />
-      </a>
+          style="font-size: 20px; border-color: black; width: inherit; height: inherit"
+          >Back to<br />Deployment
+        </a>
+      </div>
     </div>
 
-    <!-------------------------------------------------------------------------------->
-    <!--------------------------------- Banner Canvas -------------------------------->
-    <!-------------------------------------------------------------------------------->
-    <div style="margin-top: -70px; margin-left: 200px; height: 70px">
-      <canvas id="banner" width="950" height="70" style="position: absolute; z-index: 100; background: black"></canvas>
-    </div>
-
-    <!-------------------------------------------------------------------------------->
-    <!------------------------------ Game Area Canvases ------------------------------>
-    <!-------------------------------------------------------------------------------->
-    <div style="margin-top: 1px; margin-left: 1px; height: 900px">
-      <div id="game" style="width: 1350px; height: 850px">
+    <div class="d-flex bd-highlight" style="margin-bottom: 10px">
+      <div class="p-2 bd-highlight" id="game" style="width: 1350px; height: 850px; margin-right: 10px">
         <!-- map canvas, on which we draw the backgroud -->
         <canvas
           id="map"
@@ -65,20 +69,11 @@
         <!-- select canvas, which accepts all mouse clicking events -->
         <canvas id="select" width="1350" height="850" style="position: absolute; z-index: 103"></canvas>
       </div>
-    </div>
 
-    <!-------------------------------------------------------------------------------->
-    <!------------------------------- Info Area Canvas ------------------------------->
-    <!-------------------------------------------------------------------------------->
-    <div style="margin-top: -900px; margin-left: 1355px; height: 850px">
-      <canvas id="info" width="530" height="850" style="position: absolute; z-index: 100; background: black"></canvas>
+      <div class="p-2 bd-highlight" style="width: 530px; height: 850px">
+        <canvas id="info" width="530" height="850" style="position: absolute; z-index: 100; background: black"></canvas>
+      </div>
     </div>
-
-    <!-------------------------------------------------------------------------------->
-    <!-------------------------------- Reckoning List -------------------------------->
-    <!-------------------------------------------------------------------------------->
-    <div style="margin-top: 5px; width: 650px; height: 200px; border: 5px solid blue"></div>
-    <div style="margin-top: -208px; margin-left: 695px; width: 650px; height: 200px; border: 5px solid red"></div>
 
     <!-------------------------------------------------------------------------------->
     <!------------------------ The Main Entrance of the Game ------------------------->
