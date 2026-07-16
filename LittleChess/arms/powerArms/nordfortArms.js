@@ -20,7 +20,7 @@ export class HallwayGuard extends ArmPrimary.Arm {
 
     this.meleeAttack = 18;
 
-    this.antiArmor = 8;
+    this.antiArmor = 12;
     this.loadRealtimeProps();
   }
 
@@ -66,7 +66,7 @@ export class NordExecutioner extends ArmPrimary.Arm {
 
     this.meleeAttack = 32;
 
-    this.antiArmor = 20;
+    this.antiArmor = 26;
     this.loadRealtimeProps();
   }
 
@@ -94,7 +94,7 @@ export class NordHerald extends ArmPrimary.Arm {
 
     this.meleeAttack = 28;
 
-    this.antiArmor = 15;
+    this.antiArmor = 18;
     this.loadRealtimeProps();
   }
 }
@@ -113,7 +113,7 @@ export class NordIronblade extends NordExecutioner {
     this.meleeAttack = 20;
     this.meleeAttack_bonus = 40;
 
-    this.antiArmor = 10;
+    this.antiArmor = 15;
     this.loadRealtimeProps();
   }
 
@@ -179,7 +179,13 @@ export class CoastDefender extends ArmPrimary.Arm {
     this.missileRange = 6;
     this.isParabola = true;
 
+    this.antiArmor = 8;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee") return this.antiArmor;
+    return 0;
   }
 }
 
@@ -239,7 +245,7 @@ export class BallistaSquad extends ArmPrimary.Arm {
       },
     };
 
-    this.antiArmor = 10;
+    this.antiArmor = 24;
     this.loadRealtimeProps();
   }
 
@@ -292,7 +298,7 @@ export class BallistaSquadFlame extends BallistaSquad {
       },
     };
 
-    this.antiArmor = 0;
+    this.antiArmor = 12;
     this.loadRealtimeProps();
   }
 }
@@ -346,7 +352,14 @@ export class CoastRangerCharge extends CoastRanger {
 
     this.meleeAttack = 22;
     this.chargeAttack = 50;
+
+    this.antiArmor = 12;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "charge") return this.antiArmor;
+    return 0;
   }
 }
 
@@ -365,11 +378,12 @@ export class FlameKnight extends ArmPrimary.Arm {
     this.speed = 7;
 
     ArmTool.loadDefenceBenchmark(this, "cal", "charge,agile");
+    this.meleeDodge += 25;
 
     this.meleeAttack = 28;
     this.chargeAttack = 60;
 
-    this.antiArmor = 24;
+    this.antiArmor = 36;
     this.loadRealtimeProps();
   }
 
@@ -390,6 +404,7 @@ export class FlameKnightShield extends FlameKnight {
     this.tech = 4;
 
     ArmTool.loadDefenceBenchmark(this, "cal", "charge,agile,shield");
+    this.meleeDodge += 25;
 
     this.meleeAttack = 24;
 
@@ -417,7 +432,7 @@ export class CoralCavalry extends ArmPrimary.Arm {
     this.meleeAttack = 32;
     this.chargeAttack = 52;
 
-    this.antiArmor = 16;
+    this.antiArmor = 18;
     this.loadRealtimeProps();
   }
 }
@@ -438,7 +453,7 @@ export class CoralCavalryFlame extends CoralCavalry {
     this.meleeAttack += 4;
     this.chargeAttack += 6;
 
-    this.antiArmor = 20;
+    this.antiArmor = 24;
 
     this.loadRealtimeProps();
   }
