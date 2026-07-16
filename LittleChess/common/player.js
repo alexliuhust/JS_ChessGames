@@ -116,7 +116,7 @@ export class Player {
     const valueDiv = document.createElement("div");
     valueDiv.className = "p-2";
     valueDiv.style.width = "210px";
-    valueDiv.textContent = `${this.useMandarin ? "贡献价值" : "Value created"}: ${Math.round(piece.valueCreated)}G`;
+    valueDiv.textContent = `${this.useMandarin ? "贡献价值" : "Value created"}: ${Math.round(piece.valueCreated)} G`;
 
     statsRow.appendChild(killDiv);
     statsRow.appendChild(damageDiv);
@@ -130,6 +130,14 @@ export class Player {
     itemDiv.appendChild(textCol);
 
     this.reckoningDiv.appendChild(itemDiv);
+  }
+
+  victoryReckoning() {
+    for (let i = 0; i < this.pieceList.length; i++) {
+      this.pieceList[i].isAlive = false;
+      this.addDeadPieceToReckoningList(this.pieceList[i]);
+    }
+    this.pieceList = [];
   }
 
   leadershipChangesAccordingToToll() {

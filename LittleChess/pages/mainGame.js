@@ -115,6 +115,10 @@ function endBlue() {
       player2.isMyRound = true;
       player2.currentRound++;
       playerRefreshRound(player2);
+
+      if (player1.pieceList.length == 0) {
+        player2.victoryReckoning();
+      }
     },
   );
 }
@@ -132,6 +136,10 @@ function endRed() {
       player1.isMyRound = true;
       player1.currentRound++;
       playerRefreshRound(player1);
+
+      if (player2.pieceList.length == 0) {
+        player1.victoryReckoning();
+      }
     },
   );
 }
