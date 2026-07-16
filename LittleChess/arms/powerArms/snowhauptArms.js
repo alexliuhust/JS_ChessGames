@@ -68,7 +68,7 @@ export class BoneBreaker extends DwarfWarrior {
     this.name = "Bone Breakers";
     this.m_name = "碎骨者";
     this.type = "infantry";
-    [this.description, this.m_description] = getDescription(this, "IF", "RC,ALG");
+    [this.description, this.m_description] = getDescription(this, "IF", "RC,ALG,AAM");
     this.tech = 3;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "long,heavy");
@@ -77,10 +77,15 @@ export class BoneBreaker extends DwarfWarrior {
     this.meleeAttack = 18;
     this.meleeAttack_bonus = 20;
 
-    this.antiArmor = 15;
+    this.antiArmor = 25;
 
     this.tall = 2;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee") return this.antiArmor;
+    return 0;
   }
 
   getSingleDamage(damageType, targetArm) {
@@ -144,7 +149,7 @@ export class DwarfKingsGuard extends DwarfWarrior {
     this.name = "Dwarf King's Guards";
     this.m_name = "矮人王禁卫";
     this.type = "infantry";
-    [this.description, this.m_description] = getDescription(this, "A_IF", "AM,HS,ALG");
+    [this.description, this.m_description] = getDescription(this, "A_IF", "AM,HS,ALG,AAM");
     this.tech = 4;
 
     ArmTool.loadDefenceBenchmark(this, "inf", "long,heavy,shield,armor");
@@ -154,9 +159,14 @@ export class DwarfKingsGuard extends DwarfWarrior {
     this.meleeAttack = 17;
     this.meleeAttack_bonus = 24;
 
-    this.antiArmor = 15;
+    this.antiArmor = 22;
     this.tall = 2;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee") return this.antiArmor;
+    return 0;
   }
 
   getSingleDamage(damageType, targetArm) {
@@ -348,7 +358,7 @@ export class DwarfMusketeer extends ArmPrimary.Arm {
       },
     };
 
-    this.antiArmor = 24;
+    this.antiArmor = 36;
     this.tall = 2;
     this.loadRealtimeProps();
   }
@@ -366,7 +376,7 @@ export class MortarSquad extends ArmPrimary.Arm {
     this.name = "Mortar Squad";
     this.m_name = "迫击炮小组";
     this.type = "archers";
-    [this.description, this.m_description] = getDescription(this, "S_AC", "HS,LR,SA");
+    [this.description, this.m_description] = getDescription(this, "S_AC", "HS,LR,SA,BB");
     this.tech = 3;
 
     this.scale = 64;
@@ -377,10 +387,11 @@ export class MortarSquad extends ArmPrimary.Arm {
     this.meleeArmor += 20;
 
     this.meleeAttack = 20;
-    this.missileAttack = 65;
+    this.missileAttack = 50;
     this.missileRange = 8;
     this.isParabola = true;
     this.explosionRadius = 1;
+    this.isBombing = true;
 
     this.missileParameters = {
       shape: "line",
@@ -424,10 +435,11 @@ export class FireDragonSquad extends ArmPrimary.Arm {
     this.meleeArmor += 20;
 
     this.meleeAttack = 20;
-    this.missileAttack = 50;
-    this.missileAttack_bonus = 50;
+    this.missileAttack = 30;
+    this.missileAttack_bonus = 40;
     this.missileRange = 3;
     this.missilePenetrate = 5;
+    this.artilleryAttack = true;
 
     this.missileParameters = {
       shape: "fire",
@@ -505,8 +517,14 @@ export class GoatCavalry extends ArmPrimary.Arm {
     this.meleeAttack = 22;
     this.chargeAttack = 56;
 
+    this.antiArmor = 12;
     this.tall = 5;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    if (damageType === "melee" || damageType === "charge") return this.antiArmor;
+    return 0;
   }
 }
 
@@ -537,6 +555,10 @@ export class GoatCavalryTA extends GoatCavalry {
     this.ammo = 5;
     this.tall = 5;
     this.loadRealtimeProps();
+  }
+
+  getAntiArmor(damageType, targetArm) {
+    return this.antiArmor;
   }
 }
 
@@ -600,9 +622,9 @@ export class GoatChariotMusket extends GoatChariot {
       },
     };
 
-    this.antiArmor = 24;
+    this.antiArmor = 36;
 
-    this.ammo = 20;
+    this.ammo = 22;
     this.loadRealtimeProps();
   }
 
@@ -629,7 +651,7 @@ export class RevolvingCannon extends ArmPrimary.Arm {
     this.speed = 1;
 
     this.missileAttack = 1000;
-    this.missileAttack_bonus = 2000;
+    this.missileAttack_bonus = 1200;
     this.missileRange = 10;
     this.missilePenetrate = 4;
     this.multiShots = 5;
