@@ -117,6 +117,7 @@ function decreaseScalesForArms(
     defender.damageOutput += results[0];
     defender.exp += results[1];
     defender.killCount += results[2];
+    defender.valueCreated += calculateValue(attacker, results[0], results[2]);
     // Attacker decrease leadership
     if (!attacker.isHighMorale() && damageType === "melee") {
       if (defender.isMon() && attacker.isInfn() && !attacker.isResistingCharge()) {
@@ -143,6 +144,7 @@ function decreaseScalesForArms(
   attacker.damageOutput += results[0];
   attacker.exp += results[1];
   attacker.killCount += results[2];
+  attacker.valueCreated += calculateValue(defender, results[0], results[2]);
   // Defender decrease leadership
   if (!defender.isHighMorale()) {
     defender.c_leadership -= regularLeadershipDrop(defender, results[2]);
@@ -190,6 +192,16 @@ function decreaseScalesForArms(
       attacker.removeStatus("HP");
     }
   }
+}
+
+function calculateValue(target, damage, decrease) {
+  let fraction = 0;
+  if (target.scale === 1) {
+    fraction = damage / target.getOriginalHP();
+  } else {
+    fraction = decrease / target.getOriginalScale();
+  }
+  return target.cost * fraction;
 }
 
 function determineDamageType(attacker, defender) {

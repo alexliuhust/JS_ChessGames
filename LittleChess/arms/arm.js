@@ -138,6 +138,7 @@ export class Arm {
 
     this.killCount = 0;
     this.damageOutput = 0;
+    this.valueCreated = 0;
     this.statusList = new Set([]);
     this.poisonTime = 0;
     this.currentFatigue = 0;

@@ -39,6 +39,9 @@ export class Player {
     this.operableNum = 0;
     this.maxOperations = 0;
 
+    this.reckoningDiv = document.getElementById(`reckoningDiv${this.playerNumber}`);
+    this.power = window.localStorage.getItem(`power${this.playerNumber}`);
+
     this.infoPanel = new InfoPanel(this.canvasList.info, this.useMandarin, false, true);
 
     document.addEventListener("keydown", (e) => {
@@ -69,10 +72,87 @@ export class Player {
     Canvas.clear(this.canvasList.main, W, H);
   }
 
+  addDeadPieceToReckoningList(piece) {
+    // item wrapper
+    const itemDiv = document.createElement("div");
+    itemDiv.className = "d-flex";
+
+    // image column
+    const imgCol = document.createElement("div");
+    imgCol.className = "p-2";
+
+    const img = document.createElement("img");
+
+    img.src = `../images/${this.power}/${piece.constructor.name}.png`;
+    img.style.width = "60px";
+    img.style.height = "60px";
+
+    imgCol.appendChild(img);
+
+    // text column
+    const textCol = document.createElement("div");
+    textCol.className = "p-2";
+
+    const nameSpan = document.createElement("span");
+    nameSpan.style.fontSize = "20px";
+    nameSpan.textContent = this.useMandarin ? piece.m_name : piece.name;
+
+    const br = document.createElement("br");
+
+    const statsRow = document.createElement("div");
+    statsRow.className = "d-flex";
+    statsRow.style.fontSize = "17px";
+
+    let title;
+    let value;
+
+    const killDiv = document.createElement("div");
+    killDiv.className = "p-2";
+    killDiv.style.width = "120px";
+    title = this.useMandarin ? "杀敌数" : "Kill count";
+    value = piece.killCount;
+    killDiv.textContent = `${title}: ${value}`;
+
+    const damageDiv = document.createElement("div");
+    damageDiv.className = "p-2";
+    damageDiv.style.width = "155px";
+    title = this.useMandarin ? "伤害输出" : "Damage output";
+    value = piece.damageOutput;
+    damageDiv.textContent = `${title}: ${value}`;
+
+    const valueDiv = document.createElement("div");
+    valueDiv.className = "p-2";
+    title = this.useMandarin ? "贡献价值" : "Value created";
+    value = Math.round(piece.valueCreated);
+    valueDiv.textContent = `${title}: ${value} G (${Math.round((piece.valueCreated * 100) / piece.cost)}%)`;
+
+    statsRow.appendChild(killDiv);
+    statsRow.appendChild(damageDiv);
+    statsRow.appendChild(valueDiv);
+
+    textCol.appendChild(nameSpan);
+    textCol.appendChild(br);
+    textCol.appendChild(statsRow);
+
+    itemDiv.appendChild(imgCol);
+    itemDiv.appendChild(textCol);
+
+    this.reckoningDiv.appendChild(itemDiv);
+  }
+
+  victoryReckoning() {
+    for (let i = 0; i < this.pieceList.length; i++) {
+      this.pieceList[i].isAlive = false;
+      this.addDeadPieceToReckoningList(this.pieceList[i]);
+    }
+    this.pieceList = [];
+  }
+
   leadershipChangesAccordingToToll() {
     let leadershipChange = 0;
     for (let i = this.pieceList.length - 1; i >= 0; i--) {
       if (!this.pieceList[i].isAlive) {
+        this.addDeadPieceToReckoningList(this.pieceList[i]);
         leadershipChange += this.pieceList[i].cost / 10;
         this.pieceList.splice(i, 1);
       }
