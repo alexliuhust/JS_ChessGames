@@ -103,20 +103,28 @@ export class Player {
     statsRow.className = "d-flex";
     statsRow.style.fontSize = "17px";
 
+    let title;
+    let value;
+
     const killDiv = document.createElement("div");
     killDiv.className = "p-2";
-    killDiv.style.width = "150px";
-    killDiv.textContent = `${this.useMandarin ? "杀敌数" : "Kill count"}: ${piece.killCount}`;
+    killDiv.style.width = "120px";
+    title = this.useMandarin ? "杀敌数" : "Kill count";
+    value = piece.killCount;
+    killDiv.textContent = `${title}: ${value}`;
 
     const damageDiv = document.createElement("div");
     damageDiv.className = "p-2";
-    damageDiv.style.width = "210px";
-    damageDiv.textContent = `${this.useMandarin ? "伤害输出" : "Damage output"}: ${piece.damageOutput}`;
+    damageDiv.style.width = "155px";
+    title = this.useMandarin ? "伤害输出" : "Damage output";
+    value = piece.damageOutput;
+    damageDiv.textContent = `${title}: ${value}`;
 
     const valueDiv = document.createElement("div");
     valueDiv.className = "p-2";
-    valueDiv.style.width = "210px";
-    valueDiv.textContent = `${this.useMandarin ? "贡献价值" : "Value created"}: ${Math.round(piece.valueCreated)} G`;
+    title = this.useMandarin ? "贡献价值" : "Value created";
+    value = Math.round(piece.valueCreated);
+    valueDiv.textContent = `${title}: ${value} G (${Math.round((piece.valueCreated * 100) / piece.cost)}%)`;
 
     statsRow.appendChild(killDiv);
     statsRow.appendChild(damageDiv);
