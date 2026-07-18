@@ -114,6 +114,7 @@ function updateLabels() {
     let label = document.getElementById(`${inputID}Label`);
     label.innerHTML = useMandarin ? m_labelList[i] : labelList[i];
   }
+  saveAndContinueButton.innerHTML = useMandarin ? "开始部署" : "Go to Deployment";
 }
 
 window.addEventListener("load", () => {

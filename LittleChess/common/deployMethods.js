@@ -27,6 +27,10 @@ const powerSelect = document.getElementById("powers");
 const clearButton = document.getElementById("clear");
 const backButton = document.getElementById("back");
 const saveAndContinueButton = document.getElementById("saveAndContinue");
+const title = document.getElementById("title");
+const moneyLeftSpanLabel = document.getElementById("moneyLeftLabel");
+const elitesHeroesLeftLabel = document.getElementById("elitesHeroesLeftLabel");
+
 const techToColor = {
   1: "rgba(114, 169, 5, 0.6)",
   2: "rgba(0, 135, 203, 0.6)",
@@ -80,6 +84,7 @@ export class Deploy {
 
     this.bindArmImagesMouseDown(this.elems, this.arms);
     this.drawMap();
+    this.updateLanguage();
 
     selectCanvas.addEventListener("click", (e) => {
       let x = e.offsetX || e.layerX;
@@ -120,6 +125,15 @@ export class Deploy {
       if (this.imageIndex == null || this.imageIndex == -1) this.imageIndex = 0;
       this.elems[this.imageIndex].click();
     }, 300);
+  }
+
+  updateLanguage() {
+    title.innerHTML = useMandarin ? `玩家${this.player}部署部队` : `Player ${this.player} Deploy`;
+    backButton.innerHTML = useMandarin ? "上一步" : "Back";
+    saveAndContinueButton.innerHTML = useMandarin ? "下一步" : "Next";
+    clearButton.innerHTML = useMandarin ? "清空部署" : "Clear";
+    moneyLeftSpanLabel.innerHTML = useMandarin ? "资金剩余:" : "Money Left:";
+    elitesHeroesLeftLabel.innerHTML = useMandarin ? "精英和英雄数量剩余:" : "Num Elites & Heroes Left:";
   }
 
   loadAllIconImages() {
@@ -223,7 +237,7 @@ export class Deploy {
   }
 
   updateNumElitesAndHeroesLeftSpan() {
-    elitesHeroesLeftSpan.textContent = this.elitesHeroesLeft < 0 ? "Unlimited" : this.elitesHeroesLeft;
+    elitesHeroesLeftSpan.textContent = this.elitesHeroesLeft < 0 ? "∞" : this.elitesHeroesLeft;
   }
 
   addArmImagesToList() {
