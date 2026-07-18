@@ -230,7 +230,7 @@ export class Deploy {
     const container = document.getElementById("armImages");
     for (let i = 0; i < this.totalArms; i++) {
       if (i > 0 && i % this.rowSize === 0) {
-        for (let b = 0; b < 5; b++) container.appendChild(document.createElement("br"));
+        for (let b = 0; b < 4; b++) container.appendChild(document.createElement("br"));
         const spacer = document.createElement("div");
         spacer.style.marginTop = "-15px";
         container.appendChild(spacer);
@@ -241,7 +241,6 @@ export class Deploy {
       div.id = String(i);
       container.appendChild(div);
     }
-    for (let b = 0; b < 5; b++) container.appendChild(document.createElement("br"));
 
     for (let i = 0; i < this.images.length; i++) {
       let div = document.getElementById(i);
@@ -250,7 +249,7 @@ export class Deploy {
       let elem = document.createElement("img");
       elem.src = this.images[i];
       div.appendChild(elem);
-      elem.height = "60";
+      elem.height = "72";
       elem.width = elem.height;
       elem.style.border = "5px solid white";
 
