@@ -1,5 +1,38 @@
 import { PowerMap, M_PowerMap, PowerList } from "./common/const.js";
 
+const inputIDList = [
+  "useMandarin",
+  "maxCost",
+  "maxNumEliteAndHero",
+  "uniqueEliteAndHero",
+  "strictDeploymentArea",
+  "techLimit",
+  "powersForPlayer1",
+  "powersForPlayer2",
+];
+
+const labelList = [
+  "Language",
+  "Max Cost",
+  "Elites & Heroes Limit",
+  "Unique Elite & Hero",
+  "Strict Deployment Area",
+  "Technology Limit",
+  "Player 1 Power",
+  "Player 2 Power",
+];
+
+const m_labelList = [
+  "语言",
+  "资金上限",
+  "精英和英雄上限",
+  "精英和英雄独一性",
+  "严格布阵区域",
+  "科技限制",
+  "玩家1势力",
+  "玩家2势力",
+];
+
 const powersForPlayer1 = document.getElementById("powersForPlayer1");
 const powersForPlayer2 = document.getElementById("powersForPlayer2");
 const maxCost = document.getElementById("maxCost");
@@ -74,6 +107,15 @@ function updateLocalStorage() {
   window.localStorage.setItem("techLimit", techLimitValue);
 }
 
+function updateLabels() {
+  let useMandarin = language.value === "true";
+  for (let i = 0; i < inputIDList.length; i++) {
+    let inputID = inputIDList[i];
+    let label = document.getElementById(`${inputID}Label`);
+    label.innerHTML = useMandarin ? m_labelList[i] : labelList[i];
+  }
+}
+
 window.addEventListener("load", () => {
   updateLanguage(language);
   updatePowerName(powersForPlayer1, 1);
@@ -83,6 +125,7 @@ window.addEventListener("load", () => {
   updateUniqueEliteAndHero(uniqueEliteAndHero);
   updateStrictDeploymentArea(strictDeploymentArea);
   updateTechLimit(techLimit);
+  updateLabels();
   updateLocalStorage();
 });
 
