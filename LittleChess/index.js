@@ -41,7 +41,7 @@ const maxNumEliteAndHero = document.getElementById("maxNumEliteAndHero");
 const uniqueEliteAndHero = document.getElementById("uniqueEliteAndHero");
 const strictDeploymentArea = document.getElementById("strictDeploymentArea");
 const techLimit = document.getElementById("techLimit");
-
+const moneyUnit = document.getElementById("moneyUnit");
 const saveAndContinueButton = document.getElementById("saveAndContinue");
 
 function updatePowerName(selectElement, player) {
@@ -115,6 +115,7 @@ function updateLabels() {
     label.innerHTML = useMandarin ? m_labelList[i] : labelList[i];
   }
   saveAndContinueButton.innerHTML = useMandarin ? "开始部署" : "Go to Deployment";
+  moneyUnit.innerHTML = useMandarin ? "金币" : "G";
 }
 
 window.addEventListener("load", () => {

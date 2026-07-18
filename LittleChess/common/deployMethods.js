@@ -30,6 +30,7 @@ const saveAndContinueButton = document.getElementById("saveAndContinue");
 const title = document.getElementById("title");
 const moneyLeftSpanLabel = document.getElementById("moneyLeftLabel");
 const elitesHeroesLeftLabel = document.getElementById("elitesHeroesLeftLabel");
+const moneyUnit = document.getElementById("moneyUnit");
 
 const techToColor = {
   1: "rgba(114, 169, 5, 0.6)",
@@ -134,6 +135,7 @@ export class Deploy {
     clearButton.innerHTML = useMandarin ? "清空部署" : "Clear";
     moneyLeftSpanLabel.innerHTML = useMandarin ? "资金剩余:" : "Money Left:";
     elitesHeroesLeftLabel.innerHTML = useMandarin ? "精英和英雄数量剩余:" : "Num Elites & Heroes Left:";
+    moneyUnit.innerHTML = useMandarin ? "金币" : "G";
   }
 
   loadAllIconImages() {
@@ -233,7 +235,7 @@ export class Deploy {
   }
 
   updateMoneyLeftSpan() {
-    moneyLeftSpan.textContent = this.moneyLeft + " G";
+    moneyLeftSpan.textContent = this.moneyLeft;
   }
 
   updateNumElitesAndHeroesLeftSpan() {
