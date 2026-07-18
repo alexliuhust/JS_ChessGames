@@ -189,6 +189,13 @@ document.addEventListener("keydown", (e) => {
 });
 
 // ===============================================================
+// ======================= Change Language =======================
+// ===============================================================
+endRoundForBlue.innerHTML = useMandarin ? "结束<br />蓝方回合" : "End Round For Blue";
+endRoundForRed.innerHTML = useMandarin ? "结束<br />红方回合" : "End Round For Red";
+backButton.innerHTML = useMandarin ? "回到<br />部署阶段" : "Back to<br />Deployment";
+
+// ===============================================================
 // ==================== Mouse Clicking Events ====================
 // ===============================================================
 const select = document.getElementById("select");
