@@ -88,6 +88,7 @@ export class Deploy {
 
     this.normalDeployArea = _player == 1 ? normalDeployArea_p1 : normalDeployArea_p2;
     this.forwardDeployArea = _player == 1 ? forwardDeployArea_p1 : forwardDeployArea_p2;
+    this.forwardDeployArea_enemy = _player == 2 ? forwardDeployArea_p1 : forwardDeployArea_p2;
     this.seenIndexes = new Set([]);
 
     this.infoPanel = new InfoPanel(canvasList.info, useMandarin, true, false);
@@ -371,7 +372,21 @@ export class Deploy {
     }
 
     for (let area of this.forwardDeployArea) {
-      let color = this.player === 1 ? "rgba(0,0,255,0.1)" : "rgba(255,0,0,0.1)";
+      let color = this.player === 1 ? "rgba(0,0,255,0.3)" : "rgba(255,0,0,0.3)";
+      let weight = 2;
+      let x1 = area.x1;
+      let y1 = area.y1;
+      let width = area.x2 - x1;
+      let height = area.y2 - y1;
+      x1 *= armSize;
+      y1 *= armSize;
+      width *= armSize;
+      height *= armSize;
+      Canvas.fillRect(canvasList.map, x1, y1, width, height, color);
+    }
+
+    for (let area of this.forwardDeployArea_enemy) {
+      let color = this.player === 2 ? "rgba(0,0,255,0.1)" : "rgba(255,0,0,0.1)";
       let weight = 2;
       let x1 = area.x1;
       let y1 = area.y1;
