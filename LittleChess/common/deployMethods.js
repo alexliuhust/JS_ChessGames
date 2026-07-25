@@ -31,6 +31,7 @@ const title = document.getElementById("title");
 const moneyLeftSpanLabel = document.getElementById("moneyLeftLabel");
 const elitesHeroesLeftLabel = document.getElementById("elitesHeroesLeftLabel");
 const moneyUnit = document.getElementById("moneyUnit");
+const gameDiv = document.getElementById("game");
 
 const techToColor = {
   1: "rgba(114, 169, 5, 0.6)",
@@ -56,7 +57,7 @@ export class Deploy {
     this.elems = [];
     this.icons = {};
     this.totalArms = 24;
-    this.rowSize = 12;
+    this.rowSize = 8;
 
     this.imageIndex = -1;
     this.pieceList = [];
@@ -71,6 +72,7 @@ export class Deploy {
 
   // Initilize the deployment page
   initializeDeploymentPage() {
+    this.initializeForPlayerSpecific();
     this.loadAllIconImages();
     this.updatePowerName();
     let powerNumber = "power" + this.player;
@@ -134,8 +136,22 @@ export class Deploy {
     saveAndContinueButton.innerHTML = useMandarin ? "下一步" : "Next";
     clearButton.innerHTML = useMandarin ? "清空部署" : "Clear";
     moneyLeftSpanLabel.innerHTML = useMandarin ? "资金剩余:" : "Money Left:";
-    elitesHeroesLeftLabel.innerHTML = useMandarin ? "精英和英雄数量剩余:" : "Num Elites & Heroes Left:";
+    elitesHeroesLeftLabel.innerHTML = useMandarin ? "精英和英雄数量剩余:" : "Elites & Heroes Left:";
     moneyUnit.innerHTML = useMandarin ? "金币" : "G";
+  }
+
+  initializeForPlayerSpecific() {
+    console.log(this.player);
+    title.innerHTML = `Player ${this.player} Deploy`;
+    powerSelect.style.border = `5px solid ${this.player == 1 ? "blue" : "red"}`;
+    gameDiv.style.border = `5px dashed ${this.player == 1 ? "blue" : "red"}`;
+    if (this.player == 1) {
+      backButton.href = "../index.html";
+      saveAndContinueButton.href = "./p2Deploy.html";
+    } else {
+      backButton.href = "./p1Deploy.html";
+      saveAndContinueButton.href = "./mainGame.html";
+    }
   }
 
   loadAllIconImages() {
