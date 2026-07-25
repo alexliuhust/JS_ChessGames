@@ -36,6 +36,9 @@ const elitesHeroesLeftLabel = document.getElementById("elitesHeroesLeftLabel");
 const moneyUnit = document.getElementById("moneyUnit");
 const gameDiv = document.getElementById("game");
 
+const normalDeployArea_p1 = [{ x1: 5, y1: 4, x2: 5 + 6, y2: 4 + 9 }];
+const normalDeployArea_p2 = [{ x1: 27 - 5 - 6, y1: 4, x2: 27 - 5, y2: 4 + 9 }];
+
 const techToColor = {
   1: "rgba(114, 169, 5, 0.6)",
   2: "rgba(0, 135, 203, 0.6)",
@@ -67,7 +70,7 @@ export class Deploy {
     this.moneyLeft = window.localStorage.getItem("maxCost");
     this.elitesHeroesLeft = window.localStorage.getItem("maxNumEliteAndHero");
 
-    this.areaLimits = {};
+    this.normalDeployArea = _player == 1 ? normalDeployArea_p1 : normalDeployArea_p2;
     this.seenIndexes = new Set([]);
 
     this.infoPanel = new InfoPanel(canvasList.info, useMandarin, true, false);
@@ -158,14 +161,15 @@ export class Deploy {
   }
 
   initializeMapSizes() {
-    gameDiv.style.width = 13 * armSize;
-    gameDiv.style.height = 17 * armSize;
-    document.getElementById("map").width = 13 * armSize;
-    document.getElementById("map").height = 17 * armSize;
-    document.getElementById("piece").width = 13 * armSize;
-    document.getElementById("piece").height = 17 * armSize;
-    document.getElementById("select").width = 13 * armSize;
-    document.getElementById("select").height = 17 * armSize;
+    gameDiv.style.width = DW;
+    gameDiv.style.height = DH;
+    document.getElementById("map").width = DW;
+    document.getElementById("map").height = DH;
+    document.getElementById("piece").width = DW;
+    document.getElementById("piece").height = DH;
+    document.getElementById("select").width = DW;
+    document.getElementById("select").height = DH;
+    document.getElementById("map").style.backgroundSize = `${3 * armSize}px ${3 * armSize}px`;
   }
 
   loadAllIconImages() {
@@ -215,7 +219,7 @@ export class Deploy {
       let drawX = Math.floor(x / armSize) * armSize;
       let drawY = Math.floor(y / armSize) * armSize;
       let forwardDeployment = this.arms[this.imageIndex].hasForwardDeployment();
-      if (!forwardDeployment && !this.isArmInStrictArea(drawX, drawY)) {
+      if (!this.isArmInStrictArea(drawX, drawY, forwardDeployment)) {
         console.log("Outside!!!!");
         return;
       }
@@ -334,43 +338,41 @@ export class Deploy {
         }
       }
     }
-    let y1 = 4 * armSize;
-    let y2 = DH - y1;
-    let xOffset = 6 * armSize;
-    let x1 = 0;
-    let x2 = 0;
-    let color = "";
-    if (this.player === 1) {
-      x1 = DW - xOffset - 2 * armSize;
-      x2 = DW - 2 * armSize;
-      color = "blue";
-    } else {
-      x1 = xOffset + 2 * armSize;
-      x2 = 2 * armSize;
-      color = "red";
-    }
 
-    this.areaLimits = { x1: x1, y1: y1, x2: x2, y2: y2 };
-
+    let color = this.player === 1 ? "blue" : "red";
     let weight = 2;
-    Canvas.drawLine(canvasList.map, x1, y1, x2, y1, color, weight);
-    Canvas.drawLine(canvasList.map, x1, y2, x2, y2, color, weight);
-    Canvas.drawLine(canvasList.map, x1, y1, x1, y2, color, weight);
-    Canvas.drawLine(canvasList.map, x2, y1, x2, y2, color, weight);
+    let x1 = this.normalDeployArea[0].x1;
+    let y1 = this.normalDeployArea[0].y1;
+    let width = this.normalDeployArea[0].x2 - x1;
+    let height = this.normalDeployArea[0].y2 - y1;
+    x1 *= armSize;
+    y1 *= armSize;
+    width *= armSize;
+    height *= armSize;
+    Canvas.drawRect(canvasList.map, x1, y1, width, height, color, weight);
+
+    Canvas.drawLine(canvasList.map, DW / 2, 0, DW / 2, DH, "rgb(100, 100, 100)", weight);
   }
 
-  isArmInStrictArea(x, y) {
+  isArmInStrictArea(x, y, forwardDeployment) {
     if (!strictDeploymentArea) return true;
-    let { x1, y1, x2, y2 } = this.areaLimits;
-    let xmin = Math.min(x1, x2);
-    let xmax = Math.max(x1, x2);
-    let ymin = Math.min(y1, y2);
-    let ymax = Math.max(y1, y2);
-    x1 = xmin;
-    x2 = xmax;
-    y1 = ymin;
-    y2 = ymax;
-    return x >= x1 && x < x2 && y >= y1 && y < y2;
+
+    let area = this.normalDeployArea;
+
+    for (let { x1, y1, x2, y2 } of this.normalDeployArea) {
+      let xmin = Math.min(x1, x2);
+      let xmax = Math.max(x1, x2);
+      let ymin = Math.min(y1, y2);
+      let ymax = Math.max(y1, y2);
+      x1 = xmin * armSize;
+      x2 = xmax * armSize;
+      y1 = ymin * armSize;
+      y2 = ymax * armSize;
+      let isIn = x >= x1 && x < x2 && y >= y1 && y < y2;
+      if (isIn) continue;
+      return false;
+    }
+    return true;
   }
 
   storeArmInfo() {
@@ -381,8 +383,7 @@ export class Deploy {
       // Calculate the real game positions of the pieces
       let px = 0;
       let py = 0;
-      if (this.player === 1) px = piece.x / armSize;
-      else px = piece.x / armSize + (gX - maxX);
+      px = piece.x / armSize;
       py = piece.y / armSize;
       outputList.push([piece.index, px, py]);
     }
