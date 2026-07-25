@@ -36,23 +36,27 @@ const elitesHeroesLeftLabel = document.getElementById("elitesHeroesLeftLabel");
 const moneyUnit = document.getElementById("moneyUnit");
 const gameDiv = document.getElementById("game");
 
-const ymargin = 4;
+const ymargin = 3;
 const ylength = 9;
 const xmargin = 5;
 const xlength = 6;
 const normalDeployArea_p1 = [{ x1: xmargin, y1: ymargin, x2: xmargin + xlength, y2: ymargin + ylength }];
 const normalDeployArea_p2 = [{ x1: 27 - xmargin - xlength, y1: ymargin, x2: 27 - xmargin, y2: ymargin + ylength }];
 const forwardDeployArea_p1 = [
-  { x1: xmargin - 2, y1: 0, x2: xmargin + xlength + 2, y2: 17 },
-  { x1: 0, y1: ymargin - 1, x2: xmargin - 2, y2: ymargin + ylength + 1 },
-  { x1: 27 - 2, y1: 0, x2: 27, y2: 2 },
+  { x1: xmargin - 2, y1: 0, x2: xmargin + xlength + 2, y2: 15 },
+  { x1: 0, y1: 0, x2: xmargin - 2, y2: 10 },
+  { x1: xmargin + 4, y1: 15, x2: xmargin + 8, y2: 17 },
   { x1: 27 - 2, y1: 17 - 2, x2: 27, y2: 17 },
+  { x1: 26, y1: 17 - 6, x2: 27, y2: 17 - 3 },
+  { x1: 27 - xmargin - 3, y1: 16, x2: 27 - xmargin, y2: 17 },
 ];
 const forwardDeployArea_p2 = [
-  { x1: 27 - xmargin - xlength - 2, y1: 0, x2: 27 - xmargin + 2, y2: 17 },
-  { x1: 27 - xmargin + 2, y1: ymargin - 1, x2: 27, y2: ymargin + ylength + 1 },
-  { x1: 0, y1: 0, x2: 2, y2: 2 },
+  { x1: 27 - xmargin - xlength - 2, y1: 0, x2: 27 - xmargin + 2, y2: 15 },
+  { x1: 27 - xmargin + 2, y1: 0, x2: 27, y2: 10 },
   { x1: 0, y1: 17 - 2, x2: 2, y2: 17 },
+  { x1: 27 - xmargin - 8, y1: 15, x2: 27 - xmargin - 4, y2: 17 },
+  { x1: 0, y1: 17 - 6, x2: 1, y2: 17 - 3 },
+  { x1: xmargin, y1: 16, x2: xmargin + 3, y2: 17 },
 ];
 
 const techToColor = {
@@ -400,6 +404,7 @@ export class Deploy {
     }
 
     Canvas.drawLine(canvasList.map, DW / 2, 0, DW / 2, DH, "rgb(100, 100, 100)", 4);
+    Canvas.drawLine(canvasList.map, DW / 2 - 10, DH / 2, DW / 2 + 10, DH / 2, "rgb(100, 100, 100)", 4);
   }
 
   isArmInStrictArea(x, y, forwardDeployment) {
