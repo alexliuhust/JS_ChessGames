@@ -57,7 +57,7 @@ export class Deploy {
     this.elems = [];
     this.icons = {};
     this.totalArms = 24;
-    this.rowSize = 8;
+    this.rowSize = 16;
 
     this.imageIndex = -1;
     this.pieceList = [];
@@ -141,7 +141,6 @@ export class Deploy {
   }
 
   initializeForPlayerSpecific() {
-    console.log(this.player);
     title.innerHTML = `Player ${this.player} Deploy`;
     powerSelect.style.border = `5px solid ${this.player == 1 ? "blue" : "red"}`;
     gameDiv.style.border = `5px dashed ${this.player == 1 ? "blue" : "red"}`;
