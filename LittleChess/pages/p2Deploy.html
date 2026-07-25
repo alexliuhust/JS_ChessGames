@@ -19,64 +19,7 @@
 </head>
 
 <body>
-  <div style="margin-top: 10px;">
-    <div class="d-flex justify-content-center">
-
-      <div class="p-2" style="width: 920px">
-        <div class="d-flex">
-          <div class="p-2" style="width: 300px;">
-            <h1 id="title"></h1>
-          </div>
-          <div class="p-2" style="width: 120px;">
-            <a id="back" class="btn btn-outline-info top-button">Back</a>
-          </div>
-          <div class="p-2" style="width: 120px;">
-            <a id="saveAndContinue" class="btn btn-outline-info top-button">Next</a>
-          </div>
-        </div>
-
-        <div class="d-flex align-items-center" style="margin-top: 15px;">
-          <div class="p-2">
-            <select id="powers" style="font-size: 30px; width: 225px;"></select>
-          </div>
-          <div class=" p-2">
-            <button id="clear" class="btn btn-outline-warning" style="font-size: 25px; width: 130px;">Clear</button>
-          </div>
-          <div class="p-2" style="font-size: 20px;">
-            <div class="d-flex" style="margin-bottom: -16px;">
-              <div class="p-2"><span id="moneyLeftLabel">Money Left:</span></div>
-              <div class="p-2"><span id="moneyLeft" style="font-weight: 700;"></span></div>
-              <div class="p-2"><span id="moneyUnit">G</span></div>
-            </div>
-            <div class="d-flex">
-              <div class="p-2"><span id="elitesHeroesLeftLabel">Elites & Heroes Left:</span></div>
-              <div class="p-2"><span id="elitesHeroesLeft" style="font-weight: 700;"></span></div>
-            </div>
-          </div>
-        </div>
-
-        <div style="display: none" id="allIconImages"></div>
-        <div id="armImages" style="margin-top: 15px; margin-bottom: 15px;"></div>
-        <br /> <br /> <br />
-
-        <div style="width: 520px; height: 495px;">
-          <canvas id="info" width="520" height="495"
-            style="position: absolute; z-index: 100; background: black"></canvas>
-        </div>
-      </div>
-
-      <div class="p-2" style="margin-top: 5px;">
-        <div id="game" style="width: 659px; height: 859px;">
-          <canvas id="map" width="650" height="850"
-            style="position: absolute; z-index: 100; background: url(../images/map/bg.png) repeat"></canvas>
-          <canvas id="piece" width="650" height="850" style="position: absolute; z-index: 101"></canvas>
-          <canvas id="select" width="650" height="850" style="position: absolute; z-index: 103"></canvas>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
+  <div id="deployLayoutRoot"></div>
 
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
@@ -87,6 +30,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
+  <script type="module" src="./deployLayoutLoader.js"></script>
   <script type="module" src="./p2Deploy.js"></script>
 </body>
 
