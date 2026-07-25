@@ -36,8 +36,24 @@ const elitesHeroesLeftLabel = document.getElementById("elitesHeroesLeftLabel");
 const moneyUnit = document.getElementById("moneyUnit");
 const gameDiv = document.getElementById("game");
 
-const normalDeployArea_p1 = [{ x1: 5, y1: 4, x2: 5 + 6, y2: 4 + 9 }];
-const normalDeployArea_p2 = [{ x1: 27 - 5 - 6, y1: 4, x2: 27 - 5, y2: 4 + 9 }];
+const ymargin = 4;
+const ylength = 9;
+const xmargin = 5;
+const xlength = 6;
+const normalDeployArea_p1 = [{ x1: xmargin, y1: ymargin, x2: xmargin + xlength, y2: ymargin + ylength }];
+const normalDeployArea_p2 = [{ x1: 27 - xmargin - xlength, y1: ymargin, x2: 27 - xmargin, y2: ymargin + ylength }];
+const forwardDeployArea_p1 = [
+  { x1: xmargin - 2, y1: 0, x2: xmargin + xlength + 2, y2: 17 },
+  { x1: 0, y1: ymargin - 1, x2: xmargin - 2, y2: ymargin + ylength + 1 },
+  { x1: 27 - 2, y1: 0, x2: 27, y2: 2 },
+  { x1: 27 - 2, y1: 17 - 2, x2: 27, y2: 17 },
+];
+const forwardDeployArea_p2 = [
+  { x1: 27 - xmargin - xlength - 2, y1: 0, x2: 27 - xmargin + 2, y2: 17 },
+  { x1: 27 - xmargin + 2, y1: ymargin - 1, x2: 27, y2: ymargin + ylength + 1 },
+  { x1: 0, y1: 0, x2: 2, y2: 2 },
+  { x1: 0, y1: 17 - 2, x2: 2, y2: 17 },
+];
 
 const techToColor = {
   1: "rgba(114, 169, 5, 0.6)",
@@ -71,6 +87,7 @@ export class Deploy {
     this.elitesHeroesLeft = window.localStorage.getItem("maxNumEliteAndHero");
 
     this.normalDeployArea = _player == 1 ? normalDeployArea_p1 : normalDeployArea_p2;
+    this.forwardDeployArea = _player == 1 ? forwardDeployArea_p1 : forwardDeployArea_p2;
     this.seenIndexes = new Set([]);
 
     this.infoPanel = new InfoPanel(canvasList.info, useMandarin, true, false);
@@ -339,27 +356,44 @@ export class Deploy {
       }
     }
 
-    let color = this.player === 1 ? "blue" : "red";
-    let weight = 2;
-    let x1 = this.normalDeployArea[0].x1;
-    let y1 = this.normalDeployArea[0].y1;
-    let width = this.normalDeployArea[0].x2 - x1;
-    let height = this.normalDeployArea[0].y2 - y1;
-    x1 *= armSize;
-    y1 *= armSize;
-    width *= armSize;
-    height *= armSize;
-    Canvas.drawRect(canvasList.map, x1, y1, width, height, color, weight);
+    for (let area of this.normalDeployArea) {
+      let color = this.player === 1 ? "blue" : "red";
+      let weight = 2;
+      let x1 = area.x1;
+      let y1 = area.y1;
+      let width = area.x2 - x1;
+      let height = area.y2 - y1;
+      x1 *= armSize;
+      y1 *= armSize;
+      width *= armSize;
+      height *= armSize;
+      Canvas.drawRect(canvasList.map, x1, y1, width, height, color, weight);
+    }
 
-    Canvas.drawLine(canvasList.map, DW / 2, 0, DW / 2, DH, "rgb(100, 100, 100)", weight);
+    for (let area of this.forwardDeployArea) {
+      let color = this.player === 1 ? "rgba(0,0,255,0.1)" : "rgba(255,0,0,0.1)";
+      let weight = 2;
+      let x1 = area.x1;
+      let y1 = area.y1;
+      let width = area.x2 - x1;
+      let height = area.y2 - y1;
+      x1 *= armSize;
+      y1 *= armSize;
+      width *= armSize;
+      height *= armSize;
+      Canvas.fillRect(canvasList.map, x1, y1, width, height, color);
+    }
+
+    Canvas.drawLine(canvasList.map, DW / 2, 0, DW / 2, DH, "rgb(100, 100, 100)", 4);
   }
 
   isArmInStrictArea(x, y, forwardDeployment) {
     if (!strictDeploymentArea) return true;
 
     let area = this.normalDeployArea;
+    if (forwardDeployment) area = this.forwardDeployArea;
 
-    for (let { x1, y1, x2, y2 } of this.normalDeployArea) {
+    for (let { x1, y1, x2, y2 } of area) {
       let xmin = Math.min(x1, x2);
       let xmax = Math.max(x1, x2);
       let ymin = Math.min(y1, y2);
@@ -369,10 +403,10 @@ export class Deploy {
       y1 = ymin * armSize;
       y2 = ymax * armSize;
       let isIn = x >= x1 && x < x2 && y >= y1 && y < y2;
-      if (isIn) continue;
-      return false;
+      if (!isIn) continue;
+      return true;
     }
-    return true;
+    return false;
   }
 
   storeArmInfo() {
