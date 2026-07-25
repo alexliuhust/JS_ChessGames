@@ -5,8 +5,8 @@ import {
   PowerList,
   DirectMap,
   GameWidth as GW,
-  DeployWidth as DW,
-  DeployHeight as DH,
+  DeployWidth,
+  DeployHeight,
   DInfoWidth as DIW,
   DInfoHeight as DIH,
 } from "./const.js";
@@ -14,7 +14,9 @@ import { getAllIconImages } from "./icon.js";
 import { Canvas, Rect } from "./tools.js";
 import { InfoPanel } from "../prompts/infoDrawings.js";
 
-const armSize = 35;
+const armSize = 41;
+const DW = (DeployWidth / 50) * armSize;
+const DH = (DeployHeight / 50) * armSize;
 const maxX = Math.floor(DW / armSize);
 const maxY = Math.floor(DH / armSize);
 const gX = Math.floor(GW / 50);
@@ -74,6 +76,7 @@ export class Deploy {
   // Initilize the deployment page
   initializeDeploymentPage() {
     this.initializeForPlayerSpecific();
+    this.initializeMapSizes();
     this.loadAllIconImages();
     this.updatePowerName();
     let powerNumber = "power" + this.player;
@@ -152,6 +155,17 @@ export class Deploy {
       backButton.href = "./p1Deploy.html";
       saveAndContinueButton.href = "./mainGame.html";
     }
+  }
+
+  initializeMapSizes() {
+    gameDiv.style.width = 13 * armSize;
+    gameDiv.style.height = 17 * armSize;
+    document.getElementById("map").width = 13 * armSize;
+    document.getElementById("map").height = 17 * armSize;
+    document.getElementById("piece").width = 13 * armSize;
+    document.getElementById("piece").height = 17 * armSize;
+    document.getElementById("select").width = 13 * armSize;
+    document.getElementById("select").height = 17 * armSize;
   }
 
   loadAllIconImages() {
@@ -320,19 +334,19 @@ export class Deploy {
         }
       }
     }
-    let y1 = 140;
+    let y1 = 4 * armSize;
     let y2 = DH - y1;
-    let xOffset = 210;
+    let xOffset = 6 * armSize;
     let x1 = 0;
     let x2 = 0;
     let color = "";
     if (this.player === 1) {
-      x1 = DW - xOffset - 70;
-      x2 = DW - 70;
+      x1 = DW - xOffset - 2 * armSize;
+      x2 = DW - 2 * armSize;
       color = "blue";
     } else {
-      x1 = xOffset + 70;
-      x2 = 70;
+      x1 = xOffset + 2 * armSize;
+      x2 = 2 * armSize;
       color = "red";
     }
 
