@@ -1,7 +1,7 @@
 export const GameWidth = 1350;
 export const GameHeight = 850;
-export const DeployWidth = 650;
-export const DeployHeight = 850;
+export const DeployWidth = (650 / 50) * 35;
+export const DeployHeight = (850 / 50) * 35;
 export const InfoWidth = 530;
 export const InfoHeight = 850;
 export const DInfoWidth = 530;

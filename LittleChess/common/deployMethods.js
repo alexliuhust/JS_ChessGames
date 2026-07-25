@@ -14,8 +14,9 @@ import { getAllIconImages } from "./icon.js";
 import { Canvas, Rect } from "./tools.js";
 import { InfoPanel } from "../prompts/infoDrawings.js";
 
-const maxX = Math.floor(DW / 50);
-const maxY = Math.floor(DH / 50);
+const armSize = 35;
+const maxX = Math.floor(DW / armSize);
+const maxY = Math.floor(DH / armSize);
 const gX = Math.floor(GW / 50);
 const useMandarin = window.localStorage.getItem("useMandarin") === "true";
 const strictDeploymentArea = window.localStorage.getItem("strictDeploymentArea") === "true";
@@ -122,7 +123,7 @@ export class Deploy {
     setTimeout(() => {
       this.loadPreviousArmInfo();
       this.bindKeyPressEvents();
-    }, 150);
+    }, 155);
 
     setTimeout(() => {
       if (this.imageIndex == null || this.imageIndex == -1) this.imageIndex = 0;
@@ -143,7 +144,7 @@ export class Deploy {
   initializeForPlayerSpecific() {
     title.innerHTML = `Player ${this.player} Deploy`;
     powerSelect.style.border = `5px solid ${this.player == 1 ? "blue" : "red"}`;
-    gameDiv.style.border = `5px dashed ${this.player == 1 ? "blue" : "red"}`;
+    // gameDiv.style.border = `5px dashed ${this.player == 1 ? "blue" : "red"}`;
     if (this.player == 1) {
       backButton.href = "../index.html";
       saveAndContinueButton.href = "./p2Deploy.html";
@@ -178,7 +179,7 @@ export class Deploy {
         this.updateNumElitesAndHeroesLeftSpan();
         this.seenIndexes.delete(piece.index);
         this.pieceList.splice(p, 1);
-        Canvas.clearRect(canvasList.piece, piece.x, piece.y, 50, 50);
+        Canvas.clearRect(canvasList.piece, piece.x, piece.y, armSize, armSize);
 
         return true;
       }
@@ -197,8 +198,8 @@ export class Deploy {
         if (uniqueEliteAndHero && this.seenIndexes.has(this.imageIndex)) return;
       }
 
-      let drawX = Math.floor(x / 50) * 50;
-      let drawY = Math.floor(y / 50) * 50;
+      let drawX = Math.floor(x / armSize) * armSize;
+      let drawY = Math.floor(y / armSize) * armSize;
       let forwardDeployment = this.arms[this.imageIndex].hasForwardDeployment();
       if (!forwardDeployment && !this.isArmInStrictArea(drawX, drawY)) {
         console.log("Outside!!!!");
@@ -206,15 +207,15 @@ export class Deploy {
       }
 
       let image = this.elems[this.imageIndex];
-      Canvas.drawImg(canvasList.piece, image, 0, 0, 50, 50, drawX + 1, drawY + 1, 48, 48);
+      Canvas.drawImg(canvasList.piece, image, 0, 0, 50, 50, drawX + 1, drawY + 1, armSize - 2, armSize - 2);
 
       let piece = {
         index: this.imageIndex,
         cost: cost,
         x: drawX,
         y: drawY,
-        width: 50,
-        height: 50,
+        width: armSize,
+        height: armSize,
         isEliteOrHero: this.arms[this.imageIndex].isEliteOrHero(),
       };
       this.pieceList.push(piece);
@@ -311,27 +312,27 @@ export class Deploy {
     for (let i = 0; i < maxX; i++) {
       if (i % 2 === 0) {
         for (let j = 0; j < maxY; j += 2) {
-          Canvas.drawRect(canvasList.map, i * 50, j * 50, 50, 50, "black");
+          Canvas.drawRect(canvasList.map, i * armSize, j * armSize, armSize, armSize, "black");
         }
       } else {
         for (let j = 1; j < maxY; j += 2) {
-          Canvas.drawRect(canvasList.map, i * 50, j * 50, 50, 50, "black");
+          Canvas.drawRect(canvasList.map, i * armSize, j * armSize, armSize, armSize, "black");
         }
       }
     }
-    let y1 = 200;
+    let y1 = 140;
     let y2 = DH - y1;
-    let xOffset = 300;
+    let xOffset = 210;
     let x1 = 0;
     let x2 = 0;
     let color = "";
     if (this.player === 1) {
-      x1 = DW - xOffset - 100;
-      x2 = DW - 100;
+      x1 = DW - xOffset - 70;
+      x2 = DW - 70;
       color = "blue";
     } else {
-      x1 = xOffset + 100;
-      x2 = 100;
+      x1 = xOffset + 70;
+      x2 = 70;
       color = "red";
     }
 
@@ -366,9 +367,9 @@ export class Deploy {
       // Calculate the real game positions of the pieces
       let px = 0;
       let py = 0;
-      if (this.player === 1) px = piece.x / 50;
-      else px = piece.x / 50 + (gX - maxX);
-      py = piece.y / 50;
+      if (this.player === 1) px = piece.x / armSize;
+      else px = piece.x / armSize + (gX - maxX);
+      py = piece.y / armSize;
       outputList.push([piece.index, px, py]);
     }
 
@@ -392,9 +393,9 @@ export class Deploy {
 
       this.imageIndex = index;
       let drawX = 0;
-      if (this.player === 1) drawX = px * 50;
-      else drawX = (px - (gX - maxX)) * 50;
-      let drawY = py * 50;
+      if (this.player === 1) drawX = px * armSize;
+      else drawX = (px - (gX - maxX)) * armSize;
+      let drawY = py * armSize;
 
       this.imageIndex = index;
       this.deployAnArm(drawX, drawY);
