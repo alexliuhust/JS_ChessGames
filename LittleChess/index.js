@@ -38,11 +38,20 @@ const powersForPlayer2 = document.getElementById("powersForPlayer2");
 const maxCost = document.getElementById("maxCost");
 const language = document.getElementById("useMandarin");
 const maxNumEliteAndHero = document.getElementById("maxNumEliteAndHero");
-const uniqueEliteAndHero = document.getElementById("uniqueEliteAndHero");
-const strictDeploymentArea = document.getElementById("strictDeploymentArea");
 const techLimit = document.getElementById("techLimit");
 const moneyUnit = document.getElementById("moneyUnit");
 const saveAndContinueButton = document.getElementById("saveAndContinue");
+const uniqueEliteAndHeroRadios = document.querySelectorAll('input[name="uniqueEliteAndHero"]');
+const strictDeploymentAreaRadios = document.querySelectorAll('input[name="strictDeploymentArea"]');
+
+function getRadioValue(name) {
+  return document.querySelector(`input[name="${name}"]:checked`).value;
+}
+
+function setRadioValue(name, value) {
+  const radio = document.querySelector(`input[name="${name}"][value="${value}"]`);
+  if (radio) radio.checked = true;
+}
 
 function updatePowerName(selectElement, player) {
   let useMandarin = window.localStorage.getItem("useMandarin") === "true";
@@ -74,14 +83,14 @@ function updateMaxNumEliteAndHero(selectElement) {
     selectElement.value = window.localStorage.getItem("maxNumEliteAndHero");
 }
 
-function updateUniqueEliteAndHero(selectElement) {
+function updateUniqueEliteAndHero() {
   if (window.localStorage.getItem("uniqueEliteAndHero") != null)
-    selectElement.value = window.localStorage.getItem("uniqueEliteAndHero");
+    setRadioValue("uniqueEliteAndHero", window.localStorage.getItem("uniqueEliteAndHero"));
 }
 
-function updateStrictDeploymentArea(selectElement) {
+function updateStrictDeploymentArea() {
   if (window.localStorage.getItem("strictDeploymentArea") != null)
-    selectElement.value = window.localStorage.getItem("strictDeploymentArea");
+    setRadioValue("strictDeploymentArea", window.localStorage.getItem("strictDeploymentArea"));
 }
 
 function updateTechLimit(selectElement) {
@@ -94,8 +103,8 @@ function updateLocalStorage() {
   let cost = parseInt(maxCost.value);
   let useMandarin = language.value;
   let maxNumEliteAndHeroValue = parseInt(maxNumEliteAndHero.value);
-  let uniqueEliteAndHeroValue = uniqueEliteAndHero.value;
-  let strictDeploymentAreaValue = strictDeploymentArea.value;
+  let uniqueEliteAndHeroValue = getRadioValue("uniqueEliteAndHero");
+  let strictDeploymentAreaValue = getRadioValue("strictDeploymentArea");
   let techLimitValue = parseInt(techLimit.value);
   window.localStorage.setItem("power1", power1);
   window.localStorage.setItem("power2", power2);
@@ -124,8 +133,8 @@ window.addEventListener("load", () => {
   updatePowerName(powersForPlayer2, 2);
   updateMaxCost(maxCost);
   updateMaxNumEliteAndHero(maxNumEliteAndHero);
-  updateUniqueEliteAndHero(uniqueEliteAndHero);
-  updateStrictDeploymentArea(strictDeploymentArea);
+  updateUniqueEliteAndHero();
+  updateStrictDeploymentArea();
   updateTechLimit(techLimit);
   updateLabels();
   updateLocalStorage();
@@ -154,12 +163,16 @@ maxNumEliteAndHero.addEventListener("input", () => {
   updateLocalStorage();
 });
 
-uniqueEliteAndHero.addEventListener("input", () => {
-  updateLocalStorage();
+uniqueEliteAndHeroRadios.forEach((radio) => {
+  radio.addEventListener("change", () => {
+    updateLocalStorage();
+  });
 });
 
-strictDeploymentArea.addEventListener("input", () => {
-  updateLocalStorage();
+strictDeploymentAreaRadios.forEach((radio) => {
+  radio.addEventListener("change", () => {
+    updateLocalStorage();
+  });
 });
 
 techLimit.addEventListener("input", () => {
