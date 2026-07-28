@@ -1,168 +1,191 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+    <style>
+      .setting-label-div {
+        width: 350px;
+      }
 
-  <style>
-    .setting-label-div {
-      width: 350px;
-    }
+      .setting-value-div {
+        width: 300px;
+      }
 
-    .setting-value-div {
-      width: 300px;
-    }
+      .setting-value {
+        width: inherit;
+      }
 
-    .setting-value {
-      width: inherit;
-    }
-  </style>
+      .setting-value-div input[type="radio"] {
+        transform: scale(1.8);
+        margin-right: 8px;
+      }
+    </style>
 
-  <title>My JS Game</title>
-</head>
+    <title>My JS Game</title>
+  </head>
 
-<body>
-  <div style="margin-top: 50px; ">
-    <h1 style="font-size: 70px; text-align: center">Little Chess</h1>
-    <br />
+  <body>
+    <div style="margin-top: 50px">
+      <h1 style="font-size: 70px; text-align: center">Little Chess</h1>
+      <br />
 
-    <div class="container" style="font-size: 30px">
-      <div class="d-flex justify-content-center">
-        <div class="p-2 setting-label-div">
-          <label id="useMandarinLabel" for="useMandarin">Language</label>
+      <div class="container" style="font-size: 30px">
+        <div class="d-flex justify-content-center">
+          <div class="p-2 setting-label-div">
+            <label id="useMandarinLabel">Language</label>
+          </div>
+          <div class="p-2 setting-value-div">
+            <div class="d-flex">
+              <div class="px-2" style="margin-right: 30px">
+                <label class="mb-0"><input type="radio" name="useMandarin" value="false" checked /> English</label>
+              </div>
+              <div class="px-2">
+                <label class="mb-0"><input type="radio" name="useMandarin" value="true" /> 中文</label>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="p-2 setting-value-div">
-          <select class="setting-value" name="useMandarin" id="useMandarin">
-            <option value="false">English</option>
-            <option value="true">中文</option>
-          </select>
+
+        <div class="d-flex justify-content-center">
+          <div class="p-2 setting-label-div">
+            <label id="maxCostLabel" for="maxCost">Max Cost</label>
+          </div>
+          <div class="p-2" style="width: 220px">
+            <select class="setting-value" name="maxCost" id="maxCost">
+              <option value="1000">1000</option>
+              <option value="1500">1500</option>
+              <option value="2000">2000</option>
+              <option value="2500">2500</option>
+              <option value="3000">3000</option>
+              <option value="3500">3500</option>
+              <option value="4000">4000</option>
+              <option value="4500">4500</option>
+              <option value="5000">5000</option>
+              <option value="5500">5500</option>
+              <option value="6000">6000</option>
+            </select>
+          </div>
+          <div class="p-2" style="width: 80px; text-align: center">
+            <span id="moneyUnit">G</span>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-center">
+          <div class="p-2 setting-label-div">
+            <label id="maxNumEliteAndHeroLabel" for="maxNumEliteAndHero">Elites & Heroes Limit</label>
+          </div>
+          <div class="p-2 setting-value-div">
+            <select class="setting-value" name="maxNumEliteAndHero" id="maxNumEliteAndHero">
+              <option value="-1">∞</option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-center">
+          <div class="p-2 setting-label-div">
+            <label id="uniqueEliteAndHeroLabel">Unique Elite & Hero</label>
+          </div>
+          <div class="p-2 setting-value-div">
+            <div class="d-flex align-items-center">
+              <div class="px-2" style="margin-right: 30px">
+                <label class="mb-0"><input type="radio" name="uniqueEliteAndHero" value="false" checked /> ❌</label>
+              </div>
+              <div class="px-2" style="margin-right: 30px">
+                <label class="mb-0"><input type="radio" name="uniqueEliteAndHero" value="true" /> ✔</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-center">
+          <div class="p-2 setting-label-div">
+            <label id="strictDeploymentAreaLabel">Strict Deployment Area</label>
+          </div>
+          <div class="p-2 setting-value-div">
+            <div class="d-flex align-items-center">
+              <div class="px-2" style="margin-right: 30px">
+                <label class="mb-0"><input type="radio" name="strictDeploymentArea" value="false" checked /> ❌ </label>
+              </div>
+              <div class="px-2" style="margin-right: 30px">
+                <label class="mb-0"><input type="radio" name="strictDeploymentArea" value="true" /> ✔ </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-center">
+          <div class="p-2 setting-label-div">
+            <label id="techLimitLabel" for="techLimit">Technology Limit</label>
+          </div>
+          <div class="p-2 setting-value-div">
+            <select class="setting-value" name="techLimit" id="techLimit">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-center">
+          <div class="p-2 setting-label-div">
+            <label id="powersForPlayer1Label" for="powersForPlayer1">Player 1 Power</label>
+          </div>
+          <div class="p-2 setting-value-div">
+            <select class="setting-value" name="powersForPlayer1" id="powersForPlayer1"></select>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-center">
+          <div class="p-2 setting-label-div">
+            <label id="powersForPlayer2Label" for="powersForPlayer2">Player 2 Power</label>
+          </div>
+          <div class="p-2 setting-value-div">
+            <select class="setting-value" name="powersForPlayer2" id="powersForPlayer2"></select>
+          </div>
         </div>
       </div>
 
-      <div class="d-flex justify-content-center">
-        <div class="p-2 setting-label-div">
-          <label id="maxCostLabel" for="maxCost">Max Cost</label>
-        </div>
-        <div class="p-2" style="width: 220px;">
-          <select class="setting-value" name="maxCost" id="maxCost">
-            <option value="1000">1000</option>
-            <option value="1500">1500</option>
-            <option value="2000">2000</option>
-            <option value="2500">2500</option>
-            <option value="3000">3000</option>
-            <option value="3500">3500</option>
-            <option value="4000">4000</option>
-            <option value="4500">4500</option>
-            <option value="5000">5000</option>
-            <option value="5500">5500</option>
-            <option value="6000">6000</option>
-          </select>
-        </div>
-        <div class="p-2" style="width: 80px; text-align: center;">
-          <span id="moneyUnit">G</span>
-        </div>
+      <div style="text-align: center; margin-top: 50px">
+        <a
+          href="./pages/p1Deploy.html"
+          id="saveAndContinue"
+          class="btn btn-outline-info"
+          style="height: 75px; font-size: 40px">
+          Go to Deployment</a
+        >
       </div>
-
-      <div class="d-flex justify-content-center">
-        <div class="p-2 setting-label-div">
-          <label id="maxNumEliteAndHeroLabel" for="maxNumEliteAndHero">Elites & Heroes Limit</label>
-        </div>
-        <div class="p-2 setting-value-div">
-          <select class="setting-value" name="maxNumEliteAndHero" id="maxNumEliteAndHero">
-            <option value="-1">∞</option>
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="d-flex justify-content-center">
-        <div class="p-2 setting-label-div">
-          <label id="uniqueEliteAndHeroLabel" for="uniqueEliteAndHero">Unique Elite & Hero</label>
-        </div>
-        <div class="p-2 setting-value-div">
-          <select class="setting-value" name="uniqueEliteAndHero" id="uniqueEliteAndHero">
-            <option value="false">❌</option>
-            <option value="true">✔</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="d-flex justify-content-center">
-        <div class="p-2 setting-label-div">
-          <label id="strictDeploymentAreaLabel" for="strictDeploymentArea">Strict Deployment Area</label>
-        </div>
-        <div class="p-2 setting-value-div">
-          <select class="setting-value" name="strictDeploymentArea" id="strictDeploymentArea">
-            <option value="false">❌</option>
-            <option value="true">✔</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="d-flex justify-content-center">
-        <div class="p-2 setting-label-div">
-          <label id="techLimitLabel" for="techLimit">Technology Limit</label>
-        </div>
-        <div class="p-2 setting-value-div">
-          <select class="setting-value" name="techLimit" id="techLimit">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="d-flex justify-content-center">
-        <div class="p-2 setting-label-div">
-          <label id="powersForPlayer1Label" for="powersForPlayer1">Player 1 Power</label>
-        </div>
-        <div class="p-2 setting-value-div">
-          <select class="setting-value" name="powersForPlayer1" id="powersForPlayer1"></select>
-        </div>
-      </div>
-
-      <div class="d-flex justify-content-center">
-        <div class="p-2 setting-label-div">
-          <label id="powersForPlayer2Label" for="powersForPlayer2">Player 2 Power</label>
-        </div>
-        <div class="p-2 setting-value-div">
-          <select class="setting-value" name="powersForPlayer2" id="powersForPlayer2"></select>
-        </div>
-      </div>
-
     </div>
 
-    <div style="text-align: center">
-      <a href="./pages/p1Deploy.html" id="saveAndContinue" class="btn btn-outline-info"
-        style="height: 75px; font-size: 40px;">
-        Go to Deployment</a>
-    </div>
-
-  </div>
-
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
-    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-    crossorigin="anonymous"></script>
-  <script type="module" src="index.js"></script>
-</body>
-
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"></script>
+    <script type="module" src="index.js"></script>
+  </body>
 </html>
