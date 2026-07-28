@@ -5,8 +5,8 @@ import {
   PowerList,
   DirectMap,
   GameWidth as GW,
-  DeployWidth as DW,
-  DeployHeight as DH,
+  DeployWidth,
+  DeployHeight,
   DInfoWidth as DIW,
   DInfoHeight as DIH,
 } from "./const.js";
@@ -14,8 +14,11 @@ import { getAllIconImages } from "./icon.js";
 import { Canvas, Rect } from "./tools.js";
 import { InfoPanel } from "../prompts/infoDrawings.js";
 
-const maxX = Math.floor(DW / 50);
-const maxY = Math.floor(DH / 50);
+const armSize = 41;
+const DW = (DeployWidth / 50) * armSize;
+const DH = (DeployHeight / 50) * armSize;
+const maxX = Math.floor(DW / armSize);
+const maxY = Math.floor(DH / armSize);
 const gX = Math.floor(GW / 50);
 const useMandarin = window.localStorage.getItem("useMandarin") === "true";
 const strictDeploymentArea = window.localStorage.getItem("strictDeploymentArea") === "true";
@@ -31,6 +34,30 @@ const title = document.getElementById("title");
 const moneyLeftSpanLabel = document.getElementById("moneyLeftLabel");
 const elitesHeroesLeftLabel = document.getElementById("elitesHeroesLeftLabel");
 const moneyUnit = document.getElementById("moneyUnit");
+const gameDiv = document.getElementById("game");
+
+const ymargin = 3;
+const ylength = 9;
+const xmargin = 5;
+const xlength = 6;
+const normalDeployArea_p1 = [{ x1: xmargin, y1: ymargin, x2: xmargin + xlength, y2: ymargin + ylength }];
+const normalDeployArea_p2 = [{ x1: 27 - xmargin - xlength, y1: ymargin, x2: 27 - xmargin, y2: ymargin + ylength }];
+const forwardDeployArea_p1 = [
+  { x1: xmargin - 2, y1: 0, x2: xmargin + xlength + 2, y2: 15 },
+  { x1: 0, y1: 0, x2: xmargin - 2, y2: 10 },
+  { x1: xmargin + 4, y1: 15, x2: xmargin + 8, y2: 17 },
+  { x1: 27 - 2, y1: 17 - 2, x2: 27, y2: 17 },
+  { x1: 26, y1: 17 - 6, x2: 27, y2: 17 - 3 },
+  { x1: 27 - xmargin - 3, y1: 16, x2: 27 - xmargin, y2: 17 },
+];
+const forwardDeployArea_p2 = [
+  { x1: 27 - xmargin - xlength - 2, y1: 0, x2: 27 - xmargin + 2, y2: 15 },
+  { x1: 27 - xmargin + 2, y1: 0, x2: 27, y2: 10 },
+  { x1: 0, y1: 17 - 2, x2: 2, y2: 17 },
+  { x1: 27 - xmargin - 8, y1: 15, x2: 27 - xmargin - 4, y2: 17 },
+  { x1: 0, y1: 17 - 6, x2: 1, y2: 17 - 3 },
+  { x1: xmargin, y1: 16, x2: xmargin + 3, y2: 17 },
+];
 
 const techToColor = {
   1: "rgba(114, 169, 5, 0.6)",
@@ -56,14 +83,16 @@ export class Deploy {
     this.elems = [];
     this.icons = {};
     this.totalArms = 24;
-    this.rowSize = 12;
+    this.rowSize = 16;
 
     this.imageIndex = -1;
     this.pieceList = [];
     this.moneyLeft = window.localStorage.getItem("maxCost");
     this.elitesHeroesLeft = window.localStorage.getItem("maxNumEliteAndHero");
 
-    this.areaLimits = {};
+    this.normalDeployArea = _player == 1 ? normalDeployArea_p1 : normalDeployArea_p2;
+    this.forwardDeployArea = _player == 1 ? forwardDeployArea_p1 : forwardDeployArea_p2;
+    this.forwardDeployArea_enemy = _player == 2 ? forwardDeployArea_p1 : forwardDeployArea_p2;
     this.seenIndexes = new Set([]);
 
     this.infoPanel = new InfoPanel(canvasList.info, useMandarin, true, false);
@@ -71,6 +100,8 @@ export class Deploy {
 
   // Initilize the deployment page
   initializeDeploymentPage() {
+    this.initializeForPlayerSpecific();
+    this.initializeMapSizes();
     this.loadAllIconImages();
     this.updatePowerName();
     let powerNumber = "power" + this.player;
@@ -120,7 +151,7 @@ export class Deploy {
     setTimeout(() => {
       this.loadPreviousArmInfo();
       this.bindKeyPressEvents();
-    }, 150);
+    }, 155);
 
     setTimeout(() => {
       if (this.imageIndex == null || this.imageIndex == -1) this.imageIndex = 0;
@@ -134,8 +165,33 @@ export class Deploy {
     saveAndContinueButton.innerHTML = useMandarin ? "下一步" : "Next";
     clearButton.innerHTML = useMandarin ? "清空部署" : "Clear";
     moneyLeftSpanLabel.innerHTML = useMandarin ? "资金剩余:" : "Money Left:";
-    elitesHeroesLeftLabel.innerHTML = useMandarin ? "精英和英雄数量剩余:" : "Num Elites & Heroes Left:";
+    elitesHeroesLeftLabel.innerHTML = useMandarin ? "精英和英雄数量剩余:" : "Elites & Heroes Left:";
     moneyUnit.innerHTML = useMandarin ? "金币" : "G";
+  }
+
+  initializeForPlayerSpecific() {
+    title.innerHTML = `Player ${this.player} Deploy`;
+    powerSelect.style.border = `5px solid ${this.player == 1 ? "blue" : "red"}`;
+    // gameDiv.style.border = `5px dashed ${this.player == 1 ? "blue" : "red"}`;
+    if (this.player == 1) {
+      backButton.href = "../index.html";
+      saveAndContinueButton.href = "./p2Deploy.html";
+    } else {
+      backButton.href = "./p1Deploy.html";
+      saveAndContinueButton.href = "./mainGame.html";
+    }
+  }
+
+  initializeMapSizes() {
+    gameDiv.style.width = DW;
+    gameDiv.style.height = DH;
+    document.getElementById("map").width = DW;
+    document.getElementById("map").height = DH;
+    document.getElementById("piece").width = DW;
+    document.getElementById("piece").height = DH;
+    document.getElementById("select").width = DW;
+    document.getElementById("select").height = DH;
+    document.getElementById("map").style.backgroundSize = `${3 * armSize}px ${3 * armSize}px`;
   }
 
   loadAllIconImages() {
@@ -163,7 +219,7 @@ export class Deploy {
         this.updateNumElitesAndHeroesLeftSpan();
         this.seenIndexes.delete(piece.index);
         this.pieceList.splice(p, 1);
-        Canvas.clearRect(canvasList.piece, piece.x, piece.y, 50, 50);
+        Canvas.clearRect(canvasList.piece, piece.x, piece.y, armSize, armSize);
 
         return true;
       }
@@ -182,24 +238,24 @@ export class Deploy {
         if (uniqueEliteAndHero && this.seenIndexes.has(this.imageIndex)) return;
       }
 
-      let drawX = Math.floor(x / 50) * 50;
-      let drawY = Math.floor(y / 50) * 50;
+      let drawX = Math.floor(x / armSize) * armSize;
+      let drawY = Math.floor(y / armSize) * armSize;
       let forwardDeployment = this.arms[this.imageIndex].hasForwardDeployment();
-      if (!forwardDeployment && !this.isArmInStrictArea(drawX, drawY)) {
+      if (!this.isArmInStrictArea(drawX, drawY, forwardDeployment)) {
         console.log("Outside!!!!");
         return;
       }
 
       let image = this.elems[this.imageIndex];
-      Canvas.drawImg(canvasList.piece, image, 0, 0, 50, 50, drawX + 1, drawY + 1, 48, 48);
+      Canvas.drawImg(canvasList.piece, image, 0, 0, 50, 50, drawX + 1, drawY + 1, armSize - 2, armSize - 2);
 
       let piece = {
         index: this.imageIndex,
         cost: cost,
         x: drawX,
         y: drawY,
-        width: 50,
-        height: 50,
+        width: armSize,
+        height: armSize,
         isEliteOrHero: this.arms[this.imageIndex].isEliteOrHero(),
       };
       this.pieceList.push(piece);
@@ -296,51 +352,81 @@ export class Deploy {
     for (let i = 0; i < maxX; i++) {
       if (i % 2 === 0) {
         for (let j = 0; j < maxY; j += 2) {
-          Canvas.drawRect(canvasList.map, i * 50, j * 50, 50, 50, "black");
+          Canvas.drawRect(canvasList.map, i * armSize, j * armSize, armSize, armSize, "black");
         }
       } else {
         for (let j = 1; j < maxY; j += 2) {
-          Canvas.drawRect(canvasList.map, i * 50, j * 50, 50, 50, "black");
+          Canvas.drawRect(canvasList.map, i * armSize, j * armSize, armSize, armSize, "black");
         }
       }
     }
-    let y1 = 200;
-    let y2 = DH - y1;
-    let xOffset = 300;
-    let x1 = 0;
-    let x2 = 0;
-    let color = "";
-    if (this.player === 1) {
-      x1 = DW - xOffset - 100;
-      x2 = DW - 100;
-      color = "blue";
-    } else {
-      x1 = xOffset + 100;
-      x2 = 100;
-      color = "red";
+
+    for (let area of this.normalDeployArea) {
+      let color = this.player === 1 ? "blue" : "red";
+      let weight = 2;
+      let x1 = area.x1;
+      let y1 = area.y1;
+      let width = area.x2 - x1;
+      let height = area.y2 - y1;
+      x1 *= armSize;
+      y1 *= armSize;
+      width *= armSize;
+      height *= armSize;
+      Canvas.drawRect(canvasList.map, x1, y1, width, height, color, weight);
     }
 
-    this.areaLimits = { x1: x1, y1: y1, x2: x2, y2: y2 };
+    for (let area of this.forwardDeployArea) {
+      let color = this.player === 1 ? "rgba(0,0,255,0.3)" : "rgba(255,0,0,0.3)";
+      let weight = 2;
+      let x1 = area.x1;
+      let y1 = area.y1;
+      let width = area.x2 - x1;
+      let height = area.y2 - y1;
+      x1 *= armSize;
+      y1 *= armSize;
+      width *= armSize;
+      height *= armSize;
+      Canvas.fillRect(canvasList.map, x1, y1, width, height, color);
+    }
 
-    let weight = 2;
-    Canvas.drawLine(canvasList.map, x1, y1, x2, y1, color, weight);
-    Canvas.drawLine(canvasList.map, x1, y2, x2, y2, color, weight);
-    Canvas.drawLine(canvasList.map, x1, y1, x1, y2, color, weight);
-    Canvas.drawLine(canvasList.map, x2, y1, x2, y2, color, weight);
+    for (let area of this.forwardDeployArea_enemy) {
+      let color = this.player === 2 ? "rgba(0,0,255,0.1)" : "rgba(255,0,0,0.1)";
+      let weight = 2;
+      let x1 = area.x1;
+      let y1 = area.y1;
+      let width = area.x2 - x1;
+      let height = area.y2 - y1;
+      x1 *= armSize;
+      y1 *= armSize;
+      width *= armSize;
+      height *= armSize;
+      Canvas.fillRect(canvasList.map, x1, y1, width, height, color);
+    }
+
+    Canvas.drawLine(canvasList.map, DW / 2, 0, DW / 2, DH, "rgb(100, 100, 100)", 4);
+    Canvas.drawLine(canvasList.map, DW / 2 - 10, DH / 2, DW / 2 + 10, DH / 2, "rgb(100, 100, 100)", 4);
   }
 
-  isArmInStrictArea(x, y) {
+  isArmInStrictArea(x, y, forwardDeployment) {
     if (!strictDeploymentArea) return true;
-    let { x1, y1, x2, y2 } = this.areaLimits;
-    let xmin = Math.min(x1, x2);
-    let xmax = Math.max(x1, x2);
-    let ymin = Math.min(y1, y2);
-    let ymax = Math.max(y1, y2);
-    x1 = xmin;
-    x2 = xmax;
-    y1 = ymin;
-    y2 = ymax;
-    return x >= x1 && x < x2 && y >= y1 && y < y2;
+
+    let area = this.normalDeployArea;
+    if (forwardDeployment) area = this.forwardDeployArea;
+
+    for (let { x1, y1, x2, y2 } of area) {
+      let xmin = Math.min(x1, x2);
+      let xmax = Math.max(x1, x2);
+      let ymin = Math.min(y1, y2);
+      let ymax = Math.max(y1, y2);
+      x1 = xmin * armSize;
+      x2 = xmax * armSize;
+      y1 = ymin * armSize;
+      y2 = ymax * armSize;
+      let isIn = x >= x1 && x < x2 && y >= y1 && y < y2;
+      if (!isIn) continue;
+      return true;
+    }
+    return false;
   }
 
   storeArmInfo() {
@@ -351,9 +437,8 @@ export class Deploy {
       // Calculate the real game positions of the pieces
       let px = 0;
       let py = 0;
-      if (this.player === 1) px = piece.x / 50;
-      else px = piece.x / 50 + (gX - maxX);
-      py = piece.y / 50;
+      px = piece.x / armSize;
+      py = piece.y / armSize;
       outputList.push([piece.index, px, py]);
     }
 
@@ -377,9 +462,9 @@ export class Deploy {
 
       this.imageIndex = index;
       let drawX = 0;
-      if (this.player === 1) drawX = px * 50;
-      else drawX = (px - (gX - maxX)) * 50;
-      let drawY = py * 50;
+      if (this.player === 1) drawX = px * armSize;
+      else drawX = (px - (gX - maxX)) * armSize;
+      let drawY = py * armSize;
 
       this.imageIndex = index;
       this.deployAnArm(drawX, drawY);

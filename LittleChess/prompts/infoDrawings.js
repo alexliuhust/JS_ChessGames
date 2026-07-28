@@ -60,10 +60,10 @@ export class InfoPanel {
     if (!this.showCost) {
       // Draw status
       this.drawStatus();
-
-      // Draw formation
-      this.drawFormation();
     }
+
+    // Draw formation
+    this.drawFormation();
 
     // Show hover text for hovered trait rect
     if (this.currentTrait != null) {
@@ -357,7 +357,7 @@ export class InfoPanel {
   }
 
   drawStatus() {
-    let textY = 520;
+    let textY = this.showCost ? 480 : 520;
     Canvas.drawLine(this.cxt, leftX, textY - 25, leftX + 485, textY - 25, "white", 7);
 
     let fontSize = 17;
@@ -376,7 +376,7 @@ export class InfoPanel {
 
   drawFormation() {
     let textX = leftX + 210;
-    let textY = 520;
+    let textY = this.showCost ? 480 : 520;
     let title = this.useMandarin ? "阵型:" : "Formation:";
     let fontSize = 17;
     Canvas.drawText(this.cxt, title, textX, textY, "white", fontSize);
