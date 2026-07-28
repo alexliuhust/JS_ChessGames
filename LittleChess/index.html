@@ -22,6 +22,11 @@
       .setting-value {
         width: inherit;
       }
+
+      .setting-value-div input[type="radio"] {
+        transform: scale(1.8);
+        margin-right: 8px;
+      }
     </style>
 
     <title>My JS Game</title>
@@ -35,13 +40,17 @@
       <div class="container" style="font-size: 30px">
         <div class="d-flex justify-content-center">
           <div class="p-2 setting-label-div">
-            <label id="useMandarinLabel" for="useMandarin">Language</label>
+            <label id="useMandarinLabel">Language</label>
           </div>
           <div class="p-2 setting-value-div">
-            <select class="setting-value" name="useMandarin" id="useMandarin">
-              <option value="false">English</option>
-              <option value="true">中文</option>
-            </select>
+            <div class="d-flex">
+              <div class="px-2" style="margin-right: 30px">
+                <label class="mb-0"><input type="radio" name="useMandarin" value="false" checked /> English</label>
+              </div>
+              <div class="px-2">
+                <label class="mb-0"><input type="radio" name="useMandarin" value="true" /> 中文</label>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -95,10 +104,10 @@
           </div>
           <div class="p-2 setting-value-div">
             <div class="d-flex align-items-center">
-              <div class="px-2">
+              <div class="px-2" style="margin-right: 30px">
                 <label class="mb-0"><input type="radio" name="uniqueEliteAndHero" value="false" checked /> ❌</label>
               </div>
-              <div class="px-2">
+              <div class="px-2" style="margin-right: 30px">
                 <label class="mb-0"><input type="radio" name="uniqueEliteAndHero" value="true" /> ✔</label>
               </div>
             </div>
@@ -111,10 +120,10 @@
           </div>
           <div class="p-2 setting-value-div">
             <div class="d-flex align-items-center">
-              <div class="px-2">
+              <div class="px-2" style="margin-right: 30px">
                 <label class="mb-0"><input type="radio" name="strictDeploymentArea" value="false" checked /> ❌ </label>
               </div>
-              <div class="px-2">
+              <div class="px-2" style="margin-right: 30px">
                 <label class="mb-0"><input type="radio" name="strictDeploymentArea" value="true" /> ✔ </label>
               </div>
             </div>

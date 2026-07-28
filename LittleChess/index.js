@@ -36,7 +36,7 @@ const m_labelList = [
 const powersForPlayer1 = document.getElementById("powersForPlayer1");
 const powersForPlayer2 = document.getElementById("powersForPlayer2");
 const maxCost = document.getElementById("maxCost");
-const language = document.getElementById("useMandarin");
+const languageRadios = document.querySelectorAll('input[name="useMandarin"]');
 const maxNumEliteAndHero = document.getElementById("maxNumEliteAndHero");
 const techLimit = document.getElementById("techLimit");
 const moneyUnit = document.getElementById("moneyUnit");
@@ -69,9 +69,9 @@ function updatePowerName(selectElement, player) {
   if (window.localStorage.getItem(powerNum) != null) selectElement.value = window.localStorage.getItem(powerNum);
 }
 
-function updateLanguage(selectElement) {
+function updateLanguage() {
   if (window.localStorage.getItem("useMandarin") != null)
-    selectElement.value = window.localStorage.getItem("useMandarin");
+    setRadioValue("useMandarin", window.localStorage.getItem("useMandarin"));
 }
 
 function updateMaxCost(selectElement) {
@@ -101,7 +101,7 @@ function updateLocalStorage() {
   let power1 = powersForPlayer1.value;
   let power2 = powersForPlayer2.value;
   let cost = parseInt(maxCost.value);
-  let useMandarin = language.value;
+  let useMandarin = getRadioValue("useMandarin");
   let maxNumEliteAndHeroValue = parseInt(maxNumEliteAndHero.value);
   let uniqueEliteAndHeroValue = getRadioValue("uniqueEliteAndHero");
   let strictDeploymentAreaValue = getRadioValue("strictDeploymentArea");
@@ -117,7 +117,7 @@ function updateLocalStorage() {
 }
 
 function updateLabels() {
-  let useMandarin = language.value === "true";
+  let useMandarin = getRadioValue("useMandarin") === "true";
   for (let i = 0; i < inputIDList.length; i++) {
     let inputID = inputIDList[i];
     let label = document.getElementById(`${inputID}Label`);
@@ -128,7 +128,7 @@ function updateLabels() {
 }
 
 window.addEventListener("load", () => {
-  updateLanguage(language);
+  updateLanguage();
   updatePowerName(powersForPlayer1, 1);
   updatePowerName(powersForPlayer2, 2);
   updateMaxCost(maxCost);
@@ -152,11 +152,13 @@ maxCost.addEventListener("input", () => {
   updateLocalStorage();
 });
 
-language.addEventListener("input", () => {
-  updatePowerName(powersForPlayer1, 1);
-  updatePowerName(powersForPlayer2, 2);
-  updateLocalStorage();
-  location.reload();
+languageRadios.forEach((radio) => {
+  radio.addEventListener("change", () => {
+    updatePowerName(powersForPlayer1, 1);
+    updatePowerName(powersForPlayer2, 2);
+    updateLocalStorage();
+    location.reload();
+  });
 });
 
 maxNumEliteAndHero.addEventListener("input", () => {
